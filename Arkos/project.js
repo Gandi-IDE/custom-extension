@@ -87,11 +87,11 @@ class StrictEqualityExtension {
                     arguments: {
                         str: {
                             type: Scratch.ArgumentType.STRING,
-                            defaultValue: ''
+                            defaultValue: 'banana'
                         },
                         substr: {
                             type: Scratch.ArgumentType.STRING,
-                            defaultValue: ''
+                            defaultValue: 'na'
                         },
                         pos: {
                             type: Scratch.ArgumentType.NUMBER,
@@ -162,7 +162,7 @@ class StrictEqualityExtension {
         const { str, substr, pos } = args;
         let a = str.indexOf(substr, pos-1);
         if (a == -1) return '';
-        else return a;
+        else return a+1;
     }
 
     turnDegreesToDir(args) {
