@@ -2,7 +2,7 @@ class StrictEqualityExtension {
     getInfo() {
         return {
             id: 'arkosextensions', //拓展id
-            name: 'Arkos\'sExtensions',  //拓展显示名
+            name: 'Arkos\' Extensions',  //拓展显示名
             blocks: [
                 { //字符串比较
                     opcode: 'strictlyEquals',
@@ -22,7 +22,7 @@ class StrictEqualityExtension {
                 { //计算点到点的方向
                     opcode: 'getDirFromAToB',
                     blockType: Scratch.BlockType.REPORTER,
-                    text: 'direction form x:[X1]y:[Y1]to x:[X2]y:[Y2]',
+                    text: 'direction from x1:[X1]y1:[Y1]to x2:[X2]y2:[Y2]',
                     arguments: {
                         X1: {
                             type: Scratch.ArgumentType.NUMBER,
@@ -54,6 +54,48 @@ class StrictEqualityExtension {
                         b: {
                             type: Scratch.ArgumentType.NUMBER,
                             defaultValue: 0
+                        }
+                    }
+                },
+                { //计算两点距离
+                    opcode: 'disFromAToB',
+                    blockType: Scratch.BlockType.REPORTER,
+                    text: 'distence betweem x1:[X1]y1:[Y1]and x2:[X2]y2:[Y2]',
+                    arguments: {
+                        X1: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 0
+                        },
+                        Y1: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 0
+                        },
+                        X2: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 0
+                        },
+                        Y2: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 0
+                        }
+                    }
+                },
+                { //返回字符串中子字符串的位置(从..开始)
+                    opcode: 'indexof',
+                    blockType: Scratch.BlockType.REPORTER,
+                    text: 'position of[substr]in[str],start from[pos]',
+                    arguments: {
+                        str: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: ''
+                        },
+                        substr: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: ''
+                        },
+                        pos: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 1
                         }
                     }
                 }
@@ -105,10 +147,22 @@ class StrictEqualityExtension {
 
     differenceBetweenDirections(args) {
         const { a, b } = args;
-        let dif = (b - a)%360;
+        let dif = (b - a) % 360;
         if (dif > 180)
             dif -= 360;
         return dif;
+    }
+
+    disFromAToB(args) {
+        const { X1, X2, Y1, Y2 } = args;
+        return Math.sqrt((X1 - X2) * (X1 - X2) + (Y1 - Y2) * (Y1 - Y2));
+    }
+
+    indexof(args) {
+        const { str, substr, pos } = args;
+        let a = str.indexOf(substr, pos-1);
+        if (a == -1) return '';
+        else return a;
     }
 
     turnDegreesToDir(args) {
