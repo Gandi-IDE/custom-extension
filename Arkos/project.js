@@ -45,7 +45,7 @@ class StrictEqualityExtension {
                 { //计算两方向夹角
                     opcode: 'differenceBetweenDirections',
                     blockType: Scratch.BlockType.REPORTER,
-                    text: 'direction1:[a] minus direction2:[b]',
+                    text: 'direction[b] minus direction[a]',
                     arguments: {
                         a: {
                             type: Scratch.ArgumentType.NUMBER,
