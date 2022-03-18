@@ -106,15 +106,38 @@ class StrictEqualityExtension {
                     arguments: {
                         str: {
                             type: Scratch.ArgumentType.STRING,
-                            defaultValue: 'I you'
+                            defaultValue: 'ac'
                         },
                         substr: {
                             type: Scratch.ArgumentType.STRING,
-                            defaultValue: 'like '
+                            defaultValue: 'b'
                         },
                         pos: {
                             type: Scratch.ArgumentType.NUMBER,
                             defaultValue: 2
+                        }
+                    }
+                },
+                { //×Ö·û´®Ìæ»»
+                    opcode: 'replaceStr',
+                    blockType: Scratch.BlockType.REPORTER,
+                    text: 'replace from[start]to[end]of[str],with[substr]',
+                    arguments: {
+                        str: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: 'ABCDEF'
+                        },
+                        substr: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: 'XX'
+                        },
+                        start: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 3
+                        },
+                        end: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 4
                         }
                     }
                 }
@@ -189,6 +212,17 @@ class StrictEqualityExtension {
         pos -= 1;
         if (pos < 0) pos = 0;
         return str.slice(0, pos) + substr + str.slice(pos);
+    }
+
+    replaceStr(args) {
+        const { str, substr, start,end } = args;
+        if (start > end) {
+            let t = end;
+            end = start;
+            start = t;
+        }
+        if (start < 1) start = 1;
+        return str.slice(0, start-1) + substr + str.slice(end);
     }
 
     turnDegreesToDir(args) {
