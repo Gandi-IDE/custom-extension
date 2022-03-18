@@ -7,15 +7,15 @@ class StrictEqualityExtension {
                 { //字符串比较
                     opcode: 'strictlyEquals',
                     blockType: Scratch.BlockType.BOOLEAN,
-                    text: '[ONE] strictly equals [TWO]',
+                    text: '(case sensitive)[ONE]=[TWO]',
                     arguments: {
                         ONE: {
                             type: Scratch.ArgumentType.STRING,
-                            defaultValue: 'First value'
+                            defaultValue: 'A'
                         },
                         TWO: {
                             type: Scratch.ArgumentType.STRING,
-                            defaultValue: 'Second value'
+                            defaultValue: 'a'
                         }
                     }
                 },
@@ -98,6 +98,25 @@ class StrictEqualityExtension {
                             defaultValue: 1
                         }
                     }
+                },
+                { //字符串插入
+                    opcode: 'insertStr',
+                    blockType: Scratch.BlockType.REPORTER,
+                    text: 'insert[substr]at[pos]of[str]',
+                    arguments: {
+                        str: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: 'I you'
+                        },
+                        substr: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: 'like '
+                        },
+                        pos: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 2
+                        }
+                    }
                 }
                 //{ //朝方向...旋转...度数
                 //    opcode: 'turnDegreesToDir',
@@ -163,6 +182,13 @@ class StrictEqualityExtension {
         let a = str.indexOf(substr, pos-1);
         if (a == -1) return '';
         else return a+1;
+    }
+
+    insertStr(args) {
+        const { str, substr, pos } = args;
+        pos -= 1;
+        if (pos < 0) pos = 0;
+        return str.slice(0, pos) + substr + str.slice(pos);
     }
 
     turnDegreesToDir(args) {
