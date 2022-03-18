@@ -105,7 +105,7 @@ class StrictEqualityExtension {
 
     differenceBetweenDirections(args) {
         const { a, b } = args;
-        let dif = b - a;
+        let dif = (b - a)%360;
         if (dif > 180)
             dif -= 360;
         return dif;
