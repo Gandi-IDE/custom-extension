@@ -4,10 +4,10 @@ class StrictEqualityExtension {
     }
     getInfo() {
         return {
-            id: 'arkosextensions', //��չid
-            name: 'Arkos\' Extensions',  //��չ��ʾ��
+            id: 'arkosextensions', //拓展id
+            name: 'Arkos\' Extensions',  //拓展名
             blocks: [
-                { //�ַ����Ƚ�
+                { //判断相等（区分大小写）
                     opcode: 'strictlyEquals',
                     blockType: Scratch.BlockType.BOOLEAN,
                     text: '(case sensitive)[ONE]=[TWO]',
@@ -22,7 +22,7 @@ class StrictEqualityExtension {
                         }
                     }
                 },
-                { //����㵽��ķ���
+                { //计算点A到点B的方向
                     opcode: 'getDirFromAToB',
                     blockType: Scratch.BlockType.REPORTER,
                     text: 'direction from x1:[X1]y1:[Y1]to x2:[X2]y2:[Y2]',
@@ -45,7 +45,7 @@ class StrictEqualityExtension {
                         }
                     }
                 },
-                { //����������н�
+                { //计算角b-角a的角度差
                     opcode: 'differenceBetweenDirections',
                     blockType: Scratch.BlockType.REPORTER,
                     text: 'direction[b] minus direction[a]',
@@ -60,7 +60,7 @@ class StrictEqualityExtension {
                         }
                     }
                 },
-                { //�����������
+                { //两点距离
                     opcode: 'disFromAToB',
                     blockType: Scratch.BlockType.REPORTER,
                     text: 'distence betweem x1:[X1]y1:[Y1]and x2:[X2]y2:[Y2]',
@@ -83,7 +83,7 @@ class StrictEqualityExtension {
                         }
                     }
                 },
-                { //�����ַ��������ַ�����λ��(��..��ʼ)
+                { //查找子字符串，从pos开始
                     opcode: 'indexof',
                     blockType: Scratch.BlockType.REPORTER,
                     text: 'position of[substr]in[str],start from[pos]',
@@ -102,7 +102,7 @@ class StrictEqualityExtension {
                         }
                     }
                 },
-                { //�ַ�������
+                { //在字符串中插入子字符串
                     opcode: 'insertStr',
                     blockType: Scratch.BlockType.REPORTER,
                     text: 'insert[substr]at[pos]of[str]',
@@ -121,7 +121,7 @@ class StrictEqualityExtension {
                         }
                     }
                 },
-                { //�ַ����滻
+                { //替换字符串中的从..到..的字符串
                     opcode: 'replaceStr',
                     blockType: Scratch.BlockType.REPORTER,
                     text: 'replace from[start]to[end]of[str],with[substr]',
@@ -144,7 +144,7 @@ class StrictEqualityExtension {
                         }
                     }
                 },
-                { //������...��ת...����
+                { //朝..方向旋转..角度
                    opcode: 'turnDegreesToDir',
                    blockType: Scratch.BlockType.COMMAND,
                    text: 'turn[degree]degrees toward direction[dir]',
@@ -232,7 +232,7 @@ class StrictEqualityExtension {
     }
 
     turnDegreesToDir(args ,util) {
-        //��ô����ԭ�����ת��ľ
+        //
         //util.target.setDirection(util.target.direction + degrees);
         console.log('---util-------------\n',util);
         console.log('---args-------------\n',args);
