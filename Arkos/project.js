@@ -1,11 +1,14 @@
-class StrictEqualityExtension {
+class Arkos_Extension {
     constructor (runtime) {
         this.runtime = runtime;
     }
     getInfo() {
         return {
-            id: 'arkosextensions', //拓展id
+            id: 'arkos_extensions', //拓展id
             name: 'Arkos\' Extensions',  //拓展名
+            color1: '#FF8383',
+            //menuIconURI:,
+            //blockIconURI:
             blocks: [
                 { //判断相等（区分大小写）
                     opcode: 'strictlyEquals',
@@ -143,24 +146,49 @@ class StrictEqualityExtension {
                             defaultValue: 4
                         }
                     }
-                },
-                { //朝..方向旋转..角度
-                   opcode: 'turnDegreesToDir',
-                   blockType: Scratch.BlockType.COMMAND,
-                   text: 'turn[degree]degrees toward direction[dir]',
-                   arguments: {
-                       degree: {
-                           type: Scratch.ArgumentType.NUMBER,
-                           defaultValue: 0
-                       },
-                       dir: {
-                           type: Scratch.ArgumentType.ANGLE,
-                           defaultValue: 0
-                       }
-                   }
                 }
-            ]
+                // { //朝..方向旋转..角度
+                //    opcode: 'turnDegreesToDir',
+                //    blockType: Scratch.BlockType.COMMAND,
+                //    text: 'turn[degree]degrees toward direction[dir]',
+                //    arguments: {
+                //        degree: {
+                //            type: Scratch.ArgumentType.NUMBER,
+                //            defaultValue: 0
+                //        },
+                //        dir: {
+                //            type: Scratch.ArgumentType.ANGLE,
+                //            defaultValue: 0
+                //        }
+                //    }
+                // }
+            ],
+
+            translation_map: {
+                'zh-cn': {
+                  'ArkosExt.extensionName': 'Arkosの拓展',
+                  'ArkosExt.stringEquality': '(区分大小写)[ONE]=[TWO]',
+                  'ArkoExt.directionFromAtoB': '点x1:[X1]y1:[Y1]朝向点x2:[X2]y2:[Y2]的方向',
+                  'ArkoExt.diffenceBetweenDirections': '由方向1[a]到方向2[b]的角度差',
+                  'ArkoExt.distence': '点x1:[X1]y1:[Y1]到点x2:[X2]y2:[Y2]的距离',
+                  'ArkoExt.searchString': '在[str]中查找[substr]的位置(从位置[pos]开始找)',
+                  'ArkoExt.insertString': '在[str]的第[pos]个字符前插入[substr]',
+                  'ArkoExt.replaceString': '将[str]中的第[start]个到第[end]个字符,替换为[substr]',
+                },
+                
+                en: {
+                  'ArkosExt.extensionName': 'Arkos\' Extensions',
+                  'ArkosExt.stringEquality': '(case sensitive)[ONE]=[TWO]',
+                  'ArkoExt.directionFromAtoB': 'direction from x1:[X1]y1:[Y1]to x2:[X2]y2:[Y2]',
+                  'ArkoExt.diffenceBetweenDirections': 'direction[b] minus direction[a]',
+                  'ArkoExt.distence': 'distence betweem x1:[X1]y1:[Y1]and x2:[X2]y2:[Y2]',
+                  'ArkoExt.searchString': 'position of[substr]in[str],start from[pos]',
+                  'ArkoExt.insertString': 'insert[substr]at[pos]of[str]',
+                  'ArkoExt.replaceString': 'replace from[start]to[end]of[str],with[substr]',
+                },
+              }
         };
+
     }
     strictlyEquals(args) {
         // Note strict equality: Inputs must match exactly: in type, case, etc.
@@ -211,17 +239,14 @@ class StrictEqualityExtension {
     }
 
     insertStr(args) {
-        const { str, substr, pos } = args;
-        //pos -= 1;
+        let { str, substr, pos } = args;
+        pos -= 1;
         if (pos < 0) pos = 0;
-        console.log('---pos-------------\n',pos);
-        console.log('---str-------------\n',str);
-        console.log('--substr------------\n',substr);
         return str.slice(0, pos) + substr + str.slice(pos);
     }
 
     replaceStr(args) {
-        const { str, substr, start,end } = args;
+        let { str, substr, start,end } = args;
         if (start > end) {
             let t = end;
             end = start;
@@ -240,4 +265,4 @@ class StrictEqualityExtension {
     }
 
 }
-Scratch.extensions.register(new StrictEqualityExtension());
+Scratch.extensions.register(new Arkos_Extension());
