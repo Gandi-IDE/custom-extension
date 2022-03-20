@@ -1,4 +1,4 @@
-class Arkos_Extension {
+class ArkosExtensions {
     constructor (runtime) {
         this.runtime = runtime;
     }
@@ -265,4 +265,4 @@ class Arkos_Extension {
     }
 
 }
-Scratch.extensions.register(new arkosExtensions());
+Scratch.extensions.register(new ArkosExtensions());
