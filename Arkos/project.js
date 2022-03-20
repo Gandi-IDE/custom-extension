@@ -1,4 +1,7 @@
 class StrictEqualityExtension {
+    constructor (runtime) {
+        this.runtime = runtime;
+    }
     getInfo() {
         return {
             id: 'arkosextensions', //��չid
@@ -228,7 +231,9 @@ class StrictEqualityExtension {
     turnDegreesToDir(args ,util) {
         //��ô����ԭ�����ת��ľ
         //util.target.setDirection(util.target.direction + degrees);
-        console.log(util);
+        console.log('---util-------------\n',util);
+        console.log('---args-------------\n',args);
+        console.log('---runtime-------------\n',this.runtime);
     }
 
 }
