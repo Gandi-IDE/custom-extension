@@ -4,7 +4,7 @@ class Arkos_Extension {
     }
     getInfo() {
         return {
-            id: 'arkos_extensions', //拓展id
+            id: 'arkosExtensions', //拓展id
             name: 'Arkos\' Extensions',  //拓展名
             color1: '#FF8383',
             //menuIconURI:,
@@ -265,4 +265,4 @@ class Arkos_Extension {
     }
 
 }
-Scratch.extensions.register(new Arkos_Extension());
+Scratch.extensions.register(new arkosExtensions());
