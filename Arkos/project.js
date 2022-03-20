@@ -1,10 +1,10 @@
 class StrictEqualityExtension {
     getInfo() {
         return {
-            id: 'arkosextensions', //ÍØÕ¹id
-            name: 'Arkos\' Extensions',  //ÍØÕ¹ÏÔÊ¾Ãû
+            id: 'arkosextensions', //ï¿½ï¿½Õ¹id
+            name: 'Arkos\' Extensions',  //ï¿½ï¿½Õ¹ï¿½ï¿½Ê¾ï¿½ï¿½
             blocks: [
-                { //×Ö·û´®±È½Ï
+                { //ï¿½Ö·ï¿½ï¿½ï¿½ï¿½È½ï¿½
                     opcode: 'strictlyEquals',
                     blockType: Scratch.BlockType.BOOLEAN,
                     text: '(case sensitive)[ONE]=[TWO]',
@@ -19,7 +19,7 @@ class StrictEqualityExtension {
                         }
                     }
                 },
-                { //¼ÆËãµãµ½µãµÄ·½Ïò
+                { //ï¿½ï¿½ï¿½ï¿½ãµ½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½
                     opcode: 'getDirFromAToB',
                     blockType: Scratch.BlockType.REPORTER,
                     text: 'direction from x1:[X1]y1:[Y1]to x2:[X2]y2:[Y2]',
@@ -42,7 +42,7 @@ class StrictEqualityExtension {
                         }
                     }
                 },
-                { //¼ÆËãÁ½·½Ïò¼Ð½Ç
+                { //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð½ï¿½
                     opcode: 'differenceBetweenDirections',
                     blockType: Scratch.BlockType.REPORTER,
                     text: 'direction[b] minus direction[a]',
@@ -57,7 +57,7 @@ class StrictEqualityExtension {
                         }
                     }
                 },
-                { //¼ÆËãÁ½µã¾àÀë
+                { //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                     opcode: 'disFromAToB',
                     blockType: Scratch.BlockType.REPORTER,
                     text: 'distence betweem x1:[X1]y1:[Y1]and x2:[X2]y2:[Y2]',
@@ -80,7 +80,7 @@ class StrictEqualityExtension {
                         }
                     }
                 },
-                { //·µ»Ø×Ö·û´®ÖÐ×Ó×Ö·û´®µÄÎ»ÖÃ(´Ó..¿ªÊ¼)
+                { //ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½(ï¿½ï¿½..ï¿½ï¿½Ê¼)
                     opcode: 'indexof',
                     blockType: Scratch.BlockType.REPORTER,
                     text: 'position of[substr]in[str],start from[pos]',
@@ -99,7 +99,7 @@ class StrictEqualityExtension {
                         }
                     }
                 },
-                { //×Ö·û´®²åÈë
+                { //ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                     opcode: 'insertStr',
                     blockType: Scratch.BlockType.REPORTER,
                     text: 'insert[substr]at[pos]of[str]',
@@ -118,7 +118,7 @@ class StrictEqualityExtension {
                         }
                     }
                 },
-                { //×Ö·û´®Ìæ»»
+                { //ï¿½Ö·ï¿½ï¿½ï¿½ï¿½æ»»
                     opcode: 'replaceStr',
                     blockType: Scratch.BlockType.REPORTER,
                     text: 'replace from[start]to[end]of[str],with[substr]',
@@ -140,22 +140,22 @@ class StrictEqualityExtension {
                             defaultValue: 4
                         }
                     }
+                },
+                { //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...ï¿½ï¿½×ª...ï¿½ï¿½ï¿½ï¿½
+                   opcode: 'turnDegreesToDir',
+                   blockType: Scratch.BlockType.COMMAND,
+                   text: 'turn[degree]degrees toward direction[dir]',
+                   arguments: {
+                       degree: {
+                           type: Scratch.ArgumentType.NUMBER,
+                           defaultValue: 0
+                       },
+                       dir: {
+                           type: Scratch.ArgumentType.ANGLE,
+                           defaultValue: 0
+                       }
+                   }
                 }
-                //{ //³¯·½Ïò...Ðý×ª...¶ÈÊý
-                //    opcode: 'turnDegreesToDir',
-                //    blockType: Scratch.BlockType.COMMAND,
-                //    text: 'turn[degree]degrees toward direction[dir]',
-                //    arguments: {
-                //        degree: {
-                //            type: Scratch.ArgumentType.NUMBER,
-                //            defaultValue: 0
-                //        },
-                //        dir: {
-                //            type: Scratch.ArgumentType.ANGLE,
-                //            defaultValue: 0
-                //        }
-                //    }
-                //}
             ]
         };
     }
@@ -225,8 +225,10 @@ class StrictEqualityExtension {
         return str.slice(0, start-1) + substr + str.slice(end);
     }
 
-    turnDegreesToDir(args) {
-        //ÔõÃ´µ÷ÓÃÔ­°æµÄÐý×ª»ýÄ¾
+    turnDegreesToDir(args ,util) {
+        //ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½Ä¾
+        //util.target.setDirection(util.target.direction + degrees);
+        console.log(util);
     }
 
 }
