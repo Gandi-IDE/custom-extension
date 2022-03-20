@@ -214,6 +214,9 @@ class StrictEqualityExtension {
         const { str, substr, pos } = args;
         pos -= 1;
         if (pos < 0) pos = 0;
+        console.log('---pos-------------\n',pos);
+        console.log('---str-------------\n',str);
+        console.log('--substr------------\n',substr);
         return str.slice(0, pos) + substr + str.slice(pos);
     }
 
