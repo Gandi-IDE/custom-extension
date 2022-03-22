@@ -146,22 +146,22 @@ class ArkosExtensions {
                             defaultValue: 4
                         }
                     }
+                },
+                { //朝..方向旋转..角度
+                   opcode: 'turnDegreesToDir',
+                   blockType: Scratch.BlockType.COMMAND,
+                   text: 'turn[degree]degrees toward direction[dir]',
+                   arguments: {
+                       degree: {
+                           type: Scratch.ArgumentType.NUMBER,
+                           defaultValue: 0
+                       },
+                       dir: {
+                           type: Scratch.ArgumentType.ANGLE,
+                           defaultValue: 0
+                       }
+                   }
                 }
-                // { //朝..方向旋转..角度
-                //    opcode: 'turnDegreesToDir',
-                //    blockType: Scratch.BlockType.COMMAND,
-                //    text: 'turn[degree]degrees toward direction[dir]',
-                //    arguments: {
-                //        degree: {
-                //            type: Scratch.ArgumentType.NUMBER,
-                //            defaultValue: 0
-                //        },
-                //        dir: {
-                //            type: Scratch.ArgumentType.ANGLE,
-                //            defaultValue: 0
-                //        }
-                //    }
-                // }
             ],
 
             translation_map: {
