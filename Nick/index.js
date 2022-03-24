@@ -1,7 +1,9 @@
-// const icon = require('./assets/icon.svg')
-// const cover = require('./assets/icon.svg')
-// const Cast = require('./cast')
+import Cast from '../utils/cast.js'
+// import cover from './assets/icon.svg'
+// import icon from './assets/icon.svg'
 
+console.log(Cast.toNumber('123'))
+console.log(Cast.toNumber('aab'))
 class ArkosExtensions {
   constructor(runtime) {
     this.runtime = runtime
@@ -246,37 +248,37 @@ class ArkosExtensions {
   }
 
   indexof(args) {
-    // const str = Cast.toString(args.str)
-    // const substr = Cast.toString(args.substr)
-    // const a = str.indexOf(substr, args.pos - 1)
-    // if (a === -1) {
-    //   return ''
-    // }
-    // return a + 1
+    const str = Cast.toString(args.str)
+    const substr = Cast.toString(args.substr)
+    const a = str.indexOf(substr, args.pos - 1)
+    if (a === -1) {
+      return ''
+    }
+    return a + 1
   }
 
   insertStr(args) {
-    // const str = Cast.toString(args.str)
-    // const substr = Cast.toString(args.substr)
-    // let pos = args.pos - 1
-    // if (pos < 0) {
-    //   pos = 0
-    // }
-    // return str.slice(0, pos) + substr + str.slice(pos)
+    const str = Cast.toString(args.str)
+    const substr = Cast.toString(args.substr)
+    let pos = args.pos - 1
+    if (pos < 0) {
+      pos = 0
+    }
+    return str.slice(0, pos) + substr + str.slice(pos)
   }
 
   replaceStr(args) {
-    // const str = Cast.toString(args.str)
-    // const substr = Cast.toString(args.substr)
-    // let start = Cast.toNumber(args.start)
-    // let end = Cast.toNumber(args.end)
-    // if (start > end) {
-    //   const t = end
-    //   end = start
-    //   start = t
-    // }
-    // if (start < 1) start = 1
-    // return str.slice(0, start - 1) + substr + str.slice(end)
+    const str = Cast.toString(args.str)
+    const substr = Cast.toString(args.substr)
+    let start = Cast.toNumber(args.start)
+    let end = Cast.toNumber(args.end)
+    if (start > end) {
+      const t = end
+      end = start
+      start = t
+    }
+    if (start < 1) start = 1
+    return str.slice(0, start - 1) + substr + str.slice(end)
   }
 
   turnDegreesToDir(args, util) {
@@ -287,6 +289,8 @@ class ArkosExtensions {
     console.log('---runtime-------------\n', this.runtime)
   }
 }
+
+
 
 window.tempExt = {
     Extension: ArkosExtensions,

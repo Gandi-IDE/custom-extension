@@ -201,4 +201,5 @@ class Color {
     }
 }
 
-module.exports = Color;
+// module.exports = Color;
+export default Color;
