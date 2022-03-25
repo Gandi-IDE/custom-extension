@@ -35,8 +35,8 @@ Extensions in this repo will have full access to vm and runtime utilities allows
 
 When your complete testing,you can apply for publish extensions to CCW Extension Library. All CCW Creator can use it in their project.
 ### Apply for CCW collaborator
-// TODO email address
-// TODO apply form
+
+contact [wangjiaming@ccw.site](mailto:wangjiaming@ccw.site)
 ## How to develop 
 
 ### Define a extension
