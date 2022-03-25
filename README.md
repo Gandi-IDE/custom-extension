@@ -1,6 +1,21 @@
 # ccw-user-extensions
 
-[TOC]
+- [ccw-user-extensions](#ccw-user-extensions)
+  * [What for](#what-for)
+  * [How to jump in](#how-to-jump-in)
+    + [Normal remote extension (for anyone)](#normal-remote-extension--for-anyone-)
+    + [CCW approved extension (for CCW collaborator)](#ccw-approved-extension--for-ccw-collaborator-)
+    + [Apply for CCW collaborator](#apply-for-ccw-collaborator)
+  * [How to develop](#how-to-develop)
+    + [Define a extension](#define-a-extension)
+      - [normal remote extension](#normal-remote-extension)
+      - [CCW approved extension](#ccw-approved-extension)
+    + [Test your extension](#test-your-extension)
+      - [normal remote extension](#normal-remote-extension-1)
+      - [CCW approved extension](#ccw-approved-extension-1)
+    + [Asset standard](#asset-standard)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
 ## What for
 This repo is for CCW Creator who wants make and test their own extensions.
