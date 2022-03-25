@@ -1,5 +1,4 @@
-const Color = require('../util/color');
-
+import Color from './color.js'
 /**
  * @fileoverview
  * Utilities for casting and comparing Scratch data-types.
@@ -215,4 +214,5 @@ class Cast {
     }
 }
 
-module.exports = Cast;
+// module.exports = Cast;
+export default Cast;
