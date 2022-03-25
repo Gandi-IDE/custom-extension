@@ -1,7 +1,8 @@
+[TOC]
 # What for
-This repo is for ccw user who wants make and test their own extension.
+This repo is for CCW Creator who wants make and test their own extension.
 # How to jump in
-There are two way to develop and test your extension
+There are two ways to develop and test your extension
 ## Normal remote extension (for anyone)
 You can build your blocks and test it, you can use all javascript capacity to do what you want, there only have one limit that normal remote extension will be running in a sandbox and unable to access vm or runtime utility.
 ## CCW approved extension (for CCW collaborator)
@@ -14,12 +15,13 @@ When your complete testing,you can apply publish extension to CCW Extension Libr
 
 ## Define a extension
 ### normal remote extension
-checkout example file
+checkout example file [.example/normal-ext.js](https://github.com/CCW-Site/ccw-user-extension/blob/main/example/normal-ext.js)
+
 ### CCW approved extension
-checkout example file
+checkout example file [.example/ccw-approved-ext.js](https://github.com/CCW-Site/ccw-user-extension/blob/main/example/ccw-approved-ext.js)
 ## Test your extension
 ### normal remote extension
-if your work on a normal remote extension, you can upload your extension js file in any http server and make sure it can be accessed in open network.
+if your work on a normal remote extension, you can upload your extension js file to any http server and make sure it can be accessed in open network.
 
 when complete above moves, use below url in browser(recommend Chrome)
 ```
@@ -29,13 +31,16 @@ for example
 ```
 https://www.ccw.site/creator?extension=https://ccw-user-extension.ccw.site/example/normal-ext.js
 ```
-extension will be added in bottom of block menu if your code have no errors.
+extension will be added in bottom of block menu if your code has no errors.
 ### CCW approved extension
-Push code and a bot will deploy your commit to a http server automatically.
-The url is like below
+
+Commit&push code to this repo and a bot will deploy your extension to CCW test server automatically.
+
+The automatic deploy url format is like below
 ```
 https://ccw-user-extension.ccw.site/${your_folder}/${jsFile}
 ```
+
 when complete above moves, use below url in browser(recommend Chrome)
 ```
 https://www.ccw.site/creator?ext=https://ccw-user-extension.ccw.site/${your_folder}/${jsFile}
