@@ -1,14 +1,22 @@
 # ccw-user-extensions
 [TOC]
 ## What for
-This repo is for CCW Creator who wants make and test their own extension.
+This repo is for CCW Creator who wants make and test their own extensions.
 ## How to jump in
-There are two ways to develop and test your extension
+There are two ways to develop and test your extensions.
 ### Normal remote extension (for anyone)
-You can build your blocks and test it, you can use all javascript capacity to do what you want, there only have one limit that normal remote extension will be running in a sandbox and unable to access vm or runtime utility.
+You can build your blocks and test them.
+
+You can use all javascript capacity to do what you want.
+
+There only have one limit: normal remote extension will be running in a sandbox and unable to access vm or runtime utilities.
 ### CCW approved extension (for CCW collaborator)
-Become CCW collaborator then your can push code into this repo. extensions in this repo will have full access to vm and runtime allow you build highly functional block for all CCW Creator.
-When your complete testing,you can apply publish extension to CCW Extension Library, and all CCW Creator can use it in their project.
+
+As a CCW collaborator, your can push code into this repo.
+
+Extensions in this repo will have full access to vm and runtime utilities allows you build advanced block for all CCW Creator.
+
+When your complete testing,you can apply for publish extensions to CCW Extension Library. All CCW Creator can use it in their project.
 ### Apply for CCW collaborator
 // TODO email address
 // TODO apply form
