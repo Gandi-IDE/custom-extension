@@ -1,5 +1,7 @@
 # ccw-user-extensions
+
 [TOC]
+
 ## What for
 This repo is for CCW Creator who wants make and test their own extensions.
 ## How to jump in
@@ -38,39 +40,43 @@ when complete above moves, use below url in browser(recommend Chrome)
 ```
 https://www.ccw.site/creator?extension=${your_file_url}
 ```
-for example
+
+For example
 ```
 https://www.ccw.site/creator?extension=https://ccw-user-extension.ccw.site/example/normal-ext.js
 ```
-extension will be added in bottom of block menu if your code has no errors.
-#### CCW approved extension
+Extensions will be added to the bottom of block menu if there is no error in your code.
 
-Commit&push code to this repo and a bot will deploy your extension to CCW test server automatically.
+#### CCW approved extension
+Push code and a bot will deploy your commit to a http server automatically. The URL is like below.
 
 The automatic deploy url format is like below
 ```
 https://ccw-user-extension.ccw.site/${your_folder}/${jsFile}
 ```
 
-when complete above moves, use below url in browser(recommend Chrome)
+When completing the above moves, use the URL below in your browser(recommend Chrome).
 ```
 https://www.ccw.site/creator?ext=https://ccw-user-extension.ccw.site/${your_folder}/${jsFile}
 ```
-for example
+For example
 ```
 https://www.ccw.site/creator?ext=https://ccw-user-extension.ccw.site/example/ccw-approved-ext.js
 ```
-extension will be registed in Extension Library.you must add it by hand before you use it.
+
+Extensions will be registed in Extension Library. You must add it by hand before you use it.
+
 ### Asset standard
-extension cover
+
+Extension cover
 type: png/jpg/svg
 size: 600 × 372 px
 
-extension block icon
+Extension block icon
 type: svg
 size: 80 x 80 px
 
-extension menu icon
+Extension menu icon
 type: svg
 size: 80 x 80 px
 
