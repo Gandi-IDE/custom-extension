@@ -1,9 +1,6 @@
 import Cast from '../utils/cast.js'
 // import cover from './assets/icon.svg'
 // import icon from './assets/icon.svg'
-
-console.log(Cast.toNumber('123'))
-console.log(Cast.toNumber('aab'))
 class ArkosExtensions {
   constructor(runtime) {
     this.runtime = runtime

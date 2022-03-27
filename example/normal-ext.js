@@ -31,6 +31,7 @@ class ExampleExtension {
 
       // Required: the list of blocks implemented by this extension,
       // in the order intended for display.
+      // Scratch object is pera
       blocks: [
         {
           opcode: 'example-noop',
@@ -201,4 +202,6 @@ class ExampleExtension {
     return false
   }
 }
+
+/** dont forget register your extension to Scratch */
 Scratch.extensions.register(new ExampleExtension())
