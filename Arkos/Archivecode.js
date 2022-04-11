@@ -1,7 +1,8 @@
 import Cast from '../utils/cast.js'
 
 //合作者：Nights:帮忙写了代码框架，并且给予了许多技术上的指导
-
+console.log(Cast.toNumber('123'))
+console.log(Cast.toNumber('aab'))
 
 class Archive_code {
   constructor(runtime) {
@@ -55,7 +56,7 @@ class Archive_code {
 
   getInfo() {
     return {
-      id: 'Archivecode',
+      id: 'Archivecode',  //hcnTest   Archivecode
       name: this.formatMessage('ArchiveCodeExt.extensionName'),
       blocks: [
         {
@@ -235,7 +236,7 @@ window.tempExt = {
     info: {
       name: 'hcn.extensionName',
       description: 'hcn.description',
-      extensionId: 'hcnTest',
+      extensionId: 'Archivecode',
       // iconURL: icon,
       // insetIconURL: cover,
       featured: true,
