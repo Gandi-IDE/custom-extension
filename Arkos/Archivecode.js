@@ -56,27 +56,27 @@ class Archive_code {
 
   getInfo() {
     return {
-      id: 'Archivecode',  //hcnTest   Archivecode
+      id: 'Archivecode',  //  Archivecode
       name: this.formatMessage('ArchiveCodeExt.extensionName'),
       blocks: [
         {
           //开始序列化
           opcode: 'init',
-          blockType: Scratch.BlockType.COMMAND,
+          blockType: 'command',
           text: this.formatMessage('ArchiveCodeExt.init')
         },
         {
           //将内容加入序列 名称xx 值xx
           opcode: 'serialization',
-          blockType: Scratch.BlockType.COMMAND,
+          blockType: 'command',
           text: this.formatMessage('ArchiveCodeExt.serialization'),
           arguments: {
             name: {
-              type: Scratch.ArgumentType.STRING,
+              type: 'string',
               defaultValue: '用户id'
             },
             value: {
-              type: Scratch.ArgumentType.STRING,
+              type: 'string',
               defaultValue: '114514',
             }
           }
@@ -84,15 +84,15 @@ class Archive_code {
         {
           //将变量加入序列
           opcode: 'serializationForVariable',
-          blockType: Scratch.BlockType.COMMAND,
+          blockType: 'command',
           text: this.formatMessage('ArchiveCodeExt.serializationForVariable'),
           arguments: {
             name: {
-              type: Scratch.ArgumentType.STRING,
+              type: 'string',
               defaultValue: '金币'
             },
             var: {
-              type: Scratch.ArgumentType.STRING,
+              type: 'string',
               defaultValue: '金币',
               menu: 'varMenu'
             }
@@ -101,15 +101,15 @@ class Archive_code {
         {
           //将列表加入序列
           opcode: 'serializationForList',
-          blockType: Scratch.BlockType.COMMAND,
+          blockType: 'command',
           text: this.formatMessage('ArchiveCodeExt.serializationForList'),
           arguments: {
             name: {
-              type: Scratch.ArgumentType.STRING,
+              type: 'string',
               defaultValue: '背包'
             },
             list: {
-              type: Scratch.ArgumentType.STRING,
+              type: 'string',
               defaultValue: '背包',
               menu: 'listMenu'
             }
@@ -118,13 +118,13 @@ class Archive_code {
         {
           //序列化结束
           opcode: 'stop',
-          blockType: Scratch.BlockType.COMMAND,
+          blockType: 'command',
           text: this.formatMessage('ArchiveCodeExt.stop'),
         },
         {
           //返回序列化结果
           opcode: 'result',
-          blockType: Scratch.BlockType.REPORTER,
+          blockType: 'reporter',
           text: this.formatMessage('ArchiveCodeExt.result'),
         },
 
@@ -132,11 +132,11 @@ class Archive_code {
         {
           //反序列化
           opcode: 'deserialization',
-          blockType: Scratch.BlockType.COMMAND,
+          blockType: 'command',
           text: this.formatMessage('ArchiveCodeExt.deserialization'),
           arguments: {
             code: {
-              type: Scratch.ArgumentType.STRING,
+              type: 'string',
               defaultValue: `"金币":200,"背包":["木头","面包"]`
             }
           }
@@ -144,11 +144,11 @@ class Archive_code {
         {
           //返回名称为..的内容
           opcode: 'getContent',
-          blockType: Scratch.BlockType.REPORTER,
+          blockType: 'reporter',
           text: this.formatMessage('ArchiveCodeExt.getContent'),
           arguments: {
             key: {
-              type: Scratch.ArgumentType.STRING,
+              type: 'string',
               defaultValue: '金币',
               menu: 'varMenu'
             }
@@ -157,16 +157,16 @@ class Archive_code {
         {
           //将内容保存到变量
           opcode: 'saveContentToVar',
-          blockType: Scratch.BlockType.COMMAND,
+          blockType: 'command',
           text: this.formatMessage('ArchiveCodeExt.saveContentToVar'),
           arguments: {
             key: {
-              type: Scratch.ArgumentType.STRING,
+              type: 'string',
               defaultValue: '金币',
               menu: 'varMenu'
             },
             var: {
-              type: Scratch.ArgumentType.STRING,
+              type: 'string',
               defaultValue: '金币',
               menu: 'varMenu'
             }
@@ -175,16 +175,16 @@ class Archive_code {
         {
           //将内容保存到列表
           opcode: 'saveContentToList',
-          blockType: Scratch.BlockType.COMMAND,
+          blockType: 'command',
           text: this.formatMessage('ArchiveCodeExt.saveContentToList'),
           arguments: {
             key: {
-              type: Scratch.ArgumentType.STRING,
+              type: 'string',
               defaultValue: '背包',
               menu: 'listMenu'
             },
             var: {
-              type: Scratch.ArgumentType.STRING,
+              type: 'string',
               defaultValue: '背包',
               menu: 'listMenu'
             }
@@ -193,7 +193,7 @@ class Archive_code {
         {
           //反序列化是否成功
           opcode: 'deserializable',
-          blockType: Scratch.BlockType.BOOLEAN,
+          blockType: 'boolean',
           text: this.formatMessage('ArchiveCodeExt.deserializable'),
         },
       ],
