@@ -200,7 +200,7 @@ class Archive_code {
       menus: {
         varMenu: {
           acceptReporters: true,
-          items: [{ text: '金币', value: 'a' }, 'b', 'c']
+          items: 'findAllVar'
 
         },
         listMenu: {
@@ -225,10 +225,39 @@ class Archive_code {
 
   }
 
+  serializationForList(args) {
+    console.log(args)
+  }
+
   deserializable() {
     return this.deserializeSuccessfully
   }
+
+  findAllVar() {
+    const list = [];
+    const all = this.runtime.scratchBlocks.mainWorkspace.getVariableMap();
+    all.workspace
+      .getVariableMap()
+      .getAllVariables()
+      .forEach((obj) => {
+        list.push({
+          text: obj.name,
+          value: obj.id_,
+        });
+      });
+    Object.keys(this.runtime.getTargetForStage().variables).forEach((key) => {
+      list.forEach((obj) => {
+        if (obj.value === key) {
+          obj.text = `*${obj.text}`;
+        }
+      });
+    });
+    return list;
+  }
+
 }
+
+
 
 
 window.tempExt = {
