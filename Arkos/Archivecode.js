@@ -205,7 +205,7 @@ class Archive_code {
         },
         listMenu: {
           acceptReporters: true,
-          items: [{ text: '背包', value: 'a' }, 'b', 'c']
+          items: 'findAllVar'
 
         },
       },
@@ -215,6 +215,8 @@ class Archive_code {
 
 
   init() {
+    console.log(this.runtime._editingTarget)
+    console.log(this.runtime._stageTarget)
     this.archive_code = '';
   }
   result() {
