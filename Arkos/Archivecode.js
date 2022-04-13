@@ -215,8 +215,8 @@ class Archive_code {
 
 
   init() {
-    console.log(this.runtime._editingTarget)
-    console.log(this.runtime._stageTarget)
+    console.log('editingTarget :',this.runtime._editingTarget)
+    console.log('stageTarget :',this.runtime._stageTarget)
     this.archive_code = '';
   }
   result() {
