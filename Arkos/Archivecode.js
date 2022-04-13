@@ -193,7 +193,7 @@ class Archive_code {
         {
           //反序列化是否成功
           opcode: 'deserializable',
-          blockType: 'boolean',
+          blockType: 'Boolean',
           text: this.formatMessage('ArchiveCodeExt.deserializable'),
         },
       ],
@@ -217,6 +217,7 @@ class Archive_code {
   init() {
     console.log('editingTarget :',this.runtime._editingTarget)
     console.log('stageTarget :',this.runtime._stageTarget)
+    console.log('?')
     this.archive_code = '';
   }
   result() {
