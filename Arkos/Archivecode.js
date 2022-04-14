@@ -215,8 +215,8 @@ class Archive_code {
 
 
   init() {
-    console.log('editingTarget :',this.runtime._editingTarget)
-    console.log('stageTarget :',this.runtime._stageTarget)
+    console.log('editingTarget :', this.runtime._editingTarget)
+    console.log('stageTarget :', this.runtime._stageTarget)
     console.log('?')
     this.archive_code = '';
   }
@@ -238,23 +238,32 @@ class Archive_code {
 
   findAllVar() {
     const list = [];
-    const all = this.runtime.scratchBlocks.mainWorkspace.getVariableMap();
-    all.workspace
-      .getVariableMap()
-      .getAllVariables()
-      .forEach((obj) => {
+    this.runtime._editingTarget.variables.forEach(obj => {
+      if (obj.type = '') {
         list.push({
-          text: obj.name,
+          text: `[私有变量]${obj.name}`,
+          value: obj.id_,
+
+        });
+      }
+    });
+    this.runtime._stageTarget.variables.forEach(obj => {
+      if (obj.type = '') {
+        list.push({
+          text: `[公共变量]${obj.name}`,
           value: obj.id_,
         });
-      });
-    Object.keys(this.runtime.getTargetForStage().variables).forEach((key) => {
-      list.forEach((obj) => {
-        if (obj.value === key) {
-          obj.text = `*${obj.text}`;
-        }
-      });
+      }
     });
+
+    
+    // Object.keys(this.runtime._editingTarget.variables).forEach(key => {
+    //   list.forEach((obj) => {
+    //     if (obj.value === key) {
+    //       obj.text = `*${obj.text}`;
+    //     }
+    //   });
+    // });
     return list;
   }
 
@@ -264,25 +273,25 @@ class Archive_code {
 
 
 window.tempExt = {
-    Extension: Archive_code,
-    info: {
-      name: 'hcn.extensionName',
-      description: 'hcn.description',
-      extensionId: 'Archivecode',
-      // iconURL: icon,
-      // insetIconURL: cover,
-      featured: true,
-      disabled: false,
-      collaborator: 'only for hcn test',
+  Extension: Archive_code,
+  info: {
+    name: 'hcn.extensionName',
+    description: 'hcn.description',
+    extensionId: 'Archivecode',
+    // iconURL: icon,
+    // insetIconURL: cover,
+    featured: true,
+    disabled: false,
+    collaborator: 'only for hcn test',
+  },
+  l10n: {
+    'zh-cn': {
+      'hcn.extensionName': 'hcn 的测试',
+      'hcn.description': 'hcn 的测试',
     },
-    l10n: {
-      'zh-cn': {
-        'hcn.extensionName': 'hcn 的测试',
-        'hcn.description': 'hcn 的测试',
-      },
-      en: {
-        'hcn.extensionName': 'hcn test',
-        'hcn.description': 'hcn test',
-      },
+    en: {
+      'hcn.extensionName': 'hcn test',
+      'hcn.description': 'hcn test',
     },
-  }
+  },
+}
