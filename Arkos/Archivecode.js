@@ -1,8 +1,8 @@
 import Cast from '../utils/cast.js'
 
 //合作者：Nights:帮忙写了代码框架，并且给予了许多技术上的指导
-console.log(Cast.toNumber('123'))
-console.log(Cast.toNumber('aab'))
+// console.log(Cast.toNumber('123'))
+// console.log(Cast.toNumber('aab'))
 
 class Archive_code {
   constructor(runtime) {
@@ -93,7 +93,6 @@ class Archive_code {
             },
             var: {
               type: 'string',
-              defaultValue: '金币',
               menu: 'varMenu'
             }
           }
@@ -110,7 +109,6 @@ class Archive_code {
             },
             list: {
               type: 'string',
-              defaultValue: '背包',
               menu: 'listMenu'
             }
           }
@@ -149,7 +147,6 @@ class Archive_code {
           arguments: {
             key: {
               type: 'string',
-              defaultValue: '金币',
               menu: 'varMenu'
             }
           }
@@ -162,12 +159,10 @@ class Archive_code {
           arguments: {
             key: {
               type: 'string',
-              defaultValue: '金币',
               menu: 'varMenu'
             },
             var: {
               type: 'string',
-              defaultValue: '金币',
               menu: 'varMenu'
             }
           }
@@ -180,12 +175,10 @@ class Archive_code {
           arguments: {
             key: {
               type: 'string',
-              defaultValue: '背包',
               menu: 'listMenu'
             },
             var: {
               type: 'string',
-              defaultValue: '背包',
               menu: 'listMenu'
             }
           }
@@ -199,14 +192,10 @@ class Archive_code {
       ],
       menus: {
         varMenu: {
-          acceptReporters: true,
           items: 'findAllVar'
-
         },
         listMenu: {
-          acceptReporters: true,
-          items: 'findAllVar'
-
+          items: 'findAllList'
         },
       },
     };
@@ -215,31 +204,61 @@ class Archive_code {
 
 
   init() {
-    console.log('editingTarget :', this.runtime._editingTarget)
-    console.log('stageTarget :', this.runtime._stageTarget)
-    console.log('?')
+    // console.log('editingTarget :', this.runtime._editingTarget)
+    // console.log('stageTarget :', this.runtime._stageTarget)
+    // console.log('?')
     this.archive_code = '';
   }
   result() {
     return this.archive_code;
   }
 
-  serialization() {
-
+  serialization(args) {
+    if(this.archive_code != '')
+      this.archive_code += ','
+    this.archive_code += `"${args.name}":${JSON.stringify(args.value)}`
   }
 
-  serializationForList(args) {
-    console.log(args)
+  serializationForVariable(args,util) {
+    if(this.archive_code != '')
+      this.archive_code += ','
+    const variable = util.target.lookupVariableById(args.var);
+    this.archive_code += `"${args.name}":${JSON.stringify(variable.value)}`
+  }
+
+  serializationForList(args,util) {
+    if(this.archive_code != '')
+      this.archive_code += ','
+    const list = util.target.lookupVariableById(args.list);
+    this.archive_code += `"${args.name}":${JSON.stringify(list)}`
   }
 
   deserializable() {
     return this.deserializeSuccessfully
   }
 
+  saveContentToVar(args,util) {
+    const variable = util.target.lookupVariableById(args.var);
+    variable.value = args.key;
+  }
+
+  saveContentToList(args,util) {
+    const variable = util.target.lookupVariableById(args.list);
+    variable.value = args.key;
+  }
+
   findAllVar() {
     const list = [];
+    this.runtime._stageTarget.variables.forEach(obj => {
+      if (obj.type != '') {
+        list.push({
+          text: `[公共变量]${obj.name}`,
+          value: obj.id_,
+        });
+      }
+    });
     this.runtime._editingTarget.variables.forEach(obj => {
-      if (obj.type = '') {
+      if (obj.type === '') {
         list.push({
           text: `[私有变量]${obj.name}`,
           value: obj.id_,
@@ -247,16 +266,6 @@ class Archive_code {
         });
       }
     });
-    this.runtime._stageTarget.variables.forEach(obj => {
-      if (obj.type = '') {
-        list.push({
-          text: `[公共变量]${obj.name}`,
-          value: obj.id_,
-        });
-      }
-    });
-
-    
     // Object.keys(this.runtime._editingTarget.variables).forEach(key => {
     //   list.forEach((obj) => {
     //     if (obj.value === key) {
@@ -266,6 +275,29 @@ class Archive_code {
     // });
     return list;
   }
+
+  findAllList() {
+    const list = [];
+    this.runtime._stageTarget.variables.forEach(obj => {
+      if (obj.type != '') {
+        list.push({
+          text: `[公共列表]${obj.name}`,
+          value: obj.id_,
+        });
+      }
+    });
+    this.runtime._editingTarget.variables.forEach(obj => {
+      if (obj.type === '') {
+        list.push({
+          text: `[私有列表]${obj.name}`,
+          value: obj.id_,
+
+        });
+      }
+    });
+    return list;
+  }
+
 
 }
 
