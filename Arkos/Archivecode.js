@@ -211,9 +211,9 @@ class Archive_code {
 
 
   init() {
-    // console.log('editingTarget :', this.runtime._editingTarget)
-    // console.log('stageTarget :', this.runtime._stageTarget)
-    // console.log('?')
+    console.log('editingTarget :', this.runtime._editingTarget)
+    console.log('stageTarget :', this.runtime._stageTarget)
+    console.log('?')
     this.archive_code = '';
   }
   result() {
@@ -221,20 +221,20 @@ class Archive_code {
   }
 
   serialization(args) {
-    if(this.archive_code != '')
+    if (this.archive_code != '')
       this.archive_code += ','
     this.archive_code += `"${args.name}":${JSON.stringify(args.value)}`
   }
 
-  serializationForVariable(args,util) {
-    if(this.archive_code != '')
+  serializationForVariable(args, util) {
+    if (this.archive_code != '')
       this.archive_code += ','
     const variable = util.target.lookupVariableById(args.var);
     this.archive_code += `"${args.name}":${JSON.stringify(variable.value)}`
   }
 
-  serializationForList(args,util) {
-    if(this.archive_code != '')
+  serializationForList(args, util) {
+    if (this.archive_code != '')
       this.archive_code += ','
     const list = util.target.lookupVariableById(args.list);
     this.archive_code += `"${args.name}":${JSON.stringify(list)}`
@@ -244,19 +244,20 @@ class Archive_code {
     return this.deserializeSuccessfully
   }
 
-  saveContentToVar(args,util) {
+  saveContentToVar(args, util) {
     const variable = util.target.lookupVariableById(args.var);
     variable.value = args.key;
   }
 
-  saveContentToList(args,util) {
+  saveContentToList(args, util) {
     const variable = util.target.lookupVariableById(args.list);
     variable.value = args.key;
   }
 
   findAllVar() {
     const list = [];
-    this.runtime._stageTarget.variables.forEach(obj => {
+    let temp = this.runtime._stageTarget.variables
+    Object.keys(temp).forEach(obj => {
       if (obj.type != '') {
         list.push({
           text: `[公共变量]${obj.name}`,
@@ -264,7 +265,8 @@ class Archive_code {
         });
       }
     });
-    this.runtime._editingTarget.variables.forEach(obj => {
+    temp = this.runtime._editingTarget.variables
+    Object.keys(temp).forEach(obj => {
       if (obj.type === '') {
         list.push({
           text: `[私有变量]${obj.name}`,
@@ -285,7 +287,8 @@ class Archive_code {
 
   findAllList() {
     const list = [];
-    this.runtime._stageTarget.variables.forEach(obj => {
+    let temp = this.runtime._stageTarget.variables
+    Object.keys(temp).forEach(obj => {
       if (obj.type != '') {
         list.push({
           text: `[公共列表]${obj.name}`,
@@ -293,7 +296,8 @@ class Archive_code {
         });
       }
     });
-    this.runtime._editingTarget.variables.forEach(obj => {
+    temp = this.runtime._editingTarget.variables
+    Object.keys(temp).forEach(obj => {
       if (obj.type === '') {
         list.push({
           text: `[私有列表]${obj.name}`,
