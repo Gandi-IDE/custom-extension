@@ -309,7 +309,6 @@ class Archive_code {
     //     }
     //   });
     // });
-    list = [1,2,3];
     return list;
   }
 
@@ -334,7 +333,6 @@ class Archive_code {
         });
       }
     });
-    list = [1,2,3];
     return list;
   }
 
@@ -349,8 +347,7 @@ class Archive_code {
         });
       }
     });
-    list = [1,2,3];
-    return list;
+    return [1,2,3];
   }
 
   findAllListsContents(){
@@ -364,8 +361,7 @@ class Archive_code {
         });
       }
     });
-    list = [1,2,3];
-    return list;
+    return [1,2,3];
   }
 
 
