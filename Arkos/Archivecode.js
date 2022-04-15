@@ -251,19 +251,19 @@ class Archive_code {
     const list = [];
     let temp = this.runtime._stageTarget.variables
     Object.keys(temp).forEach(obj => {
-      if (temp.obj.type === '') {
+      if (temp[obj].type === '') {
         list.push({
-          text: `[公共变量]${temp.obj.name}`,
-          value: temp.obj.id,
+          text: `[公共变量]${temp[obj].name}`,
+          value: temp[obj].id,
         });
       }
     });
     temp = this.runtime._editingTarget.variables
     Object.keys(temp).forEach(obj => {
-      if (temp.obj.type === '') {
+      if (temp[obj].type === '') {
         list.push({
-          text: `[私有变量]${temp.obj.name}`,
-          value: temp.obj.id,
+          text: `[私有变量]${temp[obj].name}`,
+          value: temp[obj].id,
 
         });
       }
@@ -284,17 +284,17 @@ class Archive_code {
     Object.keys(temp).forEach(obj => {
       if (obj.type != '') {
         list.push({
-          text: `[公共列表]${temp.obj.name}`,
-          value: temp.obj.id,
+          text: `[公共列表]${temp[obj].name}`,
+          value: temp[obj].id,
         });
       }
     });
     temp = this.runtime._editingTarget.variables
     Object.keys(temp).forEach(obj => {
-      if (temp.obj.type != '') {
+      if (temp[obj].type != '') {
         list.push({
-          text: `[私有列表]${temp.obj.name}`,
-          value: temp.obj.id,
+          text: `[私有列表]${temp[obj].name}`,
+          value: temp[obj].id,
 
         });
       }
