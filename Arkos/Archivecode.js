@@ -9,7 +9,11 @@ class Archive_code {
     this.runtime = runtime
     this.archive_code = ''         //生成的序列结果
     this.deserializeSuccessfully = false   //存反序列化是否成功
-    this.content = {}      //存需要处理的内容
+     //存需要处理的内容  
+    this.content = { 
+      金币: 200,
+      背包: ["木头","面包"]
+    }     
 
     this._formatMessage = runtime.getFormatMessage({
       'zh-cn': {
@@ -147,7 +151,7 @@ class Archive_code {
           arguments: {
             key: {
               type: 'string',
-              menu: 'varMenu'
+              menu: 'varMenu2'
             }
           }
         },
@@ -159,7 +163,7 @@ class Archive_code {
           arguments: {
             key: {
               type: 'string',
-              menu: 'varMenu'
+              menu: 'varMenu2'
             },
             var: {
               type: 'string',
@@ -175,7 +179,7 @@ class Archive_code {
           arguments: {
             key: {
               type: 'string',
-              menu: 'listMenu'
+              menu: 'listMenu2'
             },
             var: {
               type: 'string',
@@ -197,6 +201,13 @@ class Archive_code {
         listMenu: {
           items: 'findAllList'
         },
+        varMenu2: {
+          //解析后得到的列表
+          items: 'findAllVarContents'
+        },
+        listMenu2: {
+          items: 'findAllListsContents'
+        },
       },
     };
   }
@@ -209,33 +220,54 @@ class Archive_code {
     console.log('_stageTarget.variables',JSON.stringify(this.runtime._stageTarget.variables))
     this.archive_code = '';
   }
+
   result() {
     return this.archive_code;
   }
 
+  stop() {
+    this.archive_code = JSON.stringify(this.content);
+  }
+
   serialization(args) {
-    if (this.archive_code != '')
-      this.archive_code += ','
-    this.archive_code += `"${args.name}":${JSON.stringify(args.value)}`
+    // if (this.archive_code != '')
+    //   this.archive_code += ','
+    // this.archive_code += `"${args.name}":${JSON.stringify(args.value)}`
+    this.content[args.name] = args.value;
   }
 
   serializationForVariable(args, util) {
-    if (this.archive_code != '')
-      this.archive_code += ','
+    // if (this.archive_code != '')
+    //   this.archive_code += ','
+    // const variable = util.target.lookupVariableById(args.var);
+    // this.archive_code += `"${args.name}":${JSON.stringify(variable.value)}`
     const variable = util.target.lookupVariableById(args.var);
-    this.archive_code += `"${args.name}":${JSON.stringify(variable.value)}`
+    this.content[args.name] = variable.value;
   }
 
   serializationForList(args, util) {
-    if (this.archive_code != '')
-      this.archive_code += ','
+    // if (this.archive_code != '')
+    //   this.archive_code += ','
+    // const list = util.target.lookupVariableById(args.list);
+    // this.archive_code += `"${args.name}":${JSON.stringify(list)}`
     const list = util.target.lookupVariableById(args.list);
-    this.archive_code += `"${args.name}":${JSON.stringify(list)}`
+    this.content[args.name] = list;
+  }
+
+  deserialization() {
+    content = JSON.parse(args.code)
   }
 
   deserializable() {
     return this.deserializeSuccessfully
   }
+
+  getContent(args, util) {
+    // const variable = util.target.lookupVariableById(args.var);
+    // variable.value = args.key;
+    return this.content[key];
+  }
+
 
   saveContentToVar(args, util) {
     const variable = util.target.lookupVariableById(args.var);
@@ -246,6 +278,8 @@ class Archive_code {
     const variable = util.target.lookupVariableById(args.list);
     variable.value = args.key;
   }
+
+
 
   findAllVar() {
     const list = [];
@@ -282,7 +316,7 @@ class Archive_code {
     const list = [];
     let temp = this.runtime._stageTarget.variables
     Object.keys(temp).forEach(obj => {
-      if (obj.type != '') {
+      if (temp[obj].type != '') {
         list.push({
           text: `[公共列表]${temp[obj].name}`,
           value: temp[obj].id,
@@ -296,6 +330,34 @@ class Archive_code {
           text: `[私有列表]${temp[obj].name}`,
           value: temp[obj].id,
 
+        });
+      }
+    });
+    return list;
+  }
+
+  findAllVarContents(){
+    const list = [];
+    let temp = this.content
+    Object.keys(temp).forEach(obj => {
+      if (typeof temp[obj] != 'Object') {
+        list.push({
+          text: obj,
+          value: temp[obj],
+        });
+      }
+    });
+    return list;
+  }
+
+  findAllListsContents(){
+    const list = [];
+    let temp = this.content
+    Object.keys(temp).forEach(obj => {
+      if (typeof temp[obj] == 'Object') {
+        list.push({
+          text: obj,
+          value: temp[obj],
         });
       }
     });
