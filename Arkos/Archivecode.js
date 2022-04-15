@@ -93,6 +93,7 @@ class Archive_code {
             },
             var: {
               type: 'string',
+              defaultValue: '金币',
               menu: 'varMenu'
             }
           }
@@ -109,6 +110,7 @@ class Archive_code {
             },
             list: {
               type: 'string',
+              defaultValue: '金币',
               menu: 'listMenu'
             }
           }
@@ -147,6 +149,7 @@ class Archive_code {
           arguments: {
             key: {
               type: 'string',
+              defaultValue: '金币',
               menu: 'varMenu'
             }
           }
@@ -159,10 +162,12 @@ class Archive_code {
           arguments: {
             key: {
               type: 'string',
+              defaultValue: '金币',
               menu: 'varMenu'
             },
             var: {
               type: 'string',
+              defaultValue: '金币',
               menu: 'varMenu'
             }
           }
@@ -175,10 +180,12 @@ class Archive_code {
           arguments: {
             key: {
               type: 'string',
+              defaultValue: '金币',
               menu: 'listMenu'
             },
             var: {
               type: 'string',
+              defaultValue: '金币',
               menu: 'listMenu'
             }
           }
