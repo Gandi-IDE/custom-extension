@@ -309,7 +309,7 @@ class Archive_code {
     //     }
     //   });
     // });
-    return list;
+    return [1,2,3];
   }
 
   findAllList() {
@@ -333,7 +333,7 @@ class Archive_code {
         });
       }
     });
-    return list;
+    return [1,2,3];
   }
 
   findAllVarContents(){
