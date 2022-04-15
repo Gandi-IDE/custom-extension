@@ -12,7 +12,7 @@ class Archive_code {
      //存需要处理的内容  
     this.content = { 
       金币: 200,
-      背包: ["木头","面包"]
+      背包: ["木头",233]
     }     
 
     this._formatMessage = runtime.getFormatMessage({
@@ -181,7 +181,7 @@ class Archive_code {
               type: 'string',
               menu: 'listMenu2'
             },
-            var: {
+            list: {
               type: 'string',
               menu: 'listMenu'
             }
