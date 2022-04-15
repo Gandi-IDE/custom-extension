@@ -309,7 +309,7 @@ class Archive_code {
     //     }
     //   });
     // });
-    return [1,2,3];
+    return list;
   }
 
   findAllList() {
@@ -333,35 +333,35 @@ class Archive_code {
         });
       }
     });
-    return [1,2,3];
+    return list;
   }
 
   findAllVarContents(){
     const list = [];
     let temp = this.content
     Object.keys(temp).forEach(obj => {
-      if (typeof temp[obj] != 'Object') {
+      if (typeof temp[obj] != 'object') {
         list.push({
           text: obj,
           value: temp[obj],
         });
       }
     });
-    return [1,2,3];
+    return list;
   }
 
   findAllListsContents(){
     const list = [];
     let temp = this.content
     Object.keys(temp).forEach(obj => {
-      if (typeof temp[obj] === 'Object') {
+      if (typeof temp[obj] === 'object') {
         list.push({
           text: obj,
           value: temp[obj],
         });
       }
     });
-    return [1,2,3];
+    return list;
   }
 
 
