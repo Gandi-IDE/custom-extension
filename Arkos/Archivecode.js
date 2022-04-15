@@ -93,7 +93,6 @@ class Archive_code {
             },
             var: {
               type: 'string',
-              defaultValue: '金币',
               menu: 'varMenu'
             }
           }
@@ -110,7 +109,6 @@ class Archive_code {
             },
             list: {
               type: 'string',
-              defaultValue: '金币',
               menu: 'listMenu'
             }
           }
@@ -149,7 +147,6 @@ class Archive_code {
           arguments: {
             key: {
               type: 'string',
-              defaultValue: '金币',
               menu: 'varMenu'
             }
           }
@@ -162,12 +159,10 @@ class Archive_code {
           arguments: {
             key: {
               type: 'string',
-              defaultValue: '金币',
               menu: 'varMenu'
             },
             var: {
               type: 'string',
-              defaultValue: '金币',
               menu: 'varMenu'
             }
           }
@@ -180,12 +175,10 @@ class Archive_code {
           arguments: {
             key: {
               type: 'string',
-              defaultValue: '金币',
               menu: 'listMenu'
             },
             var: {
               type: 'string',
-              defaultValue: '金币',
               menu: 'listMenu'
             }
           }
@@ -213,7 +206,7 @@ class Archive_code {
   init() {
     console.log('editingTarget :', this.runtime._editingTarget)
     console.log('stageTarget :', this.runtime._stageTarget)
-    console.log('?')
+    console.log('_stageTarget.variables',this.runtime._stageTarget.variables)
     this.archive_code = '';
   }
   result() {
@@ -258,10 +251,10 @@ class Archive_code {
     const list = [];
     let temp = this.runtime._stageTarget.variables
     Object.keys(temp).forEach(obj => {
-      if (obj.type != '') {
+      if (obj.type === '') {
         list.push({
           text: `[公共变量]${obj.name}`,
-          value: obj.id_,
+          value: obj.id,
         });
       }
     });
@@ -270,7 +263,7 @@ class Archive_code {
       if (obj.type === '') {
         list.push({
           text: `[私有变量]${obj.name}`,
-          value: obj.id_,
+          value: obj.id,
 
         });
       }
@@ -292,16 +285,16 @@ class Archive_code {
       if (obj.type != '') {
         list.push({
           text: `[公共列表]${obj.name}`,
-          value: obj.id_,
+          value: obj.id,
         });
       }
     });
     temp = this.runtime._editingTarget.variables
     Object.keys(temp).forEach(obj => {
-      if (obj.type === '') {
+      if (obj.type != '') {
         list.push({
           text: `[私有列表]${obj.name}`,
-          value: obj.id_,
+          value: obj.id,
 
         });
       }
