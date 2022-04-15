@@ -131,68 +131,68 @@ class Archive_code {
         },
 
 
-        {
-          //反序列化
-          opcode: 'deserialization',
-          blockType: 'command',
-          text: this.formatMessage('ArchiveCodeExt.deserialization'),
-          arguments: {
-            code: {
-              type: 'string',
-              defaultValue: `"金币":200,"背包":["木头","面包"]`
-            }
-          }
-        },
-        {
-          //返回名称为..的内容
-          opcode: 'getContent',
-          blockType: 'reporter',
-          text: this.formatMessage('ArchiveCodeExt.getContent'),
-          arguments: {
-            key: {
-              type: 'string',
-              menu: 'varMenu2'
-            }
-          }
-        },
-        {
-          //将内容保存到变量
-          opcode: 'saveContentToVar',
-          blockType: 'command',
-          text: this.formatMessage('ArchiveCodeExt.saveContentToVar'),
-          arguments: {
-            key: {
-              type: 'string',
-              menu: 'varMenu2'
-            },
-            var: {
-              type: 'string',
-              menu: 'varMenu'
-            }
-          }
-        },
-        {
-          //将内容保存到列表
-          opcode: 'saveContentToList',
-          blockType: 'command',
-          text: this.formatMessage('ArchiveCodeExt.saveContentToList'),
-          arguments: {
-            key: {
-              type: 'string',
-              menu: 'listMenu2'
-            },
-            var: {
-              type: 'string',
-              menu: 'listMenu'
-            }
-          }
-        },
-        {
-          //反序列化是否成功
-          opcode: 'deserializable',
-          blockType: 'Boolean',
-          text: this.formatMessage('ArchiveCodeExt.deserializable'),
-        },
+        // {
+        //   //反序列化
+        //   opcode: 'deserialization',
+        //   blockType: 'command',
+        //   text: this.formatMessage('ArchiveCodeExt.deserialization'),
+        //   arguments: {
+        //     code: {
+        //       type: 'string',
+        //       defaultValue: `"金币":200,"背包":["木头","面包"]`
+        //     }
+        //   }
+        // },
+        // {
+        //   //返回名称为..的内容
+        //   opcode: 'getContent',
+        //   blockType: 'reporter',
+        //   text: this.formatMessage('ArchiveCodeExt.getContent'),
+        //   arguments: {
+        //     key: {
+        //       type: 'string',
+        //       menu: 'varMenu2'
+        //     }
+        //   }
+        // },
+        // {
+        //   //将内容保存到变量
+        //   opcode: 'saveContentToVar',
+        //   blockType: 'command',
+        //   text: this.formatMessage('ArchiveCodeExt.saveContentToVar'),
+        //   arguments: {
+        //     key: {
+        //       type: 'string',
+        //       menu: 'varMenu2'
+        //     },
+        //     var: {
+        //       type: 'string',
+        //       menu: 'varMenu'
+        //     }
+        //   }
+        // },
+        // {
+        //   //将内容保存到列表
+        //   opcode: 'saveContentToList',
+        //   blockType: 'command',
+        //   text: this.formatMessage('ArchiveCodeExt.saveContentToList'),
+        //   arguments: {
+        //     key: {
+        //       type: 'string',
+        //       menu: 'listMenu2'
+        //     },
+        //     var: {
+        //       type: 'string',
+        //       menu: 'listMenu'
+        //     }
+        //   }
+        // },
+        // {
+        //   //反序列化是否成功
+        //   opcode: 'deserializable',
+        //   blockType: 'Boolean',
+        //   text: this.formatMessage('ArchiveCodeExt.deserializable'),
+        // },
       ],
       menus: {
         varMenu: {
@@ -354,7 +354,7 @@ class Archive_code {
     const list = [];
     let temp = this.content
     Object.keys(temp).forEach(obj => {
-      if (typeof temp[obj] == 'Object') {
+      if (typeof temp[obj] === 'Object') {
         list.push({
           text: obj,
           value: temp[obj],
