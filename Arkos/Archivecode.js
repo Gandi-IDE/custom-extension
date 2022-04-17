@@ -2,7 +2,7 @@ import Cast from '../utils/cast.js'
 
 //合作者：Nights:帮忙写了代码框架，并且给予了许多技术上的指导
 // console.log(Cast.toNumber('123'))
-// console.log(Cast.toNumber('aab'))
+console.log(Cast.toNumber('aab'))
 
 class Archive_code {
   constructor(runtime) {
