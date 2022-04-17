@@ -1,4 +1,7 @@
 class StrictEqualityExtension {
+  constructor(runtime) {
+    this.runtime = runtime
+    }
     getInfo() {
       return {
         id: 'strictequalityexample', // change this if you make an actual extension!
@@ -6,16 +9,16 @@ class StrictEqualityExtension {
         blocks: [
           {
             opcode: 'strictlyEquals',
-            blockType: Scratch.BlockType.BOOLEAN,
+            blockType: 'Boolean',
             text: 'dfdfd [ONE] strictly equals [TWO]',
             arguments: {
               ONE: {
-                type: Scratch.ArgumentType.STRING,
+                type: 'string',
                 menu: 'dynamicMenu',
                 defaultValue: 'Second value'
               },
               TWO: {
-                type: Scratch.ArgumentType.STRING,
+                type: 'string',
                 defaultValue: 'Second value'
               }
             }
@@ -40,4 +43,29 @@ class StrictEqualityExtension {
         return ['ddd 1', '大V 2', 'dd了 3'];
     }
   }
-  Scratch.extensions.register(new StrictEqualityExtension());
+
+
+  window.tempExt = {
+    Extension: Archive_code,
+    info: {
+      name: 'hcn.extensionName',
+      description: 'hcn.description',
+      extensionId: 'strictequalityexample',
+      // iconURL: icon,
+      // insetIconURL: cover,
+      featured: true,
+      disabled: false,
+      collaborator: 'only for hcn test',
+    },
+    l10n: {
+      'zh-cn': {
+        'hcn.extensionName': 'hcn 的测试',
+        'hcn.description': 'hcn 的测试',
+      },
+      en: {
+        'hcn.extensionName': 'hcn test',
+        'hcn.description': 'hcn test',
+      },
+    },
+  }
+  
