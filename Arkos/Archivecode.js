@@ -282,26 +282,27 @@ class Archive_code {
 
 
   findAllVar() {
-    const list = [];
-    let temp = this.runtime._stageTarget.variables
-    Object.keys(temp).forEach(obj => {
-      if (temp[obj].type === '') {
-        list.push({
-          text: `[公共变量]${temp[obj].name}`,
-          value: temp[obj].id,
-        });
-      }
-    });
-    temp = this.runtime._editingTarget.variables
-    Object.keys(temp).forEach(obj => {
-      if (temp[obj].type === '') {
-        list.push({
-          text: `[私有变量]${temp[obj].name}`,
-          value: temp[obj].id,
+    const list = [1,2,3];
+    // let temp = this.runtime._stageTarget.variables
+    // Object.keys(temp).forEach(obj => {
+    //   if (temp[obj].type === '') {
+    //     list.push({
+    //       text: `[公共变量]${temp[obj].name}`,
+    //       value: temp[obj].id,
+    //     });
+    //   }
+    // });
+    // temp = this.runtime._editingTarget.variables
+    // Object.keys(temp).forEach(obj => {
+    //   if (temp[obj].type === '') {
+    //     list.push({
+    //       text: `[私有变量]${temp[obj].name}`,
+    //       value: temp[obj].id,
 
-        });
-      }
-    });
+    //     });
+    //   }
+    // });
+    
     // Object.keys(this.runtime._editingTarget.variables).forEach(key => {
     //   list.forEach((obj) => {
     //     if (obj.value === key) {
@@ -313,55 +314,55 @@ class Archive_code {
   }
 
   findAllList() {
-    const list = [];
-    let temp = this.runtime._stageTarget.variables
-    Object.keys(temp).forEach(obj => {
-      if (temp[obj].type != '') {
-        list.push({
-          text: `[公共列表]${temp[obj].name}`,
-          value: temp[obj].id,
-        });
-      }
-    });
-    temp = this.runtime._editingTarget.variables
-    Object.keys(temp).forEach(obj => {
-      if (temp[obj].type != '') {
-        list.push({
-          text: `[私有列表]${temp[obj].name}`,
-          value: temp[obj].id,
+    const list = [1,2,3];
+    // let temp = this.runtime._stageTarget.variables
+    // Object.keys(temp).forEach(obj => {
+    //   if (temp[obj].type != '') {
+    //     list.push({
+    //       text: `[公共列表]${temp[obj].name}`,
+    //       value: temp[obj].id,
+    //     });
+    //   }
+    // });
+    // temp = this.runtime._editingTarget.variables
+    // Object.keys(temp).forEach(obj => {
+    //   if (temp[obj].type != '') {
+    //     list.push({
+    //       text: `[私有列表]${temp[obj].name}`,
+    //       value: temp[obj].id,
 
-        });
-      }
-    });
+    //     });
+    //   }
+    // });
     return list;
   }
 
   findAllVarContents(){
-    const list = [];
-    let temp = this.content
-    Object.keys(temp).forEach(obj => {
-      if (typeof temp[obj] != 'object') {
-        list.push({
-          text: obj,
-          value: temp[obj],
-        });
-      }
-    });
-    return list;
+    // const list = [];
+    // let temp = this.content
+    // Object.keys(temp).forEach(obj => {
+    //   if (typeof temp[obj] != 'object') {
+    //     list.push({
+    //       text: obj,
+    //       value: temp[obj],
+    //     });
+    //   }
+    // });
+    return [1,2,3]//list;
   }
 
   findAllListsContents(){
-    const list = [];
-    let temp = this.content
-    Object.keys(temp).forEach(obj => {
-      if (typeof temp[obj] === 'object') {
-        list.push({
-          text: obj,
-          value: temp[obj],
-        });
-      }
-    });
-    return list;
+    // const list = [];
+    // let temp = this.content
+    // Object.keys(temp).forEach(obj => {
+    //   if (typeof temp[obj] === 'object') {
+    //     list.push({
+    //       text: obj,
+    //       value: temp[obj],
+    //     });
+    //   }
+    // });
+    return [1,2,3]//list;
   }
 
 
