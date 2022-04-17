@@ -46,7 +46,7 @@ class StrictEqualityExtension {
 
 
   window.tempExt = {
-    Extension: Archive_code,
+    Extension: StrictEqualityExtension,
     info: {
       name: 'hcn.extensionName',
       description: 'hcn.description',
