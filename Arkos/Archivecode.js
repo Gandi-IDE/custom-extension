@@ -196,17 +196,17 @@ class Archive_code {
       ],
       menus: {
         varMenu: {
-          items: 'findAllVar'
+          items: [1,2,3]//'findAllVar'
         },
         listMenu: {
-          items: 'findAllList'
+          items: [1,2,3]//'findAllList'
         },
         varMenu2: {
           //解析后得到的列表
-          items: 'findAllVarContents'
+          items: [1,2,3]//'findAllVarContents'
         },
         listMenu2: {
-          items: 'findAllListsContents'
+          items: [1,2,3]//'findAllListsContents'
         },
       },
     };
