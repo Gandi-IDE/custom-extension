@@ -199,14 +199,14 @@ class Archive_code {
           items: 'findAllVar'
         },
         listMenu: {
-          items: ['1','2','3']//'findAllList'
+          items: 'findAllList'
         },
         varMenu2: {
           //解析后得到的列表
-          items: ['1','2','3']//'findAllVarContents'
+          items: 'findAllVarContents'
         },
         listMenu2: {
-          items: ['1','2','3']//'findAllListsContents'
+          items: 'findAllListsContents'
         },
       },
     };
