@@ -196,7 +196,7 @@ class Archive_code {
       ],
       menus: {
         varMenu: {
-          items: ['1','2','3']//'findAllVar'
+          items: 'findAllVar'
         },
         listMenu: {
           items: ['1','2','3']//'findAllList'
