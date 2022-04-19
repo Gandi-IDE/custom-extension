@@ -215,9 +215,10 @@ class Archive_code {
 
 
   init() {
-    console.log('editingTarget :', this.runtime._editingTarget)
-    console.log('stageTarget :', this.runtime._stageTarget)
-    console.log('_stageTarget.variables',JSON.stringify(this.runtime._stageTarget.variables))
+    // console.log('editingTarget :', this.runtime._editingTarget)
+    // console.log('stageTarget :', this.runtime._stageTarget)
+    // console.log('_stageTarget.variables',JSON.stringify(this.runtime._stageTarget.variables))
+    this.content = {};
     this.archive_code = '';
   }
 
@@ -254,11 +255,11 @@ class Archive_code {
     // this.archive_code += `"${args.name}":${JSON.stringify(list)}`
     if(args.list !== 'empty'){
       const list = util.target.lookupVariableById(args.list);
-      this.content[args.name] = list;
+      this.content[args.name] = list.value;
     }
   }
 
-  deserialization() {
+  deserialization(args) {
     content = JSON.parse(args.code)
   }
 
