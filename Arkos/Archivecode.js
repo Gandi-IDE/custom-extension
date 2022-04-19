@@ -230,28 +230,32 @@ class Archive_code {
   }
 
   serialization(args) {
-    // if (this.archive_code != '')
+    // if (this.archive_code !== '')
     //   this.archive_code += ','
     // this.archive_code += `"${args.name}":${JSON.stringify(args.value)}`
     this.content[args.name] = args.value;
   }
 
   serializationForVariable(args, util) {
-    // if (this.archive_code != '')
+    // if (this.archive_code !== '')
     //   this.archive_code += ','
     // const variable = util.target.lookupVariableById(args.var);
     // this.archive_code += `"${args.name}":${JSON.stringify(variable.value)}`
-    const variable = util.target.lookupVariableById(args.var);
-    this.content[args.name] = variable.value;
+    if(args.var !== 'empty'){
+      const variable = util.target.lookupVariableById(args.var);
+      this.content[args.name] = variable.value;
+    }
   }
 
   serializationForList(args, util) {
-    // if (this.archive_code != '')
+    // if (this.archive_code !== '')
     //   this.archive_code += ','
     // const list = util.target.lookupVariableById(args.list);
     // this.archive_code += `"${args.name}":${JSON.stringify(list)}`
-    const list = util.target.lookupVariableById(args.list);
-    this.content[args.name] = list;
+    if(args.list !== 'empty'){
+      const list = util.target.lookupVariableById(args.list);
+      this.content[args.name] = list;
+    }
   }
 
   deserialization() {
@@ -265,18 +269,27 @@ class Archive_code {
   getContent(args, util) {
     // const variable = util.target.lookupVariableById(args.var);
     // variable.value = args.key;
-    return this.content[key];
+    if(args.key !== 'empty'){
+      return this.content[args.key];
+    }
+    else{
+      return '';
+    }
   }
 
 
   saveContentToVar(args, util) {
-    const variable = util.target.lookupVariableById(args.var);
-    variable.value = args.key;
+    if(args.var !== 'empty'){
+      const variable = util.target.lookupVariableById(args.var);
+      variable.value = this.content[args.key];
+    }
   }
 
   saveContentToList(args, util) {
-    const variable = util.target.lookupVariableById(args.list);
-    variable.value = args.key;
+    if(args.list !== 'empty'){
+      const variable = util.target.lookupVariableById(args.list);
+      variable.value = this.content[args.key];
+    }
   }
 
 
@@ -298,11 +311,16 @@ class Archive_code {
         list.push({
           text: `[私有变量]${temp[obj].name}`,
           value: temp[obj].id,
-
         });
       }
     });
-    
+    if(list.length === 0)
+    {
+      list.push({
+        text: `*没有变量*`,
+        value: 'empty',
+      });
+    }
     // Object.keys(this.runtime._editingTarget.variables).forEach(key => {
     //   list.forEach((obj) => {
     //     if (obj.value === key) {
@@ -317,7 +335,7 @@ class Archive_code {
     const list = [];
     let temp = this.runtime._stageTarget.variables
     Object.keys(temp).forEach(obj => {
-      if (temp[obj].type != '') {
+      if (temp[obj].type !== '') {
         list.push({
           text: `[公共列表]${temp[obj].name}`,
           value: temp[obj].id,
@@ -326,7 +344,7 @@ class Archive_code {
     });
     temp = this.runtime._editingTarget.variables
     Object.keys(temp).forEach(obj => {
-      if (temp[obj].type != '') {
+      if (temp[obj].type !== '') {
         list.push({
           text: `[私有列表]${temp[obj].name}`,
           value: temp[obj].id,
@@ -334,20 +352,34 @@ class Archive_code {
         });
       }
     });
+    if(list.length === 0)
+    {
+      list.push({
+        text: `*没有列表*`,
+        value: 'empty',
+      });
+    }
     return list;
   }
 
   findAllVarContents(){
-     const list = [];
+    const list = [];
     let temp = this.content
     Object.keys(temp).forEach(obj => {
-      if (typeof temp[obj] != 'object') {
+      if (typeof temp[obj] !== 'object') {
         list.push({
           text: obj,
           value: temp[obj],
         });
       }
     });
+    if(list.length === 0)
+    {
+      list.push({
+        text: ' ',
+        value: 'empty',
+      });
+    }
     return list;
   }
 
@@ -362,6 +394,13 @@ class Archive_code {
         });
       }
     });
+    if(list.length === 0)
+    {
+      list.push({
+        text: ' ',
+        value: 'empty',
+      });
+    }
     return list;
   }
 
