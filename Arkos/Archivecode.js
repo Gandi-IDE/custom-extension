@@ -369,7 +369,7 @@ class Archive_code {
       if (typeof temp[obj] !== 'object') {
         list.push({
           text: obj,
-          value: temp[obj],
+          value: String(temp[obj]),
         });
       }
     });
@@ -390,7 +390,7 @@ class Archive_code {
       if (typeof temp[obj] === 'object') {
         list.push({
           text: obj,
-          value: temp[obj],
+          value: String(temp[obj]),
         });
       }
     });
