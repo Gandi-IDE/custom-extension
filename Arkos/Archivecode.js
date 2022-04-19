@@ -25,9 +25,9 @@ class Archive_code {
         'ArchiveCodeExt.stop': '序列化结束',
         'ArchiveCodeExt.result': '序列化结果',
         'ArchiveCodeExt.deserialization': '反序列化：[code]',
-        'ArchiveCodeExt.getContent': '名称为[key]的内容',
-        'ArchiveCodeExt.saveContentToVar': '将名称为[key]的内容保存到变量[var]',
-        'ArchiveCodeExt.saveContentToList': '将名称为[key]的内容保存到列表[list]',
+        'ArchiveCodeExt.getContent': '序列中名称为[key]的内容',
+        'ArchiveCodeExt.saveContentToVar': '将序列中名称为[key]的内容保存到变量[var]',
+        'ArchiveCodeExt.saveContentToList': '将序列中名称为[key]的内容保存到列表[list]',
         'ArchiveCodeExt.deserializable': '反序列化成功？',
       },
 
@@ -260,8 +260,13 @@ class Archive_code {
   }
 
   deserialization(args) {
+    try{
     this.content = JSON.parse(args.code)
-    console.log(typeof this.content)
+    this.deserializeSuccessfully = true;
+    }catch(e){
+      this.deserializeSuccessfully = false;
+    }
+    //console.log(typeof this.content)
   }
 
   deserializable() {
@@ -302,7 +307,7 @@ class Archive_code {
     Object.keys(temp).forEach(obj => {
       if (temp[obj].type === '') {
         list.push({
-          text: `[公共变量]${temp[obj].name}`,
+          text: `${temp[obj].name}`,
           value: temp[obj].id,
         });
       }
@@ -311,7 +316,7 @@ class Archive_code {
     Object.keys(temp).forEach(obj => {
       if (temp[obj].type === '') {
         list.push({
-          text: `[私有变量]${temp[obj].name}`,
+          text: `*私有变量*${temp[obj].name}`,
           value: temp[obj].id,
         });
       }
@@ -339,7 +344,7 @@ class Archive_code {
     Object.keys(temp).forEach(obj => {
       if (temp[obj].type !== '') {
         list.push({
-          text: `[公共列表]${temp[obj].name}`,
+          text: `${temp[obj].name}`,
           value: temp[obj].id,
         });
       }
@@ -348,7 +353,7 @@ class Archive_code {
     Object.keys(temp).forEach(obj => {
       if (temp[obj].type !== '') {
         list.push({
-          text: `[私有列表]${temp[obj].name}`,
+          text: `*私有列表*${temp[obj].name}`,
           value: temp[obj].id,
 
         });
