@@ -139,7 +139,7 @@ class Archive_code {
           arguments: {
             code: {
               type: 'string',
-              defaultValue: `"金币":200,"背包":["木头","面包"]`
+              defaultValue: `{"金币":200,"背包":["木头","面包"]}`
             }
           }
         },
@@ -288,14 +288,15 @@ class Archive_code {
   saveContentToVar(args, util) {
     if(args.var !== 'empty'){
       const variable = util.target.lookupVariableById(args.var);
-      variable.value = this.content[args.key];
+      variable.value = String(this.content[args.key]);
     }
   }
 
   saveContentToList(args, util) {
     if(args.list !== 'empty'){
-      const variable = util.target.lookupVariableById(args.list);
-      variable.value = this.content[args.key];
+      const list = util.target.lookupVariableById(args.list);
+      list.value = this.content[args.key];
+      if(list.value === undefined)  list.value = [];
     }
   }
 
