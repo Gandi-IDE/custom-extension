@@ -260,7 +260,8 @@ class Archive_code {
   }
 
   deserialization(args) {
-    content = JSON.parse(args.code)
+    this.content = JSON.parse(args.code)
+    console.log(typeof this.content)
   }
 
   deserializable() {
@@ -377,7 +378,7 @@ class Archive_code {
     if(list.length === 0)
     {
       list.push({
-        text: ' ',
+        text: '*没有变量*',
         value: 'empty',
       });
     }
@@ -398,7 +399,7 @@ class Archive_code {
     if(list.length === 0)
     {
       list.push({
-        text: ' ',
+        text: '*没有列表*',
         value: 'empty',
       });
     }
