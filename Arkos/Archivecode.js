@@ -31,6 +31,7 @@ class Archive_code {
         'ArchiveCodeExt.deserializable': '反序列化成功？',
         'ArchiveCodeExt.encode':'加密[str],以密匙[key]',
         'ArchiveCodeExt.decode':'解密[str],以密匙[key]',
+        'ArchiveCodeExt.writeClipboard':'复制[str]到剪贴板',
       },
 
       en: {
@@ -41,13 +42,14 @@ class Archive_code {
         'ArchiveCodeExt.serializationForList': 'add list to series:name:[name] list:[list]',
         'ArchiveCodeExt.stop': 'end serialization',
         'ArchiveCodeExt.result': 'serialization result',
-        'ArchiveCodeExt.deserialization': 'deserialize：[code]',
+        'ArchiveCodeExt.deserialization': 'deserialize:[code]',
         'ArchiveCodeExt.getContent': 'content of[key]',
         'ArchiveCodeExt.saveContentToVar': 'save [key]to variable[var]',
         'ArchiveCodeExt.saveContentToList': 'save[key]to list[list]',
         'ArchiveCodeExt.deserializable': 'deserializeSuccessfully?',
         'ArchiveCodeExt.encode':'encrypt[str]with key[key]',
         'ArchiveCodeExt.decode':'decrypt[str]with key[key]',
+        'ArchiveCodeExt.writeClipboard':'copy[str]to clipboard',
       },
     })
 
@@ -220,11 +222,23 @@ class Archive_code {
           arguments: {
             str: {
               type: 'string',
-              defaultValue: '我好帅114514'
+              defaultValue: '搧宋怓ȿȿȼȻȿȼ'
             },
             key: {
               type: 'string',
               defaultValue: 'Arkos'
+            }
+          }
+        },
+        {
+          //复制到剪切板
+          opcode: 'writeClipboard',
+          blockType: 'reporter',
+          text: this.formatMessage('ArchiveCodeExt.writeClipboard'),
+          arguments: {
+            str: {
+              type: 'string',
+              defaultValue: '要复制的东西'
             }
           }
         },
@@ -381,6 +395,10 @@ class Archive_code {
     t = t - t % 10 + (9 - t % 10)
     t = (t - p + 65536) % 65536
     return String.fromCharCode(t)
+  }
+
+  writeClipboard(args){
+    navigator.clipboard.writeText(args.key);
   }
 
 
