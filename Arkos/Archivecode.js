@@ -16,7 +16,7 @@ class Archive_code {
     }     
     //存反序列化结果
     this.content2 = {};
-    Object.assign(content2,content)
+    Object.assign(this.content2,this.content)
     this.setArchive_code();
 
     this._formatMessage = runtime.getFormatMessage({
