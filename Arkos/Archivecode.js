@@ -29,6 +29,8 @@ class Archive_code {
         'ArchiveCodeExt.saveContentToVar': '将序列中名称为[key]的内容保存到变量[var]',
         'ArchiveCodeExt.saveContentToList': '将序列中名称为[key]的内容保存到列表[list]',
         'ArchiveCodeExt.deserializable': '反序列化成功？',
+        'ArchiveCodeExt.encode':'加密[str],以密匙[key]',
+        'ArchiveCodeExt.decode':'解密[str],以密匙[key]',
       },
 
       en: {
@@ -44,7 +46,8 @@ class Archive_code {
         'ArchiveCodeExt.saveContentToVar': 'save [key]to variable[var]',
         'ArchiveCodeExt.saveContentToList': 'save[key]to list[list]',
         'ArchiveCodeExt.deserializable': 'deserializeSuccessfully?',
-
+        'ArchiveCodeExt.encode':'encrypt[str]with key[key]',
+        'ArchiveCodeExt.decode':'decrypt[str]with key[key]',
       },
     })
 
@@ -193,6 +196,38 @@ class Archive_code {
           blockType: 'Boolean',
           text: this.formatMessage('ArchiveCodeExt.deserializable'),
         },
+        {
+          //加密
+          opcode: 'encode',
+          blockType: 'reporter',
+          text: this.formatMessage('ArchiveCodeExt.encode'),
+          arguments: {
+            str: {
+              type: Scratch.ArgumentType.STRING,
+              defaultValue: '我好帅114514'
+            },
+            key: {
+              type: Scratch.ArgumentType.STRING,
+              defaultValue: 'Arkos'
+            }
+          }
+        },
+        {
+          //解密
+          opcode: 'decode',
+          blockType: 'reporter',
+          text: this.formatMessage('ArchiveCodeExt.decode'),
+          arguments: {
+            str: {
+              type: Scratch.ArgumentType.STRING,
+              defaultValue: '我好帅114514'
+            },
+            key: {
+              type: Scratch.ArgumentType.STRING,
+              defaultValue: 'Arkos'
+            }
+          }
+        },
       ],
       menus: {
         varMenu: {
@@ -300,6 +335,53 @@ class Archive_code {
     }
   }
 
+  //加密
+  encode(args) {
+    args.key = this.keyVar(args.key)
+    let b = ''
+    for (let i = 0; i < args.str.length; i++) {
+      b += this.enChar(args.str[i], args.key)
+    }
+    return b
+  }
+
+
+  //解密
+  decode(args) {
+    args.key = this.keyVar(args.key)
+    let b = ''
+    for (let i = 0; i < args.str.length; i++) {
+      b += this.deChar(args.str[i], args.key)
+    }
+    //console.log('123')
+    return b
+  }
+
+  //将密匙转换为一个值
+  keyVar(k) {
+    k=String(k)
+    let t = 13;
+    for (let i = 0; i < k.length; i++) {
+      t += k.charCodeAt(i)
+      t %= 65536
+    }
+    return t
+  }
+  
+
+  enChar(c, p) {
+    t = (c.charCodeAt(0) + p) % 65536
+  
+    return String.fromCharCode(t - t % 10 + (9 - t % 10))
+  }
+  
+  
+  deChar(c, p) {
+    t = c.charCodeAt(0)
+    t = t - t % 10 + (9 - t % 10)
+    t = (t - p + 65536) % 65536
+    return String.fromCharCode(t)
+  }
 
 
   findAllVar() {
