@@ -29,8 +29,8 @@ class Archive_code {
         'ArchiveCodeExt.saveContentToVar': '将序列中名称为[key]的内容保存到变量[var]',
         'ArchiveCodeExt.saveContentToList': '将序列中名称为[key]的内容保存到列表[list]',
         'ArchiveCodeExt.deserializable': '反序列化成功？',
-        'ArchiveCodeExt.encode':'加密[str],以密匙[key]',
-        'ArchiveCodeExt.decode':'解密[str],以密匙[key]',
+        'ArchiveCodeExt.encrypt':'以[method]加密[str],密匙[key]',
+        'ArchiveCodeExt.decrypt':'以[method]解密[str],密匙[key]',
         'ArchiveCodeExt.writeClipboard':'复制[str]到剪贴板',
       },
 
@@ -47,8 +47,8 @@ class Archive_code {
         'ArchiveCodeExt.saveContentToVar': 'save [key]to variable[var]',
         'ArchiveCodeExt.saveContentToList': 'save[key]to list[list]',
         'ArchiveCodeExt.deserializable': 'deserializeSuccessfully?',
-        'ArchiveCodeExt.encode':'encrypt[str]with key[key]',
-        'ArchiveCodeExt.decode':'decrypt[str]with key[key]',
+        'ArchiveCodeExt.encrypt':'encrypt[str]with key[key]',
+        'ArchiveCodeExt.decrypt':'decrypt[str]with key[key]',
         'ArchiveCodeExt.writeClipboard':'copy[str]to clipboard',
       },
     })
@@ -200,9 +200,9 @@ class Archive_code {
         },
         {
           //加密
-          opcode: 'encode',
+          opcode: 'encrypt',
           blockType: 'reporter',
-          text: this.formatMessage('ArchiveCodeExt.encode'),
+          text: this.formatMessage('ArchiveCodeExt.encrypt'),
           arguments: {
             str: {
               type: 'string',
@@ -211,14 +211,18 @@ class Archive_code {
             key: {
               type: 'string',
               defaultValue: 'Arkos'
-            }
+            },
+            method: {
+              type: 'string',
+              menu: 'methodMenu'
+            },
           }
         },
         {
           //解密
-          opcode: 'decode',
+          opcode: 'decrypt',
           blockType: 'reporter',
-          text: this.formatMessage('ArchiveCodeExt.decode'),
+          text: this.formatMessage('ArchiveCodeExt.decrypt'),
           arguments: {
             str: {
               type: 'string',
@@ -227,7 +231,11 @@ class Archive_code {
             key: {
               type: 'string',
               defaultValue: 'Arkos'
-            }
+            },
+            method: {
+              type: 'string',
+              menu: 'methodMenu'
+            },
           }
         },
         {
@@ -257,6 +265,9 @@ class Archive_code {
         listMenu2: {
           items: 'findAllListsContents'
         },
+        methodMenu: [
+          'Arkos加密法',
+        ]
       },
     };
   }
@@ -350,7 +361,7 @@ class Archive_code {
   }
 
   //加密
-  encode(args) {
+  encrypt(args) {
     args.key = this.keyVar(args.key)
     let b = ''
     for (let i = 0; i < args.str.length; i++) {
@@ -361,7 +372,7 @@ class Archive_code {
 
 
   //解密
-  decode(args) {
+  decrypt(args) {
     args.key = this.keyVar(args.key)
     let b = ''
     for (let i = 0; i < args.str.length; i++) {
