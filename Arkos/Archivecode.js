@@ -203,11 +203,11 @@ class Archive_code {
           text: this.formatMessage('ArchiveCodeExt.encode'),
           arguments: {
             str: {
-              type: Scratch.ArgumentType.STRING,
+              type: 'string',
               defaultValue: '我好帅114514'
             },
             key: {
-              type: Scratch.ArgumentType.STRING,
+              type: 'string',
               defaultValue: 'Arkos'
             }
           }
@@ -219,11 +219,11 @@ class Archive_code {
           text: this.formatMessage('ArchiveCodeExt.decode'),
           arguments: {
             str: {
-              type: Scratch.ArgumentType.STRING,
+              type: 'string',
               defaultValue: '我好帅114514'
             },
             key: {
-              type: Scratch.ArgumentType.STRING,
+              type: 'string',
               defaultValue: 'Arkos'
             }
           }
