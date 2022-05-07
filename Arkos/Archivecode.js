@@ -434,6 +434,15 @@ class Archive_code {
     navigator.clipboard.writeText(args.str);
   }
 
+  compare(propName){
+    return (a, b) => { 
+      a=a[propName]
+      b=b[propName]
+      if(a > b) return 1;
+      else if(a < b) return -1;
+      else return 0;
+    }
+  }
 
   findAllVar() {
     const list =[];
@@ -469,7 +478,7 @@ class Archive_code {
     //     }
     //   });
     // });
-    list.sort();
+    list.sort(this.compare("text"));
     return list;
   }
 
@@ -501,7 +510,7 @@ class Archive_code {
         value: 'empty',
       });
     }
-    list.sort();
+    list.sort(this.compare("text"));
     return list;
   }
 
@@ -523,7 +532,7 @@ class Archive_code {
         value: 'empty',
       });
     }
-    list.sort();
+    list.sort(this.compare("text"));
     return list;
   }
 
@@ -545,7 +554,7 @@ class Archive_code {
         value: 'empty',
       });
     }
-    list.sort();
+    list.sort(this.compare("text"));
     return list;
   }
 
