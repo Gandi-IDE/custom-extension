@@ -430,7 +430,7 @@ class Archive_code {
   }
 
   getCharByUnicode(args){
-    return args.String.fromCharCode(code)
+    return String.fromCharCode(args.code)
   }
 
   getContentOfList(args, util) {
