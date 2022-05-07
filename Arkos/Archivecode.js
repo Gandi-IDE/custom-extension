@@ -356,7 +356,7 @@ class Archive_code {
     // const variable = util.target.lookupVariableById(args.var);
     // variable.value = args.key;
 
-    return (this.content2[args.key] === undefined) ? '': this.content2[args.key]
+    return (this.content2[args.key] === undefined) ? '': String(this.content2[args.key])
   }
 
 
@@ -364,7 +364,7 @@ class Archive_code {
     if(args.var !== 'empty'){
       const variable = util.target.lookupVariableById(args.var);
       variable.value = String(this.content2[args.key]);
-      if(variable.value === "undefined")  variable.value = [];
+      if(variable.value === "undefined")  variable.value = '';
     }
   }
 
@@ -438,7 +438,7 @@ class Archive_code {
   findAllVar() {
     const list =[];
     let temp = this.runtime._stageTarget.variables
-    Object.keys(temp).sort().forEach(obj => {
+    Object.keys(temp).forEach(obj => {
       if (temp[obj].type === '') {
         list.push({
           text: `${temp[obj].name}`,
@@ -447,7 +447,7 @@ class Archive_code {
       }
     });
     temp = this.runtime._editingTarget.variables
-    Object.keys(temp).sort().forEach(obj => {
+    Object.keys(temp).forEach(obj => {
       if (temp[obj].type === '') {
         list.push({
           text: `*私有变量*${temp[obj].name}`,
@@ -469,13 +469,14 @@ class Archive_code {
     //     }
     //   });
     // });
+    list.sort();
     return list;
   }
 
   findAllList() {
     const list = [];
     let temp = this.runtime._stageTarget.variables
-    Object.keys(temp).sort().forEach(obj => {
+    Object.keys(temp).forEach(obj => {
       if (temp[obj].type !== '') {
         list.push({
           text: `${temp[obj].name}`,
@@ -484,7 +485,7 @@ class Archive_code {
       }
     });
     temp = this.runtime._editingTarget.variables
-    Object.keys(temp).sort().forEach(obj => {
+    Object.keys(temp).forEach(obj => {
       if (temp[obj].type !== '') {
         list.push({
           text: `*私有列表*${temp[obj].name}`,
@@ -500,13 +501,14 @@ class Archive_code {
         value: 'empty',
       });
     }
+    list.sort();
     return list;
   }
 
   findAllVarContents(){
     const list = [];
     let temp = this.content2
-    Object.keys(temp).sort().forEach(obj => {
+    Object.keys(temp).forEach(obj => {
       if (typeof temp[obj] !== 'object') {
         list.push({
           text: obj,
@@ -521,13 +523,14 @@ class Archive_code {
         value: 'empty',
       });
     }
+    list.sort();
     return list;
   }
 
   findAllListsContents(){
      const list = [];
     let temp = this.content2
-    Object.keys(temp).sort().forEach(obj => {
+    Object.keys(temp).forEach(obj => {
       if (typeof temp[obj] === 'object') {
         list.push({
           text: obj,
@@ -542,6 +545,7 @@ class Archive_code {
         value: 'empty',
       });
     }
+    list.sort();
     return list;
   }
 
