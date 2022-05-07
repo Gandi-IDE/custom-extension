@@ -38,7 +38,9 @@ class Archive_code {
         'ArchiveCodeExt.encrypt':'以[method]加密[str],密匙[key]',
         'ArchiveCodeExt.decrypt':'以[method]解密[str],密匙[key]',
         'ArchiveCodeExt.writeClipboard':'复制[str]到剪贴板',
-        'ArchiveCodeExt.getContentOfList':'读取结果中名称为[key]的列表的第[n]项'
+        'ArchiveCodeExt.getContentOfList':'读取结果中名称为[key]的列表的第[n]项',
+        'ArchiveCodeExt.getUnicode':'获取字符[c]的Unicode编码',
+        'ArchiveCodeExt.getCharByUnicode':'Unicode[code]对应字符'
       },
 
       en: {
@@ -58,7 +60,9 @@ class Archive_code {
         'ArchiveCodeExt.decrypt':'decrypt[str]with key[key]',
         'ArchiveCodeExt.writeClipboard':'copy[str]to clipboard',
         'ArchiveCodeExt.showContent2json':'deserialization result',
-        'ArchiveCodeExt.getContentOfList':'#[n] of list[key]'
+        'ArchiveCodeExt.getContentOfList':'#[n] of list[key]',
+        'ArchiveCodeExt.getUnicode':'get Unicode of[c]',
+        'ArchiveCodeExt.getCharByUnicode':' character of Unicode[code]'
       },
     })
 
@@ -301,6 +305,30 @@ class Archive_code {
             }
           }
         },
+        {
+          //获取字符unicode
+          opcode: 'getUnicode',
+          blockType: 'reporter',
+          text: this.formatMessage('ArchiveCodeExt.getUnicode'),
+          arguments: {
+            c: {
+              type: 'string',
+              defaultValue: 'A'
+            }
+          }
+        },
+        {
+          //由unicode得到字符
+          opcode: 'getCharByUnicode',
+          blockType: 'reporter',
+          text: this.formatMessage('ArchiveCodeExt.getCharByUnicode'),
+          arguments: {
+            code: {
+              type: 'string',
+              defaultValue: '65'
+            }
+          }
+        },
       ],
       menus: {
         varMenu: {
@@ -397,6 +425,14 @@ class Archive_code {
     return (this.content2[args.key] === undefined) ? '': String(this.content2[args.key])
   }
 
+  getUnicode(args){
+    return c.charCodeAt(0)
+  }
+
+  getCharByUnicode(args){
+    return String.fromCharCode(code)
+  }
+
   getContentOfList(args, util) {
     // const variable = util.target.lookupVariableById(args.var);
     // variable.value = args.key;
@@ -405,8 +441,8 @@ class Archive_code {
     if(t === undefined||typeof t !== 'object'){
       return '';
     }else {
-      if(t[args.n] === undefined) return '';
-      else return t[args.n]
+      if(t[args.n-1] === undefined) return '';
+      else return t[args.n-1]
     }
   }
 
