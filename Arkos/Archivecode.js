@@ -38,7 +38,7 @@ class Archive_code {
         'ArchiveCodeExt.encrypt':'以[method]加密[str],密匙[key]',
         'ArchiveCodeExt.decrypt':'以[method]解密[str],密匙[key]',
         'ArchiveCodeExt.writeClipboard':'复制[str]到剪贴板',
-        
+        'ArchiveCodeExt.getContentOfList':'读取结果中名称为[key]的列表的第[n]项'
       },
 
       en: {
@@ -57,7 +57,8 @@ class Archive_code {
         'ArchiveCodeExt.encrypt':'encrypt[str]with key[key]',
         'ArchiveCodeExt.decrypt':'decrypt[str]with key[key]',
         'ArchiveCodeExt.writeClipboard':'copy[str]to clipboard',
-        'ArchiveCodeExt.showContent2json':'deserialization result'
+        'ArchiveCodeExt.showContent2json':'deserialization result',
+        'ArchiveCodeExt.getContentOfList':'#[n] of list[key]'
       },
     })
 
@@ -187,6 +188,24 @@ class Archive_code {
               type: 'string',
               //menu: 'varMenu2',
               defaultValue: '金币'
+            }
+          }
+        },
+        {
+          //返回名称为..的列表的第n项
+          opcode: 'getContentOfList',
+          blockType: 'reporter',
+          text: this.formatMessage('ArchiveCodeExt.getContentOfList'),
+          arguments: {
+            key: {
+              type: 'string',
+              //menu: 'varMenu2',
+              defaultValue: '背包'
+            },
+            n: {
+              type: 'number',
+              //menu: 'varMenu2',
+              defaultValue: '1'
             }
           }
         },
@@ -376,6 +395,19 @@ class Archive_code {
     // variable.value = args.key;
 
     return (this.content2[args.key] === undefined) ? '': String(this.content2[args.key])
+  }
+
+  getContentOfList(args, util) {
+    // const variable = util.target.lookupVariableById(args.var);
+    // variable.value = args.key;
+    //如果没有这项，或者不是列表
+    let t = this.content2[args.key]
+    if(t === undefined||typeof t !== 'object'){
+      return '';
+    }else {
+      if(t[args.n] === undefined) return '';
+      else return t[args.n]
+    }
   }
 
 
