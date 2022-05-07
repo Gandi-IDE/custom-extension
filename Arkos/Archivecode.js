@@ -370,14 +370,14 @@ class Archive_code {
   
 
   enChar(c, p) {
-    t = (c.charCodeAt(0) + p) % 65536
+    let t = (c.charCodeAt(0) + p) % 65536
   
     return String.fromCharCode(t - t % 10 + (9 - t % 10))
   }
   
   
   deChar(c, p) {
-    t = c.charCodeAt(0)
+    let t = c.charCodeAt(0)
     t = t - t % 10 + (9 - t % 10)
     t = (t - p + 65536) % 65536
     return String.fromCharCode(t)
