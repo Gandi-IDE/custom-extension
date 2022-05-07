@@ -343,6 +343,7 @@ class Archive_code {
     this.deserializeSuccessfully = true;
     }catch(e){
       this.deserializeSuccessfully = false;
+      this.content2 = {}
     }
     //console.log(typeof this.content)
   }
