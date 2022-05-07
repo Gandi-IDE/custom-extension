@@ -171,7 +171,8 @@ class Archive_code {
           arguments: {
             key: {
               type: 'string',
-              menu: 'varMenu2'
+              //menu: 'varMenu2',
+              defaultValue: '金币'
             }
           }
         },
@@ -183,7 +184,8 @@ class Archive_code {
           arguments: {
             key: {
               type: 'string',
-              menu: 'varMenu2'
+              //menu: 'varMenu2',
+              defaultValue: '金币'
             },
             var: {
               type: 'string',
@@ -199,7 +201,8 @@ class Archive_code {
           arguments: {
             key: {
               type: 'string',
-              menu: 'listMenu2'
+              //menu: 'listMenu2',
+              defaultValue: '背包'
             },
             list: {
               type: 'string',
@@ -351,7 +354,8 @@ class Archive_code {
   getContent(args, util) {
     // const variable = util.target.lookupVariableById(args.var);
     // variable.value = args.key;
-    return (content2[args.key] === undefined) ? '': this.content2[args.key]
+
+    return (this.content2[args.key] === undefined) ? '': this.content2[args.key]
   }
 
 
@@ -359,6 +363,7 @@ class Archive_code {
     if(args.var !== 'empty'){
       const variable = util.target.lookupVariableById(args.var);
       variable.value = String(this.content2[args.key]);
+      if(variable.value === "undefined")  variable.value = [];
     }
   }
 
