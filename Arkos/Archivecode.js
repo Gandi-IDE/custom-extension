@@ -233,7 +233,7 @@ class Archive_code {
         {
           //复制到剪切板
           opcode: 'writeClipboard',
-          blockType: 'reporter',
+          blockType: 'command',
           text: this.formatMessage('ArchiveCodeExt.writeClipboard'),
           arguments: {
             str: {
@@ -398,7 +398,7 @@ class Archive_code {
   }
 
   writeClipboard(args){
-    navigator.clipboard.writeText(args.key);
+    navigator.clipboard.writeText(args.str);
   }
 
 
