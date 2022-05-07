@@ -373,6 +373,10 @@ class Archive_code {
       const list = util.target.lookupVariableById(args.list);
       list.value = this.content2[args.key];
       if(list.value === undefined)  list.value = [];
+      if(typeof list.value !== 'object')
+      {
+        list.value = [list.value];
+      }
     }
   }
 
