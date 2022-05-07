@@ -1,6 +1,6 @@
 import Cast from '../utils/cast.js'
 
-//合作者：Nights:帮忙写了代码框架，并且给予了许多技术上的指导
+//合作者：Nights:帮忙写了代码框架，并且给予了一些技术上的指导
 // console.log(Cast.toNumber('123'))
 console.log(Cast.toNumber('aab'))
 
@@ -18,6 +18,7 @@ class Archive_code {
     this.content2 = {};
     Object.assign(this.content2,this.content)
     this.setArchive_code();
+    this.setContent2json();
 
     this._formatMessage = runtime.getFormatMessage({
       'zh-cn': {
@@ -30,12 +31,14 @@ class Archive_code {
         'ArchiveCodeExt.result': '序列化结果',
         'ArchiveCodeExt.deserialization': '读取序列化字符串：[code]',
         'ArchiveCodeExt.getContent': '读取结果中名称为[key]的内容',
+        'ArchiveCodeExt.showContent2json':'读取结果',
         'ArchiveCodeExt.saveContentToVar': '将读取结果中名称为[key]的内容保存到变量[var]',
         'ArchiveCodeExt.saveContentToList': '将读取结果中名称为[key]的内容保存到列表[list]',
         'ArchiveCodeExt.deserializable': '读取成功？',
         'ArchiveCodeExt.encrypt':'以[method]加密[str],密匙[key]',
         'ArchiveCodeExt.decrypt':'以[method]解密[str],密匙[key]',
         'ArchiveCodeExt.writeClipboard':'复制[str]到剪贴板',
+        
       },
 
       en: {
@@ -54,6 +57,7 @@ class Archive_code {
         'ArchiveCodeExt.encrypt':'encrypt[str]with key[key]',
         'ArchiveCodeExt.decrypt':'decrypt[str]with key[key]',
         'ArchiveCodeExt.writeClipboard':'copy[str]to clipboard',
+        'ArchiveCodeExt.showContent2json':'deserialization result'
       },
     })
 
@@ -68,6 +72,10 @@ class Archive_code {
   //根据content的内容，将其JSON化，存到archive_code
   setArchive_code(){
     this._archive_code = JSON.stringify(this.content);
+  }
+
+  setContent2json(){
+    this.content2json = JSON.stringify(this.content2);
   }
 
   formatMessage(id) {
@@ -162,6 +170,12 @@ class Archive_code {
               defaultValue: `{"金币":200,"背包":["木头","面包"]}`
             }
           }
+        },
+        {
+          //返回反序列化结果
+          opcode: 'showContent2json',
+          blockType: 'reporter',
+          text: this.formatMessage('ArchiveCodeExt.showContent2json'),
         },
         {
           //返回名称为..的内容
@@ -302,6 +316,11 @@ class Archive_code {
 
   result() {
     return this.archive_code;
+  }
+
+  showContent2json() {
+    this.setContent2json();
+    return this.content2json;
   }
 
   stop() {
