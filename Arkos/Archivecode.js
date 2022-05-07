@@ -39,7 +39,7 @@ class Archive_code {
         'ArchiveCodeExt.decrypt':'以[method]解密[str],密匙[key]',
         'ArchiveCodeExt.writeClipboard':'复制[str]到剪贴板',
         'ArchiveCodeExt.getContentOfList':'读取结果中名称为[key]的列表的第[n]项',
-        'ArchiveCodeExt.getUnicode':'获取字符[c]的Unicode编码',
+        'ArchiveCodeExt.getUnicode':'字符[c]的Unicode',
         'ArchiveCodeExt.getCharByUnicode':'Unicode[code]对应字符'
       },
 
@@ -281,7 +281,7 @@ class Archive_code {
           arguments: {
             str: {
               type: 'string',
-              defaultValue: '搧宋怓ȿȿȼȻȿȼ'
+              defaultValue: '搧宊怑ȼȻɋɉɌɈ'
             },
             key: {
               type: 'string',
@@ -426,11 +426,11 @@ class Archive_code {
   }
 
   getUnicode(args){
-    return c.charCodeAt(0)
+    return args.c.charCodeAt(0)
   }
 
   getCharByUnicode(args){
-    return String.fromCharCode(code)
+    return args.String.fromCharCode(code)
   }
 
   getContentOfList(args, util) {
