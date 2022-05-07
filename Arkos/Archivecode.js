@@ -23,9 +23,9 @@ class Archive_code {
       'zh-cn': {
         'ArchiveCodeExt.extensionName': '存档码',
         'ArchiveCodeExt.init': '清空序列化结果',
-        'ArchiveCodeExt.serialization': '将内容加入序列：名称:[name] 值:[value]',
-        'ArchiveCodeExt.serializationForVariable': '将变量加入序列：名称:[name] 变量:[var]',
-        'ArchiveCodeExt.serializationForList': '将列表加入序列：名称:[name] 列表:[list]',
+        'ArchiveCodeExt.serialization': '将内容[value]加入序列，命名为[name]',
+        'ArchiveCodeExt.serializationForVariable': '将变量[var]内容加入序列，命名为[name]',
+        'ArchiveCodeExt.serializationForList': '将列表[list]内容加入序列，命名为[name]',
         //'ArchiveCodeExt.stop': '序列化结束',
         'ArchiveCodeExt.result': '序列化结果',
         'ArchiveCodeExt.deserialization': '读取序列化字符串：[code]',
@@ -386,7 +386,7 @@ class Archive_code {
     args.str=String(args.str)
     let b = ''
     for (let i = 0; i < args.str.length; i++) {
-      b += this.enChar(args.str[i], args.key)
+      b += this.enChar(args.str[i], args.key+i)
     }
     return b
   }
@@ -398,7 +398,7 @@ class Archive_code {
     args.str=String(args.str)
     let b = ''
     for (let i = 0; i < args.str.length; i++) {
-      b += this.deChar(args.str[i], args.key)
+      b += this.deChar(args.str[i], args.key+i)
     }
     //console.log('123')
     return b
@@ -459,7 +459,7 @@ class Archive_code {
     Object.keys(temp).forEach(obj => {
       if (temp[obj].type === '') {
         list.push({
-          text: `*私有变量*${temp[obj].name}`,
+          text: `[私有变量]${temp[obj].name}`,
           value: temp[obj].id,
         });
       }
@@ -497,7 +497,7 @@ class Archive_code {
     Object.keys(temp).forEach(obj => {
       if (temp[obj].type !== '') {
         list.push({
-          text: `*私有列表*${temp[obj].name}`,
+          text: `[私有列表]${temp[obj].name}`,
           value: temp[obj].id,
 
         });
