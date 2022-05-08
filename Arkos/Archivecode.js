@@ -15,30 +15,30 @@ class Archive_code {
       背包: ["木头",233]
     }     
     //存反序列化结果
-    this.content2 = {};
-    Object.assign(this.content2,this.content)
+    //this.content2 = {};
+    //Object.assign(this.content2,this.content)
     this.setArchive_code();
-    this.setContent2json();
+    //this.setContent2json();
 
     this._formatMessage = runtime.getFormatMessage({
       'zh-cn': {
         'ArchiveCodeExt.extensionName': '存档码',
-        'ArchiveCodeExt.init': '清空序列化结果',
-        'ArchiveCodeExt.serialization': '将内容[value]加入序列，命名为[name]',
-        'ArchiveCodeExt.serializationForVariable': '将变量[var]内容加入序列，命名为[name]',
-        'ArchiveCodeExt.serializationForList': '将列表[list]内容加入序列，命名为[name]',
+        'ArchiveCodeExt.init': '清空容器',
+        'ArchiveCodeExt.serialization': '将内容[value]加入容器，命名为[name]',
+        'ArchiveCodeExt.serializationForVariable': '将变量[var]内容加入容器，命名为[name]',
+        'ArchiveCodeExt.serializationForList': '将列表[list]内容加入容器，命名为[name]',
         //'ArchiveCodeExt.stop': '序列化结束',
-        'ArchiveCodeExt.result': '序列化结果',
-        'ArchiveCodeExt.deserialization': '读取序列化字符串：[code]',
-        'ArchiveCodeExt.getContent': '读取结果中名称为[key]的内容',
-        'ArchiveCodeExt.showContent2json':'读取结果',
-        'ArchiveCodeExt.saveContentToVar': '将读取结果中名称为[key]的内容保存到变量[var]',
-        'ArchiveCodeExt.saveContentToList': '将读取结果中名称为[key]的内容保存到列表[list]',
+        'ArchiveCodeExt.result': '容器内容对应字符串',
+        'ArchiveCodeExt.deserialization': '读取字符串到容器：[code]',
+        'ArchiveCodeExt.getContent': '容器中名称为[key]的内容',
+        //'ArchiveCodeExt.showContent2json':'读取结果',
+        'ArchiveCodeExt.saveContentToVar': '将容器中名称为[key]的内容保存到变量[var]',
+        'ArchiveCodeExt.saveContentToList': '将容器中名称为[key]的内容保存到列表[list]',
         'ArchiveCodeExt.deserializable': '读取成功？',
         'ArchiveCodeExt.encrypt':'以[method]加密[str],密匙[key]',
         'ArchiveCodeExt.decrypt':'以[method]解密[str],密匙[key]',
         'ArchiveCodeExt.writeClipboard':'复制[str]到剪贴板',
-        'ArchiveCodeExt.getContentOfList':'读取结果中名称为[key]的列表的第[n]项',
+        'ArchiveCodeExt.getContentOfList':'容器中名称为[key]的列表的第[n]项',
         'ArchiveCodeExt.getUnicode':'字符[c]的Unicode',
         'ArchiveCodeExt.getCharByUnicode':'Unicode[code]对应字符'
       },
@@ -79,9 +79,9 @@ class Archive_code {
     this._archive_code = JSON.stringify(this.content);
   }
 
-  setContent2json(){
-    this.content2json = JSON.stringify(this.content2);
-  }
+  // setContent2json(){
+  //   this.content2json = JSON.stringify(this.content2);
+  // }
 
   formatMessage(id) {
     return this._formatMessage({
@@ -176,12 +176,12 @@ class Archive_code {
             }
           }
         },
-        {
-          //返回反序列化结果
-          opcode: 'showContent2json',
-          blockType: 'reporter',
-          text: this.formatMessage('ArchiveCodeExt.showContent2json'),
-        },
+        // {
+        //   //返回反序列化结果
+        //   opcode: 'showContent2json',
+        //   blockType: 'reporter',
+        //   text: this.formatMessage('ArchiveCodeExt.showContent2json'),
+        // },
         {
           //返回名称为..的内容
           opcode: 'getContent',
@@ -365,10 +365,10 @@ class Archive_code {
     return this.archive_code;
   }
 
-  showContent2json() {
-    this.setContent2json();
-    return this.content2json;
-  }
+  // showContent2json() {
+  //   this.setContent2json();
+  //   return this.content2json;
+  // }
 
   stop() {
     this.setArchive_code();
@@ -405,11 +405,11 @@ class Archive_code {
 
   deserialization(args) {
     try{
-    this.content2 = JSON.parse(args.code)
+    this.content = JSON.parse(args.code)
     this.deserializeSuccessfully = true;
     }catch(e){
       this.deserializeSuccessfully = false;
-      this.content2 = {}
+      //this.content2 = {}
     }
     //console.log(typeof this.content)
   }
@@ -422,7 +422,7 @@ class Archive_code {
     // const variable = util.target.lookupVariableById(args.var);
     // variable.value = args.key;
 
-    return (this.content2[args.key] === undefined) ? '': String(this.content2[args.key])
+    return (this.content[args.key] === undefined) ? '': String(this.content[args.key])
   }
 
   getUnicode(args){
@@ -437,7 +437,7 @@ class Archive_code {
     // const variable = util.target.lookupVariableById(args.var);
     // variable.value = args.key;
     //如果没有这项，或者不是列表
-    let t = this.content2[args.key]
+    let t = this.content[args.key]
     if(t === undefined||typeof t !== 'object'){
       return '';
     }else {
@@ -450,7 +450,7 @@ class Archive_code {
   saveContentToVar(args, util) {
     if(args.var !== 'empty'){
       const variable = util.target.lookupVariableById(args.var);
-      variable.value = String(this.content2[args.key]);
+      variable.value = String(this.content[args.key]);
       if(variable.value === "undefined")  variable.value = '';
     }
   }
@@ -458,7 +458,7 @@ class Archive_code {
   saveContentToList(args, util) {
     if(args.list !== 'empty'){
       const list = util.target.lookupVariableById(args.list);
-      list.value = this.content2[args.key];
+      list.value = this.content[args.key];
       if(list.value === undefined)  list.value = [];
       if(typeof list.value !== 'object')
       {
@@ -603,7 +603,7 @@ class Archive_code {
 
   findAllVarContents(){
     const list = [];
-    let temp = this.content2
+    let temp = this.content
     Object.keys(temp).forEach(obj => {
       if (typeof temp[obj] !== 'object') {
         list.push({
@@ -625,7 +625,7 @@ class Archive_code {
 
   findAllListsContents(){
      const list = [];
-    let temp = this.content2
+    let temp = this.content
     Object.keys(temp).forEach(obj => {
       if (typeof temp[obj] === 'object') {
         list.push({
