@@ -488,13 +488,13 @@ class Archive_code {
   getContentByNumber(args){
     let key = Object.keys(this.content)[args.index-1]
     switch (args.type) {
-      case 1://名称
+      case '1'://名称
         return key;
-      case 2://内容
+      case '2'://内容
         return this.content[key];
-      case 3://类型
+      case '3'://类型
         return (typeof this.content[key] === 'object') ? '列表' : '变量';
-      case 4://列表长度
+      case '4'://列表长度
         return (typeof this.content[key] === 'object') ? this.content[key].length : '';
       default:
         return '';
