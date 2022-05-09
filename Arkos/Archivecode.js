@@ -49,6 +49,7 @@ class Archive_code {
         'ArchiveCodeExt.infoMenu.2':'内容',
         'ArchiveCodeExt.infoMenu.3':'类型',
         'ArchiveCodeExt.infoMenu.4':'列表长度',
+        'ArchiveCodeExt.delete':'删除容器中名为[key]的内容',
 
       },
 
@@ -80,6 +81,7 @@ class Archive_code {
         'ArchiveCodeExt.infoMenu.2':'value',
         'ArchiveCodeExt.infoMenu.3':'type',
         'ArchiveCodeExt.infoMenu.4':'lenth of list',
+        'ArchiveCodeExt.delete':'Delete content[key] in Container'
       },
     })
 
@@ -304,6 +306,18 @@ class Archive_code {
               type: 'string',
               menu: 'listMenu'
             }
+          }
+        },
+        {
+          //删除内容
+          opcode: 'delete',
+          blockType: 'command',
+          text: this.formatMessage('ArchiveCodeExt.delete'),
+          arguments: {
+            key: {
+              type: 'string',
+              defaultValue: '金币'
+            },
           }
         },
         {
@@ -578,6 +592,10 @@ class Archive_code {
         list.value = [list.value];
       }
     }
+  }
+
+  delete(args) {
+    Reflect.deleteProperty(this.content, args.key);
   }
 
   //加密
