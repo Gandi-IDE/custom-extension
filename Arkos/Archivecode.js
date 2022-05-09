@@ -400,7 +400,7 @@ class Archive_code {
         methodMenu: [
           {
             text: this.formatMessage('ArchiveCodeExt.methodMenu.1'),
-            value: 1
+            value: '1'
           },
         ],
         infoMenu: [
