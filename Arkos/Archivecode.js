@@ -24,9 +24,9 @@ class Archive_code {
       'zh-cn': {
         'ArchiveCodeExt.extensionName': '存档码',
         'ArchiveCodeExt.init': '清空容器',
-        'ArchiveCodeExt.serialization': '将内容[value]加入容器，命名为[name]',
-        'ArchiveCodeExt.serializationForVariable': '将变量[var]内容加入容器，命名为[name]',
-        'ArchiveCodeExt.serializationForList': '将列表[list]内容加入容器，命名为[name]',
+        'ArchiveCodeExt.serialization': '将内容[value]命名为[name]加入容器(已有则覆盖)',
+        'ArchiveCodeExt.serializationForVariable': '将变量[var]内容命名为[name]加入容器(已有则覆盖)',
+        'ArchiveCodeExt.serializationForList': '将列表[list]内容命名为[name]加入容器(已有则覆盖)',
         //'ArchiveCodeExt.stop': '序列化结束',
         'ArchiveCodeExt.result': '容器内容对应字符串',
         'ArchiveCodeExt.deserialization': '读取字符串到容器：[code]',
