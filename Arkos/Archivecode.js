@@ -487,6 +487,7 @@ class Archive_code {
 
   getContentByNumber(args){
     let key = Object.keys(this.content)[args.index-1]
+    if(key === undefined) return '';
     switch (args.type) {
       case '1'://名称
         return key;
