@@ -391,19 +391,19 @@ class Archive_code {
         infoMenu: [
           {
             text: this.formatMessage('ArchiveCodeExt.infoMenu.1'),
-            value: 1
+            value: '1'
           },
           {
             text: this.formatMessage('ArchiveCodeExt.infoMenu.2'),
-            value: 2
+            value: '2'
           },
           {
             text: this.formatMessage('ArchiveCodeExt.infoMenu.3'),
-            value: 3
+            value: '3'
           },
           {
             text: this.formatMessage('ArchiveCodeExt.infoMenu.4'),
-            value: 4
+            value: '4'
           },
         ]
       },
