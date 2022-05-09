@@ -35,34 +35,49 @@ class Archive_code {
         'ArchiveCodeExt.saveContentToVar': '将容器中名称为[key]的内容保存到变量[var]',
         'ArchiveCodeExt.saveContentToList': '将容器中名称为[key]的内容保存到列表[list]',
         'ArchiveCodeExt.deserializable': '读取成功？',
+        'ArchiveCodeExt.getAmount':'容器中内容的总数',
+        'ArchiveCodeExt.getContentByNumber':'获取容器中第[index]个内容的[type]',
         'ArchiveCodeExt.encrypt':'以[method]加密[str],密匙[key]',
         'ArchiveCodeExt.decrypt':'以[method]解密[str],密匙[key]',
         'ArchiveCodeExt.writeClipboard':'复制[str]到剪贴板',
         'ArchiveCodeExt.getContentOfList':'容器中名称为[key]的列表的第[n]项',
         'ArchiveCodeExt.getUnicode':'字符[c]的Unicode',
-        'ArchiveCodeExt.getCharByUnicode':'Unicode[code]对应字符'
+        'ArchiveCodeExt.getCharByUnicode':'Unicode[code]对应字符',
+        'ArchiveCodeExt.methodMenu.1':'Arkos加密法',
+        'ArchiveCodeExt.infoMenu.1':'名称',
+        'ArchiveCodeExt.infoMenu.2':'内容',
+        'ArchiveCodeExt.infoMenu.3':'类型',
+        'ArchiveCodeExt.infoMenu.4':'列表长度',
+
       },
 
       en: {
         'ArchiveCodeExt.extensionName': 'Archive Code',
-        'ArchiveCodeExt.init': 'start serialization',
-        'ArchiveCodeExt.serialization': 'add content to series:name:[name] content:[value]',
-        'ArchiveCodeExt.serializationForVariable': 'add variable to series:name:[name] variable:[var]',
-        'ArchiveCodeExt.serializationForList': 'add list to series:name:[name] list:[list]',
-        'ArchiveCodeExt.stop': 'end serialization',
-        'ArchiveCodeExt.result': 'serialization result',
-        'ArchiveCodeExt.deserialization': 'deserialize:[code]',
+        'ArchiveCodeExt.init': 'empty Container',
+        'ArchiveCodeExt.serialization': 'add content[value] to Container, name as[name]',
+        'ArchiveCodeExt.serializationForVariable': 'add variable[var] to Container, name as[name]',
+        'ArchiveCodeExt.serializationForList': 'add list[list] to Container, name as[name]',
+        //'ArchiveCodeExt.stop': 'end serialization',
+        'ArchiveCodeExt.result': 'Container in string form',
+        'ArchiveCodeExt.deserialization': 'parse string[code] to Container',
         'ArchiveCodeExt.getContent': 'content of[key]',
         'ArchiveCodeExt.saveContentToVar': 'save [key]to variable[var]',
         'ArchiveCodeExt.saveContentToList': 'save[key]to list[list]',
-        'ArchiveCodeExt.deserializable': 'deserializeSuccessfully?',
+        'ArchiveCodeExt.deserializable': 'parse successfullly?',
+        'ArchiveCodeExt.getAmount':'the amount of contents in Container',
+        'ArchiveCodeExt.getContentByNumber':'get [type]of #[index]content',
         'ArchiveCodeExt.encrypt':'encrypt[str]with key[key]',
         'ArchiveCodeExt.decrypt':'decrypt[str]with key[key]',
         'ArchiveCodeExt.writeClipboard':'copy[str]to clipboard',
-        'ArchiveCodeExt.showContent2json':'deserialization result',
+        //'ArchiveCodeExt.showContent2json':'deserialization result',
         'ArchiveCodeExt.getContentOfList':'#[n] of list[key]',
         'ArchiveCodeExt.getUnicode':'get Unicode of[c]',
-        'ArchiveCodeExt.getCharByUnicode':' character of Unicode[code]'
+        'ArchiveCodeExt.getCharByUnicode':' character of Unicode[code]',
+        'ArchiveCodeExt.methodMenu.1':'Arkos cipher',
+        'ArchiveCodeExt.infoMenu.1':'name',
+        'ArchiveCodeExt.infoMenu.2':'value',
+        'ArchiveCodeExt.infoMenu.3':'type',
+        'ArchiveCodeExt.infoMenu.4':'lenth of list',
       },
     })
 
@@ -176,6 +191,35 @@ class Archive_code {
             }
           }
         },
+        {
+          //反序列化是否成功
+          opcode: 'deserializable',
+          blockType: 'Boolean',
+          text: this.formatMessage('ArchiveCodeExt.deserializable'),
+        },
+        {
+          //返回容器中数据数量
+          opcode: 'getAmount',
+          blockType: 'reporter',
+          text: this.formatMessage('ArchiveCodeExt.getAmount'),
+        },
+        {
+          //获取第n(从1开始)个内容，的(1名称2内容3类型4列表长度)
+          opcode: 'getContentByNumber',
+          blockType: 'reporter',
+          text: this.formatMessage('ArchiveCodeExt.getContentByNumber'),
+          arguments: {
+            index: {
+              type: 'number',
+              //menu: 'varMenu2',
+              defaultValue: '1'
+            },
+            type: {
+              type: 'number',
+              menu: 'infoMenu',
+            }
+          }
+        },
         // {
         //   //返回反序列化结果
         //   opcode: 'showContent2json',
@@ -246,12 +290,6 @@ class Archive_code {
               menu: 'listMenu'
             }
           }
-        },
-        {
-          //反序列化是否成功
-          opcode: 'deserializable',
-          blockType: 'Boolean',
-          text: this.formatMessage('ArchiveCodeExt.deserializable'),
         },
         {
           //加密
@@ -345,7 +383,28 @@ class Archive_code {
           items: 'findAllListsContents'
         },
         methodMenu: [
-          'Arkos加密法',
+          {
+            text: this.formatMessage('ArchiveCodeExt.methodMenu.1'),
+            value: 1
+          },
+        ],
+        infoMenu: [
+          {
+            text: this.formatMessage('ArchiveCodeExt.infoMenu.1'),
+            value: 1
+          },
+          {
+            text: this.formatMessage('ArchiveCodeExt.infoMenu.2'),
+            value: 2
+          },
+          {
+            text: this.formatMessage('ArchiveCodeExt.infoMenu.3'),
+            value: 3
+          },
+          {
+            text: this.formatMessage('ArchiveCodeExt.infoMenu.4'),
+            value: 4
+          },
         ]
       },
     };
@@ -416,6 +475,31 @@ class Archive_code {
 
   deserializable() {
     return this.deserializeSuccessfully
+  }
+
+  getAmount(){
+    let count=0;
+    for(let key in this.content){
+      count++;
+    }
+    return count;
+  }
+
+  getContentByNumber(args){
+    let key = Object.keys(this.content)[args.index-1]
+    switch (args.type) {
+      case 1://名称
+        return key;
+      case 2://内容
+        return this.content[key];
+      case 3://类型
+        return (typeof this.content[key] === 'object') ? '列表' : '变量';
+      case 4://列表长度
+        return (typeof this.content[key] === 'object') ? this.content[key].length : '';
+      default:
+        return '';
+    }
+    
   }
 
   getContent(args, util) {
