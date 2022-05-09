@@ -40,6 +40,7 @@ class Archive_code {
         'ArchiveCodeExt.encrypt':'以[method]加密[str],密匙[key]',
         'ArchiveCodeExt.decrypt':'以[method]解密[str],密匙[key]',
         'ArchiveCodeExt.writeClipboard':'复制[str]到剪贴板',
+        'ArchiveCodeExt.getLengthOfList':'容器中名称为[key]的列表的长度',
         'ArchiveCodeExt.getContentOfList':'容器中名称为[key]的列表的第[n]项',
         'ArchiveCodeExt.getUnicode':'字符[c]的Unicode',
         'ArchiveCodeExt.getCharByUnicode':'Unicode[code]对应字符',
@@ -71,6 +72,7 @@ class Archive_code {
         'ArchiveCodeExt.writeClipboard':'copy[str]to clipboard',
         //'ArchiveCodeExt.showContent2json':'deserialization result',
         'ArchiveCodeExt.getContentOfList':'#[n] of list[key]',
+        'ArchiveCodeExt.getLengthOfList':'length of list[key]',
         'ArchiveCodeExt.getUnicode':'get Unicode of[c]',
         'ArchiveCodeExt.getCharByUnicode':' character of Unicode[code]',
         'ArchiveCodeExt.methodMenu.1':'Arkos cipher',
@@ -237,6 +239,19 @@ class Archive_code {
               //menu: 'varMenu2',
               defaultValue: '金币'
             }
+          }
+        },
+        {
+          //返回名称为..的列表的第n项
+          opcode: 'getLengthOfList',
+          blockType: 'reporter',
+          text: this.formatMessage('ArchiveCodeExt.getLengthOfList'),
+          arguments: {
+            key: {
+              type: 'string',
+              //menu: 'varMenu2',
+              defaultValue: '背包'
+            },
           }
         },
         {
@@ -530,6 +545,19 @@ class Archive_code {
       else return t[args.n-1]
     }
   }
+
+  getLengthOfList(args, util) {
+    // const variable = util.target.lookupVariableById(args.var);
+    // variable.value = args.key;
+    //如果没有这项，或者不是列表
+    let t = this.content[args.key]
+    if(t === undefined||typeof t !== 'object'){
+      return '';
+    }else {
+      return t.length;
+    }
+  }
+
 
 
   saveContentToVar(args, util) {
