@@ -644,7 +644,7 @@ class Archive_code {
     }
   }
 
-  findAllVar(util) {
+  findAllVar() {
     const list =[];
     let temp = this.runtime._stageTarget.variables
     Object.keys(temp).forEach(obj => {
@@ -656,7 +656,7 @@ class Archive_code {
       }
     });
     temp = this.runtime._editingTarget.variables
-    if(!util.target.isStage) {
+    //if(!util.target.isStage) {
       Object.keys(temp).forEach(obj => {
         if (temp[obj].type === '') {
           list.push({
@@ -665,7 +665,7 @@ class Archive_code {
           });
         }
       });
-    }
+    //}
     if(list.length === 0)
     {
       list.push({
@@ -684,7 +684,7 @@ class Archive_code {
     return list;
   }
 
-  findAllList(util) {
+  findAllList() {
     const list = [];
     let temp = this.runtime._stageTarget.variables
     Object.keys(temp).forEach(obj => {
@@ -695,7 +695,7 @@ class Archive_code {
         });
       }
     });
-    if(!util.target.isStage) {
+    //if(!util.target.isStage) {
       temp = this.runtime._editingTarget.variables
       Object.keys(temp).forEach(obj => {
         if (temp[obj].type !== '') {
@@ -706,7 +706,7 @@ class Archive_code {
           });
         }
       });
-    }
+    //}
     if(list.length === 0)
     {
       list.push({
