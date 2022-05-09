@@ -67,8 +67,8 @@ class Archive_code {
         'ArchiveCodeExt.deserializable': 'parse successfullly?',
         'ArchiveCodeExt.getAmount':'the amount of contents in Container',
         'ArchiveCodeExt.getContentByNumber':'get [type]of #[index]content',
-        'ArchiveCodeExt.encrypt':'encrypt[str]with key[key]',
-        'ArchiveCodeExt.decrypt':'decrypt[str]with key[key]',
+        'ArchiveCodeExt.encrypt':'use[method]to encrypt[str]with key[key]',
+        'ArchiveCodeExt.decrypt':'use[method]to decrypt[str]with key[key]',
         'ArchiveCodeExt.writeClipboard':'copy[str]to clipboard',
         //'ArchiveCodeExt.showContent2json':'deserialization result',
         'ArchiveCodeExt.getContentOfList':'#[n] of list[key]',
@@ -644,7 +644,7 @@ class Archive_code {
     }
   }
 
-  findAllVar() {
+  findAllVar(util) {
     const list =[];
     let temp = this.runtime._stageTarget.variables
     Object.keys(temp).forEach(obj => {
@@ -656,14 +656,16 @@ class Archive_code {
       }
     });
     temp = this.runtime._editingTarget.variables
-    Object.keys(temp).forEach(obj => {
-      if (temp[obj].type === '') {
-        list.push({
-          text: `[私有变量]${temp[obj].name}`,
-          value: temp[obj].id,
-        });
-      }
-    });
+    if(!util.target.isStage) {
+      Object.keys(temp).forEach(obj => {
+        if (temp[obj].type === '') {
+          list.push({
+            text: `[私有变量]${temp[obj].name}`,
+            value: temp[obj].id,
+          });
+        }
+      });
+    }
     if(list.length === 0)
     {
       list.push({
@@ -682,7 +684,7 @@ class Archive_code {
     return list;
   }
 
-  findAllList() {
+  findAllList(util) {
     const list = [];
     let temp = this.runtime._stageTarget.variables
     Object.keys(temp).forEach(obj => {
@@ -693,16 +695,18 @@ class Archive_code {
         });
       }
     });
-    temp = this.runtime._editingTarget.variables
-    Object.keys(temp).forEach(obj => {
-      if (temp[obj].type !== '') {
-        list.push({
-          text: `[私有列表]${temp[obj].name}`,
-          value: temp[obj].id,
+    if(!util.target.isStage) {
+      temp = this.runtime._editingTarget.variables
+      Object.keys(temp).forEach(obj => {
+        if (temp[obj].type !== '') {
+          list.push({
+            text: `[私有列表]${temp[obj].name}`,
+            value: temp[obj].id,
 
-        });
-      }
-    });
+          });
+        }
+      });
+    }
     if(list.length === 0)
     {
       list.push({
