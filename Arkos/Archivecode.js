@@ -521,7 +521,7 @@ class Archive_code {
     return this.deserializeSuccessfully
   }
 
-  ifExist(){
+  ifExist(args){
     return (this.content.hasOwnProperty(args.key));
   }
 
