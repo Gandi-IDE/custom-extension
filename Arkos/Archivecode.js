@@ -36,6 +36,7 @@ class Archive_code {
         'ArchiveCodeExt.saveContentToList': '将容器中名称为[key]的内容保存到列表[list]',
         'ArchiveCodeExt.deserializable': '读取成功？',
         'ArchiveCodeExt.getAmount':'容器中内容的总数',
+        'ArchiveCodeExt.ifExist':'容器是否存在名为[key]的内容',
         'ArchiveCodeExt.getContentByNumber':'获取容器中第[index]个内容的[type]',
         'ArchiveCodeExt.encrypt':'以[method]加密[str],密匙[key]',
         'ArchiveCodeExt.decrypt':'以[method]解密[str],密匙[key]',
@@ -67,6 +68,7 @@ class Archive_code {
         'ArchiveCodeExt.saveContentToList': 'save[key]to list[list]',
         'ArchiveCodeExt.deserializable': 'parse successfullly?',
         'ArchiveCodeExt.getAmount':'the amount of contents in Container',
+        'ArchiveCodeExt.ifExist':'Container contains[key]?',
         'ArchiveCodeExt.getContentByNumber':'get [type]of #[index]content',
         'ArchiveCodeExt.encrypt':'use[method]to encrypt[str]with key[key]',
         'ArchiveCodeExt.decrypt':'use[method]to decrypt[str]with key[key]',
@@ -230,6 +232,19 @@ class Archive_code {
         //   blockType: 'reporter',
         //   text: this.formatMessage('ArchiveCodeExt.showContent2json'),
         // },
+        {
+          //返回名称为..的内容
+          opcode: 'ifExist',
+          blockType: 'Boolean',
+          text: this.formatMessage('ArchiveCodeExt.ifExist'),
+          arguments: {
+            key: {
+              type: 'string',
+              //menu: 'varMenu2',
+              defaultValue: '金币'
+            }
+          }
+        },
         {
           //返回名称为..的内容
           opcode: 'getContent',
@@ -504,6 +519,10 @@ class Archive_code {
 
   deserializable() {
     return this.deserializeSuccessfully
+  }
+
+  ifExist(){
+    return (this.content.hasOwnProperty(args.key));
   }
 
   getAmount(){
