@@ -725,7 +725,7 @@ class Archive_code {
     const list = [];
     let temp = this.runtime._stageTarget.variables
     Object.keys(temp).forEach(obj => {
-      if (temp[obj].type !== '') {
+      if (temp[obj].type === 'list') {
         console.log(temp[obj].type)
         list.push({
           text: `${temp[obj].name}`,
@@ -736,7 +736,7 @@ class Archive_code {
     //if(!util.target.isStage) {
       temp = this.runtime._editingTarget.variables
       Object.keys(temp).forEach(obj => {
-        if (temp[obj].type !== '') {
+        if (temp[obj].type === 'list') {
           list.push({
             text: `[私有列表]${temp[obj].name}`,
             value: temp[obj].id,
