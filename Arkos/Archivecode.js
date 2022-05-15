@@ -726,6 +726,7 @@ class Archive_code {
     let temp = this.runtime._stageTarget.variables
     Object.keys(temp).forEach(obj => {
       if (temp[obj].type !== '') {
+        console.log(temp[obj].type)
         list.push({
           text: `${temp[obj].name}`,
           value: temp[obj].id,
