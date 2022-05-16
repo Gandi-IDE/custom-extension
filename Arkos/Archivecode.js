@@ -9,11 +9,11 @@ class Archive_code {
     this.runtime = runtime
     this._archive_code = ''         //生成的序列结果
     this.deserializeSuccessfully = false   //存反序列化是否成功
-     //存需要序列化的内容  
-    this.content = { 
+    //存需要序列化的内容  
+    this.content = {
       金币: 200,
-      背包: ["木头",233]
-    }     
+      背包: ["木头", 233]
+    }
     //存反序列化结果
     //this.content2 = {};
     //Object.assign(this.content2,this.content)
@@ -35,22 +35,23 @@ class Archive_code {
         'ArchiveCodeExt.saveContentToVar': '将容器中名称为[key]的内容保存到变量[var]',
         'ArchiveCodeExt.saveContentToList': '将容器中名称为[key]的内容保存到列表[list]',
         'ArchiveCodeExt.deserializable': '读取成功？',
-        'ArchiveCodeExt.getAmount':'容器中内容的总数',
-        'ArchiveCodeExt.ifExist':'容器是否存在名为[key]的内容',
-        'ArchiveCodeExt.getContentByNumber':'获取容器中第[index]个内容的[type]',
-        'ArchiveCodeExt.encrypt':'以[method]加密[str],密匙[key]',
-        'ArchiveCodeExt.decrypt':'以[method]解密[str],密匙[key]',
-        'ArchiveCodeExt.writeClipboard':'复制[str]到剪贴板',
-        'ArchiveCodeExt.getLengthOfList':'容器中名称为[key]的列表的长度',
-        'ArchiveCodeExt.getContentOfList':'容器中名称为[key]的列表的第[n]项',
-        'ArchiveCodeExt.getUnicode':'字符[c]的Unicode',
-        'ArchiveCodeExt.getCharByUnicode':'Unicode[code]对应字符',
-        'ArchiveCodeExt.methodMenu.1':'Arkos加密法',
-        'ArchiveCodeExt.infoMenu.1':'名称',
-        'ArchiveCodeExt.infoMenu.2':'内容',
-        'ArchiveCodeExt.infoMenu.3':'类型',
-        'ArchiveCodeExt.infoMenu.4':'列表长度',
-        'ArchiveCodeExt.delete':'删除容器中名为[key]的内容',
+        'ArchiveCodeExt.getAmount': '容器中内容的总数',
+        'ArchiveCodeExt.ifExist': '容器是否存在名为[key]的内容',
+        'ArchiveCodeExt.getContentByNumber': '获取容器中第[index]个内容的[type]',
+        'ArchiveCodeExt.encrypt': '以[method]加密[str],密匙[key]',
+        'ArchiveCodeExt.decrypt': '以[method]解密[str],密匙[key]',
+        'ArchiveCodeExt.writeClipboard': '复制[str]到剪贴板',
+        'ArchiveCodeExt.getLengthOfList': '容器中名称为[key]的列表的长度',
+        'ArchiveCodeExt.getContentOfList': '容器中名称为[key]的列表的第[n]项',
+        'ArchiveCodeExt.getUnicode': '字符[c]的Unicode',
+        'ArchiveCodeExt.getCharByUnicode': 'Unicode[code]对应字符',
+        'ArchiveCodeExt.methodMenu.1': 'Arkos加密法',
+        'ArchiveCodeExt.methodMenu.2': '分裂加密法',
+        'ArchiveCodeExt.infoMenu.1': '名称',
+        'ArchiveCodeExt.infoMenu.2': '内容',
+        'ArchiveCodeExt.infoMenu.3': '类型',
+        'ArchiveCodeExt.infoMenu.4': '列表长度',
+        'ArchiveCodeExt.delete': '删除容器中名为[key]的内容',
 
       },
 
@@ -67,36 +68,37 @@ class Archive_code {
         'ArchiveCodeExt.saveContentToVar': 'save [key]to variable[var]',
         'ArchiveCodeExt.saveContentToList': 'save[key]to list[list]',
         'ArchiveCodeExt.deserializable': 'parse successfullly?',
-        'ArchiveCodeExt.getAmount':'the amount of contents in Container',
-        'ArchiveCodeExt.ifExist':'Container contains[key]?',
-        'ArchiveCodeExt.getContentByNumber':'get [type]of #[index]content',
-        'ArchiveCodeExt.encrypt':'use[method]to encrypt[str]with key[key]',
-        'ArchiveCodeExt.decrypt':'use[method]to decrypt[str]with key[key]',
-        'ArchiveCodeExt.writeClipboard':'copy[str]to clipboard',
+        'ArchiveCodeExt.getAmount': 'the amount of contents in Container',
+        'ArchiveCodeExt.ifExist': 'Container contains[key]?',
+        'ArchiveCodeExt.getContentByNumber': 'get [type]of #[index]content',
+        'ArchiveCodeExt.encrypt': 'use[method]to encrypt[str]with key[key]',
+        'ArchiveCodeExt.decrypt': 'use[method]to decrypt[str]with key[key]',
+        'ArchiveCodeExt.writeClipboard': 'copy[str]to clipboard',
         //'ArchiveCodeExt.showContent2json':'deserialization result',
-        'ArchiveCodeExt.getContentOfList':'#[n] of list[key]',
-        'ArchiveCodeExt.getLengthOfList':'length of list[key]',
-        'ArchiveCodeExt.getUnicode':'get Unicode of[c]',
-        'ArchiveCodeExt.getCharByUnicode':' character of Unicode[code]',
-        'ArchiveCodeExt.methodMenu.1':'Arkos cipher',
-        'ArchiveCodeExt.infoMenu.1':'name',
-        'ArchiveCodeExt.infoMenu.2':'value',
-        'ArchiveCodeExt.infoMenu.3':'type',
-        'ArchiveCodeExt.infoMenu.4':'lenth of list',
-        'ArchiveCodeExt.delete':'Delete content[key] in Container'
+        'ArchiveCodeExt.getContentOfList': '#[n] of list[key]',
+        'ArchiveCodeExt.getLengthOfList': 'length of list[key]',
+        'ArchiveCodeExt.getUnicode': 'get Unicode of[c]',
+        'ArchiveCodeExt.getCharByUnicode': ' character of Unicode[code]',
+        'ArchiveCodeExt.methodMenu.1': 'Arkos cipher',
+        'ArchiveCodeExt.methodMenu.2': 'mitotic encryption',
+        'ArchiveCodeExt.infoMenu.1': 'name',
+        'ArchiveCodeExt.infoMenu.2': 'value',
+        'ArchiveCodeExt.infoMenu.3': 'type',
+        'ArchiveCodeExt.infoMenu.4': 'lenth of list',
+        'ArchiveCodeExt.delete': 'Delete content[key] in Container'
       },
     })
 
   }
 
   //每次读取archive_code会生成一次
-  get archive_code(){
+  get archive_code() {
     this.setArchive_code();
     return this._archive_code;
   }
 
   //根据content的内容，将其JSON化，存到archive_code
-  setArchive_code(){
+  setArchive_code() {
     this._archive_code = JSON.stringify(this.content);
   }
 
@@ -431,6 +433,10 @@ class Archive_code {
             text: this.formatMessage('ArchiveCodeExt.methodMenu.1'),
             value: '1'
           },
+          {
+            text: this.formatMessage('ArchiveCodeExt.methodMenu.2'),
+            value: '2'
+          },
         ],
         infoMenu: [
           {
@@ -489,7 +495,7 @@ class Archive_code {
     //   this.archive_code += ','
     // const variable = util.target.lookupVariableById(args.var);
     // this.archive_code += `"${args.name}":${JSON.stringify(variable.value)}`
-    if(args.var !== 'empty'){
+    if (args.var !== 'empty') {
       const variable = util.target.lookupVariableById(args.var);
       this.content[args.name] = variable.value;
     }
@@ -500,17 +506,17 @@ class Archive_code {
     //   this.archive_code += ','
     // const list = util.target.lookupVariableById(args.list);
     // this.archive_code += `"${args.name}":${JSON.stringify(list)}`
-    if(args.list !== 'empty'){
+    if (args.list !== 'empty') {
       const list = util.target.lookupVariableById(args.list);
       this.content[args.name] = list.value;
     }
   }
 
   deserialization(args) {
-    try{
-    this.content = JSON.parse(args.code)
-    this.deserializeSuccessfully = true;
-    }catch(e){
+    try {
+      this.content = JSON.parse(args.code)
+      this.deserializeSuccessfully = true;
+    } catch (e) {
       this.deserializeSuccessfully = false;
       //this.content2 = {}
     }
@@ -521,21 +527,21 @@ class Archive_code {
     return this.deserializeSuccessfully
   }
 
-  ifExist(args){
+  ifExist(args) {
     return (this.content.hasOwnProperty(args.key));
   }
 
-  getAmount(){
-    let count=0;
-    for(let key in this.content){
+  getAmount() {
+    let count = 0;
+    for (let key in this.content) {
       count++;
     }
     return count;
   }
 
-  getContentByNumber(args){
-    let key = Object.keys(this.content)[args.index-1]
-    if(key === undefined) return '';
+  getContentByNumber(args) {
+    let key = Object.keys(this.content)[args.index - 1]
+    if (key === undefined) return '';
     switch (args.type) {
       case '1'://名称
         return key;
@@ -548,21 +554,21 @@ class Archive_code {
       default:
         return '';
     }
-    
+
   }
 
   getContent(args, util) {
     // const variable = util.target.lookupVariableById(args.var);
     // variable.value = args.key;
 
-    return (this.content[args.key] === undefined) ? '': String(this.content[args.key])
+    return (this.content[args.key] === undefined) ? '' : String(this.content[args.key])
   }
 
-  getUnicode(args){
+  getUnicode(args) {
     return args.c.charCodeAt(0)
   }
 
-  getCharByUnicode(args){
+  getCharByUnicode(args) {
     return String.fromCharCode(args.code)
   }
 
@@ -571,11 +577,11 @@ class Archive_code {
     // variable.value = args.key;
     //如果没有这项，或者不是列表
     let t = this.content[args.key]
-    if(t === undefined||typeof t !== 'object'){
+    if (t === undefined || typeof t !== 'object') {
       return '';
-    }else {
-      if(t[args.n-1] === undefined) return '';
-      else return t[args.n-1]
+    } else {
+      if (t[args.n - 1] === undefined) return '';
+      else return t[args.n - 1]
     }
   }
 
@@ -584,9 +590,9 @@ class Archive_code {
     // variable.value = args.key;
     //如果没有这项，或者不是列表
     let t = this.content[args.key]
-    if(t === undefined||typeof t !== 'object'){
+    if (t === undefined || typeof t !== 'object') {
       return '';
-    }else {
+    } else {
       return t.length;
     }
   }
@@ -594,20 +600,19 @@ class Archive_code {
 
 
   saveContentToVar(args, util) {
-    if(args.var !== 'empty'){
+    if (args.var !== 'empty') {
       const variable = util.target.lookupVariableById(args.var);
       variable.value = String(this.content[args.key]);
-      if(variable.value === "undefined")  variable.value = '';
+      if (variable.value === "undefined") variable.value = '';
     }
   }
 
   saveContentToList(args, util) {
-    if(args.list !== 'empty'){
+    if (args.list !== 'empty') {
       const list = util.target.lookupVariableById(args.list);
       list.value = this.content[args.key];
-      if(list.value === undefined)  list.value = [];
-      if(typeof list.value !== 'object')
-      {
+      if (list.value === undefined) list.value = [];
+      if (typeof list.value !== 'object') {
         list.value = [list.value];
       }
     }
@@ -617,33 +622,9 @@ class Archive_code {
     Reflect.deleteProperty(this.content, args.key);
   }
 
-  //加密
-  encrypt(args) {
-    args.key = this.keyVar(args.key)
-    args.str=String(args.str)
-    let b = ''
-    for (let i = 0; i < args.str.length; i++) {
-      b += this.enChar(args.str[i], args.key+i)
-    }
-    return b
-  }
-
-
-  //解密
-  decrypt(args) {
-    args.key = this.keyVar(args.key)
-    args.str=String(args.str)
-    let b = ''
-    for (let i = 0; i < args.str.length; i+=2) {
-      b += this.deChar(args.str[i], (i+2>args.str.length)? '\0':args.str[i+1], args.key+i/2)
-    }
-    //console.log('123')
-    return b
-  }
-
   //将密匙转换为一个值
   keyVar(k) {
-    k=String(k)
+    k = String(k)
     let t = 13;
     for (let i = 0; i < k.length; i++) {
       t += k.charCodeAt(i)
@@ -651,42 +632,129 @@ class Archive_code {
     }
     return t
   }
-  
 
-  enChar(c, p) {
-    let t = (c.charCodeAt(0) + p) % 65536
-  	t=t - t % 10 + (9 - t % 10)
-
-	c1=String.fromCharCode(t>>8)
-	c2=String.fromCharCode(t%256)
-    return c1+c2
+  //加密
+  encrypt(args) {
+    switch (args.method) {
+      case '1':
+        return ArkosEncrypt(args);
+      case '2':
+        return encrypt2(args);
+      default:
+        return '';
+    }
   }
-  
-  
-  deChar(c1, c2, p) {
-    let t = c1.charCodeAt(0)*256+c2.charCodeAt(0)
-	  t%=65536
+
+  //解密
+  decrypt(args) {
+    switch (args.method) {
+      case '1':
+        return ArkosDecrypt(args);
+      case '2':
+        return decrypt2(args);
+      default:
+        return '';
+    }
+  }
+
+  //Arkos加密法
+  ArkosEncrypt(args) {
+    args.key = this.keyVar(args.key)
+    args.str = String(args.str)
+    let b = ''
+    for (let i = 0; i < args.str.length; i++) {
+      b += this.enChar1(args.str[i], args.key + i)
+    }
+    return b
+  }
+
+
+  //Arkos解密
+  ArkosDecrypt(args) {
+    args.key = this.keyVar(args.key)
+    args.str = String(args.str)
+    let b = ''
+    for (let i = 0; i < args.str.length; i++) {
+      b += this.deChar1(args.str[i], args.key + i)
+    }
+    //console.log('123')
+    return b
+  }
+
+  enChar1(c, p) {
+    let t = (c.charCodeAt(0) + p) % 54533  //
+    t = t - t % 10 + (9 - t % 10)
+
+    return String.fromCharCode(t)
+  }
+
+
+  deChar1(c, p) {
+    let t = c.charCodeAt(0)
+    //t%=65536
+    t = t - t % 10 + (9 - t % 10)
+    t = (t - p) % 54533
+    if (t < 0) t += 54533
+    return String.fromCharCode(t)
+  }
+
+
+  //分裂加密法
+  encrypt2(args) {
+    args.key = this.keyVar(args.key)
+    args.str = String(args.str)
+    let b = ''
+    for (let i = 0; i < args.str.length; i++) {
+      b += this.enChar2(args.str[i], args.key + i)
+    }
+    return b
+  }
+
+  //分裂解密
+  decrypt2(args) {
+    args.key = this.keyVar(args.key)
+    args.str = String(args.str)
+    let b = ''
+    for (let i = 0; i < args.str.length; i += 2) {
+      b += this.deChar2(args.str[i], (i + 2 > args.str.length) ? '\0' : args.str[i + 1], args.key + i / 2)
+    }
+    //console.log('123')
+    return b
+  }
+
+  enChar2(c, p) {
+    let t = (c.charCodeAt(0) + p) % 65536
+    t = t - t % 10 + (9 - t % 10)
+
+    c1 = String.fromCharCode(t >> 8)
+    c2 = String.fromCharCode(t % 256)
+    return c1 + c2
+  }
+
+  deChar2(c1, c2, p) {
+    let t = c1.charCodeAt(0) * 256 + c2.charCodeAt(0)
+    t %= 65536
     t = t - t % 10 + (9 - t % 10)
     t = (t - p + 65536) % 65536
     return String.fromCharCode(t)
   }
 
-  writeClipboard(args){
+  writeClipboard(args) {
     navigator.clipboard.writeText(args.str);
   }
 
-  compare(propName){
-    return (a, b) => { 
-      a=a[propName]
-      b=b[propName]
-      if(a > b) return 1;
-      else if(a < b) return -1;
+  compare(propName) {
+    return (a, b) => {
+      a = a[propName]
+      b = b[propName]
+      if (a > b) return 1;
+      else if (a < b) return -1;
       else return 0;
     }
   }
 
   findAllVar() {
-    const list =[];
+    const list = [];
     let temp = this.runtime._stageTarget.variables
     Object.keys(temp).forEach(obj => {
       if (temp[obj].type === '') {
@@ -698,17 +766,16 @@ class Archive_code {
     });
     temp = this.runtime._editingTarget.variables
     //if(!util.target.isStage) {
-      Object.keys(temp).forEach(obj => {
-        if (temp[obj].type === '') {
-          list.push({
-            text: `[私有变量]${temp[obj].name}`,
-            value: temp[obj].id,
-          });
-        }
-      });
+    Object.keys(temp).forEach(obj => {
+      if (temp[obj].type === '') {
+        list.push({
+          text: `[私有变量]${temp[obj].name}`,
+          value: temp[obj].id,
+        });
+      }
+    });
     //}
-    if(list.length === 0)
-    {
+    if (list.length === 0) {
       list.push({
         text: `*没有变量*`,
         value: 'empty',
@@ -738,19 +805,18 @@ class Archive_code {
       }
     });
     //if(!util.target.isStage) {
-      temp = this.runtime._editingTarget.variables
-      Object.keys(temp).forEach(obj => {
-        if (temp[obj].type === 'list') {
-          list.push({
-            text: `[私有列表]${temp[obj].name}`,
-            value: temp[obj].id,
+    temp = this.runtime._editingTarget.variables
+    Object.keys(temp).forEach(obj => {
+      if (temp[obj].type === 'list') {
+        list.push({
+          text: `[私有列表]${temp[obj].name}`,
+          value: temp[obj].id,
 
-          });
-        }
-      });
+        });
+      }
+    });
     //}
-    if(list.length === 0)
-    {
+    if (list.length === 0) {
       list.push({
         text: `*没有列表*`,
         value: 'empty',
@@ -760,7 +826,7 @@ class Archive_code {
     return list;
   }
 
-  findAllVarContents(){
+  findAllVarContents() {
     const list = [];
     let temp = this.content
     Object.keys(temp).forEach(obj => {
@@ -771,8 +837,7 @@ class Archive_code {
         });
       }
     });
-    if(list.length === 0)
-    {
+    if (list.length === 0) {
       list.push({
         text: '*没有变量*',
         value: 'empty',
@@ -782,8 +847,8 @@ class Archive_code {
     return list;
   }
 
-  findAllListsContents(){
-     const list = [];
+  findAllListsContents() {
+    const list = [];
     let temp = this.content
     Object.keys(temp).forEach(obj => {
       if (typeof temp[obj] === 'object') {
@@ -793,8 +858,7 @@ class Archive_code {
         });
       }
     });
-    if(list.length === 0)
-    {
+    if (list.length === 0) {
       list.push({
         text: '*没有列表*',
         value: 'empty',
