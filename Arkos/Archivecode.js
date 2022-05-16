@@ -634,8 +634,8 @@ class Archive_code {
     args.key = this.keyVar(args.key)
     args.str=String(args.str)
     let b = ''
-    for (let i = 0; i < args.str.length; i++) {
-      b += this.deChar(args.str[i], args.key+i)
+    for (let i = 0; i < args.str.length; i+=2) {
+      b += this.deChar(args.str[i], (i+2>args.str.length)? '\0':args.str[i+1], args.key+i/2)
     }
     //console.log('123')
     return b
@@ -655,13 +655,17 @@ class Archive_code {
 
   enChar(c, p) {
     let t = (c.charCodeAt(0) + p) % 65536
-  
-    return String.fromCharCode(t - t % 10 + (9 - t % 10))
+  	t=t - t % 10 + (9 - t % 10)
+
+	c1=String.fromCharCode(t>>8)
+	c2=String.fromCharCode(t%256)
+    return c1+c2
   }
   
   
-  deChar(c, p) {
-    let t = c.charCodeAt(0)
+  deChar(c1, c2, p) {
+    let t = c1.charCodeAt(0)*256+c2.charCodeAt(0)
+	  t%=65536
     t = t - t % 10 + (9 - t % 10)
     t = (t - p + 65536) % 65536
     return String.fromCharCode(t)
