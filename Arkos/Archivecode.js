@@ -726,8 +726,8 @@ class Archive_code {
     let t = (c.charCodeAt(0) + p) % 65536
     t = t - t % 10 + (9 - t % 10)
 
-    c1 = String.fromCharCode(t >> 8)
-    c2 = String.fromCharCode(t % 256)
+    let c1 = String.fromCharCode(t >> 8)
+    let c2 = String.fromCharCode(t % 256)
     return c1 + c2
   }
 
