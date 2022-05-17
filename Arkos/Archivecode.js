@@ -433,10 +433,10 @@ class Archive_code {
             text: this.formatMessage('ArchiveCodeExt.methodMenu.1'),
             value: '1'
           },
-          {
-            text: this.formatMessage('ArchiveCodeExt.methodMenu.2'),
-            value: '2'
-          },
+          // {
+          //   text: this.formatMessage('ArchiveCodeExt.methodMenu.2'),
+          //   value: '2'
+          // },
         ],
         infoMenu: [
           {
