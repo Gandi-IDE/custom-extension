@@ -637,9 +637,9 @@ class Archive_code {
   encrypt(args) {
     switch (args.method) {
       case '1':
-        return ArkosEncrypt(args);
+        return this.ArkosEncrypt(args);
       case '2':
-        return encrypt2(args);
+        return this.encrypt2(args);
       default:
         return '';
     }
@@ -649,9 +649,9 @@ class Archive_code {
   decrypt(args) {
     switch (args.method) {
       case '1':
-        return ArkosDecrypt(args);
+        return this.ArkosDecrypt(args);
       case '2':
-        return decrypt2(args);
+        return this.decrypt2(args);
       default:
         return '';
     }
@@ -797,7 +797,7 @@ class Archive_code {
     let temp = this.runtime._stageTarget.variables
     Object.keys(temp).forEach(obj => {
       if (temp[obj].type === 'list') {
-        console.log(temp[obj].type)
+        //console.log(temp[obj].type)
         list.push({
           text: `${temp[obj].name}`,
           value: temp[obj].id,
