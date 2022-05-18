@@ -1,4 +1,6 @@
 import Cast from '../utils/cast.js'
+import cover from './assets/cover2.png'
+import icon from './assets/icon2.svg'
 
 //合作者：Nights:帮忙写了代码框架，并且给予了一些技术上的指导
 // console.log(Cast.toNumber('123'))
@@ -118,6 +120,9 @@ class Archive_code {
     return {
       id: 'Archivecode',  //  Archivecode
       name: this.formatMessage('ArchiveCodeExt.extensionName'),
+      color1: '#2FBC95',
+      menuIconURI: cover,
+      blockIconURI: icon,
       blocks: [
         {
           //开始序列化
@@ -888,8 +893,8 @@ window.tempExt = {
     name: 'hcn.extensionName',
     description: 'hcn.description',
     extensionId: 'Archivecode',
-    // iconURL: icon,
-    // insetIconURL: cover,
+    iconURL: icon,
+    insetIconURL: cover,
     featured: true,
     disabled: false,
     collaborator: 'only for hcn test',
