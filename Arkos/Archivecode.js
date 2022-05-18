@@ -4,7 +4,7 @@ import icon from './assets/icon2.svg'
 
 //合作者：Nights:帮忙写了代码框架，并且给予了一些技术上的指导
 // console.log(Cast.toNumber('123'))
-console.log(Cast.toNumber('aab'))
+//console.log(Cast.toNumber('aab'))
 
 class Archive_code {
   constructor(runtime) {
@@ -118,11 +118,11 @@ class Archive_code {
 
   getInfo() {
     return {
-      id: 'Archivecode',  //  Archivecode
+      id: 'ArchiveCode',  //  Archivecode
       name: this.formatMessage('ArchiveCodeExt.extensionName'),
       color1: '#2FBC95',
-      menuIconURI: cover,
-      blockIconURI: icon,
+      // menuIconURI: cover,
+      // blockIconURI: icon,
       blocks: [
         {
           //开始序列化
@@ -892,9 +892,9 @@ window.tempExt = {
   info: {
     name: 'hcn.extensionName',
     description: 'hcn.description',
-    extensionId: 'Archivecode',
-    //iconURL: icon,
-    //insetIconURL: cover,
+    extensionId: 'ArchiveCode',
+    // iconURL: icon,
+    // insetIconURL: cover,
     featured: true,
     disabled: false,
     collaborator: 'only for hcn test',
