@@ -765,7 +765,7 @@ class Archive_code {
       }
     });
     temp = this.runtime._editingTarget.variables
-    if (this.runtime._editingTarget === this.runtime._stageTarget) {
+    if (this.runtime._editingTarget !== this.runtime._stageTarget) {
       Object.keys(temp).forEach(obj => {
         if (temp[obj].type === '') {
           list.push({
@@ -804,7 +804,7 @@ class Archive_code {
         });
       }
     });
-    if (this.runtime._editingTarget === this.runtime._stageTarget) {
+    if (this.runtime._editingTarget !== this.runtime._stageTarget) {
       temp = this.runtime._editingTarget.variables
       Object.keys(temp).forEach(obj => {
         if (temp[obj].type === 'list') {
