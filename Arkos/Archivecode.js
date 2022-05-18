@@ -765,16 +765,16 @@ class Archive_code {
       }
     });
     temp = this.runtime._editingTarget.variables
-    //if(!util.target.isStage) {
-    Object.keys(temp).forEach(obj => {
-      if (temp[obj].type === '') {
-        list.push({
-          text: `[私有变量]${temp[obj].name}`,
-          value: temp[obj].id,
-        });
-      }
-    });
-    //}
+    if (this.runtime._editingTarget === this.runtime._stageTarget) {
+      Object.keys(temp).forEach(obj => {
+        if (temp[obj].type === '') {
+          list.push({
+            text: `[私有变量]${temp[obj].name}`,
+            value: temp[obj].id,
+          });
+        }
+      });
+    }
     if (list.length === 0) {
       list.push({
         text: `*没有变量*`,
@@ -804,18 +804,18 @@ class Archive_code {
         });
       }
     });
-    //if(!util.target.isStage) {
-    temp = this.runtime._editingTarget.variables
-    Object.keys(temp).forEach(obj => {
-      if (temp[obj].type === 'list') {
-        list.push({
-          text: `[私有列表]${temp[obj].name}`,
-          value: temp[obj].id,
+    if (this.runtime._editingTarget === this.runtime._stageTarget) {
+      temp = this.runtime._editingTarget.variables
+      Object.keys(temp).forEach(obj => {
+        if (temp[obj].type === 'list') {
+          list.push({
+            text: `[私有列表]${temp[obj].name}`,
+            value: temp[obj].id,
 
-        });
-      }
-    });
-    //}
+          });
+        }
+      });
+    }
     if (list.length === 0) {
       list.push({
         text: `*没有列表*`,
