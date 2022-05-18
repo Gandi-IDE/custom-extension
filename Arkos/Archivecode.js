@@ -1,6 +1,6 @@
 import Cast from '../utils/cast.js'
-import cover from './assets/cover2.png'
-import icon from './assets/icon2.svg'
+//import cover from './assets/cover2.png'
+//import icon from './assets/icon2.svg'
 
 //合作者：Nights:帮忙写了代码框架，并且给予了一些技术上的指导
 // console.log(Cast.toNumber('123'))
