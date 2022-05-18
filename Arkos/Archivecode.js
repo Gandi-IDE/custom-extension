@@ -118,7 +118,7 @@ class Archive_code {
 
   getInfo() {
     return {
-      id: 'ArchiveCode',  //  Archivecode
+      id: 'Archivecode',  //  Archivecode
       name: this.formatMessage('ArchiveCodeExt.extensionName'),
       color1: '#2FBC95',
       // menuIconURI: cover,
@@ -892,7 +892,7 @@ window.tempExt = {
   info: {
     name: 'hcn.extensionName',
     description: 'hcn.description',
-    extensionId: 'ArchiveCode',
+    extensionId: 'Archivecode',
     // iconURL: icon,
     // insetIconURL: cover,
     featured: true,
