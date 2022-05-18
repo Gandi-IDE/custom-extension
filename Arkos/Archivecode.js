@@ -764,8 +764,12 @@ class Archive_code {
         });
       }
     });
-    temp = this.runtime._editingTarget.variables
-    if (this.runtime._editingTarget !== this.runtime._stageTarget) {
+    try {
+      temp = this.runtime._editingTarget.variables
+    } catch (e) {
+      temp = 'e'
+    }
+    if (temp !=='e' && this.runtime._editingTarget !== this.runtime._stageTarget) {
       Object.keys(temp).forEach(obj => {
         if (temp[obj].type === '') {
           list.push({
@@ -804,8 +808,12 @@ class Archive_code {
         });
       }
     });
-    if (this.runtime._editingTarget !== this.runtime._stageTarget) {
+    try {
       temp = this.runtime._editingTarget.variables
+    } catch (e) {
+      temp = 'e'
+    }
+    if (temp !=='e'  && this.runtime._editingTarget !== this.runtime._stageTarget) {
       Object.keys(temp).forEach(obj => {
         if (temp[obj].type === 'list') {
           list.push({
