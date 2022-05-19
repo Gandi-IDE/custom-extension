@@ -519,8 +519,13 @@ class Archive_code {
 
   deserialization(args) {
     try {
-      this.content = JSON.parse(String(args.code))
-      this.deserializeSuccessfully = true;
+      this.content = JSON.parse(args.code)
+      if(typeof(this.content)==='object'&& this.content !== null ){
+        this.deserializeSuccessfully = true;
+      }else{
+        this.content = {};
+        this.deserializeSuccessfully = false;
+      }
     } catch (e) {
       this.deserializeSuccessfully = false;
       //this.content2 = {}
