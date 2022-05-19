@@ -519,7 +519,7 @@ class Archive_code {
 
   deserialization(args) {
     try {
-      this.content = JSON.parse(args.code)
+      this.content = JSON.parse(String(args.code))
       this.deserializeSuccessfully = true;
     } catch (e) {
       this.deserializeSuccessfully = false;
