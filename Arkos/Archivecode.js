@@ -603,7 +603,7 @@ class Archive_code {
     if (Array.isArray(t)) {
       let i = Cast.toNumber(args.n) - 1;
       if (i < 0 || i >= t.length) {
-      return '';
+        return '';
       }
       return t[i];
     } else {
