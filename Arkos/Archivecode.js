@@ -556,7 +556,22 @@ class Archive_code {
       case '2'://内容
         return this._anythingToNumberString(value);
       case '3'://类型
-        return (typeof this.content[key] === 'object') ? '列表' : '变量';
+        switch(typeof value){
+          case "object":
+            // 本地化问题：返回的值是中文
+            // 这一点可以统一用英文或者符号或者做成判断<名字为(abc)的数值是列表?>
+            // 或者符号化
+            // 列表 容器 变量 没有
+            // List Container Variable Unset
+            // []   {}   ""   undefined
+            return Array.isArray(value) ? '列表' : '容器';
+          case "string":
+          case "number":
+          case "boolean":
+            return '变量';
+          default:
+            return '';
+        }
       case '4'://列表长度
         return Array.isArray(value) ? value.length : '';
       default:
