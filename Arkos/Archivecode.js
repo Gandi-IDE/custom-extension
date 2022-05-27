@@ -538,15 +538,11 @@ class Archive_code {
   }
 
   ifExist(args) {
-    return (this.content.hasOwnProperty(args.key));
+    return Cast.toString(args.key) in this.content;
   }
 
   getAmount() {
-    let count = 0;
-    for (let key in this.content) {
-      count++;
-    }
-    return count;
+    return Object.keys(this.content).length;
   }
 
   getContentByNumber(args) {
@@ -560,7 +556,7 @@ class Archive_code {
       case '3'://类型
         return (typeof this.content[key] === 'object') ? '列表' : '变量';
       case '4'://列表长度
-        return (typeof this.content[key] === 'object') ? this.content[key].length : '';
+        return Array.isArray(value) ? value.length : '';
       default:
         return '';
     }
@@ -575,11 +571,11 @@ class Archive_code {
   }
 
   getUnicode(args) {
-    return args.c.charCodeAt(0)
+    return Cast.toString(args.c).charCodeAt(0)
   }
 
   getCharByUnicode(args) {
-    return String.fromCharCode(args.code)
+    return String.fromCharCode(Cast.toNumber(args.code))
   }
 
   getContentOfList(args, util) {
@@ -587,11 +583,14 @@ class Archive_code {
     // variable.value = args.key;
     //如果没有这项，或者不是列表
     let t = this.content[args.key]
-    if (t === undefined || typeof t !== 'object') {
+    if (Array.isArray(t)) {
+      let i = Cast.toNumber(args.n) - 1;
+      if (i < 0 || i >= t.length) {
       return '';
+      }
+      return t[i];
     } else {
-      if (t[args.n - 1] === undefined) return '';
-      else return t[args.n - 1]
+      return '';
     }
   }
 
@@ -600,11 +599,7 @@ class Archive_code {
     // variable.value = args.key;
     //如果没有这项，或者不是列表
     let t = this.content[args.key]
-    if (t === undefined || typeof t !== 'object') {
-      return '';
-    } else {
-      return t.length;
-    }
+    return Array.isArray(t) ? t.length : '';
   }
 
 
@@ -629,12 +624,12 @@ class Archive_code {
   }
 
   delete(args) {
-    Reflect.deleteProperty(this.content, args.key);
+    delete this.content[args.key];
   }
 
   //将密匙转换为一个值
   keyVar(k) {
-    k = String(k)
+    k = Cast.toString(k)
     let t = 13;
     for (let i = 0; i < k.length; i++) {
       t += k.charCodeAt(i)
@@ -670,7 +665,7 @@ class Archive_code {
   //Arkos加密法
   ArkosEncrypt(args) {
     args.key = this.keyVar(args.key)
-    args.str = String(args.str)
+    args.str = Cast.toString(args.str)
     let b = ''
     for (let i = 0; i < args.str.length; i++) {
       b += this.enChar1(args.str[i], args.key + i)
@@ -682,7 +677,7 @@ class Archive_code {
   //Arkos解密
   ArkosDecrypt(args) {
     args.key = this.keyVar(args.key)
-    args.str = String(args.str)
+    args.str = Cast.toString(args.str)
     let b = ''
     for (let i = 0; i < args.str.length; i++) {
       b += this.deChar1(args.str[i], args.key + i)
@@ -692,8 +687,9 @@ class Archive_code {
   }
 
   enChar1(c, p) {
+    // 目前我知道的unicode字符最大编码是131071
     let t = (c.charCodeAt(0) + p) % 54533  //
-    t = t - t % 10 + (9 - t % 10)
+    t += 9 - 2 * (t % 10)
 
     return String.fromCharCode(t)
   }
@@ -701,10 +697,8 @@ class Archive_code {
 
   deChar1(c, p) {
     let t = c.charCodeAt(0)
-    //t%=65536
-    t = t - t % 10 + (9 - t % 10)
-    t = (t - p) % 54533
-    if (t < 0) t += 54533
+    t += 9 - 2 * (t % 10)
+    t = (t - p + 54533) % 54533
     return String.fromCharCode(t)
   }
 
