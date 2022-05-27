@@ -518,16 +518,17 @@ class Archive_code {
   }
 
   deserialization(args) {
+    let content;
+    this.deserializeSuccessfully = false;
     try {
-      this.content = JSON.parse(args.code)
-      if(typeof(this.content)==='object'&& this.content !== null ){
+      // 如果解析失败，不要修改content。
+      content = JSON.parse(Cast.toString(args.code))
+      // 考虑数组[]情况。
+      if(typeof(content) === 'object' && !Array.isArray(content) && content !== null) {
+        this.content = content;
         this.deserializeSuccessfully = true;
-      }else{
-        this.content = {};
-        this.deserializeSuccessfully = false;
       }
     } catch (e) {
-      this.deserializeSuccessfully = false;
       //this.content2 = {}
     }
     //console.log(typeof this.content)
