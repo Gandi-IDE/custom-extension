@@ -796,7 +796,16 @@ class Archive_code {
   }
 
   writeClipboard(args) {
-    navigator.clipboard.writeText(args.str);
+    // 错误处理...
+    if("navigator" in window && "clipboard" in navigator && "writeText" in navigator.clipboard) {
+      navigator.clipboard.writeText(Cast.toString(args.str)).catch(x => writeClipboard2(args));
+    } else {
+      writeClipboard2(args);
+    }
+  }
+
+  writeClipboard2(args) {
+    prompt("无法访问剪贴板，请选择在下方文字点击右键或按 Ctrl+C 复制。", Cast.toString(args.str));
   }
 
   compare(propName) {
