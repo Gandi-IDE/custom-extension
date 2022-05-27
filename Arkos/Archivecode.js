@@ -657,11 +657,21 @@ class Archive_code {
   saveContentToList(args, util) {
     if (args.list !== 'empty') {
       const list = util.target.lookupVariableById(args.list);
-      list.value = this.content[args.key];
-      if (list.value === undefined) list.value = [];
-      if (typeof list.value !== 'object') {
-        list.value = [list.value];
+      if (!(args.key in this.content)) {
+        // 如果啥都没有就清空
+        list.value = [];
+        return;
       }
+      let value = this.content[args.key];
+      if (!Array.isArray(value)) {
+        //如果要读取的内容不是列表而是什么奇奇怪怪的东西，就把它包装成列表
+        value = [value];
+      }
+      value.forEach((v, i) => {
+        // 防止数组内容混入奇奇怪怪的东西
+        value[i] = this._anythingToNumberString(v);
+      });
+      list.value = value;
     }
   }
 
