@@ -820,29 +820,29 @@ class Archive_code {
 
   findAllVar() {
     const list = [];
-    let temp = this.runtime._stageTarget.variables
-    Object.keys(temp).forEach(obj => {
-      if (temp[obj].type === '') {
-        list.push({
-          text: `${temp[obj].name}`,
-          value: temp[obj].id,
-        });
-      }
-    });
+    let temp;
     try {
-      temp = this.runtime._editingTarget.variables
-    } catch (e) {
-      temp = 'e'
-    }
-    if (temp !=='e' && this.runtime._editingTarget !== this.runtime._stageTarget) {
+      temp = this.runtime._stageTarget.variables
       Object.keys(temp).forEach(obj => {
         if (temp[obj].type === '') {
           list.push({
-            text: `[私有变量]${temp[obj].name}`,
+            text: temp[obj].name,
             value: temp[obj].id,
           });
         }
       });
+      if (!this.runtime._editingTarget.isStage) {
+        temp = this.runtime._editingTarget.variables
+        Object.keys(temp).forEach(obj => {
+          if (temp[obj].type === '') {
+            list.push({
+              text: '[私有变量]' + temp[obj].name,
+              value: temp[obj].id,
+            });
+          }
+        });
+      }
+    } catch (e) {
     }
     if (list.length === 0) {
       list.push({
@@ -863,31 +863,29 @@ class Archive_code {
 
   findAllList() {
     const list = [];
-    let temp = this.runtime._stageTarget.variables
-    Object.keys(temp).forEach(obj => {
-      if (temp[obj].type === 'list') {
-        //console.log(temp[obj].type)
-        list.push({
-          text: `${temp[obj].name}`,
-          value: temp[obj].id,
-        });
-      }
-    });
+    let temp;
     try {
-      temp = this.runtime._editingTarget.variables
-    } catch (e) {
-      temp = 'e'
-    }
-    if (temp !=='e'  && this.runtime._editingTarget !== this.runtime._stageTarget) {
+      temp = this.runtime._stageTarget.variables
       Object.keys(temp).forEach(obj => {
         if (temp[obj].type === 'list') {
           list.push({
-            text: `[私有列表]${temp[obj].name}`,
+            text: temp[obj].name,
             value: temp[obj].id,
-
           });
         }
       });
+      if (!this.runtime._editingTarget.isStage) {
+        temp = this.runtime._editingTarget.variables
+        Object.keys(temp).forEach(obj => {
+          if (temp[obj].type === 'list') {
+            list.push({
+              text: '[私有列表]' + temp[obj].name,
+              value: temp[obj].id,
+            });
+          }
+        });
+      }
+    } catch (e) {
     }
     if (list.length === 0) {
       list.push({
