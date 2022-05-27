@@ -549,11 +549,12 @@ class Archive_code {
   getContentByNumber(args) {
     let key = Object.keys(this.content)[args.index - 1]
     if (key === undefined) return '';
+    let value = this.content[key]
     switch (args.type) {
       case '1'://名称
         return key;
       case '2'://内容
-        return this.content[key];
+        return this._anythingToNumberString(value);
       case '3'://类型
         return (typeof this.content[key] === 'object') ? '列表' : '变量';
       case '4'://列表长度
@@ -568,7 +569,7 @@ class Archive_code {
     // const variable = util.target.lookupVariableById(args.var);
     // variable.value = args.key;
 
-    return (this.content[args.key] === undefined) ? '' : String(this.content[args.key])
+    return this.content[args.key] === undefined ? '' : this._anythingToNumberString(this.content[args.key]);
   }
 
   getUnicode(args) {
@@ -603,13 +604,38 @@ class Archive_code {
     return Array.isArray(t) ? t.length : '';
   }
 
-
+  _anythingToNumberString(value) {
+    switch(typeof(value)){
+      case "string":
+      case "number":
+        break;
+      case "object":
+        if(Array.isArray(value)) {
+          // 在原版scratch中如果直接使用列表作为变量，得到的结果是由空格分隔的。如果列表中每一项都是单个字符(数字不算)，则结果不用空格分割。这里还原原版行为。
+          // 如果直接String()的话，项目会默认用逗号分割。
+          let areChars = true;
+          value.forEach((v, i) => {
+            if (!(typeof v === "string" && v.length === 1)) {
+              areChars = false;
+            }
+          });
+          value = value.join(areChars ? '' : ' ');
+        } else {
+          // 否则，就直接stringify
+          value = JSON.stringify(value);
+        }
+        break;
+      default:
+        value = ''; //包含了undefined
+    }
+    return value;
+  }
 
   saveContentToVar(args, util) {
     if (args.var !== 'empty') {
       const variable = util.target.lookupVariableById(args.var);
-      variable.value = String(this.content[args.key]);
-      if (variable.value === "undefined") variable.value = '';
+      let value = this._anythingToNumberString(this.content[args.key]);
+      variable.value = value;
     }
   }
 
