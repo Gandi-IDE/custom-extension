@@ -242,14 +242,17 @@ class ArkosExtensions {
   }
 
   disFromAToB(args) {
-    const { X1, X2, Y1, Y2 } = args
+    const X1 = Cast.toNumber(args.X1)
+    const X2 = Cast.toNumber(args.X2)
+    const Y1 = Cast.toNumber(args.Y1)
+    const Y2 = Cast.toNumber(args.Y2)
     return Math.sqrt((X1 - X2) * (X1 - X2) + (Y1 - Y2) * (Y1 - Y2))
   }
 
   indexof(args) {
     const str = Cast.toString(args.str)
     const substr = Cast.toString(args.substr)
-    const a = str.indexOf(substr, args.pos - 1)
+    const a = str.indexOf(substr, Cast.toNumber(args.pos) - 1)
     if (a === -1) {
       return ''
     }
@@ -259,7 +262,7 @@ class ArkosExtensions {
   insertStr(args) {
     const str = Cast.toString(args.str)
     const substr = Cast.toString(args.substr)
-    let pos = args.pos - 1
+    let pos = Cast.toNumber(args.pos) - 1
     if (pos < 0) {
       pos = 0
     }
@@ -282,11 +285,8 @@ class ArkosExtensions {
 
   turnDegreesToDir(args, util) {
     const degree = Cast.toNumber(args.degree);
-    //这里能不能直接调用另一个扩展积木的函数？differenceBetweenDirections
-    let dif = (b - a) % 360
-    if(b - a < 0) dif += 360
-    if (dif > 180) dif -= 360
-    let targetDir
+    const dir = Cast.toNumber(args.dir);
+    const dif = this.differenceBetweenDirections(degree, dir);
     if(Math.abs(dif) < degrees) 
       util.target.setDirection(dir);
     else if(dif < 0)
