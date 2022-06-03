@@ -235,11 +235,10 @@ class ArkosExtensions {
   }
 
   differenceBetweenDirections(args) {
-    const { a, b } = args
-    let dif = (b - a) % 360
-    if(b - a < 0) dif+=360;
-    if (dif > 180) dif -= 360
-    return dif
+    const a = Cast.toNumber(args.a)
+    const b = Cast.toNumber(args.b)
+    let dif = b - a
+    return dif - Math.round(dif / 360) * 360
   }
 
   disFromAToB(args) {
