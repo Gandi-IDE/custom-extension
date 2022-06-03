@@ -254,7 +254,8 @@ class ArkosExtensions {
     const substr = Cast.toString(args.substr)
     const a = str.indexOf(substr, Cast.toNumber(args.pos) - 1)
     if (a === -1) {
-      return ''
+      // Scratch列表中也有查询积木，其中找不到返回的是0。建议维持原有的风格。
+      return 0
     }
     return a + 1
   }
