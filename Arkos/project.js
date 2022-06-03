@@ -222,17 +222,16 @@ class ArkosExtensions {
   }
 
   getDirFromAToB(args) {
-    const { X1, X2, Y1, Y2 } = args
-    let a = (Math.atan((X2 - X1) / (Y2 - Y1)) / Math.PI) * 180.0
-    if (Y1 < Y2) return a
-    if (Y1 > Y2) {
-      a += 180
-      if (a > 180.0) a -= 360.0
-      return a
-    }
-    if (X2 > X1) return 90
-    if (X2 < X1) return -90
-    return NaN
+    // 一定要先转化为数字；
+    const X1 = Cast.toNumber(args.X1)
+    const X2 = Cast.toNumber(args.X2)
+    const Y1 = Cast.toNumber(args.Y1)
+    const Y2 = Cast.toNumber(args.Y2)
+
+    // 这里利用atan函数的性质atan(+inf)=90,atan(-inf)=-90,atan(NaN)=NaN可以省很多代码
+    let a = Math.atan((X2 - X1) / (Y2 - Y1)) / Math.PI * 180 + (Y1 > Y2 ? 180 : 0)
+    if (a > 180) a -= 360
+    return a;
   }
 
   differenceBetweenDirections(args) {
