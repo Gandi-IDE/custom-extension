@@ -215,12 +215,10 @@ class ArkosExtensions {
   }
 
   strictlyEquals(args) {
-    // Note strict equality: Inputs must match exactly: in type, case, etc.
-    return args.ONE === args.TWO
-  }
-
-  numGreaterThen(args) {
-    return args.ONE > args.TWO
+    // 实际上在这里直接使用严格相等是不太明智的，因为有一定的可能会遇到数字和字符比较，
+    // 而在Scratch中数字和字符在表现完全一样的时候几乎没有区别。
+    // 因此包上Cast.toString()以使得数字和字符能够正常比较（类似 9 = "9" )
+    return Cast.toString(args.ONE) === Cast.toString(args.TWO)
   }
 
   getDirFromAToB(args) {
