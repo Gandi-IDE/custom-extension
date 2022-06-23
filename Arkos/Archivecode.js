@@ -518,16 +518,17 @@ class Archive_code {
   }
 
   deserialization(args) {
+    let content;
+    this.deserializeSuccessfully = false;
     try {
-      this.content = JSON.parse(args.code)
-      if(typeof(this.content)==='object'&& this.content !== null ){
+      // 如果解析失败，不要修改content。
+      content = JSON.parse(Cast.toString(args.code))
+      // 考虑数组[]情况。
+      if(typeof(content) === 'object' && !Array.isArray(content) && content !== null) {
+        this.content = content;
         this.deserializeSuccessfully = true;
-      }else{
-        this.content = {};
-        this.deserializeSuccessfully = false;
       }
     } catch (e) {
-      this.deserializeSuccessfully = false;
       //this.content2 = {}
     }
     //console.log(typeof this.content)
@@ -538,29 +539,41 @@ class Archive_code {
   }
 
   ifExist(args) {
-    return (this.content.hasOwnProperty(args.key));
+    return Cast.toString(args.key) in this.content;
   }
 
   getAmount() {
-    let count = 0;
-    for (let key in this.content) {
-      count++;
-    }
-    return count;
+    return Object.keys(this.content).length;
   }
 
   getContentByNumber(args) {
     let key = Object.keys(this.content)[args.index - 1]
     if (key === undefined) return '';
+    let value = this.content[key]
     switch (args.type) {
       case '1'://名称
         return key;
       case '2'://内容
-        return this.content[key];
+        return this._anythingToNumberString(value);
       case '3'://类型
-        return (typeof this.content[key] === 'object') ? '列表' : '变量';
+        switch(typeof value){
+          case "object":
+            // 本地化问题：返回的值是中文
+            // 这一点可以统一用英文或者符号或者做成判断<名字为(abc)的数值是列表?>
+            // 或者符号化
+            // 列表 容器 变量 没有
+            // List Container Variable Unset
+            // []   {}   ""   undefined
+            return Array.isArray(value) ? '列表' : '容器';
+          case "string":
+          case "number":
+          case "boolean":
+            return '变量';
+          default:
+            return '';
+        }
       case '4'://列表长度
-        return (typeof this.content[key] === 'object') ? this.content[key].length : '';
+        return Array.isArray(value) ? value.length : '';
       default:
         return '';
     }
@@ -571,15 +584,15 @@ class Archive_code {
     // const variable = util.target.lookupVariableById(args.var);
     // variable.value = args.key;
 
-    return (this.content[args.key] === undefined) ? '' : String(this.content[args.key])
+    return this.content[args.key] === undefined ? '' : this._anythingToNumberString(this.content[args.key]);
   }
 
   getUnicode(args) {
-    return args.c.charCodeAt(0)
+    return Cast.toString(args.c).charCodeAt(0)
   }
 
   getCharByUnicode(args) {
-    return String.fromCharCode(args.code)
+    return String.fromCharCode(Cast.toNumber(args.code))
   }
 
   getContentOfList(args, util) {
@@ -587,11 +600,14 @@ class Archive_code {
     // variable.value = args.key;
     //如果没有这项，或者不是列表
     let t = this.content[args.key]
-    if (t === undefined || typeof t !== 'object') {
-      return '';
+    if (Array.isArray(t)) {
+      let i = Cast.toNumber(args.n) - 1;
+      if (i < 0 || i >= t.length) {
+        return '';
+      }
+      return t[i];
     } else {
-      if (t[args.n - 1] === undefined) return '';
-      else return t[args.n - 1]
+      return '';
     }
   }
 
@@ -600,41 +616,72 @@ class Archive_code {
     // variable.value = args.key;
     //如果没有这项，或者不是列表
     let t = this.content[args.key]
-    if (t === undefined || typeof t !== 'object') {
-      return '';
-    } else {
-      return t.length;
-    }
+    return Array.isArray(t) ? t.length : '';
   }
 
-
+  _anythingToNumberString(value) {
+    switch(typeof(value)){
+      case "string":
+      case "number":
+        break;
+      case "object":
+        if(Array.isArray(value)) {
+          // 在原版scratch中如果直接使用列表作为变量，得到的结果是由空格分隔的。如果列表中每一项都是单个字符(数字不算)，则结果不用空格分割。这里还原原版行为。
+          // 如果直接String()的话，项目会默认用逗号分割。
+          let areChars = true;
+          value.forEach((v, i) => {
+            if (!(typeof v === "string" && v.length === 1)) {
+              areChars = false;
+            }
+          });
+          value = value.join(areChars ? '' : ' ');
+        } else {
+          // 否则，就直接stringify
+          value = JSON.stringify(value);
+        }
+        break;
+      default:
+        value = ''; //包含了undefined
+    }
+    return value;
+  }
 
   saveContentToVar(args, util) {
     if (args.var !== 'empty') {
       const variable = util.target.lookupVariableById(args.var);
-      variable.value = String(this.content[args.key]);
-      if (variable.value === "undefined") variable.value = '';
+      let value = this._anythingToNumberString(this.content[args.key]);
+      variable.value = value;
     }
   }
 
   saveContentToList(args, util) {
     if (args.list !== 'empty') {
       const list = util.target.lookupVariableById(args.list);
-      list.value = this.content[args.key];
-      if (list.value === undefined) list.value = [];
-      if (typeof list.value !== 'object') {
-        list.value = [list.value];
+      if (!(args.key in this.content)) {
+        // 如果啥都没有就清空
+        list.value = [];
+        return;
       }
+      let value = this.content[args.key];
+      if (!Array.isArray(value)) {
+        //如果要读取的内容不是列表而是什么奇奇怪怪的东西，就把它包装成列表
+        value = [value];
+      }
+      value.forEach((v, i) => {
+        // 防止数组内容混入奇奇怪怪的东西
+        value[i] = this._anythingToNumberString(v);
+      });
+      list.value = value;
     }
   }
 
   delete(args) {
-    Reflect.deleteProperty(this.content, args.key);
+    delete this.content[args.key];
   }
 
   //将密匙转换为一个值
   keyVar(k) {
-    k = String(k)
+    k = Cast.toString(k)
     let t = 13;
     for (let i = 0; i < k.length; i++) {
       t += k.charCodeAt(i)
@@ -670,7 +717,7 @@ class Archive_code {
   //Arkos加密法
   ArkosEncrypt(args) {
     args.key = this.keyVar(args.key)
-    args.str = String(args.str)
+    args.str = Cast.toString(args.str)
     let b = ''
     for (let i = 0; i < args.str.length; i++) {
       b += this.enChar1(args.str[i], args.key + i)
@@ -682,7 +729,7 @@ class Archive_code {
   //Arkos解密
   ArkosDecrypt(args) {
     args.key = this.keyVar(args.key)
-    args.str = String(args.str)
+    args.str = Cast.toString(args.str)
     let b = ''
     for (let i = 0; i < args.str.length; i++) {
       b += this.deChar1(args.str[i], args.key + i)
@@ -692,8 +739,9 @@ class Archive_code {
   }
 
   enChar1(c, p) {
+    // 目前我知道的unicode字符最大编码是131071
     let t = (c.charCodeAt(0) + p) % 54533  //
-    t = t - t % 10 + (9 - t % 10)
+    t += 9 - 2 * (t % 10)
 
     return String.fromCharCode(t)
   }
@@ -701,10 +749,8 @@ class Archive_code {
 
   deChar1(c, p) {
     let t = c.charCodeAt(0)
-    //t%=65536
-    t = t - t % 10 + (9 - t % 10)
-    t = (t - p) % 54533
-    if (t < 0) t += 54533
+    t += 9 - 2 * (t % 10)
+    t = (t - p + 54533) % 54533
     return String.fromCharCode(t)
   }
 
@@ -750,7 +796,16 @@ class Archive_code {
   }
 
   writeClipboard(args) {
-    navigator.clipboard.writeText(args.str);
+    // 错误处理...
+    if("navigator" in window && "clipboard" in navigator && "writeText" in navigator.clipboard) {
+      navigator.clipboard.writeText(Cast.toString(args.str)).catch(x => writeClipboard2(args));
+    } else {
+      writeClipboard2(args);
+    }
+  }
+
+  writeClipboard2(args) {
+    prompt("无法访问剪贴板，请选择在下方文字点击右键或按 Ctrl+C 复制。", Cast.toString(args.str));
   }
 
   compare(propName) {
@@ -765,29 +820,29 @@ class Archive_code {
 
   findAllVar() {
     const list = [];
-    let temp = this.runtime._stageTarget.variables
-    Object.keys(temp).forEach(obj => {
-      if (temp[obj].type === '') {
-        list.push({
-          text: `${temp[obj].name}`,
-          value: temp[obj].id,
-        });
-      }
-    });
+    let temp;
     try {
-      temp = this.runtime._editingTarget.variables
-    } catch (e) {
-      temp = 'e'
-    }
-    if (temp !=='e' && this.runtime._editingTarget !== this.runtime._stageTarget) {
+      temp = this.runtime._stageTarget.variables
       Object.keys(temp).forEach(obj => {
         if (temp[obj].type === '') {
           list.push({
-            text: `[私有变量]${temp[obj].name}`,
+            text: temp[obj].name,
             value: temp[obj].id,
           });
         }
       });
+      if (!this.runtime._editingTarget.isStage) {
+        temp = this.runtime._editingTarget.variables
+        Object.keys(temp).forEach(obj => {
+          if (temp[obj].type === '') {
+            list.push({
+              text: '[私有变量]' + temp[obj].name,
+              value: temp[obj].id,
+            });
+          }
+        });
+      }
+    } catch (e) {
     }
     if (list.length === 0) {
       list.push({
@@ -808,31 +863,29 @@ class Archive_code {
 
   findAllList() {
     const list = [];
-    let temp = this.runtime._stageTarget.variables
-    Object.keys(temp).forEach(obj => {
-      if (temp[obj].type === 'list') {
-        //console.log(temp[obj].type)
-        list.push({
-          text: `${temp[obj].name}`,
-          value: temp[obj].id,
-        });
-      }
-    });
+    let temp;
     try {
-      temp = this.runtime._editingTarget.variables
-    } catch (e) {
-      temp = 'e'
-    }
-    if (temp !=='e'  && this.runtime._editingTarget !== this.runtime._stageTarget) {
+      temp = this.runtime._stageTarget.variables
       Object.keys(temp).forEach(obj => {
         if (temp[obj].type === 'list') {
           list.push({
-            text: `[私有列表]${temp[obj].name}`,
+            text: temp[obj].name,
             value: temp[obj].id,
-
           });
         }
       });
+      if (!this.runtime._editingTarget.isStage) {
+        temp = this.runtime._editingTarget.variables
+        Object.keys(temp).forEach(obj => {
+          if (temp[obj].type === 'list') {
+            list.push({
+              text: '[私有列表]' + temp[obj].name,
+              value: temp[obj].id,
+            });
+          }
+        });
+      }
+    } catch (e) {
     }
     if (list.length === 0) {
       list.push({
