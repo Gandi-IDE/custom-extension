@@ -215,47 +215,47 @@ class ArkosExtensions {
   }
 
   strictlyEquals(args) {
-    // Note strict equality: Inputs must match exactly: in type, case, etc.
-    return args.ONE === args.TWO
-  }
-
-  numGreaterThen(args) {
-    return args.ONE > args.TWO
+    // 实际上在这里直接使用严格相等是不太明智的，因为有一定的可能会遇到数字和字符比较，
+    // 而在Scratch中数字和字符在表现完全一样的时候几乎没有区别。
+    // 因此包上Cast.toString()以使得数字和字符能够正常比较（类似 9 = "9" )
+    return Cast.toString(args.ONE) === Cast.toString(args.TWO)
   }
 
   getDirFromAToB(args) {
-    const { X1, X2, Y1, Y2 } = args
-    let a = (Math.atan((X2 - X1) / (Y2 - Y1)) / Math.PI) * 180.0
-    if (Y1 < Y2) return a
-    if (Y1 > Y2) {
-      a += 180
-      if (a > 180.0) a -= 360.0
-      return a
-    }
-    if (X2 > X1) return 90
-    if (X2 < X1) return -90
-    return NaN
+    // 一定要先转化为数字；
+    const X1 = Cast.toNumber(args.X1)
+    const X2 = Cast.toNumber(args.X2)
+    const Y1 = Cast.toNumber(args.Y1)
+    const Y2 = Cast.toNumber(args.Y2)
+
+    // 这里利用atan函数的性质atan(+inf)=90,atan(-inf)=-90,atan(NaN)=NaN可以省很多代码
+    let a = Math.atan((X2 - X1) / (Y2 - Y1)) / Math.PI * 180 + (Y1 > Y2 ? 180 : 0)
+    if (a > 180) a -= 360
+    return a;
   }
 
   differenceBetweenDirections(args) {
-    const { a, b } = args
-    let dif = (b - a) % 360
-    if(b - a < 0) dif+=360;
-    if (dif > 180) dif -= 360
-    return dif
+    const a = Cast.toNumber(args.a)
+    const b = Cast.toNumber(args.b)
+    let dif = b - a
+    return dif - Math.round(dif / 360) * 360
   }
 
   disFromAToB(args) {
-    const { X1, X2, Y1, Y2 } = args
+    const X1 = Cast.toNumber(args.X1)
+    const X2 = Cast.toNumber(args.X2)
+    const Y1 = Cast.toNumber(args.Y1)
+    const Y2 = Cast.toNumber(args.Y2)
     return Math.sqrt((X1 - X2) * (X1 - X2) + (Y1 - Y2) * (Y1 - Y2))
   }
 
   indexof(args) {
     const str = Cast.toString(args.str)
     const substr = Cast.toString(args.substr)
-    const a = str.indexOf(substr, args.pos - 1)
+    const a = str.indexOf(substr, Cast.toNumber(args.pos) - 1)
     if (a === -1) {
-      return ''
+      // Scratch列表中也有查询积木，其中找不到返回的是0。建议维持原有的风格。
+      return 0
     }
     return a + 1
   }
@@ -263,7 +263,7 @@ class ArkosExtensions {
   insertStr(args) {
     const str = Cast.toString(args.str)
     const substr = Cast.toString(args.substr)
-    let pos = args.pos - 1
+    let pos = Cast.toNumber(args.pos) - 1
     if (pos < 0) {
       pos = 0
     }
@@ -286,11 +286,8 @@ class ArkosExtensions {
 
   turnDegreesToDir(args, util) {
     const degree = Cast.toNumber(args.degree);
-    //这里能不能直接调用另一个扩展积木的函数？differenceBetweenDirections
-    let dif = (b - a) % 360
-    if(b - a < 0) dif += 360
-    if (dif > 180) dif -= 360
-    let targetDir
+    const dir = Cast.toNumber(args.dir);
+    const dif = this.differenceBetweenDirections(degree, dir);
     if(Math.abs(dif) < degrees) 
       util.target.setDirection(dir);
     else if(dif < 0)
