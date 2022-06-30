@@ -238,7 +238,9 @@ class ArkosExtensions {
     const a = Cast.toNumber(args.a)
     const b = Cast.toNumber(args.b)
     let dif = b - a
-    return dif - Math.round(dif / 360) * 360
+    dif -= Math.round(dif / 360) * 360
+    if (dif === -180) dif = 180
+    return dif
   }
 
   disFromAToB(args) {
