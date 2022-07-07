@@ -27,11 +27,9 @@ class RegExpVI {
         "RegExpVI.regexp.upper": "大写字母",
         "RegExpVI.regexp.lower": "小写字母",
         "RegExpVI.regexp.chinese": "汉字",
-        "RegExpVI.range": "[INCLUDE] [TEXT] 中的字符 [RANGE]",
+        "RegExpVI.range": "[INCLUDE] [TEXT] 中的字符",
         "RegExpVI.range.include": "在",
         "RegExpVI.range.exclude": "不在",
-        "RegExpVI.range.range": "(启用范围)",
-        "RegExpVI.range.norange": "(禁用范围)",
         "RegExpVI.text": "文字 [TEXT]",
         "RegExpVI.quantifier": "[COUNT] [REGEXP]",
         "RegExpVI.quantifier.anyornone": "可选的任意个",
@@ -80,11 +78,9 @@ class RegExpVI {
         "RegExpVI.regexp.upper": "captical letter",
         "RegExpVI.regexp.lower": "non-capital letter",
         "RegExpVI.regexp.chinese": "chinese character",
-        "RegExpVI.range": "chars [INCLUDE] [RANGE] [TEXT]",
+        "RegExpVI.range": "chars [INCLUDE] [TEXT]",
         "RegExpVI.range.include": "in",
         "RegExpVI.range.exclude": "not in",
-        "RegExpVI.range.range": "(range enabled)",
-        "RegExpVI.range.norange": "(range disabled)",
         "RegExpVI.text": "text [TEXT]",
         "RegExpVI.quantifier": "[COUNT] [REGEXP]",
         "RegExpVI.quantifier.anyornone": "any numbers or none of (greedy)",
@@ -131,225 +127,225 @@ class RegExpVI {
       // docsURI: "https://www.baidu.com",
       color1: "#3333FF",
       color2: "#0000CC",
-      blocks: [
-        "---" + this.formatMessage("RegExpVI.info.1"),
-        {
-          opcode: "str",
-          blockType: "reporter",
-          text: this.formatMessage("RegExpVI.text"),
-          arguments: {
-            TEXT: {
-              type: "string",
-              defaultValue: ","
-            }
-          }
-        }, {
-          opcode: "range",
-          blockType: "reporter",
-          text: this.formatMessage("RegExpVI.range"),
-          arguments: {
-            INCLUDE: {
-              type: "string",
-              menu: "CharsetInclude",
-              defaultValue: "-"
-            },
-            RANGE: {
-              type: "string",
-              menu: "CharsetRange",
-              defaultValue: "true"
-            },
-            TEXT: {
-              type: "string",
-              defaultValue: "a-zA-Z"
-            }
-          }
-        }, {
-          opcode: "quantifier",
-          blockType: "reporter",
-          text: this.formatMessage("RegExpVI.quantifier"),
-          arguments: {
-            COUNT: {
-              type: "string",
-              menu: "CountPicker",
-              defaultValue: "+"
-            },
-            REGEXP: {
-              type: "string",
-              menu: "RegExpPicker",
-              defaultValue: "\\d"
-            }
-          }
-        }, {
-          opcode: "countn",
-          blockType: "reporter",
-          text: this.formatMessage("RegExpVI.countn"),
-          arguments: {
-            N: {
-              type: "number",
-              defaultValue: 2
-            },
-            MODE: {
-              type: "string",
-              menu: "CountnumPicker",
-              defaultValue: "}"
-            },
-            REGEXP: {
-              type: "string",
-              menu: "RegExpPicker",
-              defaultValue: "\\d"
-            }
-          }
-        }, {
-          opcode: "countrange",
-          blockType: "reporter",
-          text: this.formatMessage("RegExpVI.countrange"),
-          arguments: {
-            X: {
-              type: "number",
-              defaultValue: 2
-            },
-            Y: {
-              type: "number",
-              defaultValue: 3
-            },
-            MODE: {
-              type: "string",
-              menu: "CountrangePicker",
-              defaultValue: "}"
-            },
-            REGEXP: {
-              type: "string",
-              menu: "RegExpPicker",
-              defaultValue: "\\d"
-            }
-          }
-        }, {
-          opcode: "or",
-          blockType: "reporter",
-          text: this.formatMessage("RegExpVI.or"),
-          arguments: {
-            REGEXP1: {
-              type: "string",
-              menu: "RegExpPicker",
-              defaultValue: "-?[0-9]+"
-            },
-            REGEXP2: {
-              type: "string",
-              menu: "RegExpPicker",
-              defaultValue: "[a-zA-Z']+"
-            }
-          }
-        }, {
-          opcode: "concat",
-          blockType: "reporter",
-          text: this.formatMessage("RegExpVI.concat"),
-          arguments: {
-            REGEXP1: {
-              type: "string",
-              menu: "RegExpPicker",
-              defaultValue: "[A-Z]"
-            },
-            REGEXP2: {
-              type: "string",
-              menu: "RegExpPicker",
-              defaultValue: "\\d"
-            }
-          }
-        }, {
-          opcode: "concatwithseparator",
-          blockType: "reporter",
-          text: this.formatMessage("RegExpVI.concatwithseparator"),
-          arguments: {
-            REGEXP1: {
-              type: "string",
-              menu: "RegExpPicker",
-              defaultValue: "\\d"
-            },
-            TEXT: {
-              type: "string",
-              defaultValue: ","
-            },
-            REGEXP2: {
-              type: "string",
-              menu: "RegExpPicker",
-              defaultValue: "[A-Z]"
-            }
-          }
-        }, {
-          opcode: "group",
-          blockType: "reporter",
-          text: this.formatMessage("RegExpVI.group"),
-          arguments: {
-            REGEXP: {
-              type: "string",
-              menu: "RegExpPicker",
-              defaultValue: "[a-zA-Z']+"
-            }
-          }
-        }, {
-          opcode: "groupreference",
-          blockType: "reporter",
-          text: this.formatMessage("RegExpVI.groupreference"),
-          arguments: {
-            N: {
-              type: "number",
-              defaultValue: 1
-            }
-          }
-        },
-        "---" + this.formatMessage("RegExpVI.info.2"),
-        {
-          opcode: "findtext",
-          blockType: "command",
-          text: this.formatMessage("RegExpVI.findtext"),
-          arguments: {
-            REGEXP: {
-              type: "string",
-              menu: "RegExpPicker",
-              defaultValue: "-?[0-9]+(?:\\.[0-9]*)?"
-            },
-            TEXT: {
-              type: "string",
-              defaultValue: "I have 23 apples."
-            }
-          }
-        }, {
-          opcode: "findnext",
-          blockType: "command",
-          text: this.formatMessage("RegExpVI.findnext"),
-          arguments: {}
-        }, {
-          opcode: "isfound",
-          blockType: "Boolean",
-          text: this.formatMessage("RegExpVI.isfound"),
-          arguments: {}
-        }, {
-          opcode: "foundtext",
-          blockType: "reporter",
-          text: this.formatMessage("RegExpVI.foundtext"),
-          arguments: {}
-        }, {
-          opcode: "foundtextbegin",
-          blockType: "reporter",
-          text: this.formatMessage("RegExpVI.foundtextbegin"),
-          arguments: {}
-        }, {
-          opcode: "foundtextend",
-          blockType: "reporter",
-          text: this.formatMessage("RegExpVI.foundtextend"),
-          arguments: {}
-        }, {
-          opcode: "foundtextgroups",
-          blockType: "reporter",
-          text: this.formatMessage("RegExpVI.foundtextgroups"),
-          arguments: {
-            N: {
-              type: "number",
-              defaultValue: 1
-            }
+      blocks: [{
+        opcode: "info1",
+        blockType: "button",
+        text: this.formatMessage("RegExpVI.info.1"),
+        onClick: function(e) {}
+      }, {
+        opcode: "str",
+        blockType: "reporter",
+        text: this.formatMessage("RegExpVI.text"),
+        arguments: {
+          TEXT: {
+            type: "string",
+            defaultValue: ","
           }
         }
-      ],
+      }, {
+        opcode: "range",
+        blockType: "reporter",
+        text: this.formatMessage("RegExpVI.range"),
+        arguments: {
+          INCLUDE: {
+            type: "string",
+            menu: "CharsetInclude",
+            defaultValue: "-"
+          },
+          TEXT: {
+            type: "string",
+            defaultValue: "a-zA-Z"
+          }
+        }
+      }, {
+        opcode: "quantifier",
+        blockType: "reporter",
+        text: this.formatMessage("RegExpVI.quantifier"),
+        arguments: {
+          COUNT: {
+            type: "string",
+            menu: "CountPicker",
+            defaultValue: "+"
+          },
+          REGEXP: {
+            type: "string",
+            menu: "RegExpPicker",
+            defaultValue: "\\d"
+          }
+        }
+      }, {
+        opcode: "countn",
+        blockType: "reporter",
+        text: this.formatMessage("RegExpVI.countn"),
+        arguments: {
+          N: {
+            type: "number",
+            defaultValue: 2
+          },
+          MODE: {
+            type: "string",
+            menu: "CountnumPicker",
+            defaultValue: "}"
+          },
+          REGEXP: {
+            type: "string",
+            menu: "RegExpPicker",
+            defaultValue: "\\d"
+          }
+        }
+      }, {
+        opcode: "countrange",
+        blockType: "reporter",
+        text: this.formatMessage("RegExpVI.countrange"),
+        arguments: {
+          X: {
+            type: "number",
+            defaultValue: 2
+          },
+          Y: {
+            type: "number",
+            defaultValue: 3
+          },
+          MODE: {
+            type: "string",
+            menu: "CountrangePicker",
+            defaultValue: "}"
+          },
+          REGEXP: {
+            type: "string",
+            menu: "RegExpPicker",
+            defaultValue: "\\d"
+          }
+        }
+      }, {
+        opcode: "or",
+        blockType: "reporter",
+        text: this.formatMessage("RegExpVI.or"),
+        arguments: {
+          REGEXP1: {
+            type: "string",
+            menu: "RegExpPicker",
+            defaultValue: "-?[0-9]+"
+          },
+          REGEXP2: {
+            type: "string",
+            menu: "RegExpPicker",
+            defaultValue: "[a-zA-Z']+"
+          }
+        }
+      }, {
+        opcode: "concat",
+        blockType: "reporter",
+        text: this.formatMessage("RegExpVI.concat"),
+        arguments: {
+          REGEXP1: {
+            type: "string",
+            menu: "RegExpPicker",
+            defaultValue: "[A-Z]"
+          },
+          REGEXP2: {
+            type: "string",
+            menu: "RegExpPicker",
+            defaultValue: "\\d"
+          }
+        }
+      }, {
+        opcode: "concatwithseparator",
+        blockType: "reporter",
+        text: this.formatMessage("RegExpVI.concatwithseparator"),
+        arguments: {
+          REGEXP1: {
+            type: "string",
+            menu: "RegExpPicker",
+            defaultValue: "\\d"
+          },
+          TEXT: {
+            type: "string",
+            defaultValue: ","
+          },
+          REGEXP2: {
+            type: "string",
+            menu: "RegExpPicker",
+            defaultValue: "[A-Z]"
+          }
+        }
+      }, {
+        opcode: "group",
+        blockType: "reporter",
+        text: this.formatMessage("RegExpVI.group"),
+        arguments: {
+          REGEXP: {
+            type: "string",
+            menu: "RegExpPicker",
+            defaultValue: "[a-zA-Z']+"
+          }
+        }
+      }, {
+        opcode: "groupreference",
+        blockType: "reporter",
+        text: this.formatMessage("RegExpVI.groupreference"),
+        arguments: {
+          N: {
+            type: "number",
+            defaultValue: 1
+          }
+        }
+      }, {
+        opcode: "info2",
+        blockType: "button",
+        text: this.formatMessage("RegExpVI.info.2"),
+        onClick: function(e) {}
+      }, {
+        opcode: "findtext",
+        blockType: "command",
+        text: this.formatMessage("RegExpVI.findtext"),
+        arguments: {
+          REGEXP: {
+            type: "string",
+            menu: "RegExpPicker",
+            defaultValue: "-?[0-9]+(?:\\.[0-9]*)?"
+          },
+          TEXT: {
+            type: "string",
+            defaultValue: "I have 23 apples."
+          }
+        }
+      }, {
+        opcode: "findnext",
+        blockType: "command",
+        text: this.formatMessage("RegExpVI.findnext"),
+        arguments: {}
+      }, {
+        opcode: "isfound",
+        blockType: "Boolean",
+        text: this.formatMessage("RegExpVI.isfound"),
+        arguments: {}
+      }, {
+        opcode: "foundtext",
+        blockType: "reporter",
+        text: this.formatMessage("RegExpVI.foundtext"),
+        arguments: {}
+      }, {
+        opcode: "foundtextbegin",
+        blockType: "reporter",
+        text: this.formatMessage("RegExpVI.foundtextbegin"),
+        arguments: {}
+      }, {
+        opcode: "foundtextend",
+        blockType: "reporter",
+        text: this.formatMessage("RegExpVI.foundtextend"),
+        arguments: {}
+      }, {
+        opcode: "foundtextgroups",
+        blockType: "reporter",
+        text: this.formatMessage("RegExpVI.foundtextgroups"),
+        arguments: {
+          N: {
+            type: "number",
+            defaultValue: 1
+          }
+        }
+      }],
       menus: {
         RegExpPicker: {
           items: [{
@@ -453,15 +449,6 @@ class RegExpVI {
             text: this.formatMessage("RegExpVI.range.exclude"),
             value: "-^"
           }]
-        },
-        CharsetRange: {
-          items: [{
-            text: this.formatMessage("RegExpVI.range.range"),
-            value: "true"
-          }, {
-            text: this.formatMessage("RegExpVI.range.norange"),
-            value: "false"
-          }]
         }
       }
     };
@@ -469,21 +456,7 @@ class RegExpVI {
 
   range(args) {
     const re = /[\\\]\^]/g;
-    let text = args.TEXT;
-    if (args.RANGE === "true") {
-      text = text.replace(/.-./g, function(x) {
-        let a = x.codePointAt(0);
-        let b = x.codePointAt(2);
-        if (a < b) return x;
-        else if (a === b) return x[0];
-        else return x[2] + "-" + x[0];
-      });
-    } else {
-      if (text.includes("-")) {
-        text = "-" + text.replace(/-/g, "");
-      }
-    }
-    return "[" + String(args.INCLUDE).slice(1) + String(text).replace(re, "\\$&") + "]";
+    return "[" + String(args.INCLUDE).slice(1) + String(args.TEXT).replace(re, "\\$&") + "]";
   }
 
   str(args) {
