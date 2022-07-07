@@ -538,14 +538,7 @@ class RegExpVI {
   }
 
   findtext(args) {
-    try {
-      this.regexp = new RegExp(String(args.REGEXP), "g");
-    } catch (e) {
-      // 这里应该提示用户表达式出错了
-      this.regexp = new RegExp("", "g");
-      this.text = "";
-      this.result = null;
-    }
+    this.regexp = new RegExp(String(args.REGEXP), "g");
     this.text = args.TEXT;
     this.result = this.regexp.exec(this.text);
   }
