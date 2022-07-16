@@ -2,7 +2,10 @@ import Cast from '../utils/cast.js'
 //import cover from './assets/cover2.png'
 //import icon from './assets/icon2.svg'
 
-//合作者：Nights:帮忙写了代码框架，并且给予了一些技术上的指导
+//合作者：
+//  Nights: 搭了框架，以及一些技术帮助
+//  -6: 修复了许多纰漏和 bug ，加入了新的加密算法
+//  Arkos: 什么都不会的屑蒟蒻 
 // console.log(Cast.toNumber('123'))
 //console.log(Cast.toNumber('aab'))
 
@@ -699,6 +702,8 @@ class Archive_code {
 
   //加密
   encrypt(args) {
+    args.key = Cast.toString(args.key)
+    args.str = Cast.toString(args.str)
     switch (args.method) {
       case '1':
         return this.ArkosEncrypt(args);
@@ -713,6 +718,8 @@ class Archive_code {
 
   //解密
   decrypt(args) {
+    args.key = Cast.toString(args.key)
+    args.str = Cast.toString(args.str)
     switch (args.method) {
       case '1':
         return this.ArkosDecrypt(args);
@@ -723,6 +730,17 @@ class Archive_code {
       default:
         return '';
     }
+  }
+
+  //发现 Unicode 为 0  10  13  55296~57343(2047个字符) 的字符无法被正常复制，故排除掉这些字符。
+  getCode(c) {
+    c = Cast.toString(c).charCodeAt(0)
+    if (c === 0) return NaN
+    else if (c < 10) return c-1  //排除0
+    else if (c < 13) return c-2  //排除0 10
+    else if (c < 55296) return c-3  //排除0 10 13
+    else if (c > 55296) return c-2050  //排除0 10 13 55296~57343(2047个字符)
+    else return NaN
   }
 
   //Arkos加密法
@@ -857,7 +875,7 @@ class Archive_code {
     }
     if (list.length === 0) {
       list.push({
-        text: `*没有变量*`,
+        text: `-`,
         value: 'empty',
       });
     }
@@ -900,7 +918,7 @@ class Archive_code {
     }
     if (list.length === 0) {
       list.push({
-        text: `*没有列表*`,
+        text: `-`,
         value: 'empty',
       });
     }
@@ -921,7 +939,7 @@ class Archive_code {
     });
     if (list.length === 0) {
       list.push({
-        text: '*没有变量*',
+        text: '-',
         value: 'empty',
       });
     }
@@ -942,7 +960,7 @@ class Archive_code {
     });
     if (list.length === 0) {
       list.push({
-        text: '*没有列表*',
+        text: '-',
         value: 'empty',
       });
     }
