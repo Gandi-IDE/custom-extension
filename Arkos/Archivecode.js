@@ -60,7 +60,7 @@ class Archive_code {
         'ArchiveCodeExt.infoMenu.3': '类型',
         'ArchiveCodeExt.infoMenu.4': '列表长度',
         'ArchiveCodeExt.delete': '删除容器中名为[key]的内容',
-
+        'ArchiveCodeExt.getContentInContainer': '获得容器[container]中名为[key]的内容',
       },
 
       en: {
@@ -94,7 +94,8 @@ class Archive_code {
         'ArchiveCodeExt.infoMenu.2': 'value',
         'ArchiveCodeExt.infoMenu.3': 'type',
         'ArchiveCodeExt.infoMenu.4': 'lenth of list',
-        'ArchiveCodeExt.delete': 'Delete content[key] in Container'
+        'ArchiveCodeExt.delete': 'delete content[key] in Container',
+        'ArchiveCodeExt.getContentInContainer': 'get [key] in [container]',
       },
     })
 
@@ -350,6 +351,22 @@ class Archive_code {
           }
         },
         {
+          //直接获得container容器中的key内容
+          opcode: 'getContentInContainer',
+          blockType: 'reporter',
+          text: this.formatMessage('ArchiveCodeExt.getContentInContainer'),
+          arguments: {
+            container: {
+              type: 'string',
+              defaultValue: '{"金币":100,"经验值":50}'
+            },
+            key: {
+              type: 'string',
+              defaultValue: '金币'
+            },
+          }
+        },
+        {
           //加密
           opcode: 'encrypt',
           blockType: 'reporter',
@@ -524,6 +541,21 @@ class Archive_code {
     if (args.list !== 'empty') {
       const list = util.target.lookupVariableById(args.list);
       this.content[args.name] = list.value;
+    }
+  }
+  
+  //直接获得container容器中的key内容
+  getContentInContainer(args) {
+    let content;
+    try {
+      content = JSON.parse(Cast.toString(args.container))
+      if(typeof(content) === 'object' && !Array.isArray(content) && content !== null) {
+        return this._anythingToNumberString(content[args.key]);
+      }else{
+        return ''
+      }
+    } catch (e) {
+      return ''
     }
   }
 
