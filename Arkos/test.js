@@ -1,3 +1,5 @@
+import Cast from '../utils/cast.js'
+
 class StrictEqualityExtension {
   constructor(runtime) {
     this.runtime = runtime
@@ -22,6 +24,17 @@ class StrictEqualityExtension {
                 defaultValue: 'Second value'
               }
             }
+          },
+          {
+            opcode: 'getType',
+            blockType: 'reporter',
+            text: '获得[n]的类型',
+            arguments: {
+              n: {
+                type: 'string',
+                defaultValue: '1'
+              }
+            }
           }
         ],
         menus: {
@@ -42,6 +55,13 @@ class StrictEqualityExtension {
     getDynamicMenuItems() {
         return ['ddd 1', '大V 2', 'dd了 3'];
     }
+
+    getType(args) {
+      console.log(Cast.toString(args.n));
+      console.log(typeof Cast.toString(args.n));
+      return typeof(args.n);
+    }
+
   }
 
 
