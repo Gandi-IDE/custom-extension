@@ -6,8 +6,8 @@ console.log(Cast.toNumber('123'))
 console.log(Cast.toNumber('aab'))
 class ArkosExtensions {
   constructor(runtime) {
-    this.runtime = runtime
-    this._formatMessage = runtime.getFormatMessage({
+    util.target.runtime = runtime
+    util.target._formatMessage = runtime.getFormatMessage({
       'zh-cn': {
         'ArkosExt.extensionName': 'Arkosの拓展',
         'ArkosExt.stringEquality': '(区分大小写)[ONE]=[TWO]',
@@ -18,6 +18,7 @@ class ArkosExtensions {
         'ArkosExt.insertString': '在[str]的第[pos]个字符前插入[substr]',
         'ArkosExt.replaceString': '将[str]中的第[start]个到第[end]个字符,替换为[substr]',
         'ArkosExt.turnDegreesToDir': '朝方向[dir]旋转[degree]度',
+
         'ArkosExt.getEffect': '获取特效[EFFECT]的值',
         'ArkosExt.color': '颜色',
         'ArkosExt.fisheye': '鱼眼',
@@ -26,12 +27,21 @@ class ArkosExtensions {
         'ArkosExt.mosaic': '马赛克',
         'ArkosExt.brightness': '亮度',
         'ArkosExt.ghost': '虚像',
+
         'ArkosExt.ifVisible': '角色可见？',
         'ArkosExt.getRotationStyle': '当前旋转方式',
         'ArkosExt.getWidthOrHeight': '获取当前造型的[t]',
         'ArkosExt.setSize': '⚠️强行将大小设为[size]（无视限制）',
-        'ArkosExt.width': '长',
-        'ArkosExt.height': '宽',
+        'ArkosExt.width': '宽',
+        'ArkosExt.height': '高',
+
+        'ArkosExt.setXY': '⚠️强行移到x:[x]y:[y]（无视边界）',
+        'ArkosExt.getBoundaryCoord': '获取角色的[t]',
+        'ArkosExt.top': '上边缘y',
+        'ArkosExt.bottom': '下边缘y',
+        'ArkosExt.left': '左边缘x',
+        'ArkosExt.right': '右边缘x',
+        'ArkosExt.isOutOfSight': '角色移到舞台区外？',
       },
 
       en: {
@@ -55,15 +65,23 @@ class ArkosExtensions {
         'ArkosExt.ifVisible': 'visible?',
         'ArkosExt.getRotationStyle': 'rotation style',
         'ArkosExt.getWidthOrHeight': 'get [t] of the current costume',
-        'ArkosExt.setSize': '⚠️Force the size to [size] % (regardless of limitation) ',
+        'ArkosExt.setSize': '⚠️force the size to [size] % (regardless of limitation) ',
         'ArkosExt.width': 'width',
         'ArkosExt.height': 'height',
+
+        'ArkosExt.setXY': '⚠️force to x:[x]y:[y] (regardless of the boundary)',
+        'ArkosExt.getBoundaryCoord': 'get [t] of the sprite',
+        'ArkosExt.top': 'top y',
+        'ArkosExt.bottom': 'bottom y',
+        'ArkosExt.left': 'left x',
+        'ArkosExt.right': 'right x',
+        'ArkosExt.isOutOfSight': 'is out of stage?',
       },
     })
   }
 
   formatMessage(id) {
-    return this._formatMessage({
+    return util.target._formatMessage({
       id,
       default: id,
       description: id,
@@ -73,7 +91,7 @@ class ArkosExtensions {
   getInfo() {
     return {
       id: 'hcnTest', // 拓展id
-      name: this.formatMessage('ArkosExt.extensionName'), // 拓展名
+      name: util.target.formatMessage('ArkosExt.extensionName'), // 拓展名
       color1: '#FF8383',
       // menuIconURI: icon,
       // blockIconURI: icon,
@@ -82,7 +100,7 @@ class ArkosExtensions {
           // 判断相等（区分大小写）
           opcode: 'strictlyEquals',
           blockType: 'Boolean',
-          text: this.formatMessage('ArkosExt.stringEquality'),
+          text: util.target.formatMessage('ArkosExt.stringEquality'),
           arguments: {
             ONE: {
               type: 'string',
@@ -98,7 +116,7 @@ class ArkosExtensions {
           // 计算点A到点B的方向
           opcode: 'getDirFromAToB',
           blockType: 'reporter',
-          text: this.formatMessage('ArkosExt.directionFromAtoB'),
+          text: util.target.formatMessage('ArkosExt.directionFromAtoB'),
           arguments: {
             X1: {
               type: 'number',
@@ -122,7 +140,7 @@ class ArkosExtensions {
           // 计算角b-角a的角度差
           opcode: 'differenceBetweenDirections',
           blockType: 'reporter',
-          text: this.formatMessage('ArkosExt.differenceBetweenDirections'),
+          text: util.target.formatMessage('ArkosExt.differenceBetweenDirections'),
           arguments: {
             a: {
               type: 'number',
@@ -138,7 +156,7 @@ class ArkosExtensions {
           // 两点距离
           opcode: 'disFromAToB',
           blockType: 'reporter',
-          text: this.formatMessage('ArkosExt.distance'),
+          text: util.target.formatMessage('ArkosExt.distance'),
           arguments: {
             X1: {
               type: 'number',
@@ -162,7 +180,7 @@ class ArkosExtensions {
           // 查找子字符串，从pos开始
           opcode: 'indexof',
           blockType: 'reporter',
-          text: this.formatMessage('ArkosExt.searchString'),
+          text: util.target.formatMessage('ArkosExt.searchString'),
           arguments: {
             str: {
               type: 'string',
@@ -182,7 +200,7 @@ class ArkosExtensions {
           // 在字符串中插入子字符串
           opcode: 'insertStr',
           blockType: 'reporter',
-          text: this.formatMessage('ArkosExt.insertString'),
+          text: util.target.formatMessage('ArkosExt.insertString'),
           arguments: {
             str: {
               type: 'string',
@@ -202,7 +220,7 @@ class ArkosExtensions {
           // 替换字符串中的从..到..的字符串
           opcode: 'replaceStr',
           blockType: 'reporter',
-          text: this.formatMessage('ArkosExt.replaceString'),
+          text: util.target.formatMessage('ArkosExt.replaceString'),
           arguments: {
             str: {
               type: 'string',
@@ -226,7 +244,7 @@ class ArkosExtensions {
           //朝..方向旋转..角度
           opcode: 'turnDegreesToDir',
           blockType: 'command',
-          text: this.formatMessage('ArkosExt.turnDegreesToDir'),
+          text: util.target.formatMessage('ArkosExt.turnDegreesToDir'),
           arguments: {
             degree: {
               type: 'number',
@@ -242,7 +260,7 @@ class ArkosExtensions {
           //获取特效值
           opcode: 'getEffect',
           blockType: 'reporter',
-          text: this.formatMessage('ArkosExt.getEffect'),
+          text: util.target.formatMessage('ArkosExt.getEffect'),
           arguments: {
             EFFECT: {
               type: 'string',
@@ -254,19 +272,19 @@ class ArkosExtensions {
           //是否隐藏
           opcode: 'ifVisible',
           blockType: 'Boolean',
-          text: this.formatMessage('ArkosExt.ifVisible'),
+          text: util.target.formatMessage('ArkosExt.ifVisible'),
         },
         {
           //获取旋转方式
           opcode: 'getRotationStyle',
           blockType: 'reporter',
-          text: this.formatMessage('ArkosExt.getRotationStyle'),
+          text: util.target.formatMessage('ArkosExt.getRotationStyle'),
         },
         {
-          //获取造型长宽
+          //获取造型0宽1高
           opcode: 'getWidthOrHeight',
           blockType: 'reporter',
-          text: this.formatMessage('ArkosExt.getWidthOrHeight'),
+          text: util.target.formatMessage('ArkosExt.getWidthOrHeight'),
           arguments: {
             t: {
               type: 'string',
@@ -278,55 +296,120 @@ class ArkosExtensions {
           //强行设置大小
           opcode: 'setSize',
           blockType: 'command',
-          text: this.formatMessage('ArkosExt.setSize'),
+          text: util.target.formatMessage('ArkosExt.setSize'),
           arguments: {
             size: {
               type: 'number',
-              defaultValue: 500,
+              defaultValue: 9999,
             },
+          },
+        },
+        {
+          //强行移到xy
+          opcode: 'setXY',
+          blockType: 'command',
+          text: util.target.formatMessage('ArkosExt.setXY'),
+          arguments: {
+            x: {
+              type: 'number',
+              defaultValue: 100000,
+            },
+            y: {
+              type: 'number',
+              defaultValue: 100000,
+            },
+          },
+        },
+        {
+          //获取角色边缘xy
+          opcode: 'getBoundaryCoord',
+          blockType: 'command',
+          text: util.target.formatMessage('ArkosExt.getBoundaryCoord'),
+          arguments: {
+            t: {
+              type: 'string',
+              menu: 'boundaryMenu',
+            }
+          },
+        },
+        {
+          //是否跑到舞台外
+          opcode: 'isOutOfSight',
+          blockType: 'Boolean',
+          text: util.target.formatMessage('ArkosExt.isOutOfSight'),
+        },
+        {
+          //返回值转bool积木
+          opcode: 'reporterToBoolean',
+          blockType: 'Boolean',
+          text: '[t]',
+          arguments: {
+            t: {
+              type: 'string',
+              menu: '1',
+            }
           },
         },
       ],
       menus: {
-        //长0宽1 菜单
+        //角色上下左右边缘
+        boundaryMenu: [
+          {
+            text: util.target.formatMessage('ArkosExt.top'),
+            value: '1'
+          },
+          {
+            text: util.target.formatMessage('ArkosExt.bottom'),
+            value: '2'
+          },
+          {
+            text: util.target.formatMessage('ArkosExt.left'),
+            value: '3'
+          },
+          {
+            text: util.target.formatMessage('ArkosExt.right'),
+            value: '4'
+          },
+        ],
+        //0宽1高 菜单
         WOrH: [
           {
-            text: this.formatMessage('ArkosExt.width'),
+            text: util.target.formatMessage('ArkosExt.width'),
             value: '0'
           },
           {
-            text: this.formatMessage('ArkosExt.height'),
+            text: util.target.formatMessage('ArkosExt.height'),
             value: '1'
           },
         ],
         //特效菜单
         effectMenu: [
           {
-            text: this.formatMessage('ArkosExt.color'),
+            text: util.target.formatMessage('ArkosExt.color'),
             value: 'color'
           },
           {
-            text: this.formatMessage('ArkosExt.fisheye'),
+            text: util.target.formatMessage('ArkosExt.fisheye'),
             value: 'fisheye'
           },
           {
-            text: this.formatMessage('ArkosExt.whirl'),
+            text: util.target.formatMessage('ArkosExt.whirl'),
             value: 'whirl'
           },
           {
-            text: this.formatMessage('ArkosExt.pixelate'),
+            text: util.target.formatMessage('ArkosExt.pixelate'),
             value: 'pixelate'
           },
           {
-            text: this.formatMessage('ArkosExt.mosaic'),
+            text: util.target.formatMessage('ArkosExt.mosaic'),
             value: 'mosaic'
           },
           {
-            text: this.formatMessage('ArkosExt.brightness'),
+            text: util.target.formatMessage('ArkosExt.brightness'),
             value: 'brightness'
           },
           {
-            text: this.formatMessage('ArkosExt.ghost'),
+            text: util.target.formatMessage('ArkosExt.ghost'),
             value: 'ghost'
           }
         ]
@@ -410,7 +493,7 @@ class ArkosExtensions {
   turnDegreesToDir(args, util) {
     const degree = Cast.toNumber(args.degree);
     const dir = Cast.toNumber(args.dir);
-    const dif = this.differenceBetweenDirections({a: util.target.direction, b: dir});
+    const dif = util.target.differenceBetweenDirections({a: util.target.direction, b: dir});
     if(Math.abs(dif) < degree) 
       util.target.setDirection(dir);
     else if(dif < 0)
@@ -465,6 +548,66 @@ class ArkosExtensions {
     }
     util.target.runtime.requestTargetsUpdate(util.target);
   }
+
+  //强行设置XY(逝一逝)
+  setXY (args, util) {
+    if (util.target.isStage) return;
+    const oldX = util.target.x;
+    const oldY = util.target.y;
+    util.target.x = args.x;
+    util.target.y = args.y;
+    if (util.target.renderer) {
+        util.target.renderer.updateDrawablePosition(util.target.drawableID, [args.x, args.y]);
+        if (util.target.visible) {
+            util.target.emit('EVENT_TARGET_VISUAL_CHANGE', util.target);
+            util.target.runtime.requestRedraw();
+        }
+    } else {
+        util.target.x = x;
+        util.target.y = y;
+    }
+    util.target.emit('TARGET_MOVED', util.target, oldX, oldY, false);
+    util.target.runtime.requestTargetsUpdate(util.target);
+  }
+
+  //获取角色边缘的坐标
+  getBoundaryCoord (args) {
+    switch(args.t){
+      case '1':
+        return bounds.top;
+      case '2':
+        return bounds.bottom;
+      case '3':
+        return bounds.left;
+      case '4':
+        return bounds.right;
+      default:
+        return '';
+    }
+  }
+
+  //是否在舞台外
+  isOutOfSight (util) {
+    if (util.target.renderer) {
+        const stageWidth = util.target.runtime.constructor.STAGE_WIDTH;
+        const stageHeight = util.target.runtime.constructor.STAGE_HEIGHT;
+        const bounds = util.target.getBounds();
+        if (bounds.right < -stageWidth / 2 ||
+            bounds.left > stageWidth / 2 ||
+            bounds.bottom > stageHeight / 2 ||
+            bounds.top < -stageHeight / 2) {
+            return true;
+        }
+    }
+    return false;
+  }
+
+  //形如：<() >
+  reporterToBoolean (args){
+    return args.t ? true : false;
+  }
+
+  
 
 }
 
