@@ -607,6 +607,7 @@ class ArkosExtensions {
   //形如：<() >
   reporterToBoolean (args){
     if(Cast.toString(args.t).toLowerCase() === 'false') return false;
+    if(args.t === '0') return false;
     return (args.t) ? true : false;
   }
 
