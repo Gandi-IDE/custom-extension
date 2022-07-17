@@ -323,7 +323,7 @@ class ArkosExtensions {
         {
           //获取角色边缘xy
           opcode: 'getBoundaryCoord',
-          blockType: 'command',
+          blockType: 'reporter',
           text: this.formatMessage('ArkosExt.getBoundaryCoord'),
           arguments: {
             t: {
@@ -572,6 +572,7 @@ class ArkosExtensions {
 
   //获取角色边缘的坐标
   getBoundaryCoord (args) {
+    const bounds = util.target.getBounds();
     switch(args.t){
       case '1':
         return bounds.top;
@@ -604,7 +605,7 @@ class ArkosExtensions {
 
   //形如：<() >
   reporterToBoolean (args){
-    return args.t ? true : false;
+    return (args.t) ? true : false;
   }
 
   
