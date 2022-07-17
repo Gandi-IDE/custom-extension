@@ -572,7 +572,6 @@ class ArkosExtensions {
 
   //获取角色边缘的坐标
   getBoundaryCoord (args, util) {
-    console.log(util.target.runtime.renderer)
     const bounds = util.target.runtime.renderer.getBounds(util.target.drawableID);
     switch(args.t){
       case '1':
@@ -590,7 +589,9 @@ class ArkosExtensions {
 
   //是否在舞台外
   isOutOfSight (util) {
-    if (util.target.renderer) {
+    console.log(util.target.runtime.renderer)
+    console.log(util.target.renderer)
+    //if (util.target.renderer) {
         const stageWidth = util.target.runtime.constructor.STAGE_WIDTH;
         const stageHeight = util.target.runtime.constructor.STAGE_HEIGHT;
         const bounds = util.target.runtime.renderer.getBounds(util.target.drawableID);
@@ -600,7 +601,7 @@ class ArkosExtensions {
             bounds.top < -stageHeight / 2) {
             return true;
         }
-    }
+    //}
     return false;
   }
 
