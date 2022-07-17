@@ -589,8 +589,6 @@ class ArkosExtensions {
 
   //是否在舞台外
   isOutOfSight (util) {
-    console.log(util.target.runtime.renderer)
-    console.log(util.target.renderer)
     //if (util.target.renderer) {
         const stageWidth = util.target.runtime.constructor.STAGE_WIDTH;
         const stageHeight = util.target.runtime.constructor.STAGE_HEIGHT;
