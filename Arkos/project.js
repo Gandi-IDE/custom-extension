@@ -29,7 +29,7 @@ class ArkosExtensions {
         'ArkosExt.ifVisible': '角色可见？',
         'ArkosExt.getRotationStyle': '当前旋转方式',
         'ArkosExt.getWidthOrHeight': '获取当前造型的[t]',
-        'ArkosExt.setSize': '强行将大小设为[size]',
+        'ArkosExt.setSize': '⚠️强行将大小设为[size]（无视限制）',
         'ArkosExt.width': '长',
         'ArkosExt.height': '宽',
       },
@@ -55,7 +55,7 @@ class ArkosExtensions {
         'ArkosExt.ifVisible': 'visible?',
         'ArkosExt.getRotationStyle': 'rotation style',
         'ArkosExt.getWidthOrHeight': 'get [t] of the current costume',
-        'ArkosExt.setSize': 'Force the size to [size] %',
+        'ArkosExt.setSize': '⚠️Force the size to [size] % (regardless of limitation) ',
         'ArkosExt.width': 'width',
         'ArkosExt.height': 'height',
       },
@@ -277,7 +277,7 @@ class ArkosExtensions {
         {
           //强行设置大小
           opcode: 'setSize',
-          blockType: 'reporter',
+          blockType: 'command',
           text: this.formatMessage('ArkosExt.setSize'),
           arguments: {
             size: {
@@ -423,8 +423,7 @@ class ArkosExtensions {
   getEffect (args, util) {
     let effect = Cast.toString(args.EFFECT).toLowerCase();
     if (!util.target.effects.hasOwnProperty(effect)) return 0;
-    effect = util.target.effects[effect]
-    return effect;
+    return util.target.effects[effect];
   }
 
   //角色是否可见
@@ -439,13 +438,12 @@ class ArkosExtensions {
 
   //获取当前角色的旋转方式
   getRotationStyle (args, util) {
-    let t = util.target.rotationStyle
-    return t;
+    return util.target.rotationStyle;
   }
 
   //获取当前造型的长/宽
   getWidthOrHeight (args, util) {
-    const costumeSize = util.target.renderer.getCurrentSkinSize(this.drawableID);
+    const costumeSize = util.target.renderer.getCurrentSkinSize(util.target.drawableID);
     return costumeSize[args.t];
   }
 
@@ -461,7 +459,7 @@ class ArkosExtensions {
         const {direction, scale} = util.target._getRenderedDirectionAndScale();
         util.target.renderer.updateDrawableDirectionScale(util.target.drawableID, direction, scale);
         if (util.target.visible) {
-            util.target.emit(RenderedTarget.EVENT_TARGET_VISUAL_CHANGE, util.target);
+            util.target.emit('EVENT_TARGET_VISUAL_CHANGE', util.target);
             util.target.runtime.requestRedraw();
         }
     }
