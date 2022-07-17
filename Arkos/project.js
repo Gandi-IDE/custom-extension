@@ -18,6 +18,14 @@ class ArkosExtensions {
         'ArkosExt.insertString': '在[str]的第[pos]个字符前插入[substr]',
         'ArkosExt.replaceString': '将[str]中的第[start]个到第[end]个字符,替换为[substr]',
         'ArkosExt.turnDegreesToDir': '朝方向[dir]旋转[degree]度',
+        'ArkosExt.getEffect': '获取特效[EFFECT]的值',
+        'ArchiveCodeExt.color': '颜色',
+        'ArchiveCodeExt.fisheye': '语言',
+        'ArchiveCodeExt.whirl': '旋涡',
+        'ArchiveCodeExt.pixelate': '像素化',
+        'ArchiveCodeExt.mosaic': '马赛克',
+        'ArchiveCodeExt.brightness': '亮度',
+        'ArchiveCodeExt.ghost': '虚像',
       },
 
       en: {
@@ -30,6 +38,14 @@ class ArkosExtensions {
         'ArkosExt.insertString': 'insert[substr]at[pos]of[str]',
         'ArkosExt.replaceString': 'replace from[start]to[end]of[str],with[substr]',
         'ArkosExt.turnDegreesToDir': 'turn[degree] degrees toward direction[dir]',
+        'ArkosExt.getEffect': 'effect[EFFECT]',
+        'ArchiveCodeExt.color': 'color',
+        'ArchiveCodeExt.fisheye': 'fisheye',
+        'ArchiveCodeExt.whirl': 'whirl',
+        'ArchiveCodeExt.pixelate': 'pixelate',
+        'ArchiveCodeExt.mosaic': 'mosaic',
+        'ArchiveCodeExt.brightness': 'brightness',
+        'ArchiveCodeExt.ghost': 'ghost',
       },
     })
   }
@@ -202,15 +218,58 @@ class ArkosExtensions {
           arguments: {
             degree: {
               type: 'number',
-              defaultValue: 0,
+              defaultValue: 45,
             },
             dir: {
               type: 'angle',
-              defaultValue: 0,
+              defaultValue: 10,
+            },
+          },
+        },
+        {
+          //获取特效值
+          opcode: 'getEffect',
+          blockType: 'reporter',
+          text: this.formatMessage('ArkosExt.getEffect'),
+          arguments: {
+            EFFECT: {
+              type: 'string',
+              menu: 'effectMenu',
             },
           },
         },
       ],
+      menus: {
+        effectMenu: [{
+            text: this.formatMessage('ArchiveCodeExt.color'),
+            value: 'color'
+          },
+          {
+            text: this.formatMessage('ArchiveCodeExt.fisheye'),
+            value: 'fisheye'
+          },
+          {
+            text: this.formatMessage('ArchiveCodeExt.whirl'),
+            value: 'whirl'
+          },
+          {
+            text: this.formatMessage('ArchiveCodeExt.pixelate'),
+            value: 'pixelate'
+          },
+          {
+            text: this.formatMessage('ArchiveCodeExt.mosaic'),
+            value: 'mosaic'
+          },
+          {
+            text: this.formatMessage('ArchiveCodeExt.brightness'),
+            value: 'brightness'
+          },
+          {
+            text: this.formatMessage('ArchiveCodeExt.ghost'),
+            value: 'ghost'
+          }
+        ]
+      },
     }
   }
 
@@ -286,17 +345,26 @@ class ArkosExtensions {
     return str.slice(0, start - 1) + substr + str.slice(end)
   }
 
+
   turnDegreesToDir(args, util) {
     const degree = Cast.toNumber(args.degree);
     const dir = Cast.toNumber(args.dir);
-    const dif = this.differenceBetweenDirections(degree, dir);
-    if(Math.abs(dif) < degrees) 
+    const dif = this.differenceBetweenDirections(util.target.direction, dir);
+    if(Math.abs(dif) < degree) 
       util.target.setDirection(dir);
     else if(dif < 0)
       util.target.setDirection(util.target.direction - degree);
     else
       util.target.setDirection(util.target.direction + degree);
   }
+
+  //获取特效的数值（照抄官方做法）
+  getEffect (args, util) {
+    const effect = Cast.toString(args.EFFECT).toLowerCase();
+    if (!util.target.effects.hasOwnProperty(effect)) return 0;
+    return util.target.effects[effect];
+  }
+
 }
 
 
