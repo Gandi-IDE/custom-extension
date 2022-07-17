@@ -346,7 +346,7 @@ class ArkosExtensions {
           arguments: {
             t: {
               type: 'string',
-              menu: '1',
+              defaultValue: '1',
             }
           },
         },
@@ -571,8 +571,9 @@ class ArkosExtensions {
   }
 
   //获取角色边缘的坐标
-  getBoundaryCoord (args) {
-    const bounds = util.target.getBounds();
+  getBoundaryCoord (args, util) {
+    console.log(util.target.runtime.renderer)
+    const bounds = util.target.runtime.renderer.getBounds(util.target.drawableID);
     switch(args.t){
       case '1':
         return bounds.top;
