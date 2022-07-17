@@ -6,8 +6,8 @@ console.log(Cast.toNumber('123'))
 console.log(Cast.toNumber('aab'))
 class ArkosExtensions {
   constructor(runtime) {
-    util.target.runtime = runtime
-    util.target._formatMessage = runtime.getFormatMessage({
+    this.runtime = runtime
+    this._formatMessage = runtime.getFormatMessage({
       'zh-cn': {
         'ArkosExt.extensionName': 'Arkosの拓展',
         'ArkosExt.stringEquality': '(区分大小写)[ONE]=[TWO]',
@@ -81,7 +81,7 @@ class ArkosExtensions {
   }
 
   formatMessage(id) {
-    return util.target._formatMessage({
+    return this._formatMessage({
       id,
       default: id,
       description: id,
@@ -91,7 +91,7 @@ class ArkosExtensions {
   getInfo() {
     return {
       id: 'hcnTest', // 拓展id
-      name: util.target.formatMessage('ArkosExt.extensionName'), // 拓展名
+      name: this.formatMessage('ArkosExt.extensionName'), // 拓展名
       color1: '#FF8383',
       // menuIconURI: icon,
       // blockIconURI: icon,
@@ -100,7 +100,7 @@ class ArkosExtensions {
           // 判断相等（区分大小写）
           opcode: 'strictlyEquals',
           blockType: 'Boolean',
-          text: util.target.formatMessage('ArkosExt.stringEquality'),
+          text: this.formatMessage('ArkosExt.stringEquality'),
           arguments: {
             ONE: {
               type: 'string',
@@ -116,7 +116,7 @@ class ArkosExtensions {
           // 计算点A到点B的方向
           opcode: 'getDirFromAToB',
           blockType: 'reporter',
-          text: util.target.formatMessage('ArkosExt.directionFromAtoB'),
+          text: this.formatMessage('ArkosExt.directionFromAtoB'),
           arguments: {
             X1: {
               type: 'number',
@@ -140,7 +140,7 @@ class ArkosExtensions {
           // 计算角b-角a的角度差
           opcode: 'differenceBetweenDirections',
           blockType: 'reporter',
-          text: util.target.formatMessage('ArkosExt.differenceBetweenDirections'),
+          text: this.formatMessage('ArkosExt.differenceBetweenDirections'),
           arguments: {
             a: {
               type: 'number',
@@ -156,7 +156,7 @@ class ArkosExtensions {
           // 两点距离
           opcode: 'disFromAToB',
           blockType: 'reporter',
-          text: util.target.formatMessage('ArkosExt.distance'),
+          text: this.formatMessage('ArkosExt.distance'),
           arguments: {
             X1: {
               type: 'number',
@@ -180,7 +180,7 @@ class ArkosExtensions {
           // 查找子字符串，从pos开始
           opcode: 'indexof',
           blockType: 'reporter',
-          text: util.target.formatMessage('ArkosExt.searchString'),
+          text: this.formatMessage('ArkosExt.searchString'),
           arguments: {
             str: {
               type: 'string',
@@ -200,7 +200,7 @@ class ArkosExtensions {
           // 在字符串中插入子字符串
           opcode: 'insertStr',
           blockType: 'reporter',
-          text: util.target.formatMessage('ArkosExt.insertString'),
+          text: this.formatMessage('ArkosExt.insertString'),
           arguments: {
             str: {
               type: 'string',
@@ -220,7 +220,7 @@ class ArkosExtensions {
           // 替换字符串中的从..到..的字符串
           opcode: 'replaceStr',
           blockType: 'reporter',
-          text: util.target.formatMessage('ArkosExt.replaceString'),
+          text: this.formatMessage('ArkosExt.replaceString'),
           arguments: {
             str: {
               type: 'string',
@@ -244,7 +244,7 @@ class ArkosExtensions {
           //朝..方向旋转..角度
           opcode: 'turnDegreesToDir',
           blockType: 'command',
-          text: util.target.formatMessage('ArkosExt.turnDegreesToDir'),
+          text: this.formatMessage('ArkosExt.turnDegreesToDir'),
           arguments: {
             degree: {
               type: 'number',
@@ -260,7 +260,7 @@ class ArkosExtensions {
           //获取特效值
           opcode: 'getEffect',
           blockType: 'reporter',
-          text: util.target.formatMessage('ArkosExt.getEffect'),
+          text: this.formatMessage('ArkosExt.getEffect'),
           arguments: {
             EFFECT: {
               type: 'string',
@@ -272,19 +272,19 @@ class ArkosExtensions {
           //是否隐藏
           opcode: 'ifVisible',
           blockType: 'Boolean',
-          text: util.target.formatMessage('ArkosExt.ifVisible'),
+          text: this.formatMessage('ArkosExt.ifVisible'),
         },
         {
           //获取旋转方式
           opcode: 'getRotationStyle',
           blockType: 'reporter',
-          text: util.target.formatMessage('ArkosExt.getRotationStyle'),
+          text: this.formatMessage('ArkosExt.getRotationStyle'),
         },
         {
           //获取造型0宽1高
           opcode: 'getWidthOrHeight',
           blockType: 'reporter',
-          text: util.target.formatMessage('ArkosExt.getWidthOrHeight'),
+          text: this.formatMessage('ArkosExt.getWidthOrHeight'),
           arguments: {
             t: {
               type: 'string',
@@ -296,7 +296,7 @@ class ArkosExtensions {
           //强行设置大小
           opcode: 'setSize',
           blockType: 'command',
-          text: util.target.formatMessage('ArkosExt.setSize'),
+          text: this.formatMessage('ArkosExt.setSize'),
           arguments: {
             size: {
               type: 'number',
@@ -308,7 +308,7 @@ class ArkosExtensions {
           //强行移到xy
           opcode: 'setXY',
           blockType: 'command',
-          text: util.target.formatMessage('ArkosExt.setXY'),
+          text: this.formatMessage('ArkosExt.setXY'),
           arguments: {
             x: {
               type: 'number',
@@ -324,7 +324,7 @@ class ArkosExtensions {
           //获取角色边缘xy
           opcode: 'getBoundaryCoord',
           blockType: 'command',
-          text: util.target.formatMessage('ArkosExt.getBoundaryCoord'),
+          text: this.formatMessage('ArkosExt.getBoundaryCoord'),
           arguments: {
             t: {
               type: 'string',
@@ -336,7 +336,7 @@ class ArkosExtensions {
           //是否跑到舞台外
           opcode: 'isOutOfSight',
           blockType: 'Boolean',
-          text: util.target.formatMessage('ArkosExt.isOutOfSight'),
+          text: this.formatMessage('ArkosExt.isOutOfSight'),
         },
         {
           //返回值转bool积木
@@ -355,61 +355,61 @@ class ArkosExtensions {
         //角色上下左右边缘
         boundaryMenu: [
           {
-            text: util.target.formatMessage('ArkosExt.top'),
+            text: this.formatMessage('ArkosExt.top'),
             value: '1'
           },
           {
-            text: util.target.formatMessage('ArkosExt.bottom'),
+            text: this.formatMessage('ArkosExt.bottom'),
             value: '2'
           },
           {
-            text: util.target.formatMessage('ArkosExt.left'),
+            text: this.formatMessage('ArkosExt.left'),
             value: '3'
           },
           {
-            text: util.target.formatMessage('ArkosExt.right'),
+            text: this.formatMessage('ArkosExt.right'),
             value: '4'
           },
         ],
         //0宽1高 菜单
         WOrH: [
           {
-            text: util.target.formatMessage('ArkosExt.width'),
+            text: this.formatMessage('ArkosExt.width'),
             value: '0'
           },
           {
-            text: util.target.formatMessage('ArkosExt.height'),
+            text: this.formatMessage('ArkosExt.height'),
             value: '1'
           },
         ],
         //特效菜单
         effectMenu: [
           {
-            text: util.target.formatMessage('ArkosExt.color'),
+            text: this.formatMessage('ArkosExt.color'),
             value: 'color'
           },
           {
-            text: util.target.formatMessage('ArkosExt.fisheye'),
+            text: this.formatMessage('ArkosExt.fisheye'),
             value: 'fisheye'
           },
           {
-            text: util.target.formatMessage('ArkosExt.whirl'),
+            text: this.formatMessage('ArkosExt.whirl'),
             value: 'whirl'
           },
           {
-            text: util.target.formatMessage('ArkosExt.pixelate'),
+            text: this.formatMessage('ArkosExt.pixelate'),
             value: 'pixelate'
           },
           {
-            text: util.target.formatMessage('ArkosExt.mosaic'),
+            text: this.formatMessage('ArkosExt.mosaic'),
             value: 'mosaic'
           },
           {
-            text: util.target.formatMessage('ArkosExt.brightness'),
+            text: this.formatMessage('ArkosExt.brightness'),
             value: 'brightness'
           },
           {
-            text: util.target.formatMessage('ArkosExt.ghost'),
+            text: this.formatMessage('ArkosExt.ghost'),
             value: 'ghost'
           }
         ]
@@ -493,7 +493,7 @@ class ArkosExtensions {
   turnDegreesToDir(args, util) {
     const degree = Cast.toNumber(args.degree);
     const dir = Cast.toNumber(args.dir);
-    const dif = util.target.differenceBetweenDirections({a: util.target.direction, b: dir});
+    const dif = this.differenceBetweenDirections({a: util.target.direction, b: dir});
     if(Math.abs(dif) < degree) 
       util.target.setDirection(dir);
     else if(dif < 0)
