@@ -19,13 +19,19 @@ class ArkosExtensions {
         'ArkosExt.replaceString': '将[str]中的第[start]个到第[end]个字符,替换为[substr]',
         'ArkosExt.turnDegreesToDir': '朝方向[dir]旋转[degree]度',
         'ArkosExt.getEffect': '获取特效[EFFECT]的值',
-        'ArchiveCodeExt.color': '颜色',
-        'ArchiveCodeExt.fisheye': '语言',
-        'ArchiveCodeExt.whirl': '旋涡',
-        'ArchiveCodeExt.pixelate': '像素化',
-        'ArchiveCodeExt.mosaic': '马赛克',
-        'ArchiveCodeExt.brightness': '亮度',
-        'ArchiveCodeExt.ghost': '虚像',
+        'ArkosExt.color': '颜色',
+        'ArkosExt.fisheye': '鱼眼',
+        'ArkosExt.whirl': '旋涡',
+        'ArkosExt.pixelate': '像素化',
+        'ArkosExt.mosaic': '马赛克',
+        'ArkosExt.brightness': '亮度',
+        'ArkosExt.ghost': '虚像',
+        'ArkosExt.ifVisible': '角色可见？',
+        'ArkosExt.getRotationStyle': '当前旋转方式',
+        'ArkosExt.getWidthOrHeight': '获取当前造型的[t]',
+        'ArkosExt.setSize': '强行将大小设为[size]',
+        'ArkosExt.width': '长',
+        'ArkosExt.height': '宽',
       },
 
       en: {
@@ -39,13 +45,19 @@ class ArkosExtensions {
         'ArkosExt.replaceString': 'replace from[start]to[end]of[str],with[substr]',
         'ArkosExt.turnDegreesToDir': 'turn[degree] degrees toward direction[dir]',
         'ArkosExt.getEffect': 'effect[EFFECT]',
-        'ArchiveCodeExt.color': 'color',
-        'ArchiveCodeExt.fisheye': 'fisheye',
-        'ArchiveCodeExt.whirl': 'whirl',
-        'ArchiveCodeExt.pixelate': 'pixelate',
-        'ArchiveCodeExt.mosaic': 'mosaic',
-        'ArchiveCodeExt.brightness': 'brightness',
-        'ArchiveCodeExt.ghost': 'ghost',
+        'ArkosExt.color': 'color',
+        'ArkosExt.fisheye': 'fisheye',
+        'ArkosExt.whirl': 'whirl',
+        'ArkosExt.pixelate': 'pixelate',
+        'ArkosExt.mosaic': 'mosaic',
+        'ArkosExt.brightness': 'brightness',
+        'ArkosExt.ghost': 'ghost',
+        'ArkosExt.ifVisible': 'visible?',
+        'ArkosExt.getRotationStyle': 'rotation style',
+        'ArkosExt.getWidthOrHeight': 'get [t] of the current costume',
+        'ArkosExt.setSize': 'Force the size to [size] %',
+        'ArkosExt.width': 'width',
+        'ArkosExt.height': 'height',
       },
     })
   }
@@ -238,34 +250,83 @@ class ArkosExtensions {
             },
           },
         },
+        {
+          //是否隐藏
+          opcode: 'ifVisible',
+          blockType: 'Boolean',
+          text: this.formatMessage('ArkosExt.ifVisible'),
+        },
+        {
+          //获取旋转方式
+          opcode: 'getRotationStyle',
+          blockType: 'reporter',
+          text: this.formatMessage('ArkosExt.getRotationStyle'),
+        },
+        {
+          //获取造型长宽
+          opcode: 'getWidthOrHeight',
+          blockType: 'reporter',
+          text: this.formatMessage('ArkosExt.getWidthOrHeight'),
+          arguments: {
+            t: {
+              type: 'string',
+              menu: 'WOrH',
+            },
+          },
+        },
+        {
+          //强行设置大小
+          opcode: 'setSize',
+          blockType: 'reporter',
+          text: this.formatMessage('ArkosExt.setSize'),
+          arguments: {
+            size: {
+              type: 'number',
+              defaultValue: 500,
+            },
+          },
+        },
       ],
       menus: {
-        effectMenu: [{
-            text: this.formatMessage('ArchiveCodeExt.color'),
+        //长0宽1 菜单
+        WOrH: [
+          {
+            text: this.formatMessage('ArkosExt.width'),
+            value: '0'
+          },
+          {
+            text: this.formatMessage('ArkosExt.height'),
+            value: '1'
+          },
+        ],
+        //特效菜单
+        effectMenu: [
+          {
+            text: this.formatMessage('ArkosExt.color'),
             value: 'color'
           },
           {
-            text: this.formatMessage('ArchiveCodeExt.fisheye'),
+            text: this.formatMessage('ArkosExt.fisheye'),
             value: 'fisheye'
           },
           {
-            text: this.formatMessage('ArchiveCodeExt.whirl'),
+            text: this.formatMessage('ArkosExt.whirl'),
             value: 'whirl'
           },
           {
-            text: this.formatMessage('ArchiveCodeExt.pixelate'),
+            text: this.formatMessage('ArkosExt.pixelate'),
             value: 'pixelate'
           },
           {
-            text: this.formatMessage('ArchiveCodeExt.mosaic'),
+            text: this.formatMessage('ArkosExt.mosaic'),
             value: 'mosaic'
           },
           {
-            text: this.formatMessage('ArchiveCodeExt.brightness'),
+            text: this.formatMessage('ArkosExt.brightness'),
             value: 'brightness'
           },
           {
-            text: this.formatMessage('ArchiveCodeExt.ghost'),
+            text: this.formatMessage('ArkosExt.ghost'),
             value: 'ghost'
           }
         ]
@@ -349,7 +410,7 @@ class ArkosExtensions {
   turnDegreesToDir(args, util) {
     const degree = Cast.toNumber(args.degree);
     const dir = Cast.toNumber(args.dir);
-    const dif = this.differenceBetweenDirections(util.target.direction, dir);
+    const dif = this.differenceBetweenDirections({a: util.target.direction, b: dir});
     if(Math.abs(dif) < degree) 
       util.target.setDirection(dir);
     else if(dif < 0)
@@ -358,11 +419,53 @@ class ArkosExtensions {
       util.target.setDirection(util.target.direction + degree);
   }
 
-  //获取特效的数值（照抄官方做法）
+  //获取特效的数值
   getEffect (args, util) {
-    const effect = Cast.toString(args.EFFECT).toLowerCase();
+    let effect = Cast.toString(args.EFFECT).toLowerCase();
     if (!util.target.effects.hasOwnProperty(effect)) return 0;
-    return util.target.effects[effect];
+    effect = util.target.effects[effect]
+    return effect;
+  }
+
+  //角色是否可见
+  ifVisible (args, util) {
+    return  util.target.visible;
+  }
+
+  //获取图层(逝一逝)
+  // getLayer (args, util) {
+  //   return util.target.layer;
+  // }
+
+  //获取当前角色的旋转方式
+  getRotationStyle (args, util) {
+    let t = util.target.rotationStyle
+    return t;
+  }
+
+  //获取当前造型的长/宽
+  getWidthOrHeight (args, util) {
+    const costumeSize = util.target.renderer.getCurrentSkinSize(this.drawableID);
+    return costumeSize[args.t];
+  }
+
+  //强行设置大小(逝一逝)
+  setSize (args, util) {
+    if (util.target.isStage) {
+        return;
+    }
+    if (util.target.renderer) {
+        args.size = Cast.toNumber(args.size);
+        if(args.size < 0.1) args.size = 0.1;
+        util.target.size = args.size;
+        const {direction, scale} = util.target._getRenderedDirectionAndScale();
+        util.target.renderer.updateDrawableDirectionScale(util.target.drawableID, direction, scale);
+        if (util.target.visible) {
+            util.target.emit(RenderedTarget.EVENT_TARGET_VISUAL_CHANGE, util.target);
+            util.target.runtime.requestRedraw();
+        }
+    }
+    util.target.runtime.requestTargetsUpdate(util.target);
   }
 
 }
