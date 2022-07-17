@@ -593,7 +593,7 @@ class ArkosExtensions {
     if (util.target.renderer) {
         const stageWidth = util.target.runtime.constructor.STAGE_WIDTH;
         const stageHeight = util.target.runtime.constructor.STAGE_HEIGHT;
-        const bounds = util.target.getBounds();
+        const bounds = util.target.runtime.renderer.getBounds(util.target.drawableID);
         if (bounds.right < -stageWidth / 2 ||
             bounds.left > stageWidth / 2 ||
             bounds.bottom > stageHeight / 2 ||
@@ -606,6 +606,7 @@ class ArkosExtensions {
 
   //形如：<() >
   reporterToBoolean (args){
+    if(Cast.toString(args.t).toLowerCase() === 'false') return false;
     return (args.t) ? true : false;
   }
 
