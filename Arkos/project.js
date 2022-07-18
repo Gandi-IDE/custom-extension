@@ -42,6 +42,9 @@ class ArkosExtensions {
         'ArkosExt.left': '左边缘x',
         'ArkosExt.right': '右边缘x',
         'ArkosExt.isOutOfSight': '角色移到舞台区外？',
+
+        'ArkosExt.and': '且',
+        'ArkosExt.or': '或',
       },
 
       en: {
@@ -76,6 +79,9 @@ class ArkosExtensions {
         'ArkosExt.left': 'left x',
         'ArkosExt.right': 'right x',
         'ArkosExt.isOutOfSight': 'is out of stage?',
+
+        'ArkosExt.and': 'and',
+        'ArkosExt.or': 'or',
       },
     })
   }
@@ -378,12 +384,57 @@ class ArkosExtensions {
             },
           },
         },
+        {
+          //形如：a≤b且/或>c op1,op2 logic  compareTwoSidesPlus
+          opcode: 'compareTwoSidesPlus',
+          blockType: 'Boolean',
+          text: '[a][op1][b][logic][op2][c]',
+          arguments: {
+            a: {
+              type: 'string',
+              defaultValue: '1',
+            },
+            b: {
+              type: 'string',
+              defaultValue: 'x',
+            },
+            c: {
+              type: 'string',
+              defaultValue: '3',
+            },
+            op1: {
+              type: 'string',
+              menu: 'opMenu2',
+              defaultValue: '<',
+            },
+            op2: {
+              type: 'string',
+              menu: 'opMenu2',
+              defaultValue: '>',
+            },
+            logic: {
+              type: 'string',
+              menu: 'logicMenu',
+              defaultValue: 'or',
+            },
+          },
+        },
       ],
       menus: {
         //判断符菜单
         opMenu1: ['<','≤','=','≠',],
         opMenu2: ['<','>','≤','≥','=','≠',],
-        
+        //logicMenu
+        logicMenu: [
+          {
+            text: this.formatMessage('ArkosExt.or'),
+            value: 'or'
+          },
+          {
+            text: this.formatMessage('ArkosExt.and'),
+            value: 'and'
+          },
+        ],
         //角色上下左右边缘
         boundaryMenu: [
           {
@@ -660,15 +711,27 @@ class ArkosExtensions {
         return Cast.compare(a, b) >= 0;
       case '≠':
         return Cast.compare(a, b) !== 0;
+      default:
+        return false;
     }
   }
 
   //形如：a≤b≤c op1,op2
   compareTwoSides (args){
-    if(this.compare(args.a, args.b, args.op1)&&this.compare(args.b, args.c, args.op2)) return true;
-    else  return false;
+    return this.compare(args.a, args.b, args.op1)&&this.compare(args.b, args.c, args.op2)
   }
-
+  
+  //形如：a≤b且/或>c op1,op2 logic 
+  compareTwoSidesPlus(args){
+    switch(args.logic){
+      case 'or':
+        return this.compare(args.a, args.b, args.op1)||this.compare(args.b, args.c, args.op2)
+      case 'and':
+        return this.compare(args.a, args.b, args.op1)&&this.compare(args.b, args.c, args.op2)
+      default:
+        return false;
+    }
+  }
   
 
 }
