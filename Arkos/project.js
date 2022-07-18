@@ -462,6 +462,7 @@ class ArkosExtensions {
             list: {
               type: 'string',
               menu: 'sortedTableMenu',
+              acceptReporters: true,
             },
           },
         },
@@ -474,6 +475,7 @@ class ArkosExtensions {
             list: {
               type: 'string',
               menu: 'sortedTableMenu',
+              acceptReporters: true,
             },
             type: {
               type: 'string',
@@ -490,6 +492,7 @@ class ArkosExtensions {
             list: {
               type: 'string',
               menu: 'sortedTableMenu',
+              acceptReporters: true,
             },
             name: {
               type: 'string',
@@ -514,6 +517,7 @@ class ArkosExtensions {
             list: {
               type: 'string',
               menu: 'sortedTableMenu',
+              acceptReporters: true,
             },
             n: {
               type: 'number',
@@ -535,6 +539,7 @@ class ArkosExtensions {
             list: {
               type: 'string',
               menu: 'sortedTableMenu',
+              acceptReporters: true,
             },
             name: {
               type: 'string',
@@ -556,6 +561,7 @@ class ArkosExtensions {
             list: {
               type: 'string',
               menu: 'sortedTableMenu',
+              acceptReporters: true,
             },
           },
         },
@@ -568,6 +574,7 @@ class ArkosExtensions {
             list: {
               type: 'string',
               menu: 'sortedTableMenu',
+              acceptReporters: true,
             },
             name: {
               type: 'string',
@@ -952,7 +959,7 @@ class ArkosExtensions {
   
   createTableIfNotExist(list){
     if(!(list in this.sortedTable))
-      this.sortedTable[list]=[];
+      this.sortedTable[list]={order:'desc',list:[]};
   }
 
   sortTable(list){
@@ -961,7 +968,8 @@ class ArkosExtensions {
   
   //📊清空排序表
   clearSortedTable (args){
-    this.sortedTable[args.list]=[];
+    this.createTableIfNotExist(args.list)
+    this.sortedTable[args.list].list=[];
   }
 
   //📊设置排序方式
