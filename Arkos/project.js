@@ -7,6 +7,10 @@ console.log(Cast.toNumber('aab'))
 class ArkosExtensions {
   constructor(runtime) {
     this.runtime = runtime
+    this.sortedTable={
+      list1:{order:'desc',list:[]},
+      list2:{order:'desc',list:[]},
+    }
     this._formatMessage = runtime.getFormatMessage({
       'zh-cn': {
         'ArkosExt.extensionName': 'Arkosの拓展',
@@ -28,7 +32,7 @@ class ArkosExtensions {
         'ArkosExt.brightness': '亮度',
         'ArkosExt.ghost': '虚像',
 
-        'ArkosExt.ifVisible': '角色可见？',
+        'ArkosExt.isHiding': '角色隐藏？',
         'ArkosExt.getRotationStyle': '当前旋转方式',
         'ArkosExt.getWidthOrHeight': '获取当前造型的[t]',
         'ArkosExt.setSize': '⚠️强行将大小设为[size]（无视限制）',
@@ -45,6 +49,21 @@ class ArkosExtensions {
 
         'ArkosExt.and': '且',
         'ArkosExt.or': '或',
+        
+        'ArkosExt.clearSortedTable': '📊清空排序表[list]',
+        'ArkosExt.setTypeOfSortedTable': '📊将排序表[list]的排序方式设为[type]',
+        'ArkosExt.addToSortedTable': '📊将内容(重名的则覆盖)[name],排序值[value]加入排序表[list],附加信息[extra]',
+        'ArkosExt.getFromSortedTableByNo': '📊获取排序表[list]中第[n]项的[t]',
+        'ArkosExt.getFromSortedTableByName': '📊获取[name]在排序表[list]中的[t]',
+        'ArkosExt.lengthOfSortedTable': '📊排序表[list]中内容数',
+        'ArkosExt.deleteNameOfSortedTable': '📊删除排序表[list]中名为[name]的项',
+        'ArkosExt.asc': '升序',
+        'ArkosExt.desc': '降序',
+
+        'ArkosExt.name': '名称',
+        'ArkosExt.rank': '表中位置',
+        'ArkosExt.rankValue': '排序值',
+        'ArkosExt.extra': '附加信息',
       },
 
       en: {
@@ -65,7 +84,7 @@ class ArkosExtensions {
         'ArkosExt.mosaic': 'mosaic',
         'ArkosExt.brightness': 'brightness',
         'ArkosExt.ghost': 'ghost',
-        'ArkosExt.ifVisible': 'visible?',
+        'ArkosExt.isHiding': 'is hiding?',
         'ArkosExt.getRotationStyle': 'rotation style',
         'ArkosExt.getWidthOrHeight': 'get [t] of the current costume',
         'ArkosExt.setSize': '⚠️force the size to [size] % (regardless of limitation) ',
@@ -82,6 +101,21 @@ class ArkosExtensions {
 
         'ArkosExt.and': 'and',
         'ArkosExt.or': 'or',
+
+        'ArkosExt.clearSortedTable': '📊empty sorted table[list]',
+        'ArkosExt.setTypeOfSortedTable': '📊set sort order of[list]to[type]',
+        'ArkosExt.addToSortedTable': '📊add (overwrite if existed)[name]to table[list] with sort index value[value],extra data[extra] and sort',
+        'ArkosExt.getFromSortedTableByNo': '📊get[t]of #[n] from [list]',
+        'ArkosExt.getFromSortedTableByName': '📊get[t]of [name] from [list]',
+        'ArkosExt.lengthOfSortedTable': '📊length of sorted table[list]',
+        'ArkosExt.deleteNameOfSortedTable': '📊delete [name] in[list]',
+        'ArkosExt.asc': 'ascending order',
+        'ArkosExt.desc': 'descending order',
+
+        'ArkosExt.name': 'name',
+        'ArkosExt.rank': 'rank',
+        'ArkosExt.rankValue': 'rankValue',
+        'ArkosExt.extra': 'extra',
       },
     })
   }
@@ -276,9 +310,9 @@ class ArkosExtensions {
         },
         {
           //是否隐藏
-          opcode: 'ifVisible',
+          opcode: 'isHiding',
           blockType: 'Boolean',
-          text: this.formatMessage('ArkosExt.ifVisible'),
+          text: this.formatMessage('ArkosExt.isHiding'),
         },
         {
           //获取旋转方式
@@ -392,11 +426,11 @@ class ArkosExtensions {
           arguments: {
             a: {
               type: 'string',
-              defaultValue: '1',
+              defaultValue: 'x',
             },
             b: {
               type: 'string',
-              defaultValue: 'x',
+              defaultValue: '1',
             },
             c: {
               type: 'string',
@@ -419,8 +453,161 @@ class ArkosExtensions {
             },
           },
         },
+        {
+          //📊清空排序表
+          opcode: 'clearSortedTable',
+          blockType: 'command',
+          text: this.formatMessage('ArkosExt.clearSortedTable'),
+          arguments: {
+            list: {
+              type: 'string',
+              menu: 'sortedTableMenu',
+            },
+          },
+        },
+        {
+          //📊排序表排序方式
+          opcode: 'setTypeOfSortedTable',
+          blockType: 'command',
+          text: this.formatMessage('ArkosExt.setTypeOfSortedTable'),
+          arguments: {
+            list: {
+              type: 'string',
+              menu: 'sortedTableMenu',
+            },
+            type: {
+              type: 'string',
+              menu: 'sortOrder',
+            },
+          },
+        },
+        {
+          //📊将XX加入排序表
+          opcode: 'addToSortedTable',
+          blockType: 'command',
+          text: this.formatMessage('ArkosExt.addToSortedTable'),
+          arguments: {
+            list: {
+              type: 'string',
+              menu: 'sortedTableMenu',
+            },
+            name: {
+              type: 'string',
+              defaultValue: '小明',
+            },
+            value: {
+              type: 'number',
+              defaultValue: '95',
+            },
+            extra: {
+              type: 'string',
+              defaultValue: '20212490',
+            },
+          },
+        },
+        {
+          //📊获取排序表第n项
+          opcode: 'getFromSortedTableByNo',
+          blockType: 'reporter',
+          text: this.formatMessage('ArkosExt.getFromSortedTableByNo'),
+          arguments: {
+            list: {
+              type: 'string',
+              menu: 'sortedTableMenu',
+            },
+            n: {
+              type: 'number',
+              defaultValue: 1,
+            },
+            t: {
+              type: 'string',
+              defaultValue: '1',
+              menu: 'tableItemPropertyMenu',
+            },
+          },
+        },
+        {
+          //📊获取排序表特定名字内容
+          opcode: 'getFromSortedTableByName',
+          blockType: 'reporter',
+          text: this.formatMessage('ArkosExt.getFromSortedTableByName'),
+          arguments: {
+            list: {
+              type: 'string',
+              menu: 'sortedTableMenu',
+            },
+            name: {
+              type: 'string',
+              defaultValue: '小明',
+            },
+            t: {
+              type: 'string',
+              defaultValue: '2',
+              menu: 'tableItemPropertyMenu',
+            },
+          },
+        },
+        {
+          //📊获取排序表长度
+          opcode: 'lengthOfSortedTable',
+          blockType: 'reporter',
+          text: this.formatMessage('ArkosExt.lengthOfSortedTable'),
+          arguments: {
+            list: {
+              type: 'string',
+              menu: 'sortedTableMenu',
+            },
+          },
+        },
+        {
+          //📊删除表中内容
+          opcode: 'deleteNameOfSortedTable',
+          blockType: 'command',
+          text: this.formatMessage('ArkosExt.deleteNameOfSortedTable'),
+          arguments: {
+            list: {
+              type: 'string',
+              menu: 'sortedTableMenu',
+            },
+            name: {
+              type: 'string',
+              defaultValue: '小明',
+            },
+          },
+        },
       ],
       menus: {
+        tableItemPropertyMenu: [
+          {
+            text: this.formatMessage('ArkosExt.name'),
+            value: '1'
+          },
+          {
+            text: this.formatMessage('ArkosExt.rank'),
+            value: '2'
+          },
+          {
+            text: this.formatMessage('ArkosExt.rankValue'),
+            value: '3'
+          },
+          {
+            text: this.formatMessage('ArkosExt.extra'),
+            value: '4'
+          },
+        ],
+        sortOrder: [
+          {
+            text: this.formatMessage('ArkosExt.asc'),
+            value: 'asc'//升序
+          },
+          {
+            text: this.formatMessage('ArkosExt.desc'),
+            value: 'desc'//降序
+          },
+        ],
+        sortedTableMenu: {
+          items: 'findAllSortedTable'
+        },
         //判断符菜单
         opMenu1: ['<','≤','=','≠',],
         opMenu2: ['<','>','≤','≥','=','≠',],
@@ -593,8 +780,8 @@ class ArkosExtensions {
   }
 
   //角色是否可见
-  ifVisible (args, util) {
-    return  util.target.visible;
+  isHiding (args, util) {
+    return  !util.target.visible;
   }
 
   //获取图层(逝一逝)
@@ -725,14 +912,155 @@ class ArkosExtensions {
   compareTwoSidesPlus(args){
     switch(args.logic){
       case 'or':
-        return this.compare(args.a, args.b, args.op1)||this.compare(args.b, args.c, args.op2)
+        return this.compare(args.a, args.b, args.op1)||this.compare(args.a, args.c, args.op2)
       case 'and':
-        return this.compare(args.a, args.b, args.op1)&&this.compare(args.b, args.c, args.op2)
+        return this.compare(args.a, args.b, args.op1)&&this.compare(args.a, args.c, args.op2)
       default:
         return false;
     }
   }
+
+  //数组排序规则
+  sortRule(propName,order) {
+    return (a, b) => {
+      a = a[propName]
+      b = b[propName]
+      if (a > b) return order === 'asc' ? 1 : -1;
+      else if (a < b) return  order === 'asc' ? -1 : 1;
+      else return 0;
+    }
+  }
+
+  //查找所有排序表
+  findAllSortedTable() {
+    const list = [];
+    let temp = this.sortedTable;
+    Object.keys(temp).forEach(obj => {
+      //if ( Array.isArray (temp[obj]) ) {
+        list.push({
+          text: obj,
+          value: obj,
+        });
+      //}
+    });
+    if (list.length === 0) {
+      list.push({
+        text: '-',
+        value: 'empty',
+      });
+    }
+    //list.sort(this.sortRule("text"));
+    return list;
+  }
   
+  createTableIfNotExist(list){
+    if(!(list in this.sortedTable))
+      this.sortedTable[list]=[];
+  }
+
+  sortTable(list){
+    this.sortedTable[list].list.sort(this.sortRule("rankValue",this.sortedTable[list].order));
+  }
+  
+  //📊清空排序表
+  clearSortedTable (args){
+    this.sortedTable[args.list]=[];
+  }
+
+  //📊设置排序方式
+  setTypeOfSortedTable (args){
+    this.createTableIfNotExist(args.list)
+    this.sortedTable[args.list].order=args.type;
+    this.sortTable(args.list)
+  }
+
+  //查找在列表中的插入位置（已有则覆盖）
+  _findPlaceAndInsert(list, order, item){
+    //删除已存在的内容
+    for (let i = 0; i < list.length; i++) {
+      if (list[i].name === item.name){
+        //删除同名项
+        list.splice(i,1);
+        break;
+      }
+    }
+    //查找插入位置并插入
+    for (let i = 0; i < list.length; i++) {
+      if ((list[i].rankValue > item.rankValue && order ==='asc')||
+      (list[i].rankValue < item.rankValue && order ==='desc')){
+        //插入在该项前
+        list.splice(i,0,item);
+        return;
+      }
+    }
+    //没找到插入位置，加在末尾
+    list.push(item);
+  }
+
+  //📊将内容加入表
+  addToSortedTable (args){
+    this.createTableIfNotExist(args.list)
+    this._findPlaceAndInsert(
+      this.sortedTable[args.list].list,
+      this.sortedTable[args.list].order,
+      {name:args.name, rankValue:args.value, extra:args.extra});
+  }
+  
+  _getTInItem (item, t, rank){
+    if(item === undefined)  return '';
+    switch(t){
+      case '1':
+        return item.name;
+      case '2':
+        return rank;
+      case '3':
+        return item.rankValue;
+      case '4':
+        return item.extra;
+      default:
+        return '';
+    }
+  }
+
+  //📊获取第n项
+  getFromSortedTableByNo (args){
+    if(!(args.list in this.sortedTable)) return '';
+    let list = this.sortedTable[args.list].list;
+    return this._getTInItem (list[args.n-1], args.t, args.n);
+  }
+
+  _getItemIdxByName(list, name){
+    for (let i = 0; i < list.length; i++) {
+      if (list[i].name === name){
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  //📊获取名为XX的项
+  getFromSortedTableByName (args){
+    if(!(args.list in this.sortedTable)) return '';
+    let list = this.sortedTable[args.list].list;
+    let n = this._getItemIdxByName(list ,args.name) ;
+    if(n === -1)  return '';
+    return this._getTInItem (list[n], args.t, n+1);
+  }
+
+  //📊获取排序表长度
+  lengthOfSortedTable (args){
+    if(!(args.list in this.sortedTable)) return 0;
+    return this.sortedTable[args.list].list.length;
+  }
+
+  //📊删除排序表名为XX的内容
+  deleteNameOfSortedTable (args){
+    if(!(args.list in this.sortedTable)) return;
+    let list = this.sortedTable[args.list].list;
+    let n = this._getItemIdxByName(list ,args.name) ;
+    if(n === -1)  return;
+    list.splice(n, 1);
+  }
 
 }
 
