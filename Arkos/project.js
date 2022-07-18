@@ -462,7 +462,6 @@ class ArkosExtensions {
             list: {
               type: 'string',
               menu: 'sortedTableMenu',
-              acceptReporters: true,
             },
           },
         },
@@ -475,7 +474,6 @@ class ArkosExtensions {
             list: {
               type: 'string',
               menu: 'sortedTableMenu',
-              acceptReporters: true,
             },
             type: {
               type: 'string',
@@ -492,7 +490,6 @@ class ArkosExtensions {
             list: {
               type: 'string',
               menu: 'sortedTableMenu',
-              acceptReporters: true,
             },
             name: {
               type: 'string',
@@ -517,7 +514,6 @@ class ArkosExtensions {
             list: {
               type: 'string',
               menu: 'sortedTableMenu',
-              acceptReporters: true,
             },
             n: {
               type: 'number',
@@ -539,7 +535,6 @@ class ArkosExtensions {
             list: {
               type: 'string',
               menu: 'sortedTableMenu',
-              acceptReporters: true,
             },
             name: {
               type: 'string',
@@ -561,7 +556,6 @@ class ArkosExtensions {
             list: {
               type: 'string',
               menu: 'sortedTableMenu',
-              acceptReporters: true,
             },
           },
         },
@@ -574,7 +568,6 @@ class ArkosExtensions {
             list: {
               type: 'string',
               menu: 'sortedTableMenu',
-              acceptReporters: true,
             },
             name: {
               type: 'string',
@@ -613,7 +606,8 @@ class ArkosExtensions {
           },
         ],
         sortedTableMenu: {
-          items: 'findAllSortedTable'
+          items: 'findAllSortedTable',
+          acceptReporters: true,
         },
         //判断符菜单
         opMenu1: ['<','≤','=','≠',],
