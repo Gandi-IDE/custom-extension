@@ -588,7 +588,7 @@ class ArkosExtensions {
   }
 
   //是否在舞台外
-  isOutOfSight (util) {
+  isOutOfSight (args, util) {
     // console.log(util.target.runtime.renderer)
     // console.log(util.target.renderer)
     //if (util.target.renderer) {
