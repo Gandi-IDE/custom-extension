@@ -592,8 +592,8 @@ class ArkosExtensions {
     // console.log(util.target.runtime.renderer)
     // console.log(util.target.renderer)
     if (util.target.renderer) {
-        const stageWidth = util.target.runtime.constructor.STAGE_WIDTH;
-        const stageHeight = util.target.runtime.constructor.STAGE_HEIGHT;
+        const stageWidth = util.target.runtime.STAGE_WIDTH;
+        const stageHeight = util.target.runtime.STAGE_HEIGHT;
         console.log('stageWidth',stageWidth);
         console.log('stageHeight',stageHeight);
         const bounds = util.target.runtime.renderer.getBounds(util.target.drawableID);
