@@ -937,10 +937,7 @@ class ArkosExtensions {
     let temp = this.sortedTable;
     Object.keys(temp).forEach(obj => {
       //if ( Array.isArray (temp[obj]) ) {
-        list.push({
-          text: obj,
-          value: obj,
-        });
+        list.push(obj);
       //}
     });
     if (list.length === 0) {
