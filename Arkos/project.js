@@ -350,8 +350,40 @@ class ArkosExtensions {
             }
           },
         },
+        {
+          //形如 a≤b≤c
+          opcode: 'compareTwoSides',
+          blockType: 'Boolean',
+          text: '[a][op1][b][op2][c]',
+          arguments: {
+            a: {
+              type: 'string',
+              defaultValue: '1',
+            },
+            b: {
+              type: 'string',
+              defaultValue: 'x',
+            },
+            c: {
+              type: 'string',
+              defaultValue: '3',
+            },
+            op1: {
+              type: 'string',
+              menu: 'opMenu1',
+            },
+            op2: {
+              type: 'string',
+              menu: 'opMenu1',
+            },
+          },
+        },
       ],
       menus: {
+        //判断符菜单
+        opMenu1: ['<','≤','=','≠',],
+        opMenu2: ['<','>','≤','≥','=','≠',],
+        
         //角色上下左右边缘
         boundaryMenu: [
           {
@@ -588,10 +620,14 @@ class ArkosExtensions {
   }
 
   //是否在舞台外
-  isOutOfSight (util) {
-    //if (util.target.renderer) {
-        const stageWidth = util.target.runtime.constructor.STAGE_WIDTH;
-        const stageHeight = util.target.runtime.constructor.STAGE_HEIGHT;
+  isOutOfSight (args, util) {
+    // console.log(util.target.runtime.renderer)
+    // console.log(util.target.renderer)
+    if (util.target.renderer) {
+        const stageWidth = util.target.runtime.stageWidth;
+        const stageHeight = util.target.runtime.stageHeight;
+        console.log('stageWidth',stageWidth);
+        console.log('stageHeight',stageHeight);
         const bounds = util.target.runtime.renderer.getBounds(util.target.drawableID);
         if (bounds.right < -stageWidth / 2 ||
             bounds.left > stageWidth / 2 ||
@@ -599,7 +635,7 @@ class ArkosExtensions {
             bounds.top < -stageHeight / 2) {
             return true;
         }
-    //}
+    }
     return false;
   }
 
@@ -608,6 +644,29 @@ class ArkosExtensions {
     if(Cast.toString(args.t).toLowerCase() === 'false') return false;
     if(args.t === '0') return false;
     return (args.t) ? true : false;
+  }
+
+  compare(a,b,op){
+    switch(op){
+      case '<':
+        return Cast.compare(a, b) < 0;
+      case '>':
+        return Cast.compare(a, b) > 0;
+      case '=':
+        return Cast.compare(a, b) === 0;
+      case '≤':
+        return Cast.compare(a, b) <= 0;
+      case '≥':
+        return Cast.compare(a, b) >= 0;
+      case '≠':
+        return Cast.compare(a, b) !== 0;
+    }
+  }
+
+  //形如：a≤b≤c op1,op2
+  compareTwoSides (args){
+    if(this.compare(args.a, args.b, args.op1)&&this.compare(args.b, args.c, args.op2)) return true;
+    else  return false;
   }
 
   
