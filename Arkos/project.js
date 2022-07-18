@@ -591,9 +591,11 @@ class ArkosExtensions {
   isOutOfSight (args, util) {
     // console.log(util.target.runtime.renderer)
     // console.log(util.target.renderer)
-    //if (util.target.renderer) {
+    if (util.target.renderer) {
         const stageWidth = util.target.runtime.constructor.STAGE_WIDTH;
         const stageHeight = util.target.runtime.constructor.STAGE_HEIGHT;
+        console.log('stageWidth',stageWidth);
+        console.log('stageHeight',stageHeight);
         const bounds = util.target.runtime.renderer.getBounds(util.target.drawableID);
         if (bounds.right < -stageWidth / 2 ||
             bounds.left > stageWidth / 2 ||
@@ -601,7 +603,7 @@ class ArkosExtensions {
             bounds.top < -stageHeight / 2) {
             return true;
         }
-    //}
+    }
     return false;
   }
 
