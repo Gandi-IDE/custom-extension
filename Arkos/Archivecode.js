@@ -122,7 +122,8 @@ class Archive_code {
         "---" + this.formatMessage("ArchiveCodeExt.info1"),  //🏺容器操作
         {
           //清空容器
-          opcode: 'clearContainer',
+          opcode: 'init',//为了兼容旧版，opcode用原来的
+          func: 'clearContainer',
           blockType: 'command',
           text: this.formatMessage('ArchiveCodeExt.clearContainer'),
           arguments: {
@@ -135,7 +136,8 @@ class Archive_code {
         },
         {
           //将内容加入容器 名称xx 值xx
-          opcode: 'addContentToContainer',
+          opcode: 'serialization',//'addContentToContainer',
+          func:'addContentToContainer',
           blockType: 'command',
           text: this.formatMessage('ArchiveCodeExt.addContentToContainer'),
           arguments: {
@@ -156,7 +158,8 @@ class Archive_code {
         },
         {
           //将变量加入序列
-          opcode: 'addVariableToContainer',
+          opcode: 'serializationForVariable',//'addVariableToContainer',
+          func:'addVariableToContainer',
           blockType: 'command',
           text: this.formatMessage('ArchiveCodeExt.addVariableToContainer'),
           arguments: {
@@ -177,7 +180,8 @@ class Archive_code {
         },
         {
           //将列表加入序列
-          opcode: 'addListToContainer',
+          opcode: 'serializationForList',
+          func:'addListToContainer',
           blockType: 'command',
           text: this.formatMessage('ArchiveCodeExt.addListToContainer'),
           arguments: {
@@ -204,7 +208,8 @@ class Archive_code {
         // },
         {
           //返回序列化结果
-          opcode: 'containerToJSON',
+          opcode: 'result',
+          func:'containerToJSON',
           blockType: 'reporter',
           text: this.formatMessage('ArchiveCodeExt.containerToJSON'),
           arguments: {
@@ -215,11 +220,10 @@ class Archive_code {
             },
           }
         },
-
-
         {
           //反序列化
-          opcode: 'parseJSONToContainer',
+          opcode: 'deserialization',
+          func:'parseJSONToContainer',
           blockType: 'command',
           text: this.formatMessage('ArchiveCodeExt.parseJSONToContainer'),
           arguments: {
@@ -236,7 +240,8 @@ class Archive_code {
         },
         {
           //反序列化是否成功
-          opcode: 'ifConvertedSuccessfully',
+          opcode: 'deserializable',
+          func:'ifConvertedSuccessfully',
           blockType: 'Boolean',
           text: this.formatMessage('ArchiveCodeExt.ifConvertedSuccessfully'),
         },
