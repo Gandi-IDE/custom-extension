@@ -155,7 +155,7 @@ class ArkosExtensions {
       // menuIconURI: icon,
       // blockIconURI: icon,
       blocks: [
-        // "---" + this.formatMessage("ArkosExt.info1"),  // 🏃‍♂️坐标&角度   
+        "---" + this.formatMessage("ArkosExt.info1"),  // 🏃‍♂️坐标&角度   
         // 计算点A到点B的方向
         {
           opcode: 'getDirFromAToB',
