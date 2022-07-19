@@ -15,7 +15,7 @@ class ArkosExtensions {
     this._formatMessage = runtime.getFormatMessage({
       'zh-cn': {
         'ArkosExt.extensionName': 'Arkosの拓展',
-        'ArkosExt.info1': '🏃 坐标&角度',
+        'ArkosExt.info1': '🚶 坐标&角度',
         'ArkosExt.info2': '🔠 字符串处理',
         'ArkosExt.info3': '🛠 实用积木',
         'ArkosExt.info4': '📄 数据获取',
@@ -129,7 +129,7 @@ class ArkosExtensions {
 
         'ArkosExt.colorToHex': 'get code of color[COLOR]',
 
-        'ArkosExt.info1': '🏃 Coodinate & Direction',
+        'ArkosExt.info1': '🚶 Coodinate & Direction',
         'ArkosExt.info2': '🔠 String Processing',
         'ArkosExt.info3': '🛠 Utilities',
         'ArkosExt.info4': '📄 Information',
@@ -390,7 +390,7 @@ class ArkosExtensions {
             logic: {
               type: 'string',
               menu: 'logicMenu',
-              defaultValue: 'or',
+              defaultValue: 'or',//
             },
           },
         },
@@ -1106,7 +1106,8 @@ class ArkosExtensions {
 
   //获取颜色HEX码
   colorToHex (args, util) {
-    return Color.rgbToHex(Cast.toRgbColorList(args.COLOR));
+    let c = Cast.toRgbColorList(args.COLOR)
+    return Color.rgbToHex({r:c[0],g:c[1],b:c[2]});
 }
 
 }
