@@ -15,11 +15,11 @@ class ArkosExtensions {
     this._formatMessage = runtime.getFormatMessage({
       'zh-cn': {
         'ArkosExt.extensionName': 'Arkosの拓展',
+        'ArkosExt.info1': '🚶 字符串处理',
         'ArkosExt.info2': '🔠 字符串处理',
         'ArkosExt.info3': '🛠 实用积木',
         'ArkosExt.info4': '📄 信息获取',
         'ArkosExt.info5': '📊 排序表',
-        'ArkosExt.info1': '🚶 坐标&方向',
         'ArkosExt.stringEquality': '(区分大小写)[ONE]=[TWO]',
         'ArkosExt.directionFromAtoB': '点x1:[X1]y1:[Y1]朝向点x2:[X2]y2:[Y2]的方向',
         'ArkosExt.differenceBetweenDirections': '由方向1[a]到方向2[b]的角度差',
