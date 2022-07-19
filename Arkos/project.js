@@ -155,7 +155,7 @@ class ArkosExtensions {
       // menuIconURI: icon,
       // blockIconURI: icon,
       blocks: [
-        "---" + this.formatMessage("ArkosExt.info1"),  // 🏃‍♂️坐标&角度   
+        // "---" + this.formatMessage("ArkosExt.info1"),  // 🏃‍♂️坐标&角度   
         // 计算点A到点B的方向
         {
           opcode: 'getDirFromAToB',
@@ -236,7 +236,7 @@ class ArkosExtensions {
             },
           },
         },
-        "---" + this.formatMessage("ArkosExt.info2"),  //🔠字符串处理 
+        // "---" + this.formatMessage("ArkosExt.info2"),  //🔠字符串处理 
         // 查找子字符串，从pos开始
         {
           opcode: 'indexof',
@@ -301,7 +301,7 @@ class ArkosExtensions {
             },
           },
         },
-        "---" + this.formatMessage("ArkosExt.info3"),  //🔧实用积木
+        // "---" + this.formatMessage("ArkosExt.info3"),  //🔧实用积木
         // 判断相等（区分大小写）
         {
           opcode: 'strictlyEquals',
@@ -433,7 +433,7 @@ class ArkosExtensions {
             },
           },
         },
-        "---" + this.formatMessage("ArkosExt.info4"),  //📄数据获取 
+        // "---" + this.formatMessage("ArkosExt.info4"),  //📄数据获取 
         //获取特效值
         {
           opcode: 'getEffect',
@@ -488,7 +488,7 @@ class ArkosExtensions {
           blockType: 'Boolean',
           text: this.formatMessage('ArkosExt.isOutOfSight'),
         },
-        "---" + this.formatMessage("ArkosExt.info5"),  //📊排序表 
+        // "---" + this.formatMessage("ArkosExt.info5"),  //📊排序表 
         //📊清空排序表
         {
           opcode: 'clearSortedTable',
