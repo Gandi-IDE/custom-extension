@@ -15,7 +15,7 @@ class ArkosExtensions {
     this._formatMessage = runtime.getFormatMessage({
       'zh-cn': {
         'ArkosExt.extensionName': 'Arkosの拓展',
-        'ArkosExt.info1': '🏄 坐标&方向',
+        'ArkosExt.info1': '🔠 坐标&方向',
         'ArkosExt.info2': '🔠 字符串处理',
         'ArkosExt.info3': '🛠 实用积木',
         'ArkosExt.info4': '📄 信息获取',
@@ -129,7 +129,7 @@ class ArkosExtensions {
 
         'ArkosExt.colorToHex': 'get code of color[COLOR]',
 
-        'ArkosExt.info1': '🏄 Coordinate & Direction',
+        'ArkosExt.info1': '🔠 Coordinate & Direction',
         'ArkosExt.info2': '🔠 String Processing',
         'ArkosExt.info3': '🛠 Utilities',
         'ArkosExt.info4': '📄 Information',
