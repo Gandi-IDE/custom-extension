@@ -1,5 +1,5 @@
 import Cast from '../utils/cast.js'
-import Cast from '../utils/color.js'
+import Color from '../utils/color.js'
 // import cover from './assets/icon.svg'
 // import icon from './assets/icon.svg'
 
@@ -15,6 +15,11 @@ class ArkosExtensions {
     this._formatMessage = runtime.getFormatMessage({
       'zh-cn': {
         'ArkosExt.extensionName': 'Arkosの拓展',
+        'ArkosExt.info1': '🏃‍♂️ 坐标&角度',
+        'ArkosExt.info2': '🔠 字符串处理',
+        'ArkosExt.info3': '🛠 实用积木',
+        'ArkosExt.info4': '📄 数据获取',
+        'ArkosExt.info5': '📊 排序表',
         'ArkosExt.stringEquality': '(区分大小写)[ONE]=[TWO]',
         'ArkosExt.directionFromAtoB': '点x1:[X1]y1:[Y1]朝向点x2:[X2]y2:[Y2]的方向',
         'ArkosExt.differenceBetweenDirections': '由方向1[a]到方向2[b]的角度差',
@@ -67,6 +72,8 @@ class ArkosExtensions {
         'ArkosExt.extra': '附加信息',
 
         'ArkosExt.colorToHex': '颜色[COLOR]的代码',
+
+        
       },
 
       en: {
@@ -121,6 +128,12 @@ class ArkosExtensions {
         'ArkosExt.extra': 'extra',
 
         'ArkosExt.colorToHex': 'get code of color[COLOR]',
+
+        'ArkosExt.info1': '🏃‍♂️ Coodinate & Direction',
+        'ArkosExt.info2': '🔠 String Processing',
+        'ArkosExt.info3': '🛠 Utilities',
+        'ArkosExt.info4': '📄 Information',
+        'ArkosExt.info5': '📊 Sorted Table',
       },
     })
   }
@@ -136,29 +149,15 @@ class ArkosExtensions {
   getInfo() {
     return {
       id: 'hcnTest', // 拓展id
-      name: this.formatMessage('ArkosExt.extensionName'), // 拓展名
+      name: this.formatMessage('ArkosExt.extensionName'), 
+
       color1: '#FF8383',
       // menuIconURI: icon,
       // blockIconURI: icon,
       blocks: [
+        "---" + this.formatMessage("ArkosExt.info1"),  // 🏃‍♂️坐标&角度   
+        // 计算点A到点B的方向
         {
-          // 判断相等（区分大小写）
-          opcode: 'strictlyEquals',
-          blockType: 'Boolean',
-          text: this.formatMessage('ArkosExt.stringEquality'),
-          arguments: {
-            ONE: {
-              type: 'string',
-              defaultValue: 'A',
-            },
-            TWO: {
-              type: 'string',
-              defaultValue: 'a',
-            },
-          },
-        },
-        {
-          // 计算点A到点B的方向
           opcode: 'getDirFromAToB',
           blockType: 'reporter',
           text: this.formatMessage('ArkosExt.directionFromAtoB'),
@@ -181,8 +180,8 @@ class ArkosExtensions {
             },
           },
         },
+        // 计算角b-角a的角度差
         {
-          // 计算角b-角a的角度差
           opcode: 'differenceBetweenDirections',
           blockType: 'reporter',
           text: this.formatMessage('ArkosExt.differenceBetweenDirections'),
@@ -197,8 +196,8 @@ class ArkosExtensions {
             },
           },
         },
+        // 两点距离
         {
-          // 两点距离
           opcode: 'disFromAToB',
           blockType: 'reporter',
           text: this.formatMessage('ArkosExt.distance'),
@@ -221,8 +220,25 @@ class ArkosExtensions {
             },
           },
         },
+        //朝..方向旋转..角度
         {
-          // 查找子字符串，从pos开始
+          opcode: 'turnDegreesToDir',
+          blockType: 'command',
+          text: this.formatMessage('ArkosExt.turnDegreesToDir'),
+          arguments: {
+            degree: {
+              type: 'number',
+              defaultValue: 45,
+            },
+            dir: {
+              type: 'angle',
+              defaultValue: 10,
+            },
+          },
+        },
+        "---" + this.formatMessage("ArkosExt.info2"),  //🔠字符串处理 
+        // 查找子字符串，从pos开始
+        {
           opcode: 'indexof',
           blockType: 'reporter',
           text: this.formatMessage('ArkosExt.searchString'),
@@ -241,8 +257,8 @@ class ArkosExtensions {
             },
           },
         },
+        // 在字符串中插入子字符串
         {
-          // 在字符串中插入子字符串
           opcode: 'insertStr',
           blockType: 'reporter',
           text: this.formatMessage('ArkosExt.insertString'),
@@ -261,8 +277,8 @@ class ArkosExtensions {
             },
           },
         },
+        // 替换字符串中的从..到..的字符串
         {
-          // 替换字符串中的从..到..的字符串
           opcode: 'replaceStr',
           blockType: 'reporter',
           text: this.formatMessage('ArkosExt.replaceString'),
@@ -285,106 +301,25 @@ class ArkosExtensions {
             },
           },
         },
+        "---" + this.formatMessage("ArkosExt.info3"),  //🔧实用积木
+        // 判断相等（区分大小写）
         {
-          //朝..方向旋转..角度
-          opcode: 'turnDegreesToDir',
-          blockType: 'command',
-          text: this.formatMessage('ArkosExt.turnDegreesToDir'),
-          arguments: {
-            degree: {
-              type: 'number',
-              defaultValue: 45,
-            },
-            dir: {
-              type: 'angle',
-              defaultValue: 10,
-            },
-          },
-        },
-        {
-          //获取特效值
-          opcode: 'getEffect',
-          blockType: 'reporter',
-          text: this.formatMessage('ArkosExt.getEffect'),
-          arguments: {
-            EFFECT: {
-              type: 'string',
-              menu: 'effectMenu',
-            },
-          },
-        },
-        {
-          //是否隐藏
-          opcode: 'isHiding',
+          opcode: 'strictlyEquals',
           blockType: 'Boolean',
-          text: this.formatMessage('ArkosExt.isHiding'),
-        },
-        {
-          //获取旋转方式
-          opcode: 'getRotationStyle',
-          blockType: 'reporter',
-          text: this.formatMessage('ArkosExt.getRotationStyle'),
-        },
-        {
-          //获取造型0宽1高
-          opcode: 'getWidthOrHeight',
-          blockType: 'reporter',
-          text: this.formatMessage('ArkosExt.getWidthOrHeight'),
+          text: this.formatMessage('ArkosExt.stringEquality'),
           arguments: {
-            t: {
+            ONE: {
               type: 'string',
-              menu: 'WOrH',
+              defaultValue: 'A',
             },
-          },
-        },
-        {
-          //强行设置大小
-          opcode: 'setSize',
-          blockType: 'command',
-          text: this.formatMessage('ArkosExt.setSize'),
-          arguments: {
-            size: {
-              type: 'number',
-              defaultValue: 9999,
-            },
-          },
-        },
-        {
-          //强行移到xy
-          opcode: 'setXY',
-          blockType: 'command',
-          text: this.formatMessage('ArkosExt.setXY'),
-          arguments: {
-            x: {
-              type: 'number',
-              defaultValue: 100000,
-            },
-            y: {
-              type: 'number',
-              defaultValue: 100000,
-            },
-          },
-        },
-        {
-          //获取角色边缘xy
-          opcode: 'getBoundaryCoord',
-          blockType: 'reporter',
-          text: this.formatMessage('ArkosExt.getBoundaryCoord'),
-          arguments: {
-            t: {
+            TWO: {
               type: 'string',
-              menu: 'boundaryMenu',
-            }
+              defaultValue: 'a',
+            },
           },
         },
+        //返回值转bool积木
         {
-          //是否跑到舞台外
-          opcode: 'isOutOfSight',
-          blockType: 'Boolean',
-          text: this.formatMessage('ArkosExt.isOutOfSight'),
-        },
-        {
-          //返回值转bool积木
           opcode: 'reporterToBoolean',
           blockType: 'Boolean',
           text: '[t]',
@@ -395,8 +330,8 @@ class ArkosExtensions {
             }
           },
         },
+        //形如 a≤b≤c
         {
-          //形如 a≤b≤c
           opcode: 'compareTwoSides',
           blockType: 'Boolean',
           text: '[a][op1][b][op2][c]',
@@ -423,8 +358,8 @@ class ArkosExtensions {
             },
           },
         },
+        //形如：a≤b且/或>c op1,op2 logic  compareTwoSidesPlus
         {
-          //形如：a≤b且/或>c op1,op2 logic  compareTwoSidesPlus
           opcode: 'compareTwoSidesPlus',
           blockType: 'Boolean',
           text: '[a][op1][b][logic][op2][c]',
@@ -458,8 +393,103 @@ class ArkosExtensions {
             },
           },
         },
+        //获取颜色HEX
         {
-          //📊清空排序表
+          opcode: 'colorToHex',
+          blockType: 'reporter',
+          text: this.formatMessage('ArkosExt.colorToHex'),
+          arguments: {
+            COLOR: {
+              type: 'color',
+            },
+          },
+        },
+        //强行设置大小
+        {
+          opcode: 'setSize',
+          blockType: 'command',
+          text: this.formatMessage('ArkosExt.setSize'),
+          arguments: {
+            size: {
+              type: 'number',
+              defaultValue: 9999,
+            },
+          },
+        },
+        //强行移到xy
+        {
+          opcode: 'setXY',
+          blockType: 'command',
+          text: this.formatMessage('ArkosExt.setXY'),
+          arguments: {
+            x: {
+              type: 'number',
+              defaultValue: 100000,
+            },
+            y: {
+              type: 'number',
+              defaultValue: 100000,
+            },
+          },
+        },
+        "---" + this.formatMessage("ArkosExt.info4"),  //📄数据获取 
+        //获取特效值
+        {
+          opcode: 'getEffect',
+          blockType: 'reporter',
+          text: this.formatMessage('ArkosExt.getEffect'),
+          arguments: {
+            EFFECT: {
+              type: 'string',
+              menu: 'effectMenu',
+            },
+          },
+        },
+        //是否隐藏
+        {
+          opcode: 'isHiding',
+          blockType: 'Boolean',
+          text: this.formatMessage('ArkosExt.isHiding'),
+        },
+        //获取旋转方式
+        {
+          opcode: 'getRotationStyle',
+          blockType: 'reporter',
+          text: this.formatMessage('ArkosExt.getRotationStyle'),
+        },
+        //获取造型0宽1高
+        {
+          opcode: 'getWidthOrHeight',
+          blockType: 'reporter',
+          text: this.formatMessage('ArkosExt.getWidthOrHeight'),
+          arguments: {
+            t: {
+              type: 'string',
+              menu: 'WOrH',
+            },
+          },
+        },
+        //获取角色边缘xy
+        {
+          opcode: 'getBoundaryCoord',
+          blockType: 'reporter',
+          text: this.formatMessage('ArkosExt.getBoundaryCoord'),
+          arguments: {
+            t: {
+              type: 'string',
+              menu: 'boundaryMenu',
+            }
+          },
+        },
+        //是否跑到舞台外
+        {
+          opcode: 'isOutOfSight',
+          blockType: 'Boolean',
+          text: this.formatMessage('ArkosExt.isOutOfSight'),
+        },
+        "---" + this.formatMessage("ArkosExt.info5"),  //📊排序表 
+        //📊清空排序表
+        {
           opcode: 'clearSortedTable',
           blockType: 'command',
           text: this.formatMessage('ArkosExt.clearSortedTable'),
@@ -577,17 +607,6 @@ class ArkosExtensions {
             name: {
               type: 'string',
               defaultValue: '小明',
-            },
-          },
-        },
-        {
-          //获取颜色HEX
-          opcode: 'colorToHex',
-          blockType: 'reporter',
-          text: this.formatMessage('ArkosExt.colorToHex'),
-          arguments: {
-            COLOR: {
-              type: 'color',
             },
           },
         },
