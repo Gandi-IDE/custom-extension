@@ -18,7 +18,7 @@ class ArkosExtensions {
         'ArkosExt.info1': '🚶 坐标&角度',
         'ArkosExt.info2': '🔠 字符串处理',
         'ArkosExt.info3': '🛠 实用积木',
-        'ArkosExt.info4': '📄 数据获取',
+        'ArkosExt.info4': '📄 信息获取',
         'ArkosExt.info5': '📊 排序表',
         'ArkosExt.stringEquality': '(区分大小写)[ONE]=[TWO]',
         'ArkosExt.directionFromAtoB': '点x1:[X1]y1:[Y1]朝向点x2:[X2]y2:[Y2]的方向',
@@ -155,7 +155,7 @@ class ArkosExtensions {
       // menuIconURI: icon,
       // blockIconURI: icon,
       blocks: [
-        //"---" + this.formatMessage("ArkosExt.info1"),  //🏃 坐标&角度   
+        "---" + this.formatMessage("ArkosExt.info1"),  //🏃 坐标&角度   
         // 计算点A到点B的方向
         {
           opcode: 'getDirFromAToB',
