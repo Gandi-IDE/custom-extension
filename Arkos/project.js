@@ -1,4 +1,5 @@
 import Cast from '../utils/cast.js'
+import Cast from '../utils/color.js'
 // import cover from './assets/icon.svg'
 // import icon from './assets/icon.svg'
 
@@ -64,6 +65,8 @@ class ArkosExtensions {
         'ArkosExt.rank': '表中位置',
         'ArkosExt.rankValue': '排序值',
         'ArkosExt.extra': '附加信息',
+
+        'ArkosExt.colorToHex': '颜色[COLOR]的代码',
       },
 
       en: {
@@ -116,6 +119,8 @@ class ArkosExtensions {
         'ArkosExt.rank': 'rank',
         'ArkosExt.rankValue': 'rankValue',
         'ArkosExt.extra': 'extra',
+
+        'ArkosExt.colorToHex': 'get code of color[COLOR]',
       },
     })
   }
@@ -572,6 +577,17 @@ class ArkosExtensions {
             name: {
               type: 'string',
               defaultValue: '小明',
+            },
+          },
+        },
+        {
+          //获取颜色HEX
+          opcode: 'colorToHex',
+          blockType: 'reporter',
+          text: this.formatMessage('ArkosExt.colorToHex'),
+          arguments: {
+            COLOR: {
+              type: 'color',
             },
           },
         },
@@ -1060,6 +1076,11 @@ class ArkosExtensions {
     if(n === -1)  return;
     list.splice(n, 1);
   }
+
+  //获取颜色HEX码
+  colorToHex (args, util) {
+    return Color.rgbToHex(Cast.toRgbColorList(args.COLOR));
+}
 
 }
 
