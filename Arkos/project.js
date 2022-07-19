@@ -394,16 +394,17 @@ class ArkosExtensions {
           },
         },
         //获取颜色HEX
-        {
-          opcode: 'colorToHex',
-          blockType: 'reporter',
-          text: this.formatMessage('ArkosExt.colorToHex'),
-          arguments: {
-            COLOR: {
-              type: 'color',
-            },
-          },
-        },
+        // {
+        //   opcode: 'colorToHex',
+        //   blockType: 'reporter',
+        //   text: this.formatMessage('ArkosExt.colorToHex'),
+        //   arguments: {
+        //     COLOR: {
+        //       type: 'color',
+        //       defaultValue: '1',
+        //     },
+        //   },
+        // },
         //强行设置大小
         {
           opcode: 'setSize',
