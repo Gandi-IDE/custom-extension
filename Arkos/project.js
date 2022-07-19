@@ -235,7 +235,7 @@ class ArkosExtensions {
               defaultValue: 10,
             },
           },
-          filter: [TargetType.SPRITE]
+          filter: ['sprite']
         },
         // "---" + this.formatMessage("ArkosExt.info2"),  //🔠字符串处理 
         // 查找子字符串，从pos开始
@@ -417,7 +417,7 @@ class ArkosExtensions {
               defaultValue: 9999,
             },
           },
-          filter: [TargetType.SPRITE]
+          filter: ['sprite']
         },
         //强行移到xy
         {
@@ -434,7 +434,7 @@ class ArkosExtensions {
               defaultValue: 100000,
             },
           },
-          filter: [TargetType.SPRITE]
+          filter: ['sprite']
         },
         // "---" + this.formatMessage("ArkosExt.info4"),  //📄数据获取 
         //获取特效值
@@ -454,14 +454,14 @@ class ArkosExtensions {
           opcode: 'isHiding',
           blockType: 'Boolean',
           text: this.formatMessage('ArkosExt.isHiding'),
-          filter: [TargetType.SPRITE]
+          filter: ['sprite']
         },
         //获取旋转方式
         {
           opcode: 'getRotationStyle',
           blockType: 'reporter',
           text: this.formatMessage('ArkosExt.getRotationStyle'),
-          filter: [TargetType.SPRITE]
+          filter: ['sprite']
         },
         //获取造型0宽1高
         {
@@ -486,14 +486,14 @@ class ArkosExtensions {
               menu: 'boundaryMenu',
             }
           },
-          filter: [TargetType.SPRITE]
+          filter: ['sprite']
         },
         //是否跑到舞台外
         {
           opcode: 'isOutOfSight',
           blockType: 'Boolean',
           text: this.formatMessage('ArkosExt.isOutOfSight'),
-          filter: [TargetType.SPRITE]
+          filter: ['sprite']
         },
         // "---" + this.formatMessage("ArkosExt.info5"),  //📊排序表 
         //📊清空排序表
