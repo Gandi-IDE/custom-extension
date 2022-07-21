@@ -700,7 +700,8 @@ class RegExpVI {
     }
     let text = String(args.TEXT);
     result = text.split(regexp);
-    let vari = util.target.lookupVariableById(args.LIST);
+    // 这里估计是vm对名为LIST或者VARIABLE的参数有特殊处理
+    let vari = util.target.lookupVariableById(args.LIST.id);
     if (vari !== null)
       vari.value = result;
   }
