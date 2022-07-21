@@ -59,8 +59,8 @@ class RegExpVI {
         "RegExpVI.foundtextbegin": "找到的文本开始位置",
         "RegExpVI.foundtextend": "找到的文本结束位置",
         "RegExpVI.foundtextgroups": "找到的第 [N] 个捕获组的内容",
-        "RegExpVI.findall": "在 [TEXT] 里查找所有 [REGEXP] 并保存到 [LIST]",
-        "RegExpVI.split": "在 [TEXT] 里以 [REGEXP] 分割并保存到 [LIST]",
+        "RegExpVI.findall": "在 [TEXT] 里查找所有 [REGEXP] 并保存到列表 [LISTID]",
+        "RegExpVI.split": "在 [TEXT] 里以 [REGEXP] 分割并保存到列表 [LISTID]",
         "RegExpVI.replace": "将 [TEXT] 里的所有 [REGEXP] 替换为 [DEST] [GROUP]",
         "RegExpVI.replace.group": "(使用引用记号)",
         "RegExpVI.replace.nogroup": "(不使用引用记号)",
@@ -117,8 +117,8 @@ class RegExpVI {
         "RegExpVI.foundtextbegin": "begin index",
         "RegExpVI.foundtextend": "end index",
         "RegExpVI.foundtextgroups": "founded content of group [N]",
-        "RegExpVI.findall": "find all [REGEXP] in [TEXT] and save to [LIST]",
-        "RegExpVI.split": "split [TEXT] by [REGEXP] and save to [LIST]",
+        "RegExpVI.findall": "find all [REGEXP] in [TEXT] and save to list [LISTID]",
+        "RegExpVI.split": "split [TEXT] by [REGEXP] and save to list [LISTID]",
         "RegExpVI.replace": "replace all [REGEXP] in [TEXT] with [DEST] [GROUP]",
         "RegExpVI.replace.group": "(refs enabled)",
         "RegExpVI.replace.nogroup": "(refs disabled)",
@@ -373,7 +373,7 @@ class RegExpVI {
               type: "string",
               defaultValue: "I have 23 45."
             },
-            LIST: {
+            LISTID: {
               type: "string",
               menu: "List"
             }
@@ -392,7 +392,7 @@ class RegExpVI {
               type: "string",
               defaultValue: "I have 23 apples."
             },
-            LIST: {
+            LISTID: {
               type: "string",
               menu: "List"
             }
@@ -684,7 +684,7 @@ class RegExpVI {
     while (res = regexp.exec(text), res !== null) {
       result.push(res[0]);
     }
-    let vari = util.target.lookupVariableById(args.LIST);
+    let vari = util.target.lookupVariableById(args.LISTID);
     if (vari !== null)
       vari.value = result;
   }
@@ -700,7 +700,7 @@ class RegExpVI {
     }
     let text = String(args.TEXT);
     result = text.split(regexp);
-    let vari = util.target.lookupVariableById(args.LIST);
+    let vari = util.target.lookupVariableById(args.LISTID);
     if (vari !== null)
       vari.value = result;
   }
