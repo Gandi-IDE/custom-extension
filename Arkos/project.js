@@ -850,8 +850,7 @@ class ArkosExtensions {
         return;
     }
     if (util.target.renderer) {
-        args.size = Cast.toNumber(args.size);
-        if(args.size < 0.1) args.size = 0.1;
+        args.size = _clamp(Cast.toNumber(args.size),0.1,100000000)
         util.target.size = args.size;
         const {direction, scale} = util.target._getRenderedDirectionAndScale();
         util.target.renderer.updateDrawableDirectionScale(util.target.drawableID, direction, scale);
@@ -863,9 +862,15 @@ class ArkosExtensions {
     util.target.runtime.requestTargetsUpdate(util.target);
   }
 
+  _clamp (n, min, max) {
+        return Math.min(Math.max(n, min), max);
+  }
+  
   //强行设置XY(逝一逝)
   setXY (args, util) {
     if (util.target.isStage) return;
+    args.x = _clamp(Cast.toNumber(args.x),-100000000,100000000)
+    args.y = _clamp(Cast.toNumber(args.y),-100000000,100000000)
     const oldX = util.target.x;
     const oldY = util.target.y;
     util.target.x = args.x;
@@ -1068,7 +1073,7 @@ class ArkosExtensions {
   getFromSortedTableByNo (args){
     if(!(args.list in this.sortedTable)) return '';
     let list = this.sortedTable[args.list].list;
-    return this._getTInItem (list[args.n-1], args.t, args.n);
+    return this._getTInItem (list[args.n-1], args.t, Cast.toNumber(args.n));
   }
 
   _getItemIdxByName(list, name){
