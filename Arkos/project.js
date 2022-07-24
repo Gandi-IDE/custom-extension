@@ -850,7 +850,7 @@ class ArkosExtensions {
         return;
     }
     if (util.target.renderer) {
-        args.size = _clamp(Cast.toNumber(args.size),0.1,100000000)
+        args.size = this._clamp(Cast.toNumber(args.size),0.1,100000000)
         util.target.size = args.size;
         const {direction, scale} = util.target._getRenderedDirectionAndScale();
         util.target.renderer.updateDrawableDirectionScale(util.target.drawableID, direction, scale);
@@ -869,8 +869,8 @@ class ArkosExtensions {
   //强行设置XY(逝一逝)
   setXY (args, util) {
     if (util.target.isStage) return;
-    args.x = _clamp(Cast.toNumber(args.x),-100000000,100000000)
-    args.y = _clamp(Cast.toNumber(args.y),-100000000,100000000)
+    args.x = this._clamp(Cast.toNumber(args.x),-100000000,100000000)
+    args.y = this._clamp(Cast.toNumber(args.y),-100000000,100000000)
     const oldX = util.target.x;
     const oldY = util.target.y;
     util.target.x = args.x;
