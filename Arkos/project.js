@@ -8,6 +8,7 @@ console.log(Cast.toNumber('aab'))
 class ArkosExtensions {
   constructor(runtime) {
     this.runtime = runtime
+    this.tempData={}
     this.sortedTable={
       list1:{order:'desc',list:[]},
       list2:{order:'desc',list:[]},
@@ -20,6 +21,7 @@ class ArkosExtensions {
         'ArkosExt.info3': '🛠 实用积木',
         'ArkosExt.info4': '📄 信息获取',
         'ArkosExt.info5': '📊 排序表',
+        'ArkosExt.info6': '🗂️ 临时变量',
         'ArkosExt.stringEquality': '(区分大小写)[ONE]=[TWO]',
         'ArkosExt.directionFromAtoB': '点x1:[X1]y1:[Y1]朝向点x2:[X2]y2:[Y2]的方向',
         'ArkosExt.differenceBetweenDirections': '由方向1[a]到方向2[b]的角度差',
@@ -73,7 +75,24 @@ class ArkosExtensions {
 
         'ArkosExt.colorToHex': '颜色[COLOR]的代码',
 
-        
+        'ArkosExt.deleteAllTempData': '清空所有临时数据',
+        'ArkosExt.getCountOfTempData': '临时数据量',
+        'ArkosExt.delTempData': '删除名为[data]的临时数据',
+
+        'ArkosExt.setTempVar': '将临时变量[var]设为[t]',
+        'ArkosExt.addTempVar': '将临时变量[var]增加[t]',
+        'ArkosExt.getTempVar': '临时变量[var]',
+
+        'ArkosExt.clearTempList': '创建或清空临时列表[list]',
+        'ArkosExt.initTempList': '临时列表[list]内容设为[t]',
+        'ArkosExt.addTempList': '向临时列表[list]加入[t]',
+        'ArkosExt.opTempList': '将临时列表[list]第[n]项[op][t]',
+        'ArkosExt.ListOp1': '前插入',
+        'ArkosExt.ListOp2': '替换为',
+        'ArkosExt.ListOp3': '增加',
+        'ArkosExt.delItemOfTempList': '删除临时列表[list]第[n]项',
+        'ArkosExt.getItemOfTempList': '临时列表[list]第[n]项',
+        'ArkosExt.lengthOfTempList': '临时列表[list]长度',
       },
 
       en: {
@@ -134,6 +153,27 @@ class ArkosExtensions {
         'ArkosExt.info3': '🛠 Utilities',
         'ArkosExt.info4': '📄 Information',
         'ArkosExt.info5': '📊 Sorted Table',
+        'ArkosExt.info6': '🗂️ Temporary Data',
+
+        'ArkosExt.deleteAllTempData': 'clear all temporary data',
+        'ArkosExt.getCountOfTempData': 'count of temporary data',
+        'ArkosExt.delTempData': 'delete temporary data[data]',
+
+        'ArkosExt.setTempVar': 'set temp var[var] to [t]',
+        'ArkosExt.addTempVar': 'change temp var[var] by [t]',
+        'ArkosExt.getTempVar': 'temp var[var]',
+
+        
+        'ArkosExt.clearTempList': 'create or clear temp list[list]',
+        'ArkosExt.initTempList': 'set temp list[list]to[t]',
+        'ArkosExt.addTempList': 'add[t] to temp list[list]',
+        'ArkosExt.opTempList': '[op][t]at [n] of temp list[list]',
+        'ArkosExt.ListOp1': 'insert',
+        'ArkosExt.ListOp2': 'replace with',
+        'ArkosExt.ListOp3': 'change by',
+        'ArkosExt.delItemOfTempList': 'delete [n]of temp list[list]',
+        'ArkosExt.getItemOfTempList': 'item[n]of temp list[list]',
+        'ArkosExt.lengthOfTempList': 'length of temp list[list]',
       },
     })
   }
@@ -618,8 +658,205 @@ class ArkosExtensions {
             },
           },
         },
+
+        "---" + this.formatMessage("ArkosExt.info6"),  //🗂️ 临时变量
+
+        //清空所有临时数据
+        {
+          opcode: 'deleteAllTempData',
+          blockType: 'command',
+          text: this.formatMessage('ArkosExt.deleteAllTempData'),
+        },
+        //临时数据量
+        {
+          opcode: 'getCountOfTempData',
+          blockType: 'reporter',
+          text: this.formatMessage('ArkosExt.getCountOfTempData'),
+        },
+        //删除临时数据
+        {
+          opcode: 'delTempData',
+          blockType: 'command',
+          text: this.formatMessage('ArkosExt.delTempData'),
+          arguments: {
+            data: {
+              type: 'string',
+              defaultValue: 'i',
+            },
+          },
+        },
+        //设置临时数据
+        {
+          opcode: 'setTempVar',
+          blockType: 'command',
+          text: this.formatMessage('ArkosExt.setTempVar'),
+          arguments: {
+            var: {
+              type: 'string',
+              defaultValue: 'i',
+            },
+            t: {
+              type: 'string',
+              defaultValue: '0',
+            },
+          },
+        },
+        //增加临时数据
+        {
+          opcode: 'addTempVar',
+          blockType: 'command',
+          text: this.formatMessage('ArkosExt.addTempVar'),
+          arguments: {
+            var: {
+              type: 'string',
+              defaultValue: 'i',
+            },
+            t: {
+              type: 'number',
+              defaultValue: 1,
+            },
+          },
+        },
+        //增加临时数据
+        {
+          opcode: 'getTempVar',
+          blockType: 'reporter',
+          text: this.formatMessage('ArkosExt.getTempVar'),
+          arguments: {
+            var: {
+              type: 'string',
+              defaultValue: 'i',
+            },
+          },
+        },
+        //创建或清空临时列表
+        {
+          opcode: 'clearTempList',
+          blockType: 'command',
+          text: this.formatMessage('ArkosExt.clearTempList'),
+          arguments: {
+            list: {
+              type: 'string',
+              defaultValue: 'list',
+            },
+          },
+        },
+        //设置临时列表
+        {
+          opcode: 'initTempList',
+          blockType: 'command',
+          text: this.formatMessage('ArkosExt.initTempList'),
+          arguments: {
+            list: {
+              type: 'string',
+              defaultValue: 'list',
+            },
+            t: {
+              type: 'string',
+              defaultValue: '[1,2,"apple"]',
+            },
+          },
+        },
+        //向临时列表加入
+        {
+          opcode: 'addTempList',
+          blockType: 'command',
+          text: this.formatMessage('ArkosExt.addTempList'),
+          arguments: {
+            list: {
+              type: 'string',
+              defaultValue: 'list',
+            },
+            t: {
+              type: 'string',
+              defaultValue: 'thing',
+            },
+          },
+        },
+        //操作临时列表
+        {
+          opcode: 'opTempList',
+          blockType: 'command',
+          text: this.formatMessage('ArkosExt.opTempList'),
+          arguments: {
+            list: {
+              type: 'string',
+              defaultValue: 'list',
+            },
+            op: {
+              type: 'string',
+              menu: 'ListOpMenu',
+            },
+            n: {
+              type: 'number',
+              defaultValue: 1,
+            },
+            t: {
+              type: 'string',
+              defaultValue: 'thing',
+            },
+          },
+        },
+        //删除临时列表XX项
+        {
+          opcode: 'delItemOfTempList',
+          blockType: 'command',
+          text: this.formatMessage('ArkosExt.delItemOfTempList'),
+          arguments: {
+            list: {
+              type: 'string',
+              defaultValue: 'list',
+            },
+            t: {
+              type: 'string',
+              defaultValue: 'thing',
+            },
+          },
+        },
+        //获取临时列表XX项
+        {
+          opcode: 'getItemOfTempList',
+          blockType: 'reporter',
+          text: this.formatMessage('ArkosExt.getItemOfTempList'),
+          arguments: {
+            list: {
+              type: 'string',
+              defaultValue: 'list',
+            },
+            n: {
+              type: 'number',
+              defaultValue: 1,
+            },
+          },
+        },
+        //临时列表长度
+        {
+          opcode: 'lengthOfTempList',
+          blockType: 'reporter',
+          text: this.formatMessage('ArkosExt.lengthOfTempList'),
+          arguments: {
+            list: {
+              type: 'string',
+              defaultValue: 'list',
+            },
+          },
+        },
       ],
       menus: {
+        ListOpMenu: [
+          {
+            text: this.formatMessage('ArkosExt.ListOp1'), //插入
+            value: '1'
+          },
+          {
+            text: this.formatMessage('ArkosExt.ListOp2'), //替换
+            value: '2'
+          },
+          {
+            text: this.formatMessage('ArkosExt.ListOp3'), //增加
+            value: '3'
+          },
+        ],
         tableItemPropertyMenu: [
           {
             text: this.formatMessage('ArkosExt.name'),
@@ -1113,8 +1350,103 @@ class ArkosExtensions {
   colorToHex (args, util) {
     let c = Cast.toRgbColorList(args.COLOR)
     return Color.rgbToHex({r:c[0],g:c[1],b:c[2]});
-}
+  }
 
+
+  //🗂️ 临时变量积木
+  deleteAllTempData (args) {
+    this.tempData = {};
+  }
+
+  getCountOfTempData (args) {
+    return Object.keys (this.tempData).length;
+  }
+
+  delTempData (args) {
+    delete this.tempData[Cast.toString(args.data)];
+  }
+
+  setTempVar (args) {
+    this.tempData[Cast.toString(args.var)] = args.t;
+  }
+
+  addTempVar (args) {
+    this.tempData[Cast.toString(args.var)] = Cast.toNumber(this.tempData[Cast.toString(args.var)]) + Cast.toNumber(args.t);
+  }
+
+  getTempVar (args) {
+    let temp = this.tempData[Cast.toString(args.var)]
+    if(Array.isArray(temp)) return JSON.stringify(temp);
+    return Cast.toString(temp);
+  }
+
+  //创建或清空
+  clearTempList (args) {
+    this.tempData[Cast.toString(args.list)] = [];
+  }
+
+  initTempList (args) {
+    try {
+      let content = JSON.parse(Cast.toString(args.t))
+      if(Array.isArray(content)) {
+        this.tempData[Cast.toString(args.list)] = content;
+      }
+    } catch (e) {
+
+    }
+  }
+
+  addTempList (args) {
+    let list = this.tempData[Cast.toString(args.list)]
+    if(!Array.isArray(list)) return;
+    list.push(Cast.toString(args.t));
+  }
+
+  opTempList (args) {
+    let list = this.tempData[Cast.toString(args.list)]
+    if(!Array.isArray(list)) return;
+    let n = Cast.toNumber(args.n)
+    if(n < 1 || n >list.length+1) return;
+    n -= 1;
+    switch(args.op){
+      case '1'://插入
+        list.splice(n,0,Cast.toString(args.t));
+        return;
+      case '2'://替换
+        list[n] = Cast.toString(args.t);
+        return;
+      case '3'://增加
+        list[n] = Cast.toNumber(list[n]) + Cast.toNumber(args.t);
+        return;
+      default:
+        return;
+    }
+  }
+
+  delItemOfTempList (args) {
+    let list = this.tempData[Cast.toString(args.list)]
+    if(!Array.isArray(list)) return;
+    let n = Cast.toNumber(args.n)
+    if(n < 1 || n >list.length) return;
+    n -= 1;
+    list.splice(n,1);
+  }
+
+  getItemOfTempList (args) {
+    let list = this.tempData[Cast.toString(args.list)]
+    if(!Array.isArray(list)) return '';
+    let n = Cast.toNumber(args.n)
+    if(n < 1 || n >list.length) return '';
+    n -= 1;
+    return Cast.toString(list[n]);
+  }
+
+  lengthOfTempList (args) {
+    let list = this.tempData[Cast.toString(args.list)]
+    if(!Array.isArray(list)) return 0;
+    return list.length;
+  }
+  
 }
 
 
