@@ -807,9 +807,9 @@ class ArkosExtensions {
               type: 'string',
               defaultValue: 'list',
             },
-            t: {
-              type: 'string',
-              defaultValue: 'thing',
+            n: {
+              type: 'number',
+              defaultValue: 1,
             },
           },
         },
