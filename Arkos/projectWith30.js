@@ -94,7 +94,7 @@ class ArkosExtensions {
         'ArkosExt.getItemOfTempList': '🗂️临时列表[list]第[n]项',
         'ArkosExt.lengthOfTempList': '🗂️临时列表[list]长度',
 		
-		'30Ext.info': '以下扩展由_30提供',
+		'30Ext.info': '✨ 以下扩展由_30提供',
 		'30Ext.info.1': '造型镜像操作',
 		'30Ext.block.mirrorSprite': '[mirrorMethod]当前角色',
 		'30Ext.menu.mirrorMethod.1': '左右镜像',
@@ -185,7 +185,7 @@ class ArkosExtensions {
         'ArkosExt.getItemOfTempList': '🗂️item[n]of temp list[list]',
         'ArkosExt.lengthOfTempList': '🗂️length of temp list[list]',
 		
-		'30Ext.info': 'The following extensions are provided by _30',
+		'30Ext.info': '✨ The following extensions are provided by _30',
 		'30Ext.info.1': 'Mirror transform',
 		'30Ext.block.mirrorSprite': '[mirrorMethod] current sprite',
 		'30Ext.menu.mirrorMethod.1': 'Horizontal mirror transform',
@@ -917,7 +917,7 @@ class ArkosExtensions {
 				cloneId: {
 					type: 'number',
 					defaultValue: 1
-				}
+				},
 				SUBSTACK: {
 					type: "input_statement"
 				}
@@ -1046,7 +1046,7 @@ class ArkosExtensions {
             text: this.formatMessage('ArkosExt.ghost'),
             value: 'ghost'
           }
-        ]
+        ],
 		//30Ext
 		spritesMenu: {
 			items: 'getSpritesMenu'
