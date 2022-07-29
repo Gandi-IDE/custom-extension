@@ -95,12 +95,12 @@ class ArkosExtensions {
         'ArkosExt.lengthOfTempList': '🗂️临时列表[list]长度',
 		
 		'30Ext.info': '✨ 以下扩展由_30提供',
-		'30Ext.info.1': '造型镜像操作',
+		'30Ext.info.1': '🪞 造型镜像操作',
 		'30Ext.block.mirrorSprite': '[mirrorMethod]当前角色',
 		'30Ext.menu.mirrorMethod.1': '左右镜像',
 		'30Ext.menu.mirrorMethod.1': '上下镜像',
 		'30Ext.block.clearMirror': '清除角色镜像变换',
-		'30Ext.info.2': '角色跨域操作',
+		'30Ext.info.2': '🛸 角色跨域操作',
 		'30Ext.block.anotherRun': '让[sprite]运行[SUBSTACK]',
 		'30Ext.block.anotherRunWithClone': '让[sprite]的第[cloneId]个克隆体运行[SUBSTACK]'
       },
@@ -186,12 +186,12 @@ class ArkosExtensions {
         'ArkosExt.lengthOfTempList': '🗂️length of temp list[list]',
 		
 		'30Ext.info': '✨ The following extensions are provided by _30',
-		'30Ext.info.1': 'Mirror transform',
+		'30Ext.info.1': '🪞 Mirror transform',
 		'30Ext.block.mirrorSprite': '[mirrorMethod] current sprite',
 		'30Ext.menu.mirrorMethod.1': 'Horizontal mirror transform',
 		'30Ext.menu.mirrorMethod.1': 'Vertical mirror transform',
 		'30Ext.block.clearMirror': 'Clear the mirror transform',
-		'30Ext.info.2': 'Cross sprite operation',
+		'30Ext.info.2': '🛸 Cross sprite operation',
 		'30Ext.block.anotherRun': 'Let [sprite] run[SUBSTACK]',
 		'30Ext.block.anotherRunWithClone': 'Let the [cloneId] clone of [sprite] run[SUBSTACK]'
       },
@@ -898,7 +898,7 @@ class ArkosExtensions {
 			arguments: {
 				spriteName: {
 					type: 'string',
-					menu: spritesMenu
+					menu: 'spritesMenu'
 				},
 				SUBSTACK: {
 					type: "input_statement"
@@ -912,7 +912,7 @@ class ArkosExtensions {
 			arguments: {
 				spriteName: {
 					type: 'string',
-					menu: spritesMenu
+					menu: 'spritesMenu'
 				},
 				cloneId: {
 					type: 'number',
