@@ -98,11 +98,11 @@ class ArkosExtensions {
 		'30Ext.info.1': '🪞 造型镜像操作',
 		'30Ext.block.mirrorSprite': '[mirrorMethod]当前角色',
 		'30Ext.menu.mirrorMethod.1': '左右镜像',
-		'30Ext.menu.mirrorMethod.1': '上下镜像',
+		'30Ext.menu.mirrorMethod.2': '上下镜像',
 		'30Ext.block.clearMirror': '清除角色镜像变换',
 		'30Ext.info.2': '🛸 角色跨域操作',
-		'30Ext.block.anotherRun': '让[sprite]运行[SUBSTACK]',
-		'30Ext.block.anotherRunWithClone': '让[sprite]的第[cloneId]个克隆体运行[SUBSTACK]'
+		'30Ext.block.anotherRun': '让[spriteName]运行',
+		'30Ext.block.anotherRunWithClone': '让[spriteName]的第[cloneId]个克隆体运行'
       },
 
       en: {
@@ -189,11 +189,11 @@ class ArkosExtensions {
 		'30Ext.info.1': '🪞 Mirror transform',
 		'30Ext.block.mirrorSprite': '[mirrorMethod] current sprite',
 		'30Ext.menu.mirrorMethod.1': 'Horizontal mirror transform',
-		'30Ext.menu.mirrorMethod.1': 'Vertical mirror transform',
+		'30Ext.menu.mirrorMethod.2': 'Vertical mirror transform',
 		'30Ext.block.clearMirror': 'Clear the mirror transform',
 		'30Ext.info.2': '🛸 Cross sprite operation',
-		'30Ext.block.anotherRun': 'Let [sprite] run[SUBSTACK]',
-		'30Ext.block.anotherRunWithClone': 'Let the [cloneId] clone of [sprite] run[SUBSTACK]'
+		'30Ext.block.anotherRun': 'Let [spriteName] run',
+		'30Ext.block.anotherRunWithClone': 'Let the [cloneId] clone of [spriteName] run'
       },
     })
   }
@@ -1557,13 +1557,17 @@ class ArkosExtensions {
 	//镜像造型
 	mirrorSprite(args, util){
 		util.target.runtime.renderer._allDrawables[util.target.drawableID]._skinScale[args.mirrorMethod] *= -1;
+		util.target.emit(RenderedTarget.EVENT_TARGET_VISUAL_CHANGE, this);
+                util.target.runtime.requestRedraw();
 	}
 	//清除镜像
 	clearMirror(args, util){
 		for (let i=0; i<2; i++){
-			let foo = util.target.runtime.renderer._allDrawables[util.target.drawableID]._skinScale[i];
-			foo = Math.abs(foo);
+			util.target.runtime.renderer._allDrawables[util.target.drawableID]._skinScale[i]=
+			Math.abs(util.target.runtime.renderer._allDrawables[util.target.drawableID]._skinScale[i]);
 		}
+		util.target.emit(RenderedTarget.EVENT_TARGET_VISUAL_CHANGE, this);
+                util.target.runtime.requestRedraw();
 	}
 	//
 	//角色跨域操作
