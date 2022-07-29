@@ -1557,8 +1557,8 @@ class ArkosExtensions {
 	//镜像造型
 	mirrorSprite(args, util){
 		util.target.runtime.renderer._allDrawables[util.target.drawableID]._skinScale[args.mirrorMethod] *= -1;
-		util.target.emit('EVENT_TARGET_VISUAL_CHANGE', util.target);
-                util.target.runtime.requestRedraw();
+		//util.target.emit('EVENT_TARGET_VISUAL_CHANGE', util.target);
+                //util.target.runtime.requestRedraw();
 	}
 	//清除镜像
 	clearMirror(args, util){
@@ -1566,8 +1566,8 @@ class ArkosExtensions {
 			util.target.runtime.renderer._allDrawables[util.target.drawableID]._skinScale[i]=
 			Math.abs(util.target.runtime.renderer._allDrawables[util.target.drawableID]._skinScale[i]);
 		}
-		util.target.emit('EVENT_TARGET_VISUAL_CHANGE', util.target);
-                util.target.runtime.requestRedraw();
+		//util.target.emit('EVENT_TARGET_VISUAL_CHANGE', util.target);
+                //util.target.runtime.requestRedraw();
 	}
 	//
 	//角色跨域操作
