@@ -101,8 +101,8 @@ class ArkosExtensions {
 		'30Ext.menu.mirrorMethod.1': '上下镜像',
 		'30Ext.block.clearMirror': '清除角色镜像变换',
 		'30Ext.info.2': '🛸 角色跨域操作',
-		'30Ext.block.anotherRun': '让[sprite]运行[SUBSTACK]',
-		'30Ext.block.anotherRunWithClone': '让[sprite]的第[cloneId]个克隆体运行[SUBSTACK]'
+		'30Ext.block.anotherRun': '让[sprite]运行',
+		'30Ext.block.anotherRunWithClone': '让[sprite]的第[cloneId]个克隆体运行'
       },
 
       en: {
@@ -192,8 +192,8 @@ class ArkosExtensions {
 		'30Ext.menu.mirrorMethod.1': 'Vertical mirror transform',
 		'30Ext.block.clearMirror': 'Clear the mirror transform',
 		'30Ext.info.2': '🛸 Cross sprite operation',
-		'30Ext.block.anotherRun': 'Let [sprite] run[SUBSTACK]',
-		'30Ext.block.anotherRunWithClone': 'Let the [cloneId] clone of [sprite] run[SUBSTACK]'
+		'30Ext.block.anotherRun': 'Let [sprite] run',
+		'30Ext.block.anotherRunWithClone': 'Let the [cloneId] clone of [sprite] run'
       },
     })
   }
@@ -872,15 +872,7 @@ class ArkosExtensions {
 			arguments: {
 				mirrorMethod: {
 					type: 'number',
-					menu: [{
-							text: this.formatMessage('30Ext.menu.mirrorMethod.1'), //左右镜像
-							value: 0
-						},
-						{
-							text: this.formatMessage('30Ext.menu.mirrorMethod.2'), //上下镜像
-							value: 1
-						}
-					]
+					menu: 'mirrorMenu'
 				}
 			}
 		},
@@ -900,9 +892,9 @@ class ArkosExtensions {
 					type: 'string',
 					menu: 'spritesMenu'
 				},
-				SUBSTACK: {
-					type: "input_statement"
-				}
+				//SUBSTACK: {
+				//	type: "input_statement"
+				//}
 			}
 		},
 		{
@@ -918,9 +910,9 @@ class ArkosExtensions {
 					type: 'number',
 					defaultValue: 1
 				},
-				SUBSTACK: {
-					type: "input_statement"
-				}
+				//SUBSTACK: {
+				//	type: "input_statement"
+				//}
 			}
 		},
 	
@@ -1050,7 +1042,16 @@ class ArkosExtensions {
 		//30Ext
 		spritesMenu: {
 			items: 'getSpritesMenu'
-		}
+		},
+	      	mirrorMenu: [{
+				text: this.formatMessage('30Ext.menu.mirrorMethod.1'), //左右镜像
+				value: 0
+			},
+			{
+				text: this.formatMessage('30Ext.menu.mirrorMethod.2'), //上下镜像
+				value: 1
+			}
+		]
       },
     }
   }
@@ -1569,6 +1570,7 @@ class ArkosExtensions {
 	//
 	//跨域执行
 	anotherRun(args, util){
+		console.info(util); //
 		if(!util.thread.ex_30Ext_count) {
 			util.thread.ex_30Ext_count = true;
 			util.thread.ex_30Ext_oldTarget = util.thread.target;
