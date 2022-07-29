@@ -93,6 +93,16 @@ class ArkosExtensions {
         'ArkosExt.delItemOfTempList': '🗂️删除临时列表[list]第[n]项',
         'ArkosExt.getItemOfTempList': '🗂️临时列表[list]第[n]项',
         'ArkosExt.lengthOfTempList': '🗂️临时列表[list]长度',
+		
+		'30Ext.info': '以下扩展由_30提供',
+		'30Ext.info.1': '造型镜像操作',
+		'30Ext.block.mirrorSprite': '[mirrorMethod]当前角色',
+		'30Ext.menu.mirrorMethod.1': '左右镜像',
+		'30Ext.menu.mirrorMethod.1': '上下镜像',
+		'30Ext.block.clearMirror': '清除角色镜像变换',
+		'30Ext.info.2': '角色跨域操作',
+		'30Ext.block.anotherRun': '让[sprite]运行[SUBSTACK]',
+		'30Ext.block.anotherRunWithClone': '让[sprite]的第[cloneId]个克隆体运行[SUBSTACK]'
       },
 
       en: {
@@ -174,6 +184,16 @@ class ArkosExtensions {
         'ArkosExt.delItemOfTempList': '🗂️delete [n]of temp list[list]',
         'ArkosExt.getItemOfTempList': '🗂️item[n]of temp list[list]',
         'ArkosExt.lengthOfTempList': '🗂️length of temp list[list]',
+		
+		'30Ext.info': 'The following extensions are provided by _30',
+		'30Ext.info.1': 'Mirror transform',
+		'30Ext.block.mirrorSprite': '[mirrorMethod] current sprite',
+		'30Ext.menu.mirrorMethod.1': 'Horizontal mirror transform',
+		'30Ext.menu.mirrorMethod.1': 'Vertical mirror transform',
+		'30Ext.block.clearMirror': 'Clear the mirror transform',
+		'30Ext.info.2': 'Cross sprite operation',
+		'30Ext.block.anotherRun': 'Let [sprite] run[SUBSTACK]',
+		'30Ext.block.anotherRunWithClone': 'Let the [cloneId] clone of [sprite] run[SUBSTACK]'
       },
     })
   }
@@ -841,6 +861,69 @@ class ArkosExtensions {
             },
           },
         },
+		//
+		"---" + this.formatMessage("30Ext.info"),  //30的扩展
+		"---" + this.formatMessage("30Ext.info.1"),  //造型镜像
+		// 镜像造型
+		{
+			opcode: 'mirrorSprite',
+			blockType: 'command',
+			text: this.formatMessage('30Ext.block.mirrorSprite'),
+			arguments: {
+				mirrorMethod: {
+					type: 'number',
+					menu: [{
+							text: this.formatMessage('30Ext.menu.mirrorMethod.1'), //左右镜像
+							value: 0
+						},
+						{
+							text: this.formatMessage('30Ext.menu.mirrorMethod.2'), //上下镜像
+							value: 1
+						}
+					]
+				}
+			}
+		},
+		// 清除镜像
+		{
+			opcode: 'clearMirror',
+			blockType: 'command',
+			text: this.formatMessage('30Ext.block.clearMirror')
+		},
+		"---" + this.formatMessage("30Ext.info.2"), //角色跨域操作
+		{
+			opcode: 'anotherRun',
+			blockType: 'conditional',
+			text: this.formatMessage('30Ext.block.anotherRun'),
+			arguments: {
+				spriteName: {
+					type: 'string',
+					menu: spritesMenu
+				},
+				SUBSTACK: {
+					type: "input_statement"
+				}
+			}
+		},
+		{
+			opcode: 'anotherRunWithClone',
+			blockType: 'conditional',
+			text: this.formatMessage('30Ext.block.anotherRunWithClone'),
+			arguments: {
+				spriteName: {
+					type: 'string',
+					menu: spritesMenu
+				},
+				cloneId: {
+					type: 'number',
+					defaultValue: 1
+				}
+				SUBSTACK: {
+					type: "input_statement"
+				}
+			}
+		},
+	
       ],
       menus: {
         ListOpMenu: [
@@ -964,6 +1047,10 @@ class ArkosExtensions {
             value: 'ghost'
           }
         ]
+		//30Ext
+		spritesMenu: {
+			items: 'getSpritesMenu'
+		}
       },
     }
   }
@@ -1446,7 +1533,64 @@ class ArkosExtensions {
     if(!Array.isArray(list)) return 0;
     return list.length;
   }
-  
+  //
+  //30Ext
+  //诶诶 HCN居然不给另外开扩展 只好插队了
+  //
+  //菜单
+	//动态菜单: 角色菜单
+	getSpritesMenu(){
+		var sprites = [];
+		for(const targetId in vm.runtime.targets) {
+			if(!vm.runtime.targets.hasOwnProperty(targetId)) continue;
+			if(!vm.runtime.targets[targetId].isOriginal) continue;
+			if(vm.runtime.targets[targetId] === vm.editingTarget) continue; //排除自己
+			let name = vm.runtime.targets[targetId].sprite.name;
+			sprites.push(name); //['Stage','角色1','角色2'] Stage暂时懒得换成中文
+		}
+		return sprites;
+	}
+	//
+	//角色造型操作
+	//
+	//镜像造型
+	mirrorSprite(args, util){
+		util.target.runtime.renderer._allDrawables[util.target.drawableID]._skinScale[args.mirrorMethod] *= -1;
+	}
+	//清除镜像
+	clearMirror(args, util){
+		for (let i=0; i<2; i++){
+			let foo = util.target.runtime.renderer._allDrawables[util.target.drawableID]._skinScale[i];
+			foo = Math.abs(foo);
+		}
+	}
+	//
+	//角色跨域操作
+	//
+	//跨域执行
+	anotherRun(args, util){
+		if(!util.thread.ex_30Ext_count) {
+			util.thread.ex_30Ext_count = true;
+			util.thread.ex_30Ext_oldTarget = util.thread.target;
+			util.thread.target = util.target.sprite.clones[0];
+			util.startBranch(1, true);
+		} else {
+			util.thread.target = util.thread.ex_30Ext_oldTarget;
+			util.thread.ex_30Ext_count = false;
+		}
+	}
+	//跨域克隆体执行
+	anotherRunWithClone(args, util){
+		if(!util.thread.ex_30Ext_count) {
+			util.thread.ex_30Ext_count = true;
+			util.thread.ex_30Ext_oldTarget = util.thread.target;
+			util.thread.target = util.target.sprite.clones[args.cloneId];
+			util.startBranch(1, true);
+		} else {
+			util.thread.target = util.thread.ex_30Ext_oldTarget;
+			util.thread.ex_30Ext_count = false;
+		}
+	}
 }
 
 
