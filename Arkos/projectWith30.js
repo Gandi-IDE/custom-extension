@@ -1542,11 +1542,11 @@ class ArkosExtensions {
 	//动态菜单: 角色菜单
 	getSpritesMenu(){
 		var sprites = [];
-		for(const targetId in vm.runtime.targets) {
-			if(!vm.runtime.targets.hasOwnProperty(targetId)) continue;
-			if(!vm.runtime.targets[targetId].isOriginal) continue;
-			if(vm.runtime.targets[targetId] === vm.editingTarget) continue; //排除自己
-			let name = vm.runtime.targets[targetId].sprite.name;
+		for(const targetId in this.runtime.targets) {
+			if(!this.runtime.targets.hasOwnProperty(targetId)) continue;
+			if(!this.runtime.targets[targetId].isOriginal) continue;
+			if(this.runtime.targets[targetId] === this.runtime._editingTarget) continue; //排除自己
+			let name = this.runtime.targets[targetId].sprite.name;
 			sprites.push(name); //['Stage','角色1','角色2'] Stage暂时懒得换成中文
 		}
 		return sprites;
