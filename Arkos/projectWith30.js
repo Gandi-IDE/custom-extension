@@ -898,7 +898,7 @@ class ArkosExtensions {
 			arguments: {
 				spriteName: {
 					type: 'string',
-					menu: spritesMenu
+					menu: 'spritesMenu'
 				},
 				SUBSTACK: {
 					type: "input_statement"
@@ -912,7 +912,7 @@ class ArkosExtensions {
 			arguments: {
 				spriteName: {
 					type: 'string',
-					menu: spritesMenu
+					menu: 'spritesMenu'
 				},
 				cloneId: {
 					type: 'number',
