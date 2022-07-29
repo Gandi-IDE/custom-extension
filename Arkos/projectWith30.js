@@ -872,15 +872,7 @@ class ArkosExtensions {
 			arguments: {
 				mirrorMethod: {
 					type: 'number',
-					menu: [{
-							text: this.formatMessage('30Ext.menu.mirrorMethod.1'), //左右镜像
-							value: 0
-						},
-						{
-							text: this.formatMessage('30Ext.menu.mirrorMethod.2'), //上下镜像
-							value: 1
-						}
-					]
+					menu: 'mirrorMenu'
 				}
 			}
 		},
@@ -900,9 +892,9 @@ class ArkosExtensions {
 					type: 'string',
 					menu: 'spritesMenu'
 				},
-				SUBSTACK: {
-					type: "input_statement"
-				}
+				//SUBSTACK: {
+				//	type: "input_statement"
+				//}
 			}
 		},
 		{
@@ -918,9 +910,9 @@ class ArkosExtensions {
 					type: 'number',
 					defaultValue: 1
 				},
-				SUBSTACK: {
-					type: "input_statement"
-				}
+				//SUBSTACK: {
+				//	type: "input_statement"
+				//}
 			}
 		},
 	
@@ -1050,7 +1042,16 @@ class ArkosExtensions {
 		//30Ext
 		spritesMenu: {
 			items: 'getSpritesMenu'
-		}
+		},
+	      	mirrorMenu: [{
+				text: this.formatMessage('30Ext.menu.mirrorMethod.1'), //左右镜像
+				value: 0
+			},
+			{
+				text: this.formatMessage('30Ext.menu.mirrorMethod.2'), //上下镜像
+				value: 1
+			}
+		]
       },
     }
   }
