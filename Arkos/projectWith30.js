@@ -1041,9 +1041,9 @@ class ArkosExtensions {
               type: 'string',
               menu: 'spritesMenu'
             },
-            //SUBSTACK: {
-            //	type: "input_statement"
-            //}
+            SUBSTACK: { //TODO
+            	type: "input_statement"
+            }
           }
         },
         {
@@ -1059,9 +1059,10 @@ class ArkosExtensions {
               type: 'number',
               defaultValue: 1
             },
-            //SUBSTACK: {
-            //	type: "input_statement"
-            //}
+            SUBSTACK: {
+            	type: "input_statement"
+            }
+
           }
         },
 
@@ -1789,7 +1790,6 @@ class ArkosExtensions {
 
   //
   //30Ext
-  //诶诶 HCN居然不给另外开扩展 只好插队了
   //
   //菜单
   //动态菜单: 角色菜单
@@ -1809,16 +1809,26 @@ class ArkosExtensions {
   //
   //镜像造型
   mirrorSprite(args, util) {
-    util.target.runtime.renderer._allDrawables[util.target.drawableID]._skinScale[args.mirrorMethod] *= -1;
-    //util.target.emit('EVENT_TARGET_VISUAL_CHANGE', util.target);
-    //util.target.runtime.requestRedraw();
+	  //测试: onSize监听 更换代码执行逻辑
+    if (!util.target.ext30_isHook) {
+			util.target.ext30_mirror0 = 1;
+			util.target.ext30_mirror1 = 1;
+			const oldSet = util.target.prototype.setSize;
+			util.target.prototype.setSize = function (size) {
+				oldSet.call(this, size);
+				if (util.target.ext30_mirror0) util.target.runtime.renderer._allDrawables[util.target.drawableID]._skinScale[0] *= util.target.ext30_mirror0;
+				if (util.target.ext30_mirror1) util.target.runtime.renderer._allDrawables[util.target.drawableID]._skinScale[1] *= util.target.ext30_mirror1;
+			}
+			util.target.ext30_isHook = true;
+		}
+		util.target['ext30_mirror' + args.mirrorMethod] *= -1;
+		util.target.setSize(util.target._size);
   }
   //清除镜像
   clearMirror(args, util) {
-    for (let i = 0; i < 2; i++) {
-      util.target.runtime.renderer._allDrawables[util.target.drawableID]._skinScale[i] =
-        Math.abs(util.target.runtime.renderer._allDrawables[util.target.drawableID]._skinScale[i]);
-    }
+    util.target.ext30_mirror0 = 1;
+	util.target.ext30_mirror1 = 1;
+	util.target.setSize(util.target._size);
     //util.target.emit('EVENT_TARGET_VISUAL_CHANGE', util.target);
     //util.target.runtime.requestRedraw();
   }
@@ -1827,6 +1837,7 @@ class ArkosExtensions {
   //
   //跨域执行
   anotherRun(args, util) {
+	console.info(util);//TODO
     if (!util.thread.ex_30Ext_count) {
       util.thread.ex_30Ext_count = true;
       util.thread.ex_30Ext_oldTarget = util.thread.target;
