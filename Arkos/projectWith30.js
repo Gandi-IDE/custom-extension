@@ -1823,6 +1823,7 @@ class ArkosExtensions {
     }
     util.target['ext30_mirror' + args.mirrorMethod] *= -1;
     util.target.setSize(util.target._size);
+
   }
   //清除镜像
   clearMirror(args, util) {
