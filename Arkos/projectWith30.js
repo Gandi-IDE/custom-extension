@@ -216,7 +216,7 @@ class ArkosExtensions {
         'ArkosExt.conInfo2': 'content',
         'ArkosExt.lengthOfTempCon': '🗂️count of contents in temp container[con]',
 
-        '30Ext.info': '✨ Contributed by _30 ↓',
+        '30Ext.info': '✨ Contributed by _30',
         '30Ext.info.1': '🪞 Mirror transform',
         '30Ext.block.mirrorSprite': '[mirrorMethod] current sprite',
         '30Ext.menu.mirrorMethod.1': 'Horizontal mirror transform',
@@ -1844,7 +1844,8 @@ class ArkosExtensions {
     if (!util.thread.ex_30Ext_count) {
       util.thread.ex_30Ext_count = true;
       util.thread.ex_30Ext_oldTarget = util.thread.target;
-      util.thread.target = util.target.sprite.clones[0];
+      //util.thread.target = util.target.sprite.clones[0];
+			util.thread.target = this.runtime.targets.find(target => target.sprite.name === args.NAME).sprite.clones[0];
       util.startBranch(1, true);
     } else {
       util.thread.target = util.thread.ex_30Ext_oldTarget;
@@ -1856,7 +1857,8 @@ class ArkosExtensions {
     if (!util.thread.ex_30Ext_count) {
       util.thread.ex_30Ext_count = true;
       util.thread.ex_30Ext_oldTarget = util.thread.target;
-      util.thread.target = util.target.sprite.clones[args.cloneId];
+      //util.thread.target = util.target.sprite.clones[args.cloneId];
+			util.thread.target = this.runtime.targets.find(target => target.sprite.name === args.NAME).sprite.clones[args.cloneId];
       util.startBranch(1, true);
     } else {
       util.thread.target = util.thread.ex_30Ext_oldTarget;
