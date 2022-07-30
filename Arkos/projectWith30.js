@@ -1837,7 +1837,7 @@ class ArkosExtensions {
   //
   //跨域执行
   anotherRun(args, util) {
-  console.info(util);//TODO
+	console.info(args);
     if (!util.thread.ex_30Ext_count) {
       util.thread.ex_30Ext_count = true;
       util.thread.ex_30Ext_oldTarget = util.thread.target;
