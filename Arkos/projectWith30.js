@@ -180,6 +180,9 @@ class ArkosExtensions {
         'ArkosExt.info4': '📄 Information',
         'ArkosExt.info5': '📊 Sorted Table',
         'ArkosExt.info6': '🗂️ Temporary Data',
+        'ArkosExt.info7': 'temp var',
+        'ArkosExt.info8': 'temp list',
+        'ArkosExt.info9': 'temp container',
 
         'ArkosExt.deleteAllTempData': '🗂️clear all temporary data',
         'ArkosExt.getCountOfTempData': '🗂️count of temporary data',
@@ -213,7 +216,7 @@ class ArkosExtensions {
         'ArkosExt.conInfo2': 'content',
         'ArkosExt.lengthOfTempCon': '🗂️count of contents in temp container[con]',
 
-        '30Ext.info': '✨ The following extensions are provided by _30',
+        '30Ext.info': '✨ Contributed by _30 ↓',
         '30Ext.info.1': '🪞 Mirror transform',
         '30Ext.block.mirrorSprite': '[mirrorMethod] current sprite',
         '30Ext.menu.mirrorMethod.1': 'Horizontal mirror transform',
