@@ -1023,7 +1023,7 @@ class ArkosExtensions {
           text: this.formatMessage('30Ext.block.mirrorSprite'),
           arguments: {
             mirrorMethod: {
-              type: 'number',
+              type: 'string',
               menu: 'mirrorMenu'
             }
           }
@@ -1045,7 +1045,7 @@ class ArkosExtensions {
               menu: 'spritesMenu'
             },
             SUBSTACK: { //TODO
-            	type: "input_statement"
+              type: "input_statement"
             }
           }
         },
@@ -1063,7 +1063,7 @@ class ArkosExtensions {
               defaultValue: 1
             },
             SUBSTACK: {
-            	type: "input_statement"
+              type: "input_statement"
             }
 
           }
@@ -1218,11 +1218,11 @@ class ArkosExtensions {
         },
         mirrorMenu: [{
           text: this.formatMessage('30Ext.menu.mirrorMethod.1'), //左右镜像
-          value: 0
+          value: '0'
         },
         {
           text: this.formatMessage('30Ext.menu.mirrorMethod.2'), //上下镜像
-          value: 1
+          value: '1'
         }
         ]
       },
@@ -1812,26 +1812,24 @@ class ArkosExtensions {
   //
   //镜像造型
   mirrorSprite(args, util) {
-	  //测试: onSize监听 更换代码执行逻辑
+    //测试: 换一个监听方式
+    
     if (!util.target.ext30_isHook) {
-			util.target.ext30_mirror0 = 1;
-			util.target.ext30_mirror1 = 1;
-			const oldSet = util.target.__proto__.setSize;
-			util.target.__proto__.setSize = function (size) {
-				oldSet.call(this, size);
-				if (util.target.ext30_mirror0) util.target.runtime.renderer._allDrawables[util.target.drawableID]._skinScale[0] *= util.target.ext30_mirror0;
-				if (util.target.ext30_mirror1) util.target.runtime.renderer._allDrawables[util.target.drawableID]._skinScale[1] *= util.target.ext30_mirror1;
-			}
-			util.target.ext30_isHook = true;
-		}
-		util.target['ext30_mirror' + args.mirrorMethod] *= -1;
-		util.target.setSize(util.target._size);
+      util.target.addListener('EVENT_TARGET_VISUAL_CHANGE', (e,t) => {
+        if (util.target.ext30_mirror0) this.runtime.renderer._allDrawables[util.target.drawableID]._skinScale[0] *= util.target.ext30_mirror0;
+        if (util.target.ext30_mirror1) this.runtime.renderer._allDrawables[util.target.drawableID]._skinScale[1] *= util.target.ext30_mirror1;
+      });
+      util.target.ext30_isHook = true;
+    }
+    util.target['ext30_mirror' + args.mirrorMethod] *= -1;
+    util.target.setSize(util.target._size);
+
   }
   //清除镜像
   clearMirror(args, util) {
     util.target.ext30_mirror0 = 1;
-	util.target.ext30_mirror1 = 1;
-	util.target.setSize(util.target._size);
+    util.target.ext30_mirror1 = 1;
+    util.target.setSize(util.target._size);
     //util.target.emit('EVENT_TARGET_VISUAL_CHANGE', util.target);
     //util.target.runtime.requestRedraw();
   }
@@ -1840,12 +1838,10 @@ class ArkosExtensions {
   //
   //跨域执行
   anotherRun(args, util) {
-	console.info(util);//TODO
     if (!util.thread.ex_30Ext_count) {
       util.thread.ex_30Ext_count = true;
       util.thread.ex_30Ext_oldTarget = util.thread.target;
-      //util.thread.target = util.target.sprite.clones[0];
-			util.thread.target = this.runtime.targets.find(target => target.sprite.name === args.NAME).sprite.clones[0];
+      util.thread.target = this.runtime.targets.find(target => target.sprite.name === args.spriteName).sprite.clones[0];
       util.startBranch(1, true);
     } else {
       util.thread.target = util.thread.ex_30Ext_oldTarget;
@@ -1857,8 +1853,7 @@ class ArkosExtensions {
     if (!util.thread.ex_30Ext_count) {
       util.thread.ex_30Ext_count = true;
       util.thread.ex_30Ext_oldTarget = util.thread.target;
-      //util.thread.target = util.target.sprite.clones[args.cloneId];
-			util.thread.target = this.runtime.targets.find(target => target.sprite.name === args.NAME).sprite.clones[args.cloneId];
+      util.thread.target = this.runtime.targets.find(target => target.sprite.name === args.spriteName).sprite.clones[args.cloneId];
       util.startBranch(1, true);
     } else {
       util.thread.target = util.thread.ex_30Ext_oldTarget;
