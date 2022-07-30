@@ -2,16 +2,17 @@ import Cast from '../utils/cast.js'
 import Color from '../utils/color.js'
 // import cover from './assets/icon.svg'
 // import icon from './assets/icon.svg'
+//鸣谢：-6 优化代码和修复了一些 bug；_30 提供了部分拓展积木
 
 console.log(Cast.toNumber('123'))
 console.log(Cast.toNumber('aab'))
 class ArkosExtensions {
   constructor(runtime) {
     this.runtime = runtime
-    this.tempData={}
-    this.sortedTable={
-      list1:{order:'desc',list:[]},
-      list2:{order:'desc',list:[]},
+    this.tempData = {}
+    this.sortedTable = {
+      list1: { order: 'desc', list: [] },
+      list2: { order: 'desc', list: [] },
     }
     this._formatMessage = runtime.getFormatMessage({
       'zh-cn': {
@@ -21,7 +22,10 @@ class ArkosExtensions {
         'ArkosExt.info3': '🛠 实用积木',
         'ArkosExt.info4': '📄 信息获取',
         'ArkosExt.info5': '📊 排序表',
-        'ArkosExt.info6': '🗂️ 临时变量',
+        'ArkosExt.info6': '🗂️ 临时数据',
+        'ArkosExt.info7': '临时变量',
+        'ArkosExt.info8': '临时列表',
+        'ArkosExt.info9': '临时容器',
         'ArkosExt.stringEquality': '(区分大小写)[ONE]=[TWO]',
         'ArkosExt.directionFromAtoB': '点x1:[X1]y1:[Y1]朝向点x2:[X2]y2:[Y2]的方向',
         'ArkosExt.differenceBetweenDirections': '由方向1[a]到方向2[b]的角度差',
@@ -57,7 +61,7 @@ class ArkosExtensions {
 
         'ArkosExt.and': '且',
         'ArkosExt.or': '或',
-        
+
         'ArkosExt.clearSortedTable': '📊清空排序表[list]',
         'ArkosExt.setTypeOfSortedTable': '📊将排序表[list]的排序方式设为[type]',
         'ArkosExt.addToSortedTable': '📊将内容(重名的则覆盖)[name],排序值[value]加入排序表[list],附加信息[extra]',
@@ -81,7 +85,7 @@ class ArkosExtensions {
 
         'ArkosExt.setTempVar': '🗂️将临时变量[var]设为[t]',
         'ArkosExt.addTempVar': '🗂️将临时变量[var]增加[t]',
-        'ArkosExt.getTempVar': '🗂️临时变量[var]',
+        'ArkosExt.getTempVar': '🗂️临时数据[var]',
 
         'ArkosExt.clearTempList': '🗂️创建或清空临时列表[list]',
         'ArkosExt.initTempList': '🗂️临时列表[list]内容设为[t]',
@@ -93,16 +97,28 @@ class ArkosExtensions {
         'ArkosExt.delItemOfTempList': '🗂️删除临时列表[list]第[n]项',
         'ArkosExt.getItemOfTempList': '🗂️临时列表[list]第[n]项',
         'ArkosExt.lengthOfTempList': '🗂️临时列表[list]长度',
-		
-		'30Ext.info': '✨ 以下扩展由_30提供',
-		'30Ext.info.1': '🪞 造型镜像操作',
-		'30Ext.block.mirrorSprite': '[mirrorMethod]当前角色',
-		'30Ext.menu.mirrorMethod.1': '左右镜像',
-		'30Ext.menu.mirrorMethod.2': '上下镜像',
-		'30Ext.block.clearMirror': '清除角色镜像变换',
-		'30Ext.info.2': '🛸 角色跨域操作',
-		'30Ext.block.anotherRun': '让[spriteName]运行',
-		'30Ext.block.anotherRunWithClone': '让[spriteName]的第[cloneId]个克隆体运行'
+
+        'ArkosExt.clearTempCon': '🗂️创建或清空临时容器[con]',
+        'ArkosExt.initTempCon': '🗂️临时容器[con]内容设为[t]',
+        'ArkosExt.opTempCon': '🗂️临时容器[con]中的[c][op][t]',
+        'ArkosExt.conOp1': '设为',
+        'ArkosExt.conOp2': '增加',
+        'ArkosExt.delItemOfTempCon': '🗂️删除临时容器[con]中名为[c]的内容',
+        'ArkosExt.getItemOfTempConByName': '🗂️临时容器[con]中的[c]',
+        'ArkosExt.getItemOfTempConByNo': '🗂️临时容器[con]第[n]项的[t]',
+        'ArkosExt.conInfo1': '名称',
+        'ArkosExt.conInfo2': '内容',
+        'ArkosExt.lengthOfTempCon': '🗂️临时容器[con]中内容数',
+
+        '30Ext.info': '✨ 以下扩展由_30提供',
+        '30Ext.info.1': '🪞 造型镜像操作',
+        '30Ext.block.mirrorSprite': '[mirrorMethod]当前角色',
+        '30Ext.menu.mirrorMethod.1': '左右镜像',
+        '30Ext.menu.mirrorMethod.2': '上下镜像',
+        '30Ext.block.clearMirror': '清除角色镜像变换',
+        '30Ext.info.2': '🛸 角色跨域操作',
+        '30Ext.block.anotherRun': '让[spriteName]运行',
+        '30Ext.block.anotherRunWithClone': '让[spriteName]的第[cloneId]个克隆体运行'
       },
 
       en: {
@@ -157,7 +173,7 @@ class ArkosExtensions {
         'ArkosExt.extra': 'extra',
 
         'ArkosExt.colorToHex': 'get code of color[COLOR]',
-        
+
         'ArkosExt.info1': '🚶 Coordinate and Direction',
         'ArkosExt.info2': '🔠 String Processing',
         'ArkosExt.info3': '🛠 Utilities',
@@ -171,9 +187,9 @@ class ArkosExtensions {
 
         'ArkosExt.setTempVar': '🗂️set temp var[var] to [t]',
         'ArkosExt.addTempVar': '🗂️change temp var[var] by [t]',
-        'ArkosExt.getTempVar': '🗂️temp var[var]',
+        'ArkosExt.getTempVar': '🗂️temp data[var]',
 
-        
+
         'ArkosExt.clearTempList': '🗂️create or clear temp list[list]',
         'ArkosExt.initTempList': '🗂️set temp list[list]to[t]',
         'ArkosExt.addTempList': '🗂️add[t] to temp list[list]',
@@ -184,16 +200,28 @@ class ArkosExtensions {
         'ArkosExt.delItemOfTempList': '🗂️delete [n]of temp list[list]',
         'ArkosExt.getItemOfTempList': '🗂️item[n]of temp list[list]',
         'ArkosExt.lengthOfTempList': '🗂️length of temp list[list]',
-		
-		'30Ext.info': '✨ The following extensions are provided by _30',
-		'30Ext.info.1': '🪞 Mirror transform',
-		'30Ext.block.mirrorSprite': '[mirrorMethod] current sprite',
-		'30Ext.menu.mirrorMethod.1': 'Horizontal mirror transform',
-		'30Ext.menu.mirrorMethod.2': 'Vertical mirror transform',
-		'30Ext.block.clearMirror': 'Clear the mirror transform',
-		'30Ext.info.2': '🛸 Cross sprite operation',
-		'30Ext.block.anotherRun': 'Let [spriteName] run',
-		'30Ext.block.anotherRunWithClone': 'Let the [cloneId] clone of [spriteName] run'
+
+        'ArkosExt.clearTempCon': '🗂️create or clear temp container[con]',
+        'ArkosExt.initTempCon': '🗂️set temp container[con]to[t]',
+        'ArkosExt.opTempCon': '🗂️[c]in temp container[con][op][t]',
+        'ArkosExt.conOp1': 'set to',
+        'ArkosExt.conOp2': 'change by',
+        'ArkosExt.delItemOfTempCon': '🗂️delete[c]in temp container[con]',
+        'ArkosExt.getItemOfTempConByName': '🗂️[c]in temp container[con]',
+        'ArkosExt.getItemOfTempConByNo': '🗂️[t] of #[n] in temp container[con]',
+        'ArkosExt.conInfo1': 'name',
+        'ArkosExt.conInfo2': 'content',
+        'ArkosExt.lengthOfTempCon': '🗂️count of contents in temp container[con]',
+
+        '30Ext.info': '✨ The following extensions are provided by _30',
+        '30Ext.info.1': '🪞 Mirror transform',
+        '30Ext.block.mirrorSprite': '[mirrorMethod] current sprite',
+        '30Ext.menu.mirrorMethod.1': 'Horizontal mirror transform',
+        '30Ext.menu.mirrorMethod.2': 'Vertical mirror transform',
+        '30Ext.block.clearMirror': 'Clear the mirror transform',
+        '30Ext.info.2': '🛸 Cross sprite operation',
+        '30Ext.block.anotherRun': 'Let [spriteName] run',
+        '30Ext.block.anotherRunWithClone': 'Let the [cloneId] clone of [spriteName] run'
       },
     })
   }
@@ -209,7 +237,7 @@ class ArkosExtensions {
   getInfo() {
     return {
       id: 'hcnTest', // 拓展id
-      name: this.formatMessage('ArkosExt.extensionName'), 
+      name: this.formatMessage('ArkosExt.extensionName'),
 
       color1: '#FF8383',
       // menuIconURI: icon,
@@ -679,8 +707,7 @@ class ArkosExtensions {
           },
         },
 
-        "---" + this.formatMessage("ArkosExt.info6"),  //🗂️ 临时变量
-
+        "---" + this.formatMessage("ArkosExt.info6"),  //🗂️ 临时数据
         //清空所有临时数据
         {
           opcode: 'deleteAllTempData',
@@ -705,6 +732,7 @@ class ArkosExtensions {
             },
           },
         },
+        "---" + this.formatMessage("ArkosExt.info7"),  //临时变量
         //设置临时数据
         {
           opcode: 'setTempVar',
@@ -737,7 +765,7 @@ class ArkosExtensions {
             },
           },
         },
-        //增加临时数据
+        //获取临时数据
         {
           opcode: 'getTempVar',
           blockType: 'reporter',
@@ -749,6 +777,7 @@ class ArkosExtensions {
             },
           },
         },
+        "---" + this.formatMessage("ArkosExt.info8"),  //临时列表
         //创建或清空临时列表
         {
           opcode: 'clearTempList',
@@ -861,63 +890,203 @@ class ArkosExtensions {
             },
           },
         },
-		//
-		"---" + this.formatMessage("30Ext.info"),  //30的扩展
-		"---" + this.formatMessage("30Ext.info.1"),  //造型镜像
-		// 镜像造型
-		{
-			opcode: 'mirrorSprite',
-			blockType: 'command',
-			text: this.formatMessage('30Ext.block.mirrorSprite'),
-			arguments: {
-				mirrorMethod: {
-					type: 'string',
-					menu: 'mirrorMenu'
-				}
-			}
-		},
-		// 清除镜像
-		{
-			opcode: 'clearMirror',
-			blockType: 'command',
-			text: this.formatMessage('30Ext.block.clearMirror')
-		},
-		"---" + this.formatMessage("30Ext.info.2"), //角色跨域操作
-		{
-			opcode: 'anotherRun',
-			blockType: 'conditional',
-			text: this.formatMessage('30Ext.block.anotherRun'),
-			arguments: {
-				spriteName: {
-					type: 'string',
-					menu: 'spritesMenu'
-				},
-				SUBSTACK: {
-					type: "input_statement"
-				}
-			}
-		},
-		{
-			opcode: 'anotherRunWithClone',
-			blockType: 'conditional',
-			text: this.formatMessage('30Ext.block.anotherRunWithClone'),
-			arguments: {
-				spriteName: {
-					type: 'string',
-					menu: 'spritesMenu'
-				},
-				cloneId: {
-					type: 'number',
-					defaultValue: 1
-				},
-				SUBSTACK: {
-					type: "input_statement"
-				}
-			}
-		},
-	
+        "---" + this.formatMessage("ArkosExt.info9"),  //临时容器
+        //创建或清空临时容器
+        {
+          opcode: 'clearTempCon',
+          blockType: 'command',
+          text: this.formatMessage('ArkosExt.clearTempCon'),
+          arguments: {
+            con: {
+              type: 'string',
+              defaultValue: 'con1',
+            },
+          },
+        },
+        //设置临时容器
+        {
+          opcode: 'initTempCon',
+          blockType: 'command',
+          text: this.formatMessage('ArkosExt.initTempCon'),
+          arguments: {
+            con: {
+              type: 'string',
+              defaultValue: 'con1',
+            },
+            t: {
+              type: 'string',
+              defaultValue: '{"coins":200,"backpack":["wood","bread"]}',
+            },
+          },
+        },
+        //操作临时容器
+        {
+          opcode: 'opTempCon',
+          blockType: 'command',
+          text: this.formatMessage('ArkosExt.opTempCon'),
+          arguments: {
+            con: {
+              type: 'string',
+              defaultValue: 'con1',
+            },
+            op: {
+              type: 'string',
+              menu: 'conOpMenu',
+            },
+            c: {
+              type: 'string',
+              defaultValue: 'coins',
+            },
+            t: {
+              type: 'string',
+              defaultValue: '520',
+            },
+          },
+        },
+        //删除临时容器名为xx的内容
+        {
+          opcode: 'delItemOfTempCon',
+          blockType: 'command',
+          text: this.formatMessage('ArkosExt.delItemOfTempCon'),
+          arguments: {
+            con: {
+              type: 'string',
+              defaultValue: 'con1',
+            },
+            c: {
+              type: 'string',
+              defaultValue: 'coins',
+            },
+          },
+        },
+        //获取临时容器名为XX的内容
+        {
+          opcode: 'getItemOfTempConByName',
+          blockType: 'reporter',
+          text: this.formatMessage('ArkosExt.getItemOfTempConByName'),
+          arguments: {
+            con: {
+              type: 'string',
+              defaultValue: 'con1',
+            },
+            c: {
+              type: 'string',
+              defaultValue: 'coins',
+            },
+          },
+        },
+        //获取临时容器第n项的xx
+        {
+          opcode: 'getItemOfTempConByNo',
+          blockType: 'reporter',
+          text: this.formatMessage('ArkosExt.getItemOfTempConByNo'),
+          arguments: {
+            con: {
+              type: 'string',
+              defaultValue: 'con1',
+            },
+            n: {
+              type: 'number',
+              defaultValue: 1,
+            },
+            t: {
+              type: 'string',
+              menu: 'conInfoMenu',
+              defaultValue: '2',
+            },
+          },
+        },
+        //临时容器长度
+        {
+          opcode: 'lengthOfTempCon',
+          blockType: 'reporter',
+          text: this.formatMessage('ArkosExt.lengthOfTempCon'),
+          arguments: {
+            con: {
+              type: 'string',
+              defaultValue: 'con1',
+            },
+          },
+        },
+        
+
+        //
+        "---" + this.formatMessage("30Ext.info"),  //感谢30提供的扩展
+        "---" + this.formatMessage("30Ext.info.1"),  //造型镜像
+        // 镜像造型
+        {
+          opcode: 'mirrorSprite',
+          blockType: 'command',
+          text: this.formatMessage('30Ext.block.mirrorSprite'),
+          arguments: {
+            mirrorMethod: {
+              type: 'number',
+              menu: 'mirrorMenu'
+            }
+          }
+        },
+        // 清除镜像
+        {
+          opcode: 'clearMirror',
+          blockType: 'command',
+          text: this.formatMessage('30Ext.block.clearMirror')
+        },
+        "---" + this.formatMessage("30Ext.info.2"), //角色跨域操作
+        {
+          opcode: 'anotherRun',
+          blockType: 'conditional',
+          text: this.formatMessage('30Ext.block.anotherRun'),
+          arguments: {
+            spriteName: {
+              type: 'string',
+              menu: 'spritesMenu'
+            },
+            SUBSTACK: { //TODO
+            	type: "input_statement"
+            }
+          }
+        },
+        {
+          opcode: 'anotherRunWithClone',
+          blockType: 'conditional',
+          text: this.formatMessage('30Ext.block.anotherRunWithClone'),
+          arguments: {
+            spriteName: {
+              type: 'string',
+              menu: 'spritesMenu'
+            },
+            cloneId: {
+              type: 'number',
+              defaultValue: 1
+            },
+            SUBSTACK: {
+            	type: "input_statement"
+            }
+          }
+        },
+
       ],
       menus: {
+        conInfoMenu:[
+          {
+            text: this.formatMessage('ArkosExt.conInfo1'), //名称
+            value: '1'
+          },
+          {
+            text: this.formatMessage('ArkosExt.conInfo2'), //内容
+            value: '2'
+          },
+        ],
+        conOpMenu:[
+          {
+            text: this.formatMessage('ArkosExt.conOp1'), //设为
+            value: '1'
+          },
+          {
+            text: this.formatMessage('ArkosExt.conOp2'), //增加
+            value: '2'
+          },
+        ],
         ListOpMenu: [
           {
             text: this.formatMessage('ArkosExt.ListOp1'), //插入
@@ -965,8 +1134,8 @@ class ArkosExtensions {
           acceptReporters: true,
         },
         //判断符菜单
-        opMenu1: ['<','≤','=','≠',],
-        opMenu2: ['<','>','≤','≥','=','≠',],
+        opMenu1: ['<', '≤', '=', '≠',],
+        opMenu2: ['<', '>', '≤', '≥', '=', '≠',],
         //logicMenu
         logicMenu: [
           {
@@ -1039,19 +1208,19 @@ class ArkosExtensions {
             value: 'ghost'
           }
         ],
-		//30Ext
-		spritesMenu: {
-			items: 'getSpritesMenu'
-		},
-	      	mirrorMenu: [{
-				text: this.formatMessage('30Ext.menu.mirrorMethod.1'), //左右镜像
-				value: '0'
-			},
-			{
-				text: this.formatMessage('30Ext.menu.mirrorMethod.2'), //上下镜像
-				value: '1'
-			}
-		]
+        //30Ext
+        spritesMenu: {
+          items: 'getSpritesMenu'
+        },
+        mirrorMenu: [{
+          text: this.formatMessage('30Ext.menu.mirrorMethod.1'), //左右镜像
+          value: 0
+        },
+        {
+          text: this.formatMessage('30Ext.menu.mirrorMethod.2'), //上下镜像
+          value: 1
+        }
+        ]
       },
     }
   }
@@ -1132,25 +1301,25 @@ class ArkosExtensions {
   turnDegreesToDir(args, util) {
     const degree = Cast.toNumber(args.degree);
     const dir = Cast.toNumber(args.dir);
-    const dif = this.differenceBetweenDirections({a: util.target.direction, b: dir});
-    if(Math.abs(dif) < degree) 
+    const dif = this.differenceBetweenDirections({ a: util.target.direction, b: dir });
+    if (Math.abs(dif) < degree)
       util.target.setDirection(dir);
-    else if(dif < 0)
+    else if (dif < 0)
       util.target.setDirection(util.target.direction - degree);
     else
       util.target.setDirection(util.target.direction + degree);
   }
 
   //获取特效的数值
-  getEffect (args, util) {
+  getEffect(args, util) {
     let effect = Cast.toString(args.EFFECT).toLowerCase();
     if (!util.target.effects.hasOwnProperty(effect)) return 0;
     return util.target.effects[effect];
   }
 
   //角色是否可见
-  isHiding (args, util) {
-    return  !util.target.visible;
+  isHiding(args, util) {
+    return !util.target.visible;
   }
 
   //获取图层(逝一逝)
@@ -1159,65 +1328,65 @@ class ArkosExtensions {
   // }
 
   //获取当前角色的旋转方式
-  getRotationStyle (args, util) {
+  getRotationStyle(args, util) {
     return util.target.rotationStyle;
   }
 
   //获取当前造型的长/宽
-  getWidthOrHeight (args, util) {
+  getWidthOrHeight(args, util) {
     const costumeSize = util.target.renderer.getCurrentSkinSize(util.target.drawableID);
     return costumeSize[args.t];
   }
 
   //强行设置大小(逝一逝)
-  setSize (args, util) {
+  setSize(args, util) {
     if (util.target.isStage) {
-        return;
+      return;
     }
     if (util.target.renderer) {
-        args.size = this._clamp(Cast.toNumber(args.size),0.1,100000000)
-        util.target.size = args.size;
-        const {direction, scale} = util.target._getRenderedDirectionAndScale();
-        util.target.renderer.updateDrawableDirectionScale(util.target.drawableID, direction, scale);
-        if (util.target.visible) {
-            util.target.emit('EVENT_TARGET_VISUAL_CHANGE', util.target);
-            util.target.runtime.requestRedraw();
-        }
+      args.size = this._clamp(Cast.toNumber(args.size), 0.1, 100000000)
+      util.target.size = args.size;
+      const { direction, scale } = util.target._getRenderedDirectionAndScale();
+      util.target.renderer.updateDrawableDirectionScale(util.target.drawableID, direction, scale);
+      if (util.target.visible) {
+        util.target.emit('EVENT_TARGET_VISUAL_CHANGE', util.target);
+        util.target.runtime.requestRedraw();
+      }
     }
     util.target.runtime.requestTargetsUpdate(util.target);
   }
 
-  _clamp (n, min, max) {
-        return Math.min(Math.max(n, min), max);
+  _clamp(n, min, max) {
+    return Math.min(Math.max(n, min), max);
   }
-  
+
   //强行设置XY(逝一逝)
-  setXY (args, util) {
+  setXY(args, util) {
     if (util.target.isStage) return;
-    args.x = this._clamp(Cast.toNumber(args.x),-100000000,100000000)
-    args.y = this._clamp(Cast.toNumber(args.y),-100000000,100000000)
+    args.x = this._clamp(Cast.toNumber(args.x), -100000000, 100000000)
+    args.y = this._clamp(Cast.toNumber(args.y), -100000000, 100000000)
     const oldX = util.target.x;
     const oldY = util.target.y;
     util.target.x = args.x;
     util.target.y = args.y;
     if (util.target.renderer) {
-        util.target.renderer.updateDrawablePosition(util.target.drawableID, [args.x, args.y]);
-        if (util.target.visible) {
-            util.target.emit('EVENT_TARGET_VISUAL_CHANGE', util.target);
-            util.target.runtime.requestRedraw();
-        }
+      util.target.renderer.updateDrawablePosition(util.target.drawableID, [args.x, args.y]);
+      if (util.target.visible) {
+        util.target.emit('EVENT_TARGET_VISUAL_CHANGE', util.target);
+        util.target.runtime.requestRedraw();
+      }
     } else {
-        util.target.x = x;
-        util.target.y = y;
+      util.target.x = x;
+      util.target.y = y;
     }
     util.target.emit('TARGET_MOVED', util.target, oldX, oldY, false);
     util.target.runtime.requestTargetsUpdate(util.target);
   }
 
   //获取角色边缘的坐标
-  getBoundaryCoord (args, util) {
+  getBoundaryCoord(args, util) {
     const bounds = util.target.runtime.renderer.getBounds(util.target.drawableID);
-    switch(args.t){
+    switch (args.t) {
       case '1':
         return bounds.top;
       case '2':
@@ -1232,34 +1401,34 @@ class ArkosExtensions {
   }
 
   //是否在舞台外
-  isOutOfSight (args, util) {
+  isOutOfSight(args, util) {
     // console.log(util.target.runtime.renderer)
     // console.log(util.target.renderer)
     if (util.target.renderer) {
-        const stageWidth = util.target.runtime.stageWidth;
-        const stageHeight = util.target.runtime.stageHeight;
-        console.log('stageWidth',stageWidth);
-        console.log('stageHeight',stageHeight);
-        const bounds = util.target.runtime.renderer.getBounds(util.target.drawableID);
-        if (bounds.right < -stageWidth / 2 ||
-            bounds.left > stageWidth / 2 ||
-            bounds.bottom > stageHeight / 2 ||
-            bounds.top < -stageHeight / 2) {
-            return true;
-        }
+      const stageWidth = util.target.runtime.stageWidth;
+      const stageHeight = util.target.runtime.stageHeight;
+      console.log('stageWidth', stageWidth);
+      console.log('stageHeight', stageHeight);
+      const bounds = util.target.runtime.renderer.getBounds(util.target.drawableID);
+      if (bounds.right < -stageWidth / 2 ||
+        bounds.left > stageWidth / 2 ||
+        bounds.bottom > stageHeight / 2 ||
+        bounds.top < -stageHeight / 2) {
+        return true;
+      }
     }
     return false;
   }
 
   //形如：<() >
-  reporterToBoolean (args){
-    if(Cast.toString(args.t).toLowerCase() === 'false') return false;
-    if(args.t === '0') return false;
+  reporterToBoolean(args) {
+    if (Cast.toString(args.t).toLowerCase() === 'false') return false;
+    if (args.t === '0') return false;
     return (args.t) ? true : false;
   }
 
-  compare(a,b,op){
-    switch(op){
+  compare(a, b, op) {
+    switch (op) {
       case '<':
         return Cast.compare(a, b) < 0;
       case '>':
@@ -1278,29 +1447,29 @@ class ArkosExtensions {
   }
 
   //形如：a≤b≤c op1,op2
-  compareTwoSides (args){
-    return this.compare(args.a, args.b, args.op1)&&this.compare(args.b, args.c, args.op2)
+  compareTwoSides(args) {
+    return this.compare(args.a, args.b, args.op1) && this.compare(args.b, args.c, args.op2)
   }
-  
+
   //形如：a≤b且/或>c op1,op2 logic 
-  compareTwoSidesPlus(args){
-    switch(args.logic){
+  compareTwoSidesPlus(args) {
+    switch (args.logic) {
       case 'or':
-        return this.compare(args.a, args.b, args.op1)||this.compare(args.a, args.c, args.op2)
+        return this.compare(args.a, args.b, args.op1) || this.compare(args.a, args.c, args.op2)
       case 'and':
-        return this.compare(args.a, args.b, args.op1)&&this.compare(args.a, args.c, args.op2)
+        return this.compare(args.a, args.b, args.op1) && this.compare(args.a, args.c, args.op2)
       default:
         return false;
     }
   }
 
   //数组排序规则
-  sortRule(propName,order) {
+  sortRule(propName, order) {
     return (a, b) => {
       a = a[propName]
       b = b[propName]
       if (a > b) return order === 'asc' ? 1 : -1;
-      else if (a < b) return  order === 'asc' ? -1 : 1;
+      else if (a < b) return order === 'asc' ? -1 : 1;
       else return 0;
     }
   }
@@ -1311,7 +1480,7 @@ class ArkosExtensions {
     let temp = this.sortedTable;
     Object.keys(temp).forEach(obj => {
       //if ( Array.isArray (temp[obj]) ) {
-        list.push(obj);
+      list.push(obj);
       //}
     });
     if (list.length === 0) {
@@ -1323,45 +1492,45 @@ class ArkosExtensions {
     //list.sort(this.sortRule("text"));
     return list;
   }
-  
-  createTableIfNotExist(list){
-    if(!(list in this.sortedTable))
-      this.sortedTable[list]={order:'desc',list:[]};
+
+  createTableIfNotExist(list) {
+    if (!(list in this.sortedTable))
+      this.sortedTable[list] = { order: 'desc', list: [] };
   }
 
-  sortTable(list){
-    this.sortedTable[list].list.sort(this.sortRule("rankValue",this.sortedTable[list].order));
+  sortTable(list) {
+    this.sortedTable[list].list.sort(this.sortRule("rankValue", this.sortedTable[list].order));
   }
-  
+
   //📊清空排序表
-  clearSortedTable (args){
+  clearSortedTable(args) {
     this.createTableIfNotExist(args.list)
-    this.sortedTable[args.list].list=[];
+    this.sortedTable[args.list].list = [];
   }
 
   //📊设置排序方式
-  setTypeOfSortedTable (args){
+  setTypeOfSortedTable(args) {
     this.createTableIfNotExist(args.list)
-    this.sortedTable[args.list].order=args.type;
+    this.sortedTable[args.list].order = args.type;
     this.sortTable(args.list)
   }
 
   //查找在列表中的插入位置（已有则覆盖）
-  _findPlaceAndInsert(list, order, item){
+  _findPlaceAndInsert(list, order, item) {
     //删除已存在的内容
     for (let i = 0; i < list.length; i++) {
-      if (list[i].name === item.name){
+      if (list[i].name === item.name) {
         //删除同名项
-        list.splice(i,1);
+        list.splice(i, 1);
         break;
       }
     }
     //查找插入位置并插入
     for (let i = 0; i < list.length; i++) {
-      if ((list[i].rankValue > item.rankValue && order ==='asc')||
-      (list[i].rankValue < item.rankValue && order ==='desc')){
+      if ((list[i].rankValue > item.rankValue && order === 'asc') ||
+        (list[i].rankValue < item.rankValue && order === 'desc')) {
         //插入在该项前
-        list.splice(i,0,item);
+        list.splice(i, 0, item);
         return;
       }
     }
@@ -1370,17 +1539,17 @@ class ArkosExtensions {
   }
 
   //📊将内容加入表
-  addToSortedTable (args){
+  addToSortedTable(args) {
     this.createTableIfNotExist(args.list)
     this._findPlaceAndInsert(
       this.sortedTable[args.list].list,
       this.sortedTable[args.list].order,
-      {name:args.name, rankValue:args.value, extra:args.extra});
+      { name: args.name, rankValue: args.value, extra: args.extra });
   }
-  
-  _getTInItem (item, t, rank){
-    if(item === undefined)  return '';
-    switch(t){
+
+  _getTInItem(item, t, rank) {
+    if (item === undefined) return '';
+    switch (t) {
       case '1':
         return item.name;
       case '2':
@@ -1395,15 +1564,15 @@ class ArkosExtensions {
   }
 
   //📊获取第n项
-  getFromSortedTableByNo (args){
-    if(!(args.list in this.sortedTable)) return '';
+  getFromSortedTableByNo(args) {
+    if (!(args.list in this.sortedTable)) return '';
     let list = this.sortedTable[args.list].list;
-    return this._getTInItem (list[args.n-1], args.t, Cast.toNumber(args.n));
+    return this._getTInItem(list[args.n - 1], args.t, Cast.toNumber(args.n));
   }
 
-  _getItemIdxByName(list, name){
+  _getItemIdxByName(list, name) {
     for (let i = 0; i < list.length; i++) {
-      if (list[i].name === name){
+      if (list[i].name === name) {
         return i;
       }
     }
@@ -1411,72 +1580,88 @@ class ArkosExtensions {
   }
 
   //📊获取名为XX的项
-  getFromSortedTableByName (args){
-    if(!(args.list in this.sortedTable)) return '';
+  getFromSortedTableByName(args) {
+    if (!(args.list in this.sortedTable)) return '';
     let list = this.sortedTable[args.list].list;
-    let n = this._getItemIdxByName(list ,args.name) ;
-    if(n === -1)  return '';
-    return this._getTInItem (list[n], args.t, n+1);
+    let n = this._getItemIdxByName(list, args.name);
+    if (n === -1) return '';
+    return this._getTInItem(list[n], args.t, n + 1);
   }
 
   //📊获取排序表长度
-  lengthOfSortedTable (args){
-    if(!(args.list in this.sortedTable)) return 0;
+  lengthOfSortedTable(args) {
+    if (!(args.list in this.sortedTable)) return 0;
     return this.sortedTable[args.list].list.length;
   }
 
   //📊删除排序表名为XX的内容
-  deleteNameOfSortedTable (args){
-    if(!(args.list in this.sortedTable)) return;
+  deleteNameOfSortedTable(args) {
+    if (!(args.list in this.sortedTable)) return;
     let list = this.sortedTable[args.list].list;
-    let n = this._getItemIdxByName(list ,args.name) ;
-    if(n === -1)  return;
+    let n = this._getItemIdxByName(list, args.name);
+    if (n === -1) return;
     list.splice(n, 1);
   }
 
   //获取颜色HEX码
-  colorToHex (args, util) {
+  colorToHex(args, util) {
     let c = Cast.toRgbColorList(args.COLOR)
-    return Color.rgbToHex({r:c[0],g:c[1],b:c[2]});
+    return Color.rgbToHex({ r: c[0], g: c[1], b: c[2] });
   }
 
 
   //🗂️ 临时变量积木
-  deleteAllTempData (args) {
+
+  //来自 -6 ：任意内容转字符或数字
+  _anythingToNumberString(value) {
+    switch(typeof(value)){
+      case "string":
+      case "number":
+        break;
+      case "object":
+        value = JSON.stringify(value);
+        break;
+      default:
+        value = ''; //包含了undefined
+    }
+    return value;
+  }
+
+  deleteAllTempData(args) {
     this.tempData = {};
   }
 
-  getCountOfTempData (args) {
-    return Object.keys (this.tempData).length;
+  getCountOfTempData(args) {
+    return Object.keys(this.tempData).length;
   }
 
-  delTempData (args) {
+  delTempData(args) {
     delete this.tempData[Cast.toString(args.data)];
   }
 
-  setTempVar (args) {
+  setTempVar(args) {
     this.tempData[Cast.toString(args.var)] = args.t;
   }
 
-  addTempVar (args) {
+  addTempVar(args) {
     this.tempData[Cast.toString(args.var)] = Cast.toNumber(this.tempData[Cast.toString(args.var)]) + Cast.toNumber(args.t);
   }
 
-  getTempVar (args) {
+  getTempVar(args) {
     let temp = this.tempData[Cast.toString(args.var)]
-    if(Array.isArray(temp)) return JSON.stringify(temp);
+    if (typeof(temp) === 'object') return JSON.stringify(temp);
     return Cast.toString(temp);
   }
 
   //创建或清空
-  clearTempList (args) {
+  clearTempList(args) {
     this.tempData[Cast.toString(args.list)] = [];
   }
 
-  initTempList (args) {
+  initTempList(args) {
     try {
       let content = JSON.parse(Cast.toString(args.t))
-      if(Array.isArray(content)) {
+      if (Array.isArray(content)) {
         this.tempData[Cast.toString(args.list)] = content;
       }
     } catch (e) {
@@ -1484,24 +1669,24 @@ class ArkosExtensions {
     }
   }
 
-  addTempList (args) {
+  addTempList(args) {
     let list = this.tempData[Cast.toString(args.list)]
-    if(!Array.isArray(list)) return;
+    if (!Array.isArray(list)) return;
     list.push(Cast.toString(args.t));
   }
 
-  opTempList (args) {
+  opTempList(args) {
     let list = this.tempData[Cast.toString(args.list)]
-    if(!Array.isArray(list)) return;
+    if (!Array.isArray(list)) return;
     let n = Cast.toNumber(args.n)
-    if(n < 1 || n >list.length+1) return;
+    if (n < 1 || n > list.length + 1) return;
     n -= 1;
-    switch(args.op){
+    switch (args.op) {
       case '1'://插入
-        list.splice(n,0,Cast.toString(args.t));
+        list.splice(n, 0, args.t);
         return;
       case '2'://替换
-        list[n] = Cast.toString(args.t);
+        list[n] = args.t;
         return;
       case '3'://增加
         list[n] = Cast.toNumber(list[n]) + Cast.toNumber(args.t);
@@ -1511,52 +1696,120 @@ class ArkosExtensions {
     }
   }
 
-  delItemOfTempList (args) {
+  delItemOfTempList(args) {
     let list = this.tempData[Cast.toString(args.list)]
-    if(!Array.isArray(list)) return;
+    if (!Array.isArray(list)) return;
     let n = Cast.toNumber(args.n)
-    if(n < 1 || n >list.length) return;
+    if (n < 1 || n > list.length) return;
     n -= 1;
-    list.splice(n,1);
+    list.splice(n, 1);
   }
 
-  getItemOfTempList (args) {
+  getItemOfTempList(args) {
     let list = this.tempData[Cast.toString(args.list)]
-    if(!Array.isArray(list)) return '';
+    if (!Array.isArray(list)) return '';
     let n = Cast.toNumber(args.n)
-    if(n < 1 || n >list.length) return '';
+    if (n < 1 || n > list.length) return '';
     n -= 1;
     return Cast.toString(list[n]);
   }
 
-  lengthOfTempList (args) {
+  lengthOfTempList(args) {
     let list = this.tempData[Cast.toString(args.list)]
-    if(!Array.isArray(list)) return 0;
+    if (!Array.isArray(list)) return 0;
     return list.length;
   }
+
+  //容器
+  clearTempCon(args) {
+    this.tempData[Cast.toString(args.con)] = {};
+  }
+
+  initTempCon(args) {
+    try {
+      let content = JSON.parse(Cast.toString(args.t))
+      if (typeof(content) === 'object' && content !== null) {
+        this.tempData[Cast.toString(args.con)] = content;
+      }
+    } catch (e) {
+
+    }
+  }
+
+  opTempCon(args) {
+    let con = this.tempData[Cast.toString(args.con)]
+    if (!(typeof(con) === 'object' && !Array.isArray(con) && con !== null)) return;
+    let c = Cast.toString(args.c)
+    switch (args.op) {
+      case '1'://设为
+        con[c] = args.t;
+        return;
+      case '2'://增加
+        if(!(c in con))  return;
+        con[c] = Cast.toNumber(con[c]) + Cast.toNumber(args.t);
+        return;
+      default:
+        return;
+    }
+  }
+
+  delItemOfTempCon(args) {
+    let con = this.tempData[Cast.toString(args.con)]
+    if (!(typeof(con) === 'object' && !Array.isArray(con) && con !== null)) return;
+    delete con[Cast.toString(args.c)];
+  }
+
+  getItemOfTempConByName(args) {
+    let con = this.tempData[Cast.toString(args.con)]
+    if (!(typeof(con) === 'object' && !Array.isArray(con) && con !== null)) return '';
+    return Cast.toString(con[Cast.toString(args.c)]);
+  }
+
+  getItemOfTempConByNo(args) {
+    let con = this.tempData[Cast.toString(args.con)]
+    if (!(typeof(con) === 'object' && !Array.isArray(con) && con !== null)) return '';
+    let key = Object.keys(con)[Cast.toNumber(args.n) - 1]
+    if (key === undefined) return '';
+    switch (args.t) {
+      case '1'://名称
+        return key;
+      case '2'://内容
+        return this._anythingToNumberString(con[key]);
+      default:
+        return;
+    }
+  }
+
+  lengthOfTempCon(args) {
+    let con = this.tempData[Cast.toString(args.con)]
+    if (!(typeof(con) === 'object' && con !== null)) return 0;
+    return Object.keys(con).length;
+  }
+
+
   //
   //30Ext
-  //诶诶 HCN居然不给另外开扩展 只好插队了
   //
   //菜单
-	//动态菜单: 角色菜单
-	getSpritesMenu(){
-		var sprites = [];
-		for(const targetId in this.runtime.targets) {
-			if(!this.runtime.targets.hasOwnProperty(targetId)) continue;
-			if(!this.runtime.targets[targetId].isOriginal) continue;
-			if(this.runtime.targets[targetId] === this.runtime._editingTarget) continue; //排除自己
-			let name = this.runtime.targets[targetId].sprite.name;
-			sprites.push(name); //['Stage','角色1','角色2'] Stage暂时懒得换成中文
-		}
-		return sprites;
-	}
-	//
-	//角色造型操作
-	//
-	//镜像造型
-	mirrorSprite(args, util){
-		if (!util.target.ext30_isHook) {
+  //动态菜单: 角色菜单
+  getSpritesMenu() {
+    var sprites = [];
+    for (const targetId in this.runtime.targets) {
+      if (!this.runtime.targets.hasOwnProperty(targetId)) continue;
+      if (!this.runtime.targets[targetId].isOriginal) continue;
+      if (this.runtime.targets[targetId] === this.runtime._editingTarget) continue; //排除自己
+      let name = this.runtime.targets[targetId].sprite.name;
+      sprites.push(name); //['Stage','角色1','角色2'] Stage暂时懒得换成中文
+    }
+    return sprites;
+  }
+  //
+  //角色造型操作
+  //
+  //镜像造型
+  mirrorSprite(args, util) {
+	  //测试: onSize监听 更换代码执行逻辑
+    if (!util.target.ext30_isHook) {
 			util.target.ext30_mirror0 = 1;
 			util.target.ext30_mirror1 = 1;
 			const oldSet = util.target.prototype.setSize;
@@ -1569,68 +1822,67 @@ class ArkosExtensions {
 		}
 		util.target['ext30_mirror' + args.mirrorMethod] *= -1;
 		util.target.setSize(util.target._size);
-		//util.target.emit('EVENT_TARGET_VISUAL_CHANGE', util.target);
-                //util.target.runtime.requestRedraw();
-	}
-	//清除镜像
-	clearMirror(args, util){
-		util.target.ext30_mirror0 = 1;
-		util.target.ext30_mirror1 = 1;
-		util.target.setSize(util.target._size);
-		//util.target.emit('EVENT_TARGET_VISUAL_CHANGE', util.target);
-                //util.target.runtime.requestRedraw();
-	}
-	//
-	//角色跨域操作
-	//
-	//跨域执行
-	anotherRun(args, util){
-		if(!util.thread.ext30_count) {
-			util.thread.ext30_count = true;
-			util.thread.ext30_oldTarget = util.thread.target;
-			util.thread.target = util.target.sprite.clones[0];
-			util.startBranch(1, true);
-		} else {
-			util.thread.target = util.thread.ext30_oldTarget;
-			util.thread.ext30_count = false;
-		}
-	}
-	//跨域克隆体执行
-	anotherRunWithClone(args, util){
-		if(!util.thread.ext30_count) {
-			util.thread.ext30_count = true;
-			util.thread.ext30_oldTarget = util.thread.target;
-			util.thread.target = util.target.sprite.clones[args.cloneId];
-			util.startBranch(1, true);
-		} else {
-			util.thread.target = util.thread.ext30_oldTarget;
-			util.thread.ext30_count = false;
-		}
-	}
+  }
+  //清除镜像
+  clearMirror(args, util) {
+    util.target.ext30_mirror0 = 1;
+	util.target.ext30_mirror1 = 1;
+	util.target.setSize(util.target._size);
+    //util.target.emit('EVENT_TARGET_VISUAL_CHANGE', util.target);
+    //util.target.runtime.requestRedraw();
+  }
+  //
+  //角色跨域操作
+  //
+  //跨域执行
+  anotherRun(args, util) {
+	console.info(util);//TODO
+    if (!util.thread.ex_30Ext_count) {
+      util.thread.ex_30Ext_count = true;
+      util.thread.ex_30Ext_oldTarget = util.thread.target;
+      util.thread.target = util.target.sprite.clones[0];
+      util.startBranch(1, true);
+    } else {
+      util.thread.target = util.thread.ex_30Ext_oldTarget;
+      util.thread.ex_30Ext_count = false;
+    }
+  }
+  //跨域克隆体执行
+  anotherRunWithClone(args, util) {
+    if (!util.thread.ex_30Ext_count) {
+      util.thread.ex_30Ext_count = true;
+      util.thread.ex_30Ext_oldTarget = util.thread.target;
+      util.thread.target = util.target.sprite.clones[args.cloneId];
+      util.startBranch(1, true);
+    } else {
+      util.thread.target = util.thread.ex_30Ext_oldTarget;
+      util.thread.ex_30Ext_count = false;
+    }
+  }
 }
 
 
 
 window.tempExt = {
-    Extension: ArkosExtensions,
-    info: {
-      name: 'hcn.extensionName',
-      description: 'hcn.description',
-      extensionId: 'hcnTest',
-      // iconURL: icon,
-      // insetIconURL: cover,
-      featured: true,
-      disabled: false,
-      collaborator: 'only for hcn test',
+  Extension: ArkosExtensions,
+  info: {
+    name: 'hcn.extensionName',
+    description: 'hcn.description',
+    extensionId: 'hcnTest',
+    // iconURL: icon,
+    // insetIconURL: cover,
+    featured: true,
+    disabled: false,
+    collaborator: 'only for hcn test',
+  },
+  l10n: {
+    'zh-cn': {
+      'hcn.extensionName': 'hcn 的测试',
+      'hcn.description': 'hcn 的测试',
     },
-    l10n: {
-      'zh-cn': {
-        'hcn.extensionName': 'hcn 的测试',
-        'hcn.description': 'hcn 的测试',
-      },
-      en: {
-        'hcn.extensionName': 'hcn test',
-        'hcn.description': 'hcn test',
-      },
+    en: {
+      'hcn.extensionName': 'hcn test',
+      'hcn.description': 'hcn test',
     },
-  }
+  },
+}
