@@ -1646,7 +1646,7 @@ class ArkosExtensions {
 
   getTempVar(args) {
     let temp = this.tempData[Cast.toString(args.var)]
-    if (Array.isArray(temp)) return JSON.stringify(temp);
+    if (typeof(temp) === 'object') return JSON.stringify(temp);
     return Cast.toString(temp);
   }
 
