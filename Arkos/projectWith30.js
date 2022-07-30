@@ -1813,8 +1813,8 @@ class ArkosExtensions {
     if (!util.target.ext30_isHook) {
 			util.target.ext30_mirror0 = 1;
 			util.target.ext30_mirror1 = 1;
-			const oldSet = util.target.prototype.setSize;
-			util.target.prototype.setSize = function (size) {
+			const oldSet = util.target.__proto__.setSize;
+			util.target.__proto__.setSize = function (size) {
 				oldSet.call(this, size);
 				if (util.target.ext30_mirror0) util.target.runtime.renderer._allDrawables[util.target.drawableID]._skinScale[0] *= util.target.ext30_mirror0;
 				if (util.target.ext30_mirror1) util.target.runtime.renderer._allDrawables[util.target.drawableID]._skinScale[1] *= util.target.ext30_mirror1;
