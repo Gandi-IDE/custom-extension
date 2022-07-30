@@ -22,7 +22,10 @@ class ArkosExtensions {
         'ArkosExt.info3': '🛠 实用积木',
         'ArkosExt.info4': '📄 信息获取',
         'ArkosExt.info5': '📊 排序表',
-        'ArkosExt.info6': '🗂️ 临时变量',
+        'ArkosExt.info6': '🗂️ 临时数据',
+        'ArkosExt.info7': '临时变量',
+        'ArkosExt.info8': '临时列表',
+        'ArkosExt.info9': '临时容器',
         'ArkosExt.stringEquality': '(区分大小写)[ONE]=[TWO]',
         'ArkosExt.directionFromAtoB': '点x1:[X1]y1:[Y1]朝向点x2:[X2]y2:[Y2]的方向',
         'ArkosExt.differenceBetweenDirections': '由方向1[a]到方向2[b]的角度差',
@@ -704,8 +707,7 @@ class ArkosExtensions {
           },
         },
 
-        "---" + this.formatMessage("ArkosExt.info6"),  //🗂️ 临时变量
-
+        "---" + this.formatMessage("ArkosExt.info6"),  //🗂️ 临时数据
         //清空所有临时数据
         {
           opcode: 'deleteAllTempData',
@@ -730,6 +732,7 @@ class ArkosExtensions {
             },
           },
         },
+        "---" + this.formatMessage("ArkosExt.info7"),  //临时变量
         //设置临时数据
         {
           opcode: 'setTempVar',
@@ -762,7 +765,7 @@ class ArkosExtensions {
             },
           },
         },
-        //增加临时数据
+        //获取临时数据
         {
           opcode: 'getTempVar',
           blockType: 'reporter',
@@ -774,6 +777,7 @@ class ArkosExtensions {
             },
           },
         },
+        "---" + this.formatMessage("ArkosExt.info8"),  //临时列表
         //创建或清空临时列表
         {
           opcode: 'clearTempList',
@@ -886,8 +890,7 @@ class ArkosExtensions {
             },
           },
         },
-
-        
+        "---" + this.formatMessage("ArkosExt.info9"),  //临时容器
         //创建或清空临时容器
         {
           opcode: 'clearTempCon',
