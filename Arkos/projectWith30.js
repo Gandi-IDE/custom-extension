@@ -1837,12 +1837,10 @@ class ArkosExtensions {
   //
   //跨域执行
   anotherRun(args, util) {
-	console.info(args);
     if (!util.thread.ex_30Ext_count) {
       util.thread.ex_30Ext_count = true;
       util.thread.ex_30Ext_oldTarget = util.thread.target;
-      //util.thread.target = util.target.sprite.clones[0];
-      util.thread.target = this.runtime.targets.find(target => target.sprite.name === args.NAME).sprite.clones[0];
+      util.thread.target = this.runtime.targets.find(target => target.sprite.name === args.spriteName).sprite.clones[0];
       util.startBranch(1, true);
     } else {
       util.thread.target = util.thread.ex_30Ext_oldTarget;
@@ -1854,8 +1852,7 @@ class ArkosExtensions {
     if (!util.thread.ex_30Ext_count) {
       util.thread.ex_30Ext_count = true;
       util.thread.ex_30Ext_oldTarget = util.thread.target;
-      //util.thread.target = util.target.sprite.clones[args.cloneId];
-      util.thread.target = this.runtime.targets.find(target => target.sprite.name === args.NAME).sprite.clones[args.cloneId];
+      util.thread.target = this.runtime.targets.find(target => target.sprite.name === args.spriteName).sprite.clones[args.cloneId];
       util.startBranch(1, true);
     } else {
       util.thread.target = util.thread.ex_30Ext_oldTarget;
