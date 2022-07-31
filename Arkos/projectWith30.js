@@ -1832,9 +1832,9 @@ class ArkosExtensions {
 	mirrorSprite(args, util) {
 		//OK
 		let target = util.target;
+		let drawable = this.runtime.renderer._allDrawables[target.drawableID];
 		if(!target.ext30_isHook) {
 			target.addListener('EVENT_TARGET_VISUAL_CHANGE', (e, t) => {
-				let drawable = this.runtime.renderer._allDrawables[target.drawableID];
 				if(target.ext30_mirror0) drawable._skinScale[0] = Math.abs(drawable._skinScale[0]) * target.ext30_mirror0;
 				if(target.ext30_mirror1) drawable._skinScale[1] = Math.abs(drawable._skinScale[1]) * target.ext30_mirror1;
 			});
@@ -1843,11 +1843,10 @@ class ArkosExtensions {
 			target.ext30_isHook = true;
 		}
 		target['ext30_mirror' + args.mirrorMethod] *= -1;
-		if (target.visible) {
-			target.emitFast('EVENT_TARGET_VISUAL_CHANGE', util.target);
-			target.runtime.requestRedraw();
-		}
-		target.runtime.requestTargetsUpdate(util.target);
+		//更新渲染器
+		drawable._renderer.dirty = true;
+            	drawable._rotationTransformDirty = true;
+            	drawable.setTransformDirty();
 	}
 	//清除镜像
 	clearMirror(args, util) {
@@ -1856,11 +1855,11 @@ class ArkosExtensions {
 		target.ext30_mirror1 = 1;
 		target.emitFast('EVENT_TARGET_VISUAL_CHANGE', util.target);
 		target.runtime.requestRedraw();
-		if (target.visible) {
-			target.emitFast('EVENT_TARGET_VISUAL_CHANGE', util.target);
-			target.runtime.requestRedraw();
-		}
-		target.runtime.requestTargetsUpdate(util.target);
+		//更新渲染器
+		let drawable = this.runtime.renderer._allDrawables[target.drawableID];
+		drawable._renderer.dirty = true;
+            	drawable._rotationTransformDirty = true;
+            	drawable.setTransformDirty();
 	}
 	//
 	//角色跨域操作
