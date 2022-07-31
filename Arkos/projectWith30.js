@@ -1037,7 +1037,7 @@ class ArkosExtensions {
         "---" + this.formatMessage("30Ext.info.2"), //角色跨域操作
         {
           opcode: 'anotherRun',
-          blockType: 'conditional',
+          blockType: 'loop',
           text: this.formatMessage('30Ext.block.anotherRun'),
           arguments: {
             spriteName: {
@@ -1051,7 +1051,7 @@ class ArkosExtensions {
         },
         {
           opcode: 'anotherRunWithClone',
-          blockType: 'conditional',
+          blockType: 'command',
           text: this.formatMessage('30Ext.block.anotherRunWithClone'),
           arguments: {
             spriteName: {
@@ -1816,19 +1816,20 @@ class ArkosExtensions {
     
     if (!util.target.ext30_isHook) {
       util.target.addListener('EVENT_TARGET_VISUAL_CHANGE', (e,t) => {
-        if (util.target.ext30_mirror0) this.runtime.renderer._allDrawables[util.target.drawableID]._skinScale[0] *= util.target.ext30_mirror0;
-        if (util.target.ext30_mirror1) this.runtime.renderer._allDrawables[util.target.drawableID]._skinScale[1] *= util.target.ext30_mirror1;
+		let drawable = this.runtime.renderer._allDrawables[util.target.drawableID];
+        if (util.target.ext30_mirror0) drawable._skinScale[0] = Math.abs(drawable._skinScale[0]) * util.target.ext30_mirror0;
+        if (util.target.ext30_mirror1) drawable._skinScale[1] = Math.abs(drawable._skinScale[1]) * util.target.ext30_mirror1;
       });
+	  util.target.ext30_mirror0 = 1;
+	  util.target.ext30_mirror1 = 1;
       util.target.ext30_isHook = true;
     }
     util.target['ext30_mirror' + args.mirrorMethod] *= -1;
-    util.target.setSize(util.target._size);
   }
   //清除镜像
   clearMirror(args, util) {
     util.target.ext30_mirror0 = 1;
     util.target.ext30_mirror1 = 1;
-    util.target.setSize(util.target._size);
     //util.target.emit('EVENT_TARGET_VISUAL_CHANGE', util.target);
     //util.target.runtime.requestRedraw();
   }
