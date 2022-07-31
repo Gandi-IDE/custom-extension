@@ -1041,23 +1041,22 @@ class ArkosExtensions {
 					text: this.formatMessage('30Ext.block.clearMirror')
 				},
 				"---" + this.formatMessage("30Ext.info.2"), //角色跨域操作
+				//跨域执行
 				{
 					opcode: 'anotherRun',
-					blockType: 'conditional',
+					blockType: 'command',
 					text: this.formatMessage('30Ext.block.anotherRun'),
 					arguments: {
 						spriteName: {
 							type: 'string',
 							menu: 'spritesMenu'
-						},
-						SUBSTACK: { //TODO
-							type: "input_statement"
 						}
 					}
 				},
+				//跨域执行（克隆体）
 				{
 					opcode: 'anotherRunWithClone',
-					blockType: 'conditional',
+					blockType: 'command',
 					text: this.formatMessage('30Ext.block.anotherRunWithClone'),
 					arguments: {
 						spriteName: {
@@ -1067,9 +1066,6 @@ class ArkosExtensions {
 						cloneId: {
 							type: 'number',
 							defaultValue: 1
-						},
-						SUBSTACK: {
-							type: "input_statement"
 						}
 
 					}
@@ -1831,64 +1827,36 @@ class ArkosExtensions {
 	//镜像造型
 	mirrorSprite(args, util) {
 		//OK
-		let target = util.target;
+		let targetSize = util.target._size;
 		let drawable = this.runtime.renderer._allDrawables[target.drawableID];
-		if(!target.ext30_isHook) {
-			target.addListener('EVENT_TARGET_VISUAL_CHANGE', (e, t) => {
-				if(target.ext30_mirror0) drawable._skinScale[0] = Math.abs(drawable._skinScale[0]) * target.ext30_mirror0;
-				if(target.ext30_mirror1) drawable._skinScale[1] = Math.abs(drawable._skinScale[1]) * target.ext30_mirror1;
-			});
-			target.ext30_mirror0 = 1;
-			target.ext30_mirror1 = 1;
-			target.ext30_isHook = true;
-		}
-		target['ext30_mirror' + args.mirrorMethod] *= -1;
-		//更新渲染器
-		drawable._renderer.dirty = true;
-            	drawable._rotationTransformDirty = true;
-            	drawable.setTransformDirty();
+		drawable['ext30_mirror' + args.mirrorMethod] *= -1;
+		drawable.updateScale([
+			(drawable.ext30_mirror0?drawable.ext30_mirror0:1) * targetSize,
+			(drawable.ext30_mirror1?drawable.ext30_mirror1:1) * targetSize
+		]);
 	}
 	//清除镜像
 	clearMirror(args, util) {
-		let target = util.target;
-		target.ext30_mirror0 = 1;
-		target.ext30_mirror1 = 1;
-		target.emitFast('EVENT_TARGET_VISUAL_CHANGE', util.target);
-		target.runtime.requestRedraw();
-		//更新渲染器
+		let targetSize = util.target._size;
 		let drawable = this.runtime.renderer._allDrawables[target.drawableID];
-		drawable._renderer.dirty = true;
-            	drawable._rotationTransformDirty = true;
-            	drawable.setTransformDirty();
+		drawable.ext30_mirror0 = 1;
+		drawable.ext30_mirror1 = 1;
+		drawable.updateScale([
+			(drawable.ext30_mirror0?drawable.ext30_mirror0:1) * targetSize,
+			(drawable.ext30_mirror1?drawable.ext30_mirror1:1) * targetSize
+		]);
 	}
+	//TODO: 拉伸
 	//
 	//角色跨域操作
 	//
 	//跨域执行
 	anotherRun(args, util) {
-		if(!util.thread.ex_30Ext_count) {
-			util.thread.ex_30Ext_count = true;
-			util.thread.ex_30Ext_oldTarget = util.thread.target;
-			util.thread.target = this.runtime.targets.find(target => target.sprite.name === args.spriteName)
-				.sprite.clones[0];
-			util.startBranch(1, true);
-		} else {
-			util.thread.target = util.thread.ex_30Ext_oldTarget;
-			util.thread.ex_30Ext_count = false;
-		}
+		util.thread.target = this.runtime.targets.find(target => target.sprite.name === args.spriteName).sprite.clones[0];
 	}
 	//跨域克隆体执行
 	anotherRunWithClone(args, util) {
-		if(!util.thread.ex_30Ext_count) {
-			util.thread.ex_30Ext_count = true;
-			util.thread.ex_30Ext_oldTarget = util.thread.target;
-			util.thread.target = this.runtime.targets.find(target => target.sprite.name === args.spriteName)
-				.sprite.clones[args.cloneId];
-			util.startBranch(1, true);
-		} else {
-			util.thread.target = util.thread.ex_30Ext_oldTarget;
-			util.thread.ex_30Ext_count = false;
-		}
+		util.thread.target = this.runtime.targets.find(target => target.sprite.name === args.spriteName).sprite.clones[args.cloneId];
 	}
 }
 
