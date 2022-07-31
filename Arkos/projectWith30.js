@@ -1832,7 +1832,7 @@ class ArkosExtensions {
 	mirrorSprite(args, util) {
 		//OK
 		let target = util.target;
-		if(!.ext30_isHook) {
+		if(!target.ext30_isHook) {
 			target.addListener('EVENT_TARGET_VISUAL_CHANGE', (e, t) => {
 				let drawable = this.runtime.renderer._allDrawables[target.drawableID];
 				if(target.ext30_mirror0) drawable._skinScale[0] = Math.abs(drawable._skinScale[0]) * target.ext30_mirror0;
