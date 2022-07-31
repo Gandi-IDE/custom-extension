@@ -1039,7 +1039,7 @@ class ArkosExtensions {
         "---" + this.formatMessage("30Ext.info.2"), //角色跨域操作
         {
           opcode: 'anotherRun',
-          blockType: 'loop',
+          blockType: 'conditional',
           text: this.formatMessage('30Ext.block.anotherRun'),
           arguments: {
             spriteName: {
@@ -1053,7 +1053,7 @@ class ArkosExtensions {
         },
         {
           opcode: 'anotherRunWithClone',
-          blockType: 'command',
+          blockType: 'conditional',
           text: this.formatMessage('30Ext.block.anotherRunWithClone'),
           arguments: {
             spriteName: {
@@ -1814,8 +1814,7 @@ class ArkosExtensions {
   //
   //镜像造型
   mirrorSprite(args, util) {
-    //测试: 换一个监听方式
-    
+    //OK
     if (!util.target.ext30_isHook) {
       util.target.addListener('EVENT_TARGET_VISUAL_CHANGE', (e,t) => {
 		let drawable = this.runtime.renderer._allDrawables[util.target.drawableID];
@@ -1827,13 +1826,16 @@ class ArkosExtensions {
       util.target.ext30_isHook = true;
     }
     util.target['ext30_mirror' + args.mirrorMethod] *= -1;
+	util.target.emit('EVENT_TARGET_VISUAL_CHANGE', util.target);
+    util.target.runtime.requestRedraw();
+	
   }
   //清除镜像
   clearMirror(args, util) {
     util.target.ext30_mirror0 = 1;
     util.target.ext30_mirror1 = 1;
-    //util.target.emit('EVENT_TARGET_VISUAL_CHANGE', util.target);
-    //util.target.runtime.requestRedraw();
+    util.target.emit('EVENT_TARGET_VISUAL_CHANGE', util.target);
+    util.target.runtime.requestRedraw();
   }
   //
   //角色跨域操作
