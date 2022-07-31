@@ -1,3 +1,5 @@
+//Version: 1.1.0(?) r1
+//用来标记一下文件版本
 import Cast from '../utils/cast.js'
 import Color from '../utils/color.js'
 // import cover from './assets/icon.svg'
