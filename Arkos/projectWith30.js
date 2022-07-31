@@ -1826,14 +1826,29 @@ class ArkosExtensions {
 	//
 	//镜像造型
 	mirrorSprite(args, util) {
-		//OK
 		let target = util.target;
 		let drawable = this.runtime.renderer._allDrawables[target.drawableID];
 		drawable['ext30_mirror' + args.mirrorMethod] *= -1;
-		drawable.updateScale([
-			(drawable.ext30_mirror0?drawable.ext30_mirror0:1) * target._size,
-			(drawable.ext30_mirror1?drawable.ext30_mirror1:1) * target._size
-		]);
+		if(!drawable.ext30_hook) {
+			drawable.__proto__.updateScale = function(scale) {
+				if(drawable._scale[0] !== scale[0] || drawable._scale[1] !== scale[1]) {
+					drawable._scale[0] = scale[0] * (drawable.ext30_mirror0 ? drawable.ext30_mirror0 : 1);
+					drawable._scale[1] = scale[1] * (drawable.ext30_mirror1 ? drawable.ext30_mirror1 : 1);
+					drawable._renderer.dirty = true;
+					drawable._rotationCenterDirty = true;
+					drawable._skinScaleDirty = true;
+					drawable.setTransformDirty();
+				}
+			}
+			drawable.ext30_hook = true;
+		};
+		//更新
+		drawable._scale[0] = target._size * (drawable.ext30_mirror0 ? drawable.ext30_mirror0 : 1);
+		drawable._scale[1] = target._size * (drawable.ext30_mirror1 ? drawable.ext30_mirror1 : 1);
+		drawable._renderer.dirty = true;
+		drawable._rotationCenterDirty = true;
+		drawable._skinScaleDirty = true;
+		drawable.setTransformDirty();
 	}
 	//清除镜像
 	clearMirror(args, util) {
@@ -1841,10 +1856,13 @@ class ArkosExtensions {
 		let drawable = this.runtime.renderer._allDrawables[target.drawableID];
 		drawable.ext30_mirror0 = 1;
 		drawable.ext30_mirror1 = 1;
-		drawable.updateScale([
-			(drawable.ext30_mirror0?drawable.ext30_mirror0:1) * target._size,
-			(drawable.ext30_mirror1?drawable.ext30_mirror1:1) * target._size
-		]);
+		//更新
+		drawable._scale[0] = target._size * (drawable.ext30_mirror0 ? drawable.ext30_mirror0 : 1);
+		drawable._scale[1] = target._size * (drawable.ext30_mirror1 ? drawable.ext30_mirror1 : 1);
+		drawable._renderer.dirty = true;
+		drawable._rotationCenterDirty = true;
+		drawable._skinScaleDirty = true;
+		drawable.setTransformDirty();
 	}
 	//TODO: 拉伸
 	//
@@ -1852,11 +1870,13 @@ class ArkosExtensions {
 	//
 	//跨域执行
 	anotherRun(args, util) {
-		util.thread.target = this.runtime.targets.find(target => target.sprite.name === args.spriteName).sprite.clones[0];
+		util.thread.target = this.runtime.targets.find(target => target.sprite.name === args.spriteName)
+			.sprite.clones[0];
 	}
 	//跨域克隆体执行
 	anotherRunWithClone(args, util) {
-		util.thread.target = this.runtime.targets.find(target => target.sprite.name === args.spriteName).sprite.clones[args.cloneId];
+		util.thread.target = this.runtime.targets.find(target => target.sprite.name === args.spriteName)
+			.sprite.clones[args.cloneId];
 	}
 }
 
