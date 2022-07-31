@@ -1,5 +1,3 @@
-//Version: 1.1.0(?) r1
-//用来标记一下文件版本
 import Cast from '../utils/cast.js'
 import Color from '../utils/color.js'
 // import cover from './assets/icon.svg'
@@ -1826,16 +1824,13 @@ class ArkosExtensions {
       util.target.ext30_isHook = true;
     }
     util.target['ext30_mirror' + args.mirrorMethod] *= -1;
-	util.target.emit('EVENT_TARGET_VISUAL_CHANGE', util.target);
-    util.target.runtime.requestRedraw();
-	
+    util.target.setSize(util.target._size);
   }
   //清除镜像
   clearMirror(args, util) {
     util.target.ext30_mirror0 = 1;
     util.target.ext30_mirror1 = 1;
-    util.target.emit('EVENT_TARGET_VISUAL_CHANGE', util.target);
-    util.target.runtime.requestRedraw();
+    util.target.setSize(util.target._size);
   }
   //
   //角色跨域操作
