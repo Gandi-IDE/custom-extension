@@ -1839,7 +1839,7 @@ class ArkosExtensions {
 		}
 		util.target['ext30_mirror' + args.mirrorMethod] *= -1;
 		//更新
-		target.emitFast(RenderedTarget.EVENT_TARGET_VISUAL_CHANGE, this);
+		target.emitFast('EVENT_TARGET_VISUAL_CHANGE', this);
 		drawable._renderer.dirty = true;
             	drawable._rotationCenterDirty = true;
             	drawable._skinScaleDirty = true;
@@ -1853,7 +1853,7 @@ class ArkosExtensions {
 		drawable.ext30_mirror0 = 1;
 		drawable.ext30_mirror1 = 1;
 		//更新
-		target.emitFast(RenderedTarget.EVENT_TARGET_VISUAL_CHANGE, this);
+		target.emitFast('EVENT_TARGET_VISUAL_CHANGE', this);
 		drawable._renderer.dirty = true;
             	drawable._rotationCenterDirty = true;
             	drawable._skinScaleDirty = true;
