@@ -1828,27 +1828,23 @@ class ArkosExtensions {
 	mirrorSprite(args, util) {
 		let target = util.target;
 		let drawable = this.runtime.renderer._allDrawables[target.drawableID];
-		drawable['ext30_mirror' + args.mirrorMethod] *= -1;
-		if(!drawable.ext30_hook) {
-			drawable.__proto__.updateScale = function(scale) {
-				if(drawable._scale[0] !== scale[0] || drawable._scale[1] !== scale[1]) {
-					drawable._scale[0] = scale[0] * (drawable.ext30_mirror0 ? drawable.ext30_mirror0 : 1);
-					drawable._scale[1] = scale[1] * (drawable.ext30_mirror1 ? drawable.ext30_mirror1 : 1);
-					drawable._renderer.dirty = true;
-					drawable._rotationCenterDirty = true;
-					drawable._skinScaleDirty = true;
-					drawable.setTransformDirty();
-				}
-			}
-			drawable.ext30_hook = true;
-		};
+		if(!util.target.ext30_isHook) {
+			target.ext30_mirror0 = 1;
+			target.ext30_mirror1 = 1;
+			target.addListener('EVENT_TARGET_VISUAL_CHANGE', (e, t) => {
+				drawable._skinScale[0] = Math.abs(drawable._skinScale[0]) * target.ext30_mirror0;
+				drawable._skinScale[1] = Math.abs(drawable._skinScale[1]) * target.ext30_mirror1;
+			});
+			target.ext30_isHook = true;
+		}
+		util.target['ext30_mirror' + args.mirrorMethod] *= -1;
 		//更新
-		drawable._scale[0] = target._size * (drawable.ext30_mirror0 ? drawable.ext30_mirror0 : 1);
-		drawable._scale[1] = target._size * (drawable.ext30_mirror1 ? drawable.ext30_mirror1 : 1);
+		target.emitFast(RenderedTarget.EVENT_TARGET_VISUAL_CHANGE, this);
 		drawable._renderer.dirty = true;
-		drawable._rotationCenterDirty = true;
-		drawable._skinScaleDirty = true;
-		drawable.setTransformDirty();
+            	drawable._rotationCenterDirty = true;
+            	drawable._skinScaleDirty = true;
+            	drawable.setTransformDirty();
+		this.runtime.requestRedraw();
 	}
 	//清除镜像
 	clearMirror(args, util) {
@@ -1857,12 +1853,12 @@ class ArkosExtensions {
 		drawable.ext30_mirror0 = 1;
 		drawable.ext30_mirror1 = 1;
 		//更新
-		drawable._scale[0] = target._size * (drawable.ext30_mirror0 ? drawable.ext30_mirror0 : 1);
-		drawable._scale[1] = target._size * (drawable.ext30_mirror1 ? drawable.ext30_mirror1 : 1);
+		target.emitFast(RenderedTarget.EVENT_TARGET_VISUAL_CHANGE, this);
 		drawable._renderer.dirty = true;
-		drawable._rotationCenterDirty = true;
-		drawable._skinScaleDirty = true;
-		drawable.setTransformDirty();
+            	drawable._rotationCenterDirty = true;
+            	drawable._skinScaleDirty = true;
+            	drawable.setTransformDirty();
+		this.runtime.requestRedraw();
 	}
 	//TODO: 拉伸
 	//
