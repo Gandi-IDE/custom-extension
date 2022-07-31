@@ -1827,23 +1827,23 @@ class ArkosExtensions {
 	//镜像造型
 	mirrorSprite(args, util) {
 		//OK
-		let targetSize = util.target._size;
+		let target = util.target;
 		let drawable = this.runtime.renderer._allDrawables[target.drawableID];
 		drawable['ext30_mirror' + args.mirrorMethod] *= -1;
 		drawable.updateScale([
-			(drawable.ext30_mirror0?drawable.ext30_mirror0:1) * targetSize,
-			(drawable.ext30_mirror1?drawable.ext30_mirror1:1) * targetSize
+			(drawable.ext30_mirror0?drawable.ext30_mirror0:1) * target._size,
+			(drawable.ext30_mirror1?drawable.ext30_mirror1:1) * target._size
 		]);
 	}
 	//清除镜像
 	clearMirror(args, util) {
-		let targetSize = util.target._size;
+		let target = util.target;
 		let drawable = this.runtime.renderer._allDrawables[target.drawableID];
 		drawable.ext30_mirror0 = 1;
 		drawable.ext30_mirror1 = 1;
 		drawable.updateScale([
-			(drawable.ext30_mirror0?drawable.ext30_mirror0:1) * targetSize,
-			(drawable.ext30_mirror1?drawable.ext30_mirror1:1) * targetSize
+			(drawable.ext30_mirror0?drawable.ext30_mirror0:1) * target._size,
+			(drawable.ext30_mirror1?drawable.ext30_mirror1:1) * target._size
 		]);
 	}
 	//TODO: 拉伸
