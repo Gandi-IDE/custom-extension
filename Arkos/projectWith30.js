@@ -1824,13 +1824,15 @@ class ArkosExtensions {
       util.target.ext30_isHook = true;
     }
     util.target['ext30_mirror' + args.mirrorMethod] *= -1;
-    util.target.setSize(util.target._size);
+    util.target.emitFast(RenderedTarget.EVENT_TARGET_VISUAL_CHANGE, util.target);
+    util.target.runtime.requestRedraw();
   }
   //清除镜像
   clearMirror(args, util) {
     util.target.ext30_mirror0 = 1;
     util.target.ext30_mirror1 = 1;
-    util.target.setSize(util.target._size);
+    util.target.emitFast(RenderedTarget.EVENT_TARGET_VISUAL_CHANGE, util.target);
+    util.target.runtime.requestRedraw();
   }
   //
   //角色跨域操作
