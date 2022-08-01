@@ -122,9 +122,6 @@ class ArkosExtensions {
 				'30Ext.menu.mirrorMethod.1': '左右镜像',
 				'30Ext.menu.mirrorMethod.2': '上下镜像',
 				'30Ext.block.clearMirror': '清除角色镜像变换',
-				'30Ext.info.2': '🛸 角色跨域操作',
-				'30Ext.block.anotherRun': '让[spriteName]运行',
-				'30Ext.block.anotherRunWithClone': '让[spriteName]的第[cloneId]个克隆体运行'
 			},
 
 			en: {
@@ -228,9 +225,6 @@ class ArkosExtensions {
 				'30Ext.menu.mirrorMethod.1': 'Horizontal mirror transform',
 				'30Ext.menu.mirrorMethod.2': 'Vertical mirror transform',
 				'30Ext.block.clearMirror': 'Clear the mirror transform',
-				'30Ext.info.2': '🛸 Cross sprite operation',
-				'30Ext.block.anotherRun': 'Let [spriteName] run',
-				'30Ext.block.anotherRunWithClone': 'Let the [cloneId] clone of [spriteName] run'
 			},
 		})
 	}
@@ -1039,37 +1033,7 @@ class ArkosExtensions {
 					opcode: 'clearMirror',
 					blockType: 'command',
 					text: this.formatMessage('30Ext.block.clearMirror')
-				},
-				"---" + this.formatMessage("30Ext.info.2"), //角色跨域操作
-				//跨域执行
-				{
-					opcode: 'anotherRun',
-					blockType: 'command',
-					text: this.formatMessage('30Ext.block.anotherRun'),
-					arguments: {
-						spriteName: {
-							type: 'string',
-							menu: 'spritesMenu'
-						}
-					}
-				},
-				//跨域执行（克隆体）
-				{
-					opcode: 'anotherRunWithClone',
-					blockType: 'command',
-					text: this.formatMessage('30Ext.block.anotherRunWithClone'),
-					arguments: {
-						spriteName: {
-							type: 'string',
-							menu: 'spritesMenu'
-						},
-						cloneId: {
-							type: 'number',
-							defaultValue: 1
-						}
-
-					}
-				},
+				}
 
 			],
 			menus: {
@@ -1827,6 +1791,7 @@ class ArkosExtensions {
 	//镜像造型
 	mirrorSprite(args, util) {
 		let target = util.target;
+		this.setXY({x: target._x+1, y: target._y+1},util);
 		let drawable = this.runtime.renderer._allDrawables[target.drawableID];
 		if(!util.target.ext30_isHook) {
 			target.ext30_mirror0 = 1;
@@ -1840,11 +1805,7 @@ class ArkosExtensions {
 		util.target['ext30_mirror' + args.mirrorMethod] *= -1;
 		//更新
 		target.emitFast('EVENT_TARGET_VISUAL_CHANGE', this);
-		drawable._renderer.dirty = true;
-            	drawable._rotationCenterDirty = true;
-            	drawable._skinScaleDirty = true;
-            	drawable.setTransformDirty();
-		this.runtime.requestRedraw();
+		this.setXY({x: target._x-1, y: target._y-1},util);
 	}
 	//清除镜像
 	clearMirror(args, util) {
@@ -1854,26 +1815,8 @@ class ArkosExtensions {
 		drawable.ext30_mirror1 = 1;
 		//更新
 		target.emitFast('EVENT_TARGET_VISUAL_CHANGE', this);
-		drawable._renderer.dirty = true;
-            	drawable._rotationCenterDirty = true;
-            	drawable._skinScaleDirty = true;
-            	drawable.setTransformDirty();
-		this.runtime.requestRedraw();
 	}
 	//TODO: 拉伸
-	//
-	//角色跨域操作
-	//
-	//跨域执行
-	anotherRun(args, util) {
-		util.thread.target = this.runtime.targets.find(target => target.sprite.name === args.spriteName)
-			.sprite.clones[0];
-	}
-	//跨域克隆体执行
-	anotherRunWithClone(args, util) {
-		util.thread.target = this.runtime.targets.find(target => target.sprite.name === args.spriteName)
-			.sprite.clones[args.cloneId];
-	}
 }
 
 
