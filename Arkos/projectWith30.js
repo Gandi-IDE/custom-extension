@@ -1788,11 +1788,10 @@ class ArkosExtensions {
 	//
 	//角色造型操作
 	//
-	//镜像造型
-	mirrorSprite(args, util) {
+mirrorSprite(args, util) {
 		let target = util.target;
-		this.setXY({x: target._x+1, y: target._y+1},util);
 		let drawable = this.runtime.renderer._allDrawables[target.drawableID];
+this.setXY({x: target._x+1, y: target._y+1},util);
 		if(!util.target.ext30_isHook) {
 			target.ext30_mirror0 = 1;
 			target.ext30_mirror1 = 1;
@@ -1800,6 +1799,12 @@ class ArkosExtensions {
 				drawable._skinScale[0] = Math.abs(drawable._skinScale[0]) * target.ext30_mirror0;
 				drawable._skinScale[1] = Math.abs(drawable._skinScale[1]) * target.ext30_mirror1;
 			});
+let oldf = target.__proto__.setSize;
+target.__proto__.setSize = function(size) {
+this.setXY({x: target._x+1, y: target._y+1},util);
+oldf.call(target, size);
+this.setXY({x: target._x-1, y: target._y-1},util);
+}
 			target.ext30_isHook = true;
 		}
 		util.target['ext30_mirror' + args.mirrorMethod] *= -1;
