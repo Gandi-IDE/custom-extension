@@ -1811,8 +1811,8 @@ class ArkosExtensions {
 			//注入修改函数
 			let old_fun = drawable.__proto__.updateScale;
 			drawable.__proto__.updateScale = function(scale) {
-				scale[0] *= target.ext30.mirror.x;
-				scale[1] *= target.ext30.mirror.y;
+				scale[0] = Math.abs(scale[0]) * target.ext30.mirror.x;
+				scale[1] = Math.abs(scale[1]) * target.ext30.mirror.y;
 				return old_fun.call(drawable, scale);
 			}
 			target.ext30.mirror.hook = true;
