@@ -1793,18 +1793,34 @@ mirrorSprite(args, util) {
 		let drawable = this.runtime.renderer._allDrawables[target.drawableID];
 this.setXY({x: target.x+1, y: target.y+1},util);
 		if(!util.target.ext30_isHook) {
+			let setXYhook = function(args, util) {
+		if(util.target.isStage) return;
+		args.x = this._clamp(Cast.toNumber(args.x), -100000000, 100000000)
+		args.y = this._clamp(Cast.toNumber(args.y), -100000000, 100000000)
+		const oldX = util.target.x;
+		const oldY = util.target.y;
+		util.target.x = args.x;
+		util.target.y = args.y;
+		if(util.target.renderer) {
+			util.target.renderer.updateDrawablePosition(util.target.drawableID, [args.x, args.y]);
+			if(util.target.visible) {
+				util.target.runtime.requestRedraw();
+			}
+		} else {
+			util.target.x = x;
+			util.target.y = y;
+		}
+		util.target.emit('TARGET_MOVED', util.target, oldX, oldY, false);
+		util.target.runtime.requestTargetsUpdate(util.target);
+	}
 			target.ext30_mirror0 = 1;
 			target.ext30_mirror1 = 1;
 			target.addListener('EVENT_TARGET_VISUAL_CHANGE', (e, t) => {
+				setXYhook({x: target.x-1, y: target.y-1},util);
 				drawable._skinScale[0] = Math.abs(drawable._skinScale[0]) * target.ext30_mirror0;
 				drawable._skinScale[1] = Math.abs(drawable._skinScale[1]) * target.ext30_mirror1;
+				setXYhook({x: target.x+1, y: target.y+1},util);
 			});
-let oldf = target.__proto__.setSize;
-target.__proto__.setSize = function(size) {
-	util.target.renderer.updateDrawablePosition(util.target.drawableID, [target.x+1,target.y]);
-oldf.call(target, size);
-	util.target.renderer.updateDrawablePosition(util.target.drawableID, [target.x-1,target.y]);
-}
 			target.ext30_isHook = true;
 		}
 		util.target['ext30_mirror' + args.mirrorMethod] *= -1;
