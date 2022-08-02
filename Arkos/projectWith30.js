@@ -1776,19 +1776,6 @@ class ArkosExtensions {
 	//
 	//30Ext
 	//
-	//初始化
-	ext30_tryInit(target) {
-		if(!target.ext30) {
-			target.ext30 = {
-				mirror: {
-					x: 1,
-					y: 1,
-					hook: false
-				}
-			};
-		}
-		return target;
-	}
 	//菜单
 	//动态菜单: 角色菜单
 	getSpritesMenu() {
@@ -1806,39 +1793,36 @@ class ArkosExtensions {
 	//角色造型操作
 	//
 	mirrorSprite(args, util) {
-		let target = this.ext30_tryInit(util.target);
+		let target = util.target;
 		let drawable = this.runtime.renderer._allDrawables[target.drawableID];
-		if(!target.ext30.mirror.hook) {
+		if(!drawable.ext30_mirror_hook) {
+			drawable.ext30_mirror_x = 1;
+			drawable.ext30_mirror_y = 1;
 			//注入修改函数
+			let old_fun = drawable.__proto__.updateScale;
 			drawable.__proto__.updateScale = function(scale) {
-				scale[0] = Math.abs(scale[0]) * target.ext30.mirror.x;
-				scale[1] = Math.abs(scale[1]) * target.ext30.mirror.y;
-				if(this._scale[0] !== scale[0] ||this._scale[1] !== scale[1]) {
-					this._scale[0] = scale[0];
-					this._scale[1] = scale[1];
-					this._rotationCenterDirty = true;
-					this._skinScaleDirty = true;
-					this.setTransformDirty();
-				}
+				scale[0] = Math.abs(scale[0]) * this.ext30_mirror_x;
+				scale[1] = Math.abs(scale[1]) * this.ext30_mirror_y;
+				return old_fun.call(this, scale);
 			}
-			target.ext30.mirror.hook = true;
+			drawable.ext30_mirror_hook = true;
 		}
 		switch (args.mirrorMethod) {
 			case '1':
-				target.ext30.mirror.x = 1;
-				target.ext30.mirror.y = 1;
+				drawable.ext30_mirror_x = 1;
+				drawable.ext30_mirror_y = 1;
 				break;
 			case '2':
-				target.ext30.mirror.x = -1;
-				target.ext30.mirror.y = 1;
+				drawable.ext30_mirror_x = -1;
+				drawable.ext30_mirror_y = 1;
 				break;
 			case '3':
-				target.ext30.mirror.x = 1;
-				target.ext30.mirror.y = -1;
+				drawable.ext30_mirror_x = 1;
+				drawable.ext30_mirror_y = -1;
 				break;
 			case '4':
-				target.ext30.mirror.x = -1;
-				target.ext30.mirror.y = -1;
+				drawable.ext30_mirror_x = -1;
+				drawable.ext30_mirror_y = -1;
 				break;
 		}
 		//更新
