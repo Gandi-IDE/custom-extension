@@ -1778,7 +1778,7 @@ class ArkosExtensions {
 	//
 	//初始化
 	ext30_tryInit(target) {
-		if (!target.ext30) {
+		if(!target.ext30) {
 			target.ext30 = {
 				mirror: {
 					x: 1,
@@ -1810,11 +1810,16 @@ class ArkosExtensions {
 		let drawable = this.runtime.renderer._allDrawables[target.drawableID];
 		if(!target.ext30.mirror.hook) {
 			//注入修改函数
-			let old_fun = drawable.__proto__.updateScale;
-			drawable.__proto__.updateScale = function(scale) {
+			drawable.updateScale.prototype.constructor = function(scale) {
 				scale[0] = Math.abs(scale[0]) * target.ext30.mirror.x;
 				scale[1] = Math.abs(scale[1]) * target.ext30.mirror.y;
-				return old_fun.call(drawable, scale);
+				if(drawable._scale[0] !== scale[0] ||drawable._scale[1] !== scale[1]) {
+					drawable._scale[0] = scale[0];
+					drawable._scale[1] = scale[1];
+					drawable._rotationCenterDirty = true;
+					drawable._skinScaleDirty = true;
+					drawable.setTransformDirty();
+				}
 			}
 			target.ext30.mirror.hook = true;
 		}
