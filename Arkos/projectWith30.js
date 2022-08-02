@@ -1815,13 +1815,13 @@ oldf.call(target, size);
 	//清除镜像
 	clearMirror(args, util) {
 		let target = util.target;
-		this.setXY({x: target._x+1, y: target._y+1},util);
+		this.setXY({x: target.x+1, y: target.y+1},util);
 		let drawable = this.runtime.renderer._allDrawables[target.drawableID];
 		drawable.ext30_mirror0 = 1;
 		drawable.ext30_mirror1 = 1;
 		//更新
 		target.emitFast('EVENT_TARGET_VISUAL_CHANGE', this);
-		this.setXY({x: target._x-1, y: target._y-1},util);
+		this.setXY({x: target.x-1, y: target.y-1},util);
 	}
 	//TODO: 拉伸
 }
