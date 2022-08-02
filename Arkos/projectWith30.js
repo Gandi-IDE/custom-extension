@@ -1813,12 +1813,12 @@ class ArkosExtensions {
 			drawable.__proto__.updateScale = function(scale) {
 				scale[0] = Math.abs(scale[0]) * target.ext30.mirror.x;
 				scale[1] = Math.abs(scale[1]) * target.ext30.mirror.y;
-				if(drawable._scale[0] !== scale[0] ||drawable._scale[1] !== scale[1]) {
-					drawable._scale[0] = scale[0];
-					drawable._scale[1] = scale[1];
-					drawable._rotationCenterDirty = true;
-					drawable._skinScaleDirty = true;
-					drawable.setTransformDirty();
+				if(this._scale[0] !== scale[0] ||this._scale[1] !== scale[1]) {
+					this._scale[0] = scale[0];
+					this._scale[1] = scale[1];
+					this._rotationCenterDirty = true;
+					this._skinScaleDirty = true;
+					this.setTransformDirty();
 				}
 			}
 			target.ext30.mirror.hook = true;
