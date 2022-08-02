@@ -1810,7 +1810,7 @@ class ArkosExtensions {
 		let drawable = this.runtime.renderer._allDrawables[target.drawableID];
 		if(!target.ext30.mirror.hook) {
 			//注入修改函数
-			drawable.updateScale.prototype.constructor = function(scale) {
+			drawable.updateScale = function(scale) {
 				scale[0] = Math.abs(scale[0]) * target.ext30.mirror.x;
 				scale[1] = Math.abs(scale[1]) * target.ext30.mirror.y;
 				if(drawable._scale[0] !== scale[0] ||drawable._scale[1] !== scale[1]) {
