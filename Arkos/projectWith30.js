@@ -1795,8 +1795,6 @@ this.setXY({x: target.x+1, y: target.y+1},util);
 		if(!util.target.ext30_isHook) {
 			let setXYhook = function(args, util) {
 		if(util.target.isStage) return;
-		args.x = this._clamp(Cast.toNumber(args.x), -100000000, 100000000)
-		args.y = this._clamp(Cast.toNumber(args.y), -100000000, 100000000)
 		const oldX = util.target.x;
 		const oldY = util.target.y;
 		util.target.x = args.x;
@@ -1832,9 +1830,8 @@ this.setXY({x: target.x+1, y: target.y+1},util);
 	clearMirror(args, util) {
 		let target = util.target;
 		this.setXY({x: target.x+1, y: target.y+1},util);
-		let drawable = this.runtime.renderer._allDrawables[target.drawableID];
-		drawable.ext30_mirror0 = 1;
-		drawable.ext30_mirror1 = 1;
+		
+target.ext30_mirror0 = 1;target.ext30_mirror1 = 1;
 		//更新
 		target.emitFast('EVENT_TARGET_VISUAL_CHANGE', this);
 		this.setXY({x: target.x-1, y: target.y-1},util);
