@@ -118,10 +118,11 @@ class ArkosExtensions {
 
 				'30Ext.info': '✨ 以下扩展由_30提供',
 				'30Ext.info.1': '🔮 造型镜像操作',
-				'30Ext.block.mirrorSprite': '(⚠️还在测试)[mirrorMethod]当前角色',
-				'30Ext.menu.mirrorMethod.1': '左右镜像',
-				'30Ext.menu.mirrorMethod.2': '上下镜像',
-				'30Ext.block.clearMirror': '(⚠️还在测试)清除角色镜像变换',
+				'30Ext.block.mirrorSprite': '(⚠️还在测试)将角色的镜像模式设为[mirrorMethod]',
+				'30Ext.menu.mirrorMethod.1': '无镜像',
+				'30Ext.menu.mirrorMethod.2': '左右镜像',
+				'30Ext.menu.mirrorMethod.3': '上下镜像',
+				'30Ext.menu.mirrorMethod.4': '上下左右镜像',
 			},
 
 			en: {
@@ -221,10 +222,11 @@ class ArkosExtensions {
 
 				'30Ext.info': '✨ Contributed by _30',
 				'30Ext.info.1': '🔮 Mirror transform',
-				'30Ext.block.mirrorSprite': '(⚠️testing)[mirrorMethod] current sprite',
-				'30Ext.menu.mirrorMethod.1': 'Horizontal mirror transform',
-				'30Ext.menu.mirrorMethod.2': 'Vertical mirror transform',
-				'30Ext.block.clearMirror': '(⚠️testing)Clear the mirror transform',
+				'30Ext.block.mirrorSprite': '(⚠️Testing)Set the mirroring mode of the sprite to [mirrorMethod]',
+				'30Ext.menu.mirrorMethod.1': 'No mirror',
+				'30Ext.menu.mirrorMethod.2': 'Horizontal mirror',
+				'30Ext.menu.mirrorMethod.3': 'Vertical Mirror',
+				'30Ext.menu.mirrorMethod.4': 'Horizontal & Vertical mirror',
 			},
 		})
 	}
@@ -1174,12 +1176,20 @@ class ArkosExtensions {
 					items: 'getSpritesMenu'
 				},
 				mirrorMenu: [{
-						text: this.formatMessage('30Ext.menu.mirrorMethod.1'), //左右镜像
-						value: '0'
+						text: this.formatMessage('30Ext.menu.mirrorMethod.1'), //无镜像
+						value: '1'
 					},
 					{
-						text: this.formatMessage('30Ext.menu.mirrorMethod.2'), //上下镜像
-						value: '1'
+						text: this.formatMessage('30Ext.menu.mirrorMethod.2'), //左右镜像
+						value: '2'
+					},
+					{
+						text: this.formatMessage('30Ext.menu.mirrorMethod.3'), //上下镜像
+						value: '3'
+					},
+					{
+						text: this.formatMessage('30Ext.menu.mirrorMethod.4'), //上下左右镜像
+						value: '4'
 					}
 				]
 			},
@@ -1788,53 +1798,42 @@ class ArkosExtensions {
 	//
 	//角色造型操作
 	//
-mirrorSprite(args, util) {
+	mirrorSprite(args, util) {
 		let target = util.target;
 		let drawable = this.runtime.renderer._allDrawables[target.drawableID];
-this.setXY({x: target.x+1, y: target.y+1},util);
-		if(!util.target.ext30_isHook) {
-			let setXYhook = function(args, util) {
-		if(util.target.isStage) return;
-		const oldX = util.target.x;
-		const oldY = util.target.y;
-		util.target.x = args.x;
-		util.target.y = args.y;
-		if(util.target.renderer) {
-			util.target.renderer.updateDrawablePosition(util.target.drawableID, [args.x, args.y]);
-			if(util.target.visible) {
-				util.target.runtime.requestRedraw();
+		switch (args.mirrorMethod) {
+			case 1:
+				target.ext30.mirror.x = 1;
+				target.ext30.mirror.y = 1;
+				break;
+			case 2:
+				target.ext30.mirror.x = -1;
+				target.ext30.mirror.y = 1;
+				break;
+			case 3:
+				target.ext30.mirror.x = 1;
+				target.ext30.mirror.y = -1;
+				break;
+			case 4:
+				target.ext30.mirror.x = -1;
+				target.ext30.mirror.y = -1;
+				break;
+		}
+		if(!target.ext30.mirror.hook) {
+			//初始化
+			target.ext30.mirror.x = 1;
+			target.ext30.mirror.y = 1;
+			//注入修改函数
+			let old_fun = drawable.__proto__.updateScale;
+			drawable.__proto__.updateScale = function(scale) {
+				scale[0] *= target.ext30.mirror.x;
+				scale[1] *= target.ext30.mirror.y;
+				return old_fun.call(drawable, scale);
 			}
-		} else {
-			util.target.x = x;
-			util.target.y = y;
+			target.ext30.mirror.hook = true;
 		}
-		util.target.emit('TARGET_MOVED', util.target, oldX, oldY, false);
-		util.target.runtime.requestTargetsUpdate(util.target);
-	}
-			target.ext30_mirror0 = 1;
-			target.ext30_mirror1 = 1;
-			target.addListener('EVENT_TARGET_VISUAL_CHANGE', (e, t) => {
-				setXYhook({x: target.x-1, y: target.y-1},util);
-				drawable._skinScale[0] = Math.abs(drawable._skinScale[0]) * target.ext30_mirror0;
-				drawable._skinScale[1] = Math.abs(drawable._skinScale[1]) * target.ext30_mirror1;
-				setXYhook({x: target.x+1, y: target.y+1},util);
-			});
-			target.ext30_isHook = true;
-		}
-		util.target['ext30_mirror' + args.mirrorMethod] *= -1;
 		//更新
-		target.emitFast('EVENT_TARGET_VISUAL_CHANGE', this);
-		this.setXY({x: target.x-1, y: target.y-1},util);
-	}
-	//清除镜像
-	clearMirror(args, util) {
-		let target = util.target;
-		this.setXY({x: target.x+1, y: target.y+1},util);
-		
-target.ext30_mirror0 = 1;target.ext30_mirror1 = 1;
-		//更新
-		target.emitFast('EVENT_TARGET_VISUAL_CHANGE', this);
-		this.setXY({x: target.x-1, y: target.y-1},util);
+		drawable.updateScale(drawable.scale);
 	}
 	//TODO: 拉伸
 }
