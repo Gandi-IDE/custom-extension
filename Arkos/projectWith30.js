@@ -1801,9 +1801,9 @@ this.setXY({x: target.x+1, y: target.y+1},util);
 			});
 let oldf = target.__proto__.setSize;
 target.__proto__.setSize = function(size) {
-this.setXY({x: target.x+1, y: target.y+1},util);
+	util.target.renderer.updateDrawablePosition(util.target.drawableID, [target.x+1,target.y]);
 oldf.call(target, size);
-this.setXY({x: target.x-1, y: target.y-1},util);
+	util.target.renderer.updateDrawablePosition(util.target.drawableID, [target.x-1,target.y]);
 }
 			target.ext30_isHook = true;
 		}
