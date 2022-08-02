@@ -1818,19 +1818,19 @@ class ArkosExtensions {
 			target.ext30.mirror.hook = true;
 		}
 		switch (args.mirrorMethod) {
-			case 1:
+			case '1':
 				target.ext30.mirror.x = 1;
 				target.ext30.mirror.y = 1;
 				break;
-			case 2:
+			case '2':
 				target.ext30.mirror.x = -1;
 				target.ext30.mirror.y = 1;
 				break;
-			case 3:
+			case '3':
 				target.ext30.mirror.x = 1;
 				target.ext30.mirror.y = -1;
 				break;
-			case 4:
+			case '4':
 				target.ext30.mirror.x = -1;
 				target.ext30.mirror.y = -1;
 				break;
