@@ -1029,14 +1029,7 @@ class ArkosExtensions {
 							menu: 'mirrorMenu'
 						}
 					}
-				},
-				// 清除镜像
-				{
-					opcode: 'clearMirror',
-					blockType: 'command',
-					text: this.formatMessage('30Ext.block.clearMirror')
 				}
-
 			],
 			menus: {
 				conInfoMenu: [{
@@ -1782,6 +1775,19 @@ class ArkosExtensions {
 	//
 	//30Ext
 	//
+	//初始化
+	ext30_tryInit(target) {
+		if (!target.ext30) {
+			target.ext30 = {
+				mirror: {
+					x: 1,
+					y: 1,
+					hook: false
+				}
+			};
+		}
+		return target;
+	}
 	//菜单
 	//动态菜单: 角色菜单
 	getSpritesMenu() {
@@ -1799,8 +1805,18 @@ class ArkosExtensions {
 	//角色造型操作
 	//
 	mirrorSprite(args, util) {
-		let target = util.target;
+		let target = this.ext30_tryInit(util.target);
 		let drawable = this.runtime.renderer._allDrawables[target.drawableID];
+		if(!target.ext30.mirror.hook) {
+			//注入修改函数
+			let old_fun = drawable.__proto__.updateScale;
+			drawable.__proto__.updateScale = function(scale) {
+				scale[0] *= target.ext30.mirror.x;
+				scale[1] *= target.ext30.mirror.y;
+				return old_fun.call(drawable, scale);
+			}
+			target.ext30.mirror.hook = true;
+		}
 		switch (args.mirrorMethod) {
 			case 1:
 				target.ext30.mirror.x = 1;
@@ -1818,19 +1834,6 @@ class ArkosExtensions {
 				target.ext30.mirror.x = -1;
 				target.ext30.mirror.y = -1;
 				break;
-		}
-		if(!target.ext30.mirror.hook) {
-			//初始化
-			target.ext30.mirror.x = 1;
-			target.ext30.mirror.y = 1;
-			//注入修改函数
-			let old_fun = drawable.__proto__.updateScale;
-			drawable.__proto__.updateScale = function(scale) {
-				scale[0] *= target.ext30.mirror.x;
-				scale[1] *= target.ext30.mirror.y;
-				return old_fun.call(drawable, scale);
-			}
-			target.ext30.mirror.hook = true;
 		}
 		//更新
 		drawable.updateScale(drawable.scale);
