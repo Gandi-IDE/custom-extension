@@ -1028,7 +1028,8 @@ class ArkosExtensions {
 							type: 'string',
 							menu: 'mirrorMenu'
 						}
-					}
+					},
+					filter: ['sprite']
 				}
 			],
 			menus: {
