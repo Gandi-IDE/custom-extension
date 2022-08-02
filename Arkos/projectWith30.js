@@ -118,10 +118,10 @@ class ArkosExtensions {
 
 				'30Ext.info': '✨ 以下扩展由_30提供',
 				'30Ext.info.1': '🔮 造型镜像操作',
-				'30Ext.block.mirrorSprite': '(⚠还在测试)[mirrorMethod]当前角色',
+				'30Ext.block.mirrorSprite': '(⚠️还在测试)[mirrorMethod]当前角色',
 				'30Ext.menu.mirrorMethod.1': '左右镜像',
 				'30Ext.menu.mirrorMethod.2': '上下镜像',
-				'30Ext.block.clearMirror': '(⚠还在测试)清除角色镜像变换',
+				'30Ext.block.clearMirror': '(⚠️还在测试)清除角色镜像变换',
 			},
 
 			en: {
@@ -221,10 +221,10 @@ class ArkosExtensions {
 
 				'30Ext.info': '✨ Contributed by _30',
 				'30Ext.info.1': '🔮 Mirror transform',
-				'30Ext.block.mirrorSprite': '(⚠testing)[mirrorMethod] current sprite',
+				'30Ext.block.mirrorSprite': '(⚠️testing)[mirrorMethod] current sprite',
 				'30Ext.menu.mirrorMethod.1': 'Horizontal mirror transform',
 				'30Ext.menu.mirrorMethod.2': 'Vertical mirror transform',
-				'30Ext.block.clearMirror': '(⚠testing)Clear the mirror transform',
+				'30Ext.block.clearMirror': '(⚠️testing)Clear the mirror transform',
 			},
 		})
 	}
