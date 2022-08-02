@@ -1791,7 +1791,7 @@ class ArkosExtensions {
 mirrorSprite(args, util) {
 		let target = util.target;
 		let drawable = this.runtime.renderer._allDrawables[target.drawableID];
-this.setXY({x: target._x+1, y: target._y+1},util);
+this.setXY({x: target.x+1, y: target.y+1},util);
 		if(!util.target.ext30_isHook) {
 			target.ext30_mirror0 = 1;
 			target.ext30_mirror1 = 1;
@@ -1801,16 +1801,16 @@ this.setXY({x: target._x+1, y: target._y+1},util);
 			});
 let oldf = target.__proto__.setSize;
 target.__proto__.setSize = function(size) {
-this.setXY({x: target._x+1, y: target._y+1},util);
+this.setXY({x: target.x+1, y: target.y+1},util);
 oldf.call(target, size);
-this.setXY({x: target._x-1, y: target._y-1},util);
+this.setXY({x: target.x-1, y: target.y-1},util);
 }
 			target.ext30_isHook = true;
 		}
 		util.target['ext30_mirror' + args.mirrorMethod] *= -1;
 		//更新
 		target.emitFast('EVENT_TARGET_VISUAL_CHANGE', this);
-		this.setXY({x: target._x-1, y: target._y-1},util);
+		this.setXY({x: target.x-1, y: target.y-1},util);
 	}
 	//清除镜像
 	clearMirror(args, util) {
