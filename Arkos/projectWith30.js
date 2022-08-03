@@ -1792,16 +1792,16 @@ class ArkosExtensions {
 			let old_fun = drawable.__proto__.updateScale;
 			Object.defineProperty(drawable, "updateScale" ,
 				{value: function(scale) {
-					this.ext30_rawScale = scale;
-					scale[0] = Math.abs(this.ext30_rawScale[0]) * this.ext30_scale[0];
-					scale[1] = Math.abs(this.ext30_rawScale[1]) * this.ext30_scale[1];
+					this.ext30_rawSize = scale[0];
+					scale[0] = this.ext30_rawSize * this.ext30_scale[0];
+					scale[1] = this.ext30_rawSize * this.ext30_scale[1];
 					return old_fun.call(this, scale);
 				}}
 			);
 		}
 		drawable.ext30_scale[index] = value;
 		//更新
-		drawable.updateScale(drawable.ext30_rawScale);
+		drawable.updateScale([target.size, target.size]);
 	}
 	scaleSpriteX(args, util) {
 		this.scaleSprite(0, args.input, util);
