@@ -1016,7 +1016,7 @@ class ArkosExtensions {
 				{
 					opcode: 'scaleSpriteX',
 					blockType: 'command',
-					text: this.formatMessage('30Ext.block.sclaeSpriteX'),
+					text: this.formatMessage('30Ext.block.scaleSpriteX'),
 					arguments: {
 						input: {
 							type: 'number',
