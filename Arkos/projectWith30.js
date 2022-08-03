@@ -118,8 +118,8 @@ class ArkosExtensions {
 
 				'30Ext.info': '✨ 以下扩展由_30提供',
 				'30Ext.info.1': '🔮 定向缩放操作',
-				'30Ext.block.scaleSpriteX': '水平缩放角色[input]倍',
-				'30Ext.block.scaleSpriteY': '垂直缩放角色[input]倍'
+				'30Ext.block.scaleSpriteX': '将角色水平缩放比例设为[input](倍)',
+				'30Ext.block.scaleSpriteY': '将角色垂直缩放比例设为[input](倍)'
 			},
 
 			en: {
@@ -219,8 +219,8 @@ class ArkosExtensions {
 
 				'30Ext.info': '✨ Contributed by _30',
 				'30Ext.info.1': '🔮 Directional scale',
-				'30Ext.block.scaleSpriteX': 'Scale the sprite [input] times horizontally',
-				'30Ext.block.scaleSpriteY': 'Scale the sprite [input] times vertically'
+				'30Ext.block.scaleSpriteX': 'Set the horizontal scaling of the sprite to [input] (Times)',
+				'30Ext.block.scaleSpriteY': 'Set the vertical scaling of the sprite to [input] (Times)'
 			},
 		})
 	}
@@ -1787,19 +1787,21 @@ class ArkosExtensions {
 		let drawable = this.runtime.renderer._allDrawables[target.drawableID];
 		if(!drawable.ext30_scale) {
 			drawable.ext30_scale = [1,1];
+			drawable.ext30_rawScale = drawable.scale;
 			//注入修改函数
 			let old_fun = drawable.__proto__.updateScale;
 			Object.defineProperty(drawable, "updateScale" ,
 				{value: function(scale) {
-					scale[0] = Math.abs(scale[0]) * this.ext30_scale[0];
-					scale[1] = Math.abs(scale[1]) * this.ext30_scale[1];
+					this.ext30_rawScale = scale;
+					scale[0] = Math.abs(this.ext30_rawScale[0]) * this.ext30_scale[0];
+					scale[1] = Math.abs(this.ext30_rawScale[1]) * this.ext30_scale[1];
 					return old_fun.call(this, scale);
 				}}
 			);
 		}
 		drawable.ext30_scale[index] = value;
 		//更新
-		drawable.updateScale(drawable.scale);
+		drawable.updateScale(drawable.ext30_rawScale);
 	}
 	scaleSpriteX(args, util) {
 		this.scaleSprite(0, args.input, util);
