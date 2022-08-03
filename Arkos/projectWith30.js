@@ -1800,11 +1800,13 @@ class ArkosExtensions {
 			drawable.ext30_mirror_y = 1;
 			//注入修改函数
 			let old_fun = drawable.__proto__.updateScale;
-			drawable.__proto__.updateScale = function(scale) {
-				scale[0] = Math.abs(scale[0]) * this.ext30_mirror_x;
-				scale[1] = Math.abs(scale[1]) * this.ext30_mirror_y;
-				return old_fun.call(this, scale);
-			}
+			Object.defineProperty(drawable, "updateScale" ,
+				{value: function(scale) {
+					scale[0] = Math.abs(scale[0]) * this.ext30_mirror_x;
+					scale[1] = Math.abs(scale[1]) * this.ext30_mirror_y;
+					return old_fun.call(this, scale);
+				}}
+			);
 			drawable.ext30_mirror_hook = true;
 		}
 		switch (args.mirrorMethod) {
