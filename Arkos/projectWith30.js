@@ -1014,7 +1014,7 @@ class ArkosExtensions {
 				"---" + this.formatMessage("30Ext.info.1"), //定向缩放
 				// x向缩放
 				{
-					opcode: 'sclaeSpriteX',
+					opcode: 'scaleSpriteX',
 					blockType: 'command',
 					text: this.formatMessage('30Ext.block.sclaeSpriteX'),
 					arguments: {
@@ -1027,7 +1027,7 @@ class ArkosExtensions {
 				},
 				// y向缩放
 				{
-					opcode: 'sclaeSpriteY',
+					opcode: 'scaleSpriteY',
 					blockType: 'command',
 					text: this.formatMessage('30Ext.block.sclaeSpriteY'),
 					arguments: {
@@ -1807,7 +1807,6 @@ class ArkosExtensions {
 	scaleSpriteY(args, util) {
 		this.scaleSprite(1, args.input, util);
 	}
-	//TODO: 拉伸
 }
 
 
