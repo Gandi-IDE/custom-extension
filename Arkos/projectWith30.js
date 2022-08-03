@@ -117,12 +117,9 @@ class ArkosExtensions {
 				'ArkosExt.lengthOfTempCon': '🗂️临时容器[con]中内容数',
 
 				'30Ext.info': '✨ 以下扩展由_30提供',
-				'30Ext.info.1': '🔮 造型镜像操作',
-				'30Ext.block.mirrorSprite': '(⚠️还在测试)将角色的镜像模式设为[mirrorMethod]',
-				'30Ext.menu.mirrorMethod.1': '无镜像',
-				'30Ext.menu.mirrorMethod.2': '左右镜像',
-				'30Ext.menu.mirrorMethod.3': '上下镜像',
-				'30Ext.menu.mirrorMethod.4': '上下左右镜像',
+				'30Ext.info.1': '🔮 定向缩放操作',
+				'30Ext.block.sclaeSpriteX': '水平缩放角色[input]倍',
+				'30Ext.block.sclaeSpriteY': '垂直缩放角色[input]倍'
 			},
 
 			en: {
@@ -221,12 +218,9 @@ class ArkosExtensions {
 				'ArkosExt.lengthOfTempCon': '🗂️count of contents in temp container[con]',
 
 				'30Ext.info': '✨ Contributed by _30',
-				'30Ext.info.1': '🔮 Mirror transform',
-				'30Ext.block.mirrorSprite': '(⚠️Testing)Set the mirroring mode of the sprite to [mirrorMethod]',
-				'30Ext.menu.mirrorMethod.1': 'No mirror',
-				'30Ext.menu.mirrorMethod.2': 'Horizontal mirror',
-				'30Ext.menu.mirrorMethod.3': 'Vertical Mirror',
-				'30Ext.menu.mirrorMethod.4': 'Horizontal & Vertical mirror',
+				'30Ext.info.1': '🔮 Directional scale',
+				'30Ext.block.sclaeSpriteX': 'Scale the sprite [input] times horizontally',
+				'30Ext.block.sclaeSpriteY': 'Scale the sprite [input] times vertically'
 			},
 		})
 	}
@@ -1017,16 +1011,29 @@ class ArkosExtensions {
 
 				//
 				"---" + this.formatMessage("30Ext.info"), //感谢30提供的扩展
-				"---" + this.formatMessage("30Ext.info.1"), //造型镜像
-				// 镜像造型
+				"---" + this.formatMessage("30Ext.info.1"), //定向缩放
+				// x向缩放
 				{
-					opcode: 'mirrorSprite',
+					opcode: 'sclaeSpriteX',
 					blockType: 'command',
-					text: this.formatMessage('30Ext.block.mirrorSprite'),
+					text: this.formatMessage('30Ext.block.sclaeSpriteX'),
 					arguments: {
-						mirrorMethod: {
-							type: 'string',
-							menu: 'mirrorMenu'
+						input: {
+							type: 'number',
+							defaultValue: '1'
+						}
+					},
+					filter: ['sprite']
+				}
+				// y向缩放
+				{
+					opcode: 'sclaeSpriteY',
+					blockType: 'command',
+					text: this.formatMessage('30Ext.block.sclaeSpriteY'),
+					arguments: {
+						input: {
+							type: 'number',
+							defaultValue: '1'
 						}
 					},
 					filter: ['sprite']
@@ -1168,25 +1175,8 @@ class ArkosExtensions {
 				//30Ext
 				spritesMenu: {
 					items: 'getSpritesMenu'
-				},
-				mirrorMenu: [{
-						text: this.formatMessage('30Ext.menu.mirrorMethod.1'), //无镜像
-						value: '1'
-					},
-					{
-						text: this.formatMessage('30Ext.menu.mirrorMethod.2'), //左右镜像
-						value: '2'
-					},
-					{
-						text: this.formatMessage('30Ext.menu.mirrorMethod.3'), //上下镜像
-						value: '3'
-					},
-					{
-						text: this.formatMessage('30Ext.menu.mirrorMethod.4'), //上下左右镜像
-						value: '4'
-					}
-				]
-			},
+				}
+			}
 		}
 	}
 
@@ -1792,43 +1782,30 @@ class ArkosExtensions {
 	//
 	//角色造型操作
 	//
-	mirrorSprite(args, util) {
+	scaleSprite(index, value, util) {
 		let target = util.target;
 		let drawable = this.runtime.renderer._allDrawables[target.drawableID];
-		if(!drawable.ext30_mirror_hook) {
-			drawable.ext30_mirror_x = 1;
-			drawable.ext30_mirror_y = 1;
+		if(!drawable.ext30_scale) {
+			drawable.ext30_scale = [1,1];
 			//注入修改函数
 			let old_fun = drawable.__proto__.updateScale;
 			Object.defineProperty(drawable, "updateScale" ,
 				{value: function(scale) {
-					scale[0] = Math.abs(scale[0]) * this.ext30_mirror_x;
-					scale[1] = Math.abs(scale[1]) * this.ext30_mirror_y;
+					scale[0] = Math.abs(scale[0]) * this.ext30_scale[0];
+					scale[1] = Math.abs(scale[1]) * this.ext30_scale[1];
 					return old_fun.call(this, scale);
 				}}
 			);
-			drawable.ext30_mirror_hook = true;
 		}
-		switch (args.mirrorMethod) {
-			case '1':
-				drawable.ext30_mirror_x = 1;
-				drawable.ext30_mirror_y = 1;
-				break;
-			case '2':
-				drawable.ext30_mirror_x = -1;
-				drawable.ext30_mirror_y = 1;
-				break;
-			case '3':
-				drawable.ext30_mirror_x = 1;
-				drawable.ext30_mirror_y = -1;
-				break;
-			case '4':
-				drawable.ext30_mirror_x = -1;
-				drawable.ext30_mirror_y = -1;
-				break;
-		}
+		drawable.ext30_scale[index] = value;
 		//更新
 		drawable.updateScale(drawable.scale);
+	}
+	scaleSpriteX(args, util) {
+		this.scaleSprite(0, args.input, util);
+	}
+	scaleSpriteY(args, util) {
+		this.scaleSprite(1, args.input, util);
 	}
 	//TODO: 拉伸
 }
