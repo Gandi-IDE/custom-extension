@@ -1024,7 +1024,7 @@ class ArkosExtensions {
 						}
 					},
 					filter: ['sprite']
-				}
+				},
 				// y向缩放
 				{
 					opcode: 'sclaeSpriteY',
