@@ -118,8 +118,8 @@ class ArkosExtensions {
 
 				'30Ext.info': '✨ 以下扩展由_30提供',
 				'30Ext.info.1': '🔮 定向缩放操作',
-				'30Ext.block.sclaeSpriteX': '水平缩放角色[input]倍',
-				'30Ext.block.sclaeSpriteY': '垂直缩放角色[input]倍'
+				'30Ext.block.scaleSpriteX': '水平缩放角色[input]倍',
+				'30Ext.block.scaleSpriteY': '垂直缩放角色[input]倍'
 			},
 
 			en: {
@@ -219,8 +219,8 @@ class ArkosExtensions {
 
 				'30Ext.info': '✨ Contributed by _30',
 				'30Ext.info.1': '🔮 Directional scale',
-				'30Ext.block.sclaeSpriteX': 'Scale the sprite [input] times horizontally',
-				'30Ext.block.sclaeSpriteY': 'Scale the sprite [input] times vertically'
+				'30Ext.block.scaleSpriteX': 'Scale the sprite [input] times horizontally',
+				'30Ext.block.scaleSpriteY': 'Scale the sprite [input] times vertically'
 			},
 		})
 	}
@@ -1029,7 +1029,7 @@ class ArkosExtensions {
 				{
 					opcode: 'scaleSpriteY',
 					blockType: 'command',
-					text: this.formatMessage('30Ext.block.sclaeSpriteY'),
+					text: this.formatMessage('30Ext.block.scaleSpriteY'),
 					arguments: {
 						input: {
 							type: 'number',
