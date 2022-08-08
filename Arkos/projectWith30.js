@@ -119,7 +119,10 @@ class ArkosExtensions {
 				'30Ext.info': '✨ 以下扩展由_30提供',
 				'30Ext.info.1': '🔮 定向缩放操作',
 				'30Ext.block.scaleSpriteX': '将角色水平缩放比例设为[input](倍)',
-				'30Ext.block.scaleSpriteY': '将角色垂直缩放比例设为[input](倍)'
+				'30Ext.block.scaleSpriteY': '将角色垂直缩放比例设为[input](倍)',
+				'30Ext.info.2': '图层操作',
+				'30Ext.block.getLayer': '角色当前图层序数',
+				'30Ext.block.setLayer': '将角色移到第[input]图层',
 			},
 
 			en: {
@@ -220,7 +223,10 @@ class ArkosExtensions {
 				'30Ext.info': '✨ Contributed by _30',
 				'30Ext.info.1': '🔮 Directional scale',
 				'30Ext.block.scaleSpriteX': 'Set the horizontal scaling of the sprite to [input] (Times)',
-				'30Ext.block.scaleSpriteY': 'Set the vertical scaling of the sprite to [input] (Times)'
+				'30Ext.block.scaleSpriteY': 'Set the vertical scaling of the sprite to [input] (Times)',
+				'30Ext.info.2': 'Layer Manage',
+				'30Ext.block.getLayer': 'Current layer of the sprite',
+				'30Ext.block.setLayer': 'Move the sprite to layer [input]',
 			},
 		})
 	}
@@ -1037,7 +1043,27 @@ class ArkosExtensions {
 						}
 					},
 					filter: ['sprite']
-				}
+				},
+				"---" + this.formatMessage("30Ext.info.2"), //图层管理
+				//获取图层
+				{
+					opcode: 'getLayer',
+					blockType: 'reporter',
+					text: this.formatMessage('30Ext.block.getLayer'),
+				},
+				//设置图层
+				{
+					opcode: 'setLayer',
+					blockType: 'command',
+					text: this.formatMessage('30Ext.block.setLayer'),
+					arguments: {
+						input: {
+							type: 'number',
+							defaultValue: '1'
+						}
+					},
+					filter: ['sprite']
+				},
 			],
 			menus: {
 				conInfoMenu: [{
@@ -1808,6 +1834,15 @@ class ArkosExtensions {
 	}
 	scaleSpriteY(args, util) {
 		this.scaleSprite(1, args.input, util);
+	}
+	//
+	//图层操作
+	//
+	getLayer(args, util) {
+		return util.target.getLayerOrder();
+	}
+	setLayer(args, util) {
+		util.target.renderer.setDrawableOrder(util.target.drawableID, args.input, 'sprite');
 	}
 }
 
