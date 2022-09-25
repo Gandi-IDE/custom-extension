@@ -14,6 +14,8 @@ class File_Helper {
 		"File_Helper.save": "将内容[text]命名为[name]并保存",
 		"File_Helper.delete": "删除键[name]",
 		"File_Helper.segmentation": "将[text]按[s]分割",
+		"File_Helper.encrypt": "base64加密[text]",
+		"File_Helper.decrypt": "base64解密[text]",
       },
       en: {
         "File_Helper.name": "File Helper",
@@ -22,6 +24,8 @@ class File_Helper {
 		"File_Helper.save": "Save content [text] with [name]",
 		"File_Helper.delete": "delete value [name]",
 		"File_Helper.segmentation": "Split [text] by [s]",
+		"File_Helper.encrypt": "base64 encrypt[text]",
+		"File_Helper.decrypt": "base64 decrypt[text]",
       }
     })
   }
@@ -56,6 +60,10 @@ class File_Helper {
             name: {
               type: "string",
               defaultValue: 'wit_cat.txt',
+            },
+            s: {
+              type: "string",
+              defaultValue: '',
             },
         },
       },
@@ -111,19 +119,47 @@ class File_Helper {
             },
         },
       },
+	  {
+        opcode: "encrypt",
+        blockType: "reporter",
+        text: this.formatMessage("File_Helper.encrypt"),
+        arguments: {
+            text: {
+              type: "string",
+              defaultValue: 'i love中国',
+            },
+        },
+      },
+	  {
+        opcode: "decrypt",
+        blockType: "reporter",
+        text: this.formatMessage("File_Helper.decrypt"),
+        arguments: {
+            text: {
+              type: "string",
+              defaultValue: 'aSUyMGxvdmUlRTQlQjglQUQlRTUlOUIlQkQ=',
+            },
+        },
+      },
       ]
     };
   }
 	//下载文件
 	download(args){
+		var text = args.text;
 		const filename = args.name;
 		var s = args.s;
-		var a = args.text.split(s);
-		var h = a[0];
-		for(j = 1; j < a.length; j++) {
-			var h = h + `
+		if(s != ""){
+			var a = text.split(s);
+			var h = a[0];
+			for(j = 1; j < a.length; j++) {
+				var h = h + `
 ` + a[j];
-		} 
+			} 
+		}
+		else{
+			var h = text;
+		}
 		const content = h;
 		// 创建隐藏的可下载链接
 		var eleLink = document.createElement('a');
@@ -223,14 +259,27 @@ class File_Helper {
 		}
 		localStorage.removeItem(h+name);
 	}
-	
+	//字符串分割
 	segmentation(args){
 		var text = args.text;
 		var s = args.s;
 		var array = text.split(s);
 		return array;
 	}
-	
+	//加密
+	encrypt(args){
+		var str = args.text;
+		var jiaMi = encodeURIComponent(str);
+		var jiaM = btoa(jiaMi);
+		return jiaM;
+	}
+	//解密
+	decrypt(args){
+		var jiaM = args.text;
+		var jieMi = atob(jiaM);
+		var jieM = decodeURIComponent(jieMi);
+		return jieM;
+	}
 }
 
 window.tempExt = {
