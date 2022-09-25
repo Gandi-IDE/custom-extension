@@ -4,160 +4,158 @@ let _picture = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAF0CAYAAAD/4E
 
 let _icon = "data:image/png;base64,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";
 
-class File_Helper {
-  constructor(runtime) {
-    this._formatMessage = runtime.getFormatMessage({
-      "zh-cn": {
-        "File_Helper.name": "文件助手",
-        "File_Helper.download": "将内容[text]按[s]分割后命名为[name]并下载",
-		"File_Helper.upload": "获取键[name]的值",
-		"File_Helper.save": "将内容[text]命名为[name]并保存",
-		"File_Helper.delete": "删除键[name]",
-		"File_Helper.segmentation": "将[text]按[s]分割",
-		"File_Helper.encrypt": "base64加密[text]",
-		"File_Helper.decrypt": "base64解密[text]",
-      },
-      en: {
-        "File_Helper.name": "File Helper",
-        "File_Helper.download": "Download split content [text] by [S] named [name]",
-		"File_Helper.upload": "Get value [name]",
-		"File_Helper.save": "Save content [text] with [name]",
-		"File_Helper.delete": "delete value [name]",
-		"File_Helper.segmentation": "Split [text] by [s]",
-		"File_Helper.encrypt": "base64 encrypt[text]",
-		"File_Helper.decrypt": "base64 decrypt[text]",
-      }
-    })
-  }
+class Wit_Cat_File_Helper {
+	constructor(runtime) {
+		this._formatMessage = runtime.getFormatMessage({
+			"zh-cn": {
+				"File_Helper.name": "文件助手",
+				"File_Helper.download": "将内容[text]按[s]分割后命名为[name]并下载",
+				"File_Helper.upload": "获取键[name]的值",
+				"File_Helper.save": "将内容[text]命名为[name]并保存",
+				"File_Helper.delete": "删除键[name]",
+				"File_Helper.segmentation": "将[text]按[s]分割",
+				"File_Helper.encrypt": "base64加密[text]",
+				"File_Helper.decrypt": "base64解密[text]",
+			},
+			en: {
+				"File_Helper.name": "File Helper",
+				"File_Helper.download": "Download split content [text] by [S] named [name]",
+				"File_Helper.upload": "Get value [name]",
+				"File_Helper.save": "Save content [text] with [name]",
+				"File_Helper.delete": "delete value [name]",
+				"File_Helper.segmentation": "Split [text] by [s]",
+				"File_Helper.encrypt": "base64 encrypt[text]",
+				"File_Helper.decrypt": "base64 decrypt[text]",
+			}
+		})
+	}
 
-  formatMessage(id) {
-    return this._formatMessage({
-      id,
-      default: id,
-      description: id
-    });
-  }
+	formatMessage(id) {
+		return this._formatMessage({
+			id,
+			default: id,
+			description: id
+		});
+	}
 
-  getInfo() {
-    return {
-      id: "Wit_Cat_File_Helper", // 拓展id
-      name: this.formatMessage("File_Helper.name"), // 拓展名
-      // docsURI: "https://www.baidu.com",
-      blockIconURI: _icon,
-      menuIconURI: _icon,
-      color1: "#60D6F4",
-      color2: "#55a7f7",
-      blocks: [
-	  {
-        opcode: "download",
-        blockType: "command",
-        text: this.formatMessage("File_Helper.download"),
-        arguments: {
-            text: {
-              type: "string",
-              defaultValue: 'awa!!!',
-            },
-            name: {
-              type: "string",
-              defaultValue: 'wit_cat.txt',
-            },
-            s: {
-              type: "string",
-              defaultValue: '',
-            },
-        },
-      },
-	  {
-        opcode: "upload",
-        blockType: "reporter",
-        text: this.formatMessage("File_Helper.upload"),
-        arguments: {
-            name: {
-              type: "string",
-              defaultValue: 'i',
-            },
-        },
-      },
-	  {
-        opcode: "save",
-        blockType: "command",
-        text: this.formatMessage("File_Helper.save"),
-        arguments: {
-            text: {
-              type: "string",
-              defaultValue: '0',
-            },
-            name: {
-              type: "string",
-              defaultValue: 'i',
-            },
-        },
-      },
-	  {
-        opcode: "segmentation",
-        blockType: "reporter",
-        text: this.formatMessage("File_Helper.segmentation"),
-        arguments: {
-            text: {
-              type: "string",
-              defaultValue: 'wow/!!!',
-            },
-            s: {
-              type: "string",
-              defaultValue: '/',
-            },
-        },
-      },
-	  {
-        opcode: "delete",
-        blockType: "command",
-        text: this.formatMessage("File_Helper.delete"),
-        arguments: {
-            name: {
-              type: "string",
-              defaultValue: 'i',
-            },
-        },
-      },
-	  {
-        opcode: "encrypt",
-        blockType: "reporter",
-        text: this.formatMessage("File_Helper.encrypt"),
-        arguments: {
-            text: {
-              type: "string",
-              defaultValue: 'i love中国',
-            },
-        },
-      },
-	  {
-        opcode: "decrypt",
-        blockType: "reporter",
-        text: this.formatMessage("File_Helper.decrypt"),
-        arguments: {
-            text: {
-              type: "string",
-              defaultValue: 'aSUyMGxvdmUlRTQlQjglQUQlRTUlOUIlQkQ=',
-            },
-        },
-      },
-      ]
-    };
-  }
+	getInfo() {
+		return {
+			id: "Wit_Cat_File_Helper", // 拓展id
+			name: this.formatMessage("File_Helper.name"), // 拓展名
+			// docsURI: "https://www.baidu.com",
+			blockIconURI: _icon,
+			menuIconURI: _icon,
+			color1: "#60D6F4",
+			color2: "#55a7f7",
+			blocks: [{
+					opcode: "download",
+					blockType: "command",
+					text: this.formatMessage("File_Helper.download"),
+					arguments: {
+						text: {
+							type: "string",
+							defaultValue: 'awa!!!',
+						},
+						name: {
+							type: "string",
+							defaultValue: 'wit_cat.txt',
+						},
+						s: {
+							type: "string",
+							defaultValue: '',
+						},
+					},
+				},
+				{
+					opcode: "upload",
+					blockType: "reporter",
+					text: this.formatMessage("File_Helper.upload"),
+					arguments: {
+						name: {
+							type: "string",
+							defaultValue: 'i',
+						},
+					},
+				},
+				{
+					opcode: "save",
+					blockType: "command",
+					text: this.formatMessage("File_Helper.save"),
+					arguments: {
+						text: {
+							type: "string",
+							defaultValue: '0',
+						},
+						name: {
+							type: "string",
+							defaultValue: 'i',
+						},
+					},
+				},
+				{
+					opcode: "segmentation",
+					blockType: "reporter",
+					text: this.formatMessage("File_Helper.segmentation"),
+					arguments: {
+						text: {
+							type: "string",
+							defaultValue: 'wow/!!!',
+						},
+						s: {
+							type: "string",
+							defaultValue: '/',
+						},
+					},
+				},
+				{
+					opcode: "delete",
+					blockType: "command",
+					text: this.formatMessage("File_Helper.delete"),
+					arguments: {
+						name: {
+							type: "string",
+							defaultValue: 'i',
+						},
+					},
+				},
+				{
+					opcode: "encrypt",
+					blockType: "reporter",
+					text: this.formatMessage("File_Helper.encrypt"),
+					arguments: {
+						text: {
+							type: "string",
+							defaultValue: 'i love中国',
+						},
+					},
+				},
+				{
+					opcode: "decrypt",
+					blockType: "reporter",
+					text: this.formatMessage("File_Helper.decrypt"),
+					arguments: {
+						text: {
+							type: "string",
+							defaultValue: 'aSUyMGxvdmUlRTQlQjglQUQlRTUlOUIlQkQ=',
+						},
+					},
+				},
+			]
+		};
+	}
 	//下载文件
-	download(args){
+	download(args) {
 		var text = args.text;
 		const filename = args.name;
 		var s = args.s;
-		if(s != ""){
+		if (s != "") {
 			var a = text.split(s);
 			var h = a[0];
-			for(j = 1; j < a.length; j++) {
+			for (j = 1; j < a.length; j++) {
 				var h = h + `
-` + a[j];
-			} 
-		}
-		else{
+` + a[j];		//不能对齐格式，因为用了``来台行
+			}
+		} else {
 			var h = text;
 		}
 		const content = h;
@@ -175,106 +173,100 @@ class File_Helper {
 		document.body.removeChild(eleLink);
 	}
 	//读取本地变量
-	upload(args){
+	upload(args) {
 		const name = args.name;
 		var h = window.location.href;
 		console.log(h);
 		var array = h.split("/");
 		var indexOf4 = array.findIndex((item) => item == 'detail');
-		if(indexOf4 == -1){
+		if (indexOf4 == -1) {
 			var indexOf4 = array.findIndex((item) => item == 'project');
-			if(indexOf4 == -1){
+			if (indexOf4 == -1) {
 				var array = h.split("?");
 				var h = array[1];
 				var array = h.split("=");
 				var h = array[1];
-			}
-		   else{
+			} else {
 				var h = array[indexOf4 + 1];
 				var array = h.split("?");
 				var h = array[0];
-		   }
-		}
-		else{
+			}
+		} else {
 			var h = array[indexOf4 + 1];
 			var array = h.split("?");
 			var h = array[0];
 		}
-		return localStorage.getItem(h+name);
+		return localStorage.getItem(h + name);
 	}
 	//保存本地变量
-	save(args){
+	save(args) {
 		const text = args.text;
 		const name = args.name;
 		var h = window.location.href;
 		console.log(h);
 		var array = h.split("/");
 		var indexOf4 = array.findIndex((item) => item == 'detail');
-		if(indexOf4 == -1){
+		if (indexOf4 == -1) {
 			var indexOf4 = array.findIndex((item) => item == 'project');
-			if(indexOf4 == -1){
+			if (indexOf4 == -1) {
 				var array = h.split("?");
 				var h = array[1];
 				var array = h.split("=");
 				var h = array[1];
-			}
-		   else{
+			} else {
 				var h = array[indexOf4 + 1];
 				var array = h.split("?");
 				var h = array[0];
-		   }
-		}
-		else{
+			}
+		} else {
 			var h = array[indexOf4 + 1];
 			var array = h.split("?");
 			var h = array[0];
 		}
-		localStorage.setItem(h+name, text);
+		localStorage.setItem(h + name, text);
 	}
 	//删除本地变量
-	delete(args){
+	delete(args) {
 		const name = args.name;
 		var h = window.location.href;
 		console.log(h);
 		var array = h.split("/");
 		var indexOf4 = array.findIndex((item) => item == 'detail');
-		if(indexOf4 == -1){
+		if (indexOf4 == -1) {
 			var indexOf4 = array.findIndex((item) => item == 'project');
-			if(indexOf4 == -1){
+			if (indexOf4 == -1) {
 				var array = h.split("?");
 				var h = array[1];
 				var array = h.split("=");
 				var h = array[1];
-			}
-		   else{
+			} else {
 				var h = array[indexOf4 + 1];
 				var array = h.split("?");
 				var h = array[0];
-		   }
-		}
-		else{
+			}
+		} else {
 			var h = array[indexOf4 + 1];
 			var array = h.split("?");
 			var h = array[0];
 		}
-		localStorage.removeItem(h+name);
+		localStorage.removeItem(h + name);
 	}
 	//字符串分割
-	segmentation(args){
+	segmentation(args) {
 		var text = args.text;
 		var s = args.s;
 		var array = text.split(s);
 		return array;
 	}
 	//加密
-	encrypt(args){
+	encrypt(args) {
 		var str = args.text;
 		var jiaMi = encodeURIComponent(str);
 		var jiaM = btoa(jiaMi);
 		return jiaM;
 	}
 	//解密
-	decrypt(args){
+	decrypt(args) {
 		var jiaM = args.text;
 		var jieMi = atob(jiaM);
 		var jieM = decodeURIComponent(jieMi);
@@ -283,27 +275,27 @@ class File_Helper {
 }
 
 window.tempExt = {
-  Extension: File_Helper,
-  info: {
-    name: "File_Helper.name",
-    description: "File_Helper.descp",
-    extensionId: "File_Helper",
-    iconURL: _picture,
-    insetIconURL: _icon,
-    featured: true,
-    disabled: false,
-    collaborator: "白猫 @ CCW"
-  },
-  l10n: {
-    "zh-cn": {
-      "File_Helper.name": "文件助手",
-      "File_Helper.descp": "处理本地数据"
-    },
-    en: {
-      "File_Helper.name": "File Helper",
-      "File_Helper.descp": "Handling local data"
-    }
-  }
+	Extension: File_Helper,
+	info: {
+		name: "File_Helper.name",
+		description: "File_Helper.descp",
+		extensionId: "File_Helper",
+		iconURL: _picture,
+		insetIconURL: _icon,
+		featured: true,
+		disabled: false,
+		collaborator: "白猫 @ CCW"
+	},
+	l10n: {
+		"zh-cn": {
+			"File_Helper.name": "文件助手",
+			"File_Helper.descp": "处理本地数据"
+		},
+		en: {
+			"File_Helper.name": "File Helper",
+			"File_Helper.descp": "Handling local data"
+		}
+	}
 };
 
 /* vim: set expandtab tabstop=2 shiftwidth=2: */
