@@ -11,9 +11,10 @@ class WitCatFileHelper {
 		this._formatMessage = runtime.getFormatMessage({
 			"zh-cn": {
 				"WitCatFileHelper.name": "文件助手",
-				"WitCatFileHelper.download": "将内容[text]按[s]分割后命名为[name]并下载",
+				"WitCatFileHelper.downloads": "将内容[text]按[s]分割后命名为[name]并下载多行文本",
+				"WitCatFileHelper.download": "将内容[text]命名为[name]并下载",
+				"WitCatFileHelper.save": "设置键[name]为[text]并储存到本地",
 				"WitCatFileHelper.upload": "获取键[name]的值",
-				"WitCatFileHelper.save": "将内容[text]命名为[name]并保存",
 				"WitCatFileHelper.delete": "删除键[name]",
 				"WitCatFileHelper.segmentation": "将[text]按[s]分割",
 				"WitCatFileHelper.encrypt": "base64加密[text]",
@@ -21,9 +22,10 @@ class WitCatFileHelper {
 			},
 			en: {
 				"WitCatFileHelper.name": "File Helper",
-				"WitCatFileHelper.download": "Download split content [text] by [S] named [name]",
+				"WitCatFileHelper.downloads": "Download split content [text] by [S] named [name]",
+				"WitCatFileHelper.download": "Download content [text] named [name]",
+				"WitCatFileHelper.save": "Save content [text] with [name] on computer",
 				"WitCatFileHelper.upload": "Get value [name]",
-				"WitCatFileHelper.save": "Save content [text] with [name]",
 				"WitCatFileHelper.delete": "delete value [name]",
 				"WitCatFileHelper.segmentation": "Split [text] by [s]",
 				"WitCatFileHelper.encrypt": "base64 encrypt[text]",
@@ -50,6 +52,25 @@ class WitCatFileHelper {
 			color1: "#60D6F4",
 			color2: "#55a7f7",
 			blocks: [{
+					opcode: "downloads",
+					blockType: "command",
+					text: this.formatMessage("WitCatFileHelper.downloads"),
+					arguments: {
+						text: {
+							type: "string",
+							defaultValue: 'awa!!!|awa!!!',
+						},
+						name: {
+							type: "string",
+							defaultValue: 'wit_cat.txt',
+						},
+						s: {
+							type: "string",
+							defaultValue: '|',
+						},
+					},
+				},
+				{
 					opcode: "download",
 					blockType: "command",
 					text: this.formatMessage("WitCatFileHelper.download"),
@@ -61,10 +82,6 @@ class WitCatFileHelper {
 						name: {
 							type: "string",
 							defaultValue: 'wit_cat.txt',
-						},
-						s: {
-							type: "string",
-							defaultValue: '',
 						},
 					},
 				},
@@ -145,11 +162,12 @@ class WitCatFileHelper {
 			]
 		};
 	}
-	//下载文件
-	download(args) {
+	//下载多行文件
+	downloads(args) {
 		var text = args.text;
 		const filename = args.name;
 		var s = args.s;
+		var j = 0;
 		if (s != "") {
 			var a = text.split(s);
 			var h = a[0];
@@ -160,6 +178,23 @@ class WitCatFileHelper {
 			var h = text;
 		}
 		const content = h;
+		// 创建隐藏的可下载链接
+		var eleLink = document.createElement('a');
+		eleLink.download = filename;
+		eleLink.style.display = 'none';
+		// 字符内容转变成blob地址
+		var blob = new Blob([content]);
+		eleLink.href = URL.createObjectURL(blob);
+		// 触发点击
+		document.body.appendChild(eleLink);
+		eleLink.click();
+		// 然后移除
+		document.body.removeChild(eleLink);
+	}
+	//下载文件
+	download(args) {
+		const filename = args.name;
+		const content = args.text;
 		// 创建隐藏的可下载链接
 		var eleLink = document.createElement('a');
 		eleLink.download = filename;
@@ -257,7 +292,12 @@ class WitCatFileHelper {
 		var text = args.text;
 		var s = args.s;
 		var array = text.split(s);
-		return array;
+		const a = `","`;
+		const b = `["`;
+		const c = `"]`;
+		var str = array.join(a);
+		var r = b + str + c;
+		return r;
 	}
 	//加密
 	encrypt(args) {
