@@ -40,7 +40,7 @@ class Wit_Cat_File_Helper {
 
 	getInfo() {
 		return {
-			id: "Wit_Cat_Wit_Cat_File_Helper", // 拓展id
+			id: "Wit_Cat_File_Helper", // 拓展id
 			name: this.formatMessage("Wit_Cat_File_Helper.name"), // 拓展名
 			// docsURI: "https://www.baidu.com",
 			blockIconURI: _icon,
