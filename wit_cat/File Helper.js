@@ -274,7 +274,7 @@ class Wit_Cat_File_Helper {
 }
 
 window.tempExt = {
-	Extension: File_Helper,
+	Extension: Wit_Cat_File_Helper,
 	info: {
 		name: "File_Helper.name",
 		description: "File_Helper.descp",
