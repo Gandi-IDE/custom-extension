@@ -152,8 +152,7 @@ class Wit_Cat_File_Helper {
 			var a = text.split(s);
 			var h = a[0];
 			for (j = 1; j < a.length; j++) {
-				var h = h + `
-` + a[j];		//不能对齐格式，因为用了``来台行
+				var h = h + "\n" + a[j];
 			}
 		} else {
 			var h = text;
