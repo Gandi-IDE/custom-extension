@@ -111,7 +111,7 @@ class AuEx_communication {
     }
     getInfo() {
         return {
-            id: 'DAdevNet', // 拓展id
+            id: 'AUdevNet', // 拓展id
             name: this.formatMessage('AusCOM.extensionName'), // 拓展名
             color1: '#FF8383',
             blockIconURI: this.icon,
