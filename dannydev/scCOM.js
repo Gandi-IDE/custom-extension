@@ -517,7 +517,7 @@ class AuEx_communication {
                 {
                     opcode: 'help',
                     blockType: BlockType.REPORTER,
-                    text: this.formatMessage('AusCOM.help') + 'ver 1.00C1',
+                    text: this.formatMessage('AusCOM.help') + 'ver 1.00C2',
                 },
 
             ],
