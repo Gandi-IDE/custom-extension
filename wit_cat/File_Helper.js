@@ -20,7 +20,7 @@ class WitCatFileHelper {
 				"WitCatFileHelper.segmentation": "将[text]按[s]分割",
 				"WitCatFileHelper.encrypt": "base64加密[text]",
 				"WitCatFileHelper.decrypt": "base64解密[text]",
-				"WitCatFileHelper.openfile": "打卡文件"
+				"WitCatFileHelper.openfile": "打开文件"
 			},
 			en: {
 				"WitCatFileHelper.name": "File Helper",
@@ -173,18 +173,19 @@ class WitCatFileHelper {
 	}
 	//下载多行文件
 	downloads(args) {
+		let h = args.text;
 		let text = args.text;
 		const filename = args.name;
 		let s = args.s;
 		let j = 0;
 		if (s != "") {
 			let a = text.split(s);
-			let h = a[0];
+			h = a[0];
 			for (j = 1; j < a.length; j++) {
-				let h = h + "\n" + a[j];
+				h = h + "\n" + a[j];
 			}
 		} else {
-			let h = text;
+			h = text;
 		}
 		const content = h;
 		// 创建隐藏的可下载链接
