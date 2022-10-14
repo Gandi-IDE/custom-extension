@@ -7,7 +7,7 @@
   "author": "nick <huchangning@xigua.city>",
   "license": "MIT",
   "scripts": {
-    "start": "webpack serve --mode development",
+    "dev": "webpack serve --mode development",
     "build": "yarn clean && webpack --config webpack.config.js",
     "watch": "yarn clean && webpack --watch --progress",
     "lint": "tslint -p tsconfig.json",
