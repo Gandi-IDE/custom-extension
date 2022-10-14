@@ -1,0 +1,14 @@
+{
+  "include": ["./src", "image.d.ts",],
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "declaration": true,
+    "declarationDir": "types",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "target": "ES2017",
+  },
+  "exclude": ["node_modules"]
+}
