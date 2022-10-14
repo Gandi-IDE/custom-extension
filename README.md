@@ -19,6 +19,7 @@ This branch is a project template for CCW/Cocrea user who wants make and test th
 6. answer questions, input extension info
 7. now you will see your new extension file in 'src/extension/{{developer}}/{{extensionId}}'
 8. modify 'src/extension/{{developer}}/{{extensionId}}/index.ts' to coding
+
     tips: don't modify any files if your don't make sure what those files is exactly.
 
 ## How to test
