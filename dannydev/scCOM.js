@@ -1353,4 +1353,4 @@ class AuEx_Communication {
         catch (error) { }
     }
 }
-module.exports = AuEx_Communication;
+scratch.extensions.register(new AuEx_Communication())
