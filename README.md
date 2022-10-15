@@ -1,9 +1,9 @@
 # ccw-extensions-template
 
-## What for
-This branch is a project template for CCW/Cocrea user who wants make and test their own extensions.
+## What is for
+This branch is a template for developing extensions for Gandi IDE, an in-browser game engine, a mod of [Scratch](https://scratch.mit.edu/).
 
-## Develop requirement 
+## Requirements 
 1. a modern PC or Mac  
 2. any web development IDE you like.(highly recommended VSCode)
 3. install 'git'
@@ -11,21 +11,20 @@ This branch is a project template for CCW/Cocrea user who wants make and test th
 5. install 'yarn' latest version
 
 ## How to create a new extension
-1. new a folder
-2. git clone this branch.(highly recommended fork first)
-3. use commandLine/terminal to project folder.
-4. run command 'yarn'   
-5. run command 'yarn extension-kit create'
-6. answer questions, input extension info
-7. now you will see your new extension file in 'src/extension/{{developer}}/{{extensionId}}'
-8. modify 'src/extension/{{developer}}/{{extensionId}}/index.ts' to coding
+1. create a new folder
+2. fork and git clone this branch
+3. run command 'yarn' 
+4. run command 'yarn extension-kit create'
+5. follow the instructions to create extension files
+6. now you will see your new extension files in 'src/extension/{{developer}}/{{extensionId}}' folder
+7. open 'src/extension/{{developer}}/{{extensionId}}/index.ts' file to start coding
 
-    tips: don't modify any files if your don't make sure what those files is exactly.
+    Tips: don not modify any files if you don't know what those files are.
 
 ## How to test
-1. run 'yarn dev' to start local dev server.keep its running if show no error.
-2. [TODO] open gandi, and add a remote extension with url 'http://localhost:9999/static/js/main.js' 
-3. [TODO] you will see your extension in menu
+1. run 'yarn dev' to start the local dev server. Keep it running if no errors are shown.
+2. [TODO] open Gandi, and add a remote extension with the URL 'http://localhost:9999/static/js/main.js' 
+3. [TODO] the extension will be shown in the menu
 
 ## APIs
 [TODO]
@@ -37,7 +36,8 @@ This branch is a project template for CCW/Cocrea user who wants make and test th
 ## Localization
 [TODO]
 ## Asset
-you can change cover and icon in 'assets' folder but must follow file standard below
+You can change the cover and icon in the 'assets' folder.
+The image type and resolution should be correct, as shown below:
 
 Extension cover
 type: jpg
