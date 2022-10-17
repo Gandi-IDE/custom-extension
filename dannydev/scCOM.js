@@ -1,7 +1,5 @@
-const Cast = require('../../util/cast');
-const ArgumentType = require('../../extension-support/argument-type');
-const BlockType = require('../../extension-support/block-type');
-const { string } = require('prop-types');
+import ArgumentType from '../../extension-support/argument-type'
+import BlockType from'../../extension-support/block-type'
 // var dgram = require("dgram");
 //感谢Arkos开源的扩展代码，作为参照编写框架
 //欸，别把作者忘了。Danny欸
