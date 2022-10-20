@@ -7,21 +7,23 @@ module.exports = {
       import: './src/index.ts',
       library: {
         name: 'ExtensionLib',
-        type: 'var',
+        type: 'umd',
       },
+      
     },
   },
   output: {
-    // library: 'ExtensionLib',
     filename: ({contentHashType, chunk}) => {
       return `static/js/${contentHashType === 'javascript' && chunk.name === 'main' ? '[name].js' : '[name].[contenthash:8].js'}`
     },
     chunkFilename: 'static/js/[name].[contenthash:8].js',
+    // publicPath: 'http://127.0.0.1:9999/',
     publicPath: '/',
     path: path.resolve('./dist'),
+    globalObject: 'this',
   },
   devServer: {
-    host: '0.0.0.0',
+    host: '127.0.0.1',
     port: 9999,
     static: 'static',
   },
@@ -46,7 +48,7 @@ module.exports = {
         loader: 'url-loader',
         options: {
           name: 'static/assets/[name].[hash:8].[ext]',
-          limit: 10000,
+          limit: 25000,
         },
       },
     ],
