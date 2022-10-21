@@ -189,10 +189,10 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
-"@cocrea/extension-kit@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.npmjs.org/@cocrea/extension-kit/-/extension-kit-0.1.2.tgz#9a9d61b1ccde1106476657f7611879c9a23b5574"
-  integrity sha512-JYcKw7e0+sh7DAdTr2mNadQz+fnTTAvHFJ4BIxsHUHnEdMWQCuM8j5j0kkOtvigjwPKTa53wp+YNKizj0W6OTg==
+"@cocrea/extension-kit@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.npmjs.org/@cocrea/extension-kit/-/extension-kit-0.1.4.tgz#c0d145ae30aa8180e68b4cb038f2f565b93e92b4"
+  integrity sha512-9p8XmK3dHqsE7KhYyJwJfTI3BVOhdqZDlqdshxgCrZ3Aaurnt7yH6KAqNAloHyIaiCZep4/TymZMg4kCLSODtg==
   dependencies:
     plop "^3.1.1"
 
