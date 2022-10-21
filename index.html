@@ -1,20 +1,30 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Getting Started</title>
-  </head>
-  <body>
-    <script type="text/javascript">
-      console.log('js init')
-      function cb (){
-        console.log(ExtensionLib);
-      }
-      </script>
-    <script src="http://localhost:9999/static/js/main.js" onload="cb()">
-      
-    </script>
-    
-  </body>
-</html>
 
+<head>
+  <meta charset="utf-8" />
+  <title>Getting Started</title>
+</head>
+
+<body>
+  <script type="text/javascript">
+    console.log('js init')
+    function cb () {
+      console.log(ExtensionLib);
+    }
+
+    fetch('https://raw.githubusercontent.com/CCW-Site/ccw-user-extension/main/wit_cat/File_Helper.js').then(res => {res.text()}).then(text => {
+      eval(text);
+      console.log(ExtensionLib);
+    });
+  </script>
+  <!-- https://raw.githubusercontent.com/CCW-Site/ccw-user-extension/hcn/feat/template/dist/static/js/main.js -->
+  <script src="https://raw.githubusercontent.com/CCW-Site/ccw-user-extension/main/wit_cat/File_Helper.js"
+          type="text/javascript"
+          onload="cb()">
+
+          </script>
+
+</body>
+
+</html>

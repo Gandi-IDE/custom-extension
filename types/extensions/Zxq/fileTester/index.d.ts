@@ -1,38 +1,16 @@
 import { GandiExtension } from '@cocrea/extension-kit';
-export default class Test2 extends GandiExtension {
+export default class FileTester extends GandiExtension {
     get extensionId(): string;
     get localization(): {
         'zh-cn': {
             name: string;
             desc: string;
             docURL: string;
-            test: string;
-            commandArugA: string;
-            menuOpt1: string;
-            menuOpt12: string;
-            commandArguB: string;
-            targetReporter: string;
-            globalReporter: string;
-            conditionalBlocks: string;
-            loopBlocks: string;
-            eventBlocks: string;
-            hatBlocks: string;
         };
         en: {
             name: string;
             desc: string;
             docURL: string;
-            test: string;
-            commandArugA: string;
-            menuOpt1: string;
-            menuOpt12: string;
-            commandArguB: string;
-            targetReporter: string;
-            globalReporter: string;
-            conditionalBlocks: string;
-            loopBlocks: string;
-            eventBlocks: string;
-            hatBlocks: string;
         };
     };
     get documentURL(): string;
