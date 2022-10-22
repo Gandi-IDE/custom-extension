@@ -1,5 +1,5 @@
-import ArgumentType from '../../extension-support/argument-type'
-import BlockType from'../../extension-support/block-type'
+//import ArgumentType from '../../extension-support/argument-type'
+//import BlockType from'../../extension-support/block-type'
 // var dgram = require("dgram");
 //感谢Arkos开源的扩展代码，作为参照编写框架
 //欸，别把作者忘了。Danny欸
@@ -150,7 +150,7 @@ class AuEx_Communication {
                 },
                 {
                     opcode: 'http_pm_cm',
-                    blockType: BlockType.COMMAND,
+                    blockType: 'command',
                     text: this.formatMessage('DannyDevCOM.http_pm'),
                     arguments: {
                         id: {
@@ -169,7 +169,7 @@ class AuEx_Communication {
                 },
                 {
                     opcode: 'http_pm_des',
-                    blockType: BlockType.COMMAND,
+                    blockType: 'command',
                     text: this.formatMessage('DannyDevCOM.http_pm_des'),
                     arguments: {
                         id: {
@@ -207,69 +207,69 @@ class AuEx_Communication {
                 },
                 {
                     opcode: 'ws_recv',
-                    blockType: BlockType.REPORTER,
+                    blockType: 'reporter',
                     text: this.formatMessage('DannyDevCOM.wsocket_recv'),
                     arguments: {
                         id: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: '0'
                         }
                     },
                 },
                 {
                     opcode: 'ws_close',
-                    blockType: BlockType.BOOLEAN,
+                    blockType: 'Boolean',
                     text: this.formatMessage('DannyDevCOM.wsocket_conclose'),
                     arguments: {
                         id: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: '0'
                         }
                     },
                 },
                 {
                     opcode: 'ws_destroy',
-                    blockType: BlockType.COMMAND,
+                    blockType: 'command',
                     text: this.formatMessage('DannyDevCOM.wsocket_close'),
                     arguments: {
                         id: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: '0'
                         }
                     },
                 },
                 {
                     opcode: 'ws_send',
-                    blockType: BlockType.BOOLEAN,
+                    blockType: 'Boolean',
                     text: this.formatMessage('DannyDevCOM.wsocket_send'),
                     arguments: {
                         id: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: '0'
                         },
                         text: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: ' '
                         }
                     },
                 },
                 //         {
                 //           opcode: 'sock_cre',
-                //         blockType: BlockType.REPORTER,
+                //         blockType: 'reporter',
                 //       text: this.formatMessage('DannyDevCOM.socket_create'),
                 //     arguments: {
                 //
                 //                      yi: {
-                //                        type: ArgumentType.STRING,
+                //                        type: 'string',
                 //                      menu: 'sock_yi'
                 //                },
                 //
                 //                      method: {
-                //                        type: ArgumentType.STRING,
+                //                        type: 'string',
                 //                      menu: 'sock_method'
                 //                },
                 //              buff: {
-                //                type: ArgumentType.STRING,
+                //                type: 'string',
                 //              defaultValue: ' '
                 //        }
                 //  },
@@ -277,26 +277,26 @@ class AuEx_Communication {
                 "---" + this.formatMessage("DannyDevCOM.tit2"),
                 {
                     opcode: 'RC4_coding',
-                    blockType: BlockType.REPORTER,
+                    blockType: 'reporter',
                     text: this.formatMessage('DannyDevCOM.code_RC4'),
                     arguments: {
                         KEY: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: 'Danny'
                         },
                         TEXT: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: '我来了'
                         }
                     },
                 },
                 {
                     opcode: 'b64encoding',
-                    blockType: BlockType.REPORTER,
+                    blockType: 'reporter',
                     text: this.formatMessage('DannyDevCOM.code_base64_en'),
                     arguments: {
                         TEXT: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: 'Danny'
                         },
                     },
@@ -304,11 +304,11 @@ class AuEx_Communication {
                 },
                 {
                     opcode: 'b64decoding',
-                    blockType: BlockType.REPORTER,
+                    blockType: 'reporter',
                     text: this.formatMessage('DannyDevCOM.code_base64_de'),
                     arguments: {
                         TEXT: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: 'RGFubnk='
                         },
                     },
@@ -316,11 +316,11 @@ class AuEx_Communication {
                 },
                 {
                     opcode: 'b58encoding',
-                    blockType: BlockType.REPORTER,
+                    blockType: 'reporter',
                     text: this.formatMessage('DannyDevCOM.code_base58_en'),
                     arguments: {
                         TEXT: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: 'Danny'
                         },
                     },
@@ -328,11 +328,11 @@ class AuEx_Communication {
                 },
                 {
                     opcode: 'b58decoding',
-                    blockType: BlockType.REPORTER,
+                    blockType: 'reporter',
                     text: this.formatMessage('DannyDevCOM.code_base58_de'),
                     arguments: {
                         TEXT: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: '8iTbLRE'
                         },
                     },
@@ -340,15 +340,15 @@ class AuEx_Communication {
                 },
                 {
                     opcode: 'bcostomencoding',
-                    blockType: BlockType.REPORTER,
+                    blockType: 'reporter',
                     text: this.formatMessage('DannyDevCOM.code_base_custom_en'),
                     arguments: {
                         ALPHABET: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: '!@#$%^&*()'
                         },
                         TEXT: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: 'Danny'
                         },
                     },
@@ -356,15 +356,15 @@ class AuEx_Communication {
                 },
                 {
                     opcode: 'bcostomdecoding',
-                    blockType: BlockType.REPORTER,
+                    blockType: 'reporter',
                     text: this.formatMessage('DannyDevCOM.code_base_custom_de'),
                     arguments: {
                         ALPHABET: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: '!@#$%^&*()'
                         },
                         TEXT: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: '#)$&)#%!$$#@'
                         },
                     },
@@ -374,96 +374,96 @@ class AuEx_Communication {
                 "---" + this.formatMessage("DannyDevCOM.tit3"),
                 {
                     opcode: 'json_create',
-                    blockType: BlockType.REPORTER,
+                    blockType: 'reporter',
                     text: this.formatMessage('DannyDevCOM.json_create'),
                     arguments: {
                         json_: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: '{}'
                         },
                     },
                 },
                 {
                     opcode: 'json_load',
-                    blockType: BlockType.BOOLEAN,
+                    blockType: 'Boolean',
                     text: this.formatMessage('DannyDevCOM.json_load'),
                     arguments: {
                         id: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: ' '
                         },
                         json_: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: '{}'
                         },
                     },
                 },
                 {
                     opcode: 'json_get_all_item',
-                    blockType: BlockType.REPORTER,
+                    blockType: 'reporter',
                     text: this.formatMessage('DannyDevCOM.json_get_all_item'),
                     arguments: {
                         id: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: ' '
                         },
                     },
                 },
                 {
                     opcode: 'json_add_from_id',
-                    blockType: BlockType.BOOLEAN,
+                    blockType: 'Boolean',
                     text: this.formatMessage('DannyDevCOM.json_add_from_id'),
                     arguments: {
                         _id: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: ' '
                         },
                         id: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: ' '
                         },
                         name: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: ' '
                         },
                     },
                 },
                 {
                     opcode: 'json_add',
-                    blockType: BlockType.BOOLEAN,
+                    blockType: 'Boolean',
                     text: this.formatMessage('DannyDevCOM.json_add'),
                     arguments: {
 
                         id: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: ' '
                         },
                         type: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             menu: 'JSON_add'
                         },
                         name: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: ' '
                         },
                         TEXT: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: ' '
                         },
                     },
                 },
                 {
                     opcode: 'json_get_item',
-                    blockType: BlockType.REPORTER,
+                    blockType: 'reporter',
                     text: this.formatMessage('DannyDevCOM.json_get_item'),
                     arguments: {
 
                         id: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: ' '
                         },
                         name: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: ' '
                         },
 
@@ -471,16 +471,16 @@ class AuEx_Communication {
                 },
                 {
                     opcode: 'json_del_item',
-                    blockType: BlockType.BOOLEAN,
+                    blockType: 'Boolean',
                     text: this.formatMessage('DannyDevCOM.json_del_item'),
                     arguments: {
 
                         id: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: ' '
                         },
                         name: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: ' '
                         },
 
@@ -488,24 +488,24 @@ class AuEx_Communication {
                 },
                 {
                     opcode: 'GETjson',
-                    blockType: BlockType.REPORTER,
+                    blockType: 'reporter',
                     text: this.formatMessage('DannyDevCOM.json_get'),
                     arguments: {
 
                         id: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: ' '
                         },
                     }
                 },
                 {
                     opcode: 'DESTROYjson',
-                    blockType: BlockType.BOOLEAN,
+                    blockType: 'Boolean',
                     text: this.formatMessage('DannyDevCOM.json_destroy'),
                     arguments: {
 
                         id: {
-                            type: ArgumentType.STRING,
+                            type: 'string',
                             defaultValue: ' '
                         },
                     },
@@ -513,7 +513,7 @@ class AuEx_Communication {
 
                 {
                     opcode: 'help',
-                    blockType: BlockType.REPORTER,
+                    blockType: 'reporter',
                     text: this.formatMessage('DannyDevCOM.help') + 'ver 1.00B1',
                 },
 
