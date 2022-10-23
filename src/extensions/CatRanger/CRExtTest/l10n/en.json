@@ -1,0 +1,16 @@
+{
+  "name": "developing CatRanger.CRExtTest",
+  "desc": "a show case for the extension kit, delete before release",
+  "docURL": "english doc url",
+  "test": "test[A][B][C]",
+  "commandArugA": "commandArugA",
+  "menuOpt1": "menuOpt1",
+  "menuOpt12": "menuOpt12",
+  "commandArguB": "commandArguB",
+  "targetReporter": "targetReporter[A][B][C]",
+  "globalReporter": "globalReporter[A][B][C]",
+  "conditionalBlocks": "conditionalBlocks[A][B][C]",
+  "loopBlocks": "loopBlocks[A][B][C]",
+  "eventBlocks": "eventBlocks[A][B][C]",
+  "hatBlocks": "hatBlocks[A][B][C]"
+}
