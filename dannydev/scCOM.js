@@ -1,6 +1,5 @@
-//import ArgumentType from '../../extension-support/argument-type'
-//import BlockType from'../../extension-support/block-type'
-// var dgram = require("dgram");
+//import ArgumentType from '../../extension-support/argument-type'本地支持
+//import BlockType from'../../extension-support/block-type' 本地支持
 //感谢Arkos开源的扩展代码，作为参照编写框架
 //欸，别把作者忘了。Danny欸
 class AuEx_Communication {
@@ -108,7 +107,7 @@ class AuEx_Communication {
                 'DannyDevCOM.help.t': "If the http access fails to load XX, it may be that the domain name/ip does not exist, or it may be a cross domain problem. You can contact our website to modify the HTTP protocol header or modify the browser's cross domain settings. If ws is unable to send data, please F12 open the developer tool to check whether an error is reported. If an error is reported, the connection cannot be made. At present, the browser does not support detecting such errors. For more help, please go to https://gitee.com/ausx/scCOM",
             },
         })
-        window.DannyDevCOM = { 'wsrecv_': [], 'wsnotalive_': [], 'json_list': [], 'wsock': [], 'http_pm_': [] }
+        window.DannyDevCOM = { 'wsrecv_': [], 'wsnotalive_': [], 'json_list': [], 'wsock': [], 'http_pm_': [],'cl':[0,0]}
     }
     formatMessage(id) {
         return this._formatMessage({
@@ -605,7 +604,7 @@ class AuEx_Communication {
         try {
             var xmlHttp = new XMLHttpRequest();
             xmlHttp.open(method, theUrl, false); // false 为同步请求
-            xmlHttp.send(body);
+            xmlHttp.send(window.btoa(encodeURIComponent(String(body))));  //强制base64
             return xmlHttp.responseText;
         }
         catch (error) {
@@ -615,6 +614,13 @@ class AuEx_Communication {
 
     http(args) {
         function get_p(p) {
+            let d1 = new Date()
+            if (window.DannyDevCOM.cl[0]==0){}
+            else{
+                if (parseInt(d1 - window.DannyDevCOM.cl[0])<500) {
+                    setTimeout('console.log("限流延时机制调用中")', d1 - window.DannyDevCOM.cl[0])
+            }}
+            window.DannyDevCOM.cl[1]= new Date()
             let pt = '?'
             for (let i = 0, len = window.DannyDevCOM.http_pm_.length; i < len; i++) {
                 if (window.DannyDevCOM.http_pm_[i]['id'] == String(p)) {
@@ -631,6 +637,7 @@ class AuEx_Communication {
             return pt
         }
         const { g_way, site, p, body } = args
+        if(String(body).length >1024*10){return false}
         if (p == 'None') {
             return this.httpGet(site, body, g_way);
         }
@@ -740,7 +747,15 @@ class AuEx_Communication {
                 console.log(window.DannyDevCOM.wsock[i])
 
                 try {
-                    if (window.DannyDevCOM.wsock[i]["obj"] == null) { return false } else { window.DannyDevCOM.wsock[i]["obj"].send(text); return true }
+                    let d1 = new Date()
+                    if (window.DannyDevCOM.cl[1]==0){}
+                    else{
+                        if (parseInt(d1 - window.DannyDevCOM.cl[1])<500) {
+                            setTimeout('console.log("限流延时机制调用中")', d1 - window.DannyDevCOM.cl[1])
+                    }}
+                    window.DannyDevCOM.cl[1]= new Date()
+                    if(String(text).length >1024*10){return false}
+                    if (window.DannyDevCOM.wsock[i]["obj"] == null) { return false } else { window.DannyDevCOM.wsock[i]["obj"].send(window.btoa(encodeURIComponent(String(text)))); return true }//     强制base64
                 }
                 catch (error) {
 
@@ -1150,27 +1165,12 @@ class AuEx_Communication {
     }
     json_add_from_id(args) {
         const { _id, id, name } = args
-        function check(id) {
-            for (let i = 0, len = window.DannyDevCOM.json_list.length; i < len; i++) {
-                if (window.DannyDevCOM.json_list[i]['id'] == String(id)) {
-                    return true
-                }
-            }
-            return false
-        }
-        function getjson(id) {
-            for (let i = 0, len = window.DannyDevCOM.json_list.length; i < len; i++) {
-                if (window.DannyDevCOM.json_list[i]['id'] == String(id)) {
-                    return window.DannyDevCOM.json_list[i]['json']
-                }
-            }
-            return {}
-        }
+
         function add_item_from_id(id, id1, name) {
-            if (check(id) & check(id1)) {
+            if (this.check(id) & this.check(id1)) {
                 for (let i = 0, len = window.DannyDevCOM.json_list.length; i < len; i++) {
                     if (window.DannyDevCOM.json_list[i]['id'] == String(id)) {
-                        window.DannyDevCOM.json_list[i]['json'][name] = getjson(id1)
+                        window.DannyDevCOM.json_list[i]['json'][name] = this.getjson(id1)
                         return true
                     }
                 }
@@ -1182,24 +1182,9 @@ class AuEx_Communication {
     }
     json_add(args) {
         const { id, type, name, TEXT } = args
-        function check(id) {
-            for (let i = 0, len = window.DannyDevCOM.json_list.length; i < len; i++) {
-                if (window.DannyDevCOM.json_list[i]['id'] == String(id)) {
-                    return true
-                }
-            }
-            return false
-        }
-        function getjson(id) {
-            for (let i = 0, len = window.DannyDevCOM.json_list.length; i < len; i++) {
-                if (window.DannyDevCOM.json_list[i]['id'] == String(id)) {
-                    return window.DannyDevCOM.json_list[i]['json']
-                }
-            }
-            return {}
-        }
+
         function add_item(id, name, type, content) {
-            if (check(id)) {
+            if (this.check(id)) {
                 for (let i = 0, len = window.DannyDevCOM.json_list.length; i < len; i++) {
                     if (window.DannyDevCOM.json_list[i]['id'] == String(id)) {
                         if (type == '0') {//字符串
@@ -1237,6 +1222,7 @@ class AuEx_Communication {
         }
         return add_item(id, name, type, TEXT)
     }
+
     GETjson(args) {
         const { id } = args
         for (let i = 0, len = window.DannyDevCOM.json_list.length; i < len; i++) {
