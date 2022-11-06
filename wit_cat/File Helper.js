@@ -175,7 +175,11 @@ class WitCatFileHelper {
 	downloads(args) {
 		let h = args.text;
 		let text = args.text;
-		const filename = args.name;
+		let filenames = args.name;
+		if(filenames == ""){
+			filenames = "none.txt"
+		}
+		const filename = filenames;
 		let s = args.s;
 		let j = 0;
 		if (s != "") {
@@ -188,9 +192,6 @@ class WitCatFileHelper {
 			h = text;
 		}
 		const content = h;
-		if(filename == ""){
-			filename = "none.txt"
-		}
 		// 创建隐藏的可下载链接
 		let eleLink = document.createElement('a');
 		eleLink.download = filename;
@@ -206,11 +207,12 @@ class WitCatFileHelper {
 	}
 	//下载文件
 	download(args) {
-		const filename = args.name;
 		const content = args.text;
-		if(filename == ""){
-			filename = "none.txt"
+		let filenames = args.name;
+		if(filenames == ""){
+			filenames = "none.txt"
 		}
+		const filename = filenames;
 		// 创建隐藏的可下载链接
 		let eleLink = document.createElement('a');
 		eleLink.download = filename;
