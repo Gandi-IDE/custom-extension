@@ -23,7 +23,7 @@ class WitCatFileHelper {
 				"WitCatFileHelper.encrypt": "base64加密[text]",
 				"WitCatFileHelper.decrypt": "base64解密[text]",
 				"WitCatFileHelper.openfile": "打开文件",
-				"WitCatFileHelper.createinput": "设置或创建ID为[id]的文本框的宽[width]高[height]内容[text]",
+				"WitCatFileHelper.createinput": "设置或创建ID为[id]的文本框的X[x]Y[y]宽[width]高[height]内容[text]",
 				"WitCatFileHelper.deleteinput": "删除ID为[id]的文本框",
 				"WitCatFileHelper.getinput": "获得ID为[id]的文本框内容",
 				"WitCatFileHelper.isinput": "焦点是否在ID为[id]的文本框上",
@@ -42,7 +42,7 @@ class WitCatFileHelper {
 				"WitCatFileHelper.encrypt": "base64 encrypt[text]",
 				"WitCatFileHelper.decrypt": "base64 decrypt[text]",
 				"WitCatFileHelper.openfile": "openfile",
-				"WitCatFileHelper.createinput": "Set or create an input with ID[id]width[width]height[height]content[text]",
+				"WitCatFileHelper.createinput": "Set or create an input with ID[id]X[x]Y[y]width[width]height[height]content[text]",
 				"WitCatFileHelper.deleteinput": "delete an input with ID[id]",
 				"WitCatFileHelper.getinput": "get an input with ID[id]",
 				"WitCatFileHelper.isinput": "is the focus on the input with ID[id]?",
@@ -194,6 +194,14 @@ class WitCatFileHelper {
 							type:"string",
 							defaultValue:"i",
 						},
+						x:{
+							type:"number",
+							defaultValue:"0",
+						},
+						y:{
+							type:"number",
+							defaultValue:"0",
+						},
 						width:{
 							type:"number",
 							defaultValue:"100",
@@ -232,7 +240,7 @@ class WitCatFileHelper {
 				},
 				{
 					opcode: "isinput",
-					blockType: "bool",
+					blockType: "Boolean",
 					text: this.formatMessage("WitCatFileHelper.isinput"),
 					arguments: {
 						id:{
@@ -362,6 +370,7 @@ class WitCatFileHelper {
 	//打开文件
 	openfile(args){
 		return new Promise(resolve => {
+			let a = 0;
 			const input = document.createElement("input");
 			input.type = "file";
 			input.click();
@@ -378,17 +387,12 @@ class WitCatFileHelper {
 				reader.readAsText(file);
 			}
 			// 当点击取消
-			window.addEventListener('focus',() => {
-					setTimeout(() => {
-						if (fileCancle) {
-							resolve();
-						}
-					}, 100)
-				},
-				{
-					once: true 
+			input.onfocus = function () {
+				a++;
+				if (a == 2) {
+					resolve();
 				}
-			)
+			},
 		});
 	}
 	//设置或创建文本框
