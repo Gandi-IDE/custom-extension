@@ -392,7 +392,7 @@ class WitCatFileHelper {
 				if (a == 2) {
 					resolve();
 				}
-			},
+			}
 		});
 	}
 	//设置或创建文本框
