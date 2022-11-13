@@ -11,7 +11,9 @@ class WitCatFileHelper {
 		this.runtime = runtime;
 		this._formatMessage = runtime.getFormatMessage({
 			"zh-cn": {
-				"WitCatFileHelper.name": "文件助手",
+				"WitCatFileHelper.name": "wit_catの拓展",
+				"WitCatFileHelper.filehelper": "文件处理",
+				"WitCatFileHelper.inputmanagement": "文本框",
 				"WitCatFileHelper.downloads": "将内容[text]按[s]分割后命名为[name]并下载多行文本",
 				"WitCatFileHelper.download": "将内容[text]命名为[name]并下载",
 				"WitCatFileHelper.save": "设置键[name]为[text]并储存到本地",
@@ -20,11 +22,18 @@ class WitCatFileHelper {
 				"WitCatFileHelper.segmentation": "将[text]按[s]分割",
 				"WitCatFileHelper.encrypt": "base64加密[text]",
 				"WitCatFileHelper.decrypt": "base64解密[text]",
-				"WitCatFileHelper.openfile": "打开文件"
+				"WitCatFileHelper.openfile": "打开文件",
+				"WitCatFileHelper.createinput": "设置或创建ID为[id]的文本框的宽[width]高[height]内容[text]",
+				"WitCatFileHelper.deleteinput": "删除ID为[id]的文本框",
+				"WitCatFileHelper.getinput": "获得ID为[id]的文本框内容",
+				"WitCatFileHelper.isinput": "焦点是否在ID为[id]的文本框上",
+				"WitCatFileHelper.nowinput": "将焦点聚焦在ID为[id]的文本框上",
 			},
 			en: {
-				"WitCatFileHelper.name": "File Helper",
-				"WitCatFileHelper.downloads": "Download split content [text] by [S] named [name]",
+				"WitCatFileHelper.name": "wit_catのextension",
+				"WitCatFileHelper.filehelper": "file helper",
+				"WitCatFileHelper.inputmanagement": "input",
+				"WitCatFileHelper.downloads": "Download split content [text] by [s] named [name]",
 				"WitCatFileHelper.download": "Download content [text] named [name]",
 				"WitCatFileHelper.save": "Save content [text] with [name] on computer",
 				"WitCatFileHelper.upload": "Get value [name]",
@@ -32,7 +41,12 @@ class WitCatFileHelper {
 				"WitCatFileHelper.segmentation": "Split [text] by [s]",
 				"WitCatFileHelper.encrypt": "base64 encrypt[text]",
 				"WitCatFileHelper.decrypt": "base64 decrypt[text]",
-				"WitCatFileHelper.openfile": "openfile"
+				"WitCatFileHelper.openfile": "openfile",
+				"WitCatFileHelper.createinput": "Set or create an input with ID[id]width[width]height[height]content[text]",
+				"WitCatFileHelper.deleteinput": "delete an input with ID[id]",
+				"WitCatFileHelper.getinput": "get an input with ID[id]",
+				"WitCatFileHelper.isinput": "is the focus on the input with ID[id]?",
+				"WitCatFileHelper.nowinput": "let teh focus on the input with ID[id]",
 			}
 		})
 	}
@@ -54,7 +68,9 @@ class WitCatFileHelper {
 			menuIconURI: _icon,
 			color1: "#60D6F4",
 			color2: "#55a7f7",
-			blocks: [{
+			blocks: [
+				"---"+this.formatMessage("WitCatFileHelper.filehelper"),
+				{
 					opcode: "downloads",
 					blockType: "command",
 					text: this.formatMessage("WitCatFileHelper.downloads"),
@@ -147,7 +163,7 @@ class WitCatFileHelper {
 					arguments: {
 						text: {
 							type: "string",
-							defaultValue: 'i love中国',
+							defaultValue: 'i love china',
 						},
 					},
 				},
@@ -158,7 +174,7 @@ class WitCatFileHelper {
 					arguments: {
 						text: {
 							type: "string",
-							defaultValue: 'aSUyMGxvdmUlRTQlQjglQUQlRTUlOUIlQkQ=',
+							defaultValue: 'aSUyMGxvdmUlMjBjaGluYQ==',
 						},
 					},
 				},
@@ -168,6 +184,74 @@ class WitCatFileHelper {
 					text: this.formatMessage("WitCatFileHelper.openfile"),
 					arguments: {},
 				},
+				"---"+this.formatMessage("WitCatFileHelper.inputmanagement"),
+				{
+					opcode: "createinput",
+					blockType: "command",
+					text: this.formatMessage("WitCatFileHelper.createinput"),
+					arguments: {
+						id:{
+							type:"string",
+							defaultValue:"i",
+						},
+						width:{
+							type:"number",
+							defaultValue:"100",
+						},
+						height:{
+							type:"number",
+							defaultValue:"20",
+						},
+						text:{
+							type:"string",
+							defaultValue:"hello word!",
+						}
+					},
+				},
+				{
+					opcode: "deleteinput",
+					blockType: "command",
+					text: this.formatMessage("WitCatFileHelper.deleteinput"),
+					arguments: {
+						id:{
+							type:"string",
+							defaultValue:"i",
+						}
+					},
+				},
+				{
+					opcode: "getinput",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatFileHelper.getinput"),
+					arguments: {
+						id:{
+							type:"string",
+							defaultValue:"i",
+						}
+					},
+				},
+				{
+					opcode: "isinput",
+					blockType: "bool",
+					text: this.formatMessage("WitCatFileHelper.isinput"),
+					arguments: {
+						id:{
+							type:"string",
+							defaultValue:"i",
+						}
+					},
+				},
+				{
+					opcode: "nowinput",
+					blockType: "command",
+					text: this.formatMessage("WitCatFileHelper.nowinput"),
+					arguments: {
+						id:{
+							type:"string",
+							defaultValue:"i",
+						}
+					},
+				},
 			]
 		};
 	}
@@ -175,7 +259,11 @@ class WitCatFileHelper {
 	downloads(args) {
 		let h = args.text;
 		let text = args.text;
-		const filename = args.name;
+		let filenames = args.name;
+		if(filenames == ""){
+			filenames = "none.txt"
+		}
+		const filename = filenames;
 		let s = args.s;
 		let j = 0;
 		if (s != "") {
@@ -203,8 +291,12 @@ class WitCatFileHelper {
 	}
 	//下载文件
 	download(args) {
-		const filename = args.name;
 		const content = args.text;
+		let filenames = args.name;
+		if(filenames == ""){
+			filenames = "none.txt"
+		}
+		const filename = filenames;
 		// 创建隐藏的可下载链接
 		let eleLink = document.createElement('a');
 		eleLink.download = filename;
@@ -272,6 +364,7 @@ class WitCatFileHelper {
 		return new Promise(resolve => {
 			const input = document.createElement("input");
 			input.type = "file";
+			input.click();
 			input.onchange = () => {
 				const reader = new FileReader();
 				const file = input.files[0];
@@ -284,8 +377,75 @@ class WitCatFileHelper {
 				};
 				reader.readAsText(file);
 			}
-			input.click();
+			// 当点击取消
+			window.addEventListener('focus',() => {
+					setTimeout(() => {
+						if (fileCancle) {
+							resolve();
+						}
+					}, 100)
+				},
+				{
+					once: true 
+				}
+			)
 		});
+	}
+	//设置或创建文本框
+	createinput(args){
+		let dom = `position:absolute; left:`+ args.x + `px; top:` + args.y + `px; width:` + args.width + `px; height:` + args.height + `px`;
+		let search = document.getElementsByClassName("WitCatInput" + args.id);
+		if(search.length != 0){
+			search[0].style = dom;
+			scratch[0].value = args.text;
+		}
+		else{
+			let eleLink = document.createElement('input');
+			eleLink.type = "text";
+			eleLink.style = dom;
+			eleLink.className = "WitCatInput" + args.id;
+			eleLink.value = args.text;
+			document.body.appendChild(eleLink);
+		}
+	}
+	//删除文本框
+	deleteinput(args){
+		let search = document.getElementsByClassName("WitCatInput" + args.id);
+		if(search.length != 0){
+			document.body.removeChild(scratch[0]);
+		}
+	}
+	//获取文本框内容
+	getinput(args){
+		let search = document.getElementsByClassName("WitCatInput" + args.id);
+		if(search.length != 0){
+			return(scratch[0].value);
+		}
+		else{
+			return("");
+		}
+	}
+	//焦点判断
+	isinput(args){
+		let search = document.getElementsByClassName("WitCatInput" + args.id);
+		if(search.length != 0){
+			if(document.hasFocus()){
+				return(true);
+			}
+			else{
+				return(false);
+			}
+		}
+		else{
+			return(false);
+		}
+	}
+	//焦点获取
+	nowinput(args){
+		let search = document.getElementsByClassName("WitCatInput" + args.id);
+		if(search.length != 0){
+			search[0].focus();
+		}
 	}
 }
 
@@ -303,12 +463,12 @@ window.tempExt = {
 	},
 	l10n: {
 		"zh-cn": {
-			"WitCatFileHelper.name": "文件助手",
-			"WitCatFileHelper.descp": "处理本地数据"
+			"WitCatFileHelper.name": "wit_catの拓展",
+			"WitCatFileHelper.descp": "一堆没用的小玩意"
 		},
 		en: {
-			"WitCatFileHelper.name": "File Helper",
-			"WitCatFileHelper.descp": "Handling local data"
+			"WitCatFileHelper.name": "wit_catのextension",
+			"WitCatFileHelper.descp": "some useless block"
 		}
 	}
 };
