@@ -1,13 +1,10 @@
-import zhCn from "./l10n/zh-cn.json";
-import en from "./l10n/en.json";
+
 import cover from "./assets/cover.jpg";
 import blockIcon from "./assets/icon.png";
 import ext from "./index";
-
 export const extensionNS = 'Dannydev';
 
 export const extensionId = `${extensionNS}.aucom`;
-
 const buildInfoL10n = (l10n) => {
   const {name, desc, docURL} = l10n;
   const infoL10n = {}
@@ -17,10 +14,7 @@ const buildInfoL10n = (l10n) => {
   return infoL10n;
 }
 
-const infoL10n = {
-  'zh-cn': buildInfoL10n(zhCn),
-  en: buildInfoL10n(en),
-}
+const infoL10n = ext.l10n()
 
 
 export default {
