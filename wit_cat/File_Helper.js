@@ -393,7 +393,7 @@ class WitCatFileHelper {
 	}
 	//设置或创建文本框
 	createinput(args){
-		let dom = `position:absolute; left:`+ args.x + `px; top:` + args.y + `px; width:` + args.width + `px; height:` + args.height + `px`;
+		let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:`+ args.x + `px; top:` + args.y + `px; width:` + args.width + `px; height:` + args.height + `px`;
 		let search = document.getElementsByClassName("WitCatInput" + args.id);
 		if(search.length != 0){
 			search[0].style = dom;
