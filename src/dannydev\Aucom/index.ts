@@ -6,7 +6,7 @@ import blockIcon from "./assets/icon.png";
 var zh_cn = {}
 var en = {}
 class runtime {
-  getFormatMessage(l10n) {
+  getFormatMessage(l10n: { [x: string]: {}; }) {
     zh_cn = l10n['zh-cn']
     en = l10n['en']
     //中文插件介绍
@@ -19,22 +19,37 @@ class runtime {
     en['docURL'] = 'https://www.ccw.site/post/1424d473-f1a4-4268-86dd-8f4de4d6592f' //同上
     return this._formatMessage
   }
-  _formatMessage(t) {
-    return t
-  }
-}
-export default class ddevcom extends GandiExtension {
-  get extensionId(): string {
-    return extensionId;
-  }
-
-  get localization() {
-    ext.constructor(runtime);
+  _formatMessage(t: any) {
+    ext.constructor(new runtime());
     let l=[]
     l=Object.getOwnPropertyNames(Object.getPrototypeOf(ext))
     for (let i = 0, len = l.length; i < len; i++) {
       this[l[i]]=ext[l[i]]
     }
+    return {
+      'zh-cn': zh_cn,
+      'en': en,
+    };
+  }
+}
+export default class ddevcom extends GandiExtension {
+  static l10n(): any {
+    ext.constructor(new runtime());
+    let l=[]
+    l=Object.getOwnPropertyNames(Object.getPrototypeOf(ext))
+    for (let i = 0, len = l.length; i < len; i++) {
+      this[l[i]]=ext[l[i]]
+    }
+    return {
+      'zh-cn': zh_cn,
+      'en': en,
+    };
+  }
+  runtime_=new runtime()
+  get extensionId(): string {
+    return extensionId;
+  }
+  get localization() {
     return {
       'zh-cn': zh_cn,
       'en': en,
@@ -139,7 +154,7 @@ export default class ddevcom extends GandiExtension {
     }
 
   //block opcode functions
-  test(args) {
+  test(args: { A: any; B: any; C: any; }) {
     const { A, B, C } = args;
     console.log('test', A, B, C);
   }
