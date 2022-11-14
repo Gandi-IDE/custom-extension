@@ -398,32 +398,32 @@ class WitCatFileHelper {
 	//设置或创建文本框
 	createinput(args){
 		let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:`+ args.x + `px; top:` + args.y + `px; width:` + args.width + `px; height:` + args.height + `px`;
-		let search = document.getElementsByClassName("WitCatInput" + args.id);
-		if(search.length != 0){
-			search[0].style = dom;
-			scratch[0].value = args.text;
+		let search = document.getElementById("WitCatInput" + args.id);
+		if(search != null){
+			search.style = dom;
+			search.value = args.text;
 		}
 		else{
 			let eleLink = document.createElement('input');
 			eleLink.type = "text";
 			eleLink.style = dom;
-			eleLink.className = "WitCatInput" + args.id;
+			eleLink.id = "WitCatInput" + args.id;
 			eleLink.value = args.text;
 			document.body.appendChild(eleLink);
 		}
 	}
 	//删除文本框
 	deleteinput(args){
-		let search = document.getElementsByClassName("WitCatInput" + args.id);
-		if(search.length != 0){
-			document.body.removeChild(scratch[0]);
+		let search = document.getElementById("WitCatInput" + args.id);
+		if(search != 0){
+			document.body.removeChild(search);
 		}
 	}
 	//获取文本框内容
 	getinput(args){
-		let search = document.getElementsByClassName("WitCatInput" + args.id);
-		if(search.length != 0){
-			return(scratch[0].value);
+		let search = document.getElementById("WitCatInput" + args.id);
+		if(search != null){
+			return(search.value);
 		}
 		else{
 			return("");
@@ -431,8 +431,8 @@ class WitCatFileHelper {
 	}
 	//焦点判断
 	isinput(args){
-		let search = document.getElementsByClassName("WitCatInput" + args.id);
-		if(search.length != 0){
+		let search = document.getElementById("WitCatInput" + args.id);
+		if(search != null){
 			if(document.hasFocus()){
 				return(true);
 			}
@@ -446,9 +446,9 @@ class WitCatFileHelper {
 	}
 	//焦点获取
 	nowinput(args){
-		let search = document.getElementsByClassName("WitCatInput" + args.id);
-		if(search.length != 0){
-			search[0].focus();
+		let search = document.getElementById("WitCatInput" + args.id);
+		if(search != null){
+			search.focus();
 		}
 	}
 }
