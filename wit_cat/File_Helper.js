@@ -24,7 +24,7 @@ class WitCatFileHelper {
 				"WitCatFileHelper.encrypt": "base64加密[text]",
 				"WitCatFileHelper.decrypt": "base64解密[text]",
 				"WitCatFileHelper.openfile": "打开文件",
-				"WitCatFileHelper.createinput": "设置或创建ID为[id]的文本框的X[x]Y[y]宽[width]高[height]内容[text]提示[texts]",
+				"WitCatFileHelper.createinput": "设置或创建ID为[id]的文本框的X[x]Y[y]宽[width]高[height]内容[text]提示[texts]字体大小[size]",
 				"WitCatFileHelper.deleteinput": "删除ID为[id]的文本框",
 				"WitCatFileHelper.getinput": "获得ID为[id]的文本框内容",
 				"WitCatFileHelper.isinput": "焦点是否在ID为[id]的文本框上",
@@ -43,6 +43,7 @@ class WitCatFileHelper {
 				"WitCatFileHelper.numMultiplelinestext": "[text]的行数",
 				"WitCatFileHelper.thing.1": "数组",
 				"WitCatFileHelper.thing.2": "多行文本",
+				"WitCatFileHelper.compute": "当前分辨率下高[size]的字体大小",
 			},
 			en: {
 				"WitCatFileHelper.name": "wit_catのextension",
@@ -58,7 +59,7 @@ class WitCatFileHelper {
 				"WitCatFileHelper.encrypt": "base64 encrypt[text]",
 				"WitCatFileHelper.decrypt": "base64 decrypt[text]",
 				"WitCatFileHelper.openfile": "openfile",
-				"WitCatFileHelper.createinput": "Set or create an input with ID[id]X[x]Y[y]width[width]height[height]content[text]prompt[texts]",
+				"WitCatFileHelper.createinput": "Set or create an input with ID[id]X[x]Y[y]width[width]height[height]content[text]prompt[texts]font-size[size]",
 				"WitCatFileHelper.deleteinput": "delete an input with ID[id]",
 				"WitCatFileHelper.getinput": "get an input with ID[id]",
 				"WitCatFileHelper.isinput": "is the focus on the input with ID[id]?",
@@ -77,6 +78,7 @@ class WitCatFileHelper {
 				"WitCatFileHelper.numMultiplelinestext": "[text]Number of rows",
 				"WitCatFileHelper.thing.1": "array",
 				"WitCatFileHelper.thing.2": "Multiple lines of text",
+				"WitCatFileHelper.compute": "The font size at the current resolution that is high [size]",
 			}
 		})
 	}
@@ -296,6 +298,21 @@ class WitCatFileHelper {
 						texts:{
 							type:"string",
 							defaultValue:"hello word!",
+						},
+						size:{
+							type:"number",
+							defaultValue:"16",
+						}
+					},
+				},
+				{
+					opcode: "compute",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatFileHelper.compute"),
+					arguments: {
+						size:{
+							type:"number",
+							defaultValue:"16",
 						}
 					},
 				},
@@ -685,7 +702,7 @@ class WitCatFileHelper {
 		y = (y / this.runtime.stageHeight) * 100;
 		width = (width / this.runtime.stageWidth) * 100;
 		height = (height / this.runtime.stageHeight) * 100;
-		let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:`+ x + `%; top:` + y + `%; width:` + width + `%; height:` + height + `%;`;
+		let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:`+ x + `%; top:` + y + `%; width:` + width + `%; height:` + height + `%;font-size: ` + args.size + `px;`;
 		let search = document.getElementById("WitCatInput" + args.id);
 		//找渲染div
 		let div = document.getElementsByClassName("gandi_stage_stage_1fD7k ccw-stage-wrapper")[0];		//gandi编辑器
@@ -943,17 +960,34 @@ class WitCatFileHelper {
 		let text = args.text.split("\n");
 		let num = args.num;
 		if(args.num == "last"){
-			num = text.length + 1;
+			num = text.length;
 		}
 		if(args.num == "first"){
 			num = 1;
 		}
-		return text[num + 1];
+		return text[num - 1];
 	}
 	//多行文本行数
 	numMultiplelinestext(args){
 		let text = args.text.split("\n");
 		return text.length;
+	}
+	//计算坐标
+	compute(args){
+		//找渲染div
+		let div = document.getElementsByClassName("gandi_stage_stage_1fD7k ccw-stage-wrapper")[0];		//gandi编辑器
+		if(div == null){
+			div = document.getElementsByClassName("stage_stage_1fD7k ccw-stage-wrapper")[0];		//传统编辑器
+			if(div == null){
+				div = document.getElementsByClassName("gandi_stage-wrapper_stage-canvas-wrapper_3ewmd")[0];		//作品展示页
+				if(div == null){
+					alert("当前页面不支持文本框，请前往作品详情页体验完整作品！");
+					return;
+				}
+			}
+		}
+		console.log(div.style.width)
+		return (div.style.width.split("px")[0] / 360) * args.size;
 	}
 }
 
