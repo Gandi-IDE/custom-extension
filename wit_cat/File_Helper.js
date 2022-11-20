@@ -14,39 +14,69 @@ class WitCatFileHelper {
 				"WitCatFileHelper.name": "wit_catの拓展",
 				"WitCatFileHelper.filehelper": "文件处理",
 				"WitCatFileHelper.inputmanagement": "文本框",
+				"WitCatFileHelper.Multiplelinestext": "多行文本",
 				"WitCatFileHelper.downloads": "将内容[text]按[s]分割后命名为[name]并下载多行文本",
 				"WitCatFileHelper.download": "将内容[text]命名为[name]并下载",
 				"WitCatFileHelper.save": "设置键[name]为[text]并储存到本地",
 				"WitCatFileHelper.upload": "获取键[name]的值",
 				"WitCatFileHelper.delete": "删除键[name]",
-				"WitCatFileHelper.segmentation": "将[text]按[s]分割",
+				"WitCatFileHelper.segmentation": "将[text]按[s]分割为[thing]",
 				"WitCatFileHelper.encrypt": "base64加密[text]",
 				"WitCatFileHelper.decrypt": "base64解密[text]",
 				"WitCatFileHelper.openfile": "打开文件",
-				"WitCatFileHelper.createinput": "设置或创建ID为[id]的文本框的X[x]Y[y]宽[width]高[height]内容[text]",
+				"WitCatFileHelper.createinput": "设置或创建ID为[id]的文本框的X[x]Y[y]宽[width]高[height]内容[text]提示[texts]",
 				"WitCatFileHelper.deleteinput": "删除ID为[id]的文本框",
 				"WitCatFileHelper.getinput": "获得ID为[id]的文本框内容",
 				"WitCatFileHelper.isinput": "焦点是否在ID为[id]的文本框上",
 				"WitCatFileHelper.nowinput": "将焦点聚焦在ID为[id]的文本框上",
+				"WitCatFileHelper.deleteallinput": "删除所有文本框",
+				"WitCatFileHelper.showvar": "设置键[name]的状态为[show]",
+				"WitCatFileHelper.saveother": "设置作品ID[id]的键[name]为[text]",
+				"WitCatFileHelper.uploadother": "获取作品[id]的键[name]的值",
+				"WitCatFileHelper.other": "作品[id]的键[name]的状态",
+				"WitCatFileHelper.showon": "只读",
+				"WitCatFileHelper.showoff": "私有",
+				"WitCatFileHelper.showall": "公开",
+				"WitCatFileHelper.deleteMultiplelinestext": "删除[text]的第[num]行",
+				"WitCatFileHelper.addMultiplelinestext": "将[text]加入[texts]的第[num]行",
+				"WitCatFileHelper.whatMultiplelinestext": "[text]的第[num]行",
+				"WitCatFileHelper.numMultiplelinestext": "[text]的行数",
+				"WitCatFileHelper.thing.1": "数组",
+				"WitCatFileHelper.thing.2": "多行文本",
 			},
 			en: {
 				"WitCatFileHelper.name": "wit_catのextension",
 				"WitCatFileHelper.filehelper": "file helper",
 				"WitCatFileHelper.inputmanagement": "input",
+				"WitCatFileHelper.Multiplelinestext": "Multiple lines of text",
 				"WitCatFileHelper.downloads": "Download split content [text] by [s] named [name]",
 				"WitCatFileHelper.download": "Download content [text] named [name]",
 				"WitCatFileHelper.save": "Save content [text] with [name] on computer",
 				"WitCatFileHelper.upload": "Get value [name]",
 				"WitCatFileHelper.delete": "delete value [name]",
-				"WitCatFileHelper.segmentation": "Split [text] by [s]",
+				"WitCatFileHelper.segmentation": "Split [text] by [s] to [thing]",
 				"WitCatFileHelper.encrypt": "base64 encrypt[text]",
 				"WitCatFileHelper.decrypt": "base64 decrypt[text]",
 				"WitCatFileHelper.openfile": "openfile",
-				"WitCatFileHelper.createinput": "Set or create an input with ID[id]X[x]Y[y]width[width]height[height]content[text]",
+				"WitCatFileHelper.createinput": "Set or create an input with ID[id]X[x]Y[y]width[width]height[height]content[text]prompt[texts]",
 				"WitCatFileHelper.deleteinput": "delete an input with ID[id]",
 				"WitCatFileHelper.getinput": "get an input with ID[id]",
 				"WitCatFileHelper.isinput": "is the focus on the input with ID[id]?",
 				"WitCatFileHelper.nowinput": "let teh focus on the input with ID[id]",
+				"WitCatFileHelper.deleteallinput": "delete all input",
+				"WitCatFileHelper.showvar": "set value[name]`s state[show]",
+				"WitCatFileHelper.saveother": "save ID[id]`s content name[name]with[text]",
+				"WitCatFileHelper.uploadother": "get ID[id]`s value[name]",
+				"WitCatFileHelper.other": "get ID[id]`s value[name]`s state",
+				"WitCatFileHelper.showon": "View",
+				"WitCatFileHelper.showoff": "private",
+				"WitCatFileHelper.showall": "public",
+				"WitCatFileHelper.deleteMultiplelinestext": "delete[text]the[num]line of text",
+				"WitCatFileHelper.addMultiplelinestext": "let[text]add with[texts]the[num]line of text",
+				"WitCatFileHelper.whatMultiplelinestext": "[text]`s[num]line of text",
+				"WitCatFileHelper.numMultiplelinestext": "[text]Number of rows",
+				"WitCatFileHelper.thing.1": "array",
+				"WitCatFileHelper.thing.2": "Multiple lines of text",
 			}
 		})
 	}
@@ -105,6 +135,12 @@ class WitCatFileHelper {
 					},
 				},
 				{
+					opcode: "openfile",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatFileHelper.openfile"),
+					arguments: {},
+				},
+				{
 					opcode: "upload",
 					blockType: "reporter",
 					text: this.formatMessage("WitCatFileHelper.upload"),
@@ -131,21 +167,6 @@ class WitCatFileHelper {
 					},
 				},
 				{
-					opcode: "segmentation",
-					blockType: "reporter",
-					text: this.formatMessage("WitCatFileHelper.segmentation"),
-					arguments: {
-						text: {
-							type: "string",
-							defaultValue: 'wow/!!!',
-						},
-						s: {
-							type: "string",
-							defaultValue: '/',
-						},
-					},
-				},
-				{
 					opcode: "delete",
 					blockType: "command",
 					text: this.formatMessage("WitCatFileHelper.delete"),
@@ -153,6 +174,70 @@ class WitCatFileHelper {
 						name: {
 							type: "string",
 							defaultValue: 'i',
+						},
+					},
+				},
+				{
+					opcode: "showvar",
+					blockType: "command",
+					text: this.formatMessage("WitCatFileHelper.showvar"),
+					arguments: {
+						name:{
+							type:"string",
+							defaultValue:"i",
+						},
+						show:{
+							type:"string",
+							menu:"setvariable",
+						},
+					},
+				},
+				{
+					opcode: "saveother",
+					blockType: "command",
+					text: this.formatMessage("WitCatFileHelper.saveother"),
+					arguments: {
+						id:{
+							type:"string",
+							defaultValue:"6373950041d21d2d2cd0da9b",
+						},
+						name:{
+							type:"string",
+							defaultValue:"i",
+						},
+						text:{
+							type:"string",
+							defaultValue:"wit_cat!",
+						},
+					},
+				},
+				{
+					opcode: "uploadother",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatFileHelper.uploadother"),
+					arguments: {
+						id:{
+							type:"string",
+							defaultValue:"6373950041d21d2d2cd0da9b",
+						},
+						name:{
+							type:"string",
+							defaultValue:"i",
+						},
+					},
+				},
+				{
+					opcode: "other",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatFileHelper.other"),
+					arguments: {
+						id:{
+							type:"string",
+							defaultValue:"6373950041d21d2d2cd0da9b",
+						},
+						name:{
+							type:"string",
+							defaultValue:"i",
 						},
 					},
 				},
@@ -177,12 +262,6 @@ class WitCatFileHelper {
 							defaultValue: 'aSUyMGxvdmUlMjBjaGluYQ==',
 						},
 					},
-				},
-				{
-					opcode: "openfile",
-					blockType: "reporter",
-					text: this.formatMessage("WitCatFileHelper.openfile"),
-					arguments: {},
 				},
 				"---"+this.formatMessage("WitCatFileHelper.inputmanagement"),
 				{
@@ -211,6 +290,10 @@ class WitCatFileHelper {
 							defaultValue:"20",
 						},
 						text:{
+							type:"string",
+							defaultValue:"hello word!",
+						},
+						texts:{
 							type:"string",
 							defaultValue:"hello word!",
 						}
@@ -260,7 +343,119 @@ class WitCatFileHelper {
 						}
 					},
 				},
-			]
+				{
+					opcode: "deleteallinput",
+					blockType: "command",
+					text: this.formatMessage("WitCatFileHelper.deleteallinput"),
+					arguments: {},
+				},
+				"---"+this.formatMessage("WitCatFileHelper.Multiplelinestext"),
+				{
+					opcode: "segmentation",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatFileHelper.segmentation"),
+					arguments: {
+						text: {
+							type: "string",
+							defaultValue: 'wow/!!!',
+						},
+						s: {
+							type: "string",
+							defaultValue: '/',
+						},
+						thing:{
+							type: "string",
+							menu: 'thing',
+						}
+					},
+				},
+				{
+					opcode: "deleteMultiplelinestext",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatFileHelper.deleteMultiplelinestext"),
+					arguments: {
+						text:{
+							type:"string",
+							defaultValue:"wit_cat!!!\nwit_cat!!!",
+						},
+						num:{
+							type:"number",
+							defaultValue:"1",
+						}
+					},
+				},
+				{
+					opcode: "addMultiplelinestext",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatFileHelper.addMultiplelinestext"),
+					arguments: {
+						text:{
+							type:"string",
+							defaultValue:"wit_cat!!!",
+						},
+						texts:{
+							type:"string",
+							defaultValue:"wit_cat!!!\nwit_cat!!!",
+						},
+						num:{
+							type:"string",
+							defaultValue:"last",
+						}
+					},
+				},
+				{
+					opcode: "whatMultiplelinestext",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatFileHelper.whatMultiplelinestext"),
+					arguments: {
+						text:{
+							type:"string",
+							defaultValue:"wit_cat!!!",
+						},
+						num:{
+							type:"string",
+							defaultValue:"1",
+						}
+					},
+				},
+				{
+					opcode: "numMultiplelinestext",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatFileHelper.numMultiplelinestext"),
+					arguments: {
+						text:{
+							type:"string",
+							defaultValue:"wit_cat!!!\nwit_cat!!!",
+						},
+					},
+				},
+			],
+			menus:{
+				setvariable: [
+					{
+					  text: this.formatMessage('WitCatFileHelper.showall'),
+					  value: '#'
+					},
+					{
+					  text: this.formatMessage('WitCatFileHelper.showon'),
+					  value: '$'
+					},
+					{
+					  text: this.formatMessage('WitCatFileHelper.showoff'),
+					  value: ''
+					},
+				],
+				thing: [
+					{
+					  text: this.formatMessage('WitCatFileHelper.thing.2'),
+					  value: 'false'
+					},
+					{
+					  text: this.formatMessage('WitCatFileHelper.thing.1'),
+					  value: 'true'
+					},
+				],
+			}
 		};
 	}
 	//下载多行文件
@@ -322,35 +517,97 @@ class WitCatFileHelper {
 	upload(args) {
 		const name = args.name;
 		let h = this.runtime.ccwAPI.getProjectUUID();
-		return localStorage.getItem(h + name);
+		//寻找状态
+		let show = "";
+		let value = localStorage.getItem(h + name);
+		if (value == null) {
+			value = localStorage.getItem("#" + h + name);
+			if (value == null) {
+				value = localStorage.getItem("$" + h + name);
+				if (value != null) {
+					show = "$";
+				}
+			}
+			else {
+				show = "#";
+			}
+		}
+
+		return localStorage.getItem(show + h + name);
 	}
 	//保存本地变量
 	save(args) {
 		const text = args.text;
 		const name = args.name;
 		let h = this.runtime.ccwAPI.getProjectUUID();
+		//寻找状态
+		let show = "";
+		let value = localStorage.getItem(h + name);
+		if (value == null) {
+			value = localStorage.getItem("#" + h + name);
+			if (value == null) {
+				value = localStorage.getItem("$" + h + name);
+				if (value != null) {
+					show = "$";
+				}
+			}
+			else {
+				show = "#";
+			}
+		}
+
 		if(h == ""){
 			alert("请先保存作品");
 		} else{
-			localStorage.setItem(h + name, text);
+			localStorage.setItem(show + h + name, text);
 		}
 	}
 	//删除本地变量
 	delete(args) {
 		const name = args.name;
 		let h = this.runtime.ccwAPI.getProjectUUID();
-		localStorage.removeItem(h + name);
+		//寻找状态
+		let show = "";
+		let value = localStorage.getItem(h + name);
+		if (value == null) {
+			value = localStorage.getItem("#" + h + name);
+			if (value == null) {
+				value = localStorage.getItem("$" + h + name);
+				if (value != null) {
+					show = "$";
+				}
+			}
+			else {
+				show = "#";
+			}
+		}
+
+		localStorage.removeItem(show + h + name);
 	}
 	//字符串分割
 	segmentation(args) {
 		let text = args.text;
 		let s = args.s;
 		let array = text.split(s);
-		const a = `","`;
-		const b = `["`;
-		const c = `"]`;
-		let str = array.join(a);
-		let r = b + str + c;
+		let r = "";
+		if(args.thing == "true"){
+			const a = `","`;
+			const b = `["`;
+			const c = `"]`;
+			let str = array.join(a);
+			r = b + str + c;
+		}
+		else{
+			let i;
+			for(i = 0;i < array.length;i++){
+				if(r == ""){
+					r = array[i];
+				}
+				else{
+					r = r + "\n" + array[i];
+				}
+			}
+		}
 		return r;
 	}
 	//加密
@@ -381,7 +638,6 @@ class WitCatFileHelper {
 					resolve(e.target.result);
 				};
 				reader.onerror = (e) => {
-					console.error(e);
 					resolve();
 				};
 				reader.readAsText(file);
@@ -397,11 +653,56 @@ class WitCatFileHelper {
 	}
 	//设置或创建文本框
 	createinput(args){
-		let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:`+ args.x + `px; top:` + args.y + `px; width:` + args.width + `px; height:` + args.height + `px`;
+		let x = args.x;
+		let y = args.y;
+		let width = args.width;
+		let height = args.height;
+		if(args.x > this.runtime.stageWidth){
+			x = this.runtime.stageWidth;
+		}
+		if(args.x < 0){
+			x = 0;
+		}
+		if(args.y > this.runtime.stageHeight){
+			y = this.runtime.stageHeight;
+		}
+		if(args.y < 0){
+			y = 0;
+		}
+		if(args.x + args.width > this.runtime.stageWidth){
+			width = this.runtime.stageWidth - x;
+		}
+		if(args.width < 0){
+			width = 0;
+		}
+		if(args.y + args.height > this.runtime.stageHeight){
+			height = this.runtime.stageHeight - y;
+		}
+		if(args.height < 0){
+			height = 0;
+		}
+		x = (x / this.runtime.stageWidth) * 100;
+		y = (y / this.runtime.stageHeight) * 100;
+		width = (width / this.runtime.stageWidth) * 100;
+		height = (height / this.runtime.stageHeight) * 100;
+		let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:`+ x + `%; top:` + y + `%; width:` + width + `%; height:` + height + `%;`;
 		let search = document.getElementById("WitCatInput" + args.id);
+		//找渲染div
+		let div = document.getElementsByClassName("gandi_stage_stage_1fD7k ccw-stage-wrapper")[0];		//gandi编辑器
+		if(div == null){
+			div = document.getElementsByClassName("stage_stage_1fD7k ccw-stage-wrapper")[0];		//传统编辑器
+			if(div == null){
+				div = document.getElementsByClassName("gandi_stage-wrapper_stage-canvas-wrapper_3ewmd")[0];		//作品展示页
+				if(div == null){
+					alert("当前页面不支持文本框，请前往作品详情页体验完整作品！");
+					return;
+				}
+			}
+		}
 		if(search != null){
 			search.style = dom;
 			search.value = args.text;
+			search.placeholder = args.texts;
 		}
 		else{
 			let eleLink = document.createElement('input');
@@ -409,14 +710,17 @@ class WitCatFileHelper {
 			eleLink.style = dom;
 			eleLink.id = "WitCatInput" + args.id;
 			eleLink.value = args.text;
-			document.body.appendChild(eleLink);
+			eleLink.className = "WitCatInput";
+			eleLink.placeholder = args.texts;
+			div.appendChild(eleLink);
 		}
 	}
 	//删除文本框
 	deleteinput(args){
 		let search = document.getElementById("WitCatInput" + args.id);
-		if(search != 0){
-			document.body.removeChild(search);
+		if(search != null){
+			let div = search.parentNode;
+			div.removeChild(search);
 		}
 	}
 	//获取文本框内容
@@ -433,7 +737,7 @@ class WitCatFileHelper {
 	isinput(args){
 		let search = document.getElementById("WitCatInput" + args.id);
 		if(search != null){
-			if(document.hasFocus()){
+			if(search == document.activeElement){
 				return(true);
 			}
 			else{
@@ -450,6 +754,206 @@ class WitCatFileHelper {
 		if(search != null){
 			search.focus();
 		}
+	}
+	//删除所有文本框
+	deleteallinput(args){
+		let search = document.getElementsByClassName("WitCatInput");
+		let i = 0;
+		let div;
+		for(i = search.length - 1;i >= 0;i--){
+			div = search[i].parentNode;
+			div.removeChild(search[i]);
+		}
+	}
+	//设置状态
+	showvar(args){
+		const name = args.name;
+		let h = this.runtime.ccwAPI.getProjectUUID();
+		//寻找状态
+		let show = "";
+		let value = localStorage.getItem(h + name);
+		if (value == null) {
+			value = localStorage.getItem("#" + h + name);
+			if (value == null) {
+				value = localStorage.getItem("$" + h + name);
+				if (value != null) {
+					show = "$";
+				}
+			}
+			else {
+				show = "#";
+			}
+		}
+
+		let text = localStorage.getItem(show + h + name);
+		localStorage.removeItem(show + h + name);
+		if(h == ""){
+			alert("请先保存作品");
+		} else{
+			localStorage.setItem(args.show + h + name, text);
+		}
+	}
+	//修改别人的键
+	saveother(args){
+		let name = args.name;
+		let h = args.id;
+		let text = args.text;
+		//寻找状态
+		let show = "";
+		let value = localStorage.getItem(h + name);
+		if (value == null) {
+			value = localStorage.getItem("#" + h + name);
+			if (value == null) {
+				value = localStorage.getItem("$" + h + name);
+				if (value == null) {
+					show = "null";
+				}
+				else{
+					show = "$";
+				}
+			}
+			else {
+				show = "#";
+			}
+		}
+
+		if(show == "#" || show == "null"){
+			localStorage.setItem("#" + h + name, text);
+		}
+	}
+	//获取别人的键
+	uploadother(args){
+		let name = args.name;
+		let h = args.id;
+		//寻找状态
+		let show = "";
+		let value = localStorage.getItem(h + name);
+		if (value == null) {
+			value = localStorage.getItem("#" + h + name);
+			if (value == null) {
+				value = localStorage.getItem("$" + h + name);
+				if (value != null) {
+					show = "$";
+				}
+			}
+			else {
+				show = "#";
+			}
+		}
+
+		if(show != ""){
+		return localStorage.getItem(show + h + name);
+		}
+	}
+	//获取键状态
+	other(args){
+		let name = args.name;
+		let h = args.id;
+		//寻找状态
+		let show = "";
+		let value = localStorage.getItem(h + name);
+		if (value == null) {
+			value = localStorage.getItem("#" + h + name);
+			if (value == null) {
+				value = localStorage.getItem("$" + h + name);
+				if (value == null) {
+					show = "null";
+				}
+				else{
+					show = "$";
+				}
+			}
+			else {
+				show = "#";
+			}
+		}
+
+		if(show == "#"){
+			return "公开";
+		}
+		if(show == "$"){
+			return "只读";
+		}
+		if(show == ""){
+			return "私有";
+		}
+		return "键不存在";
+	}
+	//删除多行文本行
+	deleteMultiplelinestext(args){
+		let text = args.text;
+		let texts = text.split('\n');
+		let num = args.num;
+		if(args.num == "last"){
+			num = texts.length + 1;
+		}
+		if(args.num == "first"){
+			num = 1;
+		}
+		let a = "";
+		let i;
+		for(i = 0;i < texts.length;i++){
+			if(i + 1 != num){
+				if(a == ""){
+					a = texts[i];
+				}
+				else{
+					a = a + "\n" + texts[i];
+				}
+			}
+		}
+		return a;
+	}
+	//插入多行文本
+	addMultiplelinestext(args){
+		let text = args.text;
+		let texts = args.texts.split("\n");
+		let num = args.num;
+		if(args.num == "last"){
+			num = texts.length + 1;
+		}
+		if(args.num == "first"){
+			num = 1;
+		}
+		let a = "";
+		let i ,j = 0;
+		for(i = 0;i <= texts.length;i++){
+			if(i + 1 != num){
+				if(a == ""){
+					a = texts[i + j];
+				}
+				else{
+					a = a + "\n" + texts[i + j];
+				}
+			}
+			else{
+				if(a == ""){
+					a = text;
+				}
+				else{
+					a = a + "\n" + text;
+				}
+				j = -1;
+			}
+		}
+		return a;
+	}
+	//多行文本第几行
+	whatMultiplelinestext(args){
+		let text = args.text.split("\n");
+		let num = args.num;
+		if(args.num == "last"){
+			num = text.length + 1;
+		}
+		if(args.num == "first"){
+			num = 1;
+		}
+		return text[num + 1];
+	}
+	//多行文本行数
+	numMultiplelinestext(args){
+		let text = args.text.split("\n");
+		return text.length;
 	}
 }
 
