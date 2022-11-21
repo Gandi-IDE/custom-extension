@@ -464,12 +464,12 @@ class WitCatFileHelper {
 				],
 				thing: [
 					{
-					  text: this.formatMessage('WitCatFileHelper.thing.2'),
-					  value: 'false'
-					},
-					{
 					  text: this.formatMessage('WitCatFileHelper.thing.1'),
 					  value: 'true'
+					},
+					{
+					  text: this.formatMessage('WitCatFileHelper.thing.2'),
+					  value: 'false'
 					},
 				],
 			}
