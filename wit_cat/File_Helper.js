@@ -24,12 +24,6 @@ class WitCatFileHelper {
 				"WitCatFileHelper.encrypt": "base64加密[text]",
 				"WitCatFileHelper.decrypt": "base64解密[text]",
 				"WitCatFileHelper.openfile": "打开文件",
-				"WitCatFileHelper.createinput": "设置或创建ID为[id]的文本框的X[x]Y[y]宽[width]高[height]内容[text]提示[texts]字体大小[size]",
-				"WitCatFileHelper.deleteinput": "删除ID为[id]的文本框",
-				"WitCatFileHelper.getinput": "获得ID为[id]的文本框内容",
-				"WitCatFileHelper.isinput": "焦点是否在ID为[id]的文本框上",
-				"WitCatFileHelper.nowinput": "将焦点聚焦在ID为[id]的文本框上",
-				"WitCatFileHelper.deleteallinput": "删除所有文本框",
 				"WitCatFileHelper.showvar": "设置键[name]的状态为[show]",
 				"WitCatFileHelper.saveother": "设置作品ID[id]的键[name]为[text]",
 				"WitCatFileHelper.uploadother": "获取作品[id]的键[name]的值",
@@ -59,12 +53,6 @@ class WitCatFileHelper {
 				"WitCatFileHelper.encrypt": "base64 encrypt[text]",
 				"WitCatFileHelper.decrypt": "base64 decrypt[text]",
 				"WitCatFileHelper.openfile": "openfile",
-				"WitCatFileHelper.createinput": "Set or create an input with ID[id]X[x]Y[y]width[width]height[height]content[text]prompt[texts]font-size[size]",
-				"WitCatFileHelper.deleteinput": "delete an input with ID[id]",
-				"WitCatFileHelper.getinput": "get an input with ID[id]",
-				"WitCatFileHelper.isinput": "is the focus on the input with ID[id]?",
-				"WitCatFileHelper.nowinput": "let teh focus on the input with ID[id]",
-				"WitCatFileHelper.deleteallinput": "delete all input",
 				"WitCatFileHelper.showvar": "set value[name]`s state[show]",
 				"WitCatFileHelper.saveother": "save ID[id]`s content name[name]with[text]",
 				"WitCatFileHelper.uploadother": "get ID[id]`s value[name]",
@@ -265,107 +253,6 @@ class WitCatFileHelper {
 						},
 					},
 				},
-				"---"+this.formatMessage("WitCatFileHelper.inputmanagement"),
-				{
-					opcode: "createinput",
-					blockType: "command",
-					text: this.formatMessage("WitCatFileHelper.createinput"),
-					arguments: {
-						id:{
-							type:"string",
-							defaultValue:"i",
-						},
-						x:{
-							type:"number",
-							defaultValue:"0",
-						},
-						y:{
-							type:"number",
-							defaultValue:"0",
-						},
-						width:{
-							type:"number",
-							defaultValue:"100",
-						},
-						height:{
-							type:"number",
-							defaultValue:"20",
-						},
-						text:{
-							type:"string",
-							defaultValue:"hello word!",
-						},
-						texts:{
-							type:"string",
-							defaultValue:"hello word!",
-						},
-						size:{
-							type:"number",
-							defaultValue:"16",
-						}
-					},
-				},
-				{
-					opcode: "compute",
-					blockType: "reporter",
-					text: this.formatMessage("WitCatFileHelper.compute"),
-					arguments: {
-						size:{
-							type:"number",
-							defaultValue:"16",
-						}
-					},
-				},
-				{
-					opcode: "deleteinput",
-					blockType: "command",
-					text: this.formatMessage("WitCatFileHelper.deleteinput"),
-					arguments: {
-						id:{
-							type:"string",
-							defaultValue:"i",
-						}
-					},
-				},
-				{
-					opcode: "getinput",
-					blockType: "reporter",
-					text: this.formatMessage("WitCatFileHelper.getinput"),
-					arguments: {
-						id:{
-							type:"string",
-							defaultValue:"i",
-						}
-					},
-				},
-				{
-					opcode: "isinput",
-					blockType: "Boolean",
-					text: this.formatMessage("WitCatFileHelper.isinput"),
-					arguments: {
-						id:{
-							type:"string",
-							defaultValue:"i",
-						}
-					},
-				},
-				{
-					opcode: "nowinput",
-					blockType: "command",
-					text: this.formatMessage("WitCatFileHelper.nowinput"),
-					arguments: {
-						id:{
-							type:"string",
-							defaultValue:"i",
-						}
-					},
-				},
-				{
-					opcode: "deleteallinput",
-					blockType: "command",
-					text: this.formatMessage("WitCatFileHelper.deleteallinput"),
-					arguments: {},
-				},
 				"---"+this.formatMessage("WitCatFileHelper.Multiplelinestext"),
 				{
 					opcode: "segmentation",
@@ -464,12 +351,12 @@ class WitCatFileHelper {
 				],
 				thing: [
 					{
-					  text: this.formatMessage('WitCatFileHelper.thing.2'),
-					  value: 'false'
-					},
-					{
 					  text: this.formatMessage('WitCatFileHelper.thing.1'),
 					  value: 'true'
+					},
+					{
+					  text: this.formatMessage('WitCatFileHelper.thing.2'),
+					  value: 'false'
 					},
 				],
 			}
@@ -667,120 +554,6 @@ class WitCatFileHelper {
 				}
 			}
 		});
-	}
-	//设置或创建文本框
-	createinput(args){
-		let x = args.x;
-		let y = args.y;
-		let width = args.width;
-		let height = args.height;
-		if(args.x > this.runtime.stageWidth){
-			x = this.runtime.stageWidth;
-		}
-		if(args.x < 0){
-			x = 0;
-		}
-		if(args.y > this.runtime.stageHeight){
-			y = this.runtime.stageHeight;
-		}
-		if(args.y < 0){
-			y = 0;
-		}
-		if(args.x + args.width > this.runtime.stageWidth){
-			width = this.runtime.stageWidth - x;
-		}
-		if(args.width < 0){
-			width = 0;
-		}
-		if(args.y + args.height > this.runtime.stageHeight){
-			height = this.runtime.stageHeight - y;
-		}
-		if(args.height < 0){
-			height = 0;
-		}
-		x = (x / this.runtime.stageWidth) * 100;
-		y = (y / this.runtime.stageHeight) * 100;
-		width = (width / this.runtime.stageWidth) * 100;
-		height = (height / this.runtime.stageHeight) * 100;
-		let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:`+ x + `%; top:` + y + `%; width:` + width + `%; height:` + height + `%;font-size: ` + args.size + `px;`;
-		let search = document.getElementById("WitCatInput" + args.id);
-		//找渲染div
-		let div = document.getElementsByClassName("gandi_stage_stage_1fD7k ccw-stage-wrapper")[0];		//gandi编辑器
-		if(div == null){
-			div = document.getElementsByClassName("stage_stage_1fD7k ccw-stage-wrapper")[0];		//传统编辑器
-			if(div == null){
-				div = document.getElementsByClassName("gandi_stage-wrapper_stage-canvas-wrapper_3ewmd")[0];		//作品展示页
-				if(div == null){
-					alert("当前页面不支持文本框，请前往作品详情页体验完整作品！");
-					return;
-				}
-			}
-		}
-		if(search != null){
-			search.style = dom;
-			search.value = args.text;
-			search.placeholder = args.texts;
-		}
-		else{
-			let eleLink = document.createElement('input');
-			eleLink.type = "text";
-			eleLink.style = dom;
-			eleLink.id = "WitCatInput" + args.id;
-			eleLink.value = args.text;
-			eleLink.className = "WitCatInput";
-			eleLink.placeholder = args.texts;
-			div.appendChild(eleLink);
-		}
-	}
-	//删除文本框
-	deleteinput(args){
-		let search = document.getElementById("WitCatInput" + args.id);
-		if(search != null){
-			let div = search.parentNode;
-			div.removeChild(search);
-		}
-	}
-	//获取文本框内容
-	getinput(args){
-		let search = document.getElementById("WitCatInput" + args.id);
-		if(search != null){
-			return(search.value);
-		}
-		else{
-			return("");
-		}
-	}
-	//焦点判断
-	isinput(args){
-		let search = document.getElementById("WitCatInput" + args.id);
-		if(search != null){
-			if(search == document.activeElement){
-				return(true);
-			}
-			else{
-				return(false);
-			}
-		}
-		else{
-			return(false);
-		}
-	}
-	//焦点获取
-	nowinput(args){
-		let search = document.getElementById("WitCatInput" + args.id);
-		if(search != null){
-			search.focus();
-		}
-	}
-	//删除所有文本框
-	deleteallinput(args){
-		let search = document.getElementsByClassName("WitCatInput");
-		let i = 0;
-		let div;
-		for(i = search.length - 1;i >= 0;i--){
-			div = search[i].parentNode;
-			div.removeChild(search[i]);
-		}
 	}
 	//设置状态
 	showvar(args){
@@ -1005,12 +778,12 @@ window.tempExt = {
 	},
 	l10n: {
 		"zh-cn": {
-			"WitCatFileHelper.name": "wit_catの拓展",
-			"WitCatFileHelper.descp": "一堆没用的小玩意"
+			"WitCatFileHelper.name": "文件助手",
+			"WitCatFileHelper.descp": "读取/处理本地数据"
 		},
 		en: {
-			"WitCatFileHelper.name": "wit_catのextension",
-			"WitCatFileHelper.descp": "some useless block"
+			"WitCatFileHelper.name": "File Helper",
+			"WitCatFileHelper.descp": "Handling local data"
 		}
 	}
 };
