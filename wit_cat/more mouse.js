@@ -26,9 +26,7 @@ class WitCatMouse {
 				"WitCatMouse.key.3": "右键",
 				"WitCatMouse.key.4": "前侧键",
 				"WitCatMouse.key.5": "后侧键",
-				"WitCatMouse.mouseuse": "[type]鼠标",
-				"WitCatMouse.type.1": "锁定",
-				"WitCatMouse.type.2": "释放",
+				"WitCatMouse.mouseuse": "锁定鼠标",
 				"WitCatMouse.acceleration": "鼠标[way]加速度",
 				"WitCatMouse.way.1": "X",
 				"WitCatMouse.way.2": "Y",
@@ -98,12 +96,7 @@ class WitCatMouse {
 					opcode: "mouseuse",
 					blockType: "command",
 					text: this.formatMessage("WitCatMouse.mouseuse"),
-					arguments: {
-						type:{
-							type:"string",
-							menu:"type",
-						},
-					},
+					arguments: {},
 				},
 				{
 					opcode: "acceleration",
@@ -148,16 +141,6 @@ class WitCatMouse {
 					{
 					  text: this.formatMessage('WitCatMouse.set.2'),
 					  value: "false"
-					},
-				],
-				type: [
-					{
-					  text: this.formatMessage('WitCatMouse.type.1'),
-					  value: "false"
-					},
-					{
-					  text: this.formatMessage('WitCatMouse.type.2'),
-					  value: "true"
 					},
 				],
 				way: [
@@ -207,7 +190,7 @@ class WitCatMouse {
 		}
 	}
 	//控制鼠标
-	mouseuse(args){
+	mouseuse(){
 		//找渲染div
 		let div = document.getElementsByClassName("gandi_stage_stage_1fD7k ccw-stage-wrapper")[0];		//gandi编辑器
 		if(div == null){
@@ -220,14 +203,9 @@ class WitCatMouse {
 				}
 			}
 		}
-		if(args.type){
-			div.addEventListener('click', function () {
-				div.requestPointerLock();
-			});		
-		}
-		else{
-			document.exitPointerLock();
-		}
+		div.addEventListener('click', function () {
+			div.requestPointerLock();
+		});
 	}
 	//鼠标移动量
 	acceleration(args){
