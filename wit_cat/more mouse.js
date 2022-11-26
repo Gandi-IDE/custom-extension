@@ -42,9 +42,7 @@ class WitCatMouse {
 				"WitCatMouse.key.3": "right",
 				"WitCatMouse.key.4": "front",
 				"WitCatMouse.key.5": "back",
-				"WitCatMouse.mouseuse": "[type]mouse",
-				"WitCatMouse.type.1": "lock",
-				"WitCatMouse.type.2": "release",
+				"WitCatMouse.mouseuse": "lock mouse",
 				"WitCatMouse.acceleration": "mouse[way]acceleration",
 				"WitCatMouse.way.1": "X",
 				"WitCatMouse.way.2": "Y",
@@ -203,9 +201,7 @@ class WitCatMouse {
 				}
 			}
 		}
-		div.addEventListener('click', function () {
-			div.requestPointerLock();
-		});
+		div.requestPointerLock();
 	}
 	//鼠标移动量
 	acceleration(args){
