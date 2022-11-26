@@ -6,6 +6,10 @@ const _icon = "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHR
 
 const extensionId = "WitCatMouse";
 let button = ["up","up","up","up","up"];
+let xMouse = 0;
+let yMouse = 0;
+let isMove = false,timer = null;
+
 
 class WitCatMouse {
 	constructor(runtime) {
@@ -22,6 +26,12 @@ class WitCatMouse {
 				"WitCatMouse.key.3": "右键",
 				"WitCatMouse.key.4": "前侧键",
 				"WitCatMouse.key.5": "后侧键",
+				"WitCatMouse.mouseuse": "[type]鼠标",
+				"WitCatMouse.type.1": "锁定",
+				"WitCatMouse.type.2": "释放",
+				"WitCatMouse.acceleration": "鼠标[way]加速度",
+				"WitCatMouse.way.1": "X",
+				"WitCatMouse.way.2": "Y",
 			},
 			en: {
 				"WitCatMouse.name": "More Mouse",
@@ -34,6 +44,12 @@ class WitCatMouse {
 				"WitCatMouse.key.3": "right",
 				"WitCatMouse.key.4": "front",
 				"WitCatMouse.key.5": "back",
+				"WitCatMouse.mouseuse": "[type]mouse",
+				"WitCatMouse.type.1": "lock",
+				"WitCatMouse.type.2": "release",
+				"WitCatMouse.acceleration": "mouse[way]acceleration",
+				"WitCatMouse.way.1": "X",
+				"WitCatMouse.way.2": "Y",
 			}
 		})
 	}
@@ -78,6 +94,28 @@ class WitCatMouse {
 						},
 					},
 				},
+				{
+					opcode: "mouseuse",
+					blockType: "command",
+					text: this.formatMessage("WitCatMouse.mouseuse"),
+					arguments: {
+						type:{
+							type:"string",
+							menu:"type",
+						},
+					},
+				},
+				{
+					opcode: "acceleration",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatMouse.acceleration"),
+					arguments: {
+						way:{
+							type:"string",
+							menu:"way",
+						},
+					},
+				},
 			],
 			menus:{
 				key: [
@@ -110,6 +148,26 @@ class WitCatMouse {
 					{
 					  text: this.formatMessage('WitCatMouse.set.2'),
 					  value: "false"
+					},
+				],
+				type: [
+					{
+					  text: this.formatMessage('WitCatMouse.type.1'),
+					  value: "false"
+					},
+					{
+					  text: this.formatMessage('WitCatMouse.type.2'),
+					  value: "true"
+					},
+				],
+				way: [
+					{
+					  text: this.formatMessage('WitCatMouse.way.1'),
+					  value: "x"
+					},
+					{
+					  text: this.formatMessage('WitCatMouse.way.2'),
+					  value: "y"
 					},
 				],
 			}
@@ -148,6 +206,38 @@ class WitCatMouse {
 			return false;
 		}
 	}
+	//控制鼠标
+	mouseuse(args){
+		//找渲染div
+		let div = document.getElementsByClassName("gandi_stage_stage_1fD7k ccw-stage-wrapper")[0];		//gandi编辑器
+		if(div == null){
+			div = document.getElementsByClassName("stage_stage_1fD7k ccw-stage-wrapper")[0];		//传统编辑器
+			if(div == null){
+				div = document.getElementsByClassName("gandi_stage-wrapper_stage-canvas-wrapper_3ewmd")[0];		//作品展示页
+				if(div == null){
+					alert("当前页面不支持文本框，请前往作品详情页体验完整作品！");
+					return;
+				}
+			}
+		}
+		if(args.type){
+			div.addEventListener('click', function () {
+				div.requestPointerLock();
+			});		
+		}
+		else{
+			document.exitPointerLock();
+		}
+	}
+	//鼠标移动量
+	acceleration(args){
+		if(args.way == "x"){
+			return xMouse;
+		}
+		else{
+			return -yMouse;
+		}
+	}
 }
 
 window.tempExt = {
@@ -182,3 +272,14 @@ document.onmousedown = function(event) {
 document.onmouseup = function(event) {
 	button[event.button] = "up";
 }
+document.addEventListener("mousemove", ev => {
+    xMouse = ev.movementX; // 获得鼠标指针的x移动量
+    yMouse = ev.movementY; // 获得鼠标指针的y移动量
+	isMove = true;
+	clearTimeout(timer);
+	timer = setTimeout(function(){
+		isMove = false;
+		xMouse = 0;
+		yMouse = 0;
+	},30);
+});
