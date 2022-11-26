@@ -12,23 +12,27 @@ class WitCatInput {
 		this._formatMessage = runtime.getFormatMessage({
 			"zh-cn": {
 				"WitCatInput.name": "文本输入框",
-				"WitCatInput.createinput": "设置或创建ID为[id]的文本框的X[x]Y[y]宽[width]高[height]内容[text]提示[texts]字体大小[size]",
+				"WitCatInput.createinput": "设置或创建ID为[id]的[type]文本框的X[x]Y[y]宽[width]高[height]内容[text]提示[texts]字体大小[size]",
 				"WitCatInput.deleteinput": "删除ID为[id]的文本框",
 				"WitCatInput.getinput": "获得ID为[id]的文本框内容",
 				"WitCatInput.isinput": "焦点是否在ID为[id]的文本框上",
 				"WitCatInput.nowinput": "将焦点聚焦在ID为[id]的文本框上",
 				"WitCatInput.deleteallinput": "删除所有文本框",
 				"WitCatInput.compute": "当前分辨率下高[size]的字体大小",
+				"WitCatInput.type.1": "单行文本",
+				"WitCatInput.type.2": "多行文本",
 			},
 			en: {
 				"WitCatInput.name": "input",
-				"WitCatInput.createinput": "Set or create an input with ID[id]X[x]Y[y]width[width]height[height]content[text]prompt[texts]font-size[size]",
+				"WitCatInput.createinput": "Set or create an[type]input with ID[id]X[x]Y[y]width[width]height[height]content[text]prompt[texts]font-size[size]",
 				"WitCatInput.deleteinput": "delete an input with ID[id]",
 				"WitCatInput.getinput": "get an input with ID[id]",
 				"WitCatInput.isinput": "is the focus on the input with ID[id]?",
 				"WitCatInput.nowinput": "let teh focus on the input with ID[id]",
 				"WitCatInput.deleteallinput": "delete all input",
 				"WitCatInput.compute": "The font size at the current resolution that is high [size]",
+				"WitCatInput.type.1": "Single line",
+				"WitCatInput.type.2": "Multiple lines",
 			}
 		})
 	}
@@ -59,6 +63,10 @@ class WitCatInput {
 						id:{
 							type:"string",
 							defaultValue:"i",
+						},
+						type:{
+							type:"string",
+							menu:"type",
 						},
 						x:{
 							type:"number",
@@ -151,7 +159,19 @@ class WitCatInput {
 					text: this.formatMessage("WitCatInput.deleteallinput"),
 					arguments: {},
 				},
-			]
+			],
+			menus:{
+				type: [
+					{
+					  text: this.formatMessage('WitCatInput.type.1'),
+					  value: 'input'
+					},
+					{
+					  text: this.formatMessage('WitCatInput.type.2'),
+					  value: 'Textarea'
+					},
+				],
+			}
 		};
 	}
 	//设置或创建文本框
@@ -188,7 +208,7 @@ class WitCatInput {
 		y = (y / this.runtime.stageHeight) * 100;
 		width = (width / this.runtime.stageWidth) * 100;
 		height = (height / this.runtime.stageHeight) * 100;
-		let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:`+ x + `%; top:` + y + `%; width:` + width + `%; height:` + height + `%;font-size: ` + args.size + `px;`;
+		let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:`+ x + `%; top:` + y + `%; width:` + width + `%; height:` + height + `%;font-size: ` + args.size + `px;resize:none`;
 		let search = document.getElementById("WitCatInput" + args.id);
 		//找渲染div
 		let div = document.getElementsByClassName("gandi_stage_stage_1fD7k ccw-stage-wrapper")[0];		//gandi编辑器
@@ -203,17 +223,37 @@ class WitCatInput {
 			}
 		}
 		if(search != null){
-			search.style = dom;
-			search.value = args.text;
-			search.placeholder = args.texts;
+			if(search.name == args.type){
+				search.style = dom;
+				search.value = args.text;
+				search.placeholder = args.texts;
+			}
+			else{
+				let div = search.parentNode;
+				div.removeChild(search);
+				let eleLink = document.createElement(args.type);
+				if(args.type == "input"){
+					eleLink.type = "text";
+				}
+				eleLink.style = dom;
+				eleLink.id = "WitCatInput" + args.id;
+				eleLink.value = args.text;
+				eleLink.className = "WitCatInput";
+				eleLink.name = args.type;
+				eleLink.placeholder = args.texts;
+				div.appendChild(eleLink);
+			}
 		}
 		else{
-			let eleLink = document.createElement('input');
-			eleLink.type = "text";
+			let eleLink = document.createElement(args.type);
+			if(args.type == "input"){
+				eleLink.type = "text";
+			}
 			eleLink.style = dom;
 			eleLink.id = "WitCatInput" + args.id;
 			eleLink.value = args.text;
 			eleLink.className = "WitCatInput";
+			eleLink.name = args.type;
 			eleLink.placeholder = args.texts;
 			div.appendChild(eleLink);
 		}
