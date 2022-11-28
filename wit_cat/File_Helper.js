@@ -532,7 +532,6 @@ class WitCatFileHelper {
 	//打开文件
 	openfile(args){
 		FLAG = 1;
-		console.log("aaa");
 		return new Promise(resolve => {
 			let a = 0;
 			const input = document.createElement("input");
@@ -554,11 +553,9 @@ class WitCatFileHelper {
 			}
 			//取消检测
 			window.onfocus = function() { 
-				console.log("az")
 				setTimeout(e => {
 				  if (FLAG == 1) {
 					FLAG = 0;
-					console.log('取消');
 					resolve("");
 				  }
 				}, 1000);
