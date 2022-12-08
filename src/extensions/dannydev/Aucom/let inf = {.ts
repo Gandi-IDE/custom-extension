@@ -1,0 +1,985 @@
+import { GandiExtension, BlockUtil, ArgumentType, ReporterScope, BlockType } from '@cocrea/extension-kit'
+import { extensionId } from './extInfo'
+import zhCn from "./l10n/zh-cn.json";
+import en from "./l10n/en.json";
+
+import cover from "./assets/cover.jpg";
+import blockIcon from "./assets/icon.png";
+
+export default class DannyDEVCOMM extends GandiExtension {
+
+  get extensionId(): string {
+    return extensionId;
+  }
+
+  get localization() {
+    return {
+      'zh-cn': zhCn,
+      'en': en,
+    };
+  }
+
+  get documentURL(): string {
+    return 'https://www.ccw.site/post/1424d473-f1a4-4268-86dd-8f4de4d6592f';
+  }
+
+  get menuIconURI(): string {
+    return blockIcon;
+  }
+
+  get blockIconURI(): string {
+    return blockIcon;
+  }
+
+  get coverURI(): string {
+    return cover;
+  }
+
+
+  get authorInfo() {
+    return {
+      labelName: 'Danny & YUEN',  //作者显示名称
+      username: 'DannyDev', //用户名
+      homepage: 'https://www.ccw.site/student/5c4b101db73fd8498278630c', //主页
+      email: '3414034955@qq.com' //邮箱
+    };
+  }
+  DannyDevCOM = { 'wsrecv_': [], 'wsnotalive_': [], 'json_list': [], 'wsock': [], 'http_pm_': [] }
+  init() {
+    //menus
+    const HTTP_method = BlockUtil.createMenu('HTTP_method');
+    HTTP_method.items.push({ text: 'GET', value: 'GET' });
+    HTTP_method.items.push({ text: 'POST', value: 'POST' });
+    HTTP_method.items.push({ text: 'HEAD', value: 'HEAD' });
+    HTTP_method.items.push({ text: 'PUT', value: 'PUT' });
+    HTTP_method.items.push({ text: 'DELETE', value: 'DELETE' });
+    HTTP_method.items.push({ text: 'OPTIONS', value: 'OPTIONS' });
+    const ws_method = BlockUtil.createMenu('ws_method');
+    ws_method.items.push({ text: 'WS', value: 'WS' });
+    ws_method.items.push({ text: 'WSS', value: 'WSS' });
+    const JSON_add = BlockUtil.createMenu('JSON_add');
+    JSON_add.items.push({ text: 'STRING', value: '0' });
+    JSON_add.items.push({ text: 'INT', value: '1' });
+    JSON_add.items.push({ text: 'FLOAT', value: '2' });
+    JSON_add.items.push({ text: 'LIST', value: '3' });
+    JSON_add.items.push({ text: 'LOGIC', value: '4' });
+    const sock_yi = BlockUtil.createMenu('sock_yi');
+    sock_yi.items.push({ text: 'TCP', value: '0' });
+    sock_yi.items.push({ text: 'UDP', value: '1' });
+    const sock_method = BlockUtil.createMenu('sock_method');
+    sock_method.items.push({ text: 'client', value: '0' });
+    sock_method.items.push({ text: 'server', value: '1' });
+    //blocks
+    const http = BlockUtil.createReporter();
+    http.setReporterScope(ReporterScope.TARGET)
+    http.setOpcode('http')
+    http.setText('DannyDevCOM.http')
+    const g_way = BlockUtil.createArgument(ArgumentType.STRING, 'GET', HTTP_method);
+    const site = BlockUtil.createArgument(ArgumentType.STRING, '/')
+    const p = BlockUtil.createArgument(ArgumentType.STRING, 'None')
+    const body = BlockUtil.createArgument(ArgumentType.STRING, ' ')
+    http.setArguments({ g_way, site, p, body })
+    this.addBlock(http)
+
+    const http_pm_cm = BlockUtil.createCommand();
+    http_pm_cm.setOpcode('http_pm_cm')
+    http_pm_cm.setText('DannyDevCOM.http_pm')
+    let id = BlockUtil.createArgument(ArgumentType.STRING, '1');
+    let name = BlockUtil.createArgument(ArgumentType.STRING, 'a')
+    const text = BlockUtil.createArgument(ArgumentType.STRING, 'b')
+    http_pm_cm.setArguments({ id, name, text })
+    this.addBlock(http_pm_cm)
+
+    const http_pm_des = BlockUtil.createCommand();
+    http_pm_des.setOpcode('http_pm_des')
+    http_pm_des.setText('DannyDevCOM.http_pm_des')
+    http_pm_des.setArguments({ id })
+    this.addBlock(http_pm_des)
+
+    const ws_cre_sock = BlockUtil.createReporter();
+    ws_cre_sock.setReporterScope(ReporterScope.TARGET)
+    ws_cre_sock.setOpcode('ws_cre_sock')
+    ws_cre_sock.setText('DannyDevCOM.wsocket_create')
+    const yi = BlockUtil.createArgument(ArgumentType.STRING, 'WS', ws_method);
+    ws_cre_sock.setArguments({ yi })
+    this.addBlock(ws_cre_sock)
+
+    const ws_conn_sock = BlockUtil.createBool();
+    ws_conn_sock.setReporterScope(ReporterScope.TARGET)
+    ws_conn_sock.setOpcode('ws_conn_sock')
+    ws_conn_sock.setText('DannyDevCOM.wsocket_connect')
+    const host = BlockUtil.createArgument(ArgumentType.STRING, ' ')
+    ws_conn_sock.setArguments({ id, host })
+    this.addBlock(ws_conn_sock)
+
+    const ws_send = BlockUtil.createBool();
+    ws_send.setReporterScope(ReporterScope.TARGET)
+    ws_send.setOpcode('ws_send')
+    ws_send.setText('DannyDevCOM.wsocket_send')
+    ws_send.setArguments({ id, text })
+    this.addBlock(ws_send)
+
+    const ws_recv = BlockUtil.createReporter();
+    ws_recv.setReporterScope(ReporterScope.TARGET)
+    ws_recv.setOpcode('ws_recv')
+    ws_recv.setText('DannyDevCOM.wsocket_recv')
+    ws_recv.setArguments({ id })
+    this.addBlock(ws_recv)
+
+    const ws_close = BlockUtil.createReporter();
+    ws_close.setReporterScope(ReporterScope.TARGET)
+    ws_close.setOpcode('ws_close')
+    ws_close.setText('DannyDevCOM.wsocket_conclose')
+    ws_close.setArguments({ id })
+    this.addBlock(ws_close)
+
+    const ws_destroy = BlockUtil.createCommand();
+    ws_destroy.setOpcode('ws_destroy')
+    ws_destroy.setText('DannyDevCOM.wsocket_close')
+    ws_destroy.setArguments({ id })
+    this.addBlock(ws_destroy)
+
+    const RC4_coding = BlockUtil.createReporter();
+    RC4_coding.setReporterScope(ReporterScope.TARGET)
+    RC4_coding.setOpcode('RC4_coding')
+    RC4_coding.setText('DannyDevCOM.code_RC4')
+    const key = BlockUtil.createArgument(ArgumentType.STRING, 'Danny')
+    let TEXT = BlockUtil.createArgument(ArgumentType.STRING, 'Danny')
+    RC4_coding.setArguments({ KEY: key, TEXT })
+    this.addBlock(RC4_coding)
+
+    const b64encoding = BlockUtil.createReporter();
+    b64encoding.setReporterScope(ReporterScope.TARGET)
+    b64encoding.setOpcode('b64encoding')
+    b64encoding.setText('DannyDevCOM.code_base64_en')
+    TEXT = BlockUtil.createArgument(ArgumentType.STRING, 'abcd')
+    b64encoding.setArguments({ key, TEXT })
+    this.addBlock(b64encoding)
+
+    const b64decoding = BlockUtil.createReporter();
+    b64decoding.setReporterScope(ReporterScope.TARGET)
+    b64decoding.setOpcode('b64decoding')
+    b64decoding.setText('DannyDevCOM.code_base64_de')
+    TEXT = BlockUtil.createArgument(ArgumentType.STRING, 'RGFubnk=')
+    b64decoding.setArguments({ key, TEXT })
+    this.addBlock(b64decoding)
+
+    const b58encoding = BlockUtil.createReporter();
+    b58encoding.setReporterScope(ReporterScope.TARGET)
+    b58encoding.setOpcode('b58encoding')
+    b58encoding.setText('DannyDevCOM.code_base58_en')
+    TEXT = BlockUtil.createArgument(ArgumentType.STRING, 'Danny')
+    b58encoding.setArguments({ key, TEXT })
+    this.addBlock(b58encoding)
+
+    const b58decoding = BlockUtil.createReporter();
+    b58decoding.setReporterScope(ReporterScope.TARGET)
+    b58decoding.setOpcode('b58decoding')
+    b58decoding.setText('DannyDevCOM.code_base58_de')
+    TEXT = BlockUtil.createArgument(ArgumentType.STRING, '8iTbLRE')
+    b58decoding.setArguments({ key, TEXT })
+    this.addBlock(b58decoding)
+
+    const bcostomencoding = BlockUtil.createReporter();
+    bcostomencoding.setReporterScope(ReporterScope.TARGET)
+    bcostomencoding.setOpcode('bcostomencoding')
+    bcostomencoding.setText('DannyDevCOM.code_base_custom_en')
+    TEXT = BlockUtil.createArgument(ArgumentType.STRING, 'Danny')
+    const ALPHABET = BlockUtil.createArgument(ArgumentType.STRING, '!@#$%^&*()')
+    bcostomencoding.setArguments({ ALPHABET, TEXT })
+    this.addBlock(bcostomencoding)
+
+    const bcostomdecoding = BlockUtil.createReporter();
+    bcostomdecoding.setReporterScope(ReporterScope.TARGET)
+    bcostomdecoding.setOpcode('bcostomdecoding')
+    bcostomdecoding.setText('DannyDevCOM.code_base_custom_de')
+    TEXT = BlockUtil.createArgument(ArgumentType.STRING, '#)$&)#%!$$#@')
+    bcostomdecoding.setArguments({ ALPHABET, TEXT })
+    this.addBlock(bcostomdecoding)
+
+    const json_create = BlockUtil.createReporter();
+    json_create.setReporterScope(ReporterScope.TARGET)
+    json_create.setOpcode('json_create')
+    json_create.setText('DannyDevCOM.json_create')
+    let json_ = BlockUtil.createArgument(ArgumentType.STRING, ' ')
+    json_create.setArguments({ json_ })
+    this.addBlock(json_create)
+
+    const json_load = BlockUtil.createReporter();
+    json_load.setReporterScope(ReporterScope.TARGET)
+    json_load.setOpcode('json_load')
+    json_load.setText('DannyDevCOM.json_load')
+    json_load.setArguments({ id, json_ })
+    this.addBlock(json_load)
+
+    const json_get_all_item = BlockUtil.createReporter();
+    json_get_all_item.setReporterScope(ReporterScope.TARGET)
+    json_get_all_item.setOpcode('json_get_all_item')
+    json_get_all_item.setText('DannyDevCOM.json_get_all_item')
+    json_get_all_item.setArguments({ id })
+    this.addBlock(json_get_all_item)
+
+    const json_add_from_id = BlockUtil.createBool();
+    json_add_from_id.setReporterScope(ReporterScope.TARGET)
+    json_add_from_id.setOpcode('json_add_from_id')
+    json_add_from_id.setText('DannyDevCOM.json_add_from_id')
+    let _id = BlockUtil.createArgument(ArgumentType.STRING, '2')
+    json_add_from_id.setArguments({ _id, id, name })
+    this.addBlock(json_add_from_id)
+
+    const json_add_ = BlockUtil.createBool();
+    json_add_.setReporterScope(ReporterScope.TARGET)
+    json_add_.setOpcode('json_add')
+    json_add_.setText('DannyDevCOM.json_add')
+    TEXT = BlockUtil.createArgument(ArgumentType.STRING, '')
+    let type = BlockUtil.createArgument(ArgumentType.STRING, 'STRING', JSON_add)
+    name = BlockUtil.createArgument(ArgumentType.STRING, ' ')
+    json_add_.setArguments({ id, type, name, TEXT })
+    this.addBlock(json_add_)
+
+    const json_get_item = BlockUtil.createReporter();
+    json_get_item.setReporterScope(ReporterScope.TARGET)
+    json_get_item.setOpcode('json_get_item')
+    json_get_item.setText('DannyDevCOM.json_get_item')
+    json_get_item.setArguments({ id, name })
+    this.addBlock(json_get_item)
+
+    const json_del_item = BlockUtil.createBool();
+    json_del_item.setReporterScope(ReporterScope.TARGET)
+    json_del_item.setOpcode('json_del_item')
+    json_del_item.setText('DannyDevCOM.json_del_item')
+    name = BlockUtil.createArgument(ArgumentType.STRING, 'a')
+    json_del_item.setArguments({ id, name })
+    this.addBlock(json_del_item)
+
+    const GETjson = BlockUtil.createReporter();
+    GETjson.setReporterScope(ReporterScope.TARGET)
+    GETjson.setOpcode('GETjson')
+    GETjson.setText('DannyDevCOM.json_get')
+    GETjson.setArguments({ id })
+    this.addBlock(GETjson)
+
+    const DESTROYjson = BlockUtil.createBool();
+    DESTROYjson.setReporterScope(ReporterScope.TARGET)
+    DESTROYjson.setOpcode('DESTROYjson')
+    DESTROYjson.setText('DannyDevCOM.json_destroy')
+    DESTROYjson.setArguments({ id })
+    this.addBlock(DESTROYjson)
+  }
+
+
+  httpGet(theUrl, body, method) {
+    try {
+      let xmlHttp = new XMLHttpRequest();
+      xmlHttp.open(method, theUrl, false); // false 为同步请求 true 异步请求
+      xmlHttp.send(body);
+      return xmlHttp.responseText;
+    }
+    catch (error) {
+      return error
+    }
+  }
+  get_p(p) {
+    let pt = '?'
+    for (let i = 0, len = this.DannyDevCOM.http_pm_.length; i < len; i++) {
+      if (this.DannyDevCOM.http_pm_[i]['id'] == String(p)) {
+        for (let i_ = 0, len_ = this.DannyDevCOM.http_pm_[i_].p.length; i_ < len_; i_++) {
+          if (i_ == 0) {
+            pt += this.DannyDevCOM.http_pm_[i].p[i_].name + '=' + this.DannyDevCOM.http_pm_[i].p[i_].value
+          }
+          else {
+            pt += '&' + this.DannyDevCOM.http_pm_[i].p[i_].name + '=' + this.DannyDevCOM.http_pm_[i].p[i_].value
+          }
+        }
+      }
+    }
+    return pt
+  }
+  http(args) {
+    const { g_way, site, p, body } = args
+    if (p == 'None') {
+      return this.httpGet(site, body, g_way);
+    }
+    else {
+      return this.httpGet(site + this.get_p(p), body, g_way);
+    }
+
+
+  }
+
+  ws_cre_sock(args) {
+    const { yi } = args
+    if (yi == 'WS') {
+      let id = Date.now()
+      this.DannyDevCOM.wsock.push({ 'id': String(id), 'ip': null, 'port': null, 'obj': null, 'way': 'WS' })
+      return String(id)
+    }
+    if (yi == 'WSS') {
+      let id = Date.now()
+      this.DannyDevCOM.wsock.push({ 'id': String(id), 'ip': null, 'port': null, 'obj': null, 'way': 'WSS' })
+      return String(id)
+    }
+    return '未知协议'
+  }
+  ws_conn_sock(args) {
+    const { id, host } = args
+    console.log(id, host)
+    for (let i = 0, len = this.DannyDevCOM.wsock.length; i < len; i++) {
+      if (String(id) == this.DannyDevCOM.wsock[i]["id"]) {
+        for (let i = 0, len = this.DannyDevCOM.wsrecv_.length; i < len; i++) {
+          if (String(id) == this.DannyDevCOM.wsrecv_[i]["id"]) {
+            delete this.DannyDevCOM.wsnotalive_[String(id)]
+          }
+        }
+
+        try {
+          this.DannyDevCOM.wsock[i]['obj'] = new WebSocket(this.DannyDevCOM.wsock[i]["way"] + '://' + host)
+          console.log(this.DannyDevCOM.wsock)
+          this.DannyDevCOM.wsock[i]['obj'].onmessage = function (evt) {
+            this.DannyDevCOM.wsrecv_.push({ 'id': this.DannyDevCOM.wsock[i]['id'], 'nr': evt.data })
+          }
+          this.DannyDevCOM.wsock[i]['obj'].onclose = function (evt) {
+            this.DannyDevCOM.wsnotalive_.push(this.DannyDevCOM.wsock[i]['id'])
+          }
+          return true
+        }
+        catch (error) {
+
+          return false
+        }
+      }
+    }
+
+    return false
+  }
+  ws_recv(args) {
+    const { id } = args
+    console.log(this.DannyDevCOM.wsrecv_)
+    for (let i = 0, len = this.DannyDevCOM.wsrecv_.length; i < len; i++) {
+      if (String(id) == this.DannyDevCOM.wsrecv_[i]["id"]) {
+        console.log(this.DannyDevCOM.wsrecv_)
+        try {
+          let a = String(this.DannyDevCOM.wsrecv_[i]["nr"])
+          this.DannyDevCOM.wsrecv_.splice(i, 1);
+          return a
+        }
+        catch (error) {
+
+          return ''
+        }
+      }
+    }
+    return false
+  }
+  ws_close(args) {
+    const { id } = args
+    for (let i = 0, len = this.DannyDevCOM.wsrecv_.length; i < len; i++) {
+      if (String(id) == this.DannyDevCOM.wsrecv_[i]["id"]) {
+        this.DannyDevCOM.wsnotalive_.splice(i, 1)
+        return true
+      }
+    }
+    return false
+  }
+  ws_destroy(args) {
+    const { id } = args
+    for (let i = 0, len = this.DannyDevCOM.wsock.length; i < len; i++) {
+      console.log(this.DannyDevCOM.wsock[i])
+      if (String(id) == this.DannyDevCOM.wsock[i]["id"]) {
+        try {
+          if (this.DannyDevCOM.wsock[i]["obj"] == null) { }
+          else { this.DannyDevCOM.wsock[i]["obj"].close() }
+          this.DannyDevCOM.wsock.splice(i, 1);
+          // alert(this.DannyDevCOM.wsock)
+          return ''
+        }
+        catch (error) { console.log(error) }
+      }
+    }
+  }
+  ws_send(args) {
+    const { id, text } = args
+    for (let i = 0, len = this.DannyDevCOM.wsock.length; i < len; i++) {
+      if (String(id) == this.DannyDevCOM.wsock[i]["id"]) {
+        console.log(this.DannyDevCOM.wsrecv_)
+        console.log(this.DannyDevCOM.wsock[i])
+
+        try {
+          if (this.DannyDevCOM.wsock[i]["obj"] == null) { return false } else { this.DannyDevCOM.wsock[i]["obj"].send(text); return true }
+        }
+        catch (error) {
+
+          return false
+        }
+      }
+
+    }
+
+    return false
+  }
+  help() {
+    return 'DannyDevCOM.help.t'
+  }
+  RC4_coding(args) {
+    let key = ''
+    let data = ''
+    const { KEY, TEXT } = args
+    key = String(KEY)
+    data = String(TEXT)//对js不识别字符串进行处理
+    let seq = Array(256); //如果有机会编译成离线可执行程序，会考虑支持AVX512
+    let das = Array(data.length);
+    let i = 0
+    let j = 0
+    let temp = null
+    let k = 0
+    for (let i = 0; i < 256; i++) {
+      seq[i] = i;
+      j = (j + seq[i] + key.charCodeAt(i % key.length)) % 256;
+      temp = seq[i];
+      seq[i] = seq[j];
+      seq[j] = temp;
+    }
+    for (let i = 0; i < data.length; i++) {
+      das[i] = data.charCodeAt(i)
+    }
+    for (let x = 0; x < das.length; x++) {
+      i = (i + 1) % 256;
+      j = (j + seq[i]) % 256;
+      temp = seq[i];
+      seq[i] = seq[j];
+      seq[j] = temp;
+      k = (seq[i] + (seq[j] % 256)) % 256;
+      das[x] = String.fromCharCode(das[x] ^ seq[k]);
+    }
+    return das.join('');
+  }
+  b64encoding(args) {
+    const { TEXT } = args
+    return window.btoa(encodeURIComponent(String(TEXT))); // 编码
+  }
+  b64decoding(args) {
+    const { TEXT } = args
+    try {
+      return decodeURIComponent(window.atob(String(TEXT))); // 解码
+    }
+    catch (error) {
+      return error
+    }
+  }
+  b58encoding(args) {
+    const { TEXT } = args
+    let ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+    let ALPHABET_MAP = {};
+    let BASE = 58;
+    for (let i = 0; i < ALPHABET.length; i++) {
+      ALPHABET_MAP[ALPHABET.charAt(i)] = i;
+    }
+    function ToUTF8(str) {
+      let result = new Array();
+
+      let k = 0;
+      for (let i = 0; i < str.length; i++) {
+        let j = encodeURI(str[i]);
+        if (j.length == 1) {
+          // 未转换的字符
+          result[k++] = j.charCodeAt(0);
+        } else {
+          // 转换成%XX形式的字符
+          let bytes = j.split("%");
+          for (let l = 1; l < bytes.length; l++) {
+            result[k++] = parseInt("0x" + bytes[l]);
+          }
+        }
+      }
+
+      return result;
+    }
+
+
+    // 如果有特殊需求，要转成utf16，可以用以下函数
+    function ToUTF16(str) {
+      let result = new Array();
+
+      let k = 0;
+      for (let i = 0; i < str.length; i++) {
+        let j = str[i].charCodeAt(0);
+        result[k++] = j & 0xFF;
+        result[k++] = j >> 8;
+      }
+
+      return result;
+    }
+    // 传进已经转成字节的数组 -->buffer(utf8格式) 
+    function encode(buffer) {
+      if (buffer.length === 0) return '';
+      let i,
+        j,
+        digits = [0];
+      for (i = 0; i < buffer.length; i++) {
+        for (j = 0; j < digits.length; j++) {
+          digits[j] <<= 8;
+        }
+        digits[0] += buffer[i];
+        let carry = 0;
+        for (j = 0; j < digits.length; ++j) {
+          digits[j] += carry;
+          carry = (digits[j] / BASE) | 0;
+          digits[j] %= BASE;
+        }
+        while (carry) {
+          digits.push(carry % BASE);
+          carry = (carry / BASE) | 0;
+        }
+      }
+      // deal with leading zeros
+      for (i = 0; buffer[i] === 0 && i < buffer.length - 1; i++) digits.push(0);
+      return digits
+        .reverse()
+        .map(function (digit) {
+          return ALPHABET[digit];
+        })
+        .join('');
+    }
+
+
+    return encode(ToUTF8(String(TEXT)))
+  }
+  b58decoding(args) {
+    const { TEXT } = args
+    let ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+    let ALPHABET_MAP = {};
+    let BASE = 58;
+    for (let i = 0; i < ALPHABET.length; i++) {
+      ALPHABET_MAP[ALPHABET.charAt(i)] = i;
+    }
+    function decode(string) {
+      if (string.length === 0) return [];
+      let i,
+        j,
+        bytes = [0];
+      for (i = 0; i < string.length; i++) {
+        let c = string[i];
+        // c是不是ALPHABET_MAP的key 
+        if (!(c in ALPHABET_MAP)) throw new Error('Non-base58 character');
+        for (j = 0; j < bytes.length; j++) bytes[j] *= BASE;
+        bytes[0] += ALPHABET_MAP[c];
+        let carry = 0;
+        for (j = 0; j < bytes.length; ++j) {
+          bytes[j] += carry;
+          carry = bytes[j] >> 8;
+          // 0xff --> 11111111
+          bytes[j] &= 0xff;
+        }
+        while (carry) {
+          bytes.push(carry & 0xff);
+          carry >>= 8;
+        }
+      }
+      for (i = 0; string[i] === '1' && i < string.length - 1; i++) bytes.push(0);
+      return bytes.reverse();
+    }
+
+    function byteToString(arr) {
+      if (typeof arr === 'string') {
+        return arr;
+      }
+      let str = '',
+        _arr = arr;
+      for (let i = 0; i < _arr.length; i++) {
+        // 数组中每个数字转为二进制 匹配出开头为1的直到0的字符
+        // eg:123-->"1111011"-->{0:"1111",groups: undefined, index: 0, input: "1111011"}
+        let one = _arr[i].toString(2),
+          v = one.match(/^1+?(?=0)/);
+        if (v && one.length == 8) {
+          let bytesLength = v[0].length;
+          let store = _arr[i].toString(2).slice(7 - bytesLength);
+          for (let st = 1; st < bytesLength; st++) {
+            store += _arr[st + i].toString(2).slice(2);
+          }
+          str += String.fromCharCode(parseInt(store, 2));
+          i += bytesLength - 1;
+        } else {
+          str += String.fromCharCode(_arr[i]);
+        }
+      }
+      return str;
+    }
+    return byteToString(decode(String(TEXT)))
+  }
+  bcostomencoding(args) {
+    const { ALPHABET, TEXT } = args
+    let ALPHABET_MAP = {};
+    let BASE = ALPHABET.length;
+    for (let i = 0; i < ALPHABET.length; i++) {
+      ALPHABET_MAP[ALPHABET.charAt(i)] = i;
+    }
+    function ToUTF8(str) {
+      let result = new Array();
+
+      let k = 0;
+      for (let i = 0; i < str.length; i++) {
+        let j = encodeURI(str[i]);
+        if (j.length == 1) {
+          // 未转换的字符
+          result[k++] = j.charCodeAt(0);
+        } else {
+          // 转换成%XX形式的字符
+          let bytes = j.split("%");
+          for (let l = 1; l < bytes.length; l++) {
+            result[k++] = parseInt("0x" + bytes[l]);
+          }
+        }
+      }
+
+      return result;
+    }
+
+
+    // 如果有特殊需求，要转成utf16，可以用以下函数
+    function ToUTF16(str) {
+      let result = new Array();
+
+      let k = 0;
+      for (let i = 0; i < str.length; i++) {
+        let j = str[i].charCodeAt(0);
+        result[k++] = j & 0xFF;
+        result[k++] = j >> 8;
+      }
+
+      return result;
+    }
+    // 传进已经转成字节的数组 -->buffer(utf8格式) 
+    function encode(buffer) {
+      if (buffer.length === 0) return '';
+      let i,
+        j,
+        digits = [0];
+      for (i = 0; i < buffer.length; i++) {
+        for (j = 0; j < digits.length; j++) {
+          digits[j] <<= 8;
+        }
+        digits[0] += buffer[i];
+        let carry = 0;
+        for (j = 0; j < digits.length; ++j) {
+          digits[j] += carry;
+          carry = (digits[j] / BASE) | 0;
+          digits[j] %= BASE;
+        }
+        while (carry) {
+          digits.push(carry % BASE);
+          carry = (carry / BASE) | 0;
+        }
+      }
+      // deal with leading zeros
+      for (i = 0; buffer[i] === 0 && i < buffer.length - 1; i++) digits.push(0);
+      return digits
+        .reverse()
+        .map(function (digit) {
+          return ALPHABET[digit];
+        })
+        .join('');
+    }
+
+
+    return encode(ToUTF8(String(TEXT)))
+  }
+  bcostomdecoding(args) {
+    const { ALPHABET, TEXT } = args
+    let ALPHABET_MAP = {};
+    let BASE = ALPHABET.length;
+    for (let i = 0; i < ALPHABET.length; i++) {
+      ALPHABET_MAP[ALPHABET.charAt(i)] = i;
+    }
+    function decode(string) {
+      if (string.length === 0) return [];
+      let i,
+        j,
+        bytes = [0];
+      for (i = 0; i < string.length; i++) {
+        let c = string[i];
+        // c是不是ALPHABET_MAP的key 
+        if (!(c in ALPHABET_MAP)) throw new Error('Non-base58 character');
+        for (j = 0; j < bytes.length; j++) bytes[j] *= BASE;
+        bytes[0] += ALPHABET_MAP[c];
+        let carry = 0;
+        for (j = 0; j < bytes.length; ++j) {
+          bytes[j] += carry;
+          carry = bytes[j] >> 8;
+          // 0xff --> 11111111
+          bytes[j] &= 0xff;
+        }
+        while (carry) {
+          bytes.push(carry & 0xff);
+          carry >>= 8;
+        }
+      }
+      for (i = 0; string[i] === '1' && i < string.length - 1; i++) bytes.push(0);
+      return bytes.reverse();
+    }
+
+    function byteToString(arr) {
+      if (typeof arr === 'string') {
+        return arr;
+      }
+      let str = '',
+        _arr = arr;
+      for (let i = 0; i < _arr.length; i++) {
+        // 数组中每个数字转为二进制 匹配出开头为1的直到0的字符
+        // eg:123-->"1111011"-->{0:"1111",groups: undefined, index: 0, input: "1111011"}
+        let one = _arr[i].toString(2),
+          v = one.match(/^1+?(?=0)/);
+        if (v && one.length == 8) {
+          let bytesLength = v[0].length;
+          let store = _arr[i].toString(2).slice(7 - bytesLength);
+          for (let st = 1; st < bytesLength; st++) {
+            store += _arr[st + i].toString(2).slice(2);
+          }
+          str += String.fromCharCode(parseInt(store, 2));
+          i += bytesLength - 1;
+        } else {
+          str += String.fromCharCode(_arr[i]);
+        }
+      }
+      return str;
+    }
+    return byteToString(decode(String(TEXT)))
+  }
+  json_create(args) {
+    const { json_ } = args
+    let j = json_
+    let id = Date.now()
+    let a = {}
+    try {
+      a = JSON.parse(j)
+    }
+    catch (error) { }
+    this.DannyDevCOM.json_list.push({ 'id': String(id), 'json': a })
+    return id
+
+  }
+  json_load(args) {
+    const { id, json_ } = args
+    function load(id, j) {
+      let a = {}
+      try {
+        a = JSON.parse(j)
+        for (let i = 0, len = this.DannyDevCOM.json_list.length; i < len; i++) {
+          if (this.DannyDevCOM.json_list[i]['id'] == String(id)) {
+            this.DannyDevCOM.json_list[i]['json'] = a
+            return true
+          }
+        }
+      }
+      catch (error) { return false }
+      return false
+
+    }
+    return load(id, json_)
+  }
+  json_get_all_item(args) {
+    const { id } = args
+    let b = []
+    try {
+      for (let i = 0, len = this.DannyDevCOM.json_list.length; i < len; i++) {
+        if (this.DannyDevCOM.json_list[i]['id'] == String(id)) {
+          b = Object.keys(this.DannyDevCOM.json_list[i]['json'])
+        }
+      }
+    }
+    catch (error) { b = [] }
+    let d = ''
+    for (let c of b) {
+      if (c == b[-1]) {
+        d += c
+      }
+      else {
+        d += c + ' '
+      }
+    }
+
+    return d
+  }
+  check(id) {
+    for (let i = 0, len = this.DannyDevCOM.json_list.length; i < len; i++) {
+      if (this.DannyDevCOM.json_list[i]['id'] == String(id)) {
+        return true
+      }
+    }
+    return false
+  }
+  getjson(id) {
+    for (let i = 0, len = this.DannyDevCOM.json_list.length; i < len; i++) {
+      if (this.DannyDevCOM.json_list[i]['id'] == String(id)) {
+        return this.DannyDevCOM.json_list[i]['json']
+      }
+    }
+    return {}
+  }
+  json_add_from_id(args) {
+    const { _id, id, name } = args
+
+    let id1 = _id
+    if (this.check(id) && this.check(id1)) {
+      for (let i = 0, len = this.DannyDevCOM.json_list.length; i < len; i++) {
+        if (this.DannyDevCOM.json_list[i]['id'] == String(id)) {
+          this.DannyDevCOM.json_list[i]['json'][name] = this.getjson(id1)
+          return true
+        }
+      }
+    }
+    else { return false }
+    return false
+
+  }
+  json_add(args) {
+    const { id, type, name, TEXT } = args
+    let content = TEXT
+    if (this.check(id)) {
+      for (let i = 0, len = this.DannyDevCOM.json_list.length; i < len; i++) {
+        if (this.DannyDevCOM.json_list[i]['id'] == String(id)) {
+          if (type == '0') {//字符串
+            this.DannyDevCOM.json_list[i]['json'][String(name)] = String(content)
+            return true
+          }
+          if (type == '1') {//整数
+            this.DannyDevCOM.json_list[i]['json'][String(name)] = parseInt(content)
+            return true
+          }
+          if (type == '2') {//浮点数
+            this.DannyDevCOM.json_list[i]['json'][String(name)] = parseFloat(content)
+            return true
+          }
+          if (type == '3') {//列表
+            this.DannyDevCOM.json_list[i]['json'][String(name)] = content.split(' ')
+            return true
+          }
+          if (type == '4') {//逻辑
+            if (String(content) == 'true') {
+              this.DannyDevCOM.json_list[i]['json'][String(name)] = true
+              return true
+            }
+            else {
+              this.DannyDevCOM.json_list[i]['json'][String(name)] = false
+              return true
+            }
+          }
+
+        }
+      }
+
+    }
+    return false
+  }
+
+  GETjson(args) {
+    const { id } = args
+    for (let i = 0, len = this.DannyDevCOM.json_list.length; i < len; i++) {
+      if (this.DannyDevCOM.json_list[i]['id'] == String(id)) {
+        return JSON.stringify(this.DannyDevCOM.json_list[i]['json'])
+      }
+    }
+    return ''
+  }
+
+  DESTROYjson(args) {
+    const { id } = args
+    for (let i = 0, len = this.DannyDevCOM.json_list.length; i < len; i++) {
+      if (this.DannyDevCOM.json_list[i]['id'] == String(id)) {
+        this.DannyDevCOM.json_list.splice(i, 1);
+        return true
+      }
+    }
+    return false
+  }
+  json_get_item(args) { //
+    const { id, name } = args
+    try {
+      for (let i = 0, len = this.DannyDevCOM.json_list.length; i < len; i++) {
+        if (this.DannyDevCOM.json_list[i]['id'] == String(id)) {
+          if (typeof (this.DannyDevCOM.json_list[i]['json'][name]) == 'string') { //id_0 字符串
+            return this.DannyDevCOM.json_list[i]['json'][name]
+          }
+          if (typeof (this.DannyDevCOM.json_list[i]['json'][name]) == 'number') { //id_1&2 整数&浮点
+            return this.DannyDevCOM.json_list[i]['json'][name]
+          }
+          if (this.DannyDevCOM.json_list[i]['json'][name] instanceof Array) { //id_4列表
+            let a = ''
+            for (let i_ = 0, len = this.DannyDevCOM.json_list[i]['json'][name].length; i_ < len; i_++) {
+              if (i_ == this.DannyDevCOM.json_list[i]['json'][name].length) {
+                a += this.DannyDevCOM.json_list[i]['json'][name][i]
+              }
+              else {
+                a += this.DannyDevCOM.json_list[i]['json'][name][i] + ' '
+              }
+            }
+          }
+          if (typeof (this.DannyDevCOM.json_list[i]['json'][name]) == 'boolean') { // id_4 逻辑
+            return this.DannyDevCOM.json_list[i]['json'][name]
+          }
+
+        }
+      }
+    } catch { }
+    return ''
+  }
+  json_del_item(args) { //删除项
+    const { id, name } = args
+    try {
+      for (let i = 0, len = this.DannyDevCOM.json_list.length; i < len; i++) {
+        if (this.DannyDevCOM.json_list[i]['id'] == String(id)) {
+          Reflect.deleteProperty(this.DannyDevCOM.json_list[i]['json'], String(name))
+          return true
+        }
+      }
+    } catch { }
+    return false
+  }
+  _ws(host, data) {
+    let id = this.ws_conn_sock({ 'id': 'WS', 'host': host })
+    this.ws_send({ 'id': id, 'text': data })
+    let recv = this.ws_recv({ 'id': id })
+    for (; ;) { if (recv != '') { break } }
+    return recv
+  }
+
+  sock_cre(args) {
+    const { yi, method } = args
+    let j = JSON.parse(String(this._ws('127.0.0.1:23089/socket/create', JSON.stringify({ 'yi': yi, 'method': method }))))
+    return j['id']
+
+  }
+  http_pm_cm(args) {
+    const { id, name, text } = args
+    let a = false
+    for (let i = 0, len = this.DannyDevCOM.http_pm_.length; i < len; i++) {
+      if (this.DannyDevCOM.http_pm_[i]['id'] == String(id)) {
+        a = true
+      }
+    }
+    if (a) { } else { this.DannyDevCOM.http_pm_.push({ 'id': String(id), 'p': [] }) }
+    for (let i = 0, len = this.DannyDevCOM.http_pm_.length; i < len; i++) {
+      if (this.DannyDevCOM.http_pm_[i]['id'] == String(id)) {
+        for (let i_ = 0, len_ = this.DannyDevCOM.http_pm_[i]['p'].length; i_ < len_; i_++) {
+          if (this.DannyDevCOM.http_pm_[i]['p'][i_].name == name) {
+            this.DannyDevCOM.http_pm_[i]['p'][i_].value = text
+            return ''
+          }
+        }
+        this.DannyDevCOM.http_pm_[i]['p'].push({ "name": name, 'value': text })
+      }
+    }
+  }
+  http_pm_des(args) {
+    const { id } = args
+    try {
+      for (let i = 0, len = this.DannyDevCOM.http_pm_.length; i < len; i++) {
+        if (this.DannyDevCOM.http_pm_[i]['id'] == String(id)) {
+          this.DannyDevCOM.http_pm_.splice(i, 1)
+          return
+        }
+      }
+    }
+    catch (error) { }
+  }
+}
+
