@@ -12,7 +12,7 @@ class WitCatFileHelper {
 		this.runtime = runtime;
 		this._formatMessage = runtime.getFormatMessage({
 			"zh-cn": {
-				"WitCatFileHelper.name": "wit_catの拓展",
+				"WitCatFileHelper.name": "文件助手",
 				"WitCatFileHelper.filehelper": "文件处理",
 				"WitCatFileHelper.inputmanagement": "文本框",
 				"WitCatFileHelper.Multiplelinestext": "多行文本",
@@ -38,11 +38,10 @@ class WitCatFileHelper {
 				"WitCatFileHelper.numMultiplelinestext": "[text]的行数",
 				"WitCatFileHelper.thing.1": "数组",
 				"WitCatFileHelper.thing.2": "多行文本",
-				"WitCatFileHelper.compute": "当前分辨率下高[size]的字体大小",
 			},
 			en: {
-				"WitCatFileHelper.name": "wit_catのextension",
-				"WitCatFileHelper.filehelper": "file helper",
+				"WitCatFileHelper.name": "file helper",
+				"WitCatFileHelper.filehelper": "file",
 				"WitCatFileHelper.inputmanagement": "input",
 				"WitCatFileHelper.Multiplelinestext": "Multiple lines of text",
 				"WitCatFileHelper.downloads": "Download split content [text] by [s] named [name]",
@@ -67,7 +66,6 @@ class WitCatFileHelper {
 				"WitCatFileHelper.numMultiplelinestext": "[text]Number of rows",
 				"WitCatFileHelper.thing.1": "array",
 				"WitCatFileHelper.thing.2": "Multiple lines of text",
-				"WitCatFileHelper.compute": "The font size at the current resolution that is high [size]",
 			}
 		})
 	}
@@ -551,8 +549,8 @@ class WitCatFileHelper {
 				};
 				reader.readAsText(file);
 			}
-			//取消检测
 			window.onfocus = function() { 
+				// 开始计时或者播放
 				setTimeout(e => {
 				  if (FLAG == 1) {
 					FLAG = 0;
@@ -751,23 +749,6 @@ class WitCatFileHelper {
 	numMultiplelinestext(args){
 		let text = args.text.split("\n");
 		return text.length;
-	}
-	//计算坐标
-	compute(args){
-		//找渲染div
-		let div = document.getElementsByClassName("gandi_stage_stage_1fD7k ccw-stage-wrapper")[0];		//gandi编辑器
-		if(div == null){
-			div = document.getElementsByClassName("stage_stage_1fD7k ccw-stage-wrapper")[0];		//传统编辑器
-			if(div == null){
-				div = document.getElementsByClassName("gandi_stage-wrapper_stage-canvas-wrapper_3ewmd")[0];		//作品展示页
-				if(div == null){
-					alert("当前页面不支持文本框，请前往作品详情页体验完整作品！");
-					return;
-				}
-			}
-		}
-		console.log(div.style.width)
-		return (div.style.width.split("px")[0] / 360) * args.size;
 	}
 }
 
