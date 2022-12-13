@@ -6,6 +6,12 @@ const _icon = "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHR
 
 const extensionId = "WitCatInput";
 
+//找渲染cvs
+let cvs = document.getElementsByTagName("canvas")[0];
+if(cvs == null){
+	alert("当前页面不支持多指触控，请前往作品详情页体验完整作品！");
+}
+
 class WitCatInput {
 	constructor(runtime) {
 		this.runtime = runtime;
@@ -86,11 +92,11 @@ class WitCatInput {
 						},
 						text:{
 							type:"string",
-							defaultValue:"hello word!",
+							defaultValue:"hello world!",
 						},
 						texts:{
 							type:"string",
-							defaultValue:"hello word!",
+							defaultValue:"hello world!",
 						},
 						size:{
 							type:"number",
@@ -210,18 +216,6 @@ class WitCatInput {
 		height = (height / this.runtime.stageHeight) * 100;
 		let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:`+ x + `%; top:` + y + `%; width:` + width + `%; height:` + height + `%;font-size: ` + args.size + `px;resize:none`;
 		let search = document.getElementById("WitCatInput" + args.id);
-		//找渲染div
-		let div = document.getElementsByClassName("gandi_stage_stage_1fD7k ccw-stage-wrapper")[0];		//gandi编辑器
-		if(div == null){
-			div = document.getElementsByClassName("stage_stage_1fD7k ccw-stage-wrapper")[0];		//传统编辑器
-			if(div == null){
-				div = document.getElementsByClassName("gandi_stage-wrapper_stage-canvas-wrapper_3ewmd")[0];		//作品展示页
-				if(div == null){
-					alert("当前页面不支持文本框，请前往作品详情页体验完整作品！");
-					return;
-				}
-			}
-		}
 		if(search != null){
 			if(search.name == args.type){
 				search.style = dom;
@@ -229,8 +223,7 @@ class WitCatInput {
 				search.placeholder = args.texts;
 			}
 			else{
-				let div = search.parentNode;
-				div.removeChild(search);
+				cvs.parentNode.removeChild(search);
 				let eleLink = document.createElement(args.type);
 				if(args.type == "input"){
 					eleLink.type = "text";
@@ -241,7 +234,7 @@ class WitCatInput {
 				eleLink.className = "WitCatInput";
 				eleLink.name = args.type;
 				eleLink.placeholder = args.texts;
-				div.appendChild(eleLink);
+				cvs.parentNode.appendChild(eleLink);
 			}
 		}
 		else{
@@ -255,15 +248,14 @@ class WitCatInput {
 			eleLink.className = "WitCatInput";
 			eleLink.name = args.type;
 			eleLink.placeholder = args.texts;
-			div.appendChild(eleLink);
+			cvs.parentNode.appendChild(eleLink);
 		}
 	}
 	//删除文本框
 	deleteinput(args){
 		let search = document.getElementById("WitCatInput" + args.id);
 		if(search != null){
-			let div = search.parentNode;
-			div.removeChild(search);
+			cvs.parentNode.removeChild(search);
 		}
 	}
 	//获取文本框内容
@@ -302,28 +294,13 @@ class WitCatInput {
 	deleteallinput(args){
 		let search = document.getElementsByClassName("WitCatInput");
 		let i = 0;
-		let div;
 		for(i = search.length - 1;i >= 0;i--){
-			div = search[i].parentNode;
-			div.removeChild(search[i]);
+			search[i].parentNode.removeChild(search[i]);
 		}
 	}
 	//计算坐标
 	compute(args){
-		//找渲染div
-		let div = document.getElementsByClassName("gandi_stage_stage_1fD7k ccw-stage-wrapper")[0];		//gandi编辑器
-		if(div == null){
-			div = document.getElementsByClassName("stage_stage_1fD7k ccw-stage-wrapper")[0];		//传统编辑器
-			if(div == null){
-				div = document.getElementsByClassName("gandi_stage-wrapper_stage-canvas-wrapper_3ewmd")[0];		//作品展示页
-				if(div == null){
-					alert("当前页面不支持文本框，请前往作品详情页体验完整作品！");
-					return;
-				}
-			}
-		}
-		console.log(div.style.width)
-		return (div.style.width.split("px")[0] / 360) * args.size;
+		return (cvs.style.width.split("px")[0] / 360) * args.size;
 	}
 }
 
