@@ -9,6 +9,7 @@ let button = ["up","up","up","up","up"];
 let xMouse = 0;
 let yMouse = 0;
 let isMove = false,timer = null;
+let touch = [];
 
 
 //找渲染cvs
@@ -228,10 +229,10 @@ class WitCatMouse {
 	//鼠标移动量
 	acceleration(args){
 		if(args.way == "x"){
-			return xMouse;
+			return xMouse * (document.body.clientHeight / cvs.offsetHeight);
 		}
 		else{
-			return -yMouse;
+			return -yMouse * (document.body.clientHeight / cvs.offsetHeight);
 		}
 	}
 	//数量
@@ -242,11 +243,11 @@ class WitCatMouse {
 	num(args){
 		if(args.num > 0 && args.num <= touch.length){
 			if(args.type == "x"){
-				return this.runtime.stageWidth * ((touch[args.num - 1].clientX - cvs.getBoundingClientRect().left) / cvs.style.width.split("px")[0]);
+				return (this.runtime.stageWidth * ((touch[args.num - 1].clientX - cvs.getBoundingClientRect().left) / cvs.offsetWidth)) - (this.runtime.stageWidth / 2);
+				
 			}
 			else{
-				console.log(cvs.style.height);
-				return this.runtime.stageHeight * ((touch[args.num - 1].clientY - cvs.getBoundingClientRect().top) / cvs.style.height.split("px")[0]);
+				return (this.runtime.stageHeight / 2) - this.runtime.stageHeight * ((touch[args.num - 1].clientY - cvs.getBoundingClientRect().top) / cvs.offsetHeight);
 			}
 		}
 		else{
