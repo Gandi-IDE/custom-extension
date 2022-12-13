@@ -11,6 +11,12 @@ let yMouse = 0;
 let isMove = false,timer = null;
 
 
+//找渲染cvs
+let cvs = document.getElementsByTagName("canvas")[0];
+if(cvs == null){
+	alert("当前页面不支持多指触控，请前往作品详情页体验完整作品！");
+}
+
 class WitCatMouse {
 	constructor(runtime) {
 		this.runtime = runtime;
@@ -30,6 +36,10 @@ class WitCatMouse {
 				"WitCatMouse.acceleration": "鼠标[way]加速度",
 				"WitCatMouse.way.1": "X",
 				"WitCatMouse.way.2": "Y",
+				"WitCatTouch.down": "按下的手指数量",
+				"WitCatTouch.num": "第[num]个手指的[type]",
+				"WitCatTouch.type.1": "X",
+				"WitCatTouch.type.2": "Y",
 			},
 			en: {
 				"WitCatMouse.name": "More Mouse",
@@ -46,6 +56,11 @@ class WitCatMouse {
 				"WitCatMouse.acceleration": "mouse[way]acceleration",
 				"WitCatMouse.way.1": "X",
 				"WitCatMouse.way.2": "Y",
+				"WitCatTouch.name": "Touch",
+				"WitCatTouch.down": "Fingers Number",
+				"WitCatTouch.num": "the[num]finger`s[type]",
+				"WitCatTouch.type.1": "X",
+				"WitCatTouch.type.2": "Y",
 			}
 		})
 	}
@@ -107,6 +122,27 @@ class WitCatMouse {
 						},
 					},
 				},
+				{
+					opcode: 'down',
+					blockType: "reporter",
+					text: this.formatMessage("WitCatTouch.down"),
+					arguments: {}
+				},
+				{
+					opcode: "num",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatTouch.num"),
+					arguments: {
+						num:{
+							type:"number",
+							defaultValue:"1",
+						},
+						type:{
+							type:"string",
+							menu:"type",
+						},
+					},
+				},
 			],
 			menus:{
 				key: [
@@ -151,25 +187,23 @@ class WitCatMouse {
 					  value: "y"
 					},
 				],
+				type: [
+					{
+					  text: this.formatMessage('WitCatTouch.type.1'),
+					  value: "x"
+					},
+					{
+					  text: this.formatMessage('WitCatTouch.type.2'),
+					  value: "y"
+					},
+				],
 			}
 		};
 	}
 	//右键菜单
 	set(args){
-		//找渲染div
-		let div = document.getElementsByClassName("gandi_stage_stage_1fD7k ccw-stage-wrapper")[0];		//gandi编辑器
-		if(div == null){
-			div = document.getElementsByClassName("stage_stage_1fD7k ccw-stage-wrapper")[0];		//传统编辑器
-			if(div == null){
-				div = document.getElementsByClassName("gandi_stage-wrapper_stage-canvas-wrapper_3ewmd")[0];		//作品展示页
-				if(div == null){
-					alert("当前页面不支持禁用右键菜单，请前往作品详情页体验完整作品！");
-					return;
-				}
-			}
-		}
 		history.pushState(null, null, null);
-		div.oncontextmenu = function (){
+		cvs.parentNode.oncontextmenu = function (){
 			if(args.set == "true"){
 				return true;
 			}
@@ -189,19 +223,7 @@ class WitCatMouse {
 	}
 	//控制鼠标
 	mouseuse(){
-		//找渲染div
-		let div = document.getElementsByClassName("gandi_stage_stage_1fD7k ccw-stage-wrapper")[0];		//gandi编辑器
-		if(div == null){
-			div = document.getElementsByClassName("stage_stage_1fD7k ccw-stage-wrapper")[0];		//传统编辑器
-			if(div == null){
-				div = document.getElementsByClassName("gandi_stage-wrapper_stage-canvas-wrapper_3ewmd")[0];		//作品展示页
-				if(div == null){
-					alert("当前页面不支持文本框，请前往作品详情页体验完整作品！");
-					return;
-				}
-			}
-		}
-		div.requestPointerLock();
+		cvs.parentNode.requestPointerLock();
 	}
 	//鼠标移动量
 	acceleration(args){
@@ -210,6 +232,25 @@ class WitCatMouse {
 		}
 		else{
 			return -yMouse;
+		}
+	}
+	//数量
+	down(){
+		return touch.length;
+	}
+	//坐标
+	num(args){
+		if(args.num > 0 && args.num <= touch.length){
+			if(args.type == "x"){
+				return this.runtime.stageWidth * ((touch[args.num - 1].clientX - cvs.getBoundingClientRect().left) / cvs.style.width.split("px")[0]);
+			}
+			else{
+				console.log(cvs.style.height);
+				return this.runtime.stageHeight * ((touch[args.num - 1].clientY - cvs.getBoundingClientRect().top) / cvs.style.height.split("px")[0]);
+			}
+		}
+		else{
+			return null;
 		}
 	}
 }
@@ -228,12 +269,12 @@ window.tempExt = {
 	},
 	l10n: {
 		"zh-cn": {
-			"WitCatMouse.name": "高级鼠标",
-			"WitCatMouse.descp": "更精准的控制鼠标！"
+			"WitCatMouse.name": "高级鼠标/触控",
+			"WitCatMouse.descp": "更精准的控制鼠标/触屏！"
 		},
 		en: {
-			"WitCatMouse.name": "More Mouse",
-			"WitCatMouse.descp": "More precise mouse control!"
+			"WitCatMouse.name": "More Mouse/Touch",
+			"WitCatMouse.descp": "More precise mouse/touch control!"
 		}
 	}
 };
@@ -257,3 +298,12 @@ document.addEventListener("mousemove", ev => {
 		yMouse = 0;
 	},30);
 });
+cvs.addEventListener('touchstart',function(e){
+	touch = e.targetTouches;
+})
+cvs.addEventListener('touchmove',function(e){
+	touch = e.targetTouches;
+})
+cvs.addEventListener('touchend',function(e){
+	touch = e.targetTouches;
+})
