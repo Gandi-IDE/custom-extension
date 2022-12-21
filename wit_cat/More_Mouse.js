@@ -19,9 +19,16 @@ let wv = 0,hv = 0;
 //找渲染cvs
 let cvs = document.getElementsByTagName("canvas")[0];
 if(cvs == null){
-	alert("当前页面不支持多指触控，请前往作品详情页体验完整作品！");
+	alert("当前页面不支持多指触控/全屏，请前往作品详情页体验完整作品！");
 }
-
+else{
+	for(let i = 1;cvs.className != "" && i <= document.getElementsByTagName("canvas").length;i++){
+		cvs = document.getElementsByTagName("canvas")[i];
+	}
+	if(cvs == null){
+		alert("当前页面不支持多指触控/全屏，请前往作品详情页体验完整作品！");
+	}
+}
 
 //添加监听器
 const config = { attributes: true, childList: true, subtree: true, attributeFilter:['style'] };
@@ -504,7 +511,6 @@ function fills(){
         cvs.height = h;
     }
     let ws = 0,hs = 0;
-    cvs = document.getElementsByTagName("canvas")[0];
     if((cvs.width / cvs.height) >= (document.documentElement.clientWidth / document.documentElement.clientHeight)){
         hs = (document.documentElement.clientWidth / cvs.width) * cvs.height;
         ws = document.documentElement.clientWidth;
@@ -532,10 +538,7 @@ function fills(){
         cvs.parentNode.parentNode.nextElementSibling.firstChild.firstChild.style="width: 100%;";
     }
     cvs.parentNode.parentNode.parentNode.parentNode.getElementsByTagName("div")[0].style = "width:100%; height:100%;"
-    let canvass = cvs.parentNode.parentNode.parentNode.parentNode.getElementsByTagName("canvas");
-    for(let i = 0;i<canvass.length;i++){
-        canvass[i].style = "width:100%; height:100%;";
-    }
+    cvs.style = "width:100%; height:100%;";
     setTimeout(function() {
         let a = cvs.offsetWidth / document.documentElement.clientWidth;
         cvs.parentNode.parentNode.getElementsByTagName("div")[1].style="transform:scale(" + a + ");transform-origin:0% 0% 0";
