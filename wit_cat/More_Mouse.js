@@ -10,7 +10,11 @@ let xMouse = 0;
 let yMouse = 0;
 let isMove = false,timer = null;
 let touch = [];
-
+let fill = 0;
+let filln = 0;
+let w = 0,h = 0;
+let div,divs,divv,divvs,news,background,Operatinginstructions,bug,url,discord;
+let wv = 0,hv = 0;
 
 //找渲染cvs
 let cvs = document.getElementsByTagName("canvas")[0];
@@ -18,12 +22,28 @@ if(cvs == null){
 	alert("当前页面不支持多指触控，请前往作品详情页体验完整作品！");
 }
 
+
+//添加监听器
+const config = { attributes: true, childList: true, subtree: true, attributeFilter:['style'] };
+const callback = function(mutationsList, observer) {
+    if(fill == 1){
+    	observer.disconnect();
+    	fills();
+    	observer.observe(cvs, config);
+    }
+};
+const observer = new MutationObserver(callback);
+observer.observe(cvs, config);
+
+
 class WitCatMouse {
 	constructor(runtime) {
 		this.runtime = runtime;
 		this._formatMessage = runtime.getFormatMessage({
 			"zh-cn": {
-				"WitCatMouse.name": "高级鼠标",
+				"WitCatMouse.name": "高级操作",
+				"WitCatMouse.name.1": "高级鼠标",
+				"WitCatMouse.name.2": "多指触控",
 				"WitCatMouse.set": "[set]右键菜单",	
 				"WitCatMouse.set.1": "启用",
 				"WitCatMouse.set.2": "禁用",
@@ -41,9 +61,16 @@ class WitCatMouse {
 				"WitCatTouch.num": "第[num]个手指的[type]",
 				"WitCatTouch.type.1": "X",
 				"WitCatTouch.type.2": "Y",
+				"WitCatMouse.fill": "[set]沉浸式全屏",
+				"WitCatMouse.fillask.1": "作品请求沉浸式全屏，是否同意？\n",
+				"WitCatMouse.fillask.2": "/3次连续拒绝后将不再提示\n您仍可以使用 ctrl+shift+alt 切换沉浸式全屏状态",
+				"WitCatMouse.setfill": "⚠️(危)设置分辨率高设为[num]",
+				"WitCatMouse.resolution": "当前分辨率高",
 			},
 			en: {
-				"WitCatMouse.name": "More Mouse",
+				"WitCatMouse.name": "More operate",
+				"WitCatMouse.name.1": "more mouse",
+				"WitCatMouse.name.2": "more touch",
 				"WitCatMouse.set": "[set]Right-click menu",	
 				"WitCatMouse.set.1": "allow",
 				"WitCatMouse.set.2": "forbid",
@@ -62,6 +89,11 @@ class WitCatMouse {
 				"WitCatTouch.num": "the[num]finger`s[type]",
 				"WitCatTouch.type.1": "X",
 				"WitCatTouch.type.2": "Y",
+				"WitCatMouse.fill": "[set]immersive full-screen",
+				"WitCatMouse.fillask.1": "The project requests to turn on immersive full-screen, agree or not?\nWill stop asking if you keep on to reject for ",
+				"WitCatMouse.fillask.2": "/3 times\nYou can also use Ctrl+Shift+Alt to toggle immersive full-screen later.",
+				"WitCatMouse.setfill": "⚠️(danger)Set resolution height to[num]",
+				"WitCatMouse.resolution": "Current high resolution",
 			}
 		})
 	}
@@ -84,6 +116,35 @@ class WitCatMouse {
 			color1: "#8eace1",
 			color2: "#ffffff",
 			blocks: [
+				{
+					opcode: 'setfill',
+					blockType: "command",
+					text: this.formatMessage("WitCatMouse.setfill"),
+					arguments: {
+						num:{
+							type:"number",
+							defaultValue:"360",
+						},
+					}
+				},
+				{
+					opcode: 'fill',
+					blockType: "command",
+					text: this.formatMessage("WitCatMouse.fill"),
+					arguments: {
+						set:{
+							type:"bool",
+							menu:"set",
+						},
+					}
+				},
+				{
+					opcode: 'resolution',
+					blockType: "reporter",
+					text: this.formatMessage("WitCatMouse.resolution"),
+					arguments: {}
+				},
+				"---"+this.formatMessage("WitCatMouse.name.1"),
 				{
 					opcode: 'set',
 					blockType: "command",
@@ -123,6 +184,7 @@ class WitCatMouse {
 						},
 					},
 				},
+				"---"+this.formatMessage("WitCatMouse.name.2"),
 				{
 					opcode: 'down',
 					blockType: "reporter",
@@ -229,10 +291,10 @@ class WitCatMouse {
 	//鼠标移动量
 	acceleration(args){
 		if(args.way == "x"){
-			return xMouse * (document.body.clientHeight / cvs.offsetHeight);
+			return xMouse;
 		}
 		else{
-			return -yMouse * (document.body.clientHeight / cvs.offsetHeight);
+			return -yMouse;
 		}
 	}
 	//数量
@@ -243,16 +305,46 @@ class WitCatMouse {
 	num(args){
 		if(args.num > 0 && args.num <= touch.length){
 			if(args.type == "x"){
-				return (this.runtime.stageWidth * ((touch[args.num - 1].clientX - cvs.getBoundingClientRect().left) / cvs.offsetWidth)) - (this.runtime.stageWidth / 2);
-				
+				return this.runtime.stageWidth * ((touch[args.num - 1].clientX - cvs.getBoundingClientRect().left) / cvs.offsetWidth);
 			}
 			else{
-				return (this.runtime.stageHeight / 2) - this.runtime.stageHeight * ((touch[args.num - 1].clientY - cvs.getBoundingClientRect().top) / cvs.offsetHeight);
+				return this.runtime.stageHeight * ((touch[args.num - 1].clientY - cvs.getBoundingClientRect().top) / cvs.offsetHeight);
 			}
 		}
 		else{
 			return null;
 		}
+	}
+	//全屏
+	fill(args){
+		if(args.set == "true"){
+			if(filln < 3){
+				if(fill == 0){
+					let a = confirm(this.formatMessage('WitCatMouse.fillask.1') + filln + this.formatMessage('WitCatMouse.fillask.2'));
+					if(a == true){
+						filln = 0;
+						fillin();
+					}
+					else{
+						filln += 1;
+					}
+				}
+			}
+		}
+		else{
+			outoffill();
+		}
+	}
+	//设置分辨率
+	setfill(args){
+		w = args.num / this.runtime.stageHeight * this.runtime.stageWidth;
+		h = args.num;
+		cvs.width =  args.num / this.runtime.stageHeight * this.runtime.stageWidth;
+		cvs.height = args.num;
+	}
+	//当前分辨率
+	resolution(args){
+		return cvs.height;
 	}
 }
 
@@ -270,12 +362,12 @@ window.tempExt = {
 	},
 	l10n: {
 		"zh-cn": {
-			"WitCatMouse.name": "高级鼠标/触控",
-			"WitCatMouse.descp": "更精准的控制鼠标/触屏！"
+			"WitCatMouse.name": "高级操控",
+			"WitCatMouse.descp": "更精准的控制鼠标/触屏/全屏！"
 		},
 		en: {
-			"WitCatMouse.name": "More Mouse/Touch",
-			"WitCatMouse.descp": "More precise mouse/touch control!"
+			"WitCatMouse.name": "More operate",
+			"WitCatMouse.descp": "More precise mouse/touch/full screen control!"
 		}
 	}
 };
@@ -299,6 +391,7 @@ document.addEventListener("mousemove", ev => {
 		yMouse = 0;
 	},30);
 });
+//多指触控
 cvs.addEventListener('touchstart',function(e){
 	touch = e.targetTouches;
 })
@@ -308,3 +401,170 @@ cvs.addEventListener('touchmove',function(e){
 cvs.addEventListener('touchend',function(e){
 	touch = e.targetTouches;
 })
+
+
+
+//大小改变刷新
+window.onresize=function(){
+    if(fill == 1){
+        fills();
+    }
+}
+//开启全屏
+function fillin(){
+    fill = 1;
+
+    var mo=function(e){e.preventDefault();};
+    document.body.style.overflow='hidden';
+    document.addEventListener("touchmove",mo,false);//禁止页面滑动
+    if(window.location.href.split("/")[2] != "cocrea.world"){
+        div = document.getElementById("root").getElementsByTagName('div')[0];
+        divs = document.getElementById("root");
+        url = window.location.href.split("/")[3].split("?")[0];
+        if(url != "scratch-player"){
+            divs.removeChild(div);
+        }
+    }
+
+    news = document.body.getElementsByClassName("convention-1wIbd")[0];
+    if(typeof(news) != "undefined"){
+        news.style = "display:none;";
+    }
+    divv = document.body.getElementsByClassName("actions-2lk9z")[0];
+    if(typeof(divv) != "undefined"){
+        divv.style = "display:none;";
+    }
+    Operatinginstructions = document.body.getElementsByClassName("showWorksDesc-1iD-M")[0];
+    if(typeof(Operatinginstructions) != "undefined"){
+        Operatinginstructions.style = "display:none;";
+    }
+    bug = document.body.getElementsByClassName("bug-report-1CfBK")[0];
+    if(typeof(bug) != "undefined"){
+        bug.style = "display:none;";
+    }
+    discord = document.body.getElementsByClassName("style_bugReport__gJk19 MuiBox-root css-0")[0];
+    if(typeof(discord) != "undefined"){
+        discord.style = "display:none";
+    }
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+    scrollTo(0,0);
+    setTimeout(function() {
+        fills();
+    }, 50);
+}
+//关闭全屏
+function outoffill(){
+    //恢复头
+    fill = 0;
+    var mo=function(e){e.preventDefault();};
+    document.body.style.overflow='auto';
+    document.addEventListener("touchmove",mo,true);//允许页面滑动
+    if(window.location.href.split("/")[2] != "cocrea.world"){
+        divs = document.getElementById("root");
+        url = window.location.href.split("/")[3].split("?")[0];
+        if(url != "scratch-player"){
+            divs.insertBefore(div, divs.children[0]);
+        }
+    }
+    document.body.removeChild(background);
+    news = document.body.getElementsByClassName("convention-1wIbd")[0];
+    if(typeof(news) != "undefined"){
+        news.style = "";
+    }
+    divv = document.body.getElementsByClassName("actions-2lk9z")[0];
+    if(typeof(divv) != "undefined"){
+        divv.style = "";
+    }
+    divvs = document.body.getElementsByClassName("arrowTop-2Fru_")[0];
+    if(typeof(divvs) != "undefined"){
+        divvs.style = "";
+    }
+    Operatinginstructions = document.body.getElementsByClassName("showWorksDesc-1iD-M")[0];
+    if(typeof(Operatinginstructions) != "undefined"){
+        Operatinginstructions.style = "";
+    }
+    bug = document.body.getElementsByClassName("bug-report-1CfBK")[0];
+    if(typeof(bug) != "undefined"){
+        bug.style = "";
+    }
+    discord = document.body.getElementsByClassName("style_bugReport__gJk19 MuiBox-root css-0")[0];
+    if(typeof(discord) != "undefined"){
+        discord.style = "";
+    }
+    cvs.parentNode.parentNode.parentNode.parentNode.style = "width:100%; height:100%;z-index: 1000000;";
+	cvs.parentNode.parentNode.style = "height: 100%; width: 100%;";
+	cvs.parentNode.style = "";
+	cvs.style = "height: 100%; width: 100%;";
+}
+//循环检测
+function fills(){
+    if(w != 0 && h != 0){
+        cvs.width =  w;
+        cvs.height = h;
+    }
+    let ws = 0,hs = 0;
+    cvs = document.getElementsByTagName("canvas")[0];
+    if((cvs.width / cvs.height) >= (document.documentElement.clientWidth / document.documentElement.clientHeight)){
+        hs = (document.documentElement.clientWidth / cvs.width) * cvs.height;
+        ws = document.documentElement.clientWidth;
+        wv = 0;
+        hv = (document.documentElement.clientHeight - hs) / 2;
+    }
+    else{
+        hs = document.documentElement.clientHeight;
+        ws = (document.documentElement.clientHeight / cvs.height) * cvs.width;
+        wv = (document.documentElement.clientWidth - ws) / 2;
+        hv = 0;
+    }
+    divvs = document.body.getElementsByClassName("arrowTop-2Fru_")[0];
+    if(typeof(divvs) != "undefined"){
+        divvs.style = "display:none;";
+    }
+    cvs.parentNode.parentNode.parentNode.parentNode.style = "position:fixed; left:" + wv + "px; top:" + hv + "px; width:" + ws + "px; height:" + hs + "px;z-index: 1000000;border-radius:0px";
+    cvs.parentNode.parentNode.parentNode.style = "width:" + ws + "px; height:" + hs + "px;border-radius:0px";
+    cvs.parentNode.parentNode.style = "width:100%; height:100%;border-radius:0px";
+    cvs.parentNode.style = "width:100%; height:100%;border-radius:0px";
+    if(isInPage(cvs.parentNode.parentNode.nextElementSibling.firstChild.firstChild)){
+        cvs.parentNode.parentNode.nextElementSibling.style="width: 100%; height: 100%;";
+        cvs.parentNode.parentNode.nextElementSibling.firstChild.style="width: 100%; height: 100%;";
+        cvs.parentNode.parentNode.nextElementSibling.firstChild.firstChild.firstChild.style="width: 100%; height: 100%;";
+        cvs.parentNode.parentNode.nextElementSibling.firstChild.firstChild.style="width: 100%;";
+    }
+    cvs.parentNode.parentNode.parentNode.parentNode.getElementsByTagName("div")[0].style = "width:100%; height:100%;"
+    let canvass = cvs.parentNode.parentNode.parentNode.parentNode.getElementsByTagName("canvas");
+    for(let i = 0;i<canvass.length;i++){
+        canvass[i].style = "width:100%; height:100%;";
+    }
+    setTimeout(function() {
+        let a = cvs.offsetWidth / document.documentElement.clientWidth;
+        cvs.parentNode.parentNode.getElementsByTagName("div")[1].style="transform:scale(" + a + ");transform-origin:0% 0% 0";
+    }, 20);
+    background = document.getElementsByClassName("witcatbackground")[0];
+    if(background == null){
+        background = document.createElement("div");
+        background.style = "width:" + document.documentElement.clientWidth + "px;height:" + document.documentElement.clientHeight + "px;color:black;";
+        background.className = "witcatbackground";
+        document.body.insertBefore(background, document.body.children[0]);
+    }
+    else{
+        background.style = "width:" + document.documentElement.clientWidth + "px;height:" + document.documentElement.clientHeight + "px;color:black;";
+    }
+}
+//检测div存在
+function isInPage(node) {
+    return (node === document.body) ? false : document.body.contains(node);
+}
+    
+//按键检测
+document.onkeydown = function(e) {
+    var evt = e || window.event;
+    if (evt.ctrlKey && evt.shiftKey && evt.altKey){
+		if(fill == 0){
+            fillin();
+        }
+        else{
+            outoffill();
+        }
+	}
+}
