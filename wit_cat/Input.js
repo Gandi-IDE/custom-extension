@@ -9,7 +9,15 @@ const extensionId = "WitCatInput";
 //找渲染cvs
 let cvs = document.getElementsByTagName("canvas")[0];
 if(cvs == null){
-	alert("当前页面不支持多指触控，请前往作品详情页体验完整作品！");
+	alert("当前页面不支持输入框，请前往作品详情页体验完整作品！");
+}
+else{
+	for(let i = 1;cvs.className != "" && i <= document.getElementsByTagName("canvas").length;i++){
+		cvs = document.getElementsByTagName("canvas")[i];
+	}
+	if(cvs == null){
+		alert("当前页面不支持输入框，请前往作品详情页体验完整作品！");
+	}
 }
 
 class WitCatInput {
