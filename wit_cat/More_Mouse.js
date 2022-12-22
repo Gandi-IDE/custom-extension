@@ -339,7 +339,9 @@ class WitCatMouse {
 			}
 		}
 		else{
-			outoffill();
+			if(fill == 1){
+				outoffill();
+			}
 		}
 	}
 	//设置分辨率
