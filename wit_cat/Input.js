@@ -26,7 +26,7 @@ class WitCatInput {
 		this._formatMessage = runtime.getFormatMessage({
 			"zh-cn": {
 				"WitCatInput.name": "文本输入框",
-				"WitCatInput.createinput": "设置或创建ID为[id]的[type]文本框的X[x]Y[y]宽[width]高[height]内容[text]提示[texts]字体大小[size]",
+				"WitCatInput.createinput": "设置或创建ID为[id]的[type]文本框的X[x]Y[y]宽[width]高[height]内容[text]颜色[color]提示[texts]字体大小[size]",
 				"WitCatInput.deleteinput": "删除ID为[id]的文本框",
 				"WitCatInput.getinput": "获得ID为[id]的文本框内容",
 				"WitCatInput.isinput": "焦点是否在ID为[id]的文本框上",
@@ -38,13 +38,13 @@ class WitCatInput {
 			},
 			en: {
 				"WitCatInput.name": "input",
-				"WitCatInput.createinput": "Set or create an[type]input with ID[id]X[x]Y[y]width[width]height[height]content[text]prompt[texts]font-size[size]",
+				"WitCatInput.createinput": "Set or create an[type]input with ID[id]X[x]Y[y]width[width]height[height]content[text]color[color]prompt[texts]font-size[size]",
 				"WitCatInput.deleteinput": "delete an input with ID[id]",
 				"WitCatInput.getinput": "get an input with ID[id]",
 				"WitCatInput.isinput": "is the focus on the input with ID[id]?",
 				"WitCatInput.nowinput": "let teh focus on the input with ID[id]",
 				"WitCatInput.deleteallinput": "delete all input",
-				"WitCatInput.compute": "The font size at the current resolution that is high [size]",
+				"WitCatInput.compute": "Font size of now screen[size]",
 				"WitCatInput.type.1": "Single line",
 				"WitCatInput.type.2": "Multiple lines",
 			}
@@ -101,6 +101,10 @@ class WitCatInput {
 						text:{
 							type:"string",
 							defaultValue:"hello world!",
+						},
+						color:{
+							type:"string",
+							defaultValue:"#000000",
 						},
 						texts:{
 							type:"string",
@@ -222,7 +226,7 @@ class WitCatInput {
 		y = (y / this.runtime.stageHeight) * 100;
 		width = (width / this.runtime.stageWidth) * 100;
 		height = (height / this.runtime.stageHeight) * 100;
-		let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:`+ x + `%; top:` + y + `%; width:` + width + `%; height:` + height + `%;font-size: ` + args.size + `px;resize:none`;
+		let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:`+ x + `%; top:` + y + `%; width:` + width + `%; height:` + height + `%;font-size: ` + args.size + `px;resize:none;color:` + args.color + `;`;
 		let search = document.getElementById("WitCatInput" + args.id);
 		if(search != null){
 			if(search.name == args.type){
