@@ -1,14 +1,13 @@
 import { GandiExtension, BlockUtil, ArgumentType, ReporterScope, BlockType } from '@cocrea/extension-kit'
 import { extensionId } from './extInfo'
-
 import zhCn from "./l10n/zh-cn.json";
 import en from "./l10n/en.json";
 import cover from "./assets/cover.png";
 import blockIcon from "./assets/icon.png";
 var DannyDevCOM = { 'wsrecv_': [], 'wsnotalive_': [], 'json_list': [], 'wsock': [], 'http_pm_': [], 'http_header': [] }
 export default class DannyDEVCOMM extends GandiExtension {
-
   get extensionId(): string {
+
     return extensionId;
   }
 
@@ -44,6 +43,7 @@ export default class DannyDEVCOMM extends GandiExtension {
     };
   }
   init() {
+
     //menus
     const HTTP_method = BlockUtil.createMenu('HTTP_method');
     HTTP_method.items.push({ text: 'GET', value: 'GET' });
@@ -71,6 +71,11 @@ export default class DannyDEVCOMM extends GandiExtension {
     data_solve.items.push({ text: 'Nothing', value: '0' });
     data_solve.items.push({ text: 'Download', value: '1' });
     data_solve.items.push({ text: 'data_solvejson', value: '2' });
+    const srew = BlockUtil.createMenu('srew');
+    srew.items.push({ text: 'ip', value: '0' });
+    srew.items.push({ text: 'port', value: '1' });
+    srew.items.push({ text: 'data', value: '2' });
+    srew.items.push({ text: 'op', value: '3' });
     //blocks
     this.addTextLabel('DannyDevCOM.tit1')
     this.addTextLabel('DannyDevCOM.tit1.1')
@@ -313,6 +318,14 @@ export default class DannyDEVCOMM extends GandiExtension {
     let a = BlockUtil.createArgument(ArgumentType.STRING, ' ')
     tocommand.setArguments({ a })
     this.addBlock(tocommand)
+
+    this.addTextLabel('DannyDevCOM.tit5')
+
+    const check_alink = BlockUtil.createBool();
+    check_alink.setReporterScope(ReporterScope.TARGET)
+    check_alink.setOpcode('check_alink')
+    check_alink.setText('DannyDevCOM.check_alink')
+    this.addBlock(check_alink)
   }
   timeFn(d1) {//di作为一个变量传进来
     let dateBegin = d1
@@ -378,7 +391,7 @@ export default class DannyDEVCOMM extends GandiExtension {
     }
     return []
   }
-  http(args) {
+  async http(args) {
     let ret = ''
     const { g_way, site, p, header, body, after } = args
     if (p == 'None') {
@@ -414,7 +427,7 @@ export default class DannyDEVCOMM extends GandiExtension {
     }
     return '未知协议'
   }
-  ws_conn_sock(args) {
+  async ws_conn_sock(args) {
     const { id, host, timeout } = args
     console.log(id, host)
     for (let i = 0, len = DannyDevCOM.wsock.length; i < len; i++) {
@@ -462,7 +475,7 @@ export default class DannyDEVCOMM extends GandiExtension {
     }
     return -1
   }
-  ws_recv(args) {
+  async ws_recv(args) {
     const { id } = args
     console.log(DannyDevCOM.wsrecv_)
     for (let i = 0, len = DannyDevCOM.wsrecv_.length; i < len; i++) {
@@ -507,7 +520,7 @@ export default class DannyDEVCOMM extends GandiExtension {
       }
     }
   }
-  ws_send(args) {
+  async ws_send(args) {
     const { id, text } = args
     for (let i = 0, len = DannyDevCOM.wsock.length; i < len; i++) {
       if (String(id) == DannyDevCOM.wsock[i]["id"]) {
@@ -530,7 +543,7 @@ export default class DannyDEVCOMM extends GandiExtension {
   help() {
     return 'DannyDevCOM.help.t'
   }
-  RC4_coding(args) {
+  async RC4_coding(args) {
     let key = ''
     let data = ''
     const { KEY, TEXT } = args
@@ -563,11 +576,11 @@ export default class DannyDEVCOMM extends GandiExtension {
     }
     return das.join('');
   }
-  b64encoding(args) {
+  async b64encoding(args) {
     const { TEXT } = args
     return window.btoa(encodeURIComponent(String(TEXT))); // 编码
   }
-  b64decoding(args) {
+  async b64decoding(args) {
     const { TEXT } = args
     try {
       return decodeURIComponent(window.atob(String(TEXT))); // 解码
@@ -576,33 +589,58 @@ export default class DannyDEVCOMM extends GandiExtension {
       return error
     }
   }
-  b58encoding(args) {
+  ToUTF8(str) {
+    let result = new Array();
+
+    let k = 0;
+    for (let i = 0; i < str.length; i++) {
+      let j = encodeURI(str[i]);
+      if (j.length == 1) {
+        // 未转换的字符
+        result[k++] = j.charCodeAt(0);
+      } else {
+        // 转换成%XX形式的字符
+        let bytes = j.split("%");
+        for (let l = 1; l < bytes.length; l++) {
+          result[k++] = parseInt("0x" + bytes[l]);
+        }
+      }
+    }
+
+    return result;
+  }
+  byteToString(arr) {
+    if (typeof arr === 'string') {
+      return arr;
+    }
+    let str = '',
+      _arr = arr;
+    for (let i = 0; i < _arr.length; i++) {
+      // 数组中每个数字转为二进制 匹配出开头为1的直到0的字符
+      // eg:123-->"1111011"-->{0:"1111",groups: undefined, index: 0, input: "1111011"}
+      let one = _arr[i].toString(2),
+        v = one.match(/^1+?(?=0)/);
+      if (v && one.length == 8) {
+        let bytesLength = v[0].length;
+        let store = _arr[i].toString(2).slice(7 - bytesLength);
+        for (let st = 1; st < bytesLength; st++) {
+          store += _arr[st + i].toString(2).slice(2);
+        }
+        str += String.fromCharCode(parseInt(store, 2));
+        i += bytesLength - 1;
+      } else {
+        str += String.fromCharCode(_arr[i]);
+      }
+    }
+    return str;
+  }
+  async b58encoding(args) {
     const { TEXT } = args
     let ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
     let ALPHABET_MAP = {};
     let BASE = 58;
     for (let i = 0; i < ALPHABET.length; i++) {
       ALPHABET_MAP[ALPHABET.charAt(i)] = i;
-    }
-    function ToUTF8(str) {
-      let result = new Array();
-
-      let k = 0;
-      for (let i = 0; i < str.length; i++) {
-        let j = encodeURI(str[i]);
-        if (j.length == 1) {
-          // 未转换的字符
-          result[k++] = j.charCodeAt(0);
-        } else {
-          // 转换成%XX形式的字符
-          let bytes = j.split("%");
-          for (let l = 1; l < bytes.length; l++) {
-            result[k++] = parseInt("0x" + bytes[l]);
-          }
-        }
-      }
-
-      return result;
     }
 
 
@@ -652,9 +690,9 @@ export default class DannyDEVCOMM extends GandiExtension {
     }
 
 
-    return encode(ToUTF8(String(TEXT)))
+    return encode(this.ToUTF8(String(TEXT)))
   }
-  b58decoding(args) {
+  async b58decoding(args) {
     const { TEXT } = args
     let ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
     let ALPHABET_MAP = {};
@@ -689,74 +727,14 @@ export default class DannyDEVCOMM extends GandiExtension {
       return bytes.reverse();
     }
 
-    function byteToString(arr) {
-      if (typeof arr === 'string') {
-        return arr;
-      }
-      let str = '',
-        _arr = arr;
-      for (let i = 0; i < _arr.length; i++) {
-        // 数组中每个数字转为二进制 匹配出开头为1的直到0的字符
-        // eg:123-->"1111011"-->{0:"1111",groups: undefined, index: 0, input: "1111011"}
-        let one = _arr[i].toString(2),
-          v = one.match(/^1+?(?=0)/);
-        if (v && one.length == 8) {
-          let bytesLength = v[0].length;
-          let store = _arr[i].toString(2).slice(7 - bytesLength);
-          for (let st = 1; st < bytesLength; st++) {
-            store += _arr[st + i].toString(2).slice(2);
-          }
-          str += String.fromCharCode(parseInt(store, 2));
-          i += bytesLength - 1;
-        } else {
-          str += String.fromCharCode(_arr[i]);
-        }
-      }
-      return str;
-    }
-    return byteToString(decode(String(TEXT)))
+    return this.byteToString(decode(String(TEXT)))
   }
-  bcostomencoding(args) {
+  async bcostomencoding(args) {
     const { ALPHABET, TEXT } = args
     let ALPHABET_MAP = {};
     let BASE = ALPHABET.length;
     for (let i = 0; i < ALPHABET.length; i++) {
       ALPHABET_MAP[ALPHABET.charAt(i)] = i;
-    }
-    function ToUTF8(str) {
-      let result = new Array();
-
-      let k = 0;
-      for (let i = 0; i < str.length; i++) {
-        let j = encodeURI(str[i]);
-        if (j.length == 1) {
-          // 未转换的字符
-          result[k++] = j.charCodeAt(0);
-        } else {
-          // 转换成%XX形式的字符
-          let bytes = j.split("%");
-          for (let l = 1; l < bytes.length; l++) {
-            result[k++] = parseInt("0x" + bytes[l]);
-          }
-        }
-      }
-
-      return result;
-    }
-
-
-    // 如果有特殊需求，要转成utf16，可以用以下函数
-    function ToUTF16(str) {
-      let result = new Array();
-
-      let k = 0;
-      for (let i = 0; i < str.length; i++) {
-        let j = str[i].charCodeAt(0);
-        result[k++] = j & 0xFF;
-        result[k++] = j >> 8;
-      }
-
-      return result;
     }
     // 传进已经转成字节的数组 -->buffer(utf8格式) 
     function encode(buffer) {
@@ -791,9 +769,9 @@ export default class DannyDEVCOMM extends GandiExtension {
     }
 
 
-    return encode(ToUTF8(String(TEXT)))
+    return encode(this.ToUTF8(String(TEXT)))
   }
-  bcostomdecoding(args) {
+  async bcostomdecoding(args) {
     const { ALPHABET, TEXT } = args
     let ALPHABET_MAP = {};
     let BASE = ALPHABET.length;
@@ -826,33 +804,7 @@ export default class DannyDEVCOMM extends GandiExtension {
       for (i = 0; string[i] === '1' && i < string.length - 1; i++) bytes.push(0);
       return bytes.reverse();
     }
-
-    function byteToString(arr) {
-      if (typeof arr === 'string') {
-        return arr;
-      }
-      let str = '',
-        _arr = arr;
-      for (let i = 0; i < _arr.length; i++) {
-        // 数组中每个数字转为二进制 匹配出开头为1的直到0的字符
-        // eg:123-->"1111011"-->{0:"1111",groups: undefined, index: 0, input: "1111011"}
-        let one = _arr[i].toString(2),
-          v = one.match(/^1+?(?=0)/);
-        if (v && one.length == 8) {
-          let bytesLength = v[0].length;
-          let store = _arr[i].toString(2).slice(7 - bytesLength);
-          for (let st = 1; st < bytesLength; st++) {
-            store += _arr[st + i].toString(2).slice(2);
-          }
-          str += String.fromCharCode(parseInt(store, 2));
-          i += bytesLength - 1;
-        } else {
-          str += String.fromCharCode(_arr[i]);
-        }
-      }
-      return str;
-    }
-    return byteToString(decode(String(TEXT)))
+    return this.byteToString(decode(String(TEXT)))
   }
   json_create(args) {
     const { json_ } = args
@@ -981,7 +933,7 @@ export default class DannyDEVCOMM extends GandiExtension {
     return false
   }
 
-  GETjson(args) {
+  async GETjson(args) {
     const { id } = args
     for (let i = 0, len = DannyDevCOM.json_list.length; i < len; i++) {
       if (DannyDevCOM.json_list[i]['id'] == String(id)) {
@@ -1044,20 +996,7 @@ export default class DannyDEVCOMM extends GandiExtension {
     } catch { }
     return false
   }
-  _ws(host, data) {
-    let id = this.ws_conn_sock({ 'id': 'WS', 'host': host })
-    this.ws_send({ 'id': id, 'text': data })
-    let recv = this.ws_recv({ 'id': id })
-    for (; ;) { if (recv != '') { break } }
-    return recv
-  }
 
-  sock_cre(args) {
-    const { yi, method } = args
-    let j = JSON.parse(String(this._ws('127.0.0.1:23089/socket/create', JSON.stringify({ 'yi': yi, 'method': method }))))
-    return j['id']
-
-  }
   http_pm_cm(args) {
     const { id, name, text } = args
     let a = false
@@ -1124,6 +1063,128 @@ export default class DannyDEVCOMM extends GandiExtension {
       }
     }
     catch (error) { }
+  }
+  async _wsget(url, msg, timeout = 5000) {
+    let ret = null
+    let d = new Date()
+    let ws = new WebSocket(url)
+    ws.onopen = function (evt) {
+      console.log('Connect to Aurora-link successfully')
+      ws.send(JSON.stringify(msg))
+    }
+    ws.onmessage = function (evt) {
+      ret = evt.data
+      console.log(ret)
+    };
+    ws.onerror = function () {
+      if (!ret) {
+        ret = 'error close'
+      }
+    }
+    ws.onclose= function(){
+      if (!ret){
+        ret='error close'
+      }
+    }
+    await new Promise((resolve) => {
+      let timer = setInterval(() => {
+        if (ret) {
+          clearInterval(timer)
+          resolve(true)
+        }
+        if (this.timeFn(d)[0] >= timeout) {
+          ret = 'error timeout'
+        }
+      }, 50)
+    })
+    ws.close()
+    return ret
+  }
+  async check_alink(args) {
+    let _ret = null
+    await this._wsget('ws://127.0.0.1:23089', {}).then(function (ret) {
+      _ret = ret
+    })
+    try {
+      JSON.parse(_ret)
+      return true
+    } catch (error) {
+      return false
+    }
+  }
+  async create_socket(args) {
+    let _ret = null
+    const { yi, method } = args
+    await this._wsget('ws://127.0.0.1:23089/socket/create', { yi, method }).then(function (ret) {
+      _ret = ret
+    })
+    let j = JSON.parse(_ret)
+    if (j['code'] == 200)
+      return j.id
+    else {
+      return ''
+    }
+  }
+  async conn_socket(args) {
+    let _ret = null
+    const { id, ip, port, buff } = args
+    await this._wsget('ws://127.0.0.1:23089/socket/conn_st', { id, ip: ip + ':' + port, buff }).then(function (ret) {
+      _ret = ret
+    })
+    let j = JSON.parse(_ret)
+    return j.id == 200
+  }
+  async send_socket(args) {
+    let _ret = null
+    const { id, ip, port, data } = args
+    await this._wsget('ws://127.0.0.1:23089/socket/send', { id, ip: ip + ':' + port, data }).then(function (ret) {
+      _ret = ret
+    })
+  }
+
+  async recv_socket(args) {
+    let _ret = null
+    const { id } = args
+    await this._wsget('ws://127.0.0.1:23089/socket/recv', { id }).then(function (ret) {
+      _ret = ret
+    })
+    if (_ret['code'] == 200) {
+      return _ret['msg']
+
+    }
+    return ''
+  }
+  async clsconn_socket(args) {
+    let _ret = null
+    const { id } = args
+    await this._wsget('ws://127.0.0.1:23089/socket/close_conn', { id }).then(function (ret) {
+      _ret = ret
+    })
+    return _ret['code'] == 200
+  }
+  async des_socket(args) {
+    let _ret = null
+    const { id } = args
+    await this._wsget('ws://127.0.0.1:23089/socket/destroy', { id }).then(function (ret) {
+      _ret = ret
+    })
+    return _ret['code'] == 200
+  }
+  async solve_data(args) {
+    const { data, type } = args
+    if (type == '0') {//ip
+      return data.ip.split(':')[0]
+    }
+    if (type == '1') {//port
+      return data.ip.split(':')[1]
+    }
+    if (type == '2') {//data
+      return this.b64decoding({ TEXT: data.res })
+    }
+    if (type == '3') {//op
+      return data.op
+    }
+    return ''
   }
 }
 
