@@ -176,6 +176,51 @@ export default class DannyDEVCOMM extends GandiExtension {
 
     this.addTextLabel('DannyDevCOM.tit1.3')
 
+    const socket_create = BlockUtil.createReporter();
+    socket_create.setOpcode('create_socket')
+    socket_create.setText('DannyDevCOM.socket_create')
+    socket_create.setArguments({ yi:BlockUtil.createArgument(ArgumentType.STRING,'0',sock_yi),method:BlockUtil.createArgument(ArgumentType.STRING,'0',sock_method) })
+    this.addBlock(socket_create)
+
+    const socket_connect = BlockUtil.createBool();
+    socket_connect.setOpcode('conn_socket')
+    socket_connect.setText('DannyDevCOM.socket_connect')
+    let ip= BlockUtil.createArgument(ArgumentType.STRING,' ')
+    let port=BlockUtil.createArgument(ArgumentType.STRING,'0')
+    let buff=BlockUtil.createArgument(ArgumentType.STRING,'3000')
+    socket_connect.setArguments({id,ip,port,buff})
+    this.addBlock(socket_connect)
+    
+    const socket_send = BlockUtil.createBool();
+    socket_send.setOpcode('send_socket')
+    socket_send.setText('DannyDevCOM.socket_send')
+    let data=BlockUtil.createArgument(ArgumentType.STRING,'3000')
+    socket_send.setArguments({id,ip,port,data})
+    this.addBlock(socket_send)
+
+    const socket_recv = BlockUtil.createReporter();
+    socket_recv.setOpcode('recv_socket')
+    socket_recv.setText('DannyDevCOM.socket_recv')
+    socket_recv.setArguments({id})
+    this.addBlock(socket_recv)
+
+    const socket_parse = BlockUtil.createReporter();
+    socket_parse.setOpcode('solve_socket')
+    socket_parse.setText('DannyDevCOM.socket_parse')
+    socket_parse.setArguments({data,type:BlockUtil.createArgument(ArgumentType.STRING,'0',srew)})
+    this.addBlock(socket_parse)
+    
+    const socket_conclose = BlockUtil.createBool();
+    socket_conclose.setOpcode('clsconn_socket')
+    socket_conclose.setText('DannyDevCOM.socket_conclose')
+    socket_conclose.setArguments({id})
+    this.addBlock(socket_conclose)    
+
+    const socket_close = BlockUtil.createCommand();
+    socket_close.setOpcode('des_socket')
+    socket_close.setText('DannyDevCOM.socket_conclose')
+    socket_close.setArguments({id})
+    this.addBlock(socket_close)
 
 
     this.addTextLabel('DannyDevCOM.tit2')
@@ -1138,16 +1183,17 @@ export default class DannyDEVCOMM extends GandiExtension {
     let _ret = null
     const { id, ip, port, data } = args
     await this._wsget('ws://127.0.0.1:23089/socket/send', { id, ip: ip + ':' + port, data }).then(function (ret) {
-      _ret = ret
+      _ret = JSON.parse(ret)
     })
+    return _ret.id==200
   }
 
   async recv_socket(args) {
     let _ret = null
     const { id } = args
     await this._wsget('ws://127.0.0.1:23089/socket/recv', { id }).then(function (ret) {
-      _ret = ret
-    })
+      _ret = JSON.parse(ret)
+        })
     if (_ret['code'] == 200) {
       return _ret['msg']
 
@@ -1158,16 +1204,16 @@ export default class DannyDEVCOMM extends GandiExtension {
     let _ret = null
     const { id } = args
     await this._wsget('ws://127.0.0.1:23089/socket/close_conn', { id }).then(function (ret) {
-      _ret = ret
-    })
+      _ret = JSON.parse(ret)
+        })
     return _ret['code'] == 200
   }
   async des_socket(args) {
     let _ret = null
     const { id } = args
     await this._wsget('ws://127.0.0.1:23089/socket/destroy', { id }).then(function (ret) {
-      _ret = ret
-    })
+      _ret = JSON.parse(ret)
+        })
     return _ret['code'] == 200
   }
   async solve_data(args) {
