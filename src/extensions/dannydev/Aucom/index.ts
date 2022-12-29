@@ -485,11 +485,27 @@ export default class DannyDEVCOMM extends GandiExtension {
 
         try {
           DannyDevCOM.wsock[i]['timeout'] = [timeout, new Date()]
+          let d=new Date()
           DannyDevCOM.wsock[i]['obj'] = new WebSocket(DannyDevCOM.wsock[i]["way"] + '://' + host)
           console.log(DannyDevCOM.wsock)
           DannyDevCOM.wsock[i]['obj'].onmessage = function (evt) {
             DannyDevCOM.wsrecv_.push({ 'id': DannyDevCOM.wsock[i]['id'], 'nr': evt.data })
           }
+          let ret= true
+          let ws=DannyDevCOM.wsock[i]['obj']
+          await new Promise((resolve) => {
+            let timer = setInterval(() => {
+              if (ws.readyState==1) {
+                clearInterval(timer)
+                resolve(true)
+              }
+              if (this.timeFn(d)[0] >= timeout) {
+                ret = false
+                clearInterval(timer)
+                resolve(true)
+              }
+            }, 50)
+          })
           return true
         }
         catch (error) {
