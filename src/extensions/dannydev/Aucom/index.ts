@@ -1193,7 +1193,7 @@ export default class DannyDEVCOMM extends GandiExtension {
       _ret = ret
     })
     let j = JSON.parse(_ret)
-    return j.id == 200
+    return j.code == 200
   }
   async send_socket(args) {
     let _ret = null
@@ -1201,7 +1201,7 @@ export default class DannyDEVCOMM extends GandiExtension {
     await this._wsget('ws://127.0.0.1:23089/socket/send', { id, ip: ip + ':' + port, data }).then(function (ret) {
       _ret = JSON.parse(ret)
     })
-    return _ret.id==200
+    return _ret.code==200
   }
 
   async recv_socket(args) {
