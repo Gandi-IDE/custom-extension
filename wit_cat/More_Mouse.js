@@ -48,7 +48,7 @@ class WitCatMouse {
 		this.runtime = runtime;
 		this._formatMessage = runtime.getFormatMessage({
 			"zh-cn": {
-				"WitCatMouse.name": "高级操作",
+				"WitCatMouse.name": "高级工具",
 				"WitCatMouse.name.1": "高级鼠标",
 				"WitCatMouse.name.2": "多指触控",
 				"WitCatMouse.set": "[set]右键菜单",	
@@ -75,7 +75,7 @@ class WitCatMouse {
 				"WitCatMouse.resolution": "当前分辨率高",
 			},
 			en: {
-				"WitCatMouse.name": "More operate",
+				"WitCatMouse.name": "More tools",
 				"WitCatMouse.name.1": "more mouse",
 				"WitCatMouse.name.2": "more touch",
 				"WitCatMouse.set": "[set]Right-click menu",	
@@ -117,7 +117,7 @@ class WitCatMouse {
 		return {
 			id: extensionId, // 拓展id
 			name: this.formatMessage("WitCatMouse.name"), // 拓展名
-			docsURI: "https://www.ccw.site/post/d6d96e80-3f58-4a19-b7e6-c567d3a6a583",
+			docsURI: "https://www.ccw.site/post/c36aa805-b29d-48da-aba1-468a6cf80bfa",
 			blockIconURI: _icon,
 			menuIconURI: _icon,
 			color1: "#8eace1",
@@ -371,11 +371,11 @@ window.tempExt = {
 	},
 	l10n: {
 		"zh-cn": {
-			"WitCatMouse.name": "高级操控",
+			"WitCatMouse.name": "高级工具",
 			"WitCatMouse.descp": "更精准的控制鼠标/触屏/全屏！"
 		},
 		en: {
-			"WitCatMouse.name": "More operate",
+			"WitCatMouse.name": "More tools",
 			"WitCatMouse.descp": "More precise mouse/touch/full screen control!"
 		}
 	}
