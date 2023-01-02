@@ -455,7 +455,7 @@ class WitCatInput {
 	//获取状态
 	number(args) {
 		let search = document.getElementsByClassName("WitCatInput");
-		if (search.length >= args.num) {
+		if (search.length >= args.num && args.num > 0) {
 			if (args.type == "X")
 				return (search[args.num - 1].style.left.split("%")[0] / 100) * this.runtime.stageWidth;
 			else if (args.type == "Y")
