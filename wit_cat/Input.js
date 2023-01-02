@@ -8,14 +8,14 @@ const extensionId = "WitCatInput";
 
 //找渲染cvs
 let cvs = document.getElementsByTagName("canvas")[0];
-if(cvs == null){
+if (cvs == null) {
 	alert("当前页面不支持输入框，请前往作品详情页体验完整作品！");
 }
-else{
-	for(let i = 1;cvs.className != "" && i <= document.getElementsByTagName("canvas").length;i++){
+else {
+	for (let i = 1; cvs.className != "" && i <= document.getElementsByTagName("canvas").length; i++) {
 		cvs = document.getElementsByTagName("canvas")[i];
 	}
-	if(cvs == null){
+	if (cvs == null) {
 		alert("当前页面不支持输入框，请前往作品详情页体验完整作品！");
 	}
 }
@@ -26,27 +26,53 @@ class WitCatInput {
 		this._formatMessage = runtime.getFormatMessage({
 			"zh-cn": {
 				"WitCatInput.name": "文本输入框",
-				"WitCatInput.createinput": "设置或创建ID为[id]的[type]文本框的X[x]Y[y]宽[width]高[height]内容[text]颜色[color]提示[texts]字体大小[size]",
+				"WitCatInput.createinput": "ID为[id]的[type]框X[x]Y[y]宽[width]高[height]内容[text]颜色[color]提示[texts]字体大小[size]",
 				"WitCatInput.deleteinput": "删除ID为[id]的文本框",
-				"WitCatInput.getinput": "获得ID为[id]的文本框内容",
+				"WitCatInput.getinput": "获得ID为[id]的文本框的[type]",
 				"WitCatInput.isinput": "焦点是否在ID为[id]的文本框上",
+				"WitCatInput.whatinput": "焦点位置",
 				"WitCatInput.nowinput": "将焦点聚焦在ID为[id]的文本框上",
 				"WitCatInput.deleteallinput": "删除所有文本框",
 				"WitCatInput.compute": "当前分辨率下高[size]的字体大小",
 				"WitCatInput.type.1": "单行文本",
 				"WitCatInput.type.2": "多行文本",
+				"WitCatInput.number": "第[num]个文本框的[type]",
+				"WitCatInput.numbers": "文本框的数量",
+				"WitCatInput.number.1": "X",
+				"WitCatInput.number.2": "Y",
+				"WitCatInput.number.3": "宽",
+				"WitCatInput.number.4": "高",
+				"WitCatInput.number.5": "内容",
+				"WitCatInput.number.6": "颜色",
+				"WitCatInput.number.7": "提示",
+				"WitCatInput.number.8": "字体大小",
+				"WitCatInput.number.9": "所有(json)",
+				"WitCatInput.number.10": "ID",
 			},
 			en: {
 				"WitCatInput.name": "input",
-				"WitCatInput.createinput": "Set or create an[type]input with ID[id]X[x]Y[y]width[width]height[height]content[text]color[color]prompt[texts]font-size[size]",
+				"WitCatInput.createinput": "[type]input with ID[id]X[x]Y[y]width[width]height[height]content[text]color[color]prompt[texts]font-size[size]",
 				"WitCatInput.deleteinput": "delete an input with ID[id]",
-				"WitCatInput.getinput": "get an input with ID[id]",
+				"WitCatInput.getinput": "get [type] with ID[id]",
 				"WitCatInput.isinput": "is the focus on the input with ID[id]?",
+				"WitCatInput.whatinput": "Focal position",
 				"WitCatInput.nowinput": "let teh focus on the input with ID[id]",
 				"WitCatInput.deleteallinput": "delete all input",
 				"WitCatInput.compute": "Font size of now screen[size]",
 				"WitCatInput.type.1": "Single line",
 				"WitCatInput.type.2": "Multiple lines",
+				"WitCatInput.number": "[type]of[num]input",
+				"WitCatInput.numbers": "input number",
+				"WitCatInput.number.1": "X",
+				"WitCatInput.number.2": "Y",
+				"WitCatInput.number.3": "width",
+				"WitCatInput.number.4": "height",
+				"WitCatInput.number.5": "content",
+				"WitCatInput.number.6": "color",
+				"WitCatInput.number.7": "prompt",
+				"WitCatInput.number.8": "font-size",
+				"WitCatInput.number.9": "all(json)",
+				"WitCatInput.number.10": "ID",
 			}
 		})
 	}
@@ -74,45 +100,45 @@ class WitCatInput {
 					blockType: "command",
 					text: this.formatMessage("WitCatInput.createinput"),
 					arguments: {
-						id:{
-							type:"string",
-							defaultValue:"i",
+						id: {
+							type: "string",
+							defaultValue: "i",
 						},
-						type:{
-							type:"string",
-							menu:"type",
+						type: {
+							type: "string",
+							menu: "type",
 						},
-						x:{
-							type:"number",
-							defaultValue:"0",
+						x: {
+							type: "number",
+							defaultValue: "0",
 						},
-						y:{
-							type:"number",
-							defaultValue:"0",
+						y: {
+							type: "number",
+							defaultValue: "0",
 						},
-						width:{
-							type:"number",
-							defaultValue:"100",
+						width: {
+							type: "number",
+							defaultValue: "100",
 						},
-						height:{
-							type:"number",
-							defaultValue:"20",
+						height: {
+							type: "number",
+							defaultValue: "20",
 						},
-						text:{
-							type:"string",
-							defaultValue:"hello world!",
+						text: {
+							type: "string",
+							defaultValue: "hello world!",
 						},
-						color:{
-							type:"string",
-							defaultValue:"#000000",
+						color: {
+							type: "string",
+							defaultValue: "#000000",
 						},
-						texts:{
-							type:"string",
-							defaultValue:"hello world!",
+						texts: {
+							type: "string",
+							defaultValue: "hello world!",
 						},
-						size:{
-							type:"number",
-							defaultValue:"16",
+						size: {
+							type: "number",
+							defaultValue: "16",
 						}
 					},
 				},
@@ -121,9 +147,9 @@ class WitCatInput {
 					blockType: "reporter",
 					text: this.formatMessage("WitCatInput.compute"),
 					arguments: {
-						size:{
-							type:"number",
-							defaultValue:"16",
+						size: {
+							type: "number",
+							defaultValue: "16",
 						}
 					},
 				},
@@ -132,9 +158,9 @@ class WitCatInput {
 					blockType: "command",
 					text: this.formatMessage("WitCatInput.deleteinput"),
 					arguments: {
-						id:{
-							type:"string",
-							defaultValue:"i",
+						id: {
+							type: "string",
+							defaultValue: "i",
 						}
 					},
 				},
@@ -143,31 +169,62 @@ class WitCatInput {
 					blockType: "reporter",
 					text: this.formatMessage("WitCatInput.getinput"),
 					arguments: {
-						id:{
-							type:"string",
-							defaultValue:"i",
+						id: {
+							type: "string",
+							defaultValue: "i",
+						},
+						type: {
+							type: "string",
+							menu: "types",
 						}
 					},
+				},
+				{
+					opcode: "number",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatInput.number"),
+					arguments: {
+						num: {
+							type: "number",
+							defaultValue: "1",
+						},
+						type: {
+							type: "string",
+							menu: "types",
+						}
+					},
+				},
+				{
+					opcode: "numbers",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatInput.numbers"),
+					arguments: {},
 				},
 				{
 					opcode: "isinput",
 					blockType: "Boolean",
 					text: this.formatMessage("WitCatInput.isinput"),
 					arguments: {
-						id:{
-							type:"string",
-							defaultValue:"i",
+						id: {
+							type: "string",
+							defaultValue: "i",
 						}
 					},
+				},
+				{
+					opcode: "whatinput",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatInput.whatinput"),
+					arguments: {},
 				},
 				{
 					opcode: "nowinput",
 					blockType: "command",
 					text: this.formatMessage("WitCatInput.nowinput"),
 					arguments: {
-						id:{
-							type:"string",
-							defaultValue:"i",
+						id: {
+							type: "string",
+							defaultValue: "i",
 						}
 					},
 				},
@@ -178,66 +235,108 @@ class WitCatInput {
 					arguments: {},
 				},
 			],
-			menus:{
+			menus: {
 				type: [
 					{
-					  text: this.formatMessage('WitCatInput.type.1'),
-					  value: 'input'
+						text: this.formatMessage('WitCatInput.type.1'),
+						value: 'input'
 					},
 					{
-					  text: this.formatMessage('WitCatInput.type.2'),
-					  value: 'Textarea'
+						text: this.formatMessage('WitCatInput.type.2'),
+						value: 'Textarea'
 					},
 				],
+				types: [
+					{
+						text: this.formatMessage('WitCatInput.number.10'),
+						value: 'ID'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.1'),
+						value: 'X'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.2'),
+						value: 'Y'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.3'),
+						value: 'width'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.4'),
+						value: 'height'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.5'),
+						value: 'content'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.6'),
+						value: 'color'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.7'),
+						value: 'prompt'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.8'),
+						value: 'font-size'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.9'),
+						value: 'json'
+					},
+				]
 			}
 		};
 	}
 	//设置或创建文本框
-	createinput(args){
+	createinput(args) {
 		let x = args.x;
 		let y = args.y;
 		let width = args.width;
 		let height = args.height;
-		if(args.x > this.runtime.stageWidth){
+		if (args.x > this.runtime.stageWidth) {
 			x = this.runtime.stageWidth;
 		}
-		if(args.x < 0){
+		if (args.x < 0) {
 			x = 0;
 		}
-		if(args.y > this.runtime.stageHeight){
+		if (args.y > this.runtime.stageHeight) {
 			y = this.runtime.stageHeight;
 		}
-		if(args.y < 0){
+		if (args.y < 0) {
 			y = 0;
 		}
-		if(args.x + args.width > this.runtime.stageWidth){
+		if (Number(args.x) + Number(args.width) > this.runtime.stageWidth) {
 			width = this.runtime.stageWidth - x;
 		}
-		if(args.width < 0){
+		if (args.width < 0) {
 			width = 0;
 		}
-		if(args.y + args.height > this.runtime.stageHeight){
+		if (Number(args.y) + Number(args.height) > this.runtime.stageHeight) {
 			height = this.runtime.stageHeight - y;
 		}
-		if(args.height < 0){
+		if (args.height < 0) {
 			height = 0;
 		}
 		x = (x / this.runtime.stageWidth) * 100;
 		y = (y / this.runtime.stageHeight) * 100;
 		width = (width / this.runtime.stageWidth) * 100;
 		height = (height / this.runtime.stageHeight) * 100;
-		let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:`+ x + `%; top:` + y + `%; width:` + width + `%; height:` + height + `%;font-size: ` + args.size + `px;resize:none;color:` + args.color + `;`;
+		let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:` + x + `%; top:` + y + `%; width:` + width + `%; height:` + height + `%;font-size: ` + args.size + `px;resize:none;color:` + args.color + `;`;
 		let search = document.getElementById("WitCatInput" + args.id);
-		if(search != null){
-			if(search.name == args.type){
+		if (search != null) {
+			if (search.name == args.type) {
 				search.style = dom;
 				search.value = args.text;
 				search.placeholder = args.texts;
 			}
-			else{
+			else {
 				cvs.parentNode.removeChild(search);
 				let eleLink = document.createElement(args.type);
-				if(args.type == "input"){
+				if (args.type == "input") {
 					eleLink.type = "text";
 				}
 				eleLink.style = dom;
@@ -249,9 +348,9 @@ class WitCatInput {
 				cvs.parentNode.appendChild(eleLink);
 			}
 		}
-		else{
+		else {
 			let eleLink = document.createElement(args.type);
-			if(args.type == "input"){
+			if (args.type == "input") {
 				eleLink.type = "text";
 			}
 			eleLink.style = dom;
@@ -264,55 +363,139 @@ class WitCatInput {
 		}
 	}
 	//删除文本框
-	deleteinput(args){
+	deleteinput(args) {
 		let search = document.getElementById("WitCatInput" + args.id);
-		if(search != null){
+		if (search != null) {
 			cvs.parentNode.removeChild(search);
 		}
 	}
 	//获取文本框内容
-	getinput(args){
+	getinput(args) {
 		let search = document.getElementById("WitCatInput" + args.id);
-		if(search != null){
-			return(search.value);
+		if (search != null) {
+			if (args.type == "X")
+				return (search.style.left.split("%")[0] / 100) * this.runtime.stageWidth;
+			else if (args.type == "Y")
+				return (search.style.top.split("%")[0] / 100) * this.runtime.stageHeight;
+			else if (args.type == "width")
+				return (search.style.width.split("%")[0] / 100) * this.runtime.stageWidth;
+			else if (args.type == "height")
+				return (search.style.height.split("%")[0] / 100) * this.runtime.stageHeight;
+			else if (args.type == "content")
+				return search.value;
+			else if (args.type == "color")
+				return search.style.color.colorHex();
+			else if (args.type == "prompt")
+				return search.placeholder;
+			else if (args.type == "font-size")
+				return search.style.fontSize.split("px")[0];
+			else if (args.type == "ID")
+				return search.id.split("WitCatInput")[1];
+			else {
+				return (
+					"\{\"" + "X" + "\":\"" + ((search.style.left.split("%")[0] / 100) * this.runtime.stageWidth) + "\"," +
+					"\"" + "Y" + "\":\"" + ((search.style.top.split("%")[0] / 100) * this.runtime.stageHeight) + "\"," +
+					"\"" + "width" + "\":\"" + ((search.style.width.split("%")[0] / 100) * this.runtime.stageWidth) + "\"," +
+					"\"" + "height" + "\":\"" + ((search.style.height.split("%")[0] / 100) * this.runtime.stageHeight) + "\"," +
+					"\"" + "content" + "\":" + JSON.stringify(search.value) + "," +
+					"\"" + "color" + "\":\"" + (search.style.color.colorHex()) + "\"," +
+					"\"" + "prompt" + "\":\"" + (search.placeholder) + "\"," +
+					"\"" + "font-size" + "\":\"" + (search.style.fontSize.split("px")[0]) + "\"," +
+					"\"" + "ID" + "\":\"" + (search.id.split("WitCatInput")[1]) + "\"\}"
+				)
+			}
 		}
-		else{
-			return("");
+		else {
+			return ("");
 		}
 	}
 	//焦点判断
-	isinput(args){
+	isinput(args) {
 		let search = document.getElementById("WitCatInput" + args.id);
-		if(search != null){
-			if(search == document.activeElement){
-				return(true);
+		if (search != null) {
+			if (search == document.activeElement) {
+				return (true);
 			}
-			else{
-				return(false);
+			else {
+				return (false);
 			}
 		}
-		else{
-			return(false);
+		else {
+			return (false);
+		}
+	}
+	//焦点位置
+	whatinput() {
+		if (document.activeElement.className == "WitCatInput") {
+			return document.activeElement.id.split("WitCatInput");
+		}
+		else {
+			return "";
 		}
 	}
 	//焦点获取
-	nowinput(args){
+	nowinput(args) {
 		let search = document.getElementById("WitCatInput" + args.id);
-		if(search != null){
+		if (search != null) {
 			search.focus();
 		}
 	}
 	//删除所有文本框
-	deleteallinput(args){
+	deleteallinput(args) {
 		let search = document.getElementsByClassName("WitCatInput");
 		let i = 0;
-		for(i = search.length - 1;i >= 0;i--){
+		for (i = search.length - 1; i >= 0; i--) {
 			search[i].parentNode.removeChild(search[i]);
 		}
 	}
 	//计算坐标
-	compute(args){
+	compute(args) {
 		return (cvs.style.width.split("px")[0] / 360) * args.size;
+	}
+	//获取状态
+	number(args) {
+		let search = document.getElementsByClassName("WitCatInput");
+		if (search.length >= args.num) {
+			if (args.type == "X")
+				return (search[args.num - 1].style.left.split("%")[0] / 100) * this.runtime.stageWidth;
+			else if (args.type == "Y")
+				return (search[args.num - 1].style.top.split("%")[0] / 100) * this.runtime.stageHeight;
+			else if (args.type == "width")
+				return (search[args.num - 1].style.width.split("%")[0] / 100) * this.runtime.stageWidth;
+			else if (args.type == "height")
+				return (search[args.num - 1].style.height.split("%")[0] / 100) * this.runtime.stageHeight;
+			else if (args.type == "content")
+				return search[args.num - 1].value;
+			else if (args.type == "color")
+				return search[args.num - 1].style.color.colorHex();
+			else if (args.type == "prompt")
+				return search[args.num - 1].placeholder;
+			else if (args.type == "font-size")
+				return search[args.num - 1].style.fontSize.split("px")[0];
+			else if (args.type == "ID")
+				return search[args.num - 1].id.split("WitCatInput")[1];
+			else {
+				return (
+					"\{\"" + "X" + "\":\"" + ((search[args.num - 1].style.left.split("%")[0] / 100) * this.runtime.stageWidth) + "\"," +
+					"\"" + "Y" + "\":\"" + ((search[args.num - 1].style.top.split("%")[0] / 100) * this.runtime.stageHeight) + "\"," +
+					"\"" + "width" + "\":\"" + ((search[args.num - 1].style.width.split("%")[0] / 100) * this.runtime.stageWidth) + "\"," +
+					"\"" + "height" + "\":\"" + ((search[args.num - 1].style.height.split("%")[0] / 100) * this.runtime.stageHeight) + "\"," +
+					"\"" + "content" + "\":" + JSON.stringify(search[args.num - 1].value) + "," +
+					"\"" + "color" + "\":\"" + (search[args.num - 1].style.color.colorHex()) + "\"," +
+					"\"" + "prompt" + "\":\"" + (search[args.num - 1].placeholder) + "\"," +
+					"\"" + "font-size" + "\":\"" + (search[args.num - 1].style.fontSize.split("px")[0]) + "\"," +
+					"\"" + "ID" + "\":\"" + (search[args.num - 1].id.split("WitCatInput")[1]) + "\"\}"
+				)
+			}
+		}
+		else {
+			return "";
+		}
+	}
+	//文本框数量
+	numbers() {
+		let search = document.getElementsByClassName("WitCatInput");
+		return search.length;
 	}
 }
 
@@ -341,3 +524,25 @@ window.tempExt = {
 };
 
 /* vim: set expandtab tabstop=2 shiftwidth=2: */
+//颜色转换
+String.prototype.colorHex = function () {
+	// RGB颜色值的正则
+	var reg = /^(rgb|RGB)/;
+	var color = this;
+	if (reg.test(color)) {
+		var strHex = "#";
+		// 把RGB的3个数值变成数组
+		var colorArr = color.replace(/(?:\(|\)|rgb|RGB)*/g, "").split(",");
+		// 转成16进制
+		for (var i = 0; i < colorArr.length; i++) {
+			var hex = Number(colorArr[i]).toString(16);
+			if (hex === "0") {
+				hex += hex;
+			}
+			strHex += hex;
+		}
+		return strHex;
+	} else {
+		return String(color);
+	}
+};
