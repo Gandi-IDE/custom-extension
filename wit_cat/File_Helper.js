@@ -88,7 +88,7 @@ class WitCatFileHelper {
 			color1: "#60D6F4",
 			color2: "#55a7f7",
 			blocks: [
-				"---"+this.formatMessage("WitCatFileHelper.filehelper"),
+				"---" + this.formatMessage("WitCatFileHelper.filehelper"),
 				{
 					opcode: "downloads",
 					blockType: "command",
@@ -171,13 +171,13 @@ class WitCatFileHelper {
 					blockType: "command",
 					text: this.formatMessage("WitCatFileHelper.showvar"),
 					arguments: {
-						name:{
-							type:"string",
-							defaultValue:"i",
+						name: {
+							type: "string",
+							defaultValue: "i",
 						},
-						show:{
-							type:"string",
-							menu:"setvariable",
+						show: {
+							type: "string",
+							menu: "setvariable",
 						},
 					},
 				},
@@ -186,17 +186,17 @@ class WitCatFileHelper {
 					blockType: "command",
 					text: this.formatMessage("WitCatFileHelper.saveother"),
 					arguments: {
-						id:{
-							type:"string",
-							defaultValue:"6373950041d21d2d2cd0da9b",
+						id: {
+							type: "string",
+							defaultValue: "6373950041d21d2d2cd0da9b",
 						},
-						name:{
-							type:"string",
-							defaultValue:"i",
+						name: {
+							type: "string",
+							defaultValue: "i",
 						},
-						text:{
-							type:"string",
-							defaultValue:"wit_cat!",
+						text: {
+							type: "string",
+							defaultValue: "wit_cat!",
 						},
 					},
 				},
@@ -205,13 +205,13 @@ class WitCatFileHelper {
 					blockType: "reporter",
 					text: this.formatMessage("WitCatFileHelper.uploadother"),
 					arguments: {
-						id:{
-							type:"string",
-							defaultValue:"6373950041d21d2d2cd0da9b",
+						id: {
+							type: "string",
+							defaultValue: "6373950041d21d2d2cd0da9b",
 						},
-						name:{
-							type:"string",
-							defaultValue:"i",
+						name: {
+							type: "string",
+							defaultValue: "i",
 						},
 					},
 				},
@@ -220,13 +220,13 @@ class WitCatFileHelper {
 					blockType: "reporter",
 					text: this.formatMessage("WitCatFileHelper.other"),
 					arguments: {
-						id:{
-							type:"string",
-							defaultValue:"6373950041d21d2d2cd0da9b",
+						id: {
+							type: "string",
+							defaultValue: "6373950041d21d2d2cd0da9b",
 						},
-						name:{
-							type:"string",
-							defaultValue:"i",
+						name: {
+							type: "string",
+							defaultValue: "i",
 						},
 					},
 				},
@@ -252,7 +252,7 @@ class WitCatFileHelper {
 						},
 					},
 				},
-				"---"+this.formatMessage("WitCatFileHelper.Multiplelinestext"),
+				"---" + this.formatMessage("WitCatFileHelper.Multiplelinestext"),
 				{
 					opcode: "segmentation",
 					blockType: "reporter",
@@ -266,7 +266,7 @@ class WitCatFileHelper {
 							type: "string",
 							defaultValue: '/',
 						},
-						thing:{
+						thing: {
 							type: "string",
 							menu: 'thing',
 						}
@@ -277,13 +277,13 @@ class WitCatFileHelper {
 					blockType: "reporter",
 					text: this.formatMessage("WitCatFileHelper.deleteMultiplelinestext"),
 					arguments: {
-						text:{
-							type:"string",
-							defaultValue:"wit_cat!!!\nwit_cat!!!",
+						text: {
+							type: "string",
+							defaultValue: "wit_cat!!!\nwit_cat!!!",
 						},
-						num:{
-							type:"number",
-							defaultValue:"1",
+						num: {
+							type: "number",
+							defaultValue: "1",
 						}
 					},
 				},
@@ -292,17 +292,17 @@ class WitCatFileHelper {
 					blockType: "reporter",
 					text: this.formatMessage("WitCatFileHelper.addMultiplelinestext"),
 					arguments: {
-						text:{
-							type:"string",
-							defaultValue:"wit_cat!!!",
+						text: {
+							type: "string",
+							defaultValue: "wit_cat!!!",
 						},
-						texts:{
-							type:"string",
-							defaultValue:"wit_cat!!!\nwit_cat!!!",
+						texts: {
+							type: "string",
+							defaultValue: "wit_cat!!!\nwit_cat!!!",
 						},
-						num:{
-							type:"string",
-							defaultValue:"last",
+						num: {
+							type: "string",
+							defaultValue: "last",
 						}
 					},
 				},
@@ -311,13 +311,13 @@ class WitCatFileHelper {
 					blockType: "reporter",
 					text: this.formatMessage("WitCatFileHelper.whatMultiplelinestext"),
 					arguments: {
-						text:{
-							type:"string",
-							defaultValue:"wit_cat!!!",
+						text: {
+							type: "string",
+							defaultValue: "wit_cat!!!",
 						},
-						num:{
-							type:"string",
-							defaultValue:"1",
+						num: {
+							type: "string",
+							defaultValue: "1",
 						}
 					},
 				},
@@ -326,36 +326,36 @@ class WitCatFileHelper {
 					blockType: "reporter",
 					text: this.formatMessage("WitCatFileHelper.numMultiplelinestext"),
 					arguments: {
-						text:{
-							type:"string",
-							defaultValue:"wit_cat!!!\nwit_cat!!!",
+						text: {
+							type: "string",
+							defaultValue: "wit_cat!!!\nwit_cat!!!",
 						},
 					},
 				},
 			],
-			menus:{
+			menus: {
 				setvariable: [
 					{
-					  text: this.formatMessage('WitCatFileHelper.showall'),
-					  value: '#'
+						text: this.formatMessage('WitCatFileHelper.showall'),
+						value: '#'
 					},
 					{
-					  text: this.formatMessage('WitCatFileHelper.showon'),
-					  value: '$'
+						text: this.formatMessage('WitCatFileHelper.showon'),
+						value: '$'
 					},
 					{
-					  text: this.formatMessage('WitCatFileHelper.showoff'),
-					  value: ''
+						text: this.formatMessage('WitCatFileHelper.showoff'),
+						value: ''
 					},
 				],
 				thing: [
 					{
-					  text: this.formatMessage('WitCatFileHelper.thing.1'),
-					  value: 'true'
+						text: this.formatMessage('WitCatFileHelper.thing.1'),
+						value: 'true'
 					},
 					{
-					  text: this.formatMessage('WitCatFileHelper.thing.2'),
-					  value: 'false'
+						text: this.formatMessage('WitCatFileHelper.thing.2'),
+						value: 'false'
 					},
 				],
 			}
@@ -366,7 +366,7 @@ class WitCatFileHelper {
 		let h = args.text;
 		let text = args.text;
 		let filenames = args.name;
-		if(filenames == ""){
+		if (filenames == "") {
 			filenames = "none.txt"
 		}
 		const filename = filenames;
@@ -399,7 +399,7 @@ class WitCatFileHelper {
 	download(args) {
 		const content = args.text;
 		let filenames = args.name;
-		if(filenames == ""){
+		if (filenames == "") {
 			filenames = "none.txt"
 		}
 		const filename = filenames;
@@ -459,9 +459,9 @@ class WitCatFileHelper {
 			}
 		}
 
-		if(h == ""){
+		if (h == "") {
 			alert("请先保存作品");
-		} else{
+		} else {
 			localStorage.setItem(show + h + name, text);
 		}
 	}
@@ -493,20 +493,23 @@ class WitCatFileHelper {
 		let s = args.s;
 		let array = text.split(s);
 		let r = "";
-		if(args.thing == "true"){
+		if (args.thing == "true") {
 			const a = `","`;
 			const b = `["`;
 			const c = `"]`;
-			let str = array.join(a);
+			let str = "";
+			array.forEach(e => {
+				str = str + JSON.stringify(e).slice(1, - 1) + a;
+			});
 			r = b + str + c;
 		}
-		else{
+		else {
 			let i;
-			for(i = 0;i < array.length;i++){
-				if(r == ""){
+			for (i = 0; i < array.length; i++) {
+				if (r == "") {
 					r = array[i];
 				}
-				else{
+				else {
 					r = r + "\n" + array[i];
 				}
 			}
@@ -528,7 +531,7 @@ class WitCatFileHelper {
 		return jieM;
 	}
 	//打开文件
-	openfile(args){
+	openfile(args) {
 		FLAG = 1;
 		return new Promise(resolve => {
 			let a = 0;
@@ -549,19 +552,19 @@ class WitCatFileHelper {
 				};
 				reader.readAsText(file);
 			}
-			window.onfocus = function() { 
+			window.onfocus = function () {
 				// 开始计时或者播放
 				setTimeout(e => {
-				  if (FLAG == 1) {
-					FLAG = 0;
-					resolve("");
-				  }
+					if (FLAG == 1) {
+						FLAG = 0;
+						resolve("");
+					}
 				}, 1000);
 			}
 		});
 	}
 	//设置状态
-	showvar(args){
+	showvar(args) {
 		const name = args.name;
 		let h = this.runtime.ccwAPI.getProjectUUID();
 		//寻找状态
@@ -582,14 +585,14 @@ class WitCatFileHelper {
 
 		let text = localStorage.getItem(show + h + name);
 		localStorage.removeItem(show + h + name);
-		if(h == ""){
+		if (h == "") {
 			alert("请先保存作品");
-		} else{
+		} else {
 			localStorage.setItem(args.show + h + name, text);
 		}
 	}
 	//修改别人的键
-	saveother(args){
+	saveother(args) {
 		let name = args.name;
 		let h = args.id;
 		let text = args.text;
@@ -603,7 +606,7 @@ class WitCatFileHelper {
 				if (value == null) {
 					show = "null";
 				}
-				else{
+				else {
 					show = "$";
 				}
 			}
@@ -612,12 +615,12 @@ class WitCatFileHelper {
 			}
 		}
 
-		if(show == "#" || show == "null"){
+		if (show == "#" || show == "null") {
 			localStorage.setItem("#" + h + name, text);
 		}
 	}
 	//获取别人的键
-	uploadother(args){
+	uploadother(args) {
 		let name = args.name;
 		let h = args.id;
 		//寻找状态
@@ -636,12 +639,12 @@ class WitCatFileHelper {
 			}
 		}
 
-		if(show != ""){
-		return localStorage.getItem(show + h + name);
+		if (show != "") {
+			return localStorage.getItem(show + h + name);
 		}
 	}
 	//获取键状态
-	other(args){
+	other(args) {
 		let name = args.name;
 		let h = args.id;
 		//寻找状态
@@ -654,7 +657,7 @@ class WitCatFileHelper {
 				if (value == null) {
 					show = "null";
 				}
-				else{
+				else {
 					show = "$";
 				}
 			}
@@ -663,36 +666,36 @@ class WitCatFileHelper {
 			}
 		}
 
-		if(show == "#"){
+		if (show == "#") {
 			return "公开";
 		}
-		if(show == "$"){
+		if (show == "$") {
 			return "只读";
 		}
-		if(show == ""){
+		if (show == "") {
 			return "私有";
 		}
 		return "键不存在";
 	}
 	//删除多行文本行
-	deleteMultiplelinestext(args){
+	deleteMultiplelinestext(args) {
 		let text = args.text;
 		let texts = text.split('\n');
 		let num = args.num;
-		if(args.num == "last"){
+		if (args.num == "last") {
 			num = texts.length + 1;
 		}
-		if(args.num == "first"){
+		if (args.num == "first") {
 			num = 1;
 		}
 		let a = "";
 		let i;
-		for(i = 0;i < texts.length;i++){
-			if(i + 1 != num){
-				if(a == ""){
+		for (i = 0; i < texts.length; i++) {
+			if (i + 1 != num) {
+				if (a == "") {
 					a = texts[i];
 				}
-				else{
+				else {
 					a = a + "\n" + texts[i];
 				}
 			}
@@ -700,32 +703,32 @@ class WitCatFileHelper {
 		return a;
 	}
 	//插入多行文本
-	addMultiplelinestext(args){
+	addMultiplelinestext(args) {
 		let text = args.text;
 		let texts = args.texts.split("\n");
 		let num = args.num;
-		if(args.num == "last"){
+		if (args.num == "last") {
 			num = texts.length + 1;
 		}
-		if(args.num == "first"){
+		if (args.num == "first") {
 			num = 1;
 		}
 		let a = "";
-		let i ,j = 0;
-		for(i = 0;i <= texts.length;i++){
-			if(i + 1 != num){
-				if(a == ""){
+		let i, j = 0;
+		for (i = 0; i <= texts.length; i++) {
+			if (i + 1 != num) {
+				if (a == "") {
 					a = texts[i + j];
 				}
-				else{
+				else {
 					a = a + "\n" + texts[i + j];
 				}
 			}
-			else{
-				if(a == ""){
+			else {
+				if (a == "") {
 					a = text;
 				}
-				else{
+				else {
 					a = a + "\n" + text;
 				}
 				j = -1;
@@ -734,19 +737,19 @@ class WitCatFileHelper {
 		return a;
 	}
 	//多行文本第几行
-	whatMultiplelinestext(args){
+	whatMultiplelinestext(args) {
 		let text = args.text.split("\n");
 		let num = args.num;
-		if(args.num == "last"){
+		if (args.num == "last") {
 			num = text.length;
 		}
-		if(args.num == "first"){
+		if (args.num == "first") {
 			num = 1;
 		}
 		return text[num - 1];
 	}
 	//多行文本行数
-	numMultiplelinestext(args){
+	numMultiplelinestext(args) {
 		let text = args.text.split("\n");
 		return text.length;
 	}
