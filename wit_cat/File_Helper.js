@@ -70,10 +70,10 @@ class WitCatFileHelper {
 				"WitCatFileHelper.numMultiplelinestext": "[text]Number of rows",
 				"WitCatFileHelper.thing.1": "array",
 				"WitCatFileHelper.thing.2": "Multiple lines of text",
-				"WitCatFileHelper.number": "第[num]个键的[type]",
-				"WitCatFileHelper.numbers": "键数量",
-				"WitCatFileHelper.number.1": "键名",
-				"WitCatFileHelper.number.2": "键值",
+				"WitCatFileHelper.number": "[type]of[num]key",
+				"WitCatFileHelper.numbers": "key number",
+				"WitCatFileHelper.number.1": "name",
+				"WitCatFileHelper.number.2": "content",
 			}
 		})
 	}
@@ -467,7 +467,7 @@ class WitCatFileHelper {
 	}
 	//读取本地变量
 	upload(args) {
-		console.warn("文件助手——读取键值对：积木已下线，请更换");/*
+		console.warn("文件助手——读取键值对：积木已下线，请更换\nfile_helper-Read key value pair: Block is offline, please replace");/*
 		const name = args.name;
 		let h = this.runtime.ccwAPI.getProjectUUID();
 		//寻找状态
@@ -498,7 +498,7 @@ class WitCatFileHelper {
 	}
 	//保存本地变量
 	save(args) {
-		console.warn("文件助手——保存键值对：积木已下线，请更换");/*
+		console.warn("文件助手——保存键值对：积木已下线，请更换\nfile_helper-Save the key pair: Block is offline, please replace");/*
 		const text = args.text;
 		const name = args.name;
 		let h = this.runtime.ccwAPI.getProjectUUID();
@@ -532,7 +532,7 @@ class WitCatFileHelper {
 	}
 	//删除本地变量
 	delete(args) {
-		console.warn("文件助手——删除键值对：积木已下线，请更换");/*
+		console.warn("文件助手——删除键值对：积木已下线，请更换\nfile_helper-Delet the key pair: Block is offline, please replace");/*
 		const name = args.name;
 		let h = this.runtime.ccwAPI.getProjectUUID();
 		//寻找状态
@@ -677,7 +677,7 @@ class WitCatFileHelper {
 	}
 	//修改别人的键
 	saveother(args) {
-		console.warn("文件助手——修改别人的键：积木已下线，请更换");/*
+		console.warn("文件助手——修改别人的键：积木已下线，请更换\nfile_helper-Modify other people's keys: Block is offline, please replace");/*
 		let name = args.name;
 		let h = args.id;
 		let text = args.text;
@@ -713,7 +713,7 @@ class WitCatFileHelper {
 	}
 	//获取别人的键
 	uploadother(args) {
-		console.warn("文件助手——获取别人的键：积木已下线，请更换");/*
+		console.warn("文件助手——获取别人的键：积木已下线，请更换\nfile_helper-Get other people's keys: Block is offline, please replace");/*
 		let name = args.name;
 		let h = args.id;
 		//寻找状态
@@ -742,7 +742,7 @@ class WitCatFileHelper {
 	}
 	//获取键状态
 	other(args) {
-		console.warn("文件助手——获取键状态：积木已下线，请更换");/*
+		console.warn("文件助手——获取键状态：积木已下线，请更换\nfile_helper-Get key state: Block is offline, please replace");/*
 		let name = args.name;
 		let h = args.id;
 		//寻找状态
@@ -859,7 +859,7 @@ class WitCatFileHelper {
 	}
 	//键值对数量
 	numbers() {
-		console.warn("文件助手——获取键值对数量：积木已下线，请更换");/*
+		console.warn("文件助手——获取键值对数量：积木已下线，请更换\nfile_helper-number of keys: Block is offline, please replace");/*
 		let a = 0;
 		for (let i = 0; i < localStorage.length; i++) {
 			if (localStorage.key(i).slice(1, 7) == "witcat") {
@@ -870,7 +870,7 @@ class WitCatFileHelper {
 	}
 	//键值对内容
 	number(args) {
-		console.warn("文件助手——获取键值对内容：积木已下线，请更换");
+		console.warn("文件助手——获取键值对内容：积木已下线，请更换\nfile_helper-Get the key pair: Block is offline, please replace");
 		/*
 		let a = 0;
 		let i = 0;
