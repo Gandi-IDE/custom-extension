@@ -453,6 +453,7 @@ class WitCatFileHelper {
 	}
 	//读取本地变量
 	upload(args) {
+		console.warn("读取键值对：积木已下线，请更换");/*
 		const name = args.name;
 		let h = this.runtime.ccwAPI.getProjectUUID();
 		//寻找状态
@@ -479,10 +480,11 @@ class WitCatFileHelper {
 		if (show == "") {
 			return localStorage.getItem(show + h + name);
 		}
-		return localStorage.getItem(show + h + "©" + name);
+		return localStorage.getItem(show + h + "©" + name);*/
 	}
 	//保存本地变量
 	save(args) {
+		console.warn("保存键值对：积木已下线，请更换");/*
 		const text = args.text;
 		const name = args.name;
 		let h = this.runtime.ccwAPI.getProjectUUID();
@@ -512,10 +514,11 @@ class WitCatFileHelper {
 			alert("请先保存作品");
 		} else {
 			localStorage.setItem(show + h + "©" + name, text);
-		}
+		}*/
 	}
 	//删除本地变量
 	delete(args) {
+		console.warn("删除键值对：积木已下线，请更换");/*
 		const name = args.name;
 		let h = this.runtime.ccwAPI.getProjectUUID();
 		//寻找状态
@@ -543,7 +546,7 @@ class WitCatFileHelper {
 			localStorage.removeItem(show + h + name);
 		}
 
-		localStorage.removeItem(show + h + "©" + name);
+		localStorage.removeItem(show + h + "©" + name);*/
 	}
 	//字符串分割
 	segmentation(args) {
@@ -660,6 +663,7 @@ class WitCatFileHelper {
 	}
 	//修改别人的键
 	saveother(args) {
+		console.warn("修改别人的键：积木已下线，请更换");/*
 		let name = args.name;
 		let h = args.id;
 		let text = args.text;
@@ -691,10 +695,11 @@ class WitCatFileHelper {
 
 		if (show == "#witcat" || show == "") {
 			localStorage.setItem("#witcat" + h + "©" + name, text);
-		}
+		}*/
 	}
 	//获取别人的键
 	uploadother(args) {
+		console.warn("获取别人的键：积木已下线，请更换");/*
 		let name = args.name;
 		let h = args.id;
 		//寻找状态
@@ -719,10 +724,11 @@ class WitCatFileHelper {
 		if (show != "") {
 			return localStorage.getItem(show + h + "©" + name);
 		}
-		return "";
+		return "";*/
 	}
 	//获取键状态
 	other(args) {
+		console.warn("获取键状态：积木已下线，请更换");/*
 		let name = args.name;
 		let h = args.id;
 		//寻找状态
@@ -759,7 +765,7 @@ class WitCatFileHelper {
 		if (show == "@witcat") {
 			return "私有";
 		}
-		return "键不存在";
+		return "键不存在";*/
 	}
 	//删除多行文本行
 	deleteMultiplelinestext(args) {
@@ -839,16 +845,19 @@ class WitCatFileHelper {
 	}
 	//键值对数量
 	numbers() {
+		console.warn("获取键值对数量：积木已下线，请更换");/*
 		let a = 0;
 		for (let i = 0; i < localStorage.length; i++) {
 			if (localStorage.key(i).slice(1, 7) == "witcat") {
 				a++;
 			}
 		}
-		return a;
+		return a;*/
 	}
 	//键值对内容
 	number(args) {
+		console.warn("获取键值对内容：积木已下线，请更换");
+		/*
 		let a = 0;
 		let i = 0;
 		for (i = 0; a < args.num && i < localStorage.length; i++) {
@@ -864,7 +873,7 @@ class WitCatFileHelper {
 				return localStorage.getItem(localStorage.key(i - 1));
 			}
 		}
-		return "";
+		return "";*/
 	}
 }
 
