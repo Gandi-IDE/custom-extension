@@ -42,8 +42,8 @@ export default class DannyDEVCOMM extends GandiExtension {
       email: '3414034955@qq.com' //邮箱
     };
   }
-  init() {
 
+  init() {
     //menus
     const HTTP_method = BlockUtil.createMenu('HTTP_method');
     HTTP_method.items.push({ text: 'GET', value: 'GET' });
@@ -66,7 +66,7 @@ export default class DannyDEVCOMM extends GandiExtension {
     sock_yi.items.push({ text: 'UDP', value: '1' });
     const sock_method = BlockUtil.createMenu('sock_method');
     sock_method.items.push({ text: 'client', value: '0' });
-    //sock_method.items.push({ text: 'server', value: '1' });
+    sock_method.items.push({ text: 'server', value: '1' });
     const data_solve = BlockUtil.createMenu('data_solve');
     data_solve.items.push({ text: 'Nothing', value: '0' });
     data_solve.items.push({ text: 'Download', value: '1' });
@@ -375,6 +375,10 @@ export default class DannyDEVCOMM extends GandiExtension {
     this.addTextLabel("DannyDevCOM.ver")
 
   }
+  willLoaded(): void {
+  }
+  willInstall(): void {
+  }
   timeFn(d1) {//di作为一个变量传进来
     let dateBegin = d1
     let dateEnd = new Date();//获取当前时间
@@ -464,12 +468,12 @@ export default class DannyDEVCOMM extends GandiExtension {
   ws_cre_sock(args) {
     const { yi } = args
     if (yi == 'WS') {
-      let id = Date.now()
+      let id = String(Date.now()*Math.random()%Math.random()+Math.random())
       DannyDevCOM.wsock.push({ 'id': String(id), 'ip': null, 'port': null, 'obj': null, 'way': 'WS' })
       return String(id)
     }
     if (yi == 'WSS') {
-      let id = Date.now()
+      let id = String(Date.now()*Math.random()%Math.random()+Math.random())
       DannyDevCOM.wsock.push({ 'id': String(id), 'ip': null, 'port': null, 'obj': null, 'way': 'WSS' })
       return String(id)
     }
@@ -873,7 +877,7 @@ export default class DannyDEVCOMM extends GandiExtension {
   json_create(args) {
     const { json_ } = args
     let j = json_
-    let id = Date.now()
+    let id = String(Date.now()*Math.random()%Math.random()+Math.random())
     let a = {}
     try {
       a = JSON.parse(j)
