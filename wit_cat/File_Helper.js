@@ -38,6 +38,10 @@ class WitCatFileHelper {
 				"WitCatFileHelper.numMultiplelinestext": "[text]的行数",
 				"WitCatFileHelper.thing.1": "数组",
 				"WitCatFileHelper.thing.2": "多行文本",
+				"WitCatFileHelper.number": "第[num]个键的[type]",
+				"WitCatFileHelper.numbers": "键数量",
+				"WitCatFileHelper.number.1": "键名",
+				"WitCatFileHelper.number.2": "键值",
 			},
 			en: {
 				"WitCatFileHelper.name": "file helper",
@@ -180,6 +184,27 @@ class WitCatFileHelper {
 							menu: "setvariable",
 						},
 					},
+				},
+				{
+					opcode: "number",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatFileHelper.number"),
+					arguments: {
+						num: {
+							type: "number",
+							defaultValue: "i",
+						},
+						type: {
+							type: "string",
+							menu: "type",
+						},
+					},
+				},
+				{
+					opcode: "numbers",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatFileHelper.numbers"),
+					arguments: {},
 				},
 				{
 					opcode: "saveother",
@@ -337,15 +362,15 @@ class WitCatFileHelper {
 				setvariable: [
 					{
 						text: this.formatMessage('WitCatFileHelper.showall'),
-						value: '#'
+						value: '#witcat'
 					},
 					{
 						text: this.formatMessage('WitCatFileHelper.showon'),
-						value: '$'
+						value: '$witcat'
 					},
 					{
 						text: this.formatMessage('WitCatFileHelper.showoff'),
-						value: ''
+						value: '@witcat'
 					},
 				],
 				thing: [
@@ -356,6 +381,16 @@ class WitCatFileHelper {
 					{
 						text: this.formatMessage('WitCatFileHelper.thing.2'),
 						value: 'false'
+					},
+				],
+				type: [
+					{
+						text: this.formatMessage('WitCatFileHelper.number.1'),
+						value: 'name'
+					},
+					{
+						text: this.formatMessage('WitCatFileHelper.number.2'),
+						value: 'content'
 					},
 				],
 			}
@@ -421,22 +456,30 @@ class WitCatFileHelper {
 		const name = args.name;
 		let h = this.runtime.ccwAPI.getProjectUUID();
 		//寻找状态
-		let show = "";
+		let show = "@witcat";
 		let value = localStorage.getItem(h + name);
 		if (value == null) {
-			value = localStorage.getItem("#" + h + name);
+			let value = localStorage.getItem("@witcat" + h + "©" + name);
 			if (value == null) {
-				value = localStorage.getItem("$" + h + name);
-				if (value != null) {
-					show = "$";
+				value = localStorage.getItem("#witcat" + h + "©" + name);
+				if (value == null) {
+					value = localStorage.getItem("$witcat" + h + "©" + name);
+					if (value != null) {
+						show = "$witcat";
+					}
+				}
+				else {
+					show = "#witcat";
 				}
 			}
-			else {
-				show = "#";
-			}
 		}
-
-		return localStorage.getItem(show + h + name);
+		else {
+			show = "";
+		}
+		if (show == "") {
+			return localStorage.getItem(show + h + name);
+		}
+		return localStorage.getItem(show + h + "©" + name);
 	}
 	//保存本地变量
 	save(args) {
@@ -444,25 +487,31 @@ class WitCatFileHelper {
 		const name = args.name;
 		let h = this.runtime.ccwAPI.getProjectUUID();
 		//寻找状态
-		let show = "";
+		let show = "@witcat";
 		let value = localStorage.getItem(h + name);
 		if (value == null) {
-			value = localStorage.getItem("#" + h + name);
+			let value = localStorage.getItem("@witcat" + h + "©" + name);
 			if (value == null) {
-				value = localStorage.getItem("$" + h + name);
-				if (value != null) {
-					show = "$";
+				value = localStorage.getItem("#witcat" + h + "©" + name);
+				if (value == null) {
+					value = localStorage.getItem("$witcat" + h + "©" + name);
+					if (value != null) {
+						show = "$witcat";
+					}
+				}
+				else {
+					show = "#witcat";
 				}
 			}
-			else {
-				show = "#";
-			}
+		}
+		else {
+			localStorage.removeItem(h + name);
 		}
 
 		if (h == "") {
 			alert("请先保存作品");
 		} else {
-			localStorage.setItem(show + h + name, text);
+			localStorage.setItem(show + h + "©" + name, text);
 		}
 	}
 	//删除本地变量
@@ -470,22 +519,31 @@ class WitCatFileHelper {
 		const name = args.name;
 		let h = this.runtime.ccwAPI.getProjectUUID();
 		//寻找状态
-		let show = "";
+		let show = "@witcat";
 		let value = localStorage.getItem(h + name);
 		if (value == null) {
-			value = localStorage.getItem("#" + h + name);
+			let value = localStorage.getItem("@witcat" + h + "©" + name);
 			if (value == null) {
-				value = localStorage.getItem("$" + h + name);
-				if (value != null) {
-					show = "$";
+				value = localStorage.getItem("#witcat" + h + "©" + name);
+				if (value == null) {
+					value = localStorage.getItem("$witcat" + h + "©" + name);
+					if (value != null) {
+						show = "$witcat";
+					}
+				}
+				else {
+					show = "#witcat";
 				}
 			}
-			else {
-				show = "#";
-			}
+		}
+		else {
+			show = "";
+		}
+		if (show == "") {
+			localStorage.removeItem(show + h + name);
 		}
 
-		localStorage.removeItem(show + h + name);
+		localStorage.removeItem(show + h + "©" + name);
 	}
 	//字符串分割
 	segmentation(args) {
@@ -568,27 +626,36 @@ class WitCatFileHelper {
 		const name = args.name;
 		let h = this.runtime.ccwAPI.getProjectUUID();
 		//寻找状态
-		let show = "";
+		let show = "@witcat";
 		let value = localStorage.getItem(h + name);
 		if (value == null) {
-			value = localStorage.getItem("#" + h + name);
+			let value = localStorage.getItem("@witcat" + h + "©" + name);
 			if (value == null) {
-				value = localStorage.getItem("$" + h + name);
-				if (value != null) {
-					show = "$";
+				value = localStorage.getItem("#witcat" + h + "©" + name);
+				if (value == null) {
+					value = localStorage.getItem("$witcat" + h + "©" + name);
+					if (value != null) {
+						show = "$witcat";
+					}
+				}
+				else {
+					show = "#witcat";
 				}
 			}
-			else {
-				show = "#";
-			}
 		}
-
-		let text = localStorage.getItem(show + h + name);
-		localStorage.removeItem(show + h + name);
+		else {
+			show = "";
+		}
+		let text = localStorage.getItem(show + h + "©" + name);;
+		if (show == "") {
+			text = localStorage.getItem(show + h + name);
+			localStorage.removeItem(show + h + name);
+		}
+		localStorage.removeItem(show + h + "©" + name);
 		if (h == "") {
 			alert("请先保存作品");
 		} else {
-			localStorage.setItem(args.show + h + name, text);
+			localStorage.setItem(args.show + h + "©" + name, text);
 		}
 	}
 	//修改别人的键
@@ -600,23 +667,30 @@ class WitCatFileHelper {
 		let show = "";
 		let value = localStorage.getItem(h + name);
 		if (value == null) {
-			value = localStorage.getItem("#" + h + name);
+			let value = localStorage.getItem("@witcat" + h + "©" + name);
 			if (value == null) {
-				value = localStorage.getItem("$" + h + name);
+				value = localStorage.getItem("#witcat" + h + "©" + name);
 				if (value == null) {
-					show = "null";
+					value = localStorage.getItem("$witcat" + h + "©" + name);
+					if (value != null) {
+						show = "$witcat";
+					}
 				}
 				else {
-					show = "$";
+					show = "#witcat";
 				}
 			}
 			else {
-				show = "#";
+				show = "@witcat";
 			}
 		}
+		else {
+			localStorage.removeItem(h + name);
+			show = "@witcat";
+		}
 
-		if (show == "#" || show == "null") {
-			localStorage.setItem("#" + h + name, text);
+		if (show == "#witcat" || show == "") {
+			localStorage.setItem("#witcat" + h + "©" + name, text);
 		}
 	}
 	//获取别人的键
@@ -627,21 +701,25 @@ class WitCatFileHelper {
 		let show = "";
 		let value = localStorage.getItem(h + name);
 		if (value == null) {
-			value = localStorage.getItem("#" + h + name);
+			let value = localStorage.getItem("@witcat" + h + "©" + name);
 			if (value == null) {
-				value = localStorage.getItem("$" + h + name);
-				if (value != null) {
-					show = "$";
+				value = localStorage.getItem("#witcat" + h + "©" + name);
+				if (value == null) {
+					value = localStorage.getItem("$witcat" + h + "©" + name);
+					if (value != null) {
+						show = "$witcat";
+					}
 				}
-			}
-			else {
-				show = "#";
+				else {
+					show = "#witcat";
+				}
 			}
 		}
 
 		if (show != "") {
-			return localStorage.getItem(show + h + name);
+			return localStorage.getItem(show + h + "©" + name);
 		}
+		return "";
 	}
 	//获取键状态
 	other(args) {
@@ -651,28 +729,34 @@ class WitCatFileHelper {
 		let show = "";
 		let value = localStorage.getItem(h + name);
 		if (value == null) {
-			value = localStorage.getItem("#" + h + name);
+			let value = localStorage.getItem("@witcat" + h + "©" + name);
 			if (value == null) {
-				value = localStorage.getItem("$" + h + name);
+				value = localStorage.getItem("#witcat" + h + "©" + name);
 				if (value == null) {
-					show = "null";
+					value = localStorage.getItem("$witcat" + h + "©" + name);
+					if (value != null) {
+						show = "$witcat";
+					}
 				}
 				else {
-					show = "$";
+					show = "#witcat";
 				}
 			}
 			else {
-				show = "#";
+				show = "@witcat";
 			}
 		}
+		else {
+			show = "@witcat";
+		}
 
-		if (show == "#") {
+		if (show == "#witcat") {
 			return "公开";
 		}
-		if (show == "$") {
+		if (show == "$witcat") {
 			return "只读";
 		}
-		if (show == "") {
+		if (show == "@witcat") {
 			return "私有";
 		}
 		return "键不存在";
@@ -752,6 +836,35 @@ class WitCatFileHelper {
 	numMultiplelinestext(args) {
 		let text = args.text.split("\n");
 		return text.length;
+	}
+	//键值对数量
+	numbers() {
+		let a = 0;
+		for (let i = 0; i < localStorage.length; i++) {
+			if (localStorage.key(i).slice(1, 7) == "witcat") {
+				a++;
+			}
+		}
+		return a;
+	}
+	//键值对内容
+	number(args) {
+		let a = 0;
+		let i = 0;
+		for (i = 0; a < args.num && i < localStorage.length; i++) {
+			if (localStorage.key(i).slice(1, 7) == "witcat") {
+				a++;
+			}
+		}
+		if (a == args.num) {
+			if (args.type == "name") {
+				return localStorage.key(i - 1).slice(localStorage.key(i - 1).indexOf("©", 7) + 1, localStorage.key(i - 1).length);
+			}
+			else {
+				return localStorage.getItem(localStorage.key(i - 1));
+			}
+		}
+		return "";
 	}
 }
 
