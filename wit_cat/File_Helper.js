@@ -70,6 +70,10 @@ class WitCatFileHelper {
 				"WitCatFileHelper.numMultiplelinestext": "[text]Number of rows",
 				"WitCatFileHelper.thing.1": "array",
 				"WitCatFileHelper.thing.2": "Multiple lines of text",
+				"WitCatFileHelper.number": "第[num]个键的[type]",
+				"WitCatFileHelper.numbers": "键数量",
+				"WitCatFileHelper.number.1": "键名",
+				"WitCatFileHelper.number.2": "键值",
 			}
 		})
 	}
@@ -137,6 +141,7 @@ class WitCatFileHelper {
 					opcode: "upload",
 					blockType: "reporter",
 					text: this.formatMessage("WitCatFileHelper.upload"),
+					hideFromPalette: true,
 					arguments: {
 						name: {
 							type: "string",
@@ -148,6 +153,7 @@ class WitCatFileHelper {
 					opcode: "save",
 					blockType: "command",
 					text: this.formatMessage("WitCatFileHelper.save"),
+					hideFromPalette: true,
 					arguments: {
 						text: {
 							type: "string",
@@ -163,6 +169,7 @@ class WitCatFileHelper {
 					opcode: "delete",
 					blockType: "command",
 					text: this.formatMessage("WitCatFileHelper.delete"),
+					hideFromPalette: true,
 					arguments: {
 						name: {
 							type: "string",
@@ -174,6 +181,7 @@ class WitCatFileHelper {
 					opcode: "showvar",
 					blockType: "command",
 					text: this.formatMessage("WitCatFileHelper.showvar"),
+					hideFromPalette: true,
 					arguments: {
 						name: {
 							type: "string",
@@ -189,6 +197,7 @@ class WitCatFileHelper {
 					opcode: "number",
 					blockType: "reporter",
 					text: this.formatMessage("WitCatFileHelper.number"),
+					hideFromPalette: true,
 					arguments: {
 						num: {
 							type: "number",
@@ -204,12 +213,14 @@ class WitCatFileHelper {
 					opcode: "numbers",
 					blockType: "reporter",
 					text: this.formatMessage("WitCatFileHelper.numbers"),
+					hideFromPalette: true,
 					arguments: {},
 				},
 				{
 					opcode: "saveother",
 					blockType: "command",
 					text: this.formatMessage("WitCatFileHelper.saveother"),
+					hideFromPalette: true,
 					arguments: {
 						id: {
 							type: "string",
@@ -229,6 +240,7 @@ class WitCatFileHelper {
 					opcode: "uploadother",
 					blockType: "reporter",
 					text: this.formatMessage("WitCatFileHelper.uploadother"),
+					hideFromPalette: true,
 					arguments: {
 						id: {
 							type: "string",
@@ -244,6 +256,7 @@ class WitCatFileHelper {
 					opcode: "other",
 					blockType: "reporter",
 					text: this.formatMessage("WitCatFileHelper.other"),
+					hideFromPalette: true,
 					arguments: {
 						id: {
 							type: "string",
@@ -255,6 +268,7 @@ class WitCatFileHelper {
 						},
 					},
 				},
+				"---" + "base64",
 				{
 					opcode: "encrypt",
 					blockType: "reporter",
@@ -453,7 +467,7 @@ class WitCatFileHelper {
 	}
 	//读取本地变量
 	upload(args) {
-		console.warn("读取键值对：积木已下线，请更换");/*
+		console.warn("文件助手——读取键值对：积木已下线，请更换");/*
 		const name = args.name;
 		let h = this.runtime.ccwAPI.getProjectUUID();
 		//寻找状态
@@ -484,7 +498,7 @@ class WitCatFileHelper {
 	}
 	//保存本地变量
 	save(args) {
-		console.warn("保存键值对：积木已下线，请更换");/*
+		console.warn("文件助手——保存键值对：积木已下线，请更换");/*
 		const text = args.text;
 		const name = args.name;
 		let h = this.runtime.ccwAPI.getProjectUUID();
@@ -518,7 +532,7 @@ class WitCatFileHelper {
 	}
 	//删除本地变量
 	delete(args) {
-		console.warn("删除键值对：积木已下线，请更换");/*
+		console.warn("文件助手——删除键值对：积木已下线，请更换");/*
 		const name = args.name;
 		let h = this.runtime.ccwAPI.getProjectUUID();
 		//寻找状态
@@ -663,7 +677,7 @@ class WitCatFileHelper {
 	}
 	//修改别人的键
 	saveother(args) {
-		console.warn("修改别人的键：积木已下线，请更换");/*
+		console.warn("文件助手——修改别人的键：积木已下线，请更换");/*
 		let name = args.name;
 		let h = args.id;
 		let text = args.text;
@@ -699,7 +713,7 @@ class WitCatFileHelper {
 	}
 	//获取别人的键
 	uploadother(args) {
-		console.warn("获取别人的键：积木已下线，请更换");/*
+		console.warn("文件助手——获取别人的键：积木已下线，请更换");/*
 		let name = args.name;
 		let h = args.id;
 		//寻找状态
@@ -728,7 +742,7 @@ class WitCatFileHelper {
 	}
 	//获取键状态
 	other(args) {
-		console.warn("获取键状态：积木已下线，请更换");/*
+		console.warn("文件助手——获取键状态：积木已下线，请更换");/*
 		let name = args.name;
 		let h = args.id;
 		//寻找状态
@@ -845,7 +859,7 @@ class WitCatFileHelper {
 	}
 	//键值对数量
 	numbers() {
-		console.warn("获取键值对数量：积木已下线，请更换");/*
+		console.warn("文件助手——获取键值对数量：积木已下线，请更换");/*
 		let a = 0;
 		for (let i = 0; i < localStorage.length; i++) {
 			if (localStorage.key(i).slice(1, 7) == "witcat") {
@@ -856,7 +870,7 @@ class WitCatFileHelper {
 	}
 	//键值对内容
 	number(args) {
-		console.warn("获取键值对内容：积木已下线，请更换");
+		console.warn("文件助手——获取键值对内容：积木已下线，请更换");
 		/*
 		let a = 0;
 		let i = 0;
