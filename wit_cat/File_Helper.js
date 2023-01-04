@@ -135,6 +135,7 @@ class WitCatFileHelper {
 					opcode: "openfile",
 					blockType: "reporter",
 					text: this.formatMessage("WitCatFileHelper.openfile"),
+					disableMonitor: true,
 					arguments: {},
 				},
 				{
@@ -576,7 +577,7 @@ class WitCatFileHelper {
 			array.forEach(e => {
 				str = str + JSON.stringify(e).slice(1, - 1) + a;
 			});
-			r = b + str + c;
+			r = b + str.slice(0, -3) + c;
 		}
 		else {
 			let i;
