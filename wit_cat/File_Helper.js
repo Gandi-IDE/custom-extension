@@ -570,14 +570,7 @@ class WitCatFileHelper {
 		let array = text.split(s);
 		let r = "";
 		if (args.thing == "true") {
-			const a = `","`;
-			const b = `["`;
-			const c = `"]`;
-			let str = "";
-			array.forEach(e => {
-				str = str + JSON.stringify(e).slice(1, - 1) + a;
-			});
-			r = b + str.slice(0, -3) + c;
+			r = JSON.stringify(array);
 		}
 		else {
 			let i;
