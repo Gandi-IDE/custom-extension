@@ -6,6 +6,10 @@ const _icon = "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHR
 
 const extensionId = "WitCatInput";
 
+let keypress = {};
+let lastKey = "", MouseWheel = 0;
+let timer;
+
 //找渲染cvs
 let cvs = document.getElementsByTagName("canvas")[0];
 if (cvs == null) {
@@ -48,6 +52,11 @@ class WitCatInput {
 				"WitCatInput.number.8": "字体大小",
 				"WitCatInput.number.9": "所有(json)",
 				"WitCatInput.number.10": "ID",
+				"WitCatInput.key": "按下按键[type]?",
+				"WitCatInput.keys": "按下按键[type]?",
+				"WitCatInput.lastkey": "上次按下的键",
+				"WitCatInput.mousewheel": "鼠标滚轮",
+				"WitCatInput.setinput": "设置ID为[id]的文本框的[type]为[text]",
 			},
 			en: {
 				"WitCatInput.name": "input",
@@ -73,6 +82,11 @@ class WitCatInput {
 				"WitCatInput.number.8": "font-size",
 				"WitCatInput.number.9": "all(json)",
 				"WitCatInput.number.10": "ID",
+				"WitCatInput.key": "Press the key[type]?",
+				"WitCatInput.keys": "Press the key [type]?",
+				"WitCatInput.lastkey": "last key pressed",
+				"WitCatInput.mousewheel": "MouseWheel",
+				"WitCatInput.setinput": "Set[type]of input whose ID is[id]to[text]",
 			}
 		})
 	}
@@ -140,6 +154,25 @@ class WitCatInput {
 							type: "number",
 							defaultValue: "16",
 						}
+					},
+				},
+				{
+					opcode: "setinput",
+					blockType: "command",
+					text: this.formatMessage("WitCatInput.setinput"),
+					arguments: {
+						id: {
+							type: "string",
+							defaultValue: "i",
+						},
+						type: {
+							type: "string",
+							menu: "typess",
+						},
+						text: {
+							type: "string",
+							defaultValue: "i",
+						},
 					},
 				},
 				{
@@ -229,6 +262,42 @@ class WitCatInput {
 					},
 				},
 				{
+					opcode: "key",
+					blockType: "Boolean",
+					text: this.formatMessage("WitCatInput.key"),
+					arguments: {
+						type: {
+							type: "string",
+							defaultValue: "a",
+						}
+					},
+				},
+				{
+					opcode: "mousewheel",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatInput.mousewheel"),
+					arguments: {},
+				},
+				{
+					opcode: "keys",
+					blockType: "hat",
+					text: this.formatMessage("WitCatInput.keys"),
+					func: false,
+					arguments: {
+						type: {
+							type: "string",
+							defaultValue: "a",
+						}
+					},
+				},
+				{
+					opcode: "lastkey",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatInput.lastkey"),
+					func: false,
+					arguments: {},
+				},
+				{
 					opcode: "deleteallinput",
 					blockType: "command",
 					text: this.formatMessage("WitCatInput.deleteallinput"),
@@ -286,6 +355,40 @@ class WitCatInput {
 					{
 						text: this.formatMessage('WitCatInput.number.9'),
 						value: 'json'
+					},
+				],
+				typess: [
+					{
+						text: this.formatMessage('WitCatInput.number.1'),
+						value: 'X'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.2'),
+						value: 'Y'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.3'),
+						value: 'width'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.4'),
+						value: 'height'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.5'),
+						value: 'content'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.6'),
+						value: 'color'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.7'),
+						value: 'prompt'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.8'),
+						value: 'font-size'
 					},
 				]
 			}
@@ -427,7 +530,7 @@ class WitCatInput {
 	//焦点位置
 	whatinput() {
 		if (document.activeElement.className == "WitCatInput") {
-			return document.activeElement.id.split("WitCatInput");
+			return document.activeElement.id.split("WitCatInput")[0];
 		}
 		else {
 			return "";
@@ -438,6 +541,9 @@ class WitCatInput {
 		let search = document.getElementById("WitCatInput" + args.id);
 		if (search != null) {
 			search.focus();
+		}
+		else if (document.activeElement.className == "WitCatInput") {
+			document.activeElement.blur();
 		}
 	}
 	//删除所有文本框
@@ -497,6 +603,94 @@ class WitCatInput {
 		let search = document.getElementsByClassName("WitCatInput");
 		return search.length;
 	}
+	//按键检测
+	key(args) {
+		return (args.type in keypress);
+	}
+	//按键检测
+	keys(args) {
+		return (args.type in keypress);
+	}
+	//上次按下的键
+	lastkey() {
+		return lastKey;
+	}
+	//鼠标滚轮
+	mousewheel() {
+		return MouseWheel;
+	}
+	//设置文本框
+	setinput(args) {
+		let search = document.getElementById("WitCatInput" + args.id);
+		if (search != null) {
+			let x = search.style.left.split("%")[0];
+			let y = search.style.top.split("%")[0];
+			let width = search.style.width.split("%")[0];
+			let height = search.style.height.split("%")[0];
+			let content = search.value;
+			let prompt = search.placeholder;
+			let color = search.style.color.colorHex()
+			let size = search.style.fontSize.split("px")[0];
+			if (args.type == "X") {
+				x = args.text;
+				if (args.text > this.runtime.stageWidth) {
+					x = this.runtime.stageWidth;
+				}
+				if (args.text < 0) {
+					x = 0;
+				}
+				x = (x / this.runtime.stageWidth) * 100;
+			}
+			else if (args.type == "Y") {
+				y = args.text;
+				if (args.text > this.runtime.stageHeight) {
+					y = this.runtime.stageHeight;
+				}
+				if (args.text < 0) {
+					y = 0;
+				}
+				y = (y / this.runtime.stageHeight) * 100;
+			}
+			else if (args.type == "width") {
+				width = args.text;
+				if (Number(x) + Number(args.text) > this.runtime.stageWidth) {
+					width = this.runtime.stageWidth - x;
+				}
+				if (args.text < 0) {
+					width = 0;
+				}
+				width = (width / this.runtime.stageWidth) * 100;
+			}
+			else if (args.type == "height") {
+				height = args.text;
+				if (Number(y) + Number(args.text) > this.runtime.stageHeight) {
+					height = this.runtime.stageHeight - y;
+				}
+				if (args.text < 0) {
+					height = 0;
+				}
+				height = (height / this.runtime.stageHeight) * 100;
+			}
+			else if (args.type == "content") {
+				content = args.text;
+			}
+			else if (args.type == "prompt") {
+				prompt = args.text;
+			}
+			else if (args.type == "color") {
+				color = args.text;
+			}
+			else if (args.type == "font-size") {
+				size = args.text;
+			}
+
+			let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:` + x + `%; top:` + y + `%; width:` + width + `%; height:` + height + `%;font-size: ` + size + `px;resize:none;color:` + color + `;`;
+
+			search.style = dom;
+			search.value = content;
+			search.placeholder = prompt;
+		}
+	}
 }
 
 window.tempExt = {
@@ -546,3 +740,30 @@ String.prototype.colorHex = function () {
 		return String(color);
 	}
 };
+//键盘事件监听
+document.onkeydown = function (event) {
+	keypress[event.key.toLowerCase()] = true;
+	lastKey = event.key.toLowerCase();
+}
+document.onkeyup = function (event) {
+	delete keypress[event.key.toLowerCase()];
+}
+//滚轮事件监听
+var scrollFunc = function (e) {
+	e = e || window.event;
+	if (e.wheelDelta) {  //判断浏览器IE，谷歌滑轮事件
+		MouseWheel = e.wheelDelta;
+	} else if (e.detail) {  //Firefox滑轮事件
+		MouseWheel = e.detail;
+	}
+	clearTimeout(timer);
+	timer = setTimeout(function () {
+		MouseWheel = 0;
+	}, 30);
+};
+//给页面绑定滑轮滚动事件
+if (document.addEventListener) { //火狐使用DOMMouseScroll绑定
+	document.addEventListener('DOMMouseScroll', scrollFunc, false);
+}
+//其他浏览器直接绑定滚动事件
+window.onmousewheel = document.onmousewheel = scrollFunc;
