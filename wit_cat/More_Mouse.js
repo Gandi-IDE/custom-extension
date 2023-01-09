@@ -5,39 +5,39 @@ const _picture = "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJo
 const _icon = "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIxNzcuMDg4NTUiIGhlaWdodD0iMTc3LjA4ODU1IiB2aWV3Qm94PSIwLDAsMTc3LjA4ODU1LDE3Ny4wODg1NSI+PGRlZnM+PGxpbmVhckdyYWRpZW50IHgxPSIyNDcuMDc3MyIgeTE9IjExOS4xNDIzMSIgeDI9IjI0Ny4wNzczIiB5Mj0iMjIyLjA2OTQ4IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgaWQ9ImNvbG9yLTEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2U1ZWFmMyIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xNTEuNDU1NzYsLTkxLjQ1NTc0KSI+PGcgZGF0YS1wYXBlci1kYXRhPSJ7JnF1b3Q7aXNQYWludGluZ0xheWVyJnF1b3Q7OnRydWV9IiBmaWxsLXJ1bGU9Im5vbnplcm8iIHN0cm9rZS13aWR0aD0iMCIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2UtZGFzaGFycmF5PSIiIHN0cm9rZS1kYXNob2Zmc2V0PSIwIiBzdHlsZT0ibWl4LWJsZW5kLW1vZGU6IG5vcm1hbCI+PHBhdGggZD0iTTE1MS40NTU3NiwyNjguNTQ0Mjl2LTE3Ny4wODg1NWgxNzcuMDg4NTV2MTc3LjA4ODU1eiIgZmlsbD0iIzhlYWNlMSIgc3Ryb2tlPSJub25lIiBzdHJva2UtbGluZWNhcD0iYnV0dCIvPjxwYXRoIGQ9Ik0yMzguMjAwNywyNDAuODU3NjlsLTEwLjQ4NDQxLC0zNS4xNjgwMmwtMjEuMzAyNDQsMjEuOTAwNjJsNC40Njc1OCwtMTA0Ljg5OTUxbDYzLjcxNjM3LDc5LjQ1MzQ5bC0yOS4yODgyNCwtMS41OTkxMmw5LjIwMDkxLDM0LjM1MTE1eiIgZmlsbD0iIzcyOGJiNSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNMjQ1Ljg4MDQ3LDIyMi4wNjk0OGwtMTEuOTY4MjcsLTMwLjUxOTFsLTIwLjM0NjA3LDIwLjM0NjA3di05Mi43NTQxM2w2Ny4wMjIzNCw2Ny4wMjIzNGgtMjkuMzIyMjdsMTAuNjUxNTEsMjkuODYwM3oiIGZpbGw9InVybCgjY29sb3ItMSkiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9nPjwvZz48L3N2Zz48IS0tcm90YXRpb25DZW50ZXI6ODguNTQ0MjQ0OTk5OTk5OTk6ODguNTQ0MjU1LS0+";
 
 const extensionId = "WitCatMouse";
-let button = ["up","up","up","up","up"];
+let button = ["up", "up", "up", "up", "up"];
 let xMouse = 0;
 let yMouse = 0;
-let isMove = false,timer = null;
+let isMove = false, timer = null;
 let touch = [];
 let fill = 0;
 let filln = 0;
-let w = 0,h = 0;
-let div,divs,divv,divvs,news,background,Operatinginstructions,bug,url,discord;
-let wv = 0,hv = 0;
+let w = 0, h = 0;
+let div, divs, divv, divvs, news, background, Operatinginstructions, bug, url, discord;
+let wv = 0, hv = 0;
 
 //找渲染cvs
 let cvs = document.getElementsByTagName("canvas")[0];
-if(cvs == null){
+if (cvs == null) {
 	alert("当前页面不支持多指触控/全屏，请前往作品详情页体验完整作品！");
 }
-else{
-	for(let i = 1;cvs.className != "" && i <= document.getElementsByTagName("canvas").length;i++){
+else {
+	for (let i = 1; cvs.className != "" && i <= document.getElementsByTagName("canvas").length; i++) {
 		cvs = document.getElementsByTagName("canvas")[i];
 	}
-	if(cvs == null){
+	if (cvs == null) {
 		alert("当前页面不支持多指触控/全屏，请前往作品详情页体验完整作品！");
 	}
 }
 
 //添加监听器
-const config = { attributes: true, childList: true, subtree: true, attributeFilter:['style'] };
-const callback = function(mutationsList, observer) {
-    if(fill == 1){
-    	observer.disconnect();
-    	fills();
-    	observer.observe(cvs, config);
-    }
+const config = { attributes: true, childList: true, subtree: true, attributeFilter: ['style'] };
+const callback = function (mutationsList, observer) {
+	if (fill == 1) {
+		observer.disconnect();
+		fills();
+		observer.observe(cvs, config);
+	}
 };
 const observer = new MutationObserver(callback);
 observer.observe(cvs, config);
@@ -48,10 +48,10 @@ class WitCatMouse {
 		this.runtime = runtime;
 		this._formatMessage = runtime.getFormatMessage({
 			"zh-cn": {
-				"WitCatMouse.name": "高级工具",
+				"WitCatMouse.name": "高级操作",
 				"WitCatMouse.name.1": "高级鼠标",
 				"WitCatMouse.name.2": "多指触控",
-				"WitCatMouse.set": "[set]右键菜单",	
+				"WitCatMouse.set": "[set]右键菜单",
 				"WitCatMouse.set.1": "启用",
 				"WitCatMouse.set.2": "禁用",
 				"WitCatMouse.when": "鼠标[key]被按下",
@@ -75,10 +75,10 @@ class WitCatMouse {
 				"WitCatMouse.resolution": "当前分辨率高",
 			},
 			en: {
-				"WitCatMouse.name": "More tools",
+				"WitCatMouse.name": "More operate",
 				"WitCatMouse.name.1": "more mouse",
 				"WitCatMouse.name.2": "more touch",
-				"WitCatMouse.set": "[set]Right-click menu",	
+				"WitCatMouse.set": "[set]Right-click menu",
 				"WitCatMouse.set.1": "allow",
 				"WitCatMouse.set.2": "forbid",
 				"WitCatMouse.when": "mouse[key]down?",
@@ -128,9 +128,9 @@ class WitCatMouse {
 					blockType: "command",
 					text: this.formatMessage("WitCatMouse.setfill"),
 					arguments: {
-						num:{
-							type:"number",
-							defaultValue:"360",
+						num: {
+							type: "number",
+							defaultValue: "360",
 						},
 					}
 				},
@@ -139,9 +139,9 @@ class WitCatMouse {
 					blockType: "command",
 					text: this.formatMessage("WitCatMouse.fill"),
 					arguments: {
-						set:{
-							type:"bool",
-							menu:"set",
+						set: {
+							type: "bool",
+							menu: "set",
 						},
 					}
 				},
@@ -151,15 +151,15 @@ class WitCatMouse {
 					text: this.formatMessage("WitCatMouse.resolution"),
 					arguments: {}
 				},
-				"---"+this.formatMessage("WitCatMouse.name.1"),
+				"---" + this.formatMessage("WitCatMouse.name.1"),
 				{
 					opcode: 'set',
 					blockType: "command",
 					text: this.formatMessage("WitCatMouse.set"),
 					arguments: {
-						set:{
-							type:"bool",
-							menu:"set",
+						set: {
+							type: "bool",
+							menu: "set",
 						},
 					}
 				},
@@ -168,9 +168,9 @@ class WitCatMouse {
 					blockType: "Boolean",
 					text: this.formatMessage("WitCatMouse.when"),
 					arguments: {
-						key:{
-							type:"string",
-							menu:"key",
+						key: {
+							type: "string",
+							menu: "key",
 						},
 					},
 				},
@@ -185,13 +185,13 @@ class WitCatMouse {
 					blockType: "reporter",
 					text: this.formatMessage("WitCatMouse.acceleration"),
 					arguments: {
-						way:{
-							type:"string",
-							menu:"way",
+						way: {
+							type: "string",
+							menu: "way",
 						},
 					},
 				},
-				"---"+this.formatMessage("WitCatMouse.name.2"),
+				"---" + this.formatMessage("WitCatMouse.name.2"),
 				{
 					opcode: 'down',
 					blockType: "reporter",
@@ -203,156 +203,156 @@ class WitCatMouse {
 					blockType: "reporter",
 					text: this.formatMessage("WitCatTouch.num"),
 					arguments: {
-						num:{
-							type:"number",
-							defaultValue:"1",
+						num: {
+							type: "number",
+							defaultValue: "1",
 						},
-						type:{
-							type:"string",
-							menu:"type",
+						type: {
+							type: "string",
+							menu: "type",
 						},
 					},
 				},
 			],
-			menus:{
+			menus: {
 				key: [
 					{
-					  text: this.formatMessage('WitCatMouse.key.1'),
-					  value: '0'
+						text: this.formatMessage('WitCatMouse.key.1'),
+						value: '0'
 					},
 					{
-					  text: this.formatMessage('WitCatMouse.key.2'),
-					  value: '1'
+						text: this.formatMessage('WitCatMouse.key.2'),
+						value: '1'
 					},
 					{
-					  text: this.formatMessage('WitCatMouse.key.3'),
-					  value: '2'
+						text: this.formatMessage('WitCatMouse.key.3'),
+						value: '2'
 					},
 					{
-					  text: this.formatMessage('WitCatMouse.key.4'),
-					  value: '3'
+						text: this.formatMessage('WitCatMouse.key.4'),
+						value: '3'
 					},
 					{
-					  text: this.formatMessage('WitCatMouse.key.5'),
-					  value: '4'
+						text: this.formatMessage('WitCatMouse.key.5'),
+						value: '4'
 					},
 				],
 				set: [
 					{
-					  text: this.formatMessage('WitCatMouse.set.1'),
-					  value: "true"
+						text: this.formatMessage('WitCatMouse.set.1'),
+						value: "true"
 					},
 					{
-					  text: this.formatMessage('WitCatMouse.set.2'),
-					  value: "false"
+						text: this.formatMessage('WitCatMouse.set.2'),
+						value: "false"
 					},
 				],
 				way: [
 					{
-					  text: this.formatMessage('WitCatMouse.way.1'),
-					  value: "x"
+						text: this.formatMessage('WitCatMouse.way.1'),
+						value: "x"
 					},
 					{
-					  text: this.formatMessage('WitCatMouse.way.2'),
-					  value: "y"
+						text: this.formatMessage('WitCatMouse.way.2'),
+						value: "y"
 					},
 				],
 				type: [
 					{
-					  text: this.formatMessage('WitCatTouch.type.1'),
-					  value: "x"
+						text: this.formatMessage('WitCatTouch.type.1'),
+						value: "x"
 					},
 					{
-					  text: this.formatMessage('WitCatTouch.type.2'),
-					  value: "y"
+						text: this.formatMessage('WitCatTouch.type.2'),
+						value: "y"
 					},
 				],
 			}
 		};
 	}
 	//右键菜单
-	set(args){
+	set(args) {
 		history.pushState(null, null, null);
-		cvs.parentNode.oncontextmenu = function (){
-			if(args.set == "true"){
+		cvs.parentNode.oncontextmenu = function () {
+			if (args.set == "true") {
 				return true;
 			}
-			else{
+			else {
 				return false;
 			}
 		}
 	}
 	//按下判断
-	when(args){
-		if(button[args.key] == "down"){
+	when(args) {
+		if (button[args.key] == "down") {
 			return true;
 		}
-		else{
+		else {
 			return false;
 		}
 	}
 	//控制鼠标
-	mouseuse(){
+	mouseuse() {
 		cvs.parentNode.requestPointerLock();
 	}
 	//鼠标移动量
-	acceleration(args){
-		if(args.way == "x"){
+	acceleration(args) {
+		if (args.way == "x") {
 			return xMouse;
 		}
-		else{
+		else {
 			return -yMouse;
 		}
 	}
 	//数量
-	down(){
+	down() {
 		return touch.length;
 	}
 	//坐标
-	num(args){
-		if(args.num > 0 && args.num <= touch.length){
-			if(args.type == "x"){
+	num(args) {
+		if (args.num > 0 && args.num <= touch.length) {
+			if (args.type == "x") {
 				return this.runtime.stageWidth * ((touch[args.num - 1].clientX - cvs.getBoundingClientRect().left) / cvs.offsetWidth);
 			}
-			else{
+			else {
 				return this.runtime.stageHeight * ((touch[args.num - 1].clientY - cvs.getBoundingClientRect().top) / cvs.offsetHeight);
 			}
 		}
-		else{
+		else {
 			return null;
 		}
 	}
 	//全屏
-	fill(args){
-		if(args.set == "true"){
-			if(filln < 3){
-				if(fill == 0){
+	fill(args) {
+		if (args.set == "true") {
+			if (filln < 3) {
+				if (fill == 0) {
 					let a = confirm(this.formatMessage('WitCatMouse.fillask.1') + filln + this.formatMessage('WitCatMouse.fillask.2'));
-					if(a == true){
+					if (a == true) {
 						filln = 0;
 						fillin();
 					}
-					else{
+					else {
 						filln += 1;
 					}
 				}
 			}
 		}
-		else{
-			if(fill == 1){
+		else {
+			if (fill == 1) {
 				outoffill();
 			}
 		}
 	}
 	//设置分辨率
-	setfill(args){
+	setfill(args) {
 		w = args.num / this.runtime.stageHeight * this.runtime.stageWidth;
 		h = args.num;
-		cvs.width =  args.num / this.runtime.stageHeight * this.runtime.stageWidth;
+		cvs.width = args.num / this.runtime.stageHeight * this.runtime.stageWidth;
 		cvs.height = args.num;
 	}
 	//当前分辨率
-	resolution(args){
+	resolution(args) {
 		return cvs.height;
 	}
 }
@@ -371,205 +371,205 @@ window.tempExt = {
 	},
 	l10n: {
 		"zh-cn": {
-			"WitCatMouse.name": "高级工具",
+			"WitCatMouse.name": "高级鼠标",
 			"WitCatMouse.descp": "更精准的控制鼠标/触屏/全屏！"
 		},
 		en: {
-			"WitCatMouse.name": "More tools",
+			"WitCatMouse.name": "More Mouse",
 			"WitCatMouse.descp": "More precise mouse/touch/full screen control!"
 		}
 	}
 };
 
 /* vim: set expandtab tabstop=2 shiftwidth=2: */
-	
-document.onmousedown = function(event) {
+
+document.onmousedown = function (event) {
 	button[event.button] = "down";
 }
-document.onmouseup = function(event) {
+document.onmouseup = function (event) {
 	button[event.button] = "up";
 }
 document.addEventListener("mousemove", ev => {
-    xMouse = ev.movementX; // 获得鼠标指针的x移动量
-    yMouse = ev.movementY; // 获得鼠标指针的y移动量
+	xMouse = ev.movementX; // 获得鼠标指针的x移动量
+	yMouse = ev.movementY; // 获得鼠标指针的y移动量
 	isMove = true;
 	clearTimeout(timer);
-	timer = setTimeout(function(){
+	timer = setTimeout(function () {
 		isMove = false;
 		xMouse = 0;
 		yMouse = 0;
-	},30);
+	}, 30);
 });
 //多指触控
-cvs.addEventListener('touchstart',function(e){
+cvs.addEventListener('touchstart', function (e) {
 	touch = e.targetTouches;
 })
-cvs.addEventListener('touchmove',function(e){
+cvs.addEventListener('touchmove', function (e) {
 	touch = e.targetTouches;
 })
-cvs.addEventListener('touchend',function(e){
+cvs.addEventListener('touchend', function (e) {
 	touch = e.targetTouches;
 })
 
 
 
 //大小改变刷新
-window.onresize=function(){
-    if(fill == 1){
-        fills();
-    }
+window.onresize = function () {
+	if (fill == 1) {
+		fills();
+	}
 }
 //开启全屏
-function fillin(){
-    fill = 1;
+function fillin() {
+	fill = 1;
 
-    var mo=function(e){e.preventDefault();};
-    document.body.style.overflow='hidden';
-    document.addEventListener("touchmove",mo,false);//禁止页面滑动
-    if(window.location.href.split("/")[2] != "cocrea.world"){
-        div = document.getElementById("root").getElementsByTagName('div')[0];
-        divs = document.getElementById("root");
-        url = window.location.href.split("/")[3].split("?")[0];
-        if(url != "scratch-player"){
-            divs.removeChild(div);
-        }
-    }
+	var mo = function (e) { e.preventDefault(); };
+	document.body.style.overflow = 'hidden';
+	document.addEventListener("touchmove", mo, false);//禁止页面滑动
+	if (window.location.href.split("/")[2] != "cocrea.world") {
+		div = document.getElementById("root").getElementsByTagName('div')[0];
+		divs = document.getElementById("root");
+		url = window.location.href.split("/")[3].split("?")[0];
+		if (url != "scratch-player") {
+			divs.removeChild(div);
+		}
+	}
 
-    news = document.body.getElementsByClassName("convention-1wIbd")[0];
-    if(typeof(news) != "undefined"){
-        news.style = "display:none;";
-    }
-    divv = document.body.getElementsByClassName("actions-2lk9z")[0];
-    if(typeof(divv) != "undefined"){
-        divv.style = "display:none;";
-    }
-    Operatinginstructions = document.body.getElementsByClassName("showWorksDesc-1iD-M")[0];
-    if(typeof(Operatinginstructions) != "undefined"){
-        Operatinginstructions.style = "display:none;";
-    }
-    bug = document.body.getElementsByClassName("bug-report-1CfBK")[0];
-    if(typeof(bug) != "undefined"){
-        bug.style = "display:none;";
-    }
-    discord = document.body.getElementsByClassName("style_bugReport__gJk19 MuiBox-root css-0")[0];
-    if(typeof(discord) != "undefined"){
-        discord.style = "display:none";
-    }
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-    scrollTo(0,0);
-    setTimeout(function() {
-        fills();
-    }, 50);
+	news = document.body.getElementsByClassName("convention-1wIbd")[0];
+	if (typeof (news) != "undefined") {
+		news.style = "display:none;";
+	}
+	divv = document.body.getElementsByClassName("actions-2lk9z")[0];
+	if (typeof (divv) != "undefined") {
+		divv.style = "display:none;";
+	}
+	Operatinginstructions = document.body.getElementsByClassName("showWorksDesc-1iD-M")[0];
+	if (typeof (Operatinginstructions) != "undefined") {
+		Operatinginstructions.style = "display:none;";
+	}
+	bug = document.body.getElementsByClassName("bug-report-1CfBK")[0];
+	if (typeof (bug) != "undefined") {
+		bug.style = "display:none;";
+	}
+	discord = document.body.getElementsByClassName("style_bugReport__gJk19 MuiBox-root css-0")[0];
+	if (typeof (discord) != "undefined") {
+		discord.style = "display:none";
+	}
+	document.body.scrollTop = 0;
+	document.documentElement.scrollTop = 0;
+	scrollTo(0, 0);
+	setTimeout(function () {
+		fills();
+	}, 50);
 }
 //关闭全屏
-function outoffill(){
-    //恢复头
-    fill = 0;
-    var mo=function(e){e.preventDefault();};
-    document.body.style.overflow='auto';
-    document.addEventListener("touchmove",mo,true);//允许页面滑动
-    if(window.location.href.split("/")[2] != "cocrea.world"){
-        divs = document.getElementById("root");
-        url = window.location.href.split("/")[3].split("?")[0];
-        if(url != "scratch-player"){
-            divs.insertBefore(div, divs.children[0]);
-        }
-    }
-    document.body.removeChild(background);
-    news = document.body.getElementsByClassName("convention-1wIbd")[0];
-    if(typeof(news) != "undefined"){
-        news.style = "";
-    }
-    divv = document.body.getElementsByClassName("actions-2lk9z")[0];
-    if(typeof(divv) != "undefined"){
-        divv.style = "";
-    }
-    divvs = document.body.getElementsByClassName("arrowTop-2Fru_")[0];
-    if(typeof(divvs) != "undefined"){
-        divvs.style = "";
-    }
-    Operatinginstructions = document.body.getElementsByClassName("showWorksDesc-1iD-M")[0];
-    if(typeof(Operatinginstructions) != "undefined"){
-        Operatinginstructions.style = "";
-    }
-    bug = document.body.getElementsByClassName("bug-report-1CfBK")[0];
-    if(typeof(bug) != "undefined"){
-        bug.style = "";
-    }
-    discord = document.body.getElementsByClassName("style_bugReport__gJk19 MuiBox-root css-0")[0];
-    if(typeof(discord) != "undefined"){
-        discord.style = "";
-    }
-    cvs.parentNode.parentNode.parentNode.parentNode.style = "width:100%; height:100%;z-index: 1000000;";
+function outoffill() {
+	//恢复头
+	fill = 0;
+	var mo = function (e) { e.preventDefault(); };
+	document.body.style.overflow = 'auto';
+	document.addEventListener("touchmove", mo, true);//允许页面滑动
+	if (window.location.href.split("/")[2] != "cocrea.world") {
+		divs = document.getElementById("root");
+		url = window.location.href.split("/")[3].split("?")[0];
+		if (url != "scratch-player") {
+			divs.insertBefore(div, divs.children[0]);
+		}
+	}
+	document.body.removeChild(background);
+	news = document.body.getElementsByClassName("convention-1wIbd")[0];
+	if (typeof (news) != "undefined") {
+		news.style = "";
+	}
+	divv = document.body.getElementsByClassName("actions-2lk9z")[0];
+	if (typeof (divv) != "undefined") {
+		divv.style = "";
+	}
+	divvs = document.body.getElementsByClassName("arrowTop-2Fru_")[0];
+	if (typeof (divvs) != "undefined") {
+		divvs.style = "";
+	}
+	Operatinginstructions = document.body.getElementsByClassName("showWorksDesc-1iD-M")[0];
+	if (typeof (Operatinginstructions) != "undefined") {
+		Operatinginstructions.style = "";
+	}
+	bug = document.body.getElementsByClassName("bug-report-1CfBK")[0];
+	if (typeof (bug) != "undefined") {
+		bug.style = "";
+	}
+	discord = document.body.getElementsByClassName("style_bugReport__gJk19 MuiBox-root css-0")[0];
+	if (typeof (discord) != "undefined") {
+		discord.style = "";
+	}
+	cvs.parentNode.parentNode.parentNode.parentNode.style = "width:100%; height:100%;z-index: 1000000;";
 	cvs.parentNode.parentNode.style = "height: 100%; width: 100%;";
 	cvs.parentNode.style = "";
 	cvs.style = "height: 100%; width: 100%;";
 }
 //循环检测
-function fills(){
-    if(w != 0 && h != 0){
-        cvs.width =  w;
-        cvs.height = h;
-    }
-    let ws = 0,hs = 0;
-    if((cvs.width / cvs.height) >= (document.documentElement.clientWidth / document.documentElement.clientHeight)){
-        hs = (document.documentElement.clientWidth / cvs.width) * cvs.height;
-        ws = document.documentElement.clientWidth;
-        wv = 0;
-        hv = (document.documentElement.clientHeight - hs) / 2;
-    }
-    else{
-        hs = document.documentElement.clientHeight;
-        ws = (document.documentElement.clientHeight / cvs.height) * cvs.width;
-        wv = (document.documentElement.clientWidth - ws) / 2;
-        hv = 0;
-    }
-    divvs = document.body.getElementsByClassName("arrowTop-2Fru_")[0];
-    if(typeof(divvs) != "undefined"){
-        divvs.style = "display:none;";
-    }
-    cvs.parentNode.parentNode.parentNode.parentNode.style = "position:fixed; left:" + wv + "px; top:" + hv + "px; width:" + ws + "px; height:" + hs + "px;z-index: 1000000;border-radius:0px";
-    cvs.parentNode.parentNode.parentNode.style = "width:" + ws + "px; height:" + hs + "px;border-radius:0px";
-    cvs.parentNode.parentNode.style = "width:100%; height:100%;border-radius:0px";
-    cvs.parentNode.style = "width:100%; height:100%;border-radius:0px";
-    if(isInPage(cvs.parentNode.parentNode.nextElementSibling.firstChild.firstChild)){
-        cvs.parentNode.parentNode.nextElementSibling.style="width: 100%; height: 100%;";
-        cvs.parentNode.parentNode.nextElementSibling.firstChild.style="width: 100%; height: 100%;";
-        cvs.parentNode.parentNode.nextElementSibling.firstChild.firstChild.firstChild.style="width: 100%; height: 100%;";
-        cvs.parentNode.parentNode.nextElementSibling.firstChild.firstChild.style="width: 100%;";
-    }
-    cvs.parentNode.parentNode.parentNode.parentNode.getElementsByTagName("div")[0].style = "width:100%; height:100%;"
-    cvs.style = "width:100%; height:100%;";
-    setTimeout(function() {
-        let a = cvs.offsetWidth / document.documentElement.clientWidth;
-        cvs.parentNode.parentNode.getElementsByTagName("div")[1].style="transform:scale(" + a + ");transform-origin:0% 0% 0";
-    }, 20);
-    background = document.getElementsByClassName("witcatbackground")[0];
-    if(background == null){
-        background = document.createElement("div");
-        background.style = "width:" + document.documentElement.clientWidth + "px;height:" + document.documentElement.clientHeight + "px;color:black;";
-        background.className = "witcatbackground";
-        document.body.insertBefore(background, document.body.children[0]);
-    }
-    else{
-        background.style = "width:" + document.documentElement.clientWidth + "px;height:" + document.documentElement.clientHeight + "px;color:black;";
-    }
+function fills() {
+	if (w != 0 && h != 0) {
+		cvs.width = w;
+		cvs.height = h;
+	}
+	let ws = 0, hs = 0;
+	if ((cvs.width / cvs.height) >= (document.documentElement.clientWidth / document.documentElement.clientHeight)) {
+		hs = (document.documentElement.clientWidth / cvs.width) * cvs.height;
+		ws = document.documentElement.clientWidth;
+		wv = 0;
+		hv = (document.documentElement.clientHeight - hs) / 2;
+	}
+	else {
+		hs = document.documentElement.clientHeight;
+		ws = (document.documentElement.clientHeight / cvs.height) * cvs.width;
+		wv = (document.documentElement.clientWidth - ws) / 2;
+		hv = 0;
+	}
+	divvs = document.body.getElementsByClassName("arrowTop-2Fru_")[0];
+	if (typeof (divvs) != "undefined") {
+		divvs.style = "display:none;";
+	}
+	cvs.parentNode.parentNode.parentNode.parentNode.style = "position:fixed; left:" + wv + "px; top:" + hv + "px; width:" + ws + "px; height:" + hs + "px;z-index: 1000000;border-radius:0px";
+	cvs.parentNode.parentNode.parentNode.style = "width:" + ws + "px; height:" + hs + "px;border-radius:0px";
+	cvs.parentNode.parentNode.style = "width:100%; height:100%;border-radius:0px";
+	cvs.parentNode.style = "width:100%; height:100%;border-radius:0px";
+	if (isInPage(cvs.parentNode.parentNode.nextElementSibling.firstChild.firstChild)) {
+		cvs.parentNode.parentNode.nextElementSibling.style = "width: 100%; height: 100%;";
+		cvs.parentNode.parentNode.nextElementSibling.firstChild.style = "width: 100%; height: 100%;";
+		cvs.parentNode.parentNode.nextElementSibling.firstChild.firstChild.firstChild.style = "width: 100%; height: 100%;";
+		cvs.parentNode.parentNode.nextElementSibling.firstChild.firstChild.style = "width: 100%;";
+	}
+	cvs.parentNode.parentNode.parentNode.parentNode.getElementsByTagName("div")[0].style = "width:100%; height:100%;"
+	cvs.style = "width:100%; height:100%;";
+	setTimeout(function () {
+		let a = cvs.offsetWidth / document.documentElement.clientWidth;
+		cvs.parentNode.parentNode.getElementsByTagName("div")[1].style = "transform:scale(" + a + ");transform-origin:0% 0% 0";
+	}, 20);
+	background = document.getElementsByClassName("witcatbackground")[0];
+	if (background == null) {
+		background = document.createElement("div");
+		background.style = "width:" + document.documentElement.clientWidth + "px;height:" + document.documentElement.clientHeight + "px;color:black;";
+		background.className = "witcatbackground";
+		document.body.insertBefore(background, document.body.children[0]);
+	}
+	else {
+		background.style = "width:" + document.documentElement.clientWidth + "px;height:" + document.documentElement.clientHeight + "px;color:black;";
+	}
 }
 //检测div存在
 function isInPage(node) {
-    return (node === document.body) ? false : document.body.contains(node);
+	return (node === document.body) ? false : document.body.contains(node);
 }
-    
+
 //按键检测
-document.onkeydown = function(e) {
-    var evt = e || window.event;
-    if (evt.ctrlKey && evt.shiftKey && evt.altKey){
-		if(fill == 0){
-            fillin();
-        }
-        else{
-            outoffill();
-        }
+document.onkeydown = function (e) {
+	var evt = e || window.event;
+	if (evt.ctrlKey && evt.shiftKey && evt.altKey) {
+		if (fill == 0) {
+			fillin();
+		}
+		else {
+			outoffill();
+		}
 	}
 }

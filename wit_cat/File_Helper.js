@@ -135,6 +135,7 @@ class WitCatFileHelper {
 					opcode: "openfile",
 					blockType: "reporter",
 					text: this.formatMessage("WitCatFileHelper.openfile"),
+					disableMonitor: true,
 					arguments: {},
 				},
 				{
@@ -569,14 +570,7 @@ class WitCatFileHelper {
 		let array = text.split(s);
 		let r = "";
 		if (args.thing == "true") {
-			const a = `","`;
-			const b = `["`;
-			const c = `"]`;
-			let str = "";
-			array.forEach(e => {
-				str = str + JSON.stringify(e).slice(1, - 1) + a;
-			});
-			r = b + str + c;
+			r = JSON.stringify(array);
 		}
 		else {
 			let i;
@@ -797,10 +791,10 @@ class WitCatFileHelper {
 		for (i = 0; i < texts.length; i++) {
 			if (i + 1 != num) {
 				if (a == "") {
-					a = texts[i];
+					a = texts[i].split("\r")[0];
 				}
 				else {
-					a = a + "\n" + texts[i];
+					a = a + "\n" + texts[i].split("\r")[0];
 				}
 			}
 		}
@@ -822,10 +816,10 @@ class WitCatFileHelper {
 		for (i = 0; i <= texts.length; i++) {
 			if (i + 1 != num) {
 				if (a == "") {
-					a = texts[i + j];
+					a = texts[i + j].split("\r")[0];
 				}
 				else {
-					a = a + "\n" + texts[i + j];
+					a = a + "\n" + texts[i + j].split("\r")[0];
 				}
 			}
 			else {
@@ -850,7 +844,7 @@ class WitCatFileHelper {
 		if (args.num == "first") {
 			num = 1;
 		}
-		return text[num - 1];
+		return text[num - 1].split("\r")[0];
 	}
 	//多行文本行数
 	numMultiplelinestext(args) {
