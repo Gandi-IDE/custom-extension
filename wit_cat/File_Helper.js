@@ -5,7 +5,13 @@ const _picture = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAF0CAYAAAD/
 const _icon = "data:image/png;base64,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";
 
 const extensionId = "WitCatFileHelper";
-let FLAG = 0;
+let FLAG = 0, download = 0;
+
+setInterval(function () {
+	if (download > 0) {
+		download--;
+	}
+}, 1000)
 
 class WitCatFileHelper {
 	constructor(runtime) {
@@ -42,6 +48,9 @@ class WitCatFileHelper {
 				"WitCatFileHelper.numbers": "键数量",
 				"WitCatFileHelper.number.1": "键名",
 				"WitCatFileHelper.number.2": "键值",
+				"WitCatFileHelper.turnMultiplelinestext": "将多行文本[text]转化为数组",
+				"WitCatFileHelper.turnsMultiplelinestext": "将数组[text]转化为多行文本",
+				"WitCatFileHelper.downloadnum": "可下载文件数量",
 			},
 			en: {
 				"WitCatFileHelper.name": "file helper",
@@ -74,6 +83,9 @@ class WitCatFileHelper {
 				"WitCatFileHelper.numbers": "key number",
 				"WitCatFileHelper.number.1": "name",
 				"WitCatFileHelper.number.2": "content",
+				"WitCatFileHelper.turnMultiplelinestext": "Converts multiline[text]text to an array",
+				"WitCatFileHelper.turnsMultiplelinestext": "Converts the array[text]to multiline text",
+				"WitCatFileHelper.downloadnum": "Number of downloadable files",
 			}
 		})
 	}
@@ -130,6 +142,12 @@ class WitCatFileHelper {
 							defaultValue: 'wit_cat.txt',
 						},
 					},
+				},
+				{
+					opcode: "downloadnum",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatFileHelper.downloadnum"),
+					arguments: {},
 				},
 				{
 					opcode: "openfile",
@@ -372,6 +390,28 @@ class WitCatFileHelper {
 						},
 					},
 				},
+				{
+					opcode: "turnMultiplelinestext",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatFileHelper.turnMultiplelinestext"),
+					arguments: {
+						text: {
+							type: "string",
+							defaultValue: "wit_cat!!!\nwit_cat!!!",
+						},
+					},
+				},
+				{
+					opcode: "turnsMultiplelinestext",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatFileHelper.turnsMultiplelinestext"),
+					arguments: {
+						text: {
+							type: "string",
+							defaultValue: "[\"wit_cat!!!\",\"wit_cat!!!\"]",
+						},
+					},
+				},
 			],
 			menus: {
 				setvariable: [
@@ -413,58 +453,70 @@ class WitCatFileHelper {
 	}
 	//下载多行文件
 	downloads(args) {
-		let h = args.text;
-		let text = args.text;
-		let filenames = args.name;
-		if (filenames == "") {
-			filenames = "none.txt"
-		}
-		const filename = filenames;
-		let s = args.s;
-		let j = 0;
-		if (s != "") {
-			let a = text.split(s);
-			h = a[0];
-			for (j = 1; j < a.length; j++) {
-				h = h + "\n" + a[j];
+		download += 1;
+		if (download < 3) {
+			let h = args.text;
+			let text = args.text;
+			let filenames = args.name;
+			if (filenames === "") {
+				filenames = "none.txt"
 			}
-		} else {
-			h = text;
+			const filename = filenames;
+			let s = args.s;
+			let j = 0;
+			if (s != "") {
+				let a = text.split(s);
+				h = a[0];
+				for (j = 1; j < a.length; j++) {
+					h = h + "\n" + a[j];
+				}
+			} else {
+				h = text;
+			}
+			const content = h;
+			// 创建隐藏的可下载链接
+			let eleLink = document.createElement('a');
+			eleLink.download = filename;
+			eleLink.style.display = 'none';
+			// 字符内容转变成blob地址
+			let blob = new Blob([content]);
+			eleLink.href = URL.createObjectURL(blob);
+			// 触发点击
+			document.body.appendChild(eleLink);
+			eleLink.click();
+			// 然后移除
+			document.body.removeChild(eleLink);
 		}
-		const content = h;
-		// 创建隐藏的可下载链接
-		let eleLink = document.createElement('a');
-		eleLink.download = filename;
-		eleLink.style.display = 'none';
-		// 字符内容转变成blob地址
-		let blob = new Blob([content]);
-		eleLink.href = URL.createObjectURL(blob);
-		// 触发点击
-		document.body.appendChild(eleLink);
-		eleLink.click();
-		// 然后移除
-		document.body.removeChild(eleLink);
+		else {
+			console.warn("下载太频繁！\nToo many downloads!");
+		}
 	}
 	//下载文件
 	download(args) {
-		const content = args.text;
-		let filenames = args.name;
-		if (filenames == "") {
-			filenames = "none.txt"
+		download += 1;
+		if (download < 3) {
+			const content = args.text;
+			let filenames = args.name;
+			if (filenames === "") {
+				filenames = "none.txt"
+			}
+			const filename = filenames;
+			// 创建隐藏的可下载链接
+			let eleLink = document.createElement('a');
+			eleLink.download = filename;
+			eleLink.style.display = 'none';
+			// 字符内容转变成blob地址
+			let blob = new Blob([content]);
+			eleLink.href = URL.createObjectURL(blob);
+			// 触发点击
+			document.body.appendChild(eleLink);
+			eleLink.click();
+			// 然后移除
+			document.body.removeChild(eleLink);
 		}
-		const filename = filenames;
-		// 创建隐藏的可下载链接
-		let eleLink = document.createElement('a');
-		eleLink.download = filename;
-		eleLink.style.display = 'none';
-		// 字符内容转变成blob地址
-		let blob = new Blob([content]);
-		eleLink.href = URL.createObjectURL(blob);
-		// 触发点击
-		document.body.appendChild(eleLink);
-		eleLink.click();
-		// 然后移除
-		document.body.removeChild(eleLink);
+		else {
+			console.warn("下载太频繁！\nToo many downloads!");
+		}
 	}
 	//读取本地变量
 	upload(args) {
@@ -474,11 +526,11 @@ class WitCatFileHelper {
 		//寻找状态
 		let show = "@witcat";
 		let value = localStorage.getItem(h + name);
-		if (value == null) {
+		if (value === null) {
 			let value = localStorage.getItem("@witcat" + h + "©" + name);
-			if (value == null) {
+			if (value === null) {
 				value = localStorage.getItem("#witcat" + h + "©" + name);
-				if (value == null) {
+				if (value === null) {
 					value = localStorage.getItem("$witcat" + h + "©" + name);
 					if (value != null) {
 						show = "$witcat";
@@ -492,7 +544,7 @@ class WitCatFileHelper {
 		else {
 			show = "";
 		}
-		if (show == "") {
+		if (show === "") {
 			return localStorage.getItem(show + h + name);
 		}
 		return localStorage.getItem(show + h + "©" + name);*/
@@ -506,11 +558,11 @@ class WitCatFileHelper {
 		//寻找状态
 		let show = "@witcat";
 		let value = localStorage.getItem(h + name);
-		if (value == null) {
+		if (value === null) {
 			let value = localStorage.getItem("@witcat" + h + "©" + name);
-			if (value == null) {
+			if (value === null) {
 				value = localStorage.getItem("#witcat" + h + "©" + name);
-				if (value == null) {
+				if (value === null) {
 					value = localStorage.getItem("$witcat" + h + "©" + name);
 					if (value != null) {
 						show = "$witcat";
@@ -525,7 +577,7 @@ class WitCatFileHelper {
 			localStorage.removeItem(h + name);
 		}
 
-		if (h == "") {
+		if (h === "") {
 			alert("请先保存作品");
 		} else {
 			localStorage.setItem(show + h + "©" + name, text);
@@ -539,11 +591,11 @@ class WitCatFileHelper {
 		//寻找状态
 		let show = "@witcat";
 		let value = localStorage.getItem(h + name);
-		if (value == null) {
+		if (value === null) {
 			let value = localStorage.getItem("@witcat" + h + "©" + name);
-			if (value == null) {
+			if (value === null) {
 				value = localStorage.getItem("#witcat" + h + "©" + name);
-				if (value == null) {
+				if (value === null) {
 					value = localStorage.getItem("$witcat" + h + "©" + name);
 					if (value != null) {
 						show = "$witcat";
@@ -557,7 +609,7 @@ class WitCatFileHelper {
 		else {
 			show = "";
 		}
-		if (show == "") {
+		if (show === "") {
 			localStorage.removeItem(show + h + name);
 		}
 
@@ -569,19 +621,11 @@ class WitCatFileHelper {
 		let s = args.s;
 		let array = text.split(s);
 		let r = "";
-		if (args.thing == "true") {
+		if (args.thing === "true") {
 			r = JSON.stringify(array);
 		}
 		else {
-			let i;
-			for (i = 0; i < array.length; i++) {
-				if (r == "") {
-					r = array[i];
-				}
-				else {
-					r = r + "\n" + array[i];
-				}
-			}
+			r = array.join("\n");
 		}
 		return r;
 	}
@@ -624,7 +668,7 @@ class WitCatFileHelper {
 			window.onfocus = function () {
 				// 开始计时或者播放
 				setTimeout(e => {
-					if (FLAG == 1) {
+					if (FLAG === 1) {
 						FLAG = 0;
 						resolve("");
 					}
@@ -634,16 +678,17 @@ class WitCatFileHelper {
 	}
 	//设置状态
 	showvar(args) {
+		console.warn("文件助手——设置键状态：积木已下线，请更换\nfile_helper-Set key state: Block is offline, please replace");/*
 		const name = args.name;
 		let h = this.runtime.ccwAPI.getProjectUUID();
 		//寻找状态
 		let show = "@witcat";
 		let value = localStorage.getItem(h + name);
-		if (value == null) {
+		if (value === null) {
 			let value = localStorage.getItem("@witcat" + h + "©" + name);
-			if (value == null) {
+			if (value === null) {
 				value = localStorage.getItem("#witcat" + h + "©" + name);
-				if (value == null) {
+				if (value === null) {
 					value = localStorage.getItem("$witcat" + h + "©" + name);
 					if (value != null) {
 						show = "$witcat";
@@ -658,16 +703,16 @@ class WitCatFileHelper {
 			show = "";
 		}
 		let text = localStorage.getItem(show + h + "©" + name);;
-		if (show == "") {
+		if (show === "") {
 			text = localStorage.getItem(show + h + name);
 			localStorage.removeItem(show + h + name);
 		}
 		localStorage.removeItem(show + h + "©" + name);
-		if (h == "") {
+		if (h === "") {
 			alert("请先保存作品");
 		} else {
 			localStorage.setItem(args.show + h + "©" + name, text);
-		}
+		}*/
 	}
 	//修改别人的键
 	saveother(args) {
@@ -678,11 +723,11 @@ class WitCatFileHelper {
 		//寻找状态
 		let show = "";
 		let value = localStorage.getItem(h + name);
-		if (value == null) {
+		if (value === null) {
 			let value = localStorage.getItem("@witcat" + h + "©" + name);
-			if (value == null) {
+			if (value === null) {
 				value = localStorage.getItem("#witcat" + h + "©" + name);
-				if (value == null) {
+				if (value === null) {
 					value = localStorage.getItem("$witcat" + h + "©" + name);
 					if (value != null) {
 						show = "$witcat";
@@ -701,7 +746,7 @@ class WitCatFileHelper {
 			show = "@witcat";
 		}
 
-		if (show == "#witcat" || show == "") {
+		if (show === "#witcat" || show === "") {
 			localStorage.setItem("#witcat" + h + "©" + name, text);
 		}*/
 	}
@@ -713,11 +758,11 @@ class WitCatFileHelper {
 		//寻找状态
 		let show = "";
 		let value = localStorage.getItem(h + name);
-		if (value == null) {
+		if (value === null) {
 			let value = localStorage.getItem("@witcat" + h + "©" + name);
-			if (value == null) {
+			if (value === null) {
 				value = localStorage.getItem("#witcat" + h + "©" + name);
-				if (value == null) {
+				if (value === null) {
 					value = localStorage.getItem("$witcat" + h + "©" + name);
 					if (value != null) {
 						show = "$witcat";
@@ -742,11 +787,11 @@ class WitCatFileHelper {
 		//寻找状态
 		let show = "";
 		let value = localStorage.getItem(h + name);
-		if (value == null) {
+		if (value === null) {
 			let value = localStorage.getItem("@witcat" + h + "©" + name);
-			if (value == null) {
+			if (value === null) {
 				value = localStorage.getItem("#witcat" + h + "©" + name);
-				if (value == null) {
+				if (value === null) {
 					value = localStorage.getItem("$witcat" + h + "©" + name);
 					if (value != null) {
 						show = "$witcat";
@@ -764,84 +809,51 @@ class WitCatFileHelper {
 			show = "@witcat";
 		}
 
-		if (show == "#witcat") {
+		if (show === "#witcat") {
 			return "公开";
 		}
-		if (show == "$witcat") {
+		if (show === "$witcat") {
 			return "只读";
 		}
-		if (show == "@witcat") {
+		if (show === "@witcat") {
 			return "私有";
 		}
 		return "键不存在";*/
 	}
 	//删除多行文本行
 	deleteMultiplelinestext(args) {
-		let text = args.text;
-		let texts = text.split('\n');
+		let texts = multipleText(args.text);
 		let num = args.num;
-		if (args.num == "last") {
-			num = texts.length + 1;
+		if (args.num === "last") {
+			num = texts.length;
 		}
-		if (args.num == "first") {
+		if (args.num === "first") {
 			num = 1;
 		}
-		let a = "";
-		let i;
-		for (i = 0; i < texts.length; i++) {
-			if (i + 1 != num) {
-				if (a == "") {
-					a = texts[i].split("\r")[0];
-				}
-				else {
-					a = a + "\n" + texts[i].split("\r")[0];
-				}
-			}
-		}
-		return a;
+		texts.splice(num - 1, 1);
+		return texts.join("\n");
 	}
 	//插入多行文本
 	addMultiplelinestext(args) {
-		let text = args.text;
-		let texts = args.texts.split("\n");
+		let texts = multipleText(args.texts);
 		let num = args.num;
-		if (args.num == "last") {
+		if (args.num === "last") {
 			num = texts.length + 1;
 		}
-		if (args.num == "first") {
+		if (args.num === "first") {
 			num = 1;
 		}
-		let a = "";
-		let i, j = 0;
-		for (i = 0; i <= texts.length; i++) {
-			if (i + 1 != num) {
-				if (a == "") {
-					a = texts[i + j].split("\r")[0];
-				}
-				else {
-					a = a + "\n" + texts[i + j].split("\r")[0];
-				}
-			}
-			else {
-				if (a == "") {
-					a = text;
-				}
-				else {
-					a = a + "\n" + text;
-				}
-				j = -1;
-			}
-		}
-		return a;
+		texts.splice(num - 1, 0, args.text);
+		return texts.join("\n");
 	}
 	//多行文本第几行
 	whatMultiplelinestext(args) {
 		let text = args.text.split("\n");
 		let num = args.num;
-		if (args.num == "last") {
+		if (args.num === "last") {
 			num = text.length;
 		}
-		if (args.num == "first") {
+		if (args.num === "first") {
 			num = 1;
 		}
 		return text[num - 1].split("\r")[0];
@@ -851,12 +863,22 @@ class WitCatFileHelper {
 		let text = args.text.split("\n");
 		return text.length;
 	}
+	//多行文本转数组
+	turnMultiplelinestext(args) {
+		let texts = multipleText(args.text);
+		return JSON.stringify(texts);
+	}
+	//数组转多行文本
+	turnsMultiplelinestext(args) {
+		let texts = JSON.parse(args.text);
+		return texts.join("\n");
+	}
 	//键值对数量
 	numbers() {
 		console.warn("文件助手——获取键值对数量：积木已下线，请更换\nfile_helper-number of keys: Block is offline, please replace");/*
 		let a = 0;
 		for (let i = 0; i < localStorage.length; i++) {
-			if (localStorage.key(i).slice(1, 7) == "witcat") {
+			if (localStorage.key(i).slice(1, 7) === "witcat") {
 				a++;
 			}
 		}
@@ -869,12 +891,12 @@ class WitCatFileHelper {
 		let a = 0;
 		let i = 0;
 		for (i = 0; a < args.num && i < localStorage.length; i++) {
-			if (localStorage.key(i).slice(1, 7) == "witcat") {
+			if (localStorage.key(i).slice(1, 7) === "witcat") {
 				a++;
 			}
 		}
-		if (a == args.num) {
-			if (args.type == "name") {
+		if (a === args.num) {
+			if (args.type === "name") {
 				return localStorage.key(i - 1).slice(localStorage.key(i - 1).indexOf("©", 7) + 1, localStorage.key(i - 1).length);
 			}
 			else {
@@ -882,6 +904,10 @@ class WitCatFileHelper {
 			}
 		}
 		return "";*/
+	}
+	//可下载文本数量
+	downloadnum(args) {
+		return 3 - download;
 	}
 }
 
@@ -911,3 +937,17 @@ window.tempExt = {
 
 /* vim: set expandtab tabstop=2 shiftwidth=2: */
 
+//多行文本解码
+function multipleText(text) {
+	let texts = text.split("\n");
+	let a = [];
+	if (text.indexOf("\r") !== -1) {
+		texts.forEach(e => {
+			a.push(e.split("\r")[0]);
+		});
+	}
+	else {
+		a = texts;
+	}
+	return a;
+}
