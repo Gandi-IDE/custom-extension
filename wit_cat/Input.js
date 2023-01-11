@@ -269,7 +269,7 @@ class WitCatInput {
 					arguments: {
 						type: {
 							type: "string",
-							defaultValue: "a",
+							defaultValue: "KeyA",
 						}
 					},
 				},
@@ -287,7 +287,7 @@ class WitCatInput {
 					arguments: {
 						type: {
 							type: "string",
-							defaultValue: "a",
+							defaultValue: "KeyA",
 						}
 					},
 				},
@@ -742,12 +742,14 @@ String.prototype.colorHex = function () {
 	}
 };
 //键盘事件监听
-document.onkeydown = function (event) {
-	keypress[event.key.toLowerCase()] = true;
-	lastKey = event.key.toLowerCase();
+document.addEventListener("keydown", keydown);
+document.addEventListener("keyup", keyup);
+function keydown(event) {
+	keypress[event.code] = true;
+	lastKey = event.code;
 }
-document.onkeyup = function (event) {
-	delete keypress[event.key.toLowerCase()];
+function keyup(event) {
+	delete keypress[event.code];
 }
 //滚轮事件监听
 var scrollFunc = function (e) {
@@ -767,4 +769,4 @@ if (cvs.parentNode.addEventListener) { //火狐使用DOMMouseScroll绑定
 	cvs.parentNode.addEventListener('DOMMouseScroll', scrollFunc, false);
 }
 //其他浏览器直接绑定滚动事件
-cvs.parentNode.onmousewheel = document.onmousewheel = scrollFunc;
+cvs.parentNode.onmousewheel = scrollFunc;
