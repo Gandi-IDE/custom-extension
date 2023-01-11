@@ -624,7 +624,8 @@ function isInPage(node) {
 }
 
 //按键检测
-document.onkeydown = function (e) {
+document.addEventListener("keydown", keydown);
+function keydown(e) {
 	var evt = e || window.event;
 	if (evt.ctrlKey && evt.shiftKey && evt.altKey) {
 		if (fill === 0) {
