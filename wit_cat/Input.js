@@ -10,16 +10,17 @@ let keypress = {};
 let lastKey = "", MouseWheel = 0;
 let timer;
 
+
 //找渲染cvs
 let cvs = document.getElementsByTagName("canvas")[0];
-if (cvs == null) {
+if (cvs === null) {
 	alert("当前页面不支持输入框，请前往作品详情页体验完整作品！");
 }
 else {
-	for (let i = 1; cvs.className != "" && i <= document.getElementsByTagName("canvas").length; i++) {
+	for (let i = 1; cvs.className !== "" && i <= document.getElementsByTagName("canvas").length; i++) {
 		cvs = document.getElementsByTagName("canvas")[i];
 	}
-	if (cvs == null) {
+	if (cvs === null) {
 		alert("当前页面不支持输入框，请前往作品详情页体验完整作品！");
 	}
 }
@@ -268,7 +269,7 @@ class WitCatInput {
 					arguments: {
 						type: {
 							type: "string",
-							defaultValue: "a",
+							defaultValue: "KeyA",
 						}
 					},
 				},
@@ -286,7 +287,7 @@ class WitCatInput {
 					arguments: {
 						type: {
 							type: "string",
-							defaultValue: "a",
+							defaultValue: "KeyA",
 						}
 					},
 				},
@@ -430,8 +431,8 @@ class WitCatInput {
 		height = (height / this.runtime.stageHeight) * 100;
 		let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:` + x + `%; top:` + y + `%; width:` + width + `%; height:` + height + `%;font-size: ` + args.size + `px;resize:none;color:` + args.color + `;`;
 		let search = document.getElementById("WitCatInput" + args.id);
-		if (search != null) {
-			if (search.name == args.type) {
+		if (search !== null) {
+			if (search.name === args.type) {
 				search.style = dom;
 				search.value = args.text;
 				search.placeholder = args.texts;
@@ -439,7 +440,7 @@ class WitCatInput {
 			else {
 				cvs.parentNode.removeChild(search);
 				let eleLink = document.createElement(args.type);
-				if (args.type == "input") {
+				if (args.type === "input") {
 					eleLink.type = "text";
 				}
 				eleLink.style = dom;
@@ -453,7 +454,7 @@ class WitCatInput {
 		}
 		else {
 			let eleLink = document.createElement(args.type);
-			if (args.type == "input") {
+			if (args.type === "input") {
 				eleLink.type = "text";
 			}
 			eleLink.style = dom;
@@ -468,31 +469,31 @@ class WitCatInput {
 	//删除文本框
 	deleteinput(args) {
 		let search = document.getElementById("WitCatInput" + args.id);
-		if (search != null) {
+		if (search !== null) {
 			cvs.parentNode.removeChild(search);
 		}
 	}
 	//获取文本框内容
 	getinput(args) {
 		let search = document.getElementById("WitCatInput" + args.id);
-		if (search != null) {
-			if (args.type == "X")
+		if (search !== null) {
+			if (args.type === "X")
 				return (search.style.left.split("%")[0] / 100) * this.runtime.stageWidth;
-			else if (args.type == "Y")
+			else if (args.type === "Y")
 				return (search.style.top.split("%")[0] / 100) * this.runtime.stageHeight;
-			else if (args.type == "width")
+			else if (args.type === "width")
 				return (search.style.width.split("%")[0] / 100) * this.runtime.stageWidth;
-			else if (args.type == "height")
+			else if (args.type === "height")
 				return (search.style.height.split("%")[0] / 100) * this.runtime.stageHeight;
-			else if (args.type == "content")
+			else if (args.type === "content")
 				return search.value;
-			else if (args.type == "color")
+			else if (args.type === "color")
 				return search.style.color.colorHex();
-			else if (args.type == "prompt")
+			else if (args.type === "prompt")
 				return search.placeholder;
-			else if (args.type == "font-size")
+			else if (args.type === "font-size")
 				return search.style.fontSize.split("px")[0];
-			else if (args.type == "ID")
+			else if (args.type === "ID")
 				return search.id.split("WitCatInput")[1];
 			else {
 				return (
@@ -515,8 +516,8 @@ class WitCatInput {
 	//焦点判断
 	isinput(args) {
 		let search = document.getElementById("WitCatInput" + args.id);
-		if (search != null) {
-			if (search == document.activeElement) {
+		if (search !== null) {
+			if (search === document.activeElement) {
 				return (true);
 			}
 			else {
@@ -529,7 +530,7 @@ class WitCatInput {
 	}
 	//焦点位置
 	whatinput() {
-		if (document.activeElement.className == "WitCatInput") {
+		if (document.activeElement.className === "WitCatInput") {
 			return document.activeElement.id.split("WitCatInput")[0];
 		}
 		else {
@@ -539,10 +540,10 @@ class WitCatInput {
 	//焦点获取
 	nowinput(args) {
 		let search = document.getElementById("WitCatInput" + args.id);
-		if (search != null) {
+		if (search !== null) {
 			search.focus();
 		}
-		else if (document.activeElement.className == "WitCatInput") {
+		else if (document.activeElement.className === "WitCatInput") {
 			document.activeElement.blur();
 		}
 	}
@@ -562,23 +563,23 @@ class WitCatInput {
 	number(args) {
 		let search = document.getElementsByClassName("WitCatInput");
 		if (search.length >= args.num && args.num > 0) {
-			if (args.type == "X")
+			if (args.type === "X")
 				return (search[args.num - 1].style.left.split("%")[0] / 100) * this.runtime.stageWidth;
-			else if (args.type == "Y")
+			else if (args.type === "Y")
 				return (search[args.num - 1].style.top.split("%")[0] / 100) * this.runtime.stageHeight;
-			else if (args.type == "width")
+			else if (args.type === "width")
 				return (search[args.num - 1].style.width.split("%")[0] / 100) * this.runtime.stageWidth;
-			else if (args.type == "height")
+			else if (args.type === "height")
 				return (search[args.num - 1].style.height.split("%")[0] / 100) * this.runtime.stageHeight;
-			else if (args.type == "content")
+			else if (args.type === "content")
 				return search[args.num - 1].value;
-			else if (args.type == "color")
+			else if (args.type === "color")
 				return search[args.num - 1].style.color.colorHex();
-			else if (args.type == "prompt")
+			else if (args.type === "prompt")
 				return search[args.num - 1].placeholder;
-			else if (args.type == "font-size")
+			else if (args.type === "font-size")
 				return search[args.num - 1].style.fontSize.split("px")[0];
-			else if (args.type == "ID")
+			else if (args.type === "ID")
 				return search[args.num - 1].id.split("WitCatInput")[1];
 			else {
 				return (
@@ -622,7 +623,7 @@ class WitCatInput {
 	//设置文本框
 	setinput(args) {
 		let search = document.getElementById("WitCatInput" + args.id);
-		if (search != null) {
+		if (search !== null) {
 			let x = search.style.left.split("%")[0];
 			let y = search.style.top.split("%")[0];
 			let width = search.style.width.split("%")[0];
@@ -631,7 +632,7 @@ class WitCatInput {
 			let prompt = search.placeholder;
 			let color = search.style.color.colorHex()
 			let size = search.style.fontSize.split("px")[0];
-			if (args.type == "X") {
+			if (args.type === "X") {
 				x = args.text;
 				if (args.text > this.runtime.stageWidth) {
 					x = this.runtime.stageWidth;
@@ -641,7 +642,7 @@ class WitCatInput {
 				}
 				x = (x / this.runtime.stageWidth) * 100;
 			}
-			else if (args.type == "Y") {
+			else if (args.type === "Y") {
 				y = args.text;
 				if (args.text > this.runtime.stageHeight) {
 					y = this.runtime.stageHeight;
@@ -651,7 +652,7 @@ class WitCatInput {
 				}
 				y = (y / this.runtime.stageHeight) * 100;
 			}
-			else if (args.type == "width") {
+			else if (args.type === "width") {
 				width = args.text;
 				if (Number(x) + Number(args.text) > this.runtime.stageWidth) {
 					width = this.runtime.stageWidth - x;
@@ -661,7 +662,7 @@ class WitCatInput {
 				}
 				width = (width / this.runtime.stageWidth) * 100;
 			}
-			else if (args.type == "height") {
+			else if (args.type === "height") {
 				height = args.text;
 				if (Number(y) + Number(args.text) > this.runtime.stageHeight) {
 					height = this.runtime.stageHeight - y;
@@ -671,16 +672,16 @@ class WitCatInput {
 				}
 				height = (height / this.runtime.stageHeight) * 100;
 			}
-			else if (args.type == "content") {
+			else if (args.type === "content") {
 				content = args.text;
 			}
-			else if (args.type == "prompt") {
+			else if (args.type === "prompt") {
 				prompt = args.text;
 			}
-			else if (args.type == "color") {
+			else if (args.type === "color") {
 				color = args.text;
 			}
-			else if (args.type == "font-size") {
+			else if (args.type === "font-size") {
 				size = args.text;
 			}
 
@@ -741,12 +742,14 @@ String.prototype.colorHex = function () {
 	}
 };
 //键盘事件监听
-document.onkeydown = function (event) {
-	keypress[event.key.toLowerCase()] = true;
-	lastKey = event.key.toLowerCase();
+document.addEventListener("keydown", keydown);
+document.addEventListener("keyup", keyup);
+function keydown(event) {
+	keypress[event.code] = true;
+	lastKey = event.code;
 }
-document.onkeyup = function (event) {
-	delete keypress[event.key.toLowerCase()];
+function keyup(event) {
+	delete keypress[event.code];
 }
 //滚轮事件监听
 var scrollFunc = function (e) {
@@ -762,8 +765,8 @@ var scrollFunc = function (e) {
 	}, 30);
 };
 //给页面绑定滑轮滚动事件
-if (document.addEventListener) { //火狐使用DOMMouseScroll绑定
-	document.addEventListener('DOMMouseScroll', scrollFunc, false);
+if (cvs.parentNode.addEventListener) { //火狐使用DOMMouseScroll绑定
+	cvs.parentNode.addEventListener('DOMMouseScroll', scrollFunc, false);
 }
 //其他浏览器直接绑定滚动事件
-window.onmousewheel = document.onmousewheel = scrollFunc;
+cvs.parentNode.onmousewheel = scrollFunc;
