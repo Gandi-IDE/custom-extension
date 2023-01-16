@@ -415,11 +415,11 @@ window.tempExt = {
 	},
 	l10n: {
 		"zh-cn": {
-			"WitCatMouse.name": "高级鼠标",
+			"WitCatMouse.name": "[beta]白猫的高级鼠标",
 			"WitCatMouse.descp": "更精准的控制鼠标/触屏/全屏！"
 		},
 		en: {
-			"WitCatMouse.name": "More Mouse",
+			"WitCatMouse.name": "[beta]WitCat’s Mouse",
 			"WitCatMouse.descp": "More precise mouse/touch/full screen control!"
 		}
 	}
@@ -484,7 +484,6 @@ window.onresize = function () {
 //开启全屏
 function fillin() {
 	fill = 1;
-
 	var mo = function (e) { e.preventDefault(); };
 	document.body.style.overflow = 'hidden';
 	document.addEventListener("touchmove", mo, false);//禁止页面滑动
@@ -520,9 +519,8 @@ function fillin() {
 	document.body.scrollTop = 0;
 	document.documentElement.scrollTop = 0;
 	scrollTo(0, 0);
-	setTimeout(function () {
-		fills();
-	}, 50);
+
+	setTimeout(fills(), 50);
 }
 //关闭全屏
 function outoffill() {
@@ -567,6 +565,7 @@ function outoffill() {
 	cvs.parentNode.parentNode.style = "height: 100%; width: 100%;";
 	cvs.parentNode.style = "";
 	cvs.style = "height: 100%; width: 100%;";
+	cvs.parentNode.parentNode.getElementsByTagName("div")[1].style = "transform:scale(1);transform-origin:0% 0% 0";
 }
 //循环检测
 function fills() {
@@ -603,12 +602,10 @@ function fills() {
 	}
 	cvs.parentNode.parentNode.parentNode.parentNode.getElementsByTagName("div")[0].style = "width:100%; height:100%;"
 	cvs.style = "width:100%; height:100%;";
-	setTimeout(function () {
-		let a = cvs.offsetWidth / document.documentElement.clientWidth;
-		cvs.parentNode.parentNode.getElementsByTagName("div")[1].style = "transform:scale(" + a + ");transform-origin:0% 0% 0";
-	}, 20);
+	let a = document.documentElement.clientWidth / cvs.parentNode.parentNode.getElementsByTagName("div")[1].clientWidth;
+	cvs.parentNode.parentNode.getElementsByTagName("div")[1].style = "transform:scale(" + a + ");transform-origin:0% 0% 0";
 	background = document.getElementsByClassName("witcatbackground")[0];
-	if (background === null) {
+	if (!background) {
 		background = document.createElement("div");
 		background.style = "width:" + document.documentElement.clientWidth + "px;height:" + document.documentElement.clientHeight + "px;color:black;";
 		background.className = "witcatbackground";
