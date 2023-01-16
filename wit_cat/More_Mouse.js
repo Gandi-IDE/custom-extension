@@ -49,7 +49,7 @@ class WitCatMouse {
 		this.runtime = runtime;
 		this._formatMessage = runtime.getFormatMessage({
 			"zh-cn": {
-				"WitCatMouse.name": "高级操作",
+				"WitCatMouse.name": "[beta]白猫的高级鼠标",
 				"WitCatMouse.name.1": "高级鼠标",
 				"WitCatMouse.name.2": "多指触控",
 				"WitCatMouse.set": "[set]右键菜单",
@@ -80,7 +80,7 @@ class WitCatMouse {
 				"WitCatMouse.IsMobile": "移动设备?",
 			},
 			en: {
-				"WitCatMouse.name": "More operate",
+				"WitCatMouse.name": "[beta]WitCat’s Mouse",
 				"WitCatMouse.name.1": "more mouse",
 				"WitCatMouse.name.2": "more touch",
 				"WitCatMouse.set": "[set]Right-click menu",
