@@ -172,7 +172,7 @@ class WitCatInput {
 						},
 						text: {
 							type: "string",
-							defaultValue: "i",
+							defaultValue: "10",
 						},
 					},
 				},
