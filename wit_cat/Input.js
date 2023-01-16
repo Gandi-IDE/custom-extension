@@ -30,7 +30,7 @@ class WitCatInput {
 		this.runtime = runtime;
 		this._formatMessage = runtime.getFormatMessage({
 			"zh-cn": {
-				"WitCatInput.name": "文本输入框",
+				"WitCatInput.name": "[beta]白猫的输入框",
 				"WitCatInput.createinput": "ID为[id]的[type]框X[x]Y[y]宽[width]高[height]内容[text]颜色[color]提示[texts]字体大小[size]",
 				"WitCatInput.deleteinput": "删除ID为[id]的文本框",
 				"WitCatInput.getinput": "获得ID为[id]的文本框的[type]",
@@ -60,7 +60,7 @@ class WitCatInput {
 				"WitCatInput.setinput": "设置ID为[id]的文本框的[type]为[text]",
 			},
 			en: {
-				"WitCatInput.name": "input",
+				"WitCatInput.name": "[beta]WitCat‘s Input",
 				"WitCatInput.createinput": "[type]input with ID[id]X[x]Y[y]width[width]height[height]content[text]color[color]prompt[texts]font-size[size]",
 				"WitCatInput.deleteinput": "delete an input with ID[id]",
 				"WitCatInput.getinput": "get [type] with ID[id]",
