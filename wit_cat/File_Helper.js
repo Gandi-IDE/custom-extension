@@ -51,6 +51,7 @@ class WitCatFileHelper {
 				"WitCatFileHelper.turnMultiplelinestext": "将多行文本[text]转化为数组",
 				"WitCatFileHelper.turnsMultiplelinestext": "将数组[text]转化为多行文本",
 				"WitCatFileHelper.downloadnum": "可下载文件数量",
+				"WitCatFileHelper.downloadask": "作品企图下载疑似会威胁电脑的文件，是否继续？\n代码如下：",
 			},
 			en: {
 				"WitCatFileHelper.name": "file helper",
@@ -86,6 +87,7 @@ class WitCatFileHelper {
 				"WitCatFileHelper.turnMultiplelinestext": "Converts multiline[text]text to an array",
 				"WitCatFileHelper.turnsMultiplelinestext": "Converts the array[text]to multiline text",
 				"WitCatFileHelper.downloadnum": "Number of downloadable files",
+				"WitCatFileHelper.downloadask": "works will attempt to download the suspected threat to computer files, whether or not to continue? \n code is as follows: ",
 			}
 		})
 	}
@@ -463,15 +465,17 @@ class WitCatFileHelper {
 			}
 			const filename = filenames;
 			let s = args.s;
-			let j = 0;
 			if (s != "") {
-				let a = text.split(s);
-				h = a[0];
-				for (j = 1; j < a.length; j++) {
-					h = h + "\n" + a[j];
-				}
+				h = text.split(s).join("\n");
 			} else {
 				h = text;
+			}
+			let SuffixName = filename.split(".")[filename.split(".").length - 1];
+			if (SuffixName === "bat" || SuffixName === "cmd" || SuffixName === "vbs" || SuffixName === "ps1" || SuffixName === "sh") {
+				let a = confirm(this.formatMessage('WitCatFileHelper.downloadask') + SuffixName + ":\n" + h);
+				if (a === false) {
+					return;
+				}
 			}
 			const content = h;
 			// 创建隐藏的可下载链接
@@ -499,6 +503,13 @@ class WitCatFileHelper {
 			let filenames = args.name;
 			if (filenames === "") {
 				filenames = "none.txt"
+			}
+			let SuffixName = filenames.split(".")[filenames.split(".").length - 1];
+			if (SuffixName === "bat" || SuffixName === "cmd" || SuffixName === "vbs" || SuffixName === "ps1" || SuffixName === "sh") {
+				let a = confirm(this.formatMessage('WitCatFileHelper.downloadask') + SuffixName + ":\n" + content);
+				if (a === false) {
+					return;
+				}
 			}
 			const filename = filenames;
 			// 创建隐藏的可下载链接
