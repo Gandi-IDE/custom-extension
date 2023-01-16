@@ -147,7 +147,7 @@ class WitCatMouse {
 				{
 					opcode: 'fill',
 					blockType: "command",
-					text: this.formatMessage("WitCatMouse.fill"),
+					text: this.formatMessage("WitCatMouse.fill")
 					hideFromPalette: true,
 					arguments: {
 						set: {
