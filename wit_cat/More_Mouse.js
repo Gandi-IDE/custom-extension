@@ -136,6 +136,7 @@ class WitCatMouse {
 					opcode: 'setfill',
 					blockType: "command",
 					text: this.formatMessage("WitCatMouse.setfill"),
+					hideFromPalette: true,
 					arguments: {
 						num: {
 							type: "number",
@@ -146,7 +147,8 @@ class WitCatMouse {
 				{
 					opcode: 'fill',
 					blockType: "command",
-					text: this.formatMessage("WitCatMouse.fill"),
+					text: this.formatMessage("WitCatMouse.fill")
+					hideFromPalette: true,
 					arguments: {
 						set: {
 							type: "bool",
@@ -360,32 +362,11 @@ class WitCatMouse {
 	}
 	//全屏
 	fill(args) {
-		if (args.set === "true") {
-			if (filln < 3) {
-				if (fill === 0) {
-					let a = confirm(this.formatMessage('WitCatMouse.fillask.1') + filln + this.formatMessage('WitCatMouse.fillask.2'));
-					if (a === true) {
-						filln = 0;
-						fillin();
-					}
-					else {
-						filln += 1;
-					}
-				}
-			}
-		}
-		else {
-			if (fill === 1) {
-				outoffill();
-			}
-		}
+		console.warn("全屏因浏览器兼容问题已下线，在未来修复后将会重新上线\nFull screen has been taken offline due to browser compatibility issues. It will be back online after a future fix");
 	}
 	//设置分辨率
 	setfill(args) {
-		w = args.num / this.runtime.stageHeight * this.runtime.stageWidth;
-		h = args.num;
-		cvs.width = args.num / this.runtime.stageHeight * this.runtime.stageWidth;
-		cvs.height = args.num;
+		console.warn("全屏因浏览器兼容问题已下线，在未来修复后将会重新上线\nFull screen has been taken offline due to browser compatibility issues. It will be back online after a future fix");
 	}
 	//当前分辨率
 	resolution(args) {
@@ -472,164 +453,3 @@ cvs.addEventListener('touchend', function (e) {
 	touch = e.targetTouches;
 	button[0] = "up";
 })
-
-
-
-//大小改变刷新
-window.onresize = function () {
-	if (fill === 1) {
-		fills();
-	}
-}
-//开启全屏
-function fillin() {
-	fill = 1;
-	var mo = function (e) { e.preventDefault(); };
-	document.body.style.overflow = 'hidden';
-	document.addEventListener("touchmove", mo, false);//禁止页面滑动
-	if (window.location.href.split("/")[2] !== "cocrea.world") {
-		div = document.getElementById("root").getElementsByTagName('div')[0];
-		divs = document.getElementById("root");
-		url = window.location.href.split("/")[3].split("?")[0];
-		if (url !== "scratch-player") {
-			divs.removeChild(div);
-		}
-	}
-
-	news = document.body.getElementsByClassName("convention-1wIbd")[0];
-	if (typeof (news) !== "undefined") {
-		news.style = "display:none;";
-	}
-	divv = document.body.getElementsByClassName("actions-2lk9z")[0];
-	if (typeof (divv) !== "undefined") {
-		divv.style = "display:none;";
-	}
-	Operatinginstructions = document.body.getElementsByClassName("showWorksDesc-1iD-M")[0];
-	if (typeof (Operatinginstructions) !== "undefined") {
-		Operatinginstructions.style = "display:none;";
-	}
-	bug = document.body.getElementsByClassName("bug-report-1CfBK")[0];
-	if (typeof (bug) !== "undefined") {
-		bug.style = "display:none;";
-	}
-	discord = document.body.getElementsByClassName("style_bugReport__gJk19 MuiBox-root css-0")[0];
-	if (typeof (discord) !== "undefined") {
-		discord.style = "display:none";
-	}
-	document.body.scrollTop = 0;
-	document.documentElement.scrollTop = 0;
-	scrollTo(0, 0);
-
-	setTimeout(fills(), 50);
-}
-//关闭全屏
-function outoffill() {
-	//恢复头
-	fill = 0;
-	var mo = function (e) { e.preventDefault(); };
-	document.body.style.overflow = 'auto';
-	document.addEventListener("touchmove", mo, true);//允许页面滑动
-	if (window.location.href.split("/")[2] !== "cocrea.world") {
-		divs = document.getElementById("root");
-		url = window.location.href.split("/")[3].split("?")[0];
-		if (url !== "scratch-player") {
-			divs.insertBefore(div, divs.children[0]);
-		}
-	}
-	document.body.removeChild(background);
-	news = document.body.getElementsByClassName("convention-1wIbd")[0];
-	if (typeof (news) !== "undefined") {
-		news.style = "";
-	}
-	divv = document.body.getElementsByClassName("actions-2lk9z")[0];
-	if (typeof (divv) !== "undefined") {
-		divv.style = "";
-	}
-	divvs = document.body.getElementsByClassName("arrowTop-2Fru_")[0];
-	if (typeof (divvs) !== "undefined") {
-		divvs.style = "";
-	}
-	Operatinginstructions = document.body.getElementsByClassName("showWorksDesc-1iD-M")[0];
-	if (typeof (Operatinginstructions) !== "undefined") {
-		Operatinginstructions.style = "";
-	}
-	bug = document.body.getElementsByClassName("bug-report-1CfBK")[0];
-	if (typeof (bug) !== "undefined") {
-		bug.style = "";
-	}
-	discord = document.body.getElementsByClassName("style_bugReport__gJk19 MuiBox-root css-0")[0];
-	if (typeof (discord) !== "undefined") {
-		discord.style = "";
-	}
-	cvs.parentNode.parentNode.parentNode.parentNode.style = "width:100%; height:100%;z-index: 1000000;";
-	cvs.parentNode.parentNode.style = "height: 100%; width: 100%;";
-	cvs.parentNode.style = "";
-	cvs.style = "height: 100%; width: 100%;";
-	cvs.parentNode.parentNode.getElementsByTagName("div")[1].style = "transform:scale(1);transform-origin:0% 0% 0";
-}
-//循环检测
-function fills() {
-	if (w !== 0 && h !== 0) {
-		cvs.width = w;
-		cvs.height = h;
-	}
-	let ws = 0, hs = 0;
-	if ((cvs.width / cvs.height) >= (document.documentElement.clientWidth / document.documentElement.clientHeight)) {
-		hs = (document.documentElement.clientWidth / cvs.width) * cvs.height;
-		ws = document.documentElement.clientWidth;
-		wv = 0;
-		hv = (document.documentElement.clientHeight - hs) / 2;
-	}
-	else {
-		hs = document.documentElement.clientHeight;
-		ws = (document.documentElement.clientHeight / cvs.height) * cvs.width;
-		wv = (document.documentElement.clientWidth - ws) / 2;
-		hv = 0;
-	}
-	divvs = document.body.getElementsByClassName("arrowTop-2Fru_")[0];
-	if (typeof (divvs) !== "undefined") {
-		divvs.style = "display:none;";
-	}
-	cvs.parentNode.parentNode.parentNode.parentNode.style = "position:fixed; left:" + wv + "px; top:" + hv + "px; width:" + ws + "px; height:" + hs + "px;z-index: 1000000;border-radius:0px";
-	cvs.parentNode.parentNode.parentNode.style = "width:" + ws + "px; height:" + hs + "px;border-radius:0px";
-	cvs.parentNode.parentNode.style = "width:100%; height:100%;border-radius:0px";
-	cvs.parentNode.style = "width:100%; height:100%;border-radius:0px";
-	if (isInPage(cvs.parentNode.parentNode.nextElementSibling.firstChild.firstChild)) {
-		cvs.parentNode.parentNode.nextElementSibling.style = "width: 100%; height: 100%;";
-		cvs.parentNode.parentNode.nextElementSibling.firstChild.style = "width: 100%; height: 100%;";
-		cvs.parentNode.parentNode.nextElementSibling.firstChild.firstChild.firstChild.style = "width: 100%; height: 100%;";
-		cvs.parentNode.parentNode.nextElementSibling.firstChild.firstChild.style = "width: 100%;";
-	}
-	cvs.parentNode.parentNode.parentNode.parentNode.getElementsByTagName("div")[0].style = "width:100%; height:100%;"
-	cvs.style = "width:100%; height:100%;";
-	let a = document.documentElement.clientWidth / cvs.parentNode.parentNode.getElementsByTagName("div")[1].clientWidth;
-	cvs.parentNode.parentNode.getElementsByTagName("div")[1].style = "transform:scale(" + a + ");transform-origin:0% 0% 0";
-	background = document.getElementsByClassName("witcatbackground")[0];
-	if (!background) {
-		background = document.createElement("div");
-		background.style = "width:" + document.documentElement.clientWidth + "px;height:" + document.documentElement.clientHeight + "px;color:black;";
-		background.className = "witcatbackground";
-		document.body.insertBefore(background, document.body.children[0]);
-	}
-	else {
-		background.style = "width:" + document.documentElement.clientWidth + "px;height:" + document.documentElement.clientHeight + "px;color:black;";
-	}
-}
-//检测div存在
-function isInPage(node) {
-	return (node === document.body) ? false : document.body.contains(node);
-}
-
-//按键检测
-document.addEventListener("keydown", keydown);
-function keydown(e) {
-	var evt = e || window.event;
-	if (evt.ctrlKey && evt.shiftKey && evt.altKey) {
-		if (fill === 0) {
-			fillin();
-		}
-		else {
-			outoffill();
-		}
-	}
-}
