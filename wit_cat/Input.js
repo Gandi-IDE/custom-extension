@@ -531,7 +531,7 @@ class WitCatInput {
 	//焦点位置
 	whatinput() {
 		if (document.activeElement.className === "WitCatInput") {
-			return document.activeElement.id.split("WitCatInput")[0];
+			return document.activeElement.id.split("WitCatInput")[1];
 		}
 		else {
 			return "";
@@ -708,11 +708,11 @@ window.tempExt = {
 	},
 	l10n: {
 		"zh-cn": {
-			"WitCatInput.name": "文本框",
+			"WitCatInput.name": "[beta]白猫的输入框",
 			"WitCatInput.descp": "全新的输入框！"
 		},
 		en: {
-			"WitCatInput.name": "input",
+			"WitCatInput.name": "[beta]WitCat‘s Input",
 			"WitCatInput.descp": "what a nice input!"
 		}
 	}
