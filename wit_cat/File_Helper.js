@@ -18,7 +18,7 @@ class WitCatFileHelper {
 		this.runtime = runtime;
 		this._formatMessage = runtime.getFormatMessage({
 			"zh-cn": {
-				"WitCatFileHelper.name": "文件助手",
+				"WitCatFileHelper.name": "[beta]白猫的文件助手",
 				"WitCatFileHelper.filehelper": "文件处理",
 				"WitCatFileHelper.inputmanagement": "文本框",
 				"WitCatFileHelper.Multiplelinestext": "多行文本",
@@ -54,7 +54,7 @@ class WitCatFileHelper {
 				"WitCatFileHelper.downloadask": "作品企图下载疑似会威胁电脑的文件，是否继续？\n代码如下：",
 			},
 			en: {
-				"WitCatFileHelper.name": "file helper",
+				"WitCatFileHelper.name": "[beta]WitCat’s File Helper",
 				"WitCatFileHelper.filehelper": "file",
 				"WitCatFileHelper.inputmanagement": "input",
 				"WitCatFileHelper.Multiplelinestext": "Multiple lines of text",
