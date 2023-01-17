@@ -8,14 +8,8 @@ const extensionId = "WitCatMouse";
 let button = ["up", "up", "up", "up", "up"];
 let xMouse = 0;
 let yMouse = 0;
-let isMove = false, timer = null;
+let timer = null;
 let touch = [];
-let fill = 0;
-let filln = 0;
-let w = 0, h = 0;
-let div, divs, divv, divvs, news, background, Operatinginstructions, bug, url, discord;
-let wv = 0, hv = 0;
-let isTouchDevice = 'ontouchstart' in document.documentElement;
 
 //找渲染cvs
 let cvs = document.getElementsByTagName("canvas")[0];
@@ -30,19 +24,6 @@ else {
 		alert("当前页面不支持多指触控/全屏，请前往作品详情页体验完整作品！");
 	}
 }
-
-//添加监听器
-const config = { attributes: true, childList: true, subtree: true, attributeFilter: ['style'] };
-const callback = function (mutationsList, observer) {
-	if (fill === 1) {
-		observer.disconnect();
-		fills();
-		observer.observe(cvs, config);
-	}
-};
-const observer = new MutationObserver(callback);
-observer.observe(cvs, config);
-
 
 class WitCatMouse {
 	constructor(runtime) {
@@ -147,7 +128,7 @@ class WitCatMouse {
 				{
 					opcode: 'fill',
 					blockType: "command",
-					text: this.formatMessage("WitCatMouse.fill")
+					text: this.formatMessage("WitCatMouse.fill"),
 					hideFromPalette: true,
 					arguments: {
 						set: {
@@ -311,7 +292,7 @@ class WitCatMouse {
 	//右键菜单
 	set(args) {
 		history.pushState(null, null, null);
-		cvs.parentNode.oncontextmenu = function () {
+		cvs.parentNode.oncontextmenu = () => {
 			if (args.set === "true") {
 				return true;
 			}
@@ -361,15 +342,15 @@ class WitCatMouse {
 		}
 	}
 	//全屏
-	fill(args) {
+	fill() {
 		console.warn("全屏因浏览器兼容问题已下线，在未来修复后将会重新上线\nFull screen has been taken offline due to browser compatibility issues. It will be back online after a future fix");
 	}
 	//设置分辨率
-	setfill(args) {
+	setfill() {
 		console.warn("全屏因浏览器兼容问题已下线，在未来修复后将会重新上线\nFull screen has been taken offline due to browser compatibility issues. It will be back online after a future fix");
 	}
 	//当前分辨率
-	resolution(args) {
+	resolution() {
 		return cvs.height;
 	}
 	//设备是否支持触屏
@@ -408,10 +389,10 @@ window.tempExt = {
 
 /* vim: set expandtab tabstop=2 shiftwidth=2: */
 //鼠标
-document.onmousedown = function (event) {
+document.onmousedown = event => {
 	button[event.button] = "down";
 }
-document.onmouseup = function (event) {
+document.onmouseup = event => {
 	button[event.button] = "up";
 	touch = [];
 }
@@ -424,32 +405,28 @@ document.addEventListener("mousemove", ev => {
 	}
 	xMouse = ev.movementX; // 获得鼠标指针的x移动量
 	yMouse = ev.movementY; // 获得鼠标指针的y移动量
-	isMove = true;
 	clearTimeout(timer);
-	timer = setTimeout(function () {
-		isMove = false;
+	timer = setTimeout(() => {
 		xMouse = 0;
 		yMouse = 0;
 	}, 30);
 });
 //多指触控
-cvs.addEventListener('touchstart', function (e) {
+cvs.addEventListener('touchstart', e => {
 	touch = e.targetTouches;
 	button[0] = "down";
 })
-cvs.addEventListener('touchmove', function (e) {
+cvs.addEventListener('touchmove', e => {
 	xMouse = e.targetTouches[0].clientX - touch[0].clientX; // 获得手指的x移动量
 	yMouse = e.targetTouches[0].clientY - touch[0].clientY; // 获得手指的y移动量
-	isMove = true;
 	clearTimeout(timer);
-	timer = setTimeout(function () {
-		isMove = false;
+	timer = setTimeout(() => {
 		xMouse = 0;
 		yMouse = 0;
 	}, 30);
 	touch = e.targetTouches;
 })
-cvs.addEventListener('touchend', function (e) {
+cvs.addEventListener('touchend', e => {
 	touch = e.targetTouches;
 	button[0] = "up";
 })
