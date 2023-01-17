@@ -7,7 +7,7 @@ const _icon = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACtWK6
 const extensionId = "WitCatFileHelper";
 let FLAG = 0, download = 0;
 
-setInterval(function () {
+setInterval(() => {
 	if (download > 0) {
 		download--;
 	}
@@ -530,7 +530,7 @@ class WitCatFileHelper {
 		}
 	}
 	//读取本地变量
-	upload(args) {
+	upload() {
 		console.warn("文件助手——读取键值对：积木已下线，请更换\nfile_helper-Read key value pair: Block is offline, please replace");/*
 		const name = args.name;
 		let h = this.runtime.ccwAPI.getProjectUUID();
@@ -561,7 +561,7 @@ class WitCatFileHelper {
 		return localStorage.getItem(show + h + "©" + name);*/
 	}
 	//保存本地变量
-	save(args) {
+	save() {
 		console.warn("文件助手——保存键值对：积木已下线，请更换\nfile_helper-Save the key pair: Block is offline, please replace");/*
 		const text = args.text;
 		const name = args.name;
@@ -595,7 +595,7 @@ class WitCatFileHelper {
 		}*/
 	}
 	//删除本地变量
-	delete(args) {
+	delete() {
 		console.warn("文件助手——删除键值对：积木已下线，请更换\nfile_helper-Delet the key pair: Block is offline, please replace");/*
 		const name = args.name;
 		let h = this.runtime.ccwAPI.getProjectUUID();
@@ -655,10 +655,9 @@ class WitCatFileHelper {
 		return jieM;
 	}
 	//打开文件
-	openfile(args) {
+	openfile() {
 		FLAG = 1;
 		return new Promise(resolve => {
-			let a = 0;
 			const input = document.createElement("input");
 			input.type = "file";
 			input.style = "display:none;";
@@ -670,15 +669,15 @@ class WitCatFileHelper {
 					FLAG = 0;
 					resolve(e.target.result);
 				};
-				reader.onerror = (e) => {
+				reader.onerror = () => {
 					FLAG = 0;
 					resolve();
 				};
 				reader.readAsText(file);
 			}
-			window.onfocus = function () {
+			window.onfocus = () => {
 				// 开始计时或者播放
-				setTimeout(e => {
+				setTimeout(() => {
 					if (FLAG === 1) {
 						FLAG = 0;
 						resolve("");
@@ -688,7 +687,7 @@ class WitCatFileHelper {
 		});
 	}
 	//设置状态
-	showvar(args) {
+	showvar() {
 		console.warn("文件助手——设置键状态：积木已下线，请更换\nfile_helper-Set key state: Block is offline, please replace");/*
 		const name = args.name;
 		let h = this.runtime.ccwAPI.getProjectUUID();
@@ -726,7 +725,7 @@ class WitCatFileHelper {
 		}*/
 	}
 	//修改别人的键
-	saveother(args) {
+	saveother() {
 		console.warn("文件助手——修改别人的键：积木已下线，请更换\nfile_helper-Modify other people's keys: Block is offline, please replace");/*
 		let name = args.name;
 		let h = args.id;
@@ -762,7 +761,7 @@ class WitCatFileHelper {
 		}*/
 	}
 	//获取别人的键
-	uploadother(args) {
+	uploadother() {
 		console.warn("文件助手——获取别人的键：积木已下线，请更换\nfile_helper-Get other people's keys: Block is offline, please replace");/*
 		let name = args.name;
 		let h = args.id;
@@ -791,7 +790,7 @@ class WitCatFileHelper {
 		return "";*/
 	}
 	//获取键状态
-	other(args) {
+	other() {
 		console.warn("文件助手——获取键状态：积木已下线，请更换\nfile_helper-Get key state: Block is offline, please replace");/*
 		let name = args.name;
 		let h = args.id;
@@ -867,7 +866,7 @@ class WitCatFileHelper {
 		if (args.num === "first") {
 			num = 1;
 		}
-		if (text.length >= num) {
+		if (text.length >= num && num > 0) {
 			return text[num - 1].split("\r")[0];
 		}
 		else {
@@ -901,7 +900,7 @@ class WitCatFileHelper {
 		return a;*/
 	}
 	//键值对内容
-	number(args) {
+	number() {
 		console.warn("文件助手——获取键值对内容：积木已下线，请更换\nfile_helper-Get the key pair: Block is offline, please replace");
 		/*
 		let a = 0;
@@ -922,7 +921,7 @@ class WitCatFileHelper {
 		return "";*/
 	}
 	//可下载文本数量
-	downloadnum(args) {
+	downloadnum() {
 		return 3 - download;
 	}
 }
