@@ -867,7 +867,12 @@ class WitCatFileHelper {
 		if (args.num === "first") {
 			num = 1;
 		}
-		return text[num - 1].split("\r")[0];
+		if (text.length >= num) {
+			return text[num - 1].split("\r")[0];
+		}
+		else {
+			return "";
+		}
 	}
 	//多行文本行数
 	numMultiplelinestext(args) {
@@ -936,11 +941,11 @@ window.tempExt = {
 	},
 	l10n: {
 		"zh-cn": {
-			"WitCatFileHelper.name": "文件助手",
+			"WitCatFileHelper.name": "[beta]白猫的文件助手",
 			"WitCatFileHelper.descp": "读取/处理本地数据"
 		},
 		en: {
-			"WitCatFileHelper.name": "File Helper",
+			"WitCatFileHelper.name": "[beta]WitCat’s File Helper",
 			"WitCatFileHelper.descp": "Handling local data"
 		}
 	}
