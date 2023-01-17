@@ -497,7 +497,7 @@ class WitCatInput {
 				return search.id.split("WitCatInput")[1];
 			else {
 				return (
-					"\{\"" + "X" + "\":\"" + ((search.style.left.split("%")[0] / 100) * this.runtime.stageWidth) + "\"," +
+					"{\"" + "X" + "\":\"" + ((search.style.left.split("%")[0] / 100) * this.runtime.stageWidth) + "\"," +
 					"\"" + "Y" + "\":\"" + ((search.style.top.split("%")[0] / 100) * this.runtime.stageHeight) + "\"," +
 					"\"" + "width" + "\":\"" + ((search.style.width.split("%")[0] / 100) * this.runtime.stageWidth) + "\"," +
 					"\"" + "height" + "\":\"" + ((search.style.height.split("%")[0] / 100) * this.runtime.stageHeight) + "\"," +
@@ -505,7 +505,7 @@ class WitCatInput {
 					"\"" + "color" + "\":\"" + (search.style.color.colorHex()) + "\"," +
 					"\"" + "prompt" + "\":\"" + (search.placeholder) + "\"," +
 					"\"" + "font-size" + "\":\"" + (search.style.fontSize.split("px")[0]) + "\"," +
-					"\"" + "ID" + "\":\"" + (search.id.split("WitCatInput")[1]) + "\"\}"
+					"\"" + "ID" + "\":\"" + (search.id.split("WitCatInput")[1]) + "\"}"
 				)
 			}
 		}
@@ -548,7 +548,7 @@ class WitCatInput {
 		}
 	}
 	//删除所有文本框
-	deleteallinput(args) {
+	deleteallinput() {
 		let search = document.getElementsByClassName("WitCatInput");
 		let i = 0;
 		for (i = search.length - 1; i >= 0; i--) {
@@ -583,7 +583,7 @@ class WitCatInput {
 				return search[args.num - 1].id.split("WitCatInput")[1];
 			else {
 				return (
-					"\{\"" + "X" + "\":\"" + ((search[args.num - 1].style.left.split("%")[0] / 100) * this.runtime.stageWidth) + "\"," +
+					"{\"" + "X" + "\":\"" + ((search[args.num - 1].style.left.split("%")[0] / 100) * this.runtime.stageWidth) + "\"," +
 					"\"" + "Y" + "\":\"" + ((search[args.num - 1].style.top.split("%")[0] / 100) * this.runtime.stageHeight) + "\"," +
 					"\"" + "width" + "\":\"" + ((search[args.num - 1].style.width.split("%")[0] / 100) * this.runtime.stageWidth) + "\"," +
 					"\"" + "height" + "\":\"" + ((search[args.num - 1].style.height.split("%")[0] / 100) * this.runtime.stageHeight) + "\"," +
@@ -591,7 +591,7 @@ class WitCatInput {
 					"\"" + "color" + "\":\"" + (search[args.num - 1].style.color.colorHex()) + "\"," +
 					"\"" + "prompt" + "\":\"" + (search[args.num - 1].placeholder) + "\"," +
 					"\"" + "font-size" + "\":\"" + (search[args.num - 1].style.fontSize.split("px")[0]) + "\"," +
-					"\"" + "ID" + "\":\"" + (search[args.num - 1].id.split("WitCatInput")[1]) + "\"\}"
+					"\"" + "ID" + "\":\"" + (search[args.num - 1].id.split("WitCatInput")[1]) + "\"}"
 				)
 			}
 		}
@@ -720,7 +720,7 @@ window.tempExt = {
 
 /* vim: set expandtab tabstop=2 shiftwidth=2: */
 //颜色转换
-String.prototype.colorHex = function () {
+String.prototype.colorHex = () => {
 	// RGB颜色值的正则
 	var reg = /^(rgb|RGB)/;
 	var color = this;
@@ -752,7 +752,7 @@ function keyup(event) {
 	delete keypress[event.code];
 }
 //滚轮事件监听
-var scrollFunc = function (e) {
+var scrollFunc = e => {
 	e = e || window.event;
 	if (e.wheelDelta) {  //判断浏览器IE，谷歌滑轮事件
 		MouseWheel = e.wheelDelta;
@@ -760,7 +760,7 @@ var scrollFunc = function (e) {
 		MouseWheel = e.detail;
 	}
 	clearTimeout(timer);
-	timer = setTimeout(function () {
+	timer = setTimeout(() => {
 		MouseWheel = 0;
 	}, 30);
 };
