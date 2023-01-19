@@ -10,7 +10,6 @@ let keypress = {};
 let lastKey = "", MouseWheel = 0;
 let timer;
 
-
 //找渲染cvs
 let cvs = document.getElementsByTagName("canvas")[0];
 if (cvs === null) {
@@ -720,7 +719,7 @@ window.tempExt = {
 
 /* vim: set expandtab tabstop=2 shiftwidth=2: */
 //颜色转换
-String.prototype.colorHex = () => {
+String.prototype.colorHex = function () {
 	// RGB颜色值的正则
 	var reg = /^(rgb|RGB)/;
 	var color = this;
@@ -741,6 +740,7 @@ String.prototype.colorHex = () => {
 		return String(color);
 	}
 };
+
 //键盘事件监听
 document.addEventListener("keydown", keydown);
 document.addEventListener("keyup", keyup);
