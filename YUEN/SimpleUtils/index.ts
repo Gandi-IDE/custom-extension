@@ -2,7 +2,7 @@
  * @Author: YUEN
  * @Date: 2023-02-06 20:52:52
  * @LastEditors: YUEN
- * @LastEditTime: 2023-02-07 21:51:42
+ * @LastEditTime: 2023-02-07 23:09:06
  * @Description:
  */
 import {
@@ -144,7 +144,10 @@ export default class DefaultExtension extends GandiExtension {
   }
 
   //block opcode functions
-
+  redirect(args) {
+    const {CONTENT_1} = args
+    window.location.href=CONTENT_1
+  }
   // 运行环境
   deploy_env() {
     var ur1 = window.location.pathname;
