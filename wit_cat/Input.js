@@ -52,6 +52,10 @@ class WitCatInput {
 				"WitCatInput.number.8": "字体大小",
 				"WitCatInput.number.9": "所有(json)",
 				"WitCatInput.number.10": "ID",
+				"WitCatInput.number.11": "滚动位置",
+				"WitCatInput.number.12": "文本高度",
+				"WitCatInput.number.13": "光标位置",
+				"WitCatInput.number.14": "透明度",
 				"WitCatInput.key": "按下按键[type]?",
 				"WitCatInput.keys": "按下按键[type]?",
 				"WitCatInput.lastkey": "上次按下的键",
@@ -65,7 +69,7 @@ class WitCatInput {
 				"WitCatInput.getinput": "get [type] with ID[id]",
 				"WitCatInput.isinput": "is the focus on the input with ID[id]?",
 				"WitCatInput.whatinput": "Focal position",
-				"WitCatInput.nowinput": "let teh focus on the input with ID[id]",
+				"WitCatInput.nowinput": "let the focus on the input with ID[id]",
 				"WitCatInput.deleteallinput": "delete all input",
 				"WitCatInput.compute": "Font size of now screen[size]",
 				"WitCatInput.type.1": "Single line",
@@ -82,6 +86,10 @@ class WitCatInput {
 				"WitCatInput.number.8": "font-size",
 				"WitCatInput.number.9": "all(json)",
 				"WitCatInput.number.10": "ID",
+				"WitCatInput.number.11": "Rolling position",
+				"WitCatInput.number.12": "Text height",
+				"WitCatInput.number.13": "cursor position ",
+				"WitCatInput.number.14": "transparency",
 				"WitCatInput.key": "Press the key[type]?",
 				"WitCatInput.keys": "Press the key [type]?",
 				"WitCatInput.lastkey": "last key pressed",
@@ -353,6 +361,22 @@ class WitCatInput {
 						value: 'font-size'
 					},
 					{
+						text: this.formatMessage('WitCatInput.number.11'),
+						value: 'rp'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.12'),
+						value: 'th'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.13'),
+						value: 'cp'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.14'),
+						value: 'op'
+					},
+					{
 						text: this.formatMessage('WitCatInput.number.9'),
 						value: 'json'
 					},
@@ -389,6 +413,18 @@ class WitCatInput {
 					{
 						text: this.formatMessage('WitCatInput.number.8'),
 						value: 'font-size'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.11'),
+						value: 'rp'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.13'),
+						value: 'cp'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.14'),
+						value: 'op'
 					},
 				]
 			}
@@ -428,7 +464,7 @@ class WitCatInput {
 		y = (y / this.runtime.stageHeight) * 100;
 		width = (width / this.runtime.stageWidth) * 100;
 		height = (height / this.runtime.stageHeight) * 100;
-		let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:` + x + `%; top:` + y + `%; width:` + width + `%; height:` + height + `%;font-size: ` + args.size + `px;resize:none;color:` + args.color + `;`;
+		let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:` + x + `%; top:` + y + `%; width:` + width + `%; height:` + height + `%;font-size: ` + args.size + `px;resize:none;color:` + args.color + `;opacity:1;`;
 		let search = document.getElementById("WitCatInput" + args.id);
 		if (search !== null) {
 			if (search.name === args.type) {
@@ -494,6 +530,14 @@ class WitCatInput {
 				return search.style.fontSize.split("px")[0];
 			else if (args.type === "ID")
 				return search.id.split("WitCatInput")[1];
+			else if (args.type === "rp")
+				return search.scrollTop;
+			else if (args.type === "th")
+				return search.scrollHeight;
+			else if (args.type === "cp")
+				return JSON.stringify([search.selectionStart, search.selectionEnd]);
+			else if (args.type === "op")
+				return 100 - (search.style.opacity * 100);
 			else {
 				return (
 					"{\"" + "X" + "\":\"" + ((search.style.left.split("%")[0] / 100) * this.runtime.stageWidth) + "\"," +
@@ -504,7 +548,10 @@ class WitCatInput {
 					"\"" + "color" + "\":\"" + (search.style.color.colorHex()) + "\"," +
 					"\"" + "prompt" + "\":\"" + (search.placeholder) + "\"," +
 					"\"" + "font-size" + "\":\"" + (search.style.fontSize.split("px")[0]) + "\"," +
-					"\"" + "ID" + "\":\"" + (search.id.split("WitCatInput")[1]) + "\"}"
+					"\"" + "ID" + "\":\"" + (search.id.split("WitCatInput")[1]) + "\"," +
+					"\"" + "Rolling position" + "\":\"" + (search.scrollTop) + "\"," +
+					"\"" + "Text height" + "\":\"" + (search.scrollHeight) + "\"," +
+					"\"" + "cursor position" + "\":\"" + (JSON.stringify([search.selectionStart, search.selectionEnd])) + "\"}"
 				)
 			}
 		}
@@ -580,6 +627,14 @@ class WitCatInput {
 				return search[args.num - 1].style.fontSize.split("px")[0];
 			else if (args.type === "ID")
 				return search[args.num - 1].id.split("WitCatInput")[1];
+			else if (args.type === "rp")
+				return search[args.num - 1].scrollTop;
+			else if (args.type === "th")
+				return search[args.num - 1].scrollHeight;
+			else if (args.type === "cp")
+				return JSON.stringify([search[args.num - 1].selectionStart, search[args.num - 1].selectionEnd]);
+			else if (args.type === "op")
+				return 100 - (search[args.num - 1].style.opacity * 100);
 			else {
 				return (
 					"{\"" + "X" + "\":\"" + ((search[args.num - 1].style.left.split("%")[0] / 100) * this.runtime.stageWidth) + "\"," +
@@ -590,7 +645,10 @@ class WitCatInput {
 					"\"" + "color" + "\":\"" + (search[args.num - 1].style.color.colorHex()) + "\"," +
 					"\"" + "prompt" + "\":\"" + (search[args.num - 1].placeholder) + "\"," +
 					"\"" + "font-size" + "\":\"" + (search[args.num - 1].style.fontSize.split("px")[0]) + "\"," +
-					"\"" + "ID" + "\":\"" + (search[args.num - 1].id.split("WitCatInput")[1]) + "\"}"
+					"\"" + "ID" + "\":\"" + (search[args.num - 1].id.split("WitCatInput")[1]) + "\"," +
+					"\"" + "Rolling position" + "\":\"" + (search[args.num - 1].scrollTop) + "\"," +
+					"\"" + "Text height" + "\":\"" + (search[args.num - 1].scrollHeight) + "\"," +
+					"\"" + "cursor position" + "\":\"" + (JSON.stringify([search[args.num - 1].selectionStart, search[args.num - 1].selectionEnd])) + "\"}"
 				)
 			}
 		}
@@ -631,6 +689,8 @@ class WitCatInput {
 			let prompt = search.placeholder;
 			let color = search.style.color.colorHex()
 			let size = search.style.fontSize.split("px")[0];
+			let scrolltop = search.scrollTop;
+			let opacity = search.style.opacity;
 			if (args.type === "X") {
 				x = args.text;
 				if (args.text > this.runtime.stageWidth) {
@@ -683,12 +743,36 @@ class WitCatInput {
 			else if (args.type === "font-size") {
 				size = args.text;
 			}
-
-			let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:` + x + `%; top:` + y + `%; width:` + width + `%; height:` + height + `%;font-size: ` + size + `px;resize:none;color:` + color + `;`;
+			else if (args.type === "rp") {
+				scrolltop = args.text;
+			}
+			else if (args.type === "op") {
+				if (!isNaN(args.text)) {
+					opacity = 1 - (args.text / 100);
+				}
+				else {
+					opacity = 1;
+				}
+			}
+			else if (args.type === "cp") {
+				try {
+					if (JSON.parse(args.text).length >= 2) {
+						search.setSelectionRange(JSON.parse(args.text)[0], JSON.parse(args.text)[1]);
+					}
+					else {
+						search.setSelectionRange(args.text, args.text);
+					}
+				}
+				catch {
+					return;
+				}
+			}
+			let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:` + x + `%; top:` + y + `%; width:` + width + `%; height:` + height + `%;font-size: ` + size + `px;resize:none;color:` + color + `;opacity:` + opacity + `;`;
 
 			search.style = dom;
 			search.value = content;
 			search.placeholder = prompt;
+			search.scrollTop = scrolltop;
 		}
 	}
 }
