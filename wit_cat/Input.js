@@ -61,6 +61,9 @@ class WitCatInput {
 				"WitCatInput.lastkey": "上次按下的键",
 				"WitCatInput.mousewheel": "鼠标滚轮",
 				"WitCatInput.setinput": "设置ID为[id]的文本框的[type]为[text]",
+				"WitCatInput.setread": "设置ID为[id]的文本框为[read]",
+				"WitCatInput.read.1": "可编辑",
+				"WitCatInput.read.2": "不可编辑",
 			},
 			en: {
 				"WitCatInput.name": "[beta]WitCat‘s Input",
@@ -95,6 +98,9 @@ class WitCatInput {
 				"WitCatInput.lastkey": "last key pressed",
 				"WitCatInput.mousewheel": "MouseWheel",
 				"WitCatInput.setinput": "Set[type]of input whose ID is[id]to[text]",
+				"WitCatInput.setread": "Set the text box with ID[id]to[read]",
+				"WitCatInput.read.1": "editable",
+				"WitCatInput.read.2": "uneditable",
 			}
 		})
 	}
@@ -180,6 +186,21 @@ class WitCatInput {
 						text: {
 							type: "string",
 							defaultValue: "10",
+						},
+					},
+				},
+				{
+					opcode: "setread",
+					blockType: "command",
+					text: this.formatMessage("WitCatInput.setread"),
+					arguments: {
+						id: {
+							type: "string",
+							defaultValue: "i",
+						},
+						read: {
+							type: "string",
+							menu: "read",
 						},
 					},
 				},
@@ -425,6 +446,16 @@ class WitCatInput {
 					{
 						text: this.formatMessage('WitCatInput.number.14'),
 						value: 'op'
+					},
+				],
+				read: [
+					{
+						text: this.formatMessage('WitCatInput.read.1'),
+						value: 'eb'
+					},
+					{
+						text: this.formatMessage('WitCatInput.read.2'),
+						value: 'ue'
 					},
 				]
 			}
@@ -773,6 +804,18 @@ class WitCatInput {
 			search.value = content;
 			search.placeholder = prompt;
 			search.scrollTop = scrolltop;
+		}
+	}
+	//设置状态
+	setread(args) {
+		let search = document.getElementById("WitCatInput" + args.id);
+		if (search !== null) {
+			if (args.read === "eb") {
+				search.disabled = false;
+			}
+			else {
+				search.disabled = true;
+			}
 		}
 	}
 }
