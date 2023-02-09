@@ -631,16 +631,16 @@ window.tempExt = {
 
 /* vim: set expandtab tabstop=2 shiftwidth=2: */
 //鼠标
-document.onmousedown = event => {
-	button[event.button] = "down";
+addEventListener('mousedown', e => {
+	button[e.button] = "down";
 	if (button[0] === "down") {
-		touch = JSON.parse("[{\"clientX\":\"" + event.clientX + "\",\"clientY\":\"" + event.clientY + "\",\"identifier\":\"mouse\"}]");
+		touch = JSON.parse("[{\"clientX\":\"" + e.clientX + "\",\"clientY\":\"" + e.clientY + "\",\"identifier\":\"mouse\"}]");
 	}
-}
-document.onmouseup = event => {
-	button[event.button] = "up";
+})
+document.addEventListener('mouseup', e => {
+	button[e.button] = "up";
 	touch = [];
-}
+})
 document.addEventListener("mousemove", ev => {
 	if (button[0] === "down") {
 		touch = JSON.parse("[{\"clientX\":\"" + ev.clientX + "\",\"clientY\":\"" + ev.clientY + "\",\"identifier\":\"mouse\"}]");
