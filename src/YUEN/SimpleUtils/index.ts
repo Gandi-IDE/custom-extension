@@ -1,0 +1,572 @@
+/*
+ * @Author: YUEN
+ * @Date: 2023-02-06 20:52:52
+ * @LastEditors: YUEN
+ * @LastEditTime: 2023-02-09 21:34:58
+ * @Description:
+ */
+import {
+  GandiExtension,
+  BlockUtil,
+  ArgumentType,
+  ReporterScope,
+} from "@cocrea/extension-kit";
+import { extensionId } from "./extInfo";
+import zhCn from "./l10n/zh-cn.json";
+import en from "./l10n/en.json";
+
+import cover from "./assets/cover.png";
+import blockIcon from "./assets/icon.png";
+
+export default class SimpleUtils extends GandiExtension {
+  get extensionId(): string {
+    return extensionId;
+  }
+
+  get localization() {
+    return {
+      "zh-cn": zhCn,
+      en: en,
+    };
+  }
+
+  get documentURL(): string {
+    return "";
+  }
+
+  get menuIconURI(): string {
+    return blockIcon;
+  }
+
+  get blockIconURI(): string {
+    return blockIcon;
+  }
+
+  get coverURI(): string {
+    return cover;
+  }
+
+  get authorInfo() {
+    return {
+      labelName: "YUEN",
+      username: "YUEN",
+      homepage: "https://www.ccw.site/student/236217560",
+      email: "3094249868@qq.com",
+    };
+  }
+
+  get blockPrefix(): string {
+    return "";
+  }
+
+  get deprecatedBlocksByOpcodes(): string[] {
+    return [];
+  }
+
+  todo() {
+    // 临时下线使用
+    // 防止积木下线对用户造成损失
+    return "该功能暂不可用";
+  }
+
+  getSpritesMenu() {
+    //console.log(this.runtime);
+    const sprites = [];
+    let aaa: {
+      sprite: {
+        name: "此功能正在维护";
+      };
+    };
+    /**
+     * 
+    for (const targetId in this.runtime.targets) {
+      if (!this.runtime.targets.hasOwnProperty(targetId)) continue;
+      if (!this.runtime.targets[targetId].isOriginal) continue;
+      const { name } = this.runtime.targets[targetId].sprite;
+
+      sprites.push({ text: name, value: name }); // ['Stage','角色1','角色2'] Stage暂时懒得换成中文
+      aaa = this.runtime._editingTarget;
+    }
+
+    */
+    return {
+      sprites,
+      aaa,
+    };
+  }
+
+  init() {
+    /**
+     * 获取SpriteList
+     * v1.0.2
+     * 【临时下线】
+     */
+    const SPRITE_MENU1 = BlockUtil.createMenu("sprite_menu1");
+    SPRITE_MENU1.acceptReporters = true;
+    //SPRITE_MENU1.items = this.getSpritesMenu().sprites;
+    SPRITE_MENU1.items = [{ text: "1", value: "1" }];
+
+    /**
+     * 获取设备信息
+     * v1.0.0
+     */
+    const info_type_menu = BlockUtil.createMenu("InfoMenu");
+    info_type_menu.items.push({ text: "json", value: "json" });
+    info_type_menu.items.push({ text: "browserName", value: "browserName" });
+    info_type_menu.items.push({
+      text: "browserVersion",
+      value: "browserVersion",
+    });
+    info_type_menu.items.push({ text: "osName", value: "osName" });
+    info_type_menu.items.push({ text: "osVersion", value: "osVersion" });
+    info_type_menu.items.push({ text: "deviceName", value: "deviceName" });
+    info_type_menu.items.push({ text: "CPU_Type", value: "CPU_Type" });
+
+    // 获取设备信息
+    const TYPE = BlockUtil.createArgument(
+      ArgumentType.STRING,
+      "json",
+      info_type_menu
+    );
+
+    // v1.0.0
+    // Notification通知 标题，内容，图标
+    const TITLE = BlockUtil.createArgument(ArgumentType.STRING, "title");
+    const CONTENT = BlockUtil.createArgument(ArgumentType.STRING, "content");
+    const ICON = BlockUtil.createArgument(ArgumentType.STRING, "icon");
+
+    // 通用STRING Args
+    const CONTENT_1 = BlockUtil.createArgument(ArgumentType.STRING, "default");
+
+    /**
+     * 信息广播
+     * v1.0.2
+     * 使用方法：set 发送信息广播K=V
+     *          get 接收信息广播 [需要接收的Sprite<角色> or Stage<舞台>]
+     * 使用例：接收指定角色or舞台的信息广播：将接收信息广播积木的SPRITE修改为发送信息广播的角色的名字或舞台选择Stage
+     */
+
+    // 信息广播 发送积木键值对
+    const KEY = BlockUtil.createArgument(ArgumentType.STRING, "test");
+    const VALUE = BlockUtil.createArgument(ArgumentType.STRING, "test1");
+
+    // 信息广播 ccw_hat_parameter 发送积木的键值对+发送信息广播的角色Menu【临时下线】
+    //const SPRITE_MENU = this.getSpritesMenu();
+    const KEY1 = BlockUtil.createArgument(ArgumentType.STRING, "test");
+    const VALUE1 = BlockUtil.createArgument(ArgumentType.STRING, "test1");
+    //临时下线
+    const SPRITE = BlockUtil.createArgument(
+      ArgumentType.STRING,
+      //this.getSpritesMenu().aaa.sprite.name,
+      //warn=该功能暂不可用
+      "warn",
+      SPRITE_MENU1
+    );
+
+    /**
+     * regex
+     */
+    const PHONE_ID = BlockUtil.createArgument(ArgumentType.NUMBER, 18888888888);
+
+    /**
+     * 获取客户端信息
+     * 当[TYPE]="JSON"时，将其他参数的JSON返回
+     * deviceName只有移动端显示厂商与型号
+     * CPU_Type(处理器位数)x64 x86只有在使用西瓜客户端访问时生效
+     * v1.0.0
+     */
+    const GET_CLIENT_INFO = BlockUtil.createReporter();
+    GET_CLIENT_INFO.setOpcode("get_client_info");
+    GET_CLIENT_INFO.setText("get_client_info");
+    GET_CLIENT_INFO.setArguments({ TYPE });
+
+    // 通知 v1.0.0
+    const Notification = BlockUtil.createCommand();
+    Notification.setOpcode("Notification");
+    Notification.setText("get_battery");
+    Notification.setArguments({ TITLE, CONTENT, ICON });
+
+    // 是否联网 v1.0.0
+    const IS_ONLINE = BlockUtil.createBool();
+    IS_ONLINE.setOpcode("is_online");
+    IS_ONLINE.setText("is_online");
+    IS_ONLINE.setArguments({});
+
+    // 弹窗 v1.0.0
+    const TOAST = BlockUtil.createCommand();
+    TOAST.setOpcode("toast");
+    TOAST.setText("toast");
+    TOAST.setArguments({ CONTENT_1 });
+
+    // 跳转到站外[白猫需求] v1.0.1
+    const REDIRECT = BlockUtil.createCommand();
+    REDIRECT.setOpcode("redirect");
+    REDIRECT.setText("redirect");
+    REDIRECT.setArguments({ CONTENT_1 });
+
+    // 运行环境 当前是编辑器还是发布页
+    const DEPLOY_ENV = BlockUtil.createReporter();
+    DEPLOY_ENV.setOpcode("deploy_env");
+    DEPLOY_ENV.setText("deploy_env");
+    DEPLOY_ENV.setArguments({});
+
+    /**
+     * 信息广播
+     */
+    const COMMAND = BlockUtil.createCommand();
+    COMMAND.setOpcode("set");
+    COMMAND.setText("set");
+    COMMAND.setArguments({ KEY1, VALUE1 });
+
+    const HAT = BlockUtil.createHat();
+    HAT.setOpcode("get");
+    HAT.setText("get");
+    HAT.setArguments({  KEY, VALUE });
+    HAT.setIsEdgeActivated(false);
+    HAT.setShouldRestartExistingThreads(true);
+
+    /**
+     * 本地存储
+     */
+    
+
+    /**
+     * 常用表达式
+     * 手机号校验
+     */
+    const REGEX_PHONE_ID = BlockUtil.createBool();
+    REGEX_PHONE_ID.setOpcode("reg_phone");
+    REGEX_PHONE_ID.setText("reg.phone_id");
+    REGEX_PHONE_ID.setArguments({ PHONE_ID });
+
+    /**
+     * 基础功能区
+     */
+    this.addTextLabel("t.default");
+
+    /**
+     * 获取客户端信息
+     */
+    this.addBlock(GET_CLIENT_INFO);
+    /**
+     * 跳转到站外
+     */
+    this.addBlock(REDIRECT);
+
+    /**
+     * 基础功能-一分区
+     * 用户是否在线
+     * 运行环境
+     */
+    this.addTextLabel("t.default.1");
+    this.addBlock(IS_ONLINE);
+    this.addBlock(DEPLOY_ENV);
+
+    /**
+     * 基础功能-二分区
+     * 通知
+     * 弹窗
+     */
+    this.addTextLabel("t.default.2");
+    this.addBlock(Notification);
+    this.addBlock(TOAST);
+
+    /**
+     * 基础功能-三分区
+     * 本地存储
+     */
+    //this.addTextLabel("t.default.3");
+
+
+    /**
+     * 基础功能-四分区
+     * 常用表达式
+     */
+    this.addTextLabel("t.default.4");
+    this.addBlock(REGEX_PHONE_ID);
+
+    /**
+     * beta区
+     * 信息广播
+     */
+    this.addTextLabel("t.in_beta");
+    this.addBlock(COMMAND);
+    this.addBlock(HAT);
+  }
+
+  //block opcode functions
+
+  /**
+   * 手机号正则
+   * @param args
+   */
+  reg_phone(args) {
+    const { PHONE_ID } = args;
+    var reg = /^1(3\d|4[5-9]|5[0-35-9]|6[567]|7[0-8]|8\d|9[0-35-9])\d{8}$/;
+    return reg.test(PHONE_ID);
+  }
+  /**
+   * 本地存储
+   * @param args
+   */
+
+
+  /**
+   * 信息广播
+   * @param args
+   * @param util
+   */
+  set(args, util) {
+    console.log("YUEN set", args);
+    const __runtime = util.sequencer.runtime;
+    const e = this.getSpritesMenu();
+    //console.log(e.sprites);
+    __runtime.startHatsWithParams("YUEN.SimpleUtils_get", {
+      parameters: {
+        KEY: args.KEY1,
+        VALUE: args.VALUE1,
+      },
+    });
+  }
+
+  get(args, util) {
+    return true;
+  }
+
+  /**
+   *跳转到站外
+   * @param args
+   */
+  redirect(args) {
+    const { CONTENT_1 } = args;
+    window.location.href = CONTENT_1;
+  }
+
+  /**
+   * 运行环境
+   * @returns prod dev
+   * prod：不在编辑器内
+   * dev：在编辑器内
+   */
+  // 运行环境
+  deploy_env() {
+    var ur1 = window.location.pathname;
+    //var ur2 = window.location.search;
+    return ur1.indexOf("gandi") > -1 || ur1.indexOf("creator") > -1
+      ? "dev"
+      : "prod";
+  }
+
+  /**
+   * 用户是否在线
+   * 检测用户网络连接情况
+   * @returns
+   */
+  // 联网检测
+  is_online() {
+    return window.navigator.onLine;
+  }
+
+  /**
+   * 通知
+   * @param args
+   */
+  // Notification弹窗
+  Notification(args) {
+    const { TITLE, CONTENT, ICON } = args;
+    new window.Notification(TITLE, {
+      body: CONTENT,
+      icon: ICON,
+    });
+  }
+
+  /**
+   * 弹窗
+   * @param args
+   */
+  // alert弹窗
+  toast(args: { CONTENT_1: any }) {
+    const { CONTENT_1 } = args;
+    alert(CONTENT_1);
+  }
+
+  /**
+   *
+   * @param args 获取客户端信息
+   * @returns
+   */
+  get_client_info(args: { TYPE: any }) {
+    const userAgentObj = {
+      browserName: "", // 浏览器名称
+      browserVersion: "", // 浏览器版本
+      osName: "", // 操作系统名称
+      osVersion: "", // 操作系统版本
+      deviceName: "", // 设备名称
+      CPU_Type: "", // 兼容xigua-client
+    };
+
+    // Windows NT内核版本转常用版本
+    const userAgentWindowsVrsion = {
+      "NT 5.1": "Windows XP",
+      "NT 5.2": "Windows XP",
+      "NT 6.0": "Windows Vista",
+      "NT 6.1": "Windows 7",
+      "NT 6.2": "Windows 8",
+      "NT 6.3": "Windows 8.1",
+      "NT 6.4": "Windows 10", //windows10早期内核6.4
+      "NT 10.0": "Windows 10/11", //2020之后内核变成了10.0  11也沿用了
+    };
+    var userAgent = navigator.userAgent;
+    /**
+     * 兼容
+     * var _userAgent = navigator.userAgent;
+     * TODO 兼容之前旧模板里的代码
+     */
+    if (userAgent) {
+      var isOpera = userAgent.indexOf("Opera") > -1;
+      //判断是否Opera浏览器
+      if (isOpera) {
+        userAgentObj.browserName = "Opera";
+        userAgentObj.browserVersion = userAgent.split("Version/")[1];
+      }
+      //判断是否IE浏览器
+      if (
+        userAgent.indexOf("compatible") > -1 &&
+        userAgent.indexOf("MSIE") > -1 &&
+        !isOpera
+      ) {
+        userAgentObj.browserName = "IE";
+        userAgentObj.browserVersion = userAgent.split("MSIE ")[1].split(" ")[1];
+      }
+      //判断是否Safari浏览器
+      if (userAgent.indexOf("Safari") > -1) {
+        userAgentObj.browserName = "Safari";
+        /**
+         * 230207已修复
+         */
+        userAgentObj.browserVersion = userAgent
+          .split("Safari")[1]
+          .split(" ")[0];
+      }
+      //判断是否Firefox浏览器
+      if (userAgent.indexOf("Firefox") > -1) {
+        userAgentObj.browserName = "Firefox";
+        userAgentObj.browserVersion = userAgent.split("Firefox/")[1];
+      }
+      //判断是否Chrome浏览器
+      if (userAgent.indexOf("Chrome") > -1) {
+        userAgentObj.browserName = "Chrome";
+        userAgentObj.browserVersion = userAgent
+          .split("Chrome/")[1]
+          .split(" ")[0];
+      }
+
+      // is Edg
+      if (userAgent.indexOf("Edg") > -1) {
+        userAgentObj.browserName = "Edge";
+        userAgentObj.browserVersion = userAgent.split("Edg/")[1].split(" ")[0];
+      }
+
+      // is xigua-client
+      if (userAgent.indexOf("xigua-python") > -1) {
+        (userAgentObj.browserName = "西瓜Python"),
+          (userAgentObj.browserVersion = userAgent
+            .split("xigua-python/")[1]
+            .split(" ")[0]);
+        var winJV = userAgent.split("Windows ")[1].split(")")[0].split("; ")[1];
+        // 兼容西瓜客户端
+        userAgentObj.CPU_Type = winJV;
+      }
+
+      if (userAgent.indexOf("xigua-scratch") > -1) {
+        (userAgentObj.browserName = "西瓜Scratch"),
+          (userAgentObj.browserVersion = userAgent
+            .split("xigua-scratch/")[1]
+            .split(" ")[0]);
+        var winJV = userAgent.split("Windows ")[1].split(")")[0].split("; ")[1];
+        // 兼容西瓜客户端
+        userAgentObj.CPU_Type = winJV;
+      }
+
+      //判断是否Windows
+      if (userAgent.indexOf("Windows") > -1) {
+        var Version =
+          userAgent.split("Windows ")[1].split(")")[0].indexOf("; ") > -1
+            ? userAgent.split("Windows ")[1].split(")")[0].split("; ")[0]
+            : userAgent.split("Windows ")[1].split(")")[0];
+        userAgentObj.osName = "Windows";
+        userAgentObj.osVersion = userAgentWindowsVrsion[Version];
+        // 设置设备名
+        userAgentObj.deviceName = "PC";
+      }
+
+      if (userAgent.indexOf("Mac") > -1) {
+        var Version = userAgent.split("Mac OS X ")[1].split(")")[0];
+        userAgentObj.osName = "Mac OS X";
+        userAgentObj.osVersion = Version;
+        // 设置设备名
+        userAgentObj.deviceName = "PC";
+      }
+
+      if (userAgent.indexOf("iPhone") > -1) {
+        var Version = userAgent.split("CPU iPhone OS")[1].split(" ")[0];
+        userAgentObj.osName = "iPhone";
+        userAgentObj.osVersion = Version;
+
+        // 设置设备名
+        userAgentObj.deviceName = "Apple Device";
+      }
+
+      if (userAgent.indexOf("iPad") > -1) {
+        /**
+         *还没实测iPad的ua
+         *先返回iPad
+         */
+        // TODO 待开发预计1.0.3补档
+        var Version = "iPad";
+        userAgentObj.osName = "iPhone";
+        userAgentObj.osVersion = Version;
+
+        // 设置设备名
+        userAgentObj.deviceName = "Apple Device";
+      }
+
+      if (userAgent.indexOf("Android") > -1) {
+        var V = userAgent.split("Android ")[1].split(";")[0];
+        /**
+         * userAgent.split("Android " + V)[1].split(")")[0].indexOf("; ") > -1
+         * 默认是有厂商+版本的
+         * 这里做了兼容
+         * 如果ua里没有设备版本默认返回"Androiid设备"
+         */
+        var winD =
+          userAgent
+            .split("Android " + V)[1]
+            .split(")")[0]
+            .indexOf("; ") > -1
+            ? userAgent.split("Android " + V + "; ")[1].split(")")[0]
+            : "Android设备";
+        userAgentObj.osName = "Android";
+        userAgentObj.deviceName = winD;
+        userAgentObj.osVersion = V;
+      }
+      //console.log(userAgentObj);
+      // 转换格式 Obj to String JSON
+      var string = JSON.stringify(userAgentObj);
+      const { TYPE } = args;
+      //console.log(TYPE);
+
+      /**
+       * @description: 兼容l10n，之前把默认字段写成了JSON但是menu里的是json
+       * 如果用户选择的是json就返回json否则从Object获取menu对应的参数返回
+       * @param {*} TYPE
+       * @return {*}
+       */
+      if (TYPE == "json" || TYPE == "JSON") {
+        return string;
+      } else {
+        return userAgentObj[TYPE];
+      }
+    }
+  }
+}
