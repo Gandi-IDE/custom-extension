@@ -631,7 +631,7 @@ window.tempExt = {
 
 /* vim: set expandtab tabstop=2 shiftwidth=2: */
 //鼠标
-addEventListener('mousedown', e => {
+document.addEventListener('mousedown', e => {
 	button[e.button] = "down";
 	if (button[0] === "down") {
 		touch = JSON.parse("[{\"clientX\":\"" + e.clientX + "\",\"clientY\":\"" + e.clientY + "\",\"identifier\":\"mouse\"}]");
