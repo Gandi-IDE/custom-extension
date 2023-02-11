@@ -11,6 +11,35 @@ let yMouse = 0;
 let timer = null;
 let touch = [];
 
+
+//base64转blob
+function base64ImgtoFile(dataurl, filename = 'file') {
+	const arr = dataurl.split(',')
+	const mime = arr[0].match(/:(.*?);/)[1]
+	const suffix = mime.split('/')[1]
+	const bstr = atob(arr[1])
+	let n = bstr.length
+	const u8arr = new Uint8Array(n)
+	while (n--) {
+		u8arr[n] = bstr.charCodeAt(n)
+	}
+	return new File([u8arr], `${filename}.${suffix}`, {
+		type: mime
+	})
+}
+
+//检测是不是ico的base64
+function isBase64(str) {
+	let a = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$";
+	if (str.match(a) == null) {
+		return true;
+	}
+	else {
+		console.warn("请使用ico格式的base64文本\nPlease use base64 text in ico format");
+		return false;
+	}
+}
+
 //找渲染cvs
 let cvs = document.getElementsByTagName("canvas")[0];
 if (cvs === null) {
@@ -42,7 +71,9 @@ class WitCatMouse {
 				"WitCatMouse.key.3": "右键",
 				"WitCatMouse.key.4": "前侧键",
 				"WitCatMouse.key.5": "后侧键",
-				"WitCatMouse.mouseuse": "锁定鼠标",
+				"WitCatMouse.mouseuse": "[mouseuse]鼠标",
+				"WitCatMouse.mouseuse.1": "锁定",
+				"WitCatMouse.mouseuse.2": "释放",
 				"WitCatMouse.acceleration": "鼠标[way]加速度",
 				"WitCatMouse.way.1": "X",
 				"WitCatMouse.way.2": "Y",
@@ -50,6 +81,7 @@ class WitCatMouse {
 				"WitCatTouch.num": "第[num]个手指的[type]",
 				"WitCatTouch.type.1": "X",
 				"WitCatTouch.type.2": "Y",
+				"WitCatTouch.type.3": "ID",
 				"WitCatMouse.fill": "[set]沉浸式全屏",
 				"WitCatMouse.fillask.1": "作品请求沉浸式全屏，是否同意？\n",
 				"WitCatMouse.fillask.2": "/3次连续拒绝后将不再提示\n您仍可以使用 ctrl+shift+alt 切换沉浸式全屏状态",
@@ -59,6 +91,21 @@ class WitCatMouse {
 				"WitCatMouse.types.1": "触屏",
 				"WitCatMouse.types.2": "鼠标",
 				"WitCatMouse.IsMobile": "移动设备?",
+				"WitCatMouse.cursor": "更改鼠标的样式为[cursor]",
+				"WitCatMouse.cursor.1": "默认",
+				"WitCatMouse.cursor.2": "光标",
+				"WitCatMouse.cursor.3": "十字移动",
+				"WitCatMouse.cursor.4": "上下移动",
+				"WitCatMouse.cursor.5": "左右移动",
+				"WitCatMouse.cursor.6": "禁止",
+				"WitCatMouse.cursor.7": "选择",
+				"WitCatMouse.cursor.8": "加载",
+				"WitCatMouse.cursor.9": "缓慢加载",
+				"WitCatMouse.cursor.10": "帮助",
+				"WitCatMouse.cursor.11": "横向光标",
+				"WitCatMouse.cursor.12": "精准选择",
+				"WitCatMouse.cursorurl": "更改鼠标的样式为X[x]Y[y]base64[text]",
+				"WitCatMouse.url": "上传ico并获得base64",
 			},
 			en: {
 				"WitCatMouse.name": "[beta]WitCat’s Mouse",
@@ -73,7 +120,9 @@ class WitCatMouse {
 				"WitCatMouse.key.3": "right",
 				"WitCatMouse.key.4": "front",
 				"WitCatMouse.key.5": "back",
-				"WitCatMouse.mouseuse": "lock mouse",
+				"WitCatMouse.mouseuse": "[mouseuse]mouse",
+				"WitCatMouse.mouseuse.1": "Lock",
+				"WitCatMouse.mouseuse.2": "Release",
 				"WitCatMouse.acceleration": "mouse[way]acceleration",
 				"WitCatMouse.way.1": "X",
 				"WitCatMouse.way.2": "Y",
@@ -82,6 +131,7 @@ class WitCatMouse {
 				"WitCatTouch.num": "the[num]finger`s[type]",
 				"WitCatTouch.type.1": "X",
 				"WitCatTouch.type.2": "Y",
+				"WitCatTouch.type.3": "ID",
 				"WitCatMouse.fill": "[set]immersive full-screen",
 				"WitCatMouse.fillask.1": "The project requests to turn on immersive full-screen, agree or not?\nWill stop asking if you keep on to reject for ",
 				"WitCatMouse.fillask.2": "/3 times\nYou can also use Ctrl+Shift+Alt to toggle immersive full-screen later.",
@@ -91,6 +141,21 @@ class WitCatMouse {
 				"WitCatMouse.types.1": "Touch screen",
 				"WitCatMouse.types.2": "mouse",
 				"WitCatMouse.IsMobile": "Mobile devices?",
+				"WitCatMouse.cursor": "Change mouse style to[cursor]",
+				"WitCatMouse.cursor.1": "Default",
+				"WitCatMouse.cursor.2": "Cursor",
+				"WitCatMouse.cursor.3": "Cross Move",
+				"WitCatMouse.cursor.4": "Move up and down",
+				"WitCatMouse.cursor.5": "Move left and right",
+				"WitCatMouse.cursor.6": "Prohibit",
+				"WitCatMouse.cursor.7": "Select",
+				"WitCatMouse.cursor.8": "Load",
+				"WitCatMouse.cursor.9": "Slow loading",
+				"WitCatMouse.cursor.10": "Help",
+				"WitCatMouse.cursor.11": "Landscape cursor",
+				"WitCatMouse.cursor.12": "Precise selection",
+				"WitCatMouse.cursorurl": "Change the style of the mouse to X[x]Y[y]base64[text]",
+				"WitCatMouse.url": "Upload ico and get base64",
 			}
 		})
 	}
@@ -111,7 +176,7 @@ class WitCatMouse {
 			blockIconURI: _icon,
 			menuIconURI: _icon,
 			color1: "#8eace1",
-			color2: "#ffffff",
+			color2: "#86a2d4",
 			blocks: [
 				{
 					opcode: 'setfill',
@@ -167,10 +232,50 @@ class WitCatMouse {
 					},
 				},
 				{
+					blockType: "button",
+					text: this.formatMessage('WitCatMouse.url'),
+					onClick: this.url,
+				},
+				{
+					opcode: "cursor",
+					blockType: "command",
+					text: this.formatMessage("WitCatMouse.cursor"),
+					arguments: {
+						cursor: {
+							type: "string",
+							menu: "cursor",
+						},
+					},
+				},
+				{
+					opcode: "cursorurl",
+					blockType: "command",
+					text: this.formatMessage("WitCatMouse.cursorurl"),
+					arguments: {
+						x: {
+							type: "string",
+							defaultValue: "0",
+						},
+						y: {
+							type: "string",
+							defaultValue: "0",
+						},
+						text: {
+							type: "string",
+							defaultValue: "base64:ico",
+						},
+					},
+				},
+				{
 					opcode: "mouseuse",
 					blockType: "command",
 					text: this.formatMessage("WitCatMouse.mouseuse"),
-					arguments: {},
+					arguments: {
+						mouseuse: {
+							type: "string",
+							menu: "mouseuse",
+						},
+					},
 				},
 				{
 					opcode: "acceleration",
@@ -246,6 +351,59 @@ class WitCatMouse {
 						value: '4'
 					},
 				],
+				cursor: {
+					acceptReporters: true,
+					items: [
+						{
+							text: this.formatMessage('WitCatMouse.cursor.1'),
+							value: 'default'
+						},
+						{
+							text: this.formatMessage('WitCatMouse.cursor.2'),
+							value: 'text'
+						},
+						{
+							text: this.formatMessage('WitCatMouse.cursor.3'),
+							value: 'move'
+						},
+						{
+							text: this.formatMessage('WitCatMouse.cursor.4'),
+							value: 'n-resize'
+						},
+						{
+							text: this.formatMessage('WitCatMouse.cursor.5'),
+							value: 'e-resize'
+						},
+						{
+							text: this.formatMessage('WitCatMouse.cursor.6'),
+							value: 'not-allowed'
+						},
+						{
+							text: this.formatMessage('WitCatMouse.cursor.7'),
+							value: 'pointer'
+						},
+						{
+							text: this.formatMessage('WitCatMouse.cursor.8'),
+							value: 'progress'
+						},
+						{
+							text: this.formatMessage('WitCatMouse.cursor.9'),
+							value: 'wait'
+						},
+						{
+							text: this.formatMessage('WitCatMouse.cursor.10'),
+							value: 'help'
+						},
+						{
+							text: this.formatMessage('WitCatMouse.cursor.11'),
+							value: 'vertical-text'
+						},
+						{
+							text: this.formatMessage('WitCatMouse.cursor.12'),
+							value: 'crosshair'
+						},
+					],
+				},
 				set: [
 					{
 						text: this.formatMessage('WitCatMouse.set.1'),
@@ -275,6 +433,10 @@ class WitCatMouse {
 						text: this.formatMessage('WitCatTouch.type.2'),
 						value: "y"
 					},
+					{
+						text: this.formatMessage('WitCatTouch.type.3'),
+						value: "ID"
+					},
 				],
 				types: [
 					{
@@ -284,6 +446,16 @@ class WitCatMouse {
 					{
 						text: this.formatMessage('WitCatMouse.types.2'),
 						value: "onmousedown"
+					},
+				],
+				mouseuse: [
+					{
+						text: this.formatMessage('WitCatMouse.mouseuse.1'),
+						value: "lock"
+					},
+					{
+						text: this.formatMessage('WitCatMouse.mouseuse.2'),
+						value: "release"
 					},
 				],
 			}
@@ -311,8 +483,13 @@ class WitCatMouse {
 		}
 	}
 	//控制鼠标
-	mouseuse() {
-		cvs.parentNode.requestPointerLock();
+	mouseuse(args) {
+		if (args.mouseuse === "release") {
+			document.exitPointerLock();
+		}
+		else {
+			cvs.parentNode.requestPointerLock();
+		}
 	}
 	//鼠标移动量
 	acceleration(args) {
@@ -333,8 +510,11 @@ class WitCatMouse {
 			if (args.type === "x") {
 				return this.runtime.stageWidth * ((touch[args.num - 1].clientX - cvs.getBoundingClientRect().left) / cvs.offsetWidth);
 			}
-			else {
+			else if (args.type === "y") {
 				return this.runtime.stageHeight * ((touch[args.num - 1].clientY - cvs.getBoundingClientRect().top) / cvs.offsetHeight);
+			}
+			else {
+				return touch[args.num - 1].identifier;
 			}
 		}
 		else {
@@ -360,6 +540,68 @@ class WitCatMouse {
 	//是否是手机
 	IsMobile() {
 		return /Android|iPhone|iPad|iPod|BlackBerry|webOS|Windows Phone|SymbianOS|IEMobile|Opera Mini/i.test(navigator.userAgent);
+	}
+	//设置光标
+	cursor(args) {
+		cvs.parentNode.parentNode.parentNode.style.cursor = args.cursor;
+	}
+	//设置光标为url
+	cursorurl(args) {
+		if (isBase64(args.text)) {
+			const img = args.text;
+			let file = base64ImgtoFile(img); // 得到File对象
+			let imgUrl = window.webkitURL.createObjectURL(file) || window.URL.createObjectURL(file) // imgUrl图片网络路径
+			cvs.parentNode.parentNode.parentNode.style.cursor = "url(" + imgUrl + ")" + args.x + " " + args.y + ",auto";
+			return;
+		}
+	}
+	//打开ico文件
+	url() {
+		return new Promise(resolve => {
+			const input = document.createElement("input");
+			input.type = "file";
+			input.style = "display:none;";
+			input.accept = ".ico";
+			input.click();
+			input.onchange = () => {
+				const reader = new FileReader();
+				const readers = new FileReader();
+				const file = input.files[0];
+				reader.onload = (e) => {
+					navigator.clipboard.writeText(e.currentTarget.result);
+					alert("base64代码已经被复制到剪切板，可以粘贴以使用\nThe base64 code has been copied to the clipboard and can be pasted for use");
+					resolve(e.target.result);
+				};
+				reader.onerror = () => {
+					resolve();
+				};
+				readers.readAsArrayBuffer(file);
+
+				readers.onload = (e) => {
+					if (file.name.split('.')[file.name.split('.').length - 1] == "ico") {
+						var uri = e.target.result;
+						console.log(uri.byteLength / 1024 + " KB");
+						if (uri.byteLength / 1024 <= 10) {
+							reader.readAsDataURL(file);
+						}
+						else {
+							console.warn("文件过大，可能导致工程文件崩溃！！！\nThe file is too large, may cause the project file crash!!!");
+							alert("文件过大，可能导致工程文件崩溃！！！\nThe file is too large, may cause the project file crash!!!");
+						}
+					}
+					else {
+						console.warn("请选择*.ico文件\nPlease select the *.ico file");
+						alert("请选择*.ico文件\nPlease select the *.ico file");
+					}
+				};
+			}
+			window.onfocus = () => {
+				// 开始计时或者播放
+				setTimeout(() => {
+					resolve("");
+				}, 1000);
+			}
+		});
 	}
 }
 
@@ -389,16 +631,19 @@ window.tempExt = {
 
 /* vim: set expandtab tabstop=2 shiftwidth=2: */
 //鼠标
-document.onmousedown = event => {
-	button[event.button] = "down";
-}
-document.onmouseup = event => {
-	button[event.button] = "up";
+document.addEventListener('mousedown', e => {
+	button[e.button] = "down";
+	if (button[0] === "down") {
+		touch = JSON.parse("[{\"clientX\":\"" + e.clientX + "\",\"clientY\":\"" + e.clientY + "\",\"identifier\":\"mouse\"}]");
+	}
+})
+document.addEventListener('mouseup', e => {
+	button[e.button] = "up";
 	touch = [];
-}
+})
 document.addEventListener("mousemove", ev => {
 	if (button[0] === "down") {
-		touch = JSON.parse("[{\"clientX\":\"" + ev.clientX + "\",\"clientY\":\"" + ev.clientY + "\"}]");
+		touch = JSON.parse("[{\"clientX\":\"" + ev.clientX + "\",\"clientY\":\"" + ev.clientY + "\",\"identifier\":\"mouse\"}]");
 	}
 	else {
 		touch = [];
