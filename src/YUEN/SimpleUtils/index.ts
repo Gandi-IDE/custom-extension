@@ -2,7 +2,7 @@
  * @Author: YUEN
  * @Date: 2023-02-06 20:52:52
  * @LastEditors: YUEN
- * @LastEditTime: 2023-02-09 21:34:58
+ * @LastEditTime: 2023-02-18 23:21:08
  * @Description:
  */
 import {
@@ -63,49 +63,7 @@ export default class SimpleUtils extends GandiExtension {
     return [];
   }
 
-  todo() {
-    // 临时下线使用
-    // 防止积木下线对用户造成损失
-    return "该功能暂不可用";
-  }
-
-  getSpritesMenu() {
-    //console.log(this.runtime);
-    const sprites = [];
-    let aaa: {
-      sprite: {
-        name: "此功能正在维护";
-      };
-    };
-    /**
-     * 
-    for (const targetId in this.runtime.targets) {
-      if (!this.runtime.targets.hasOwnProperty(targetId)) continue;
-      if (!this.runtime.targets[targetId].isOriginal) continue;
-      const { name } = this.runtime.targets[targetId].sprite;
-
-      sprites.push({ text: name, value: name }); // ['Stage','角色1','角色2'] Stage暂时懒得换成中文
-      aaa = this.runtime._editingTarget;
-    }
-
-    */
-    return {
-      sprites,
-      aaa,
-    };
-  }
-
   init() {
-    /**
-     * 获取SpriteList
-     * v1.0.2
-     * 【临时下线】
-     */
-    const SPRITE_MENU1 = BlockUtil.createMenu("sprite_menu1");
-    SPRITE_MENU1.acceptReporters = true;
-    //SPRITE_MENU1.items = this.getSpritesMenu().sprites;
-    SPRITE_MENU1.items = [{ text: "1", value: "1" }];
-
     /**
      * 获取设备信息
      * v1.0.0
@@ -139,36 +97,6 @@ export default class SimpleUtils extends GandiExtension {
     const CONTENT_1 = BlockUtil.createArgument(ArgumentType.STRING, "default");
 
     /**
-     * 信息广播
-     * v1.0.2
-     * 使用方法：set 发送信息广播K=V
-     *          get 接收信息广播 [需要接收的Sprite<角色> or Stage<舞台>]
-     * 使用例：接收指定角色or舞台的信息广播：将接收信息广播积木的SPRITE修改为发送信息广播的角色的名字或舞台选择Stage
-     */
-
-    // 信息广播 发送积木键值对
-    const KEY = BlockUtil.createArgument(ArgumentType.STRING, "test");
-    const VALUE = BlockUtil.createArgument(ArgumentType.STRING, "test1");
-
-    // 信息广播 ccw_hat_parameter 发送积木的键值对+发送信息广播的角色Menu【临时下线】
-    //const SPRITE_MENU = this.getSpritesMenu();
-    const KEY1 = BlockUtil.createArgument(ArgumentType.STRING, "test");
-    const VALUE1 = BlockUtil.createArgument(ArgumentType.STRING, "test1");
-    //临时下线
-    const SPRITE = BlockUtil.createArgument(
-      ArgumentType.STRING,
-      //this.getSpritesMenu().aaa.sprite.name,
-      //warn=该功能暂不可用
-      "warn",
-      SPRITE_MENU1
-    );
-
-    /**
-     * regex
-     */
-    const PHONE_ID = BlockUtil.createArgument(ArgumentType.NUMBER, 18888888888);
-
-    /**
      * 获取客户端信息
      * 当[TYPE]="JSON"时，将其他参数的JSON返回
      * deviceName只有移动端显示厂商与型号
@@ -183,7 +111,7 @@ export default class SimpleUtils extends GandiExtension {
     // 通知 v1.0.0
     const Notification = BlockUtil.createCommand();
     Notification.setOpcode("Notification");
-    Notification.setText("get_battery");
+    Notification.setText("notification");
     Notification.setArguments({ TITLE, CONTENT, ICON });
 
     // 是否联网 v1.0.0
@@ -194,50 +122,15 @@ export default class SimpleUtils extends GandiExtension {
 
     // 弹窗 v1.0.0
     const TOAST = BlockUtil.createCommand();
-    TOAST.setOpcode("toast");
-    TOAST.setText("toast");
+    TOAST.setOpcode("alert");
+    TOAST.setText("alert");
     TOAST.setArguments({ CONTENT_1 });
-
-    // 跳转到站外[白猫需求] v1.0.1
-    const REDIRECT = BlockUtil.createCommand();
-    REDIRECT.setOpcode("redirect");
-    REDIRECT.setText("redirect");
-    REDIRECT.setArguments({ CONTENT_1 });
 
     // 运行环境 当前是编辑器还是发布页
     const DEPLOY_ENV = BlockUtil.createReporter();
     DEPLOY_ENV.setOpcode("deploy_env");
     DEPLOY_ENV.setText("deploy_env");
     DEPLOY_ENV.setArguments({});
-
-    /**
-     * 信息广播
-     */
-    const COMMAND = BlockUtil.createCommand();
-    COMMAND.setOpcode("set");
-    COMMAND.setText("set");
-    COMMAND.setArguments({ KEY1, VALUE1 });
-
-    const HAT = BlockUtil.createHat();
-    HAT.setOpcode("get");
-    HAT.setText("get");
-    HAT.setArguments({  KEY, VALUE });
-    HAT.setIsEdgeActivated(false);
-    HAT.setShouldRestartExistingThreads(true);
-
-    /**
-     * 本地存储
-     */
-    
-
-    /**
-     * 常用表达式
-     * 手机号校验
-     */
-    const REGEX_PHONE_ID = BlockUtil.createBool();
-    REGEX_PHONE_ID.setOpcode("reg_phone");
-    REGEX_PHONE_ID.setText("reg.phone_id");
-    REGEX_PHONE_ID.setArguments({ PHONE_ID });
 
     /**
      * 基础功能区
@@ -248,10 +141,6 @@ export default class SimpleUtils extends GandiExtension {
      * 获取客户端信息
      */
     this.addBlock(GET_CLIENT_INFO);
-    /**
-     * 跳转到站外
-     */
-    this.addBlock(REDIRECT);
 
     /**
      * 基础功能-一分区
@@ -270,81 +159,12 @@ export default class SimpleUtils extends GandiExtension {
     this.addTextLabel("t.default.2");
     this.addBlock(Notification);
     this.addBlock(TOAST);
-
-    /**
-     * 基础功能-三分区
-     * 本地存储
-     */
-    //this.addTextLabel("t.default.3");
-
-
-    /**
-     * 基础功能-四分区
-     * 常用表达式
-     */
-    this.addTextLabel("t.default.4");
-    this.addBlock(REGEX_PHONE_ID);
-
-    /**
-     * beta区
-     * 信息广播
-     */
-    this.addTextLabel("t.in_beta");
-    this.addBlock(COMMAND);
-    this.addBlock(HAT);
   }
 
   //block opcode functions
 
   /**
-   * 手机号正则
-   * @param args
-   */
-  reg_phone(args) {
-    const { PHONE_ID } = args;
-    var reg = /^1(3\d|4[5-9]|5[0-35-9]|6[567]|7[0-8]|8\d|9[0-35-9])\d{8}$/;
-    return reg.test(PHONE_ID);
-  }
-  /**
-   * 本地存储
-   * @param args
-   */
-
-
-  /**
-   * 信息广播
-   * @param args
-   * @param util
-   */
-  set(args, util) {
-    console.log("YUEN set", args);
-    const __runtime = util.sequencer.runtime;
-    const e = this.getSpritesMenu();
-    //console.log(e.sprites);
-    __runtime.startHatsWithParams("YUEN.SimpleUtils_get", {
-      parameters: {
-        KEY: args.KEY1,
-        VALUE: args.VALUE1,
-      },
-    });
-  }
-
-  get(args, util) {
-    return true;
-  }
-
-  /**
-   *跳转到站外
-   * @param args
-   */
-  redirect(args) {
-    const { CONTENT_1 } = args;
-    window.location.href = CONTENT_1;
-  }
-
-  /**
    * 运行环境
-   * @returns prod dev
    * prod：不在编辑器内
    * dev：在编辑器内
    */
@@ -385,7 +205,7 @@ export default class SimpleUtils extends GandiExtension {
    * @param args
    */
   // alert弹窗
-  toast(args: { CONTENT_1: any }) {
+  alert(args: { CONTENT_1: any }) {
     const { CONTENT_1 } = args;
     alert(CONTENT_1);
   }
@@ -413,8 +233,8 @@ export default class SimpleUtils extends GandiExtension {
       "NT 6.1": "Windows 7",
       "NT 6.2": "Windows 8",
       "NT 6.3": "Windows 8.1",
-      "NT 6.4": "Windows 10", //windows10早期内核6.4
-      "NT 10.0": "Windows 10/11", //2020之后内核变成了10.0  11也沿用了
+      "NT 6.4": "Windows 10",
+      "NT 10.0": "Windows 10/11",
     };
     var userAgent = navigator.userAgent;
     /**
