@@ -575,20 +575,16 @@ window.tempExt = {
     featured: true,
     disabled: false,
     collaborator: 'FurryR @ Simplicity Studio',
-    doc: 'notjs.doc'
+    doc: 'https://www.ccw.site/post/9cb88c31-c4eb-4244-a412-625e33ca6882'
   },
   l10n: {
     'zh-cn': {
       'notjs.extensionName': 'Not.js',
       'notjs.description': '次世代的 Gandi JSON 处理器。',
-      'notjs.doc':
-        'https://www.ccw.site/post/9cb88c31-c4eb-4244-a412-625e33ca6882'
     },
     en: {
       'notjs.extensionName': 'Not.js',
       'notjs.description': 'Next-generation JSON processor for Gandi IDE.',
-      'notjs.doc':
-        'https://www.ccw.site/post/9cb88c31-c4eb-4244-a412-625e33ca6882'
     }
   }
 }
