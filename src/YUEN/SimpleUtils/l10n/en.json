@@ -1,6 +1,6 @@
 {
-    "name": "SimpleUtils",
-    "desc": "Practical tools.",
+    "name": "System tools",
+    "desc": "Useful tool for obtaining system information!",
     "docURL": "https://www.ccw.site/post/27682388-ef1d-4303-95e6-5b91492135de",
     "get_client_info": "Get client information [TYPE]",
     "json": "JSON",
@@ -20,5 +20,5 @@
     "deploy_env": "Operating ENV",
     "title": "Notification Name",
     "content": "i like COCREA",
-    "icon": "https://cocrea.world/favicon-32x32.png",
+    "icon": "https://cocrea.world/favicon-32x32.png"
 }

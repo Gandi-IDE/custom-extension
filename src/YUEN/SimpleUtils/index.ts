@@ -2,7 +2,7 @@
  * @Author: YUEN
  * @Date: 2023-02-06 20:52:52
  * @LastEditors: YUEN
- * @LastEditTime: 2023-02-18 23:21:08
+ * @LastEditTime: 2023-02-20 22:21:37
  * @Description:
  */
 import {
@@ -194,10 +194,19 @@ export default class SimpleUtils extends GandiExtension {
   // Notification弹窗
   Notification(args) {
     const { TITLE, CONTENT, ICON } = args;
-    new window.Notification(TITLE, {
-      body: CONTENT,
-      icon: ICON,
-    });
+    var tt = window.localStorage.getItem("yuen.sleep");
+    var t = Number(window.localStorage.getItem("yuen.sleep"));
+    if (t <= Date.now() || tt == "null") {
+      new window.Notification(TITLE, {
+        body: CONTENT,
+        icon: ICON,
+      });
+      var time = Date.now() + 480000; // 8min后可再次调用
+      window.localStorage.setItem("yuen.sleep", time.toString());
+    } else {
+      alert("YUEN: 8分钟内调用过一次了，请8分钟后调用");
+      console.warn("YUEN: 8分钟内只能调用1次弹窗或通知");
+    }
   }
 
   /**
@@ -205,9 +214,18 @@ export default class SimpleUtils extends GandiExtension {
    * @param args
    */
   // alert弹窗
-  alert(args: { CONTENT_1: any }) {
+  alert(args) {
     const { CONTENT_1 } = args;
-    alert(CONTENT_1);
+    var tt = window.localStorage.getItem("yuen.sleep");
+    var t = Number(window.localStorage.getItem("yuen.sleep"));
+    if (t <= Date.now() || tt == "null") {
+      alert(CONTENT_1);
+      var time = Date.now() + 480000; // 8min后可再次调用
+      window.localStorage.setItem("yuen.sleep", time.toString());
+    } else {
+      alert("YUEN: 8分钟内调用过一次了，请8分钟后调用");
+      console.warn("YUEN: 8分钟内只能调用1次弹窗或通知");
+    }
   }
 
   /**
@@ -338,13 +356,8 @@ export default class SimpleUtils extends GandiExtension {
       }
 
       if (userAgent.indexOf("iPad") > -1) {
-        /**
-         *还没实测iPad的ua
-         *先返回iPad
-         */
-        // TODO 待开发预计1.0.3补档
-        var Version = "iPad";
-        userAgentObj.osName = "iPhone";
+        var Version = userAgent.split('iPad; CPU OS ')[1].split(' ')[0];
+        userAgentObj.osName = "iPad";
         userAgentObj.osVersion = Version;
 
         // 设置设备名
