@@ -20,5 +20,6 @@
     "deploy_env": "Operating ENV",
     "title": "Notification Name",
     "content": "i like COCREA",
-    "icon": "https://cocrea.world/favicon-32x32.png"
+    "icon": "https://cocrea.world/favicon-32x32.png",
+    "saveJSON": "Overlay client information to list [listArgs]"
 }

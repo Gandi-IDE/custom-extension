@@ -20,5 +20,6 @@
     "deploy_env": "运行环境",
     "title": "弹窗名",
     "content": "i like ccw",
-    "icon": "https://m.ccw.site/community/images/logo-ccw.png"
+    "icon": "https://m.ccw.site/community/images/logo-ccw.png",
+    "saveJSON": "将客户端信息覆盖到列表 [listArgs]"
 }
