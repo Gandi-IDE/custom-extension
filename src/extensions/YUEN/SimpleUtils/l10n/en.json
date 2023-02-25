@@ -1,7 +1,7 @@
 {
     "name": "System tools",
     "desc": "Useful tool for obtaining system information!",
-    "docURL": "https://www.ccw.site/post/27682388-ef1d-4303-95e6-5b91492135de",
+    "docURL": "https://www.ccw.site/post/5e4fff4e-3556-4497-a453-a2480864d90d",
     "get_client_info": "Get client information [TYPE]",
     "json": "JSON",
     "browserName": "browserName",
@@ -17,6 +17,7 @@
     "t.default": "🌅Basic functionality",
     "t.default.1": "🔢Common Boolean and return values",
     "t.default.2": "🔈Notifications and pop-ups",
+    "t.default.3": "📖More building blocks",
     "deploy_env": "Operating ENV",
     "title": "Notification Name",
     "content": "i like COCREA",
