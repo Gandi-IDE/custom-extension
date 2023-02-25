@@ -2,7 +2,7 @@
  * @Author: YUEN
  * @Date: 2023-02-06 20:52:52
  * @LastEditors: YUEN
- * @LastEditTime: 2023-02-21 19:32:57
+ * @LastEditTime: 2023-02-25 13:24:28
  * @Description:
  */
 import {
@@ -485,8 +485,68 @@ export default class SimpleUtils extends GandiExtension {
     DEPLOY_ENV.setText("deploy_env");
     DEPLOY_ENV.setArguments({});
 
-    const X = BlockUtil.createArgument(ArgumentType.NUMBER, 55);
-    const Y = BlockUtil.createArgument(ArgumentType.NUMBER, 36);
+    // 详情看function注释
+    // v1.0.6
+
+    const NUM = BlockUtil.createArgument(ArgumentType.NUMBER, 1);
+    const set_value_for_list_lenght = BlockUtil.createLoop();
+    set_value_for_list_lenght.setOpcode("set_value_for_list_lenght");
+    set_value_for_list_lenght.setText("set_value_for_list_lenght");
+    set_value_for_list_lenght.setArguments({ listArgs, variableArgs, NUM });
+
+    // 详情看function注释
+    // v1.0.6
+
+    const for_value_in_list = BlockUtil.createLoop();
+    for_value_in_list.setOpcode("for_value_in_list");
+    for_value_in_list.setText("for_value_in_list");
+    for_value_in_list.setArguments({ listArgs, variableArgs });
+
+    /**
+     * 获取列表 [列表名] 的id
+     * v1.0.7
+     * 用途：一些需要使用id的积木可以用列表名取代，更方便使用
+     * 增加：公有列表需要输入 [PUBLISH]列表名来获取
+     * 增加：私有列表需要输入 [PRIVATE]列表名来获取
+     */
+    const lv_menu = BlockUtil.createMenu("list_variable");
+    lv_menu.items.push({ text: "list.publish", value: "[PUBLISH]" });
+    lv_menu.items.push({ text: "list.private", value: "[PRIVATE]" });
+
+    const l_v_menu = BlockUtil.createMenu("list_variable_menu");
+    l_v_menu.items.push({ text: "list.list", value: "list" });
+    l_v_menu.items.push({ text: "list.var", value: "var" });
+
+    const lv_get_type = BlockUtil.createMenu("lv_get_type");
+    lv_get_type.items.push({ text: "list.id", value: "value" });
+    lv_get_type.items.push({ text: "list.name", value: "text" });
+
+    const listArg = BlockUtil.createArgument(ArgumentType.STRING, "list.name");
+    const varArg = BlockUtil.createArgument(ArgumentType.STRING, "list.name");
+    const listTypeArg = BlockUtil.createArgument(
+      ArgumentType.STRING,
+      "",
+      lv_menu
+    );
+    const gType = BlockUtil.createArgument(
+      ArgumentType.STRING,
+      "",
+      lv_get_type
+    );
+
+    // list_variable_menu
+    // const lvType = BlockUtil.createArgument(ArgumentType.STRING, "", l_v_menu);
+
+    const get_l_id = BlockUtil.createReporter();
+    get_l_id.setOpcode("get_l_id");
+    get_l_id.setText("list.get.id");
+    get_l_id.setArguments({ listTypeArg, listArg, gType });
+
+    const get_var_id = BlockUtil.createReporter();
+    get_var_id.setOpcode("get_v_id");
+    get_var_id.setText("var.get.id");
+    get_var_id.setArguments({ listTypeArg, varArg, gType });
+
     /**
      * 基础功能区
      */
@@ -516,9 +576,232 @@ export default class SimpleUtils extends GandiExtension {
     this.addTextLabel("t.default.2");
     this.addBlock(Notification);
     this.addBlock(TOAST);
+
+    /**
+     * 📖更多积木
+     * 循环类
+     * 判断类
+     */
+    this.addTextLabel("t.default.3");
+    this.addBlock(for_value_in_list);
+    this.addBlock(set_value_for_list_lenght);
+    this.addBlock(get_var_id);
+    this.addBlock(get_l_id);
   }
 
   //block opcode functions
+
+  /**
+   * 获取列表id 变量id
+   * 我懒了，两个函数共用这个注释
+   * v1.0.7
+   */
+  get_v_id(args, utils) {
+    const { varArg, listTypeArg, gType } = args; // Arguments
+    const { runtime } = utils; // runtime in utils
+
+    const getType = gType;
+
+    const var_name = listTypeArg.concat(varArg);
+    let variable = this.runtime._stageTarget.variables;
+    const variableList = [];
+    Object.keys(variable).forEach(function (r) {
+      "" === variable[r].type &&
+        variableList.push({
+          text: "[PUBLISH]".concat(variable[r].name),
+          value: variable[r].id,
+        });
+    });
+    try {
+      variable = this.runtime._editingTarget.variables;
+    } catch (t) {
+      variable = "e";
+    }
+    const v =
+      ("e" !== variable &&
+        this.runtime._editingTarget !== this.runtime._stageTarget &&
+        Object.keys(variable).forEach(function (r) {
+          "" === variable[r].type &&
+            variableList.push({
+              text: "[PRIVATE]".concat(variable[r].name),
+              value: variable[r].id,
+            });
+        }),
+      0 === variableList.length &&
+        variableList.push({
+          text: "-没有变量-",
+          value: "empty",
+        }),
+      variableList);
+    for (var i in v) {
+      var js_on = v[i];
+      if (js_on.value === "empty") {
+        return "-没有变量-";
+      }
+      if (getType === "text" && js_on.value === varArg) {
+        var k = js_on.text;
+        break;
+      } else if (getType === "value" && js_on.text === var_name) {
+        var k = js_on.value;
+        break;
+      }
+
+      if (getType === "text" && js_on.text === var_name) {
+        return var_name;
+      } else if (getType === "value" && js_on.value === varArg) {
+        return varArg;
+      }
+    }
+    return k;
+  }
+
+  get_l_id(args, utils) {
+    const { listArg, listTypeArg, gType } = args; // Arguments
+    const { runtime } = utils; // runtime in utils
+
+    const getType = gType;
+
+    const list_name = listTypeArg.concat(listArg);
+    let variable = this.runtime._stageTarget.variables;
+    const variableList = [];
+    Object.keys(variable).forEach(function (r) {
+      "list" === variable[r].type &&
+        variableList.push({
+          text: "[PUBLISH]".concat(variable[r].name),
+          value: variable[r].id,
+        });
+    });
+    try {
+      variable = this.runtime._editingTarget.variables;
+    } catch (t) {
+      variable = "e";
+    }
+    const l =
+      ("e" !== variable &&
+        this.runtime._editingTarget !== this.runtime._stageTarget &&
+        Object.keys(variable).forEach(function (r) {
+          "list" === variable[r].type &&
+            variableList.push({
+              text: "[PRIVATE]".concat(variable[r].name),
+              value: variable[r].id,
+            });
+        }),
+      0 === variableList.length &&
+        variableList.push({
+          text: "-没有列表-",
+          value: "empty",
+        }),
+      variableList);
+
+    for (var i in l) {
+      var js_on = l[i];
+      if (js_on.value === "empty") {
+        return "-没有列表-";
+      }
+      if (getType === "text" && js_on.value === listArg) {
+        var k = js_on.text;
+        break;
+      } else if (getType === "value" && js_on.text === list_name) {
+        var k = js_on.value;
+        break;
+      }
+
+      if (getType === "text" && js_on.text === list_name) {
+        return list_name;
+      } else if (getType === "value" && js_on.value === listArg) {
+        return listArg;
+      }
+    }
+
+    return k;
+  }
+  /**
+   * 重复执行 [listArgs] 的项目数次，将 [variableArgs] 增加 [NUM]
+   * v1.0.5
+   */
+
+  set_value_for_list_lenght(args, utils) {
+    console.log(args, utils);
+    const { listArgs, variableArgs, NUM } = args;
+    var _ = utils.target.lookupVariableById(listArgs);
+    if (
+      (void 0 === _ &&
+        (_ = utils.target.lookupVariableByNameAndType(listArgs, "list")),
+      void 0 !== _)
+    ) {
+    }
+    let t = _.value.length;
+    const times = t;
+    // Initialize loop
+    if (typeof utils.stackFrame.loopCounter === "undefined") {
+      utils.stackFrame.loopCounter = times;
+    }
+    // Only execute once per frame.
+    // When the branch finishes, `repeat` will be executed again and
+    // the second branch will be taken, yielding for the rest of the frame.
+    // Decrease counter
+    utils.stackFrame.loopCounter--;
+    // If we still have some left, start the branch.
+    if (utils.stackFrame.loopCounter >= 0) {
+      var _ = utils.target.lookupVariableById(variableArgs);
+      if (
+        (void 0 === _ &&
+          (_ = utils.target.lookupVariableByNameAndType(variableArgs, "")),
+        void 0 !== _)
+      ) {
+      }
+      let numb = Number(NUM) + Number(_.value);
+      _.value = numb;
+      utils.startBranch(1, true);
+    }
+  }
+
+  /**
+   * 重复执行 [listArgs] 的项目数次，将 [variableArgs] 设为 [listArgs] 的当前循环次数项
+   * v1.0.5
+   */
+
+  for_value_in_list(args, utils) {
+    console.log(args, utils);
+    const { listArgs, variableArgs } = args;
+    var ___ = utils.target.lookupVariableById(listArgs);
+    if (
+      (void 0 === ___ &&
+        (___ = utils.target.lookupVariableByNameAndType(listArgs, "list")),
+      void 0 !== ___)
+    ) {
+    }
+    let t = ___.value.length;
+    const times = t;
+    // Initialize loop
+    if (typeof utils.stackFrame.loopCounter === "undefined") {
+      utils.stackFrame.loopCounter = times;
+    }
+    // Only execute once per frame.
+    // When the branch finishes, `repeat` will be executed again and
+    // the second branch will be taken, yielding for the rest of the frame.
+    // Decrease counter
+    utils.stackFrame.loopCounter--;
+    // If we still have some left, start the branch.
+    if (utils.stackFrame.loopCounter >= 0) {
+      var _ = utils.target.lookupVariableById(variableArgs);
+      if (
+        (void 0 === _ &&
+          (_ = utils.target.lookupVariableByNameAndType(variableArgs, "")),
+        void 0 !== _)
+      ) {
+      }
+      var __ = utils.target.lookupVariableById(listArgs);
+      if (
+        (void 0 === __ &&
+          (__ = utils.target.lookupVariableByNameAndType(listArgs, "list")),
+        void 0 !== __)
+      ) {
+      }
+      _.value = __.value[__.value.length - utils.stackFrame.loopCounter - 1];
+      utils.startBranch(1, true);
+    }
+  }
 
   /**
    * 保存客户端信息到列表

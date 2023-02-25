@@ -21,5 +21,16 @@
     "title": "Notification Name",
     "content": "i like COCREA",
     "icon": "https://cocrea.world/favicon-32x32.png",
-    "saveJSON": "Overlay client information to list [listArgs]"
+    "saveJSON": "Overlay client information to list [listArgs]",
+    "set_value_for_list_lenght": "Repeat the [listArgs] project several times, incrementing [variableArgs] by [NUM]",
+    "for_value_in_list": "Repeat the item [listArgs] several times, each time setting [variableArgs] to the number of times the list is cycled",
+    "list.id": "id",
+    "list.name": "name",
+    "list.list": "list",
+    "list.var": "variable",
+    "list.get.id": "Get [gType] of [listTypeArg] list [listArg]",
+    "var.name": "name",
+    "var.get.id": "Get [gType]of [listTypeArg] variable [varArg]",
+    "list.private": "private",
+    "list.publish": "public"
 }
