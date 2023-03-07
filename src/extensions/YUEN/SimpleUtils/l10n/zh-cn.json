@@ -23,15 +23,5 @@
     "content": "i like ccw",
     "icon": "https://m.ccw.site/community/images/logo-ccw.png",
     "saveJSON": "将客户端信息覆盖到列表 [listArgs]",
-    "set_value_for_list_lenght": "重复执行 [listArgs] 的项目数次，每次将 [variableArgs] 增加 [NUM]",
-    "for_value_in_list": "重复执行 [listArgs] 的项目数次，每次将 [variableArgs] 设为列表的第循环次数项",
-    "list.id": "id",
-    "list.name": "name",
-    "list.list": "列表",
-    "list.var": "变量",
-    "list.get.id": "获取 [listTypeArg] 列表 [listArg] 的 [gType]",
-    "var.name": "name",
-    "var.get.id": "获取 [listTypeArg] 变量 [varArg] 的 [gType]",
-    "list.private": "私有",
-    "list.publish": "公有"
+    "set_value_for_list_lenght": "重复执行 [listArgs] 的项目数次，每次将 [variableArgs] 增加 [NUM]" 
 }
