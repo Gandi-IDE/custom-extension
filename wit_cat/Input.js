@@ -56,6 +56,7 @@ class WitCatInput {
 				"WitCatInput.number.12": "文本高度",
 				"WitCatInput.number.13": "光标位置",
 				"WitCatInput.number.14": "透明度",
+				"WitCatInput.number.15": "背景图片",
 				"WitCatInput.key": "按下按键[type]?",
 				"WitCatInput.keys": "按下按键[type]?",
 				"WitCatInput.lastkey": "上次按下的键",
@@ -64,6 +65,7 @@ class WitCatInput {
 				"WitCatInput.setread": "设置ID为[id]的文本框为[read]",
 				"WitCatInput.read.1": "可编辑",
 				"WitCatInput.read.2": "不可编辑",
+				"WitCatInput.docs": "📖拓展教程",
 			},
 			en: {
 				"WitCatInput.name": "[beta]WitCat‘s Input",
@@ -93,6 +95,7 @@ class WitCatInput {
 				"WitCatInput.number.12": "Text height",
 				"WitCatInput.number.13": "cursor position ",
 				"WitCatInput.number.14": "transparency",
+				"WitCatInput.number.15": "background",
 				"WitCatInput.key": "Press the key[type]?",
 				"WitCatInput.keys": "Press the key [type]?",
 				"WitCatInput.lastkey": "last key pressed",
@@ -101,6 +104,7 @@ class WitCatInput {
 				"WitCatInput.setread": "Set the text box with ID[id]to[read]",
 				"WitCatInput.read.1": "editable",
 				"WitCatInput.read.2": "uneditable",
+				"WitCatInput.docs": "📖Extended tutorials",
 			}
 		})
 	}
@@ -117,12 +121,16 @@ class WitCatInput {
 		return {
 			id: extensionId, // 拓展id
 			name: this.formatMessage("WitCatInput.name"), // 拓展名
-			docsURI: "https://www.ccw.site/post/6153a7a6-05fb-462e-b785-b97700b12bc2",
 			blockIconURI: _icon,
 			menuIconURI: _icon,
 			color1: "#52baba",
 			color2: "#ffffff",
 			blocks: [
+				{
+					blockType: "button",
+					text: this.formatMessage('WitCatInput.docs'),
+					onClick: this.docs,
+				},
 				{
 					opcode: "createinput",
 					blockType: "command",
@@ -398,6 +406,10 @@ class WitCatInput {
 						value: 'op'
 					},
 					{
+						text: this.formatMessage('WitCatInput.number.15'),
+						value: 'bg'
+					},
+					{
 						text: this.formatMessage('WitCatInput.number.9'),
 						value: 'json'
 					},
@@ -447,6 +459,10 @@ class WitCatInput {
 						text: this.formatMessage('WitCatInput.number.14'),
 						value: 'op'
 					},
+					{
+						text: this.formatMessage('WitCatInput.number.15'),
+						value: 'bg'
+					},
 				],
 				read: [
 					{
@@ -460,6 +476,14 @@ class WitCatInput {
 				]
 			}
 		};
+	}
+	//打开教程
+	docs() {
+		let a = document.createElement('a');
+		a.href = "https://www.ccw.site/post/6153a7a6-05fb-462e-b785-b97700b12bc2";
+		a.rel = "noopener noreferrer";
+		a.target = "_blank";
+		a.click();
 	}
 	//设置或创建文本框
 	createinput(args) {
@@ -495,7 +519,7 @@ class WitCatInput {
 		y = (y / this.runtime.stageHeight) * 100;
 		width = (width / this.runtime.stageWidth) * 100;
 		height = (height / this.runtime.stageHeight) * 100;
-		let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:` + x + `%; top:` + y + `%; width:` + width + `%; height:` + height + `%;font-size: ` + args.size + `px;resize:none;color:` + args.color + `;opacity:1;`;
+		let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:` + x + `%; top:` + y + `%; width:` + width + `%; height:` + height + `%;font-size: ` + args.size + `px;resize:none;color:` + args.color.split(";")[0] + `;opacity:1;`;
 		let search = document.getElementById("WitCatInput" + args.id);
 		if (search !== null) {
 			if (search.name === args.type) {
@@ -569,6 +593,8 @@ class WitCatInput {
 				return JSON.stringify([search.selectionStart, search.selectionEnd]);
 			else if (args.type === "op")
 				return 100 - (search.style.opacity * 100);
+			else if (args.type === "bg")
+				return search.style.backgroundImage.split("\"")[1];
 			else {
 				return (
 					"{\"" + "X" + "\":\"" + ((search.style.left.split("%")[0] / 100) * this.runtime.stageWidth) + "\"," +
@@ -666,6 +692,8 @@ class WitCatInput {
 				return JSON.stringify([search[args.num - 1].selectionStart, search[args.num - 1].selectionEnd]);
 			else if (args.type === "op")
 				return 100 - (search[args.num - 1].style.opacity * 100);
+			else if (args.type === "bg")
+				return search[args.num - 1].style.backgroundImage.split("\"")[1];
 			else {
 				return (
 					"{\"" + "X" + "\":\"" + ((search[args.num - 1].style.left.split("%")[0] / 100) * this.runtime.stageWidth) + "\"," +
@@ -722,6 +750,7 @@ class WitCatInput {
 			let size = search.style.fontSize.split("px")[0];
 			let scrolltop = search.scrollTop;
 			let opacity = search.style.opacity;
+			let blackground = search.style.backgroundImage.split("\"")[1];
 			if (args.type === "X") {
 				x = args.text;
 				if (args.text > this.runtime.stageWidth) {
@@ -798,7 +827,10 @@ class WitCatInput {
 					return;
 				}
 			}
-			let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:` + x + `%; top:` + y + `%; width:` + width + `%; height:` + height + `%;font-size: ` + size + `px;resize:none;color:` + color + `;opacity:` + opacity + `;`;
+			else if (args.type === "bg") {
+				blackground = args.text;
+			}
+			let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:` + x + `%; top:` + y + `%; width:` + width + `%; height:` + height + `%;font-size: ` + size + `px;resize:none;color:` + color.split(";")[0] + `;opacity:` + opacity + `;background:url("` + blackground + `");background-size: 100% 100%;`;
 
 			search.style = dom;
 			search.value = content;
