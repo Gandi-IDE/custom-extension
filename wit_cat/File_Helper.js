@@ -5,7 +5,8 @@ const _picture = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAF0CAYAAAD/
 const _icon = "data:image/png;base64,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";
 
 const extensionId = "WitCatFileHelper";
-let FLAG = 0, download = 0;
+let FLAG = 0, download = 0, uri, input;
+let filename = "";
 
 setInterval(() => {
 	if (download > 0) {
@@ -24,6 +25,7 @@ class WitCatFileHelper {
 				"WitCatFileHelper.Multiplelinestext": "多行文本",
 				"WitCatFileHelper.downloads": "将内容[text]按[s]分割后命名为[name]并下载多行文本",
 				"WitCatFileHelper.download": "将内容[text]命名为[name]并下载",
+				"WitCatFileHelper.downloadbase": "将base64[text]命名为[name]并下载",
 				"WitCatFileHelper.save": "设置键[name]为[text]并储存到本地",
 				"WitCatFileHelper.upload": "获取键[name]的值",
 				"WitCatFileHelper.delete": "删除键[name]",
@@ -52,6 +54,16 @@ class WitCatFileHelper {
 				"WitCatFileHelper.turnsMultiplelinestext": "将数组[text]转化为多行文本",
 				"WitCatFileHelper.downloadnum": "可下载文件数量",
 				"WitCatFileHelper.downloadask": "作品企图下载疑似会威胁电脑的文件，是否继续？\n代码如下：",
+				"WitCatFileHelper.openfiles": "打开图片",
+				"WitCatFileHelper.img": "压缩图片(base64)[base]倍数(0-1)[num]",
+				"WitCatFileHelper.file": "上次打开文件的[type]",
+				"WitCatFileHelper.file.1": "文件名",
+				"WitCatFileHelper.file.2": "文件后缀",
+				"WitCatFileHelper.file.3": "文件大小",
+				"WitCatFileHelper.docs": "📖拓展教程",
+				"WitCatFileHelper.imghw": "base64图片[img]的[hw]",
+				"WitCatFileHelper.imghw.1": "宽",
+				"WitCatFileHelper.imghw.2": "高",
 			},
 			en: {
 				"WitCatFileHelper.name": "[beta]WitCat’s File Helper",
@@ -60,6 +72,7 @@ class WitCatFileHelper {
 				"WitCatFileHelper.Multiplelinestext": "Multiple lines of text",
 				"WitCatFileHelper.downloads": "Download split content [text] by [s] named [name]",
 				"WitCatFileHelper.download": "Download content [text] named [name]",
+				"WitCatFileHelper.downloadbase": "Download base64 [text] named [name]",
 				"WitCatFileHelper.save": "Save content [text] with [name] on computer",
 				"WitCatFileHelper.upload": "Get value [name]",
 				"WitCatFileHelper.delete": "delete value [name]",
@@ -88,6 +101,16 @@ class WitCatFileHelper {
 				"WitCatFileHelper.turnsMultiplelinestext": "Converts the array[text]to multiline text",
 				"WitCatFileHelper.downloadnum": "Number of downloadable files",
 				"WitCatFileHelper.downloadask": "works will attempt to download the suspected threat to computer files, whether or not to continue? \n code is as follows: ",
+				"WitCatFileHelper.openfiles": "openimg",
+				"WitCatFileHelper.img": "Compressed image(base64)[base]multiples(0-1)[num]",
+				"WitCatFileHelper.file": "The last file`s[type]",
+				"WitCatFileHelper.file.1": "File Name",
+				"WitCatFileHelper.file.2": "File suffix",
+				"WitCatFileHelper.file.3": "File size",
+				"WitCatFileHelper.docs": "📖Extended tutorials",
+				"WitCatFileHelper.imghw": "base64img[img]`s[hw]",
+				"WitCatFileHelper.imghw.1": "width",
+				"WitCatFileHelper.imghw.2": "height",
 			}
 		})
 	}
@@ -104,12 +127,16 @@ class WitCatFileHelper {
 		return {
 			id: extensionId, // 拓展id
 			name: this.formatMessage("WitCatFileHelper.name"), // 拓展名
-			docsURI: "https://www.ccw.site/post/d6d96e80-3f58-4a19-b7e6-c567d3a6a583",
 			blockIconURI: _icon,
 			menuIconURI: _icon,
 			color1: "#60D6F4",
 			color2: "#55a7f7",
 			blocks: [
+				{
+					blockType: "button",
+					text: this.formatMessage('WitCatFileHelper.docs'),
+					onClick: this.docs,
+				},
 				"---" + this.formatMessage("WitCatFileHelper.filehelper"),
 				{
 					opcode: "downloads",
@@ -146,6 +173,21 @@ class WitCatFileHelper {
 					},
 				},
 				{
+					opcode: "downloadbase",
+					blockType: "command",
+					text: this.formatMessage("WitCatFileHelper.downloadbase"),
+					arguments: {
+						text: {
+							type: "string",
+							defaultValue: 'base64 img',
+						},
+						name: {
+							type: "string",
+							defaultValue: 'wit_cat.txt',
+						},
+					},
+				},
+				{
 					opcode: "downloadnum",
 					blockType: "reporter",
 					text: this.formatMessage("WitCatFileHelper.downloadnum"),
@@ -157,6 +199,25 @@ class WitCatFileHelper {
 					text: this.formatMessage("WitCatFileHelper.openfile"),
 					disableMonitor: true,
 					arguments: {},
+				},
+				{
+					opcode: "openfiles",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatFileHelper.openfiles"),
+					disableMonitor: true,
+					arguments: {},
+				},
+				{
+					opcode: "file",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatFileHelper.file"),
+					disableMonitor: true,
+					arguments: {
+						type: {
+							type: "string",
+							menu: 'file',
+						},
+					},
 				},
 				{
 					opcode: "upload",
@@ -286,6 +347,38 @@ class WitCatFileHelper {
 						name: {
 							type: "string",
 							defaultValue: "i",
+						},
+					},
+				},
+				"---" + "img 图片🖼️",
+				{
+					opcode: "img",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatFileHelper.img"),
+					disableMonitor: true,
+					arguments: {
+						base: {
+							type: "string",
+							defaultValue: 'base64 img',
+						},
+						num: {
+							type: "number",
+							defaultValue: '0.5',
+						},
+					},
+				},
+				{
+					opcode: "imghw",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatFileHelper.imghw"),
+					arguments: {
+						img: {
+							type: "string",
+							defaultValue: 'base64 img',
+						},
+						hw: {
+							type: "string",
+							menu: 'imghw',
 						},
 					},
 				},
@@ -450,8 +543,40 @@ class WitCatFileHelper {
 						value: 'content'
 					},
 				],
+				file: [
+					{
+						text: this.formatMessage('WitCatFileHelper.file.1'),
+						value: 'name'
+					},
+					{
+						text: this.formatMessage('WitCatFileHelper.file.2'),
+						value: 'suffix'
+					},
+					{
+						text: this.formatMessage('WitCatFileHelper.file.3'),
+						value: 'size'
+					},
+				],
+				imghw: [
+					{
+						text: this.formatMessage('WitCatFileHelper.imghw.1'),
+						value: 'width'
+					},
+					{
+						text: this.formatMessage('WitCatFileHelper.imghw.2'),
+						value: 'height'
+					},
+				],
 			}
 		};
+	}
+	//打开教程
+	docs() {
+		let a = document.createElement('a');
+		a.href = "https://www.ccw.site/post/d6d96e80-3f58-4a19-b7e6-c567d3a6a583";
+		a.rel = "noopener noreferrer";
+		a.target = "_blank";
+		a.click();
 	}
 	//下载多行文件
 	downloads(args) {
@@ -528,6 +653,10 @@ class WitCatFileHelper {
 		else {
 			console.warn("下载太频繁！\nToo many downloads!");
 		}
+	}
+	//下载base64
+	downloadbase(args) {
+		downloadFileByBase64(args.text, args.name);
 	}
 	//读取本地变量
 	upload() {
@@ -642,23 +771,33 @@ class WitCatFileHelper {
 	}
 	//加密
 	encrypt(args) {
-		let str = args.text;
-		let jiaMi = encodeURIComponent(str);
-		let jiaM = btoa(jiaMi);
-		return jiaM;
+		try {
+			let str = args.text;
+			let jiaMi = encodeURIComponent(str);
+			let jiaM = btoa(jiaMi);
+			return jiaM;
+		}
+		catch {
+			return "";
+		}
 	}
 	//解密
 	decrypt(args) {
-		let jiaM = args.text;
-		let jieMi = atob(jiaM);
-		let jieM = decodeURIComponent(jieMi);
-		return jieM;
+		try {
+			let jiaM = args.text;
+			let jieMi = atob(jiaM);
+			let jieM = decodeURIComponent(jieMi);
+			return jieM;
+		}
+		catch {
+			return "";
+		}
 	}
 	//打开文件
 	openfile() {
 		FLAG = 1;
 		return new Promise(resolve => {
-			const input = document.createElement("input");
+			input = document.createElement("input");
 			input.type = "file";
 			input.style = "display:none;";
 			input.click();
@@ -673,6 +812,7 @@ class WitCatFileHelper {
 					FLAG = 0;
 					resolve();
 				};
+				filename = getFileName(input.value);
 				reader.readAsText(file);
 			}
 			window.onfocus = () => {
@@ -683,6 +823,83 @@ class WitCatFileHelper {
 						resolve("");
 					}
 				}, 1000);
+			}
+		});
+	}
+	//打开图片
+	openfiles() {
+		FLAG = 1;
+		return new Promise(resolve => {
+			input = document.createElement("input");
+			input.type = "file";
+			input.accept = "image/*";
+			input.style = "display:none;";
+			input.click();
+			input.onchange = () => {
+				const reader = new FileReader();
+				const readers = new FileReader();
+				const file = input.files[0];
+				reader.onload = (e) => {
+					FLAG = 0;
+					if (uri.byteLength / 1024 > 10) {
+						compressImg(e.target.result, 0.5, e => {
+							resolve(e);
+						});
+					}
+					else {
+						resolve(e.target.result);
+					}
+				};
+				reader.onerror = () => {
+					FLAG = 0;
+					resolve();
+				};
+				filename = getFileName(input.value);
+				readers.readAsArrayBuffer(file);
+				readers.onload = (e) => {
+					uri = e.target.result;
+					console.log(uri.byteLength / 1024 + " KB");
+					reader.readAsDataURL(file);
+				};
+			}
+			window.onfocus = () => {
+				// 开始计时或者播放
+				setTimeout(() => {
+					if (FLAG === 1) {
+						FLAG = 0;
+						resolve("");
+					}
+				}, 1000);
+			}
+		});
+	}
+	//打开文件的信息
+	file(args) {
+		try {
+			if (args.type === "name") {
+				return filename;
+			}
+			else if (args.type === "suffix") {
+				return filename.substring(filename.lastIndexOf(".") + 1);
+			}
+			else {
+				return getFileSize(input) / 1024 + "KB";
+			}
+		}
+		catch {
+			return "";
+		}
+	}
+	//压缩图片质量
+	img(args) {
+		return new Promise(resolve => {
+			try {
+				compressImg(args.base, args.num, e => {
+					resolve(e);
+				});
+			}
+			catch {
+				resolve("");
 			}
 		});
 	}
@@ -924,6 +1141,27 @@ class WitCatFileHelper {
 	downloadnum() {
 		return 3 - download;
 	}
+	//图片宽高获取
+	imghw(args) {
+		return new Promise(resolve => {
+			let newImage = new Image()
+			// 这里将src传入需要获取信息的图片地址或base64
+			newImage.src = args.img;
+			// onload是异步的,封装的话可以用promise
+			newImage.onload = () => {
+				// 输出图片信息 比如可以获取图片宽高
+				if (args.hw === "width") {
+					resolve(newImage.width);
+				}
+				else {
+					resolve(newImage.height);
+				}
+			}
+			setTimeout(() => {
+				resolve("");
+			}, 100);
+		});
+	}
 }
 
 window.tempExt = {
@@ -965,4 +1203,110 @@ function multipleText(text) {
 		a = texts;
 	}
 	return a;
+}
+//压缩base64图片
+function compressImg(base64, multiple, useImg) {
+	// 第一个参数就是需要加密的base65，
+	// 第二个是压缩系数 0-1，
+	// 第三个压缩后的回调 用来获取处理后的 base64
+	if (!base64) {
+		return
+	}
+	// const _this = this
+	const length = base64.length / 1024
+	// 压缩方法
+	let newImage = new Image()
+	let quality = 0.6    // 压缩系数0-1之间
+	newImage.src = base64
+	newImage.setAttribute('crossOrigin', 'Anonymous') // url为外域时需要
+	let imgWidth,
+		imgHeight
+	let w = undefined
+	newImage.onload = function () {
+		// 这里面的 this 指向 newImage
+		// 通过改变图片宽高来实现压缩
+		w = this.width * multiple
+		imgWidth = this.width
+		imgHeight = this.height
+		let canvas = document.createElement('canvas')
+		let ctx = canvas.getContext('2d')
+		if (Math.max(imgWidth, imgHeight) > w) {
+			if (imgWidth > imgHeight) {
+				canvas.width = w
+				// 等比例缩小
+				canvas.height = w * (imgHeight / imgWidth)
+			} else {
+				canvas.height = w
+				// 等比例缩小
+				canvas.width = w * (imgWidth / imgHeight)
+			}
+		} else {
+			canvas.width = imgWidth
+			canvas.height = imgHeight
+			// quality 设置转换为base64编码后图片的质量，取值范围为0-1  没什么压缩效果
+			// 还是得通过设置 canvas 的宽高来压缩
+			quality = 0.6
+		}
+		ctx.clearRect(0, 0, canvas.width, canvas.height)
+		ctx.drawImage(this, 0, 0, canvas.width, canvas.height) //  // 这里面的 this 指向 newImage
+		let smallBase64 = canvas.toDataURL('image/jpeg', quality) // 压缩语句
+		// 必须通过回调函数返回，否则无法及时拿到该值，回调函数异步执行
+		console.log(`压缩前：${length}KB`)
+		console.log(`压缩后：${smallBase64.length / 1024} KB`)
+
+
+		useImg(smallBase64)
+
+	}
+}
+//将base64转换为blob
+function dataURLtoBlob(dataurl) {
+	var arr = dataurl.split(","),
+		mime = arr[0].match(/:(.*?);/)[1],
+		bstr = atob(arr[1]),
+		n = bstr.length,
+		u8arr = new Uint8Array(n);
+	while (n--) {
+		u8arr[n] = bstr.charCodeAt(n);
+	}
+	return new Blob([u8arr], { type: mime });
+}
+// * desc: 下载方法
+// * @param url  ：返回数据的blob对象或链接
+// * @param fileName  ：下载后文件名标记
+function downloadFile(url, name = "	Unnown File") {
+	var a = document.createElement("a");
+	a.href = url;
+	a.download = name;
+	a.target = "_blank";
+	a.click();
+	a.remove();
+}
+// * desc: 下载参数入口
+// * @param base64  ：返回数据的blob对象或链接
+// * @param fileName  ：下载后文件名标记
+function downloadFileByBase64(base64, fileName) {
+	var myBlob = dataURLtoBlob(base64);
+	var myUrl = URL.createObjectURL(myBlob);
+	downloadFile(myUrl, fileName);
+}
+
+//获取文件名
+function getFileName(o) {
+	var pos = o.lastIndexOf("\\");
+	return o.substring(pos + 1);
+}
+//获取打开文件的大小
+function getFileSize(obj) {
+	var objValue = obj.value;
+	if (objValue == "") return;
+	var fileLenth = -1;
+	try {
+		//对于非IE获得要上传文件的大小
+		fileLenth = parseInt(obj.files[0].size);
+	} catch (e) {
+		fileLenth = -1;
+	}
+
+	return fileLenth;
 }
