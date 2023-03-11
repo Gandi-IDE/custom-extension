@@ -10,22 +10,28 @@ let xMouse = 0;
 let yMouse = 0;
 let timer = null;
 let touch = [];
+let click = false, dclick = false;
 
 
 //base64转blob
 function base64ImgtoFile(dataurl, filename = 'file') {
-	const arr = dataurl.split(',')
-	const mime = arr[0].match(/:(.*?);/)[1]
-	const suffix = mime.split('/')[1]
-	const bstr = atob(arr[1])
-	let n = bstr.length
-	const u8arr = new Uint8Array(n)
-	while (n--) {
-		u8arr[n] = bstr.charCodeAt(n)
+	try {
+		const arr = dataurl.split(',')
+		const mime = arr[0].match(/:(.*?);/)[1]
+		const suffix = mime.split('/')[1]
+		const bstr = atob(arr[1])
+		let n = bstr.length
+		const u8arr = new Uint8Array(n)
+		while (n--) {
+			u8arr[n] = bstr.charCodeAt(n)
+		}
+		return new File([u8arr], `${filename}.${suffix}`, {
+			type: mime
+		})
 	}
-	return new File([u8arr], `${filename}.${suffix}`, {
-		type: mime
-	})
+	catch {
+		return false;
+	}
 }
 
 //检测是不是ico的base64
@@ -106,6 +112,10 @@ class WitCatMouse {
 				"WitCatMouse.cursor.12": "精准选择",
 				"WitCatMouse.cursorurl": "更改鼠标的样式为X[x]Y[y]base64[text]",
 				"WitCatMouse.url": "上传ico并获得base64",
+				"WitCatMouse.click": "点击",
+				"WitCatMouse.dclick": "双击",
+				"WitCatMouse.mouse": "鼠标被[way]?",
+				"WitCatMouse.docs": "📖拓展教程",
 			},
 			en: {
 				"WitCatMouse.name": "[beta]WitCat’s Mouse",
@@ -156,6 +166,10 @@ class WitCatMouse {
 				"WitCatMouse.cursor.12": "Precise selection",
 				"WitCatMouse.cursorurl": "Change the style of the mouse to X[x]Y[y]base64[text]",
 				"WitCatMouse.url": "Upload ico and get base64",
+				"WitCatMouse.click": "click",
+				"WitCatMouse.dclick": "double-click",
+				"WitCatMouse.mouse": "mouse[way]?",
+				"WitCatMouse.docs": "📖Extended tutorials",
 			}
 		})
 	}
@@ -172,12 +186,16 @@ class WitCatMouse {
 		return {
 			id: extensionId, // 拓展id
 			name: this.formatMessage("WitCatMouse.name"), // 拓展名
-			docsURI: "https://www.ccw.site/post/c36aa805-b29d-48da-aba1-468a6cf80bfa",
 			blockIconURI: _icon,
 			menuIconURI: _icon,
 			color1: "#8eace1",
 			color2: "#86a2d4",
 			blocks: [
+				{
+					blockType: "button",
+					text: this.formatMessage('WitCatMouse.docs'),
+					onClick: this.docs,
+				},
 				{
 					opcode: 'setfill',
 					blockType: "command",
@@ -228,6 +246,28 @@ class WitCatMouse {
 						key: {
 							type: "string",
 							menu: "key",
+						},
+					},
+				},
+				{
+					opcode: "mouses",
+					blockType: "Boolean",
+					text: this.formatMessage("WitCatMouse.mouse"),
+					arguments: {
+						way: {
+							type: "string",
+							menu: "ways",
+						},
+					},
+				},
+				{
+					opcode: "mouse",
+					blockType: "hat",
+					text: this.formatMessage("WitCatMouse.mouse"),
+					arguments: {
+						way: {
+							type: "string",
+							menu: "ways",
 						},
 					},
 				},
@@ -424,6 +464,16 @@ class WitCatMouse {
 						value: "y"
 					},
 				],
+				ways: [
+					{
+						text: this.formatMessage('WitCatMouse.click'),
+						value: "click"
+					},
+					{
+						text: this.formatMessage('WitCatMouse.dclick'),
+						value: "dclick"
+					},
+				],
 				type: [
 					{
 						text: this.formatMessage('WitCatTouch.type.1'),
@@ -550,9 +600,11 @@ class WitCatMouse {
 		if (isBase64(args.text)) {
 			const img = args.text;
 			let file = base64ImgtoFile(img); // 得到File对象
-			let imgUrl = window.webkitURL.createObjectURL(file) || window.URL.createObjectURL(file) // imgUrl图片网络路径
-			cvs.parentNode.parentNode.parentNode.style.cursor = "url(" + imgUrl + ")" + args.x + " " + args.y + ",auto";
-			return;
+			if (file != false) {
+				let imgUrl = window.webkitURL.createObjectURL(file) || window.URL.createObjectURL(file) // imgUrl图片网络路径
+				cvs.parentNode.parentNode.parentNode.style.cursor = "url(" + imgUrl + ")" + args.x + " " + args.y + ",auto";
+				return;
+			}
 		}
 	}
 	//打开ico文件
@@ -568,8 +620,7 @@ class WitCatMouse {
 				const readers = new FileReader();
 				const file = input.files[0];
 				reader.onload = (e) => {
-					navigator.clipboard.writeText(e.currentTarget.result);
-					alert("base64代码已经被复制到剪切板，可以粘贴以使用\nThe base64 code has been copied to the clipboard and can be pasted for use");
+					prompt("请复制以下代码：", e.currentTarget.result);
 					resolve(e.target.result);
 				};
 				reader.onerror = () => {
@@ -602,6 +653,51 @@ class WitCatMouse {
 				}, 1000);
 			}
 		});
+	}
+	//打开教程
+	docs() {
+		let a = document.createElement('a');
+		a.href = "https://www.ccw.site/post/c36aa805-b29d-48da-aba1-468a6cf80bfa";
+		a.rel = "noopener noreferrer";
+		a.target = "_blank";
+		a.click();
+	}
+	//鼠标点击/双击
+	mouse(args) {
+		if (args.way === "click") {
+			if (click === false) {
+				return click;
+			}
+			else {
+				return true;
+			}
+		}
+		if (args.way === "dclick") {
+			if (dclick === false) {
+				return dclick;
+			}
+			else {
+				return true;
+			}
+		}
+	}
+	mouses(args) {
+		if (args.way === "click") {
+			if (click === false) {
+				return click;
+			}
+			else {
+				return true;
+			}
+		}
+		if (args.way === "dclick") {
+			if (dclick === false) {
+				return dclick;
+			}
+			else {
+				return true;
+			}
+		}
 	}
 }
 
@@ -675,3 +771,17 @@ cvs.addEventListener('touchend', e => {
 	touch = e.targetTouches;
 	button[0] = "up";
 })
+cvs.addEventListener('click', e => {
+	click = e;
+	clearTimeout(click);
+	click = setTimeout(() => {
+		click = false;
+	}, 50);
+});
+cvs.addEventListener('dblclick', e => {
+	dclick = e;
+	clearTimeout(dclick);
+	dclick = setTimeout(() => {
+		dclick = false;
+	}, 50);
+});
