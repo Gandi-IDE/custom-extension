@@ -7,6 +7,10 @@ const _icon = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACtWK6
 const extensionId = "WitCatFileHelper";
 let FLAG = 0, download = 0, uri, input;
 let filename = "";
+//键值对
+const endpoint = `https://database.deta.sh/v1/c0qsw64z/WebData/items`;
+const endpoint1 = `https://database.deta.sh/v1/c0qsw64z/WebData/query`;
+const apiKey = 'c0qsw64z_PKw43AfYX3ywo1cLLUzsbKDdUxfAKPG5';
 
 setInterval(() => {
 	if (download > 0) {
@@ -21,12 +25,12 @@ class WitCatFileHelper {
 			"zh-cn": {
 				"WitCatFileHelper.name": "[beta]白猫的文件助手",
 				"WitCatFileHelper.filehelper": "文件处理",
-				"WitCatFileHelper.inputmanagement": "文本框",
+				"WitCatFileHelper.inputmanagement": "☁️键值对☁️",
 				"WitCatFileHelper.Multiplelinestext": "多行文本",
 				"WitCatFileHelper.downloads": "将内容[text]按[s]分割后命名为[name]并下载多行文本",
 				"WitCatFileHelper.download": "将内容[text]命名为[name]并下载",
 				"WitCatFileHelper.downloadbase": "将base64[text]命名为[name]并下载",
-				"WitCatFileHelper.save": "设置键[name]为[text]并储存到本地",
+				"WitCatFileHelper.save": "设置键[name]为[text]至作品库",
 				"WitCatFileHelper.upload": "获取键[name]的值",
 				"WitCatFileHelper.delete": "删除键[name]",
 				"WitCatFileHelper.segmentation": "将[text]按[s]分割为[thing]",
@@ -46,10 +50,7 @@ class WitCatFileHelper {
 				"WitCatFileHelper.numMultiplelinestext": "[text]的行数",
 				"WitCatFileHelper.thing.1": "数组",
 				"WitCatFileHelper.thing.2": "多行文本",
-				"WitCatFileHelper.number": "第[num]个键的[type]",
-				"WitCatFileHelper.numbers": "键数量",
-				"WitCatFileHelper.number.1": "键名",
-				"WitCatFileHelper.number.2": "键值",
+				"WitCatFileHelper.number": "键[text]状态?",
 				"WitCatFileHelper.turnMultiplelinestext": "将多行文本[text]转化为数组",
 				"WitCatFileHelper.turnsMultiplelinestext": "将数组[text]转化为多行文本",
 				"WitCatFileHelper.downloadnum": "可下载文件数量",
@@ -68,12 +69,12 @@ class WitCatFileHelper {
 			en: {
 				"WitCatFileHelper.name": "[beta]WitCat’s File Helper",
 				"WitCatFileHelper.filehelper": "file",
-				"WitCatFileHelper.inputmanagement": "input",
+				"WitCatFileHelper.inputmanagement": "☁️Key-value pair☁️",
 				"WitCatFileHelper.Multiplelinestext": "Multiple lines of text",
 				"WitCatFileHelper.downloads": "Download split content [text] by [s] named [name]",
 				"WitCatFileHelper.download": "Download content [text] named [name]",
 				"WitCatFileHelper.downloadbase": "Download base64 [text] named [name]",
-				"WitCatFileHelper.save": "Save content [text] with [name] on computer",
+				"WitCatFileHelper.save": "Save content [text] with [name] on project",
 				"WitCatFileHelper.upload": "Get value [name]",
 				"WitCatFileHelper.delete": "delete value [name]",
 				"WitCatFileHelper.segmentation": "Split [text] by [s] to [thing]",
@@ -93,10 +94,7 @@ class WitCatFileHelper {
 				"WitCatFileHelper.numMultiplelinestext": "[text]Number of rows",
 				"WitCatFileHelper.thing.1": "array",
 				"WitCatFileHelper.thing.2": "Multiple lines of text",
-				"WitCatFileHelper.number": "[type]of[num]key",
-				"WitCatFileHelper.numbers": "key number",
-				"WitCatFileHelper.number.1": "name",
-				"WitCatFileHelper.number.2": "content",
+				"WitCatFileHelper.number": "Key [text] state?",
 				"WitCatFileHelper.turnMultiplelinestext": "Converts multiline[text]text to an array",
 				"WitCatFileHelper.turnsMultiplelinestext": "Converts the array[text]to multiline text",
 				"WitCatFileHelper.downloadnum": "Number of downloadable files",
@@ -219,11 +217,11 @@ class WitCatFileHelper {
 						},
 					},
 				},
+				"---" + this.formatMessage("WitCatFileHelper.inputmanagement"),
 				{
 					opcode: "upload",
 					blockType: "reporter",
 					text: this.formatMessage("WitCatFileHelper.upload"),
-					hideFromPalette: true,
 					arguments: {
 						name: {
 							type: "string",
@@ -235,7 +233,6 @@ class WitCatFileHelper {
 					opcode: "save",
 					blockType: "command",
 					text: this.formatMessage("WitCatFileHelper.save"),
-					hideFromPalette: true,
 					arguments: {
 						text: {
 							type: "string",
@@ -251,7 +248,6 @@ class WitCatFileHelper {
 					opcode: "delete",
 					blockType: "command",
 					text: this.formatMessage("WitCatFileHelper.delete"),
-					hideFromPalette: true,
 					arguments: {
 						name: {
 							type: "string",
@@ -263,7 +259,6 @@ class WitCatFileHelper {
 					opcode: "showvar",
 					blockType: "command",
 					text: this.formatMessage("WitCatFileHelper.showvar"),
-					hideFromPalette: true,
 					arguments: {
 						name: {
 							type: "string",
@@ -281,13 +276,9 @@ class WitCatFileHelper {
 					text: this.formatMessage("WitCatFileHelper.number"),
 					hideFromPalette: true,
 					arguments: {
-						num: {
-							type: "number",
-							defaultValue: "i",
-						},
-						type: {
+						text: {
 							type: "string",
-							menu: "type",
+							defaultValue: "i",
 						},
 					},
 				},
@@ -302,7 +293,6 @@ class WitCatFileHelper {
 					opcode: "saveother",
 					blockType: "command",
 					text: this.formatMessage("WitCatFileHelper.saveother"),
-					hideFromPalette: true,
 					arguments: {
 						id: {
 							type: "string",
@@ -322,7 +312,6 @@ class WitCatFileHelper {
 					opcode: "uploadother",
 					blockType: "reporter",
 					text: this.formatMessage("WitCatFileHelper.uploadother"),
-					hideFromPalette: true,
 					arguments: {
 						id: {
 							type: "string",
@@ -338,7 +327,6 @@ class WitCatFileHelper {
 					opcode: "other",
 					blockType: "reporter",
 					text: this.formatMessage("WitCatFileHelper.other"),
-					hideFromPalette: true,
 					arguments: {
 						id: {
 							type: "string",
@@ -659,101 +647,41 @@ class WitCatFileHelper {
 		downloadFileByBase64(args.text, args.name);
 	}
 	//读取本地变量
-	upload() {
-		console.warn("文件助手——读取键值对：积木已下线，请更换\nfile_helper-Read key value pair: Block is offline, please replace");/*
+	async upload(args) {
 		const name = args.name;
 		let h = this.runtime.ccwAPI.getProjectUUID();
 		//寻找状态
-		let show = "@witcat";
-		let value = localStorage.getItem(h + name);
-		if (value === null) {
-			let value = localStorage.getItem("@witcat" + h + "©" + name);
-			if (value === null) {
-				value = localStorage.getItem("#witcat" + h + "©" + name);
-				if (value === null) {
-					value = localStorage.getItem("$witcat" + h + "©" + name);
-					if (value != null) {
-						show = "$witcat";
-					}
-				}
-				else {
-					show = "#witcat";
-				}
-			}
-		}
-		else {
-			show = "";
-		}
-		if (show === "") {
-			return localStorage.getItem(show + h + name);
-		}
-		return localStorage.getItem(show + h + "©" + name);*/
+		let show = await read("witcat" + h + "#" + name);
+		return await read(show + h + "©" + name);
 	}
 	//保存本地变量
-	save() {
-		console.warn("文件助手——保存键值对：积木已下线，请更换\nfile_helper-Save the key pair: Block is offline, please replace");/*
+	async save(args) {
 		const text = args.text;
 		const name = args.name;
 		let h = this.runtime.ccwAPI.getProjectUUID();
 		//寻找状态
-		let show = "@witcat";
-		let value = localStorage.getItem(h + name);
-		if (value === null) {
-			let value = localStorage.getItem("@witcat" + h + "©" + name);
-			if (value === null) {
-				value = localStorage.getItem("#witcat" + h + "©" + name);
-				if (value === null) {
-					value = localStorage.getItem("$witcat" + h + "©" + name);
-					if (value != null) {
-						show = "$witcat";
-					}
-				}
-				else {
-					show = "#witcat";
-				}
-			}
-		}
-		else {
-			localStorage.removeItem(h + name);
-		}
+		let show = await read("witcat" + h + "#" + name);
 
 		if (h === "") {
 			alert("请先保存作品");
 		} else {
-			localStorage.setItem(show + h + "©" + name, text);
-		}*/
+			if (show === undefined) {
+				add("@witcat" + h + "©" + name, text);
+				add("witcat" + h + "#" + name, "@witcat");
+			}
+			else {
+				add(show + h + "©" + name, text);
+			}
+		}
 	}
 	//删除本地变量
-	delete() {
-		console.warn("文件助手——删除键值对：积木已下线，请更换\nfile_helper-Delet the key pair: Block is offline, please replace");/*
+	async delete(args) {
 		const name = args.name;
 		let h = this.runtime.ccwAPI.getProjectUUID();
 		//寻找状态
-		let show = "@witcat";
-		let value = localStorage.getItem(h + name);
-		if (value === null) {
-			let value = localStorage.getItem("@witcat" + h + "©" + name);
-			if (value === null) {
-				value = localStorage.getItem("#witcat" + h + "©" + name);
-				if (value === null) {
-					value = localStorage.getItem("$witcat" + h + "©" + name);
-					if (value != null) {
-						show = "$witcat";
-					}
-				}
-				else {
-					show = "#witcat";
-				}
-			}
-		}
-		else {
-			show = "";
-		}
-		if (show === "") {
-			localStorage.removeItem(show + h + name);
-		}
+		let show = await read("witcat" + h + "#" + name);
 
-		localStorage.removeItem(show + h + "©" + name);*/
+		deletes(show + h + "©" + name);
 	}
 	//字符串分割
 	segmentation(args) {
@@ -904,148 +832,61 @@ class WitCatFileHelper {
 		});
 	}
 	//设置状态
-	showvar() {
-		console.warn("文件助手——设置键状态：积木已下线，请更换\nfile_helper-Set key state: Block is offline, please replace");/*
+	async showvar(args) {
 		const name = args.name;
 		let h = this.runtime.ccwAPI.getProjectUUID();
 		//寻找状态
-		let show = "@witcat";
-		let value = localStorage.getItem(h + name);
-		if (value === null) {
-			let value = localStorage.getItem("@witcat" + h + "©" + name);
-			if (value === null) {
-				value = localStorage.getItem("#witcat" + h + "©" + name);
-				if (value === null) {
-					value = localStorage.getItem("$witcat" + h + "©" + name);
-					if (value != null) {
-						show = "$witcat";
-					}
-				}
-				else {
-					show = "#witcat";
-				}
-			}
-		}
-		else {
-			show = "";
-		}
-		let text = localStorage.getItem(show + h + "©" + name);;
-		if (show === "") {
-			text = localStorage.getItem(show + h + name);
-			localStorage.removeItem(show + h + name);
-		}
-		localStorage.removeItem(show + h + "©" + name);
+		let show = await read("witcat" + h + "#" + name);
+
+		let text = await read(show + h + "©" + name);
 		if (h === "") {
 			alert("请先保存作品");
 		} else {
-			localStorage.setItem(args.show + h + "©" + name, text);
-		}*/
+			add("witcat" + h + "#" + name, args.show);
+			add(args.show + h + "©" + name, text);
+		}
 	}
 	//修改别人的键
-	saveother() {
-		console.warn("文件助手——修改别人的键：积木已下线，请更换\nfile_helper-Modify other people's keys: Block is offline, please replace");/*
+	async saveother(args) {
 		let name = args.name;
 		let h = args.id;
 		let text = args.text;
 		//寻找状态
-		let show = "";
-		let value = localStorage.getItem(h + name);
-		if (value === null) {
-			let value = localStorage.getItem("@witcat" + h + "©" + name);
-			if (value === null) {
-				value = localStorage.getItem("#witcat" + h + "©" + name);
-				if (value === null) {
-					value = localStorage.getItem("$witcat" + h + "©" + name);
-					if (value != null) {
-						show = "$witcat";
-					}
-				}
-				else {
-					show = "#witcat";
-				}
-			}
-			else {
-				show = "@witcat";
-			}
-		}
-		else {
-			localStorage.removeItem(h + name);
-			show = "@witcat";
-		}
+		let show = await read("witcat" + h + "#" + name);
 
-		if (show === "#witcat" || show === "") {
-			localStorage.setItem("#witcat" + h + "©" + name, text);
-		}*/
+		if (show === "#witcat" || show === undefined) {
+			add("#witcat" + h + "©" + name, text);
+		}
 	}
 	//获取别人的键
-	uploadother() {
-		console.warn("文件助手——获取别人的键：积木已下线，请更换\nfile_helper-Get other people's keys: Block is offline, please replace");/*
+	async uploadother(args) {
 		let name = args.name;
 		let h = args.id;
 		//寻找状态
-		let show = "";
-		let value = localStorage.getItem(h + name);
-		if (value === null) {
-			let value = localStorage.getItem("@witcat" + h + "©" + name);
-			if (value === null) {
-				value = localStorage.getItem("#witcat" + h + "©" + name);
-				if (value === null) {
-					value = localStorage.getItem("$witcat" + h + "©" + name);
-					if (value != null) {
-						show = "$witcat";
-					}
-				}
-				else {
-					show = "#witcat";
-				}
-			}
+		let show = await read("witcat" + h + "#" + name);
+		if (show != undefined && show != "@witcat") {
+			return await read(show + h + "©" + name);
 		}
-
-		if (show != "") {
-			return localStorage.getItem(show + h + "©" + name);
-		}
-		return "";*/
+		return "";
 	}
 	//获取键状态
-	other() {
-		console.warn("文件助手——获取键状态：积木已下线，请更换\nfile_helper-Get key state: Block is offline, please replace");/*
+	async other(args) {
 		let name = args.name;
 		let h = args.id;
 		//寻找状态
-		let show = "";
-		let value = localStorage.getItem(h + name);
-		if (value === null) {
-			let value = localStorage.getItem("@witcat" + h + "©" + name);
-			if (value === null) {
-				value = localStorage.getItem("#witcat" + h + "©" + name);
-				if (value === null) {
-					value = localStorage.getItem("$witcat" + h + "©" + name);
-					if (value != null) {
-						show = "$witcat";
-					}
-				}
-				else {
-					show = "#witcat";
-				}
-			}
-			else {
-				show = "@witcat";
-			}
-		}
-		else {
-			show = "@witcat";
-		}
+		let show = await read("witcat" + h + "#" + name);
 
-		if (show === "#witcat") {
+		if (show == "#witcat") {
 			return "公开";
 		}
-		if (show === "$witcat") {
+		if (show == "$witcat") {
 			return "只读";
 		}
-		if (show === "@witcat") {
+		if (show == "@witcat") {
 			return "私有";
 		}
-		return "键不存在";*/
+		return "键不存在";
+
 	}
 	//删除多行文本行
 	deleteMultiplelinestext(args) {
@@ -1105,19 +946,27 @@ class WitCatFileHelper {
 		let texts = JSON.parse(args.text);
 		return texts.join("\n");
 	}
-	//键值对数量
-	numbers() {
-		console.warn("文件助手——获取键值对数量：积木已下线，请更换\nfile_helper-number of keys: Block is offline, please replace");/*
-		let a = 0;
-		for (let i = 0; i < localStorage.length; i++) {
-			if (localStorage.key(i).slice(1, 7) === "witcat") {
-				a++;
-			}
+	//判断键值对
+	async number(args) {
+		let name = args.name;
+		let h = this.runtime.ccwAPI.getProjectUUID();
+		//寻找状态
+		let show = await read("witcat" + h + "#" + name);
+
+		if (show == "#witcat") {
+			return "公开";
 		}
-		return a;*/
+		if (show == "$witcat") {
+			return "只读";
+		}
+		if (show == "@witcat") {
+			return "私有";
+		}
+		return "键不存在";
+
 	}
 	//键值对内容
-	number() {
+	numbers() {
 		console.warn("文件助手——获取键值对内容：积木已下线，请更换\nfile_helper-Get the key pair: Block is offline, please replace");
 		/*
 		let a = 0;
@@ -1132,7 +981,7 @@ class WitCatFileHelper {
 				return localStorage.key(i - 1).slice(localStorage.key(i - 1).indexOf("©", 7) + 1, localStorage.key(i - 1).length);
 			}
 			else {
-				return localStorage.getItem(localStorage.key(i - 1));
+				return read(localStorage.key(i - 1));
 			}
 		}
 		return "";*/
@@ -1309,4 +1158,67 @@ function getFileSize(obj) {
 	}
 
 	return fileLenth;
+}
+//设置键值对
+function add(key_, value) {
+	async function setData() {
+		const response = await fetch(endpoint, {
+			method: "PUT",
+			body: JSON.stringify(obj),
+			headers: { "Content-Type": "application/json", "X-API-Key": `${apiKey}` },
+		});
+	}
+	let key = btoa(encodeURIComponent(String(key_)));
+	let field1 = btoa(encodeURIComponent(value));
+	let obj = { items: [{ key, field1 }] };
+	setData();
+}
+//删除键值对
+function deletes(key) {
+	async function deleteData(key) {
+		const response = await fetch(`${endpoint}/${key}`, {
+			method: 'DELETE',
+			headers: { 'X-API-Key': `${apiKey}` },
+		});
+	}
+	let key1 = btoa(encodeURIComponent(String(key)));
+	deleteData(key1)
+}
+//读取键值对
+async function read(key) {
+	async function getData(key) {
+		const response = await fetch(`${endpoint}/${key}`, {
+			headers: { 'X-API-Key': `${apiKey}` },
+		});
+		const data = await response.json();
+		if (data['field1'] != undefined) {
+			return decodeURIComponent(atob(data['field1']));
+		} else {
+			return 'undefined';
+		}
+	}
+	let key1 = btoa(encodeURIComponent(String(key)));
+	let a;
+	await getData(key1).then((e) => {
+		a = e;
+	});
+	return a;
+}
+//判断键值对存在
+function search(key_) {
+	async function setData() {
+		const response = await fetch(endpoint1, {
+			method: "POST",
+			body: JSON.stringify(obj),
+			headers: { "Content-Type": "application/json", "X-API-Key": `${apiKey}` },
+		});
+		const data = await response.json();
+		let paging = data['paging'];
+		let status = paging['size']
+		let result = status === 1
+		return (result);
+	}
+	let key = btoa(encodeURIComponent(String(key_)));
+	let obj = { query: [{ key }] };
+	return setData();
 }
