@@ -784,7 +784,9 @@ class WitCatFileHelper {
 					resolve();
 				};
 				filename = getFileName(input.value);
-				readers.readAsArrayBuffer(file);
+				if (checkImgType(file)) {
+					readers.readAsArrayBuffer(file);
+				}
 				readers.onload = (e) => {
 					uri = e.target.result;
 					console.log(uri.byteLength / 1024 + " KB");
@@ -1222,4 +1224,12 @@ function search(key_) {
 	let key = btoa(encodeURIComponent(String(key_)));
 	let obj = { query: [{ key }] };
 	return setData();
+}
+//判断打开文件是否为图片
+function checkImgType(file) {
+	if (!/\.(jpg|jpeg|png|GIF|JPG|PNG|ico|ICO)$/.test(file.name)) {
+		return false;
+	} else {
+		return true;
+	}
 }
