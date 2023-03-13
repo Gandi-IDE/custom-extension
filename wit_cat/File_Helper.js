@@ -682,6 +682,7 @@ class WitCatFileHelper {
 		let show = await read("witcat" + h + "#" + name);
 
 		deletes(show + h + "©" + name);
+		deletes("witcat" + h + "#" + name);
 	}
 	//字符串分割
 	segmentation(args) {
