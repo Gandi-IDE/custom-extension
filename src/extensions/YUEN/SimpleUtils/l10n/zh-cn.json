@@ -10,7 +10,7 @@
     "osVersion": "系统版本",
     "deviceName": "设备型号",
     "CPU_Type": "CPU架构",
-    "is_online": "用户是否在线?",
+    "is_online": "Connected to the internet?",
     "notification": "Notification通知 [TITLE] [CONTENT] [ICON]",
     "alert": "alert弹窗 [CONTENT_1]",
     "default": " ",
@@ -23,5 +23,5 @@
     "content": "i like ccw",
     "icon": "https://m.ccw.site/community/images/logo-ccw.png",
     "saveJSON": "将客户端信息覆盖到列表 [listArgs]",
-    "set_value_for_list_lenght": "重复执行 [listArgs] 的项目数次，每次将 [variableArgs] 增加 [NUM]" 
+    "set_value_for_list_lenght": "重复执行 [listArgs] 的项目数次，每次将 [variableArgs] 增加 [NUM]"
 }
