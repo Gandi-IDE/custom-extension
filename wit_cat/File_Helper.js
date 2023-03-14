@@ -643,7 +643,12 @@ class WitCatFileHelper {
 	}
 	//下载base64
 	downloadbase(args) {
-		downloadFileByBase64(args.text, args.name);
+		try {
+			downloadFileByBase64(args.text, args.name);
+		}
+		catch {
+			return;
+		}
 	}
 	//读取本地变量
 	async upload(args) {
@@ -1108,6 +1113,9 @@ function compressImg(base64, multiple, useImg) {
 
 		useImg(smallBase64)
 
+	}
+	newImage.onerror = function () {
+		useImg("")
 	}
 }
 //将base64转换为blob
