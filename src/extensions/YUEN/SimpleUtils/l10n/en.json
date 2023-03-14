@@ -10,7 +10,7 @@
     "osVersion": "osVersion",
     "deviceName": "deviceName",
     "CPU_Type": "CPU bits",
-    "is_online": "Is Online?",
+    "is_online": "Connected to the internet?",
     "nitification": "Notification [TITLE] [CONTENT] [ICON]",
     "alert": "alert Toast [CONTENT_1]",
     "default": " ",
