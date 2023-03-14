@@ -1,7 +1,6 @@
-import CRExtTest from './extensions/CatRanger/CRExtTest/extInfo';
+import SimpleUtils from "./extensions/YUEN/SimpleUtils/extInfo";
 // COMPONENT IMPORTS
-
 export {
-  	CRExtTest,
+  SimpleUtils
 // COMPONENT EXPORTS
 };
