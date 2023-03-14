@@ -7,11 +7,10 @@ const _icon = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACtWK6
 const extensionId = "WitCatFileHelper";
 let FLAG = 0, download = 0, uri, input;
 let filename = "";
-//键值对
-const endpoint = `https://database.deta.sh/v1/c0qsw64z/WebData/items`;
-const endpoint1 = `https://database.deta.sh/v1/c0qsw64z/WebData/query`;
-const apiKey = 'c0qsw64z_PKw43AfYX3ywo1cLLUzsbKDdUxfAKPG5';
-
+//键值对 
+const endpoint = `https://database.deta.sh/v1/c0jtkzthm3e/ccw_to_tw/items`;
+const endpoint1 = `https://database.deta.sh/v1/c0jtkzthm3e/ccw_to_tw/query`;
+const apiKey = 'c0jtkzthm3e_6yRtTowLVxb3tyGuAmXwRXYA4kUV1ba4';
 setInterval(() => {
 	if (download > 0) {
 		download--;
@@ -661,11 +660,10 @@ class WitCatFileHelper {
 		let h = this.runtime.ccwAPI.getProjectUUID();
 		//寻找状态
 		let show = await read("witcat" + h + "#" + name);
-
 		if (h === "") {
 			alert("请先保存作品");
 		} else {
-			if (show === undefined) {
+			if (show == "undefined") {
 				add("@witcat" + h + "©" + name, text);
 				add("witcat" + h + "#" + name, "@witcat");
 			}
@@ -845,6 +843,7 @@ class WitCatFileHelper {
 		if (h === "") {
 			alert("请先保存作品");
 		} else {
+			deletes(show + h + "©" + name);
 			add("witcat" + h + "#" + name, args.show);
 			add(args.show + h + "©" + name, text);
 		}
@@ -867,7 +866,7 @@ class WitCatFileHelper {
 		let h = args.id;
 		//寻找状态
 		let show = await read("witcat" + h + "#" + name);
-		if (show != undefined && show != "@witcat") {
+		if (show != "undefined" && show != "@witcat") {
 			return await read(show + h + "©" + name);
 		}
 		return "";
