@@ -8,7 +8,6 @@ class NotJS {
                 'notjs.title.parse': '解析',
                 'notjs.parseJSON': '解析 [json]',
                 'notjs.fromString': '解析字符串 [str] 为 JSON',
-                'notjs.fromBoolean': '解析布尔值 [bool] 为 JSON',
                 'notjs.title.type': '类型',
                 'notjs.asString': '[json] 作为字符串',
                 'notjs.asBoolean': '[json] 作为布尔值',
@@ -28,7 +27,6 @@ class NotJS {
                 'notjs.title.parse': 'Parse',
                 'notjs.parseJSON': 'parse [json]',
                 'notjs.fromString': 'parse string [str] as JSON',
-                'notjs.fromBoolean': 'parse boolean [bool] as JSON',
                 'notjs.title.type': 'Type',
                 'notjs.asString': '[json] as string',
                 'notjs.asBoolean': '[json] as boolean',
@@ -78,16 +76,6 @@ class NotJS {
                         str: {
                             type: 'string',
                             defaultValue: 'Hello World'
-                        }
-                    }
-                },
-                {
-                    opcode: 'fromBoolean',
-                    blockType: 'reporter',
-                    text: this.formatMessage('notjs.fromBoolean'),
-                    arguments: {
-                        bool: {
-                            type: 'Boolean'
                         }
                     }
                 },
@@ -245,9 +233,6 @@ class NotJS {
     }
     fromString({ str }) {
         return JSON.stringify(str);
-    }
-    fromBoolean({ bool }) {
-        return bool == undefined ? undefined : JSON.stringify(bool);
     }
     asString({ json }) {
         const v = this._parseJSON(json);
@@ -424,11 +409,11 @@ void (window.tempExt = {
     l10n: {
         'zh-cn': {
             'notjs.extensionName': 'Not.js',
-            'notjs.description': '次世代的 Gandi JSON 处理器。'
+            'notjs.description': '更快的 Gandi JSON 处理器。'
         },
         en: {
             'notjs.extensionName': 'Not.js',
-            'notjs.description': 'Next-generation JSON processor for Gandi IDE.'
+            'notjs.description': 'Faster JSON processor for Gandi IDE.'
         }
     }
 });
