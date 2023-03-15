@@ -519,7 +519,7 @@ class WitCatInput {
 		y = (y / this.runtime.stageHeight) * 100;
 		width = (width / this.runtime.stageWidth) * 100;
 		height = (height / this.runtime.stageHeight) * 100;
-		let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:` + x + `%; top:` + y + `%; width:` + width + `%; height:` + height + `%;font-size: ` + args.size + `px;resize:none;color:` + args.color.split(";")[0] + `;opacity:1;`;
+		let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:` + Number(x) + `%; top:` + Number(y) + `%; width:` + Number(width) + `%; height:` + Number(height) + `%;font-size: ` + Number(args.size) + `px;resize:none;color:` + args.color.split(";")[0] + `;opacity:1;`;
 		let search = document.getElementById("WitCatInput" + args.id);
 		if (search !== null) {
 			if (search.name === args.type) {
@@ -830,7 +830,7 @@ class WitCatInput {
 			else if (args.type === "bg") {
 				blackground = args.text;
 			}
-			let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:` + x + `%; top:` + y + `%; width:` + width + `%; height:` + height + `%;font-size: ` + size + `px;resize:none;color:` + color.split(";")[0] + `;opacity:` + opacity + `;background:url("` + blackground.split("\"")[0].split(")")[0].split(";")[0] + `");background-size: 100% 100%;`;
+			let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:` + Number(x) + `%; top:` + Number(y) + `%; width:` + Number(width) + `%; height:` + Number(height) + `%;font-size: ` + Number(size) + `px;resize:none;color:` + color.split(";")[0] + `;opacity:` + opacity + `;background:url("` + blackground.split("\"")[0].split(")")[0].split(";")[0] + `");background-size: 100% 100%;`;
 
 			search.style = dom;
 			search.value = content;
