@@ -1,6 +1,6 @@
 import SimpleUtils from "./extensions/YUEN/SimpleUtils/extInfo";
 // COMPONENT IMPORTS
 export {
-  SimpleUtils
+  SimpleUtils,
 // COMPONENT EXPORTS
 };
