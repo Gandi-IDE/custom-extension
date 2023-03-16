@@ -7,1236 +7,1251 @@ const _icon = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACtWK6
 const extensionId = "WitCatFileHelper";
 let FLAG = 0, download = 0, uri, input;
 let filename = "";
-//键值对 
-const endpoint = `https://database.deta.sh/v1/c0jtkzthm3e/ccw_to_tw/items`;
-const endpoint1 = `https://database.deta.sh/v1/c0jtkzthm3e/ccw_to_tw/query`;
-const apiKey = 'c0jtkzthm3e_6yRtTowLVxb3tyGuAmXwRXYA4kUV1ba4';
+//键值对
+let db;
+let request = window.indexedDB.open("witcat", 2);
+request.onupgradeneeded = function (event) {
+    console.log("初始化文件助手键值对");
+    let objectStore;
+    db = event.target.result;
+    if (!db.objectStoreNames.contains('key')) {
+        objectStore = db.createObjectStore('key', {
+            keyPath: 'key',
+        });
+        console.log("File Hepler: load with", objectStore);
+    }
+}
+request.onerror = function () {
+    alert("此浏览器貌似不支持使用文件助手键值对，建议使用chrome或者edge\nThis browser does not seem to support the use of File Helper key-value pairs, you can use Chrome or Edge");
+};
+request.onsuccess = function () {
+    db = request.result;
+    console.log('witcat:load key-value success');
+};
+
+
 setInterval(() => {
-	if (download > 0) {
-		download--;
-	}
+    if (download > 0) {
+        download--;
+    }
 }, 1000)
 
 class WitCatFileHelper {
-	constructor(runtime) {
-		this.runtime = runtime;
-		this._formatMessage = runtime.getFormatMessage({
-			"zh-cn": {
-				"WitCatFileHelper.name": "[beta]白猫的文件助手",
-				"WitCatFileHelper.filehelper": "文件处理",
-				"WitCatFileHelper.inputmanagement": "☁️键值对☁️",
-				"WitCatFileHelper.Multiplelinestext": "多行文本",
-				"WitCatFileHelper.downloads": "将内容[text]按[s]分割后命名为[name]并下载多行文本",
-				"WitCatFileHelper.download": "将内容[text]命名为[name]并下载",
-				"WitCatFileHelper.downloadbase": "将base64[text]命名为[name]并下载",
-				"WitCatFileHelper.save": "设置键[name]为[text]至作品库",
-				"WitCatFileHelper.upload": "获取键[name]的值",
-				"WitCatFileHelper.delete": "删除键[name]",
-				"WitCatFileHelper.segmentation": "将[text]按[s]分割为[thing]",
-				"WitCatFileHelper.encrypt": "base64加密[text]",
-				"WitCatFileHelper.decrypt": "base64解密[text]",
-				"WitCatFileHelper.openfile": "打开文件",
-				"WitCatFileHelper.showvar": "设置键[name]的状态为[show]",
-				"WitCatFileHelper.saveother": "设置作品ID[id]的键[name]为[text]",
-				"WitCatFileHelper.uploadother": "获取作品[id]的键[name]的值",
-				"WitCatFileHelper.other": "作品[id]的键[name]的状态",
-				"WitCatFileHelper.showon": "只读",
-				"WitCatFileHelper.showoff": "私有",
-				"WitCatFileHelper.showall": "公开",
-				"WitCatFileHelper.deleteMultiplelinestext": "删除[text]的第[num]行",
-				"WitCatFileHelper.addMultiplelinestext": "将[text]加入[texts]的第[num]行",
-				"WitCatFileHelper.whatMultiplelinestext": "[text]的第[num]行",
-				"WitCatFileHelper.numMultiplelinestext": "[text]的行数",
-				"WitCatFileHelper.thing.1": "数组",
-				"WitCatFileHelper.thing.2": "多行文本",
-				"WitCatFileHelper.number": "键[text]状态?",
-				"WitCatFileHelper.turnMultiplelinestext": "将多行文本[text]转化为数组",
-				"WitCatFileHelper.turnsMultiplelinestext": "将数组[text]转化为多行文本",
-				"WitCatFileHelper.downloadnum": "可下载文件数量",
-				"WitCatFileHelper.downloadask": "作品企图下载疑似会威胁电脑的文件，是否继续？\n代码如下：",
-				"WitCatFileHelper.openfiles": "打开图片",
-				"WitCatFileHelper.img": "压缩图片(base64)[base]倍数(0-1)[num]",
-				"WitCatFileHelper.file": "上次打开文件的[type]",
-				"WitCatFileHelper.file.1": "文件名",
-				"WitCatFileHelper.file.2": "文件后缀",
-				"WitCatFileHelper.file.3": "文件大小",
-				"WitCatFileHelper.docs": "📖拓展教程",
-				"WitCatFileHelper.imghw": "base64图片[img]的[hw]",
-				"WitCatFileHelper.imghw.1": "宽",
-				"WitCatFileHelper.imghw.2": "高",
-			},
-			en: {
-				"WitCatFileHelper.name": "[beta]WitCat’s File Helper",
-				"WitCatFileHelper.filehelper": "file",
-				"WitCatFileHelper.inputmanagement": "☁️Key-value pair☁️",
-				"WitCatFileHelper.Multiplelinestext": "Multiple lines of text",
-				"WitCatFileHelper.downloads": "Download split content [text] by [s] named [name]",
-				"WitCatFileHelper.download": "Download content [text] named [name]",
-				"WitCatFileHelper.downloadbase": "Download base64 [text] named [name]",
-				"WitCatFileHelper.save": "Save content [text] with [name] on project",
-				"WitCatFileHelper.upload": "Get value [name]",
-				"WitCatFileHelper.delete": "delete value [name]",
-				"WitCatFileHelper.segmentation": "Split [text] by [s] to [thing]",
-				"WitCatFileHelper.encrypt": "base64 encrypt[text]",
-				"WitCatFileHelper.decrypt": "base64 decrypt[text]",
-				"WitCatFileHelper.openfile": "openfile",
-				"WitCatFileHelper.showvar": "set value[name]`s state[show]",
-				"WitCatFileHelper.saveother": "save ID[id]`s content name[name]with[text]",
-				"WitCatFileHelper.uploadother": "get ID[id]`s value[name]",
-				"WitCatFileHelper.other": "get ID[id]`s value[name]`s state",
-				"WitCatFileHelper.showon": "View",
-				"WitCatFileHelper.showoff": "private",
-				"WitCatFileHelper.showall": "public",
-				"WitCatFileHelper.deleteMultiplelinestext": "delete[text]the[num]line of text",
-				"WitCatFileHelper.addMultiplelinestext": "let[text]add with[texts]the[num]line of text",
-				"WitCatFileHelper.whatMultiplelinestext": "[text]`s[num]line of text",
-				"WitCatFileHelper.numMultiplelinestext": "[text]Number of rows",
-				"WitCatFileHelper.thing.1": "array",
-				"WitCatFileHelper.thing.2": "Multiple lines of text",
-				"WitCatFileHelper.number": "Key [text] state?",
-				"WitCatFileHelper.turnMultiplelinestext": "Converts multiline[text]text to an array",
-				"WitCatFileHelper.turnsMultiplelinestext": "Converts the array[text]to multiline text",
-				"WitCatFileHelper.downloadnum": "Number of downloadable files",
-				"WitCatFileHelper.downloadask": "works will attempt to download the suspected threat to computer files, whether or not to continue? \n code is as follows: ",
-				"WitCatFileHelper.openfiles": "openimg",
-				"WitCatFileHelper.img": "Compressed image(base64)[base]multiples(0-1)[num]",
-				"WitCatFileHelper.file": "The last file`s[type]",
-				"WitCatFileHelper.file.1": "File Name",
-				"WitCatFileHelper.file.2": "File suffix",
-				"WitCatFileHelper.file.3": "File size",
-				"WitCatFileHelper.docs": "📖Extended tutorials",
-				"WitCatFileHelper.imghw": "base64img[img]`s[hw]",
-				"WitCatFileHelper.imghw.1": "width",
-				"WitCatFileHelper.imghw.2": "height",
-			}
-		})
-	}
+    constructor(runtime) {
+        this.runtime = runtime;
+        this._formatMessage = runtime.getFormatMessage({
+            "zh-cn": {
+                "WitCatFileHelper.name": "[beta]白猫的文件助手",
+                "WitCatFileHelper.filehelper": "文件处理",
+                "WitCatFileHelper.inputmanagement": "键值对",
+                "WitCatFileHelper.Multiplelinestext": "多行文本",
+                "WitCatFileHelper.downloads": "将内容[text]按[s]分割后命名为[name]并下载多行文本",
+                "WitCatFileHelper.download": "将内容[text]命名为[name]并下载",
+                "WitCatFileHelper.downloadbase": "将base64[text]命名为[name]并下载",
+                "WitCatFileHelper.save": "设置键[name]为[text]至作品库",
+                "WitCatFileHelper.upload": "获取键[name]的值",
+                "WitCatFileHelper.delete": "删除键[name]",
+                "WitCatFileHelper.segmentation": "将[text]按[s]分割为[thing]",
+                "WitCatFileHelper.encrypt": "base64加密[text]",
+                "WitCatFileHelper.decrypt": "base64解密[text]",
+                "WitCatFileHelper.openfile": "打开文件",
+                "WitCatFileHelper.showvar": "设置键[name]的状态为[show]",
+                "WitCatFileHelper.saveother": "设置作品ID[id]的键[name]为[text]",
+                "WitCatFileHelper.uploadother": "获取作品[id]的键[name]的值",
+                "WitCatFileHelper.other": "作品[id]的键[name]的状态",
+                "WitCatFileHelper.showon": "只读",
+                "WitCatFileHelper.showoff": "私有",
+                "WitCatFileHelper.showall": "公开",
+                "WitCatFileHelper.deleteMultiplelinestext": "删除[text]的第[num]行",
+                "WitCatFileHelper.addMultiplelinestext": "将[text]加入[texts]的第[num]行",
+                "WitCatFileHelper.whatMultiplelinestext": "[text]的第[num]行",
+                "WitCatFileHelper.numMultiplelinestext": "[text]的行数",
+                "WitCatFileHelper.thing.1": "数组",
+                "WitCatFileHelper.thing.2": "多行文本",
+                "WitCatFileHelper.number": "第[num]个键的[type]",
+                "WitCatFileHelper.numbers": "键数量",
+                "WitCatFileHelper.number.1": "键名",
+                "WitCatFileHelper.number.2": "键值",
+                "WitCatFileHelper.turnMultiplelinestext": "将多行文本[text]转化为数组",
+                "WitCatFileHelper.turnsMultiplelinestext": "将数组[text]转化为多行文本",
+                "WitCatFileHelper.downloadnum": "可下载文件数量",
+                "WitCatFileHelper.downloadask": "作品企图下载疑似会威胁电脑的文件，是否继续？\n代码如下：",
+                "WitCatFileHelper.openfiles": "打开图片",
+                "WitCatFileHelper.img": "压缩图片(base64)[base]倍数(0-1)[num]",
+                "WitCatFileHelper.file": "上次打开文件的[type]",
+                "WitCatFileHelper.file.1": "文件名",
+                "WitCatFileHelper.file.2": "文件后缀",
+                "WitCatFileHelper.file.3": "文件大小",
+                "WitCatFileHelper.docs": "📖拓展教程",
+                "WitCatFileHelper.imghw": "base64图片[img]的[hw]",
+                "WitCatFileHelper.imghw.1": "宽",
+                "WitCatFileHelper.imghw.2": "高",
+            },
+            en: {
+                "WitCatFileHelper.name": "[beta]WitCat’s File Helper",
+                "WitCatFileHelper.filehelper": "file",
+                "WitCatFileHelper.inputmanagement": "Key-value pair",
+                "WitCatFileHelper.Multiplelinestext": "Multiple lines of text",
+                "WitCatFileHelper.downloads": "Download split content [text] by [s] named [name]",
+                "WitCatFileHelper.download": "Download content [text] named [name]",
+                "WitCatFileHelper.downloadbase": "Download base64 [text] named [name]",
+                "WitCatFileHelper.save": "Save content [text] with [name] on project",
+                "WitCatFileHelper.upload": "Get value [name]",
+                "WitCatFileHelper.delete": "delete value [name]",
+                "WitCatFileHelper.segmentation": "Split [text] by [s] to [thing]",
+                "WitCatFileHelper.encrypt": "base64 encrypt[text]",
+                "WitCatFileHelper.decrypt": "base64 decrypt[text]",
+                "WitCatFileHelper.openfile": "openfile",
+                "WitCatFileHelper.showvar": "set value[name]`s state[show]",
+                "WitCatFileHelper.saveother": "save ID[id]`s content name[name]with[text]",
+                "WitCatFileHelper.uploadother": "get ID[id]`s value[name]",
+                "WitCatFileHelper.other": "get ID[id]`s value[name]`s state",
+                "WitCatFileHelper.showon": "View",
+                "WitCatFileHelper.showoff": "private",
+                "WitCatFileHelper.showall": "public",
+                "WitCatFileHelper.deleteMultiplelinestext": "delete[text]the[num]line of text",
+                "WitCatFileHelper.addMultiplelinestext": "let[text]add with[texts]the[num]line of text",
+                "WitCatFileHelper.whatMultiplelinestext": "[text]`s[num]line of text",
+                "WitCatFileHelper.numMultiplelinestext": "[text]Number of rows",
+                "WitCatFileHelper.thing.1": "array",
+                "WitCatFileHelper.thing.2": "Multiple lines of text",
+                "WitCatFileHelper.number": "[type]of[num]key",
+                "WitCatFileHelper.numbers": "key number",
+                "WitCatFileHelper.number.1": "name",
+                "WitCatFileHelper.number.2": "content",
+                "WitCatFileHelper.turnMultiplelinestext": "Converts multiline[text]text to an array",
+                "WitCatFileHelper.turnsMultiplelinestext": "Converts the array[text]to multiline text",
+                "WitCatFileHelper.downloadnum": "Number of downloadable files",
+                "WitCatFileHelper.downloadask": "works will attempt to download the suspected threat to computer files, whether or not to continue? \n code is as follows: ",
+                "WitCatFileHelper.openfiles": "openimg",
+                "WitCatFileHelper.img": "Compressed image(base64)[base]multiples(0-1)[num]",
+                "WitCatFileHelper.file": "The last file`s[type]",
+                "WitCatFileHelper.file.1": "File Name",
+                "WitCatFileHelper.file.2": "File suffix",
+                "WitCatFileHelper.file.3": "File size",
+                "WitCatFileHelper.docs": "📖Extended tutorials",
+                "WitCatFileHelper.imghw": "base64img[img]`s[hw]",
+                "WitCatFileHelper.imghw.1": "width",
+                "WitCatFileHelper.imghw.2": "height",
+            }
+        })
+    }
 
-	formatMessage(id) {
-		return this._formatMessage({
-			id,
-			default: id,
-			description: id
-		});
-	}
+    formatMessage(id) {
+        return this._formatMessage({
+            id,
+            default: id,
+            description: id
+        });
+    }
 
-	getInfo() {
-		return {
-			id: extensionId, // 拓展id
-			name: this.formatMessage("WitCatFileHelper.name"), // 拓展名
-			blockIconURI: _icon,
-			menuIconURI: _icon,
-			color1: "#60D6F4",
-			color2: "#55a7f7",
-			blocks: [
-				{
-					blockType: "button",
-					text: this.formatMessage('WitCatFileHelper.docs'),
-					onClick: this.docs,
-				},
-				"---" + this.formatMessage("WitCatFileHelper.filehelper"),
-				{
-					opcode: "downloads",
-					blockType: "command",
-					text: this.formatMessage("WitCatFileHelper.downloads"),
-					arguments: {
-						text: {
-							type: "string",
-							defaultValue: 'awa!!!|awa!!!',
-						},
-						name: {
-							type: "string",
-							defaultValue: 'wit_cat.txt',
-						},
-						s: {
-							type: "string",
-							defaultValue: '|',
-						},
-					},
-				},
-				{
-					opcode: "download",
-					blockType: "command",
-					text: this.formatMessage("WitCatFileHelper.download"),
-					arguments: {
-						text: {
-							type: "string",
-							defaultValue: 'awa!!!',
-						},
-						name: {
-							type: "string",
-							defaultValue: 'wit_cat.txt',
-						},
-					},
-				},
-				{
-					opcode: "downloadbase",
-					blockType: "command",
-					text: this.formatMessage("WitCatFileHelper.downloadbase"),
-					arguments: {
-						text: {
-							type: "string",
-							defaultValue: 'base64 img',
-						},
-						name: {
-							type: "string",
-							defaultValue: 'wit_cat.txt',
-						},
-					},
-				},
-				{
-					opcode: "downloadnum",
-					blockType: "reporter",
-					text: this.formatMessage("WitCatFileHelper.downloadnum"),
-					arguments: {},
-				},
-				{
-					opcode: "openfile",
-					blockType: "reporter",
-					text: this.formatMessage("WitCatFileHelper.openfile"),
-					disableMonitor: true,
-					arguments: {},
-				},
-				{
-					opcode: "openfiles",
-					blockType: "reporter",
-					text: this.formatMessage("WitCatFileHelper.openfiles"),
-					disableMonitor: true,
-					arguments: {},
-				},
-				{
-					opcode: "file",
-					blockType: "reporter",
-					text: this.formatMessage("WitCatFileHelper.file"),
-					disableMonitor: true,
-					arguments: {
-						type: {
-							type: "string",
-							menu: 'file',
-						},
-					},
-				},
-				"---" + this.formatMessage("WitCatFileHelper.inputmanagement"),
-				{
-					opcode: "upload",
-					blockType: "reporter",
-					text: this.formatMessage("WitCatFileHelper.upload"),
-					arguments: {
-						name: {
-							type: "string",
-							defaultValue: 'i',
-						},
-					},
-				},
-				{
-					opcode: "save",
-					blockType: "command",
-					text: this.formatMessage("WitCatFileHelper.save"),
-					arguments: {
-						text: {
-							type: "string",
-							defaultValue: '0',
-						},
-						name: {
-							type: "string",
-							defaultValue: 'i',
-						},
-					},
-				},
-				{
-					opcode: "delete",
-					blockType: "command",
-					text: this.formatMessage("WitCatFileHelper.delete"),
-					arguments: {
-						name: {
-							type: "string",
-							defaultValue: 'i',
-						},
-					},
-				},
-				{
-					opcode: "showvar",
-					blockType: "command",
-					text: this.formatMessage("WitCatFileHelper.showvar"),
-					arguments: {
-						name: {
-							type: "string",
-							defaultValue: "i",
-						},
-						show: {
-							type: "string",
-							menu: "setvariable",
-						},
-					},
-				},
-				{
-					opcode: "number",
-					blockType: "reporter",
-					text: this.formatMessage("WitCatFileHelper.number"),
-					hideFromPalette: true,
-					arguments: {
-						text: {
-							type: "string",
-							defaultValue: "i",
-						},
-					},
-				},
-				{
-					opcode: "numbers",
-					blockType: "reporter",
-					text: this.formatMessage("WitCatFileHelper.numbers"),
-					hideFromPalette: true,
-					arguments: {},
-				},
-				{
-					opcode: "saveother",
-					blockType: "command",
-					text: this.formatMessage("WitCatFileHelper.saveother"),
-					arguments: {
-						id: {
-							type: "string",
-							defaultValue: "6373950041d21d2d2cd0da9b",
-						},
-						name: {
-							type: "string",
-							defaultValue: "i",
-						},
-						text: {
-							type: "string",
-							defaultValue: "wit_cat!",
-						},
-					},
-				},
-				{
-					opcode: "uploadother",
-					blockType: "reporter",
-					text: this.formatMessage("WitCatFileHelper.uploadother"),
-					arguments: {
-						id: {
-							type: "string",
-							defaultValue: "6373950041d21d2d2cd0da9b",
-						},
-						name: {
-							type: "string",
-							defaultValue: "i",
-						},
-					},
-				},
-				{
-					opcode: "other",
-					blockType: "reporter",
-					text: this.formatMessage("WitCatFileHelper.other"),
-					arguments: {
-						id: {
-							type: "string",
-							defaultValue: "6373950041d21d2d2cd0da9b",
-						},
-						name: {
-							type: "string",
-							defaultValue: "i",
-						},
-					},
-				},
-				"---" + "img 图片🖼️",
-				{
-					opcode: "img",
-					blockType: "reporter",
-					text: this.formatMessage("WitCatFileHelper.img"),
-					disableMonitor: true,
-					arguments: {
-						base: {
-							type: "string",
-							defaultValue: 'base64 img',
-						},
-						num: {
-							type: "number",
-							defaultValue: '0.5',
-						},
-					},
-				},
-				{
-					opcode: "imghw",
-					blockType: "reporter",
-					text: this.formatMessage("WitCatFileHelper.imghw"),
-					arguments: {
-						img: {
-							type: "string",
-							defaultValue: 'base64 img',
-						},
-						hw: {
-							type: "string",
-							menu: 'imghw',
-						},
-					},
-				},
-				"---" + "base64",
-				{
-					opcode: "encrypt",
-					blockType: "reporter",
-					text: this.formatMessage("WitCatFileHelper.encrypt"),
-					arguments: {
-						text: {
-							type: "string",
-							defaultValue: 'i love china',
-						},
-					},
-				},
-				{
-					opcode: "decrypt",
-					blockType: "reporter",
-					text: this.formatMessage("WitCatFileHelper.decrypt"),
-					arguments: {
-						text: {
-							type: "string",
-							defaultValue: 'aSUyMGxvdmUlMjBjaGluYQ==',
-						},
-					},
-				},
-				"---" + this.formatMessage("WitCatFileHelper.Multiplelinestext"),
-				{
-					opcode: "segmentation",
-					blockType: "reporter",
-					text: this.formatMessage("WitCatFileHelper.segmentation"),
-					arguments: {
-						text: {
-							type: "string",
-							defaultValue: 'wow/!!!',
-						},
-						s: {
-							type: "string",
-							defaultValue: '/',
-						},
-						thing: {
-							type: "string",
-							menu: 'thing',
-						}
-					},
-				},
-				{
-					opcode: "deleteMultiplelinestext",
-					blockType: "reporter",
-					text: this.formatMessage("WitCatFileHelper.deleteMultiplelinestext"),
-					arguments: {
-						text: {
-							type: "string",
-							defaultValue: "wit_cat!!!\nwit_cat!!!",
-						},
-						num: {
-							type: "number",
-							defaultValue: "1",
-						}
-					},
-				},
-				{
-					opcode: "addMultiplelinestext",
-					blockType: "reporter",
-					text: this.formatMessage("WitCatFileHelper.addMultiplelinestext"),
-					arguments: {
-						text: {
-							type: "string",
-							defaultValue: "wit_cat!!!",
-						},
-						texts: {
-							type: "string",
-							defaultValue: "wit_cat!!!\nwit_cat!!!",
-						},
-						num: {
-							type: "string",
-							defaultValue: "last",
-						}
-					},
-				},
-				{
-					opcode: "whatMultiplelinestext",
-					blockType: "reporter",
-					text: this.formatMessage("WitCatFileHelper.whatMultiplelinestext"),
-					arguments: {
-						text: {
-							type: "string",
-							defaultValue: "wit_cat!!!",
-						},
-						num: {
-							type: "string",
-							defaultValue: "1",
-						}
-					},
-				},
-				{
-					opcode: "numMultiplelinestext",
-					blockType: "reporter",
-					text: this.formatMessage("WitCatFileHelper.numMultiplelinestext"),
-					arguments: {
-						text: {
-							type: "string",
-							defaultValue: "wit_cat!!!\nwit_cat!!!",
-						},
-					},
-				},
-				{
-					opcode: "turnMultiplelinestext",
-					blockType: "reporter",
-					text: this.formatMessage("WitCatFileHelper.turnMultiplelinestext"),
-					arguments: {
-						text: {
-							type: "string",
-							defaultValue: "wit_cat!!!\nwit_cat!!!",
-						},
-					},
-				},
-				{
-					opcode: "turnsMultiplelinestext",
-					blockType: "reporter",
-					text: this.formatMessage("WitCatFileHelper.turnsMultiplelinestext"),
-					arguments: {
-						text: {
-							type: "string",
-							defaultValue: "[\"wit_cat!!!\",\"wit_cat!!!\"]",
-						},
-					},
-				},
-			],
-			menus: {
-				setvariable: [
-					{
-						text: this.formatMessage('WitCatFileHelper.showall'),
-						value: '#witcat'
-					},
-					{
-						text: this.formatMessage('WitCatFileHelper.showon'),
-						value: '$witcat'
-					},
-					{
-						text: this.formatMessage('WitCatFileHelper.showoff'),
-						value: '@witcat'
-					},
-				],
-				thing: [
-					{
-						text: this.formatMessage('WitCatFileHelper.thing.1'),
-						value: 'true'
-					},
-					{
-						text: this.formatMessage('WitCatFileHelper.thing.2'),
-						value: 'false'
-					},
-				],
-				type: [
-					{
-						text: this.formatMessage('WitCatFileHelper.number.1'),
-						value: 'name'
-					},
-					{
-						text: this.formatMessage('WitCatFileHelper.number.2'),
-						value: 'content'
-					},
-				],
-				file: [
-					{
-						text: this.formatMessage('WitCatFileHelper.file.1'),
-						value: 'name'
-					},
-					{
-						text: this.formatMessage('WitCatFileHelper.file.2'),
-						value: 'suffix'
-					},
-					{
-						text: this.formatMessage('WitCatFileHelper.file.3'),
-						value: 'size'
-					},
-				],
-				imghw: [
-					{
-						text: this.formatMessage('WitCatFileHelper.imghw.1'),
-						value: 'width'
-					},
-					{
-						text: this.formatMessage('WitCatFileHelper.imghw.2'),
-						value: 'height'
-					},
-				],
-			}
-		};
-	}
-	//打开教程
-	docs() {
-		let a = document.createElement('a');
-		a.href = "https://www.ccw.site/post/d6d96e80-3f58-4a19-b7e6-c567d3a6a583";
-		a.rel = "noopener noreferrer";
-		a.target = "_blank";
-		a.click();
-	}
-	//下载多行文件
-	downloads(args) {
-		download += 1;
-		if (download < 3) {
-			let h = args.text;
-			let text = args.text;
-			let filenames = args.name;
-			if (filenames === "") {
-				filenames = "none.txt"
-			}
-			const filename = filenames;
-			let s = args.s;
-			if (s != "") {
-				h = text.split(s).join("\n");
-			} else {
-				h = text;
-			}
-			let SuffixName = filename.split(".")[filename.split(".").length - 1];
-			if (SuffixName === "bat" || SuffixName === "cmd" || SuffixName === "vbs" || SuffixName === "ps1" || SuffixName === "sh") {
-				let a = confirm(this.formatMessage('WitCatFileHelper.downloadask') + SuffixName + ":\n" + h);
-				if (a === false) {
-					return;
-				}
-			}
-			const content = h;
-			// 创建隐藏的可下载链接
-			let eleLink = document.createElement('a');
-			eleLink.download = filename;
-			eleLink.style.display = 'none';
-			// 字符内容转变成blob地址
-			let blob = new Blob([content]);
-			eleLink.href = URL.createObjectURL(blob);
-			// 触发点击
-			document.body.appendChild(eleLink);
-			eleLink.click();
-			// 然后移除
-			document.body.removeChild(eleLink);
-		}
-		else {
-			console.warn("下载太频繁！\nToo many downloads!");
-		}
-	}
-	//下载文件
-	download(args) {
-		download += 1;
-		if (download < 3) {
-			const content = args.text;
-			let filenames = args.name;
-			if (filenames === "") {
-				filenames = "none.txt"
-			}
-			let SuffixName = filenames.split(".")[filenames.split(".").length - 1];
-			if (SuffixName === "bat" || SuffixName === "cmd" || SuffixName === "vbs" || SuffixName === "ps1" || SuffixName === "sh") {
-				let a = confirm(this.formatMessage('WitCatFileHelper.downloadask') + SuffixName + ":\n" + content);
-				if (a === false) {
-					return;
-				}
-			}
-			const filename = filenames;
-			// 创建隐藏的可下载链接
-			let eleLink = document.createElement('a');
-			eleLink.download = filename;
-			eleLink.style.display = 'none';
-			// 字符内容转变成blob地址
-			let blob = new Blob([content]);
-			eleLink.href = URL.createObjectURL(blob);
-			// 触发点击
-			document.body.appendChild(eleLink);
-			eleLink.click();
-			// 然后移除
-			document.body.removeChild(eleLink);
-		}
-		else {
-			console.warn("下载太频繁！\nToo many downloads!");
-		}
-	}
-	//下载base64
-	downloadbase(args) {
-		try {
-			downloadFileByBase64(args.text, args.name);
-		}
-		catch {
-			return;
-		}
-	}
-	//读取本地变量
-	async upload(args) {
-		const name = args.name;
-		let h = this.runtime.ccwAPI.getProjectUUID();
-		//寻找状态
-		let show = await read("witcat" + h + "#" + name);
-		return await read(show + h + "©" + name);
-	}
-	//保存本地变量
-	async save(args) {
-		const text = args.text;
-		const name = args.name;
-		let h = this.runtime.ccwAPI.getProjectUUID();
-		//寻找状态
-		let show = await read("witcat" + h + "#" + name);
-		if (h === "") {
-			alert("请先保存作品");
-		} else {
-			if (show == "undefined") {
-				add("@witcat" + h + "©" + name, text);
-				add("witcat" + h + "#" + name, "@witcat");
-			}
-			else {
-				add(show + h + "©" + name, text);
-			}
-		}
-	}
-	//删除本地变量
-	async delete(args) {
-		const name = args.name;
-		let h = this.runtime.ccwAPI.getProjectUUID();
-		//寻找状态
-		let show = await read("witcat" + h + "#" + name);
+    getInfo() {
+        return {
+            id: extensionId, // 拓展id
+            name: this.formatMessage("WitCatFileHelper.name"), // 拓展名
+            blockIconURI: _icon,
+            menuIconURI: _icon,
+            color1: "#60D6F4",
+            color2: "#55a7f7",
+            blocks: [
+                {
+                    blockType: "button",
+                    text: this.formatMessage('WitCatFileHelper.docs'),
+                    onClick: this.docs,
+                },
+                "---" + this.formatMessage("WitCatFileHelper.filehelper"),
+                {
+                    opcode: "downloads",
+                    blockType: "command",
+                    text: this.formatMessage("WitCatFileHelper.downloads"),
+                    arguments: {
+                        text: {
+                            type: "string",
+                            defaultValue: 'awa!!!|awa!!!',
+                        },
+                        name: {
+                            type: "string",
+                            defaultValue: 'wit_cat.txt',
+                        },
+                        s: {
+                            type: "string",
+                            defaultValue: '|',
+                        },
+                    },
+                },
+                {
+                    opcode: "download",
+                    blockType: "command",
+                    text: this.formatMessage("WitCatFileHelper.download"),
+                    arguments: {
+                        text: {
+                            type: "string",
+                            defaultValue: 'awa!!!',
+                        },
+                        name: {
+                            type: "string",
+                            defaultValue: 'wit_cat.txt',
+                        },
+                    },
+                },
+                {
+                    opcode: "downloadbase",
+                    blockType: "command",
+                    text: this.formatMessage("WitCatFileHelper.downloadbase"),
+                    arguments: {
+                        text: {
+                            type: "string",
+                            defaultValue: 'base64 img',
+                        },
+                        name: {
+                            type: "string",
+                            defaultValue: 'wit_cat.txt',
+                        },
+                    },
+                },
+                {
+                    opcode: "downloadnum",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatFileHelper.downloadnum"),
+                    arguments: {},
+                },
+                {
+                    opcode: "openfile",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatFileHelper.openfile"),
+                    disableMonitor: true,
+                    arguments: {},
+                },
+                {
+                    opcode: "openfiles",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatFileHelper.openfiles"),
+                    disableMonitor: true,
+                    arguments: {},
+                },
+                {
+                    opcode: "file",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatFileHelper.file"),
+                    disableMonitor: true,
+                    arguments: {
+                        type: {
+                            type: "string",
+                            menu: 'file',
+                        },
+                    },
+                },
+                "---" + "img 图片🖼️",
+                {
+                    opcode: "img",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatFileHelper.img"),
+                    disableMonitor: true,
+                    arguments: {
+                        base: {
+                            type: "string",
+                            defaultValue: 'base64 img',
+                        },
+                        num: {
+                            type: "number",
+                            defaultValue: '0.5',
+                        },
+                    },
+                },
+                {
+                    opcode: "imghw",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatFileHelper.imghw"),
+                    arguments: {
+                        img: {
+                            type: "string",
+                            defaultValue: 'base64 img',
+                        },
+                        hw: {
+                            type: "string",
+                            menu: 'imghw',
+                        },
+                    },
+                },
+                "---" + this.formatMessage("WitCatFileHelper.inputmanagement"),
+                {
+                    opcode: "upload",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatFileHelper.upload"),
+                    arguments: {
+                        name: {
+                            type: "string",
+                            defaultValue: 'i',
+                        },
+                    },
+                },
+                {
+                    opcode: "save",
+                    blockType: "command",
+                    text: this.formatMessage("WitCatFileHelper.save"),
+                    arguments: {
+                        text: {
+                            type: "string",
+                            defaultValue: '0',
+                        },
+                        name: {
+                            type: "string",
+                            defaultValue: 'i',
+                        },
+                    },
+                },
+                {
+                    opcode: "delete",
+                    blockType: "command",
+                    text: this.formatMessage("WitCatFileHelper.delete"),
+                    arguments: {
+                        name: {
+                            type: "string",
+                            defaultValue: 'i',
+                        },
+                    },
+                },
+                {
+                    opcode: "showvar",
+                    blockType: "command",
+                    text: this.formatMessage("WitCatFileHelper.showvar"),
+                    arguments: {
+                        name: {
+                            type: "string",
+                            defaultValue: "i",
+                        },
+                        show: {
+                            type: "string",
+                            menu: "setvariable",
+                        },
+                    },
+                },
+                {
+                    opcode: "number",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatFileHelper.number"),
+                    hideFromPalette: true,
+                    arguments: {
+                        num: {
+                            type: "number",
+                            defaultValue: "i",
+                        },
+                        type: {
+                            type: "string",
+                            menu: "type",
+                        },
+                    },
+                },
+                {
+                    opcode: "numbers",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatFileHelper.numbers"),
+                    hideFromPalette: true,
+                    arguments: {},
+                },
+                {
+                    opcode: "saveother",
+                    blockType: "command",
+                    text: this.formatMessage("WitCatFileHelper.saveother"),
+                    arguments: {
+                        id: {
+                            type: "string",
+                            defaultValue: "6373950041d21d2d2cd0da9b",
+                        },
+                        name: {
+                            type: "string",
+                            defaultValue: "i",
+                        },
+                        text: {
+                            type: "string",
+                            defaultValue: "wit_cat!",
+                        },
+                    },
+                },
+                {
+                    opcode: "uploadother",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatFileHelper.uploadother"),
+                    arguments: {
+                        id: {
+                            type: "string",
+                            defaultValue: "6373950041d21d2d2cd0da9b",
+                        },
+                        name: {
+                            type: "string",
+                            defaultValue: "i",
+                        },
+                    },
+                },
+                {
+                    opcode: "other",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatFileHelper.other"),
+                    arguments: {
+                        id: {
+                            type: "string",
+                            defaultValue: "6373950041d21d2d2cd0da9b",
+                        },
+                        name: {
+                            type: "string",
+                            defaultValue: "i",
+                        },
+                    },
+                },
+                "---" + "base64",
+                {
+                    opcode: "encrypt",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatFileHelper.encrypt"),
+                    arguments: {
+                        text: {
+                            type: "string",
+                            defaultValue: 'i love china',
+                        },
+                    },
+                },
+                {
+                    opcode: "decrypt",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatFileHelper.decrypt"),
+                    arguments: {
+                        text: {
+                            type: "string",
+                            defaultValue: 'aSUyMGxvdmUlMjBjaGluYQ==',
+                        },
+                    },
+                },
+                "---" + this.formatMessage("WitCatFileHelper.Multiplelinestext"),
+                {
+                    opcode: "segmentation",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatFileHelper.segmentation"),
+                    arguments: {
+                        text: {
+                            type: "string",
+                            defaultValue: 'wow/!!!',
+                        },
+                        s: {
+                            type: "string",
+                            defaultValue: '/',
+                        },
+                        thing: {
+                            type: "string",
+                            menu: 'thing',
+                        }
+                    },
+                },
+                {
+                    opcode: "deleteMultiplelinestext",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatFileHelper.deleteMultiplelinestext"),
+                    arguments: {
+                        text: {
+                            type: "string",
+                            defaultValue: "wit_cat!!!\nwit_cat!!!",
+                        },
+                        num: {
+                            type: "number",
+                            defaultValue: "1",
+                        }
+                    },
+                },
+                {
+                    opcode: "addMultiplelinestext",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatFileHelper.addMultiplelinestext"),
+                    arguments: {
+                        text: {
+                            type: "string",
+                            defaultValue: "wit_cat!!!",
+                        },
+                        texts: {
+                            type: "string",
+                            defaultValue: "wit_cat!!!\nwit_cat!!!",
+                        },
+                        num: {
+                            type: "string",
+                            defaultValue: "last",
+                        }
+                    },
+                },
+                {
+                    opcode: "whatMultiplelinestext",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatFileHelper.whatMultiplelinestext"),
+                    arguments: {
+                        text: {
+                            type: "string",
+                            defaultValue: "wit_cat!!!",
+                        },
+                        num: {
+                            type: "string",
+                            defaultValue: "1",
+                        }
+                    },
+                },
+                {
+                    opcode: "numMultiplelinestext",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatFileHelper.numMultiplelinestext"),
+                    arguments: {
+                        text: {
+                            type: "string",
+                            defaultValue: "wit_cat!!!\nwit_cat!!!",
+                        },
+                    },
+                },
+                {
+                    opcode: "turnMultiplelinestext",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatFileHelper.turnMultiplelinestext"),
+                    arguments: {
+                        text: {
+                            type: "string",
+                            defaultValue: "wit_cat!!!\nwit_cat!!!",
+                        },
+                    },
+                },
+                {
+                    opcode: "turnsMultiplelinestext",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatFileHelper.turnsMultiplelinestext"),
+                    arguments: {
+                        text: {
+                            type: "string",
+                            defaultValue: "[\"wit_cat!!!\",\"wit_cat!!!\"]",
+                        },
+                    },
+                },
+            ],
+            menus: {
+                setvariable: [
+                    {
+                        text: this.formatMessage('WitCatFileHelper.showall'),
+                        value: '#witcat'
+                    },
+                    {
+                        text: this.formatMessage('WitCatFileHelper.showon'),
+                        value: '$witcat'
+                    },
+                    {
+                        text: this.formatMessage('WitCatFileHelper.showoff'),
+                        value: '@witcat'
+                    },
+                ],
+                thing: [
+                    {
+                        text: this.formatMessage('WitCatFileHelper.thing.1'),
+                        value: 'true'
+                    },
+                    {
+                        text: this.formatMessage('WitCatFileHelper.thing.2'),
+                        value: 'false'
+                    },
+                ],
+                type: [
+                    {
+                        text: this.formatMessage('WitCatFileHelper.number.1'),
+                        value: 'name'
+                    },
+                    {
+                        text: this.formatMessage('WitCatFileHelper.number.2'),
+                        value: 'content'
+                    },
+                ],
+                file: [
+                    {
+                        text: this.formatMessage('WitCatFileHelper.file.1'),
+                        value: 'name'
+                    },
+                    {
+                        text: this.formatMessage('WitCatFileHelper.file.2'),
+                        value: 'suffix'
+                    },
+                    {
+                        text: this.formatMessage('WitCatFileHelper.file.3'),
+                        value: 'size'
+                    },
+                ],
+                imghw: [
+                    {
+                        text: this.formatMessage('WitCatFileHelper.imghw.1'),
+                        value: 'width'
+                    },
+                    {
+                        text: this.formatMessage('WitCatFileHelper.imghw.2'),
+                        value: 'height'
+                    },
+                ],
+            }
+        };
+    }
+    //打开教程
+    docs() {
+        let a = document.createElement('a');
+        a.href = "https://www.ccw.site/post/d6d96e80-3f58-4a19-b7e6-c567d3a6a583";
+        a.rel = "noopener noreferrer";
+        a.target = "_blank";
+        a.click();
+    }
+    //下载多行文件
+    downloads(args) {
+        download += 1;
+        if (download < 3) {
+            let h = args.text;
+            let text = args.text;
+            let filenames = args.name;
+            if (filenames === "") {
+                filenames = "none.txt"
+            }
+            const filename = filenames;
+            let s = args.s;
+            if (s != "") {
+                h = text.split(s).join("\n");
+            } else {
+                h = text;
+            }
+            let SuffixName = filename.split(".")[filename.split(".").length - 1];
+            if (SuffixName === "bat" || SuffixName === "cmd" || SuffixName === "vbs" || SuffixName === "ps1" || SuffixName === "sh") {
+                let a = confirm(this.formatMessage('WitCatFileHelper.downloadask') + SuffixName + ":\n" + h);
+                if (a === false) {
+                    return;
+                }
+            }
+            const content = h;
+            // 创建隐藏的可下载链接
+            let eleLink = document.createElement('a');
+            eleLink.download = filename;
+            eleLink.style.display = 'none';
+            // 字符内容转变成blob地址
+            let blob = new Blob([content]);
+            eleLink.href = URL.createObjectURL(blob);
+            // 触发点击
+            document.body.appendChild(eleLink);
+            eleLink.click();
+            // 然后移除
+            document.body.removeChild(eleLink);
+        }
+        else {
+            console.warn("下载太频繁！\nToo many downloads!");
+        }
+    }
+    //下载文件
+    download(args) {
+        download += 1;
+        if (download < 3) {
+            const content = args.text;
+            let filenames = args.name;
+            if (filenames === "") {
+                filenames = "none.txt"
+            }
+            let SuffixName = filenames.split(".")[filenames.split(".").length - 1];
+            if (SuffixName === "bat" || SuffixName === "cmd" || SuffixName === "vbs" || SuffixName === "ps1" || SuffixName === "sh") {
+                let a = confirm(this.formatMessage('WitCatFileHelper.downloadask') + SuffixName + ":\n" + content);
+                if (a === false) {
+                    return;
+                }
+            }
+            const filename = filenames;
+            // 创建隐藏的可下载链接
+            let eleLink = document.createElement('a');
+            eleLink.download = filename;
+            eleLink.style.display = 'none';
+            // 字符内容转变成blob地址
+            let blob = new Blob([content]);
+            eleLink.href = URL.createObjectURL(blob);
+            // 触发点击
+            document.body.appendChild(eleLink);
+            eleLink.click();
+            // 然后移除
+            document.body.removeChild(eleLink);
+        }
+        else {
+            console.warn("下载太频繁！\nToo many downloads!");
+        }
+    }
+    //下载base64
+    downloadbase(args) {
+        try {
+            downloadFileByBase64(args.text, args.name);
+        }
+        catch {
+            return;
+        }
+    }
+    //读取本地变量
+    async upload(args) {
+        const name = args.name;
+        let h = this.runtime.ccwAPI.getProjectUUID();
+        //寻找状态
+        return new Promise(resolve => {
+            read("witcat" + h + "#" + name, e => {
+                read(e.value + h + "©" + name, e => {
+                    resolve(e.value);
+                });
+            });
+        });
+    }
+    //保存本地变量
+    save(args) {
+        const text = args.text;
+        const name = args.name;
+        let h = this.runtime.ccwAPI.getProjectUUID();
+        //寻找状态
+        read("witcat" + h + "#" + name, show => {
+            if (h === "") {
+                alert("请先保存作品");
+            } else {
+                if (show.value == undefined) {
+                    add("@witcat" + h + "©" + name, text);
+                    add("witcat" + h + "#" + name, "@witcat");
+                }
+                else {
+                    add(show.value + h + "©" + name, text);
+                }
+            }
+        });
+    }
+    //删除本地变量
+    delete(args) {
+        const name = args.name;
+        let h = this.runtime.ccwAPI.getProjectUUID();
+        //寻找状态
+        read("witcat" + h + "#" + name, e => {
+            deletes(e.value + h + "©" + name);
+            deletes("witcat" + h + "#" + name);
+        });
 
-		deletes(show + h + "©" + name);
-		deletes("witcat" + h + "#" + name);
-	}
-	//字符串分割
-	segmentation(args) {
-		let text = args.text;
-		let s = args.s;
-		let array = text.split(s);
-		let r = "";
-		if (args.thing === "true") {
-			r = JSON.stringify(array);
-		}
-		else {
-			r = array.join("\n");
-		}
-		return r;
-	}
-	//加密
-	encrypt(args) {
-		try {
-			let str = args.text;
-			let jiaMi = encodeURIComponent(str);
-			let jiaM = btoa(jiaMi);
-			return jiaM;
-		}
-		catch {
-			return "";
-		}
-	}
-	//解密
-	decrypt(args) {
-		try {
-			let jiaM = args.text;
-			let jieMi = atob(jiaM);
-			let jieM = decodeURIComponent(jieMi);
-			return jieM;
-		}
-		catch {
-			return "";
-		}
-	}
-	//打开文件
-	openfile() {
-		FLAG = 1;
-		return new Promise(resolve => {
-			input = document.createElement("input");
-			input.type = "file";
-			input.style = "display:none;";
-			input.click();
-			input.onchange = () => {
-				const reader = new FileReader();
-				const file = input.files[0];
-				reader.onload = (e) => {
-					FLAG = 0;
-					resolve(e.target.result);
-				};
-				reader.onerror = () => {
-					FLAG = 0;
-					resolve();
-				};
-				filename = getFileName(input.value);
-				reader.readAsText(file);
-			}
-			window.onfocus = () => {
-				// 开始计时或者播放
-				setTimeout(() => {
-					if (FLAG === 1) {
-						FLAG = 0;
-						resolve("");
-					}
-				}, 1000);
-			}
-		});
-	}
-	//打开图片
-	openfiles() {
-		FLAG = 1;
-		return new Promise(resolve => {
-			input = document.createElement("input");
-			input.type = "file";
-			input.accept = "image/*";
-			input.style = "display:none;";
-			input.click();
-			input.onchange = () => {
-				const reader = new FileReader();
-				const readers = new FileReader();
-				const file = input.files[0];
-				reader.onload = (e) => {
-					FLAG = 0;
-					if (uri.byteLength / 1024 > 10) {
-						compressImg(e.target.result, 0.5, e => {
-							resolve(e);
-						});
-					}
-					else {
-						resolve(e.target.result);
-					}
-				};
-				reader.onerror = () => {
-					FLAG = 0;
-					resolve();
-				};
-				filename = getFileName(input.value);
-				if (checkImgType(file)) {
-					readers.readAsArrayBuffer(file);
-				}
-				readers.onload = (e) => {
-					uri = e.target.result;
-					console.log(uri.byteLength / 1024 + " KB");
-					reader.readAsDataURL(file);
-				};
-			}
-			window.onfocus = () => {
-				// 开始计时或者播放
-				setTimeout(() => {
-					if (FLAG === 1) {
-						FLAG = 0;
-						resolve("");
-					}
-				}, 1000);
-			}
-		});
-	}
-	//打开文件的信息
-	file(args) {
-		try {
-			if (args.type === "name") {
-				return filename;
-			}
-			else if (args.type === "suffix") {
-				return filename.substring(filename.lastIndexOf(".") + 1);
-			}
-			else {
-				return getFileSize(input) / 1024 + "KB";
-			}
-		}
-		catch {
-			return "";
-		}
-	}
-	//压缩图片质量
-	img(args) {
-		return new Promise(resolve => {
-			try {
-				compressImg(args.base, args.num, e => {
-					resolve(e);
-				});
-			}
-			catch {
-				resolve("");
-			}
-		});
-	}
-	//设置状态
-	async showvar(args) {
-		const name = args.name;
-		let h = this.runtime.ccwAPI.getProjectUUID();
-		//寻找状态
-		let show = await read("witcat" + h + "#" + name);
+    }
+    //字符串分割
+    segmentation(args) {
+        let text = args.text;
+        let s = args.s;
+        let array = text.split(s);
+        let r = "";
+        if (args.thing === "true") {
+            r = JSON.stringify(array);
+        }
+        else {
+            r = array.join("\n");
+        }
+        return r;
+    }
+    //加密
+    encrypt(args) {
+        try {
+            let str = args.text;
+            let jiaMi = encodeURIComponent(str);
+            let jiaM = btoa(jiaMi);
+            return jiaM;
+        }
+        catch {
+            return "";
+        }
+    }
+    //解密
+    decrypt(args) {
+        try {
+            let jiaM = args.text;
+            let jieMi = atob(jiaM);
+            let jieM = decodeURIComponent(jieMi);
+            return jieM;
+        }
+        catch {
+            return "";
+        }
+    }
+    //打开文件
+    openfile() {
+        FLAG = 1;
+        return new Promise(resolve => {
+            input = document.createElement("input");
+            input.type = "file";
+            input.style = "display:none;";
+            input.click();
+            input.onchange = () => {
+                const reader = new FileReader();
+                const file = input.files[0];
+                reader.onload = (e) => {
+                    FLAG = 0;
+                    resolve(e.target.result);
+                };
+                reader.onerror = () => {
+                    FLAG = 0;
+                    resolve();
+                };
+                filename = getFileName(input.value);
+                reader.readAsText(file);
+            }
+            window.onfocus = () => {
+                // 开始计时或者播放
+                setTimeout(() => {
+                    if (FLAG === 1) {
+                        FLAG = 0;
+                        resolve("");
+                    }
+                }, 1000);
+            }
+        });
+    }
+    //打开图片
+    openfiles() {
+        FLAG = 1;
+        return new Promise(resolve => {
+            input = document.createElement("input");
+            input.type = "file";
+            input.accept = "image/*";
+            input.style = "display:none;";
+            input.click();
+            input.onchange = () => {
+                const reader = new FileReader();
+                const readers = new FileReader();
+                const file = input.files[0];
+                reader.onload = (e) => {
+                    FLAG = 0;
+                    if (uri.byteLength / 1024 > 10) {
+                        compressImg(e.target.result, 0.5, e => {
+                            resolve(e);
+                        });
+                    }
+                    else {
+                        resolve(e.target.result);
+                    }
+                };
+                reader.onerror = () => {
+                    FLAG = 0;
+                    resolve();
+                };
+                filename = getFileName(input.value);
+                if (checkImgType(file)) {
+                    readers.readAsArrayBuffer(file);
+                }
+                readers.onload = (e) => {
+                    uri = e.target.result;
+                    console.log(uri.byteLength / 1024 + " KB");
+                    reader.readAsDataURL(file);
+                };
+            }
+            window.onfocus = () => {
+                // 开始计时或者播放
+                setTimeout(() => {
+                    if (FLAG === 1) {
+                        FLAG = 0;
+                        resolve("");
+                    }
+                }, 1000);
+            }
+        });
+    }
+    //打开文件的信息
+    file(args) {
+        try {
+            if (args.type === "name") {
+                return filename;
+            }
+            else if (args.type === "suffix") {
+                return filename.substring(filename.lastIndexOf(".") + 1);
+            }
+            else {
+                return getFileSize(input) / 1024 + "KB";
+            }
+        }
+        catch {
+            return "";
+        }
+    }
+    //压缩图片质量
+    img(args) {
+        return new Promise(resolve => {
+            try {
+                compressImg(args.base, args.num, e => {
+                    resolve(e);
+                });
+            }
+            catch {
+                resolve("");
+            }
+        });
+    }
+    //设置状态
+    showvar(args) {
+        const name = args.name;
+        let h = this.runtime.ccwAPI.getProjectUUID();
+        //寻找状态
+        read("witcat" + h + "#" + name, e => {
+            read(e.value + h + "©" + name, ev => {
+                if (h === "") {
+                    alert("请先保存作品");
+                } else {
+                    if (ev.value != undefined) {
+                        deletes(e.value + h + "©" + name);
+                        add("witcat" + h + "#" + name, args.show);
+                        add(args.show + h + "©" + name, ev.value);
+                    }
+                }
+            });
+        });
+    }
+    //修改别人的键
+    saveother(args) {
+        let name = args.name;
+        let h = args.id;
+        let text = args.text;
+        //寻找状态
+        read("witcat" + h + "#" + name, e => {
+            if (e.value === "#witcat" || e.value === undefined) {
+                add("#witcat" + h + "©" + name, text);
+            }
+        });
+    }
+    //获取别人的键
+    uploadother(args) {
+        let name = args.name;
+        let h = args.id;
+        //寻找状态
+        return new Promise(resolve => {
+            read("witcat" + h + "#" + name, e => {
+                if (e.value != undefined && e.value != "@witcat") {
+                    read(e.value + h + "©" + name, ev => {
+                        resolve(ev.value);
+                    });
+                }
+                else {
+                    resolve("");
+                }
+            });
+        });
+    }
+    //获取键状态
+    other(args) {
+        let name = args.name;
+        let h = args.id;
+        //寻找状态
+        return new Promise(resolve => {
+            read("witcat" + h + "#" + name, e => {
+                if (e.value == "#witcat") {
+                    resolve("公开");
+                }
+                if (e.value == "$witcat") {
+                    resolve("只读");
+                }
+                if (e.value == "@witcat") {
+                    resolve("私有");
+                }
+                resolve("键不存在");
 
-		let text = await read(show + h + "©" + name);
-		if (h === "") {
-			alert("请先保存作品");
-		} else {
-			deletes(show + h + "©" + name);
-			add("witcat" + h + "#" + name, args.show);
-			add(args.show + h + "©" + name, text);
-		}
-	}
-	//修改别人的键
-	async saveother(args) {
-		let name = args.name;
-		let h = args.id;
-		let text = args.text;
-		//寻找状态
-		let show = await read("witcat" + h + "#" + name);
-
-		if (show === "#witcat" || show === undefined) {
-			add("#witcat" + h + "©" + name, text);
-		}
-	}
-	//获取别人的键
-	async uploadother(args) {
-		let name = args.name;
-		let h = args.id;
-		//寻找状态
-		let show = await read("witcat" + h + "#" + name);
-		if (show != "undefined" && show != "@witcat") {
-			return await read(show + h + "©" + name);
-		}
-		return "";
-	}
-	//获取键状态
-	async other(args) {
-		let name = args.name;
-		let h = args.id;
-		//寻找状态
-		let show = await read("witcat" + h + "#" + name);
-
-		if (show == "#witcat") {
-			return "公开";
-		}
-		if (show == "$witcat") {
-			return "只读";
-		}
-		if (show == "@witcat") {
-			return "私有";
-		}
-		return "键不存在";
-
-	}
-	//删除多行文本行
-	deleteMultiplelinestext(args) {
-		let texts = multipleText(args.text);
-		let num = args.num;
-		if (args.num === "last") {
-			num = texts.length;
-		}
-		if (args.num === "first") {
-			num = 1;
-		}
-		texts.splice(num - 1, 1);
-		return texts.join("\n");
-	}
-	//插入多行文本
-	addMultiplelinestext(args) {
-		let texts = multipleText(args.texts);
-		let num = args.num;
-		if (args.num === "last") {
-			num = texts.length + 1;
-		}
-		if (args.num === "first") {
-			num = 1;
-		}
-		texts.splice(num - 1, 0, args.text);
-		return texts.join("\n");
-	}
-	//多行文本第几行
-	whatMultiplelinestext(args) {
-		let text = args.text.split("\n");
-		let num = args.num;
-		if (args.num === "last") {
-			num = text.length;
-		}
-		if (args.num === "first") {
-			num = 1;
-		}
-		if (text.length >= num && num > 0) {
-			return text[num - 1].split("\r")[0];
-		}
-		else {
-			return "";
-		}
-	}
-	//多行文本行数
-	numMultiplelinestext(args) {
-		let text = args.text.split("\n");
-		return text.length;
-	}
-	//多行文本转数组
-	turnMultiplelinestext(args) {
-		let texts = multipleText(args.text);
-		return JSON.stringify(texts);
-	}
-	//数组转多行文本
-	turnsMultiplelinestext(args) {
-		let texts = JSON.parse(args.text);
-		return texts.join("\n");
-	}
-	//判断键值对
-	async number(args) {
-		let name = args.name;
-		let h = this.runtime.ccwAPI.getProjectUUID();
-		//寻找状态
-		let show = await read("witcat" + h + "#" + name);
-
-		if (show == "#witcat") {
-			return "公开";
-		}
-		if (show == "$witcat") {
-			return "只读";
-		}
-		if (show == "@witcat") {
-			return "私有";
-		}
-		return "键不存在";
-
-	}
-	//键值对内容
-	numbers() {
-		console.warn("文件助手——获取键值对内容：积木已下线，请更换\nfile_helper-Get the key pair: Block is offline, please replace");
-		/*
-		let a = 0;
-		let i = 0;
-		for (i = 0; a < args.num && i < localStorage.length; i++) {
-			if (localStorage.key(i).slice(1, 7) === "witcat") {
-				a++;
-			}
-		}
-		if (a === args.num) {
-			if (args.type === "name") {
-				return localStorage.key(i - 1).slice(localStorage.key(i - 1).indexOf("©", 7) + 1, localStorage.key(i - 1).length);
-			}
-			else {
-				return read(localStorage.key(i - 1));
-			}
-		}
-		return "";*/
-	}
-	//可下载文本数量
-	downloadnum() {
-		return 3 - download;
-	}
-	//图片宽高获取
-	imghw(args) {
-		return new Promise(resolve => {
-			let newImage = new Image()
-			// 这里将src传入需要获取信息的图片地址或base64
-			newImage.src = args.img;
-			// onload是异步的,封装的话可以用promise
-			newImage.onload = () => {
-				// 输出图片信息 比如可以获取图片宽高
-				if (args.hw === "width") {
-					resolve(newImage.width);
-				}
-				else {
-					resolve(newImage.height);
-				}
-			}
-			setTimeout(() => {
-				resolve("");
-			}, 100);
-		});
-	}
+            });
+        });
+    }
+    //删除多行文本行
+    deleteMultiplelinestext(args) {
+        let texts = multipleText(args.text);
+        let num = args.num;
+        if (args.num === "last") {
+            num = texts.length;
+        }
+        if (args.num === "first") {
+            num = 1;
+        }
+        texts.splice(num - 1, 1);
+        return texts.join("\n");
+    }
+    //插入多行文本
+    addMultiplelinestext(args) {
+        let texts = multipleText(args.texts);
+        let num = args.num;
+        if (args.num === "last") {
+            num = texts.length + 1;
+        }
+        if (args.num === "first") {
+            num = 1;
+        }
+        texts.splice(num - 1, 0, args.text);
+        return texts.join("\n");
+    }
+    //多行文本第几行
+    whatMultiplelinestext(args) {
+        let text = args.text.split("\n");
+        let num = args.num;
+        if (args.num === "last") {
+            num = text.length;
+        }
+        if (args.num === "first") {
+            num = 1;
+        }
+        if (text.length >= num && num > 0) {
+            return text[num - 1].split("\r")[0];
+        }
+        else {
+            return "";
+        }
+    }
+    //多行文本行数
+    numMultiplelinestext(args) {
+        let text = args.text.split("\n");
+        return text.length;
+    }
+    //多行文本转数组
+    turnMultiplelinestext(args) {
+        let texts = multipleText(args.text);
+        return JSON.stringify(texts);
+    }
+    //数组转多行文本
+    turnsMultiplelinestext(args) {
+        let texts = JSON.parse(args.text);
+        return texts.join("\n");
+    }
+    //判断键值对
+    number() {
+        console.warn("文件助手：判断键值对积木已下线\nFile Helper: Determine the key value pair block has been offline");/*
+        return new Promise(resolve => {
+            console.log(args.num)
+            read(args.num, e => {
+                return e.value;
+            });
+        });*/
+    }
+    //键值对内容
+    numbers() {
+        console.warn("文件助手：键值对数量积木已下线\nFile Helper: number of key value pair block has been offline");/*
+        return new Promise(resolve => {
+            read("witcat" + h + "#" + name, e => {
+                return e.value;
+            });
+        });*/
+    }
+    //可下载文本数量
+    downloadnum() {
+        return 3 - download;
+    }
+    //图片宽高获取
+    imghw(args) {
+        return new Promise(resolve => {
+            let newImage = new Image()
+            // 这里将src传入需要获取信息的图片地址或base64
+            newImage.src = args.img;
+            // onload是异步的,封装的话可以用promise
+            newImage.onload = () => {
+                // 输出图片信息 比如可以获取图片宽高
+                if (args.hw === "width") {
+                    resolve(newImage.width);
+                }
+                else {
+                    resolve(newImage.height);
+                }
+            }
+            setTimeout(() => {
+                resolve("");
+            }, 100);
+        });
+    }
 }
 
 window.tempExt = {
-	Extension: WitCatFileHelper,
-	info: {
-		name: "WitCatFileHelper.name",
-		description: "WitCatFileHelper.descp",
-		extensionId: extensionId,
-		iconURL: _picture,
-		insetIconURL: _icon,
-		featured: true,
-		disabled: false,
-		collaborator: "白猫 @ CCW"
-	},
-	l10n: {
-		"zh-cn": {
-			"WitCatFileHelper.name": "[beta]白猫的文件助手",
-			"WitCatFileHelper.descp": "读取/处理本地数据"
-		},
-		en: {
-			"WitCatFileHelper.name": "[beta]WitCat’s File Helper",
-			"WitCatFileHelper.descp": "Handling local data"
-		}
-	}
+    Extension: WitCatFileHelper,
+    info: {
+        name: "WitCatFileHelper.name",
+        description: "WitCatFileHelper.descp",
+        extensionId: extensionId,
+        iconURL: _picture,
+        insetIconURL: _icon,
+        featured: true,
+        disabled: false,
+        collaborator: "白猫 @ CCW"
+    },
+    l10n: {
+        "zh-cn": {
+            "WitCatFileHelper.name": "[beta]白猫的文件助手",
+            "WitCatFileHelper.descp": "读取/处理本地数据"
+        },
+        en: {
+            "WitCatFileHelper.name": "[beta]WitCat’s File Helper",
+            "WitCatFileHelper.descp": "Handling local data"
+        }
+    }
 };
 
 /* vim: set expandtab tabstop=2 shiftwidth=2: */
 
 //多行文本解码
 function multipleText(text) {
-	let texts = text.split("\n");
-	let a = [];
-	if (text.indexOf("\r") !== -1) {
-		texts.forEach(e => {
-			a.push(e.split("\r")[0]);
-		});
-	}
-	else {
-		a = texts;
-	}
-	return a;
+    let texts = text.split("\n");
+    let a = [];
+    if (text.indexOf("\r") !== -1) {
+        texts.forEach(e => {
+            a.push(e.split("\r")[0]);
+        });
+    }
+    else {
+        a = texts;
+    }
+    return a;
 }
 //压缩base64图片
 function compressImg(base64, multiple, useImg) {
-	// 第一个参数就是需要加密的base65，
-	// 第二个是压缩系数 0-1，
-	// 第三个压缩后的回调 用来获取处理后的 base64
-	if (!base64) {
-		return
-	}
-	// const _this = this
-	const length = base64.length / 1024
-	// 压缩方法
-	let newImage = new Image()
-	let quality = 0.6    // 压缩系数0-1之间
-	newImage.src = base64
-	newImage.setAttribute('crossOrigin', 'Anonymous') // url为外域时需要
-	let imgWidth,
-		imgHeight
-	let w = undefined
-	newImage.onload = function () {
-		// 这里面的 this 指向 newImage
-		// 通过改变图片宽高来实现压缩
-		w = this.width * multiple
-		imgWidth = this.width
-		imgHeight = this.height
-		let canvas = document.createElement('canvas')
-		let ctx = canvas.getContext('2d')
-		if (Math.max(imgWidth, imgHeight) > w) {
-			if (imgWidth > imgHeight) {
-				canvas.width = w
-				// 等比例缩小
-				canvas.height = w * (imgHeight / imgWidth)
-			} else {
-				canvas.height = w
-				// 等比例缩小
-				canvas.width = w * (imgWidth / imgHeight)
-			}
-		} else {
-			canvas.width = imgWidth
-			canvas.height = imgHeight
-			// quality 设置转换为base64编码后图片的质量，取值范围为0-1  没什么压缩效果
-			// 还是得通过设置 canvas 的宽高来压缩
-			quality = 0.6
-		}
-		ctx.clearRect(0, 0, canvas.width, canvas.height)
-		ctx.drawImage(this, 0, 0, canvas.width, canvas.height) //  // 这里面的 this 指向 newImage
-		let smallBase64 = canvas.toDataURL('image/jpeg', quality) // 压缩语句
-		// 必须通过回调函数返回，否则无法及时拿到该值，回调函数异步执行
-		console.log(`压缩前：${length}KB`)
-		console.log(`压缩后：${smallBase64.length / 1024} KB`)
+    // 第一个参数就是需要加密的base65，
+    // 第二个是压缩系数 0-1，
+    // 第三个压缩后的回调 用来获取处理后的 base64
+    if (!base64) {
+        return
+    }
+    // const _this = this
+    const length = base64.length / 1024
+    // 压缩方法
+    let newImage = new Image()
+    let quality = 0.6    // 压缩系数0-1之间
+    newImage.src = base64
+    newImage.setAttribute('crossOrigin', 'Anonymous') // url为外域时需要
+    let imgWidth,
+        imgHeight
+    let w = undefined
+    newImage.onload = function () {
+        // 这里面的 this 指向 newImage
+        // 通过改变图片宽高来实现压缩
+        w = this.width * multiple
+        imgWidth = this.width
+        imgHeight = this.height
+        let canvas = document.createElement('canvas')
+        let ctx = canvas.getContext('2d')
+        if (Math.max(imgWidth, imgHeight) > w) {
+            if (imgWidth > imgHeight) {
+                canvas.width = w
+                // 等比例缩小
+                canvas.height = w * (imgHeight / imgWidth)
+            } else {
+                canvas.height = w
+                // 等比例缩小
+                canvas.width = w * (imgWidth / imgHeight)
+            }
+        } else {
+            canvas.width = imgWidth
+            canvas.height = imgHeight
+            // quality 设置转换为base64编码后图片的质量，取值范围为0-1  没什么压缩效果
+            // 还是得通过设置 canvas 的宽高来压缩
+            quality = 0.6
+        }
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        ctx.drawImage(this, 0, 0, canvas.width, canvas.height) //  // 这里面的 this 指向 newImage
+        let smallBase64 = canvas.toDataURL('image/jpeg', quality) // 压缩语句
+        // 必须通过回调函数返回，否则无法及时拿到该值，回调函数异步执行
+        console.log(`压缩前：${length}KB`)
+        console.log(`压缩后：${smallBase64.length / 1024} KB`)
 
 
-		useImg(smallBase64)
+        useImg(smallBase64)
 
-	}
-	newImage.onerror = function () {
-		useImg("")
-	}
+    }
+    newImage.onerror = function () {
+        useImg("")
+    }
 }
 //将base64转换为blob
 function dataURLtoBlob(dataurl) {
-	var arr = dataurl.split(","),
-		mime = arr[0].match(/:(.*?);/)[1],
-		bstr = atob(arr[1]),
-		n = bstr.length,
-		u8arr = new Uint8Array(n);
-	while (n--) {
-		u8arr[n] = bstr.charCodeAt(n);
-	}
-	return new Blob([u8arr], { type: mime });
+    var arr = dataurl.split(","),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], { type: mime });
 }
 // * desc: 下载方法
 // * @param url  ：返回数据的blob对象或链接
 // * @param fileName  ：下载后文件名标记
 function downloadFile(url, name = "	Unnown File") {
-	var a = document.createElement("a");
-	a.href = url;
-	a.download = name;
-	a.target = "_blank";
-	a.click();
-	a.remove();
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = name;
+    a.target = "_blank";
+    a.click();
+    a.remove();
 }
 // * desc: 下载参数入口
 // * @param base64  ：返回数据的blob对象或链接
 // * @param fileName  ：下载后文件名标记
 function downloadFileByBase64(base64, fileName) {
-	var myBlob = dataURLtoBlob(base64);
-	var myUrl = URL.createObjectURL(myBlob);
-	downloadFile(myUrl, fileName);
+    var myBlob = dataURLtoBlob(base64);
+    var myUrl = URL.createObjectURL(myBlob);
+    downloadFile(myUrl, fileName);
 }
 
 //获取文件名
 function getFileName(o) {
-	var pos = o.lastIndexOf("\\");
-	return o.substring(pos + 1);
+    var pos = o.lastIndexOf("\\");
+    return o.substring(pos + 1);
 }
 //获取打开文件的大小
 function getFileSize(obj) {
-	var objValue = obj.value;
-	if (objValue == "") return;
-	var fileLenth = -1;
-	try {
-		//对于非IE获得要上传文件的大小
-		fileLenth = parseInt(obj.files[0].size);
-	} catch (e) {
-		fileLenth = -1;
-	}
+    var objValue = obj.value;
+    if (objValue == "") return;
+    var fileLenth = -1;
+    try {
+        //对于非IE获得要上传文件的大小
+        fileLenth = parseInt(obj.files[0].size);
+    } catch (e) {
+        fileLenth = -1;
+    }
 
-	return fileLenth;
+    return fileLenth;
 }
 //设置键值对
 function add(key_, value) {
-	async function setData() {
-		const response = await fetch(endpoint, {
-			method: "PUT",
-			body: JSON.stringify(obj),
-			headers: { "Content-Type": "application/json", "X-API-Key": `${apiKey}` },
-		});
-	}
-	let key = btoa(encodeURIComponent(String(key_)));
-	let field1 = btoa(encodeURIComponent(value));
-	let obj = { items: [{ key, field1 }] };
-	setData();
+    let json = {};
+    json.key = key_;
+    json.value = value;
+    var transaction = db.transaction(['key'], "readwrite");
+    var store = transaction.objectStore('key');
+
+    var objectStore = transaction.objectStore('key');
+    var request = objectStore.get(key_);
+
+    request.onerror = function () {
+        return;
+    };
+
+    request.onsuccess = function () {
+        if (request.result) {
+            store.put(json);
+        } else {
+            store.add(json);
+        }
+    };
+
+    store.onerror = function () {
+        console.error('数据写入失败');
+    }
 }
 //删除键值对
-function deletes(key) {
-	async function deleteData(key) {
-		const response = await fetch(`${endpoint}/${key}`, {
-			method: 'DELETE',
-			headers: { 'X-API-Key': `${apiKey}` },
-		});
-	}
-	let key1 = btoa(encodeURIComponent(String(key)));
-	deleteData(key1)
+function deletes(key_) {
+    var transaction = db.transaction(['key'], "readwrite");
+    var store = transaction.objectStore('key');
+    store.delete(key_);
 }
 //读取键值对
-async function read(key) {
-	async function getData(key) {
-		const response = await fetch(`${endpoint}/${key}`, {
-			headers: { 'X-API-Key': `${apiKey}` },
-		});
-		const data = await response.json();
-		if (data['field1'] != undefined) {
-			return decodeURIComponent(atob(data['field1']));
-		} else {
-			return 'undefined';
-		}
-	}
-	let key1 = btoa(encodeURIComponent(String(key)));
-	let a;
-	await getData(key1).then((e) => {
-		a = e;
-	});
-	return a;
-}
-//判断键值对存在
-function search(key_) {
-	async function setData() {
-		const response = await fetch(endpoint1, {
-			method: "POST",
-			body: JSON.stringify(obj),
-			headers: { "Content-Type": "application/json", "X-API-Key": `${apiKey}` },
-		});
-		const data = await response.json();
-		let paging = data['paging'];
-		let status = paging['size']
-		let result = status === 1
-		return (result);
-	}
-	let key = btoa(encodeURIComponent(String(key_)));
-	let obj = { query: [{ key }] };
-	return setData();
+function read(key_, recall) {
+    var transaction = db.transaction(['key']);
+    var objectStore = transaction.objectStore('key');
+    var request = objectStore.get(key_);
+
+    request.onerror = function () {
+        recall("");
+    };
+
+    request.onsuccess = function () {
+        if (request.result) {
+            recall(request.result);
+        } else {
+            recall("")
+        }
+    };
 }
 //判断打开文件是否为图片
 function checkImgType(file) {
-	if (!/\.(jpg|jpeg|png|GIF|JPG|PNG|ico|ICO)$/.test(file.name)) {
-		return false;
-	} else {
-		return true;
-	}
+    if (!/\.(jpg|jpeg|png|GIF|JPG|PNG|ico|ICO)$/.test(file.name)) {
+        return false;
+    } else {
+        return true;
+    }
 }
