@@ -830,7 +830,7 @@ class WitCatInput {
 			else if (args.type === "bg") {
 				blackground = args.text;
 			}
-			let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:` + Number(x) + `%; top:` + Number(y) + `%; width:` + Number(width) + `%; height:` + Number(height) + `%;font-size: ` + Number(size) + `px;resize:none;color:` + color.split(";")[0] + `;opacity:` + opacity + `;background:url("` + blackground.split("\"")[0].split(")")[0].split(";")[0] + `");background-size: 100% 100%;`;
+			let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:` + Number(x) + `%; top:` + Number(y) + `%; width:` + Number(width) + `%; height:` + Number(height) + `%;font-size: ` + Number(size) + `px;resize:none;color:` + color.split(";")[0] + `;opacity:` + opacity + `;background:url("` + blackground.split("\"")[0].split(")")[0] + `");background-size: 100% 100%;`;
 
 			search.style = dom;
 			search.value = content;
