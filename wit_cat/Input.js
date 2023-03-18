@@ -519,20 +519,23 @@ class WitCatInput {
 		y = (y / this.runtime.stageHeight) * 100;
 		width = (width / this.runtime.stageWidth) * 100;
 		height = (height / this.runtime.stageHeight) * 100;
-		let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:` + Number(x) + `%; top:` + Number(y) + `%; width:` + Number(width) + `%; height:` + Number(height) + `%;font-size: ` + Number(args.size) + `px;resize:none;color:` + args.color.split(";")[0] + `;opacity:1;`;
 		let search = document.getElementById("WitCatInput" + args.id);
 		if (search !== null) {
 			if (search.name === args.type) {
+				let bg = search.style.backgroundImage.split("\"")[1]
+				let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:` + Number(x) + `%; top:` + Number(y) + `%; width:` + Number(width) + `%; height:` + Number(height) + `%;font-size: ` + Number(args.size) + `px;resize:none;color:` + args.color.split(";")[0] + `;opacity:1;` + ` background: url("` + bg + `");background-size: 100% 100%;`;
 				search.style = dom;
 				search.value = args.text;
 				search.placeholder = args.texts;
 			}
 			else {
+				let bg = search.style.backgroundImage.split("\"")[1]
 				cvs.parentNode.removeChild(search);
 				let eleLink = document.createElement(args.type);
 				if (args.type === "input") {
 					eleLink.type = "text";
 				}
+				let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:` + Number(x) + `%; top:` + Number(y) + `%; width:` + Number(width) + `%; height:` + Number(height) + `%;font-size: ` + Number(args.size) + `px;resize:none;color:` + args.color.split(";")[0] + `;opacity:1;` + ` background: url("` + bg + `");background-size: 100% 100%;`;
 				eleLink.style = dom;
 				eleLink.id = "WitCatInput" + args.id;
 				eleLink.value = args.text;
@@ -547,6 +550,7 @@ class WitCatInput {
 			if (args.type === "input") {
 				eleLink.type = "text";
 			}
+			let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:` + Number(x) + `%; top:` + Number(y) + `%; width:` + Number(width) + `%; height:` + Number(height) + `%;font-size: ` + Number(args.size) + `px;resize:none;color:` + args.color.split(";")[0] + `;opacity:1;`;
 			eleLink.style = dom;
 			eleLink.id = "WitCatInput" + args.id;
 			eleLink.value = args.text;
