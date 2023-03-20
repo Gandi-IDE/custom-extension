@@ -596,88 +596,43 @@ class WitCatFileHelper {
     }
     //下载多行文件
     downloads(args) {
-        download += 1;
-        if (download < 3) {
+        downloadable(() => {
             let h = args.text;
-            let text = args.text;
-            let filenames = args.name;
-            if (filenames === "") {
-                filenames = "none.txt"
-            }
-            const filename = filenames;
+
             let s = args.s;
             if (s != "") {
-                h = text.split(s).join("\n");
+                h = args.text.split(s).join("\n");
             } else {
-                h = text;
+                h = args.text;
             }
-            let SuffixName = filename.split(".")[filename.split(".").length - 1];
-            if (SuffixName === "bat" || SuffixName === "cmd" || SuffixName === "vbs" || SuffixName === "ps1" || SuffixName === "sh") {
-                let a = confirm(this.formatMessage('WitCatFileHelper.downloadask') + SuffixName + ":\n" + h);
-                if (a === false) {
-                    return;
-                }
-            }
-            const content = h;
-            // 创建隐藏的可下载链接
-            let eleLink = document.createElement('a');
-            eleLink.download = filename;
-            eleLink.style.display = 'none';
+
             // 字符内容转变成blob地址
-            let blob = new Blob([content]);
-            eleLink.href = URL.createObjectURL(blob);
-            // 触发点击
-            document.body.appendChild(eleLink);
-            eleLink.click();
-            // 然后移除
-            document.body.removeChild(eleLink);
-        }
-        else {
-            console.warn("下载太频繁！\nToo many downloads!");
-        }
+            let blob = new Blob([h]);
+            let download = URL.createObjectURL(blob);
+            downloadFile(download, args.name);
+        });
     }
     //下载文件
     download(args) {
-        download += 1;
-        if (download < 3) {
+        downloadable(() => {
             const content = args.text;
-            let filenames = args.name;
-            if (filenames === "") {
-                filenames = "none.txt"
-            }
-            let SuffixName = filenames.split(".")[filenames.split(".").length - 1];
-            if (SuffixName === "bat" || SuffixName === "cmd" || SuffixName === "vbs" || SuffixName === "ps1" || SuffixName === "sh") {
-                let a = confirm(this.formatMessage('WitCatFileHelper.downloadask') + SuffixName + ":\n" + content);
-                if (a === false) {
-                    return;
-                }
-            }
-            const filename = filenames;
-            // 创建隐藏的可下载链接
-            let eleLink = document.createElement('a');
-            eleLink.download = filename;
-            eleLink.style.display = 'none';
+
             // 字符内容转变成blob地址
             let blob = new Blob([content]);
-            eleLink.href = URL.createObjectURL(blob);
-            // 触发点击
-            document.body.appendChild(eleLink);
-            eleLink.click();
-            // 然后移除
-            document.body.removeChild(eleLink);
-        }
-        else {
-            console.warn("下载太频繁！\nToo many downloads!");
-        }
+            let download = URL.createObjectURL(blob);
+            downloadFile(download, args.name);
+        });
     }
     //下载base64
     downloadbase(args) {
-        try {
-            downloadFileByBase64(args.text, args.name);
-        }
-        catch {
-            return;
-        }
+        downloadable(() => {
+            try {
+                downloadFileByBase64(args.text, args.name);
+            }
+            catch {
+                return;
+            }
+        });
     }
     //读取本地变量
     async upload(args) {
@@ -1160,7 +1115,14 @@ function dataURLtoBlob(dataurl) {
 // * desc: 下载方法
 // * @param url  ：返回数据的blob对象或链接
 // * @param fileName  ：下载后文件名标记
-function downloadFile(url, name = "	Unnown File") {
+function downloadFile(url, name = "	wit_cat.txt") {
+    let SuffixName = name.split(".")[name.split(".").length - 1];
+    if (SuffixName.toLowerCase() === "bat" || SuffixName.toLowerCase() === "cmd" || SuffixName.toLowerCase() === "vbs" || SuffixName.toLowerCase() === "ps1" || SuffixName.toLowerCase() === "sh") {
+        let a = confirm(this.formatMessage('WitCatFileHelper.downloadask') + SuffixName + ":\n" + url);
+        if (a === false) {
+            return;
+        }
+    }
     var a = document.createElement("a");
     a.href = url;
     a.download = name;
@@ -1253,5 +1215,15 @@ function checkImgType(file) {
         return false;
     } else {
         return true;
+    }
+}
+//判断是否允许下载文件
+function downloadable(callback) {
+    download += 1;
+    if (download < 3) {
+        callback();
+    }
+    else {
+        console.warn("下载太频繁！\nToo many downloads!");
     }
 }
