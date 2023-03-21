@@ -86,6 +86,7 @@ class WitCatFileHelper {
                 "WitCatFileHelper.imghw": "base64图片[img]的[hw]",
                 "WitCatFileHelper.imghw.1": "宽",
                 "WitCatFileHelper.imghw.2": "高",
+                "WitCatFileHelper.arrayjoin": "将数组[text]按[s]合并字符串",
             },
             en: {
                 "WitCatFileHelper.name": "[beta]WitCat’s File Helper",
@@ -133,6 +134,7 @@ class WitCatFileHelper {
                 "WitCatFileHelper.imghw": "base64img[img]`s[hw]",
                 "WitCatFileHelper.imghw.1": "width",
                 "WitCatFileHelper.imghw.2": "height",
+                "WitCatFileHelper.arrayjoin": "Merge the array[text]by[s]",
             }
         })
     }
@@ -422,6 +424,21 @@ class WitCatFileHelper {
                     },
                 },
                 "---" + this.formatMessage("WitCatFileHelper.Multiplelinestext"),
+                {
+                    opcode: "arrayjoin",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatFileHelper.arrayjoin"),
+                    arguments: {
+                        text: {
+                            type: "string",
+                            defaultValue: '["wow","!!!"]',
+                        },
+                        s: {
+                            type: "string",
+                            defaultValue: '/',
+                        },
+                    },
+                },
                 {
                     opcode: "segmentation",
                     blockType: "reporter",
@@ -999,6 +1016,10 @@ class WitCatFileHelper {
                 resolve("");
             }, 100);
         });
+    }
+    //数组合并
+    arrayjoin(args) {
+        return JSON.parse(args.text).join(args.s);
     }
 }
 
