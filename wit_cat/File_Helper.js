@@ -755,7 +755,7 @@ class WitCatFileHelper {
         return new Promise(resolve => {
             input = document.createElement("input");
             input.type = "file";
-            input.accept = "image/*";
+            input.accept = ".jpeg,.jpg,.png,.ico";
             input.style = "display:none;";
             input.click();
             input.onchange = () => {
@@ -1211,7 +1211,7 @@ function read(key_, recall) {
 }
 //判断打开文件是否为图片
 function checkImgType(file) {
-    if (!/\.(jpg|jpeg|png|GIF|JPG|PNG|ico|ICO)$/.test(file.name)) {
+    if (!/\.(jpg|jpeg|png|JPG|PNG|ico|ICO)$/.test(file.name)) {
         return false;
     } else {
         return true;
