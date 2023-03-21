@@ -65,6 +65,8 @@ class WitCatInput {
 				"WitCatInput.setread": "设置ID为[id]的文本框为[read]",
 				"WitCatInput.read.1": "可编辑",
 				"WitCatInput.read.2": "不可编辑",
+				"WitCatInput.password.1": "输入框",
+				"WitCatInput.password.2": "密码框",
 				"WitCatInput.docs": "📖拓展教程",
 			},
 			en: {
@@ -104,6 +106,8 @@ class WitCatInput {
 				"WitCatInput.setread": "Set the text box with ID[id]to[read]",
 				"WitCatInput.read.1": "editable",
 				"WitCatInput.read.2": "uneditable",
+				"WitCatInput.password.1": "input",
+				"WitCatInput.password.2": "password",
 				"WitCatInput.docs": "📖Extended tutorials",
 			}
 		})
@@ -209,6 +213,21 @@ class WitCatInput {
 						read: {
 							type: "string",
 							menu: "read",
+						},
+					},
+				},
+				{
+					opcode: "password",
+					blockType: "command",
+					text: this.formatMessage("WitCatInput.setread"),
+					arguments: {
+						id: {
+							type: "string",
+							defaultValue: "i",
+						},
+						read: {
+							type: "string",
+							menu: "password",
 						},
 					},
 				},
@@ -472,6 +491,16 @@ class WitCatInput {
 					{
 						text: this.formatMessage('WitCatInput.read.2'),
 						value: 'ue'
+					},
+				],
+				password: [
+					{
+						text: this.formatMessage('WitCatInput.password.1'),
+						value: 'text'
+					},
+					{
+						text: this.formatMessage('WitCatInput.password.2'),
+						value: 'password'
 					},
 				]
 			}
@@ -852,6 +881,13 @@ class WitCatInput {
 			else {
 				search.disabled = true;
 			}
+		}
+	}
+	//设置文本框的type
+	password(args) {
+		let search = document.getElementById("WitCatInput" + args.id);
+		if (search !== null) {
+			search.type = args.read;
 		}
 	}
 }
