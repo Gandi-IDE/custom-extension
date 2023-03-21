@@ -11,7 +11,7 @@ let yMouse = 0;
 let timer = null;
 let touch = [];
 let click = false, dclick = false;
-let mousetd = "";
+let mousetd = ["", "", "", "", ""];
 
 
 //base64转blob
@@ -116,8 +116,8 @@ class WitCatMouse {
 				"WitCatMouse.click": "点击",
 				"WitCatMouse.dclick": "双击",
 				"WitCatMouse.mouse": "鼠标被[way]?",
-				"WitCatMouse.mousetd": "鼠标被按下了[time]秒",
-				"WitCatMouse.mouset": "鼠标按下秒",
+				"WitCatMouse.mousetd": "鼠标[key]被按下了[time]秒",
+				"WitCatMouse.mouset": "鼠标[key]按下秒",
 				"WitCatMouse.docs": "📖拓展教程",
 			},
 			en: {
@@ -172,8 +172,8 @@ class WitCatMouse {
 				"WitCatMouse.click": "click",
 				"WitCatMouse.dclick": "double-click",
 				"WitCatMouse.mouse": "mouse[way]?",
-				"WitCatMouse.mousetd": "mouse pressed[time]seconds",
-				"WitCatMouse.mouset": "mouse hold time",
+				"WitCatMouse.mousetd": "mouse[key]pressed[time]seconds",
+				"WitCatMouse.mouset": "mouse[key]hold time",
 				"WitCatMouse.docs": "📖Extended tutorials",
 			}
 		})
@@ -281,6 +281,10 @@ class WitCatMouse {
 					blockType: "Boolean",
 					text: this.formatMessage("WitCatMouse.mousetd"),
 					arguments: {
+						key: {
+							type: "number",
+							menu: "key",
+						},
 						time: {
 							type: "number",
 							defaultValue: "1",
@@ -292,6 +296,10 @@ class WitCatMouse {
 					blockType: "hat",
 					text: this.formatMessage("WitCatMouse.mousetd"),
 					arguments: {
+						key: {
+							type: "number",
+							menu: "key",
+						},
 						time: {
 							type: "number",
 							defaultValue: "1",
@@ -302,7 +310,12 @@ class WitCatMouse {
 					opcode: "mouset",
 					blockType: "reporter",
 					text: this.formatMessage("WitCatMouse.mouset"),
-					arguments: {},
+					arguments: {
+						key: {
+							type: "number",
+							menu: "key",
+						},
+					},
 				},
 				{
 					blockType: "button",
@@ -734,8 +747,8 @@ class WitCatMouse {
 	}
 	//判断按下多久
 	mousetd(args) {
-		if (mousetd != "") {
-			let time = Math.abs(Date.now() - (args.time * 1000 + mousetd));
+		if (mousetd[args.key] != "") {
+			let time = Math.abs(Date.now() - (args.time * 1000 + mousetd[args.key]));
 			if (-50 <= time && time <= 50) {
 				return true;
 			}
@@ -743,8 +756,8 @@ class WitCatMouse {
 		return false;
 	}
 	mousetds(args) {
-		if (mousetd != "") {
-			let time = Math.abs(Date.now() - (args.time * 1000 + mousetd));
+		if ([args.key] != "") {
+			let time = Math.abs(Date.now() - (args.time * 1000 + mousetd[args.key]));
 			if (-50 <= time && time <= 50) {
 				return true;
 			}
@@ -752,9 +765,9 @@ class WitCatMouse {
 		return false;
 	}
 	//鼠标被按下的时间
-	mouset() {
-		if (mousetd != "") {
-			return (Date.now() - mousetd) / 1000;
+	mouset(args) {
+		if (mousetd[args.key] != "") {
+			return (Date.now() - mousetd[args.key]) / 1000;
 		}
 		return 0;
 	}
@@ -788,14 +801,14 @@ window.tempExt = {
 //鼠标
 document.addEventListener('mousedown', e => {
 	button[e.button] = "down";
+	mousetd[e.button] = Date.now();
 	if (button[0] === "down") {
 		touch = JSON.parse("[{\"clientX\":\"" + e.clientX + "\",\"clientY\":\"" + e.clientY + "\",\"identifier\":\"mouse\"}]");
-		mousetd = Date.now();
 	}
 })
 document.addEventListener('mouseup', e => {
 	button[e.button] = "up";
-	mousetd = "";
+	mousetd[e.button] = "";
 	touch = [];
 })
 document.addEventListener("mousemove", ev => {
@@ -817,7 +830,7 @@ document.addEventListener("mousemove", ev => {
 cvs.addEventListener('touchstart', e => {
 	touch = e.targetTouches;
 	button[0] = "down";
-	mousetd = Date.now();
+	mousetd[0] = Date.now();
 })
 cvs.addEventListener('touchmove', e => {
 	xMouse = e.targetTouches[0].clientX - touch[0].clientX; // 获得手指的x移动量
@@ -831,7 +844,7 @@ cvs.addEventListener('touchmove', e => {
 })
 cvs.addEventListener('touchend', e => {
 	touch = e.targetTouches;
-	mousetd = "";
+	mousetd[0] = "";
 	button[0] = "up";
 })
 cvs.addEventListener('click', e => {
