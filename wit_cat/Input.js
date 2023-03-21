@@ -59,6 +59,7 @@ class WitCatInput {
 				"WitCatInput.number.15": "背景图片",
 				"WitCatInput.key": "按下按键[type]?",
 				"WitCatInput.keys": "按下按键[type]?",
+				"WitCatInput.keypress": "按下的按键",
 				"WitCatInput.lastkey": "上次按下的键",
 				"WitCatInput.mousewheel": "鼠标滚轮",
 				"WitCatInput.setinput": "设置ID为[id]的文本框的[type]为[text]",
@@ -68,6 +69,9 @@ class WitCatInput {
 				"WitCatInput.password.1": "输入框",
 				"WitCatInput.password.2": "密码框",
 				"WitCatInput.docs": "📖拓展教程",
+				"WitCatInput.input": "输入框",
+				"WitCatInput.focal": "焦点",
+				"WitCatInput.keyboard": "键盘",
 			},
 			en: {
 				"WitCatInput.name": "[beta]WitCat‘s Input",
@@ -100,6 +104,7 @@ class WitCatInput {
 				"WitCatInput.number.15": "background",
 				"WitCatInput.key": "Press the key[type]?",
 				"WitCatInput.keys": "Press the key [type]?",
+				"WitCatInput.keypress": "key press",
 				"WitCatInput.lastkey": "last key pressed",
 				"WitCatInput.mousewheel": "MouseWheel",
 				"WitCatInput.setinput": "Set[type]of input whose ID is[id]to[text]",
@@ -109,6 +114,9 @@ class WitCatInput {
 				"WitCatInput.password.1": "input",
 				"WitCatInput.password.2": "password",
 				"WitCatInput.docs": "📖Extended tutorials",
+				"WitCatInput.input": "text area",
+				"WitCatInput.focal": "focal",
+				"WitCatInput.keyboard": "keyboard",
 			}
 		})
 	}
@@ -135,6 +143,7 @@ class WitCatInput {
 					text: this.formatMessage('WitCatInput.docs'),
 					onClick: this.docs,
 				},
+				"---" + this.formatMessage('WitCatInput.input'),
 				{
 					opcode: "createinput",
 					blockType: "command",
@@ -243,17 +252,6 @@ class WitCatInput {
 					},
 				},
 				{
-					opcode: "deleteinput",
-					blockType: "command",
-					text: this.formatMessage("WitCatInput.deleteinput"),
-					arguments: {
-						id: {
-							type: "string",
-							defaultValue: "i",
-						}
-					},
-				},
-				{
 					opcode: "getinput",
 					blockType: "reporter",
 					text: this.formatMessage("WitCatInput.getinput"),
@@ -290,6 +288,24 @@ class WitCatInput {
 					arguments: {},
 				},
 				{
+					opcode: "deleteinput",
+					blockType: "command",
+					text: this.formatMessage("WitCatInput.deleteinput"),
+					arguments: {
+						id: {
+							type: "string",
+							defaultValue: "i",
+						}
+					},
+				},
+				{
+					opcode: "deleteallinput",
+					blockType: "command",
+					text: this.formatMessage("WitCatInput.deleteallinput"),
+					arguments: {},
+				},
+				"---" + this.formatMessage('WitCatInput.focal'),
+				{
 					opcode: "isinput",
 					blockType: "Boolean",
 					text: this.formatMessage("WitCatInput.isinput"),
@@ -317,6 +333,7 @@ class WitCatInput {
 						}
 					},
 				},
+				"---" + this.formatMessage('WitCatInput.keyboard'),
 				{
 					opcode: "key",
 					blockType: "Boolean",
@@ -354,9 +371,10 @@ class WitCatInput {
 					arguments: {},
 				},
 				{
-					opcode: "deleteallinput",
-					blockType: "command",
-					text: this.formatMessage("WitCatInput.deleteallinput"),
+					opcode: "keypress",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatInput.keypress"),
+					func: false,
 					arguments: {},
 				},
 			],
@@ -755,11 +773,23 @@ class WitCatInput {
 	}
 	//按键检测
 	key(args) {
-		return (args.type in keypress);
+		let key = args.type.split(",");
+		for (const item of key) {
+			if (!Object.keys(keypress).includes(item)) {
+				return false;
+			}
+		}
+		return true;
 	}
 	//按键检测
 	keys(args) {
-		return (args.type in keypress);
+		let key = args.type.split(",");
+		for (const item of key) {
+			if (!Object.keys(keypress).includes(item)) {
+				return false;
+			}
+		}
+		return true;
 	}
 	//上次按下的键
 	lastkey() {
@@ -889,6 +919,10 @@ class WitCatInput {
 		if (search !== null) {
 			search.type = args.read;
 		}
+	}
+	//获取按下的按键
+	keypress() {
+		return JSON.stringify(Object.keys(keypress));
 	}
 }
 
