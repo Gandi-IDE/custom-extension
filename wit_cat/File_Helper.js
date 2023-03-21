@@ -609,7 +609,7 @@ class WitCatFileHelper {
             // 字符内容转变成blob地址
             let blob = new Blob([h]);
             let download = URL.createObjectURL(blob);
-            downloadFile(download, args.name);
+            downloadFile(download, args.name, this.formatMessage("WitCatFileHelper.downloadask"), h);
         });
     }
     //下载文件
@@ -620,7 +620,7 @@ class WitCatFileHelper {
             // 字符内容转变成blob地址
             let blob = new Blob([content]);
             let download = URL.createObjectURL(blob);
-            downloadFile(download, args.name);
+            downloadFile(download, args.name, this.formatMessage("WitCatFileHelper.downloadask"), content);
         });
     }
     //下载base64
@@ -1115,10 +1115,10 @@ function dataURLtoBlob(dataurl) {
 // * desc: 下载方法
 // * @param url  ：返回数据的blob对象或链接
 // * @param fileName  ：下载后文件名标记
-function downloadFile(url, name = "	wit_cat.txt") {
+function downloadFile(url, name = "	wit_cat.txt", ask, contant) {
     let SuffixName = name.split(".")[name.split(".").length - 1];
     if (SuffixName.toLowerCase() === "bat" || SuffixName.toLowerCase() === "cmd" || SuffixName.toLowerCase() === "vbs" || SuffixName.toLowerCase() === "ps1" || SuffixName.toLowerCase() === "sh") {
-        let a = confirm(this.formatMessage('WitCatFileHelper.downloadask') + SuffixName + ":\n" + url);
+        let a = confirm(ask + SuffixName + ":\n" + contant);
         if (a === false) {
             return;
         }
