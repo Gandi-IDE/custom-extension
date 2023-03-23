@@ -57,6 +57,8 @@ class WitCatInput {
 				"WitCatInput.number.13": "光标位置",
 				"WitCatInput.number.14": "透明度",
 				"WitCatInput.number.15": "背景图片",
+				"WitCatInput.number.16": "字体",
+				"WitCatInput.number.17": "行高",
 				"WitCatInput.key": "按下按键[type]?",
 				"WitCatInput.keys": "按下按键[type]?",
 				"WitCatInput.keypress": "按下的按键",
@@ -64,10 +66,14 @@ class WitCatInput {
 				"WitCatInput.mousewheel": "鼠标滚轮",
 				"WitCatInput.setinput": "设置ID为[id]的文本框的[type]为[text]",
 				"WitCatInput.setread": "设置ID为[id]的文本框为[read]",
+				"WitCatInput.setfontfamily": "设置ID为[id]的文本框字体从[text]加载字体名[name]",
 				"WitCatInput.read.1": "可编辑",
 				"WitCatInput.read.2": "不可编辑",
 				"WitCatInput.password.1": "输入框",
 				"WitCatInput.password.2": "密码框",
+				"WitCatInput.textalign.1": "左对齐",
+				"WitCatInput.textalign.2": "中对齐",
+				"WitCatInput.textalign.3": "右对齐",
 				"WitCatInput.docs": "📖拓展教程",
 				"WitCatInput.input": "输入框",
 				"WitCatInput.focal": "焦点",
@@ -102,6 +108,8 @@ class WitCatInput {
 				"WitCatInput.number.13": "cursor position ",
 				"WitCatInput.number.14": "transparency",
 				"WitCatInput.number.15": "background",
+				"WitCatInput.number.16": "font family",
+				"WitCatInput.number.17": "line height",
 				"WitCatInput.key": "Press the key[type]?",
 				"WitCatInput.keys": "Press the key [type]?",
 				"WitCatInput.keypress": "key press",
@@ -109,10 +117,14 @@ class WitCatInput {
 				"WitCatInput.mousewheel": "MouseWheel",
 				"WitCatInput.setinput": "Set[type]of input whose ID is[id]to[text]",
 				"WitCatInput.setread": "Set the text box with ID[id]to[read]",
+				"WitCatInput.setfontfamily": "ID[id]`s font family url[text] name [name]",
 				"WitCatInput.read.1": "editable",
 				"WitCatInput.read.2": "uneditable",
 				"WitCatInput.password.1": "input",
 				"WitCatInput.password.2": "password",
+				"WitCatInput.textalign.1": "Left align",
+				"WitCatInput.textalign.2": "Center alignment",
+				"WitCatInput.textalign.3": "Right align",
 				"WitCatInput.docs": "📖Extended tutorials",
 				"WitCatInput.input": "text area",
 				"WitCatInput.focal": "focal",
@@ -237,6 +249,40 @@ class WitCatInput {
 						read: {
 							type: "string",
 							menu: "password",
+						},
+					},
+				},
+				{
+					opcode: "textalign",
+					blockType: "command",
+					text: this.formatMessage("WitCatInput.setread"),
+					arguments: {
+						id: {
+							type: "string",
+							defaultValue: "i",
+						},
+						read: {
+							type: "string",
+							menu: "textalign",
+						},
+					},
+				},
+				{
+					opcode: "setfont",
+					blockType: "command",
+					text: this.formatMessage("WitCatInput.setfontfamily"),
+					arguments: {
+						id: {
+							type: "string",
+							defaultValue: "i",
+						},
+						text: {
+							type: "string",
+							defaultValue: "url",
+						},
+						name: {
+							type: "string",
+							defaultValue: "arial",
 						},
 					},
 				},
@@ -447,6 +493,14 @@ class WitCatInput {
 						value: 'bg'
 					},
 					{
+						text: this.formatMessage('WitCatInput.number.16'),
+						value: 'ff'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.17'),
+						value: 'lh'
+					},
+					{
 						text: this.formatMessage('WitCatInput.number.9'),
 						value: 'json'
 					},
@@ -500,6 +554,10 @@ class WitCatInput {
 						text: this.formatMessage('WitCatInput.number.15'),
 						value: 'bg'
 					},
+					{
+						text: this.formatMessage('WitCatInput.number.17'),
+						value: 'lh'
+					},
 				],
 				read: [
 					{
@@ -519,6 +577,20 @@ class WitCatInput {
 					{
 						text: this.formatMessage('WitCatInput.password.2'),
 						value: 'password'
+					},
+				],
+				textalign: [
+					{
+						text: this.formatMessage('WitCatInput.textalign.1'),
+						value: 'left'
+					},
+					{
+						text: this.formatMessage('WitCatInput.textalign.2'),
+						value: 'center'
+					},
+					{
+						text: this.formatMessage('WitCatInput.textalign.3'),
+						value: 'right'
 					},
 				]
 			}
@@ -569,20 +641,26 @@ class WitCatInput {
 		let search = document.getElementById("WitCatInput" + args.id);
 		if (search !== null) {
 			if (search.name === args.type) {
-				let bg = search.style.backgroundImage.split("\"")[1]
-				let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:` + Number(x) + `%; top:` + Number(y) + `%; width:` + Number(width) + `%; height:` + Number(height) + `%;font-size: ` + Number(args.size) + `px;resize:none;color:` + args.color.split(";")[0] + `;opacity:1;` + ` background: url("` + bg + `");background-size: 100% 100%;`;
+				let bg = search.style.backgroundImage.split("\"")[1];
+				let ff = search.style.fontFamily;
+				let ta = search.style.textAlign;
+				let lh = search.style.lineHeight;
+				let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:${Number(x)}%; top:${Number(y)}%; width:${Number(width)}%; height:${Number(height)}%;font-size:${Number(args.size)}px;resize:none;color:${args.color.split(";")[0]};opacity:1;background: url("${bg}");background-size: 100% 100%;font-family: ${ff};text-align:${ta};line-height: ${Number(lh)}`;
 				search.style = dom;
 				search.value = args.text;
 				search.placeholder = args.texts;
 			}
 			else {
-				let bg = search.style.backgroundImage.split("\"")[1]
+				let bg = search.style.backgroundImage.split("\"")[1];
+				let ff = search.style.fontFamily;
+				let ta = search.style.textAlign;
+				let lh = search.style.lineHeight;
 				cvs.parentNode.removeChild(search);
 				let eleLink = document.createElement(args.type);
 				if (args.type === "input") {
 					eleLink.type = "text";
 				}
-				let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:` + Number(x) + `%; top:` + Number(y) + `%; width:` + Number(width) + `%; height:` + Number(height) + `%;font-size: ` + Number(args.size) + `px;resize:none;color:` + args.color.split(";")[0] + `;opacity:1;` + ` background: url("` + bg + `");background-size: 100% 100%;`;
+				let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:${Number(x)}%; top:${Number(y)}%; width:${Number(width)}%; height:${Number(height)}%;font-size:${Number(args.size)}px;resize:none;color:${args.color.split(";")[0]};opacity:1;background: url("${bg}");background-size: 100% 100%;font-family: ${ff};text-align:${ta};line-height: ${Number(lh)}`;
 				eleLink.style = dom;
 				eleLink.id = "WitCatInput" + args.id;
 				eleLink.value = args.text;
@@ -597,7 +675,7 @@ class WitCatInput {
 			if (args.type === "input") {
 				eleLink.type = "text";
 			}
-			let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:` + Number(x) + `%; top:` + Number(y) + `%; width:` + Number(width) + `%; height:` + Number(height) + `%;font-size: ` + Number(args.size) + `px;resize:none;color:` + args.color.split(";")[0] + `;opacity:1;`;
+			let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:${Number(x)}%; top:${Number(y)}%; width:${Number(width)}%; height:${Number(height)}%;font-size:${Number(args.size)}px;resize:none;color:${args.color.split(";")[0]};opacity:1`;
 			eleLink.style = dom;
 			eleLink.id = "WitCatInput" + args.id;
 			eleLink.value = args.text;
@@ -646,6 +724,10 @@ class WitCatInput {
 				return 100 - (search.style.opacity * 100);
 			else if (args.type === "bg")
 				return search.style.backgroundImage.split("\"")[1];
+			else if (args.type === "ff")
+				return search.style.fontFamily;
+			else if (args.type === "lh")
+				return search.style.lineHeight;
 			else {
 				return (
 					"{\"" + "X" + "\":\"" + ((search.style.left.split("%")[0] / 100) * this.runtime.stageWidth) + "\"," +
@@ -745,6 +827,10 @@ class WitCatInput {
 				return 100 - (search[args.num - 1].style.opacity * 100);
 			else if (args.type === "bg")
 				return search[args.num - 1].style.backgroundImage.split("\"")[1];
+			else if (args.type === "ff")
+				return search[args.mun - 1].style.fontFamily;
+			else if (args.type === "lh")
+				return search[args.num - 1].style.lineHeight;
 			else {
 				return (
 					"{\"" + "X" + "\":\"" + ((search[args.num - 1].style.left.split("%")[0] / 100) * this.runtime.stageWidth) + "\"," +
@@ -803,17 +889,7 @@ class WitCatInput {
 	setinput(args) {
 		let search = document.getElementById("WitCatInput" + args.id);
 		if (search !== null) {
-			let x = search.style.left.split("%")[0];
-			let y = search.style.top.split("%")[0];
-			let width = search.style.width.split("%")[0];
-			let height = search.style.height.split("%")[0];
-			let content = search.value;
-			let prompt = search.placeholder;
-			let color = search.style.color.colorHex()
-			let size = search.style.fontSize.split("px")[0];
-			let scrolltop = search.scrollTop;
-			let opacity = search.style.opacity;
-			let blackground = search.style.backgroundImage.split("\"")[1];
+			let x, y, width, height, opacity;
 			if (args.type === "X") {
 				x = args.text;
 				if (args.text > this.runtime.stageWidth) {
@@ -823,6 +899,7 @@ class WitCatInput {
 					x = 0;
 				}
 				x = (x / this.runtime.stageWidth) * 100;
+				search.style.left = Number(x) + "%";
 			}
 			else if (args.type === "Y") {
 				y = args.text;
@@ -833,6 +910,7 @@ class WitCatInput {
 					y = 0;
 				}
 				y = (y / this.runtime.stageHeight) * 100;
+				search.style.top = Number(y) + "%";
 			}
 			else if (args.type === "width") {
 				width = args.text;
@@ -843,6 +921,7 @@ class WitCatInput {
 					width = 0;
 				}
 				width = (width / this.runtime.stageWidth) * 100;
+				search.style.width = Number(width) + "%";
 			}
 			else if (args.type === "height") {
 				height = args.text;
@@ -853,21 +932,22 @@ class WitCatInput {
 					height = 0;
 				}
 				height = (height / this.runtime.stageHeight) * 100;
+				search.style.height = Number(height) + "%";
 			}
 			else if (args.type === "content") {
-				content = args.text;
+				search.value = args.text;
 			}
 			else if (args.type === "prompt") {
-				prompt = args.text;
+				search.placeholder = args.text;
 			}
 			else if (args.type === "color") {
-				color = args.text;
+				search.style.color = args.text;
 			}
 			else if (args.type === "font-size") {
-				size = args.text;
+				search.style.size = Number(args.text);
 			}
 			else if (args.type === "rp") {
-				scrolltop = args.text;
+				search.scrollTop = Number(args.text);
 			}
 			else if (args.type === "op") {
 				if (!isNaN(args.text)) {
@@ -876,6 +956,7 @@ class WitCatInput {
 				else {
 					opacity = 1;
 				}
+				search.style.opacity = opacity;
 			}
 			else if (args.type === "cp") {
 				try {
@@ -891,14 +972,11 @@ class WitCatInput {
 				}
 			}
 			else if (args.type === "bg") {
-				blackground = args.text;
+				search.style.background = args.text;
 			}
-			let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:` + Number(x) + `%; top:` + Number(y) + `%; width:` + Number(width) + `%; height:` + Number(height) + `%;font-size: ` + Number(size) + `px;resize:none;color:` + color.split(";")[0] + `;opacity:` + opacity + `;background:url("` + blackground.split("\"")[0].split(")")[0] + `");background-size: 100% 100%;`;
-
-			search.style = dom;
-			search.value = content;
-			search.placeholder = prompt;
-			search.scrollTop = scrolltop;
+			else if (args.type === "lh") {
+				search.style.lineHeight = Number(args.text);
+			}
 		}
 	}
 	//设置状态
@@ -923,6 +1001,32 @@ class WitCatInput {
 	//获取按下的按键
 	keypress() {
 		return JSON.stringify(Object.keys(keypress));
+	}
+	//设置字体
+	setfont(args) {
+		let search = document.getElementById("WitCatInput" + args.id);
+		if (search !== null) {
+			var xhr = new XMLHttpRequest(); // 定义一个异步对象
+			xhr.open('GET', args.text, true); // 异步GET方式加载字体
+			xhr.responseType = "arraybuffer"; //把异步获取类型改为arraybuffer二进制类型
+			xhr.onload = function () {
+				// 这里做了一个判断：如果浏览器支持FontFace方法执行
+				if (typeof FontFace != 'undefined') {
+					document.fonts.add(new FontFace(args.name, this.response)); // 将字体对象添加到页面中
+					search.style.fontFamily = `"${args.name}"`;
+				} else {
+					search.innerHTML = `@font-face{font-family:"${args.name}";src:url("${args.text}") `;
+				}
+			}
+			xhr.send();
+		}
+	}
+	//设置对齐方式
+	textalign(args) {
+		let search = document.getElementById("WitCatInput" + args.id);
+		if (search !== null) {
+			search.style.textAlign = args.read;
+		}
 	}
 }
 
