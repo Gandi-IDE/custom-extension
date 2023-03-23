@@ -228,7 +228,7 @@ class NotJS {
     parseJSON({ json }) {
         const v = this._parseJSON(json);
         if (v === undefined)
-            return;
+            return '';
         return JSON.stringify(v);
     }
     fromString({ str }) {
@@ -237,7 +237,7 @@ class NotJS {
     asString({ json }) {
         const v = this._parseJSON(json);
         if (v === undefined)
-            return;
+            return '';
         if (v == null ||
             typeof v == 'string' ||
             typeof v == 'boolean' ||
@@ -250,7 +250,7 @@ class NotJS {
     asBoolean({ json }) {
         const v = this._parseJSON(json);
         if (v === undefined)
-            return;
+            return false;
         if (typeof v == 'boolean' || typeof v == 'number') {
             return Boolean(v);
         }
@@ -265,7 +265,7 @@ class NotJS {
     getType({ json }) {
         const v = this._parseJSON(json);
         if (v === undefined)
-            return;
+            return '';
         if (v == null) {
             return 'null';
         }
@@ -283,7 +283,7 @@ class NotJS {
     getMember({ json, member }) {
         const v = this._parseJSON(json);
         if (v === undefined)
-            return;
+            return '';
         if (v instanceof Array || typeof v == 'string') {
             const idx = parseInt(member);
             if (v[idx] === undefined)
@@ -303,20 +303,20 @@ class NotJS {
     setMember({ json, member, value }) {
         const v = this._parseJSON(json);
         if (v === undefined)
-            return;
+            return '';
         if (v instanceof Array) {
             const idx = parseInt(member);
             if (isNaN(idx) || idx < 0)
                 return JSON.stringify(v);
             const c = this._parseJSON(value);
             if (c === undefined)
-                return;
+                return '';
             v[idx] = c;
         }
         else if (v instanceof Object) {
             const c = this._parseJSON(value);
             if (c === undefined)
-                return;
+                return '';
             v[member] = c;
         }
         else {
@@ -325,35 +325,24 @@ class NotJS {
         return JSON.stringify(v);
     }
     removeMember({ json, member }) {
-        let v = this._parseJSON(json);
+        const v = this._parseJSON(json);
         if (v === undefined)
-            return;
+            return '';
         if (v instanceof Array) {
             const idx = parseInt(member);
             if (v[idx] !== undefined) {
-                if (idx == v.length - 1) {
-                    v = v.slice(0, -1);
-                }
-                else if (idx == 0) {
-                    v = v.slice(1);
-                }
-                else {
-                    v[idx] = null;
-                }
+                v.splice(idx, 1);
             }
         }
         else if (v instanceof Object) {
             delete v[member];
-        }
-        else {
-            return JSON.stringify(v);
         }
         return JSON.stringify(v);
     }
     exists({ json, member }) {
         const v = this._parseJSON(json);
         if (v === undefined)
-            return;
+            return false;
         if (v instanceof Array) {
             return v[parseInt(member)] !== undefined;
         }
@@ -365,19 +354,19 @@ class NotJS {
     length({ json }) {
         const v = this._parseJSON(json);
         if (v === undefined)
-            return;
+            return '';
         if (v instanceof Array || typeof v == 'string') {
             return v.length;
         }
         else if (v instanceof Object) {
             return Object.keys(v).length;
         }
-        return;
+        return '';
     }
     keys({ json }) {
         const v = this._parseJSON(json);
         if (v === undefined)
-            return;
+            return '';
         if (typeof v == 'string' || v instanceof Object) {
             return JSON.stringify(Object.keys(v));
         }
@@ -386,7 +375,7 @@ class NotJS {
     values({ json }) {
         const v = this._parseJSON(json);
         if (v === undefined)
-            return;
+            return '';
         if (v instanceof Object || typeof v == 'string') {
             return JSON.stringify(Object.values(v));
         }
