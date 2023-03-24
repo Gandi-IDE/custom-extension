@@ -113,7 +113,7 @@ class WitCatFileHelper {
                 "WitCatFileHelper.showoff": "can't read",
                 "WitCatFileHelper.showall": "can read and modify",
                 "WitCatFileHelper.deleteMultiplelinestext": "delete the [num] line of [text]",
-                "WitCatFileHelper.addMultiplelinestext": "insert [texts] before line [num] of [texts]",
+                "WitCatFileHelper.addMultiplelinestext": "insert [text] before line [num] of [texts]",
                 "WitCatFileHelper.whatMultiplelinestext": "line [num] of [text]",
                 "WitCatFileHelper.numMultiplelinestext": "number of lines in [text]",
                 "WitCatFileHelper.thing.1": "array",
