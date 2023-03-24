@@ -30,7 +30,7 @@ class WitCatInput {
 		this._formatMessage = runtime.getFormatMessage({
 			"zh-cn": {
 				"WitCatInput.name": "[beta]白猫的输入框",
-				"WitCatInput.createinput": "创建[type]文本框并命名为[id]，X[x]Y[y]宽[width]高[height]内容[text]颜色[color]提示[texts]字体大小[size]",
+				"WitCatInput.createinput": "创建或修改[type]文本框并命名为[id]，X[x]Y[y]宽[width]高[height]内容[text]颜色[color]提示[texts]字体大小[size]",
 				"WitCatInput.deleteinput": "删除文本框[id]",
 				"WitCatInput.getinput": "获得文本框[id]的[type]",
 				"WitCatInput.isinput": "焦点是否在文本框[id]上",
@@ -88,7 +88,7 @@ class WitCatInput {
 			},
 			en: {
 				"WitCatInput.name": "[beta]WitCat‘s Input",
-				"WitCatInput.createinput": "Create [type]input ID[id]X[x]Y[y]width[width]height[height]content[text]color[color]prompt[texts]fontSize[size]",
+				"WitCatInput.createinput": "Create or modify [type]input ID[id]X[x]Y[y]width[width]height[height]content[text]color[color]prompt[texts]fontSize[size]",
 				"WitCatInput.deleteinput": "Delete input[id]",
 				"WitCatInput.getinput": "[type] of input [id]",
 				"WitCatInput.isinput": "input [id] received focus?",
