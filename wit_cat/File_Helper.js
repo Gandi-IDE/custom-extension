@@ -44,6 +44,7 @@ class WitCatFileHelper {
                 "WitCatFileHelper.name": "[beta]白猫的文件助手",
                 "WitCatFileHelper.filehelper": "文件处理",
                 "WitCatFileHelper.inputmanagement": "键值对",
+                "WitCatFileHelper.imageprocess": "图片",
                 "WitCatFileHelper.Multiplelinestext": "多行文本",
                 "WitCatFileHelper.downloads": "将内容[text]按[s]分割后命名为[name]并下载多行文本",
                 "WitCatFileHelper.download": "将内容[text]命名为[name]并下载",
@@ -90,9 +91,10 @@ class WitCatFileHelper {
             },
             en: {
                 "WitCatFileHelper.name": "[beta]WitCat’s File Helper",
-                "WitCatFileHelper.filehelper": "file",
+                "WitCatFileHelper.filehelper": "File",
                 "WitCatFileHelper.inputmanagement": "Key-value pair",
-                "WitCatFileHelper.Multiplelinestext": "Multiple lines of text",
+                "WitCatFileHelper.imageprocess": "Image",
+                "WitCatFileHelper.Multiplelinestext": "Multi-line text",
                 "WitCatFileHelper.downloads": "Download split text [text] by [s] named [name]",
                 "WitCatFileHelper.download": "Download text [text] named [name]",
                 "WitCatFileHelper.downloadbase": "Download data url [text] named [name]",
@@ -245,7 +247,7 @@ class WitCatFileHelper {
                         },
                     },
                 },
-                "---" + "img 图片🖼️",
+                "---" + this.formatMessage("WitCatFileHelper.imageprocess"),
                 {
                     opcode: "img",
                     blockType: "reporter",
@@ -402,7 +404,7 @@ class WitCatFileHelper {
                         },
                     },
                 },
-                "---" + "base64",
+                "---" + "Base64",
                 {
                     opcode: "encrypt",
                     blockType: "reporter",
