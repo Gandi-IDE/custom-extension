@@ -9,7 +9,7 @@ let FLAG = 0, download = 0, uri, input;
 let filename = "";
 //键值对
 let db;
-
+let request = window.indexedDB.open("witcat", 2);
 request.onupgradeneeded = function (event) {
     console.log("初始化文件助手键值对");
     let objectStore;
