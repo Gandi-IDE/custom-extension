@@ -652,7 +652,7 @@ class WitCatFileHelper {
         });
     }
     //读取本地变量
-    async upload(args) {
+    upload(args) {
         const name = args.name;
         let h = this.runtime.ccwAPI.getProjectUUID();
         //寻找状态
