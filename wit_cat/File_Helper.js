@@ -609,11 +609,7 @@ class WitCatFileHelper {
     }
     //打开教程
     docs() {
-        let a = document.createElement('a');
-        a.href = "https://www.ccw.site/post/d6d96e80-3f58-4a19-b7e6-c567d3a6a583";
-        a.rel = "noopener noreferrer";
-        a.target = "_blank";
-        a.click();
+        window.open("https://www.ccw.site/post/d6d96e80-3f58-4a19-b7e6-c567d3a6a583");
     }
     //下载多行文件
     downloads(args) {
