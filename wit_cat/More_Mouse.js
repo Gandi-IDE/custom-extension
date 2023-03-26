@@ -702,7 +702,11 @@ class WitCatMouse {
 	}
 	//打开教程
 	docs() {
-		window.open("https://www.ccw.site/post/c36aa805-b29d-48da-aba1-468a6cf80bfa");
+		let a = document.createElement('a');
+		a.href = "https://www.ccw.site/post/c36aa805-b29d-48da-aba1-468a6cf80bfa";
+		a.rel = "noopener noreferrer";
+		a.target = "_blank";
+		a.click();
 	}
 	//鼠标点击/双击
 	mouse(args) {

@@ -703,7 +703,11 @@ class WitCatInput {
 	}
 	//打开教程
 	docs() {
-		window.open("https://www.ccw.site/post/6153a7a6-05fb-462e-b785-b97700b12bc2");
+		let a = document.createElement('a');
+		a.href = "https://www.ccw.site/post/6153a7a6-05fb-462e-b785-b97700b12bc2";
+		a.rel = "noopener noreferrer";
+		a.target = "_blank";
+		a.click();
 	}
 	//设置或创建文本框
 	createinput(args) {
