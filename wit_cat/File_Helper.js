@@ -44,6 +44,7 @@ class WitCatFileHelper {
                 "WitCatFileHelper.name": "[beta]白猫的文件助手",
                 "WitCatFileHelper.filehelper": "文件处理",
                 "WitCatFileHelper.inputmanagement": "键值对",
+                "WitCatFileHelper.imageprocess": "图片",
                 "WitCatFileHelper.Multiplelinestext": "多行文本",
                 "WitCatFileHelper.downloads": "将内容[text]按[s]分割后命名为[name]并下载多行文本",
                 "WitCatFileHelper.download": "将内容[text]命名为[name]并下载",
@@ -90,9 +91,10 @@ class WitCatFileHelper {
             },
             en: {
                 "WitCatFileHelper.name": "[beta]WitCat’s File Helper",
-                "WitCatFileHelper.filehelper": "file",
+                "WitCatFileHelper.filehelper": "File",
                 "WitCatFileHelper.inputmanagement": "Key-value pair",
-                "WitCatFileHelper.Multiplelinestext": "Multiple lines of text",
+                "WitCatFileHelper.imageprocess": "Image",
+                "WitCatFileHelper.Multiplelinestext": "Multi-line text",
                 "WitCatFileHelper.downloads": "Download split text [text] by [s] named [name]",
                 "WitCatFileHelper.download": "Download text [text] named [name]",
                 "WitCatFileHelper.downloadbase": "Download data url [text] named [name]",
@@ -113,7 +115,7 @@ class WitCatFileHelper {
                 "WitCatFileHelper.showoff": "can't read",
                 "WitCatFileHelper.showall": "can read and modify",
                 "WitCatFileHelper.deleteMultiplelinestext": "delete the [num] line of [text]",
-                "WitCatFileHelper.addMultiplelinestext": "insert [texts] before line [num] of [texts]",
+                "WitCatFileHelper.addMultiplelinestext": "insert [text] before line [num] of [texts]",
                 "WitCatFileHelper.whatMultiplelinestext": "line [num] of [text]",
                 "WitCatFileHelper.numMultiplelinestext": "number of lines in [text]",
                 "WitCatFileHelper.thing.1": "array",
@@ -245,7 +247,7 @@ class WitCatFileHelper {
                         },
                     },
                 },
-                "---" + "img 图片🖼️",
+                "---" + this.formatMessage("WitCatFileHelper.imageprocess"),
                 {
                     opcode: "img",
                     blockType: "reporter",
@@ -402,7 +404,7 @@ class WitCatFileHelper {
                         },
                     },
                 },
-                "---" + "base64",
+                "---" + "Base64",
                 {
                     opcode: "encrypt",
                     blockType: "reporter",
@@ -654,7 +656,7 @@ class WitCatFileHelper {
         });
     }
     //读取本地变量
-    async upload(args) {
+    upload(args) {
         const name = args.name;
         let h = this.runtime.ccwAPI.getProjectUUID();
         //寻找状态
