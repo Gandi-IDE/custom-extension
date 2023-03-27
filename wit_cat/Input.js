@@ -640,6 +640,10 @@ class WitCatInput {
                         text: this.formatMessage('WitCatInput.number.19'),
                         value: 'ts'
                     },
+                    {
+                        text: '⚠css',
+                        value: 'css'
+                    },
                 ],
                 read: [
                     {
@@ -780,7 +784,7 @@ class WitCatInput {
                 let lh = search.style.lineHeight;
                 let fw = search.style.fontWeight;
                 let ts = search.style.textShadow;
-                let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:${Number(x)}%; top:${Number(y)}%; width:${Number(width)}%; height:${Number(height)}%;font-size:${Number(adaptive ? (cvs.style.width.split("px")[0] / 360) * args.size : args.size)}px;resize:none;color:${args.color.split(";")[0]};opacity:1;background: url("${bg}");background-size: 100% 100%;font-family: ${ff};text-align:${ta};line-height: ${Number(lh)};font-weight:${Number(fw)};text-shadow:${ts}`;
+                let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:${Number(x)}%; top:${Number(y)}%; width:${Number(width)}%; height:${Number(height)}%;font-size:${Number(adaptive ? (cvs.style.width.split("px")[0] / 360) * args.size : args.size)}px;resize:none;color:${args.color};opacity:1;background: url("${bg}");background-size: 100% 100%;font-family: ${ff};text-align:${ta};line-height: ${Number(lh)};font-weight:${Number(fw)};text-shadow:${ts}`;
                 search.style = dom;
                 search.value = args.text;
                 search.placeholder = args.texts;
@@ -797,7 +801,7 @@ class WitCatInput {
                 if (args.type === "input") {
                     eleLink.type = "text";
                 }
-                let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:${Number(x)}%; top:${Number(y)}%; width:${Number(width)}%; height:${Number(height)}%;font-size:${Number(adaptive ? (cvs.style.width.split("px")[0] / 360) * args.size : args.size)}px;resize:none;color:${args.color.split(";")[0]};opacity:1;background: url("${bg}");background-size: 100% 100%;font-family: ${ff};text-align:${ta};line-height: ${Number(lh)};font-weight:${Number(fw)};text-shadow:${ts}`;
+                let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:${Number(x)}%; top:${Number(y)}%; width:${Number(width)}%; height:${Number(height)}%;font-size:${Number(adaptive ? (cvs.style.width.split("px")[0] / 360) * args.size : args.size)}px;resize:none;color:${args.color};opacity:1;background: url("${bg}");background-size: 100% 100%;font-family: ${ff};text-align:${ta};line-height: ${Number(lh)};font-weight:${Number(fw)};text-shadow:${ts}`;
                 eleLink.style = dom;
                 eleLink.id = "WitCatInput" + args.id;
                 eleLink.value = args.text;
@@ -812,7 +816,7 @@ class WitCatInput {
             if (args.type === "input") {
                 eleLink.type = "text";
             }
-            let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:${Number(x)}%; top:${Number(y)}%; width:${Number(width)}%; height:${Number(height)}%;font-size:${Number(adaptive ? (cvs.style.width.split("px")[0] / 360) * inputFontSize[search[i].id.split("WitCatInput")[1]] : args.size)}px;resize:none;color:${args.color.split(";")[0]};opacity:1`;
+            let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:${Number(x)}%; top:${Number(y)}%; width:${Number(width)}%; height:${Number(height)}%;font-size:${Number(adaptive ? (cvs.style.width.split("px")[0] / 360) * inputFontSize[search[i].id.split("WitCatInput")[1]] : args.size)}px;resize:none;color:${args.color};opacity:1`;
             eleLink.style = dom;
             eleLink.id = "WitCatInput" + args.id;
             eleLink.value = args.text;
@@ -1126,6 +1130,9 @@ class WitCatInput {
             }
             else if (args.type === "ts") {
                 search.style.textShadow = args.text;
+            }
+            else if (args.type === "css") {
+                search.style = args.text;
             }
         }
     }
