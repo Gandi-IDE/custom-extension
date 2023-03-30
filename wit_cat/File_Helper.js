@@ -60,9 +60,9 @@ class WitCatFileHelper {
                 "WitCatFileHelper.saveother": "设置作品ID[id]的键[name]的值为[text]",
                 "WitCatFileHelper.uploadother": "获取作品[id]的键[name]的值",
                 "WitCatFileHelper.other": "作品[id]的键[name]的状态",
-                "WitCatFileHelper.showon": "只能读取",
-                "WitCatFileHelper.showoff": "不能读取",
-                "WitCatFileHelper.showall": "可以读取和修改",
+                "WitCatFileHelper.showon": "只读",
+                "WitCatFileHelper.showoff": "私有",
+                "WitCatFileHelper.showall": "公开",
                 "WitCatFileHelper.deleteMultiplelinestext": "删除[text]的第[num]行",
                 "WitCatFileHelper.addMultiplelinestext": "将[text]插入到[texts]的第[num]行之前",
                 "WitCatFileHelper.whatMultiplelinestext": "[text]的第[num]行",
@@ -78,6 +78,9 @@ class WitCatFileHelper {
                 "WitCatFileHelper.downloadnum": "可下载文件数量",
                 "WitCatFileHelper.downloadask": "作品企图下载疑似会威胁电脑的文件，是否继续？\n内容如下：",
                 "WitCatFileHelper.openfiles": "打开图片",
+                "WitCatFileHelper.openfiless": "打开[name]并读取为[type]",
+                "WitCatFileHelper.openfile.1": "UTF-8(文本)",
+                "WitCatFileHelper.openfile.2": "data url",
                 "WitCatFileHelper.img": "压缩图片(data url)[base]，质量(0-1)[num]",
                 "WitCatFileHelper.file": "上次打开文件的[type]",
                 "WitCatFileHelper.file.1": "文件名",
@@ -129,6 +132,9 @@ class WitCatFileHelper {
                 "WitCatFileHelper.downloadnum": "number of downloadable files",
                 "WitCatFileHelper.downloadask": "The project attempts to download a suspicious file, continue? \n File content: ",
                 "WitCatFileHelper.openfiles": "load image",
+                "WitCatFileHelper.openfiless": "load[name]read as[type]",
+                "WitCatFileHelper.openfile.1": "UTF-8(text)",
+                "WitCatFileHelper.openfile.2": "data url",
                 "WitCatFileHelper.img": "compress image(data url) [base] quality(0~1) [num]",
                 "WitCatFileHelper.file": "[type] of last file",
                 "WitCatFileHelper.file.1": "name",
@@ -234,6 +240,22 @@ class WitCatFileHelper {
                     text: this.formatMessage("WitCatFileHelper.openfiles"),
                     disableMonitor: true,
                     arguments: {},
+                },
+                {
+                    opcode: "openfiless",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatFileHelper.openfiless"),
+                    disableMonitor: true,
+                    arguments: {
+                        name: {
+                            type: "string",
+                            defaultValue: ".txt,.cpp",
+                        },
+                        type: {
+                            type: "string",
+                            menu: "openfile",
+                        }
+                    },
                 },
                 {
                     opcode: "file",
@@ -604,6 +626,16 @@ class WitCatFileHelper {
                         value: 'height'
                     },
                 ],
+                openfile: [
+                    {
+                        text: this.formatMessage('WitCatFileHelper.openfile.1'),
+                        value: 'utf-8'
+                    },
+                    {
+                        text: this.formatMessage('WitCatFileHelper.openfile.2'),
+                        value: 'base64'
+                    },
+                ],
             }
         };
     }
@@ -818,6 +850,62 @@ class WitCatFileHelper {
                 }, 1000);
             }
         });
+    }
+    //打开任意文件
+    openfiless(args) {
+        try {
+            FLAG = 1;
+            return new Promise(resolve => {
+                input = document.createElement("input");
+                input.type = "file";
+                input.accept = args.name;
+                input.style = "display:none;";
+                input.click();
+                input.onchange = () => {
+                    const reader = new FileReader();
+                    const readers = new FileReader();
+                    const file = input.files[0];
+                    reader.onload = (e) => {
+                        FLAG = 0;
+                        resolve(e.target.result);
+                    };
+                    reader.onerror = (e) => {
+                        FLAG = 0;
+                        resolve("error:", e);
+                    };
+                    filename = getFileName(input.value);
+                    readers.readAsArrayBuffer(file);
+                    readers.onload = (e) => {
+                        uri = e.target.result;
+                        console.log(uri.byteLength / 1024 + " KB");
+                        if (uri.byteLength / 1024 < 50) {
+                            if (args.type == "base64") {
+                                reader.readAsDataURL(file);
+                            }
+                            if (args.type == "utf-8") {
+                                reader.readAsText(file);
+                            }
+                        }
+                        else {
+                            console.error("文件过大\nfile is too lage.");
+                            resolve("error");
+                        }
+                    };
+                }
+                window.onfocus = () => {
+                    // 开始计时或者播放
+                    setTimeout(() => {
+                        if (FLAG === 1) {
+                            FLAG = 0;
+                            resolve("");
+                        }
+                    }, 1000);
+                }
+            });
+        }
+        catch (e) {
+            console.error("witcat open any file error:", e);
+        }
     }
     //打开文件的信息
     file(args) {
