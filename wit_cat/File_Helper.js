@@ -79,6 +79,7 @@ class WitCatFileHelper {
                 "WitCatFileHelper.downloadask": "作品企图下载疑似会威胁电脑的文件，是否继续？\n内容如下：",
                 "WitCatFileHelper.openfiles": "打开图片",
                 "WitCatFileHelper.openfiless": "打开[name]并读取为[type]",
+                "WitCatFileHelper.downloadurl": "通过网址[url]下载文件[name]",
                 "WitCatFileHelper.openfile.1": "UTF-8(文本)",
                 "WitCatFileHelper.openfile.2": "data url",
                 "WitCatFileHelper.img": "压缩图片(data url)[base]，质量(0-1)[num]",
@@ -133,6 +134,7 @@ class WitCatFileHelper {
                 "WitCatFileHelper.downloadask": "The project attempts to download a suspicious file, continue? \n File content: ",
                 "WitCatFileHelper.openfiles": "load image",
                 "WitCatFileHelper.openfiless": "load[name]read as[type]",
+                "WitCatFileHelper.downloadurl": "download file[name]by url[url]",
                 "WitCatFileHelper.openfile.1": "UTF-8(text)",
                 "WitCatFileHelper.openfile.2": "data url",
                 "WitCatFileHelper.img": "compress image(data url) [base] quality(0~1) [num]",
@@ -214,6 +216,21 @@ class WitCatFileHelper {
                         text: {
                             type: "string",
                             defaultValue: 'base64 img',
+                        },
+                        name: {
+                            type: "string",
+                            defaultValue: 'wit_cat.txt',
+                        },
+                    },
+                },
+                {
+                    opcode: "downloadurl",
+                    blockType: "command",
+                    text: this.formatMessage("WitCatFileHelper.downloadurl"),
+                    arguments: {
+                        url: {
+                            type: "string",
+                            defaultValue: 'https://zhishi.oss-cn-beijing.aliyuncs.com/works-covers/6a2fa95b-0542-4eac-bd63-3e58a1a7f2b0.txt',
                         },
                         name: {
                             type: "string",
@@ -687,6 +704,27 @@ class WitCatFileHelper {
             }
         });
     }
+    //下载url文件
+    downloadurl(args) {
+        var url = args.url;
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true); // 异步
+        xhr.responseType = 'blob'; // blob 类型
+        xhr.onload = function () {
+            if (xhr.status != 200) {
+                console.error("error:can`t get file");
+                return;
+            }
+            if (window.navigator.msSaveOrOpenBlob) {
+                // IE
+                navigator.msSaveBlob(xhr.response, filename);
+            } else {
+                var download = URL.createObjectURL(xhr.response);
+                downloadFile(download, args.name, this.formatMessage("WitCatFileHelper.downloadask"), args.url);
+            }
+        };
+        xhr.send();
+    }
     //读取本地变量
     upload(args) {
         const name = args.name;
@@ -878,7 +916,7 @@ class WitCatFileHelper {
                     readers.onload = (e) => {
                         uri = e.target.result;
                         console.log(uri.byteLength / 1024 + " KB");
-                        if (uri.byteLength / 1024 < 50) {
+                        if (uri.byteLength / 1024 / 1024 < 50) {
                             if (args.type == "base64") {
                                 reader.readAsDataURL(file);
                             }
