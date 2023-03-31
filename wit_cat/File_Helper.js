@@ -92,6 +92,7 @@ class WitCatFileHelper {
                 "WitCatFileHelper.imghw.1": "宽",
                 "WitCatFileHelper.imghw.2": "高",
                 "WitCatFileHelper.arrayjoin": "用[s]作为分隔符合并数组[text]",
+                "WitCatFileHelper.asks": "文件大小太大，可能导致浏览器崩溃，确定继续？",
             },
             en: {
                 "WitCatFileHelper.name": "[beta]WitCat’s File Helper",
@@ -147,6 +148,7 @@ class WitCatFileHelper {
                 "WitCatFileHelper.imghw.1": "width",
                 "WitCatFileHelper.imghw.2": "height",
                 "WitCatFileHelper.arrayjoin": "join array [text], seperating by [s]",
+                "WitCatFileHelper.asks": "The file size is too large and may cause the browser to crash, are you sure to continue?",
             }
         })
     }
@@ -706,8 +708,9 @@ class WitCatFileHelper {
     }
     //下载url文件
     downloadurl(args) {
-        var url = args.url;
-        var xhr = new XMLHttpRequest();
+        let url = args.url;
+        let xhr = new XMLHttpRequest();
+        let ask = this.formatMessage("WitCatFileHelper.downloadask");
         xhr.open('GET', url, true); // 异步
         xhr.responseType = 'blob'; // blob 类型
         xhr.onload = function () {
@@ -720,7 +723,7 @@ class WitCatFileHelper {
                 navigator.msSaveBlob(xhr.response, filename);
             } else {
                 var download = URL.createObjectURL(xhr.response);
-                downloadFile(download, args.name, this.formatMessage("WitCatFileHelper.downloadask"), args.url);
+                downloadFile(download, args.name, ask, args.url);
             }
         };
         xhr.send();
@@ -900,6 +903,7 @@ class WitCatFileHelper {
                 input.style = "display:none;";
                 input.click();
                 input.onchange = () => {
+                    FLAG = 0;
                     const reader = new FileReader();
                     const readers = new FileReader();
                     const file = input.files[0];
@@ -925,8 +929,19 @@ class WitCatFileHelper {
                             }
                         }
                         else {
-                            console.error("文件过大\nfile is too lage.");
-                            resolve("error");
+                            let a = confirm(this.formatMessage("WitCatFileHelper.asks"));
+                            if (a) {
+                                if (args.type == "base64") {
+                                    reader.readAsDataURL(file);
+                                }
+                                if (args.type == "utf-8") {
+                                    reader.readAsText(file);
+                                }
+                            }
+                            else {
+                                console.error("文件过大\nfile is too lage.");
+                                resolve("");
+                            }
                         }
                     };
                 }
