@@ -741,90 +741,74 @@ class WitCatInput {
         a.target = "_blank";
         a.click();
     }
+
+    /**
+     * 限制值的范围，如果值是NaN，返回最小值
+     * @param {number} x 数值
+     * @param {number} min 最小值
+     * @param {number} max 最大值
+     * @return {number}
+     */
+    _clamp(x, min, max) {
+        return isNaN(x) ? min : x < min ? min : x > max ? max : x;
+        // return isNaN(x) ? min : Math.min(max, Math.max(min, x));
+    }
+
     //设置或创建文本框
     createinput(args) {
-        let x = args.x;
-        let y = args.y;
-        let width = args.width;
-        let height = args.height;
-        if (args.x > this.runtime.stageWidth) {
-            x = this.runtime.stageWidth;
-        }
-        if (args.x < 0) {
-            x = 0;
-        }
-        if (args.y > this.runtime.stageHeight) {
-            y = this.runtime.stageHeight;
-        }
-        if (args.y < 0) {
-            y = 0;
-        }
-        if (Number(args.x) + Number(args.width) > this.runtime.stageWidth) {
-            width = this.runtime.stageWidth - x;
-        }
-        if (args.width < 0) {
-            width = 0;
-        }
-        if (Number(args.y) + Number(args.height) > this.runtime.stageHeight) {
-            height = this.runtime.stageHeight - y;
-        }
-        if (args.height < 0) {
-            height = 0;
-        }
+        let x = Number(args.x);
+        let y = Number(args.y);
+        let width = Number(args.width);
+        let height = Number(args.height);
+        x = this._clamp(x, 0, this.runtime.stageWidth);
+        y = this._clamp(y, 0, this.runtime.stageHeight);
+        width = this._clamp(width, 0, this.runtime.stageWidth - x);
+        height = this._clamp(height, 0, this.runtime.stageHeight - y);
         x = (x / this.runtime.stageWidth) * 100;
         y = (y / this.runtime.stageHeight) * 100;
         width = (width / this.runtime.stageWidth) * 100;
         height = (height / this.runtime.stageHeight) * 100;
+
         let search = document.getElementById("WitCatInput" + args.id);
-        if (search !== null) {
-            if (search.name === args.type) {
-                let bg = search.style.backgroundImage.split("\"")[1];
-                let ff = search.style.fontFamily;
-                let ta = search.style.textAlign;
-                let lh = search.style.lineHeight;
-                let fw = search.style.fontWeight;
-                let ts = search.style.textShadow;
-                let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:${Number(x)}%; top:${Number(y)}%; width:${Number(width)}%; height:${Number(height)}%;font-size:${Number(adaptive ? (cvs.style.width.split("px")[0] / 360) * args.size : args.size)}px;resize:none;color:${args.color};opacity:1;background: url("${bg}");background-size: 100% 100%;font-family: ${ff};text-align:${ta};line-height: ${Number(lh)};font-weight:${Number(fw)};text-shadow:${ts}`;
-                search.style = dom;
-                search.value = args.text;
-                search.placeholder = args.texts;
-            }
-            else {
-                let bg = search.style.backgroundImage.split("\"")[1];
-                let ff = search.style.fontFamily;
-                let ta = search.style.textAlign;
-                let lh = search.style.lineHeight;
-                let fw = search.style.fontWeight;
-                let ts = search.style.textShadow;
-                cvs.parentNode.removeChild(search);
-                let eleLink = document.createElement(args.type);
-                if (args.type === "input") {
-                    eleLink.type = "text";
-                }
-                let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:${Number(x)}%; top:${Number(y)}%; width:${Number(width)}%; height:${Number(height)}%;font-size:${Number(adaptive ? (cvs.style.width.split("px")[0] / 360) * args.size : args.size)}px;resize:none;color:${args.color};opacity:1;background: url("${bg}");background-size: 100% 100%;font-family: ${ff};text-align:${ta};line-height: ${Number(lh)};font-weight:${Number(fw)};text-shadow:${ts}`;
-                eleLink.style = dom;
-                eleLink.id = "WitCatInput" + args.id;
-                eleLink.value = args.text;
-                eleLink.className = "WitCatInput";
-                eleLink.name = args.type;
-                eleLink.placeholder = args.texts;
-                cvs.parentNode.appendChild(eleLink);
-            }
+        // 这里通过“如果不符合，就删除；如果不存在，就建立”的方式，
+        // 避免后面大量复制粘贴样式操作。
+        // 大段的复制粘贴往往意味着之后会犯错（只改一半）
+        if (search !== null && search.name !== args.type) {
+          cvs.parentNode.removeChild(search);
+          search = null;
         }
-        else {
-            let eleLink = document.createElement(args.type);
+        if (search === null) {
+            search = document.createElement(args.type);
             if (args.type === "input") {
-                eleLink.type = "text";
+                search.type = "text";
             }
-            let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:${Number(x)}%; top:${Number(y)}%; width:${Number(width)}%; height:${Number(height)}%;font-size:${Number(adaptive ? (cvs.style.width.split("px")[0] / 360) * inputFontSize[search[i].id.split("WitCatInput")[1]] : args.size)}px;resize:none;color:${args.color};opacity:1`;
-            eleLink.style = dom;
-            eleLink.id = "WitCatInput" + args.id;
-            eleLink.value = args.text;
-            eleLink.className = "WitCatInput";
-            eleLink.name = args.type;
-            eleLink.placeholder = args.texts;
-            cvs.parentNode.appendChild(eleLink);
+            search.id = "WitCatInput" + args.id;
+            search.value = args.text;
+            search.className = "WitCatInput";
+            search.name = args.type;
+            search.placeholder = args.texts;
+            cvs.parentNode.appendChild(search);
         }
+
+        // 现在直接通过style的属性修改样式表，不需要担心“分号注入”问题了
+        let sstyle = search.style;
+        sstyle.backgroundColor = "transparent";
+        sstyle.border = "0px";
+        sstyle.textShadow = "0 0 0 #000";
+        sstyle.outline = "none";
+        sstyle.position = "absolute";
+        sstyle.left = `${x}%`;
+        sstyle.top = `${y}%`;
+        sstyle.width = `${width}%`;
+        sstyle.height = `${height}%`;
+        sstyle.fontSize = `${Number(adaptive ? (cvs.style.width.split("px")[0] / 360) * args.size : args.size)}px`;
+        sstyle.resize = "none";
+        sstyle.color = args.color;
+        sstyle.opacity = 1;
+        sstyle.backgroundSize = "100% 100%";
+        search.value = args.text;
+        search.placeholder = args.texts;
+
         inputFontSize[args.id] = args.size;
     }
     //删除文本框
