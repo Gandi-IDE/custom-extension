@@ -801,7 +801,7 @@ class WitCatInput {
         sstyle.top = `${y}%`;
         sstyle.width = `${width}%`;
         sstyle.height = `${height}%`;
-        sstyle.fontSize = `${Number(adaptive ? (cvs.style.width.split("px")[0] / 360) * args.size : args.size)}px`;
+        sstyle.fontSize = `${Number(adaptive ? (Number(cvs.style.width.split("px")[0]) / 360) * args.size : args.size)}px`;
         sstyle.resize = "none";
         sstyle.color = args.color;
         sstyle.opacity = 1;
@@ -823,13 +823,13 @@ class WitCatInput {
         let search = document.getElementById("WitCatInput" + args.id);
         if (search !== null) {
             if (args.type === "X")
-                return (search.style.left.split("%")[0] / 100) * this.runtime.stageWidth;
+                return (Number(search.style.left.split("%")[0]) / 100) * this.runtime.stageWidth;
             else if (args.type === "Y")
-                return (search.style.top.split("%")[0] / 100) * this.runtime.stageHeight;
+                return (Number(search.style.top.split("%")[0]) / 100) * this.runtime.stageHeight;
             else if (args.type === "width")
-                return (search.style.width.split("%")[0] / 100) * this.runtime.stageWidth;
+                return (Number(search.style.width.split("%")[0]) / 100) * this.runtime.stageWidth;
             else if (args.type === "height")
-                return (search.style.height.split("%")[0] / 100) * this.runtime.stageHeight;
+                return (Number(search.style.height.split("%")[0]) / 100) * this.runtime.stageHeight;
             else if (args.type === "content")
                 return search.value;
             else if (args.type === "color")
@@ -847,7 +847,7 @@ class WitCatInput {
             else if (args.type === "cp")
                 return JSON.stringify([search.selectionStart, search.selectionEnd]);
             else if (args.type === "op")
-                return 100 - (search.style.opacity * 100);
+                return 100 - (Number(search.style.opacity) * 100);
             else if (args.type === "bg")
                 return search.style.backgroundImage.split("\"")[1];
             else if (args.type === "ff")
