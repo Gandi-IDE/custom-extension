@@ -887,7 +887,7 @@ class WitCatFileHelper {
         return new Promise(resolve => {
             input = document.createElement("input");
             input.type = "file";
-            input.style = "display:none;";
+            input.style.display = "none";
             input.click();
             input.onchange = () => {
                 const reader = new FileReader();
@@ -924,7 +924,7 @@ class WitCatFileHelper {
             input = document.createElement("input");
             input.type = "file";
             input.accept = ".jpeg,.jpg,.png,.ico";
-            input.style = "display:none;";
+            input.style.display = "none";
             input.click();
             input.onchange = () => {
                 const reader = new FileReader();
@@ -981,7 +981,7 @@ class WitCatFileHelper {
                 input = document.createElement("input");
                 input.type = "file";
                 input.accept = args.name;
-                input.style = "display:none;";
+                input.style.display = "none";
                 input.click();
                 input.onchange = () => {
                     FLAG = 0;

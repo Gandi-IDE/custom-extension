@@ -658,7 +658,7 @@ class WitCatMouse {
 		return new Promise(resolve => {
 			const input = document.createElement("input");
 			input.type = "file";
-			input.style = "display:none;";
+			input.style.display = "none";
 			input.accept = ".ico";
 			input.click();
 			input.onchange = () => {
