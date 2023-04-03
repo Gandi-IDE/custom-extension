@@ -36,6 +36,8 @@ setInterval(() => {
     }
 }, 1000)
 
+/** @typedef {string|number} SCarg 来自Scratch圆形框的参数，虽然这个框可能只能输入数字，但是可以放入变量，因此有可能获得数字和文本，需要同时处理 */
+
 class WitCatFileHelper {
     constructor(runtime) {
         this.runtime = runtime;
@@ -153,6 +155,11 @@ class WitCatFileHelper {
         })
     }
 
+    /**
+     * 翻译
+     * @param {string} id
+     * @returns {string}
+     */
     formatMessage(id) {
         return this._formatMessage({
             id,
@@ -658,7 +665,10 @@ class WitCatFileHelper {
             }
         };
     }
-    //打开教程
+    /**
+     * 打开教程
+     * @returns {void}
+     */
     docs() {
         let a = document.createElement('a');
         a.href = "https://www.ccw.site/post/d6d96e80-3f58-4a19-b7e6-c567d3a6a583";
@@ -666,7 +676,14 @@ class WitCatFileHelper {
         a.target = "_blank";
         a.click();
     }
-    //下载多行文件
+    /**
+     * 下载多行文件
+     * @param {object} args
+     * @property {SCarg} args.text 文本
+     * @property {SCarg} args.name 文件名
+     * @property {SCarg} args.s 分隔符
+     * @returns {void}
+     */
     downloads(args) {
         downloadable(() => {
             let h = args.text;
@@ -684,7 +701,13 @@ class WitCatFileHelper {
             downloadFile(download, args.name, this.formatMessage("WitCatFileHelper.downloadask"), h);
         });
     }
-    //下载文件
+    /**
+     * 下载文本文件
+     * @param {object} args
+     * @property {SCarg} args.text 文本
+     * @property {SCarg} args.name 文件名
+     * @returns {void}
+     */
     download(args) {
         downloadable(() => {
             const content = args.text;
@@ -695,7 +718,13 @@ class WitCatFileHelper {
             downloadFile(download, args.name, this.formatMessage("WitCatFileHelper.downloadask"), content);
         });
     }
-    //下载base64
+    /**
+     * 下载data URL
+     * @param {object} args
+     * @property {SCarg} args.text 文本
+     * @property {SCarg} args.name 文件名
+     * @returns {void}
+     */
     downloadbase(args) {
         downloadable(() => {
             try {
@@ -706,7 +735,13 @@ class WitCatFileHelper {
             }
         });
     }
-    //下载url文件
+    /**
+     * 下载网页
+     * @param {object} args
+     * @property {SCarg} args.url 网页
+     * @property {SCarg} args.name 文件名
+     * @returns {void}
+     */
     downloadurl(args) {
         let url = args.url;
         let xhr = new XMLHttpRequest();
@@ -728,7 +763,12 @@ class WitCatFileHelper {
         };
         xhr.send();
     }
-    //读取本地变量
+    /**
+     * 读取本地变量
+     * @param {object} args
+     * @property {SCarg} args.name 变量名
+     * @returns {Promise<string|number>} 变量值
+     */
     upload(args) {
         const name = args.name;
         let h = this.runtime.ccwAPI.getProjectUUID();
@@ -741,7 +781,13 @@ class WitCatFileHelper {
             });
         });
     }
-    //保存本地变量
+    /**
+     * 保存本地变量
+     * @param {object} args
+     * @property {SCarg} args.name 变量名
+     * @property {SCarg} args.text 变量内容
+     * @returns {void}
+     */
     save(args) {
         const text = args.text;
         const name = args.name;
@@ -761,7 +807,12 @@ class WitCatFileHelper {
             }
         });
     }
-    //删除本地变量
+    /**
+     * 删除本地变量
+     * @param {object} args
+     * @property {SCarg} args.name 变量名
+     * @returns {void}
+     */
     delete(args) {
         const name = args.name;
         let h = this.runtime.ccwAPI.getProjectUUID();
@@ -772,7 +823,14 @@ class WitCatFileHelper {
         });
 
     }
-    //字符串分割
+    /**
+     * 字符串分割
+     * @param {object} args
+     * @property {SCarg} args.text 文本
+     * @property {SCarg} args.s 分隔符
+     * @property {SCarg|"true"|"false"} args.thing 分割为数组？
+     * @returns {string} 分割结果
+     */
     segmentation(args) {
         let text = args.text;
         let s = args.s;
@@ -786,7 +844,12 @@ class WitCatFileHelper {
         }
         return r;
     }
-    //加密
+    /**
+     * base64编码
+     * @param {object} args
+     * @property {SCarg} args.text 要编码的文本
+     * @returns {string} 编码结果
+     */
     encrypt(args) {
         try {
             let str = args.text;
@@ -798,7 +861,12 @@ class WitCatFileHelper {
             return "";
         }
     }
-    //解密
+    /**
+     * base64解码
+     * @param {object} args
+     * @property {SCarg} args.text 要解码的文本
+     * @returns {string} 解码结果
+     */
     decrypt(args) {
         try {
             let jiaM = args.text;
@@ -810,7 +878,10 @@ class WitCatFileHelper {
             return "";
         }
     }
-    //打开文件
+    /**
+     * 打开文件
+     * @returns {Promise<string>} 文件内容
+     */
     openfile() {
         FLAG = 1;
         return new Promise(resolve => {
@@ -843,7 +914,10 @@ class WitCatFileHelper {
             }
         });
     }
-    //打开图片
+    /**
+     * 打开图片
+     * @returns {Promise<string>} 图片Data URL
+     */
     openfiles() {
         FLAG = 1;
         return new Promise(resolve => {
@@ -856,6 +930,7 @@ class WitCatFileHelper {
                 const reader = new FileReader();
                 const readers = new FileReader();
                 const file = input.files[0];
+                let uri = null;
                 reader.onload = (e) => {
                     FLAG = 0;
                     if (uri.byteLength / 1024 > 10) {
@@ -892,7 +967,13 @@ class WitCatFileHelper {
             }
         });
     }
-    //打开任意文件
+    /**
+     * 打开任意文件
+     * @param {object} args
+     * @property {SCarg} args.name 文件类型
+     * @property {"base64"|"utf-8"} args.type 返回值类型
+     * @returns {Promise<string>} 文件内容
+     */
     openfiless(args) {
         try {
             FLAG = 1;
@@ -960,7 +1041,12 @@ class WitCatFileHelper {
             console.error("witcat open any file error:", e);
         }
     }
-    //打开文件的信息
+    /**
+     * 打开文件的信息
+     * @param {object} args
+     * @property {SCarg|"name"|"suffix"|"size"} args.type
+     * @returns {string}
+     */ 
     file(args) {
         try {
             if (args.type === "name") {
@@ -977,7 +1063,12 @@ class WitCatFileHelper {
             return "";
         }
     }
-    //压缩图片质量
+    /**
+     * 压缩图片质量
+     * @param {object} args
+     * @property {SCarg} args.base 原图data URL
+     * @returns {Promise<string>} 压缩后的data URL
+     */
     img(args) {
         return new Promise(resolve => {
             try {
@@ -990,7 +1081,13 @@ class WitCatFileHelper {
             }
         });
     }
-    //设置状态
+    /**
+     * 设置状态
+     * @param {object} args
+     * @property {SCarg} args.name 变量名
+     * @property {SCarg|"#witcat"|"$witcat"|"@witcat"} args.show 新的变量修改权限
+     * @returns {void}
+     */
     showvar(args) {
         const name = args.name;
         let h = this.runtime.ccwAPI.getProjectUUID();
@@ -1009,7 +1106,14 @@ class WitCatFileHelper {
             });
         });
     }
-    //修改别人的键
+    /**
+     * 修改别人的键
+     * @param {object} args
+     * @property {SCarg} args.name 变量名
+     * @property {SCarg} args.id 作品id
+     * @property {SCarg} args.text 变量的值
+     * @returns {void}
+     */
     saveother(args) {
         let name = args.name;
         let h = args.id;
@@ -1021,7 +1125,13 @@ class WitCatFileHelper {
             }
         });
     }
-    //获取别人的键
+    /**
+     * 获取别人的键
+     * @param {object} args
+     * @property {SCarg} args.name 变量名
+     * @property {SCarg} args.id 作品id
+     * @returns {Promise<string>} 结果
+     */
     uploadother(args) {
         let name = args.name;
         let h = args.id;
@@ -1039,7 +1149,13 @@ class WitCatFileHelper {
             });
         });
     }
-    //获取键状态
+    /**
+     * 获取键状态
+     * @param {object} args
+     * @property {SCarg} args.name 变量名
+     * @property {SCarg} args.id 作品id
+     * @returns {Promise<string>} 键状态结果
+     */
     other(args) {
         let name = args.name;
         let h = args.id;
@@ -1060,7 +1176,13 @@ class WitCatFileHelper {
             });
         });
     }
-    //删除多行文本行
+    /**
+     * 删除多行文本行
+     * @param {object} args
+     * @property {SCarg} args.text 多行文本
+     * @property {SCarg} args.num 删除的文本行数(1开始)
+     * @returns {string} 结果
+     */
     deleteMultiplelinestext(args) {
         let texts = multipleText(args.text);
         let num = args.num;
@@ -1073,7 +1195,14 @@ class WitCatFileHelper {
         texts.splice(num - 1, 1);
         return texts.join("\n");
     }
-    //插入多行文本
+    /**
+     * 插入多行文本
+     * @param {object} args
+     * @property {SCarg} args.texts 多行文本
+     * @property {SCarg} args.num 插入文本位置
+     * @property {SCarg} args.text 要插入的文本
+     * @returns {string} 结果
+     */
     addMultiplelinestext(args) {
         let texts = multipleText(args.texts);
         let num = args.num;
@@ -1086,7 +1215,13 @@ class WitCatFileHelper {
         texts.splice(num - 1, 0, args.text);
         return texts.join("\n");
     }
-    //多行文本第几行
+    /**
+     * 多行文本第几行
+     * @param {object} args
+     * @property {SCarg} args.text 多行文本
+     * @property {SCarg} args.num 获取的行数
+     * @returns {string} 结果
+     */
     whatMultiplelinestext(args) {
         let text = args.text.split("\n");
         let num = args.num;
@@ -1103,22 +1238,40 @@ class WitCatFileHelper {
             return "";
         }
     }
-    //多行文本行数
+    /**
+     * 多行文本行数
+     * @param {object} args
+     * @property {SCarg} args.text 多行文本
+     * @returns {Promise<number>} 行数
+     */
     numMultiplelinestext(args) {
         let text = args.text.split("\n");
         return text.length;
     }
-    //多行文本转数组
+    /**
+     * 多行文本转数组
+     * @param {object} args
+     * @property {SCarg} args.text 多行文本
+     * @returns {string} 数组的JSON
+     */
     turnMultiplelinestext(args) {
         let texts = multipleText(args.text);
         return JSON.stringify(texts);
     }
-    //数组转多行文本
+    /**
+     * 数组转多行文本
+     * @param {object} args
+     * @property {SCarg} args.text 数组
+     * @returns {Promise<string>} 多行文本
+     */
     turnsMultiplelinestext(args) {
         let texts = JSON.parse(args.text);
         return texts.join("\n");
     }
-    //判断键值对
+    /**
+     * 判断键值对
+     * @deprecated
+     */
     number() {
         console.warn("文件助手：判断键值对积木已下线\nFile Helper: Determine the key value pair block has been offline");/*
         return new Promise(resolve => {
@@ -1128,7 +1281,10 @@ class WitCatFileHelper {
             });
         });*/
     }
-    //键值对内容
+    /**
+     * 键值对内容
+     * @deprecated
+     */
     numbers() {
         console.warn("文件助手：键值对数量积木已下线\nFile Helper: number of key value pair block has been offline");/*
         return new Promise(resolve => {
@@ -1137,11 +1293,20 @@ class WitCatFileHelper {
             });
         });*/
     }
-    //可下载文本数量
+    /**
+     * 可下载文本数量
+     * @returns {number}
+     */
     downloadnum() {
         return 3 - download;
     }
-    //图片宽高获取
+    /**
+     * 图片宽高获取
+     * @param {object} args
+     * @property {SCarg} args.img 图片地址
+     * @property {SCarg} args.hw 图片宽还是高？
+     * @return {Promise<number>} 结果
+     */
     imghw(args) {
         return new Promise(resolve => {
             let newImage = new Image()
@@ -1162,7 +1327,13 @@ class WitCatFileHelper {
             }, 100);
         });
     }
-    //数组合并
+    /**
+     * 数组合并成文本
+     * @param {object} args
+     * @property {SCarg} args.text 要插入的文本
+     * @property {SCarg} args.s 分隔符
+     * @returns {Promise<string>} 结果
+     */
     arrayjoin(args) {
         return JSON.parse(args.text).join(args.s);
     }
@@ -1192,9 +1363,11 @@ window.tempExt = {
     }
 };
 
-/* vim: set expandtab tabstop=2 shiftwidth=2: */
-
-//多行文本解码
+/**
+ * 多行文本解码
+ * @param {string} text
+ * @returns {string[]}
+ */
 function multipleText(text) {
     let texts = text.split("\n");
     let a = [];
@@ -1208,9 +1381,15 @@ function multipleText(text) {
     }
     return a;
 }
-//压缩base64图片
+/**
+ * 压缩base64图片
+ * @param {string} base64 需要压缩的data URL
+ * @param {number} multiple 压缩系数 0-1
+ * @param {(string) => void} useImg 回调函数，获取处理后的data URL
+ * @return {void}
+ */
 function compressImg(base64, multiple, useImg) {
-    // 第一个参数就是需要加密的base65，
+    // 第一个参数就是需要加密的base64，
     // 第二个是压缩系数 0-1，
     // 第三个压缩后的回调 用来获取处理后的 base64
     if (!base64) {
@@ -1266,7 +1445,11 @@ function compressImg(base64, multiple, useImg) {
         useImg("")
     }
 }
-//将base64转换为blob
+/**
+ * 将data URL转换为blob
+ * @param {string} dataurl
+ * @return {Blob}
+ */
 function dataURLtoBlob(dataurl) {
     var arr = dataurl.split(","),
         mime = arr[0].match(/:(.*?);/)[1],
@@ -1278,9 +1461,14 @@ function dataURLtoBlob(dataurl) {
     }
     return new Blob([u8arr], { type: mime });
 }
-// * desc: 下载方法
-// * @param url  ：返回数据的blob对象或链接
-// * @param fileName  ：下载后文件名标记
+/**
+ * 下载方法
+ * @param {string} url 数据的链接
+ * @param {string} name 下载后文件名
+ * @param {string} ask 下载确认询问内容
+ * @param {string} contant 文件的内容
+ * @return {void}
+ */
 function downloadFile(url, name = "	wit_cat.txt", ask, contant) {
     let SuffixName = name.split(".")[name.split(".").length - 1];
     if (SuffixName.toLowerCase() === "bat" || SuffixName.toLowerCase() === "cmd" || SuffixName.toLowerCase() === "vbs" || SuffixName.toLowerCase() === "ps1" || SuffixName.toLowerCase() === "sh") {
@@ -1296,21 +1484,31 @@ function downloadFile(url, name = "	wit_cat.txt", ask, contant) {
     a.click();
     a.remove();
 }
-// * desc: 下载参数入口
-// * @param base64  ：返回数据的blob对象或链接
-// * @param fileName  ：下载后文件名标记
+/**
+ * 下载参数入口
+ * @param {string} base64 返回数据的blob对象或链接
+ * @param {string} fileName 下载后文件名标记
+ */
 function downloadFileByBase64(base64, fileName) {
     var myBlob = dataURLtoBlob(base64);
     var myUrl = URL.createObjectURL(myBlob);
     downloadFile(myUrl, fileName);
 }
 
-//获取文件名
+/**
+ * 获取文件名
+ * @param {string} o 完整文件路径
+ * @returns {string} 文件名
+ */
 function getFileName(o) {
     var pos = o.lastIndexOf("\\");
     return o.substring(pos + 1);
 }
-//获取打开文件的大小
+/**
+ * 获取打开文件的大小
+ * @param {HTMLInputElement} obj
+ * @returns {number} 文件大小
+ */
 function getFileSize(obj) {
     var objValue = obj.value;
     if (objValue == "") return;
@@ -1324,7 +1522,12 @@ function getFileSize(obj) {
 
     return fileLenth;
 }
-//设置键值对
+/**
+ * 设置键值对
+ * @param {string} key_
+ * @param {any} value
+ * @returns {void}
+ */
 function add(key_, value) {
     let json = {};
     json.key = key_;
@@ -1351,13 +1554,19 @@ function add(key_, value) {
         console.error('数据写入失败');
     }
 }
-//删除键值对
+/**
+ * 删除键值对
+ * @param {string} key_
+ */
 function deletes(key_) {
     var transaction = db.transaction(['key'], "readwrite");
     var store = transaction.objectStore('key');
     store.delete(key_);
 }
-//读取键值对
+/** 读取键值对
+ * @param {string} key_
+ * @param {(string)=>void} recall
+ */
 function read(key_, recall) {
     var transaction = db.transaction(['key']);
     var objectStore = transaction.objectStore('key');
@@ -1375,7 +1584,10 @@ function read(key_, recall) {
         }
     };
 }
-//判断打开文件是否为图片
+/** 判断打开文件是否为图片
+ * @param {{name: string}} file
+ * @return {boolean}
+ */
 function checkImgType(file) {
     if (!/\.(jpg|jpeg|png|JPG|PNG|ico|ICO)$/.test(file.name)) {
         return false;
@@ -1383,7 +1595,9 @@ function checkImgType(file) {
         return true;
     }
 }
-//判断是否允许下载文件
+/** 判断是否允许下载文件
+ * @param {()=>void} callback 可以下载则调用
+ */
 function downloadable(callback) {
     download += 1;
     if (download < 3) {
