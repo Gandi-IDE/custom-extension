@@ -1023,100 +1023,80 @@ class WitCatInput {
     setinput(args) {
         let search = document.getElementById("WitCatInput" + args.id);
         if (search !== null) {
+            let sstyle = search.style;
             let x, y, width, height, opacity;
-            if (args.type === "X") {
-                x = args.text;
-                if (args.text > this.runtime.stageWidth) {
-                    x = this.runtime.stageWidth;
-                }
-                if (args.text < 0) {
-                    x = 0;
-                }
-                x = (x / this.runtime.stageWidth) * 100;
-                search.style.left = Number(x) + "%";
-            }
-            else if (args.type === "Y") {
-                y = args.text;
-                if (args.text > this.runtime.stageHeight) {
-                    y = this.runtime.stageHeight;
-                }
-                if (args.text < 0) {
-                    y = 0;
-                }
-                y = (y / this.runtime.stageHeight) * 100;
-                search.style.top = Number(y) + "%";
-            }
-            else if (args.type === "width") {
-                width = args.text;
-                if (Number(x) + Number(args.text) > this.runtime.stageWidth) {
-                    width = this.runtime.stageWidth - x;
-                }
-                if (args.text < 0) {
-                    width = 0;
-                }
-                width = (width / this.runtime.stageWidth) * 100;
-                search.style.width = Number(width) + "%";
-            }
-            else if (args.type === "height") {
-                height = args.text;
-                if (Number(y) + Number(args.text) > this.runtime.stageHeight) {
-                    height = this.runtime.stageHeight - y;
-                }
-                if (args.text < 0) {
-                    height = 0;
-                }
-                height = (height / this.runtime.stageHeight) * 100;
-                search.style.height = Number(height) + "%";
-            }
-            else if (args.type === "content") {
-                search.value = args.text;
-            }
-            else if (args.type === "prompt") {
-                search.placeholder = args.text;
-            }
-            else if (args.type === "color") {
-                search.style.color = args.text;
-            }
-            else if (args.type === "font-size") {
-                search.style.size = Number(args.text);
-                inputFontSize[args.id] = args.text;
-            }
-            else if (args.type === "rp") {
-                search.scrollTop = Number(args.text);
-            }
-            else if (args.type === "op") {
-                if (!isNaN(args.text)) {
-                    opacity = 1 - (args.text / 100);
-                }
-                else {
-                    opacity = 1;
-                }
-                search.style.opacity = opacity;
-            }
-            else if (args.type === "cp") {
-                try {
-                    if (JSON.parse(args.text).length >= 2) {
-                        search.setSelectionRange(JSON.parse(args.text)[0], JSON.parse(args.text)[1]);
+            switch (args.type) {
+                case "X":
+                    x = this._clamp(Number(args.text), 0, this.runtime.stageWidth);
+                    x = (x / this.runtime.stageWidth) * 100;
+                    sstyle.left = x + "%";
+                    break;
+                case "Y":
+                    y = this._clamp(Number(args.text), 0, this.runtime.stageHeight);
+                    y = (y / this.runtime.stageHeight) * 100;
+                    sstyle.top = y + "%";
+                    break;
+                case "width":
+                    x = Number(sstyle.left.split("%")[0]) / 100 * this.runtime.stageWidth;
+                    width = this._clamp(Number(args.text), 0, this.runtime.stageWidth - x);
+                    width = (width / this.runtime.stageWidth) * 100;
+                    sstyle.width = Number(width) + "%";
+                    break;
+                case "height":
+                    y = Number(sstyle.top.split("%")[0]) / 100 * this.runtime.stageHeight;
+                    height = this._clamp(Number(args.text), 0, this.runtime.stageHeight - y);
+                    height = (height / this.runtime.stageHeight) * 100;
+                    sstyle.height = Number(height) + "%";
+                    break;
+                case "content":
+                    search.value = args.text;
+                    break;
+                case "prompt":
+                    search.placeholder = args.text;
+                    break;
+                case "color":
+                    sstyle.color = args.text;
+                    break;
+                case "font-size":
+                    sstyle.fontSize = Number(args.text) + "px";
+                    inputFontSize[args.id] = Number(args.text);
+                    break;
+                case "rp":
+                    search.scrollTop = Number(args.text);
+                    break;
+                case "op":
+                    opacity = this._clamp(Number(args.text), 0, 100);
+                    opacity = 1 - (opacity / 100);
+                    sstyle.opacity = String(opacity);
+                    break;
+                case "cp":
+                    try {
+                        let selection = JSON.parse(args.text);
+                        if (selection instanceof Array && selection.length === 2) {
+                            search.setSelectionRange(selection[0], selection[1]);
+                        }
+                        else if (typeof(selection) === "number") {
+                            search.setSelectionRange(selection, selection);
+                        }
                     }
-                    else {
-                        search.setSelectionRange(args.text, args.text);
+                    catch {
+                        return;
                     }
-                }
-                catch {
-                    return;
-                }
-            }
-            else if (args.type === "bg") {
-                search.style.background = args.text;
-            }
-            else if (args.type === "lh") {
-                search.style.lineHeight = Number(args.text);
-            }
-            else if (args.type === "ts") {
-                search.style.textShadow = args.text;
-            }
-            else if (args.type === "css") {
-                search.style = args.text;
+                    break;
+                case "bg":
+                    sstyle.backgroundImage = 'url("' + encodeURI(String(args.text)) + '")';
+                    sstyle.backgroundSize = "100% 100%";
+                    break;
+                case "lh":
+                    sstyle.lineHeight = Number(args.text) + "px";
+                    break;
+                case "ts":
+                    sstyle.textShadow = args.text;
+                    break;
+                case "css":
+                    // https://www.cnblogs.com/ndos/p/9706646.html
+                    search.setAttribute("style", args.text);
+                    break;
             }
         }
     }
