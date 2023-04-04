@@ -906,7 +906,7 @@ class WitCatInput {
             case "content":
                 return element.value;
             case "color":
-                return element.style.color.colorHex();
+                return string_colorHex(element.style.color);
             case "prompt":
                 return element.placeholder;
             case "font-size":
@@ -1196,10 +1196,9 @@ window.tempExt = {
 
 /* vim: set expandtab tabstop=2 shiftwidth=2: */
 //颜色转换
-String.prototype.colorHex = function () {
+function string_colorHex(color) {
     // RGB颜色值的正则
     var reg = /^(rgb|RGB)/;
-    var color = this;
     if (reg.test(color)) {
         var strHex = "#";
         // 把RGB的3个数值变成数组
