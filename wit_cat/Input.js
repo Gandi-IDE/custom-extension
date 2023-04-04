@@ -950,18 +950,20 @@ class WitCatInput {
                 // 直接把整个东西转成 JSON 对象，再拼接
                 return JSON.stringify(
                     {
-                        X: (Number(element.style.left.split("%")[0]) / 100) * this.runtime.stageWidth,
-                        Y: (Number(element.style.top.split("%")[0]) / 100) * this.runtime.stageHeight,
-                        width: (Number(element.style.width.split("%")[0]) / 100) * this.runtime.stageWidth,
-                        height: (Number(element.style.height.split("%")[0]) / 100) * this.runtime.stageHeight,
-                        content: element.value,
-                        color: element.style.color.colorHex(),
-                        prompt: element.placeholder,
-                        "font-size": Number(element.style.fontSize.split("px")[0]),
-                        ID: element.id.split("WitCatInput")[1],
-                        "Rolling position": element.scrollTop,
-                        "Text height": element.scrollHeight,
-                        "cursor position": [element.selectionStart, element.selectionEnd]
+                        X: this._getattrib(element, "X"),
+                        Y: this._getattrib(element, "Y"),
+                        width: this._getattrib(element, "width"),
+                        height: this._getattrib(element, "height"),
+                        content: this._getattrib(element, "content"),
+                        color: this._getattrib(element, "color"),
+                        prompt: this._getattrib(element, "prompt"),
+                        "font-size": this._getattrib(element, "font-size"),
+                        ID: this._getattrib(element, "ID"),
+                        "Rolling position": this._getattrib(element, "rp"),
+                        "Text height": this._getattrib(element, "th"),
+                        "cursor position": JSON.parse(this._getattrib(element, "cp"))
+                        // 这里看起来缺了一些东西，如果没有合并复制粘贴的代码以及进
+                        // 行优化，将需要修改两次大段内容，现在修改就简单了。
                     }
                 )
             default:
