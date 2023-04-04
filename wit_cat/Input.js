@@ -821,63 +821,7 @@ class WitCatInput {
     //获取文本框内容
     getinput(args) {
         let search = document.getElementById("WitCatInput" + args.id);
-        if (search !== null) {
-            if (args.type === "X")
-                return (Number(search.style.left.split("%")[0]) / 100) * this.runtime.stageWidth;
-            else if (args.type === "Y")
-                return (Number(search.style.top.split("%")[0]) / 100) * this.runtime.stageHeight;
-            else if (args.type === "width")
-                return (Number(search.style.width.split("%")[0]) / 100) * this.runtime.stageWidth;
-            else if (args.type === "height")
-                return (Number(search.style.height.split("%")[0]) / 100) * this.runtime.stageHeight;
-            else if (args.type === "content")
-                return search.value;
-            else if (args.type === "color")
-                return search.style.color.colorHex();
-            else if (args.type === "prompt")
-                return search.placeholder;
-            else if (args.type === "font-size")
-                return search.style.fontSize.split("px")[0];
-            else if (args.type === "ID")
-                return search.id.split("WitCatInput")[1];
-            else if (args.type === "rp")
-                return search.scrollTop;
-            else if (args.type === "th")
-                return search.scrollHeight;
-            else if (args.type === "cp")
-                return JSON.stringify([search.selectionStart, search.selectionEnd]);
-            else if (args.type === "op")
-                return 100 - (Number(search.style.opacity) * 100);
-            else if (args.type === "bg")
-                return search.style.backgroundImage.split("\"")[1];
-            else if (args.type === "ff")
-                return search.style.fontFamily;
-            else if (args.type === "lh")
-                return search.style.lineHeight;
-            else if (args.type === "fw")
-                return search.style.fontWeight;
-            else if (args.type === "ts")
-                return search.style.textShadow;
-            else {
-                return (
-                    "{\"" + "X" + "\":\"" + ((search.style.left.split("%")[0] / 100) * this.runtime.stageWidth) + "\"," +
-                    "\"" + "Y" + "\":\"" + ((search.style.top.split("%")[0] / 100) * this.runtime.stageHeight) + "\"," +
-                    "\"" + "width" + "\":\"" + ((search.style.width.split("%")[0] / 100) * this.runtime.stageWidth) + "\"," +
-                    "\"" + "height" + "\":\"" + ((search.style.height.split("%")[0] / 100) * this.runtime.stageHeight) + "\"," +
-                    "\"" + "content" + "\":" + JSON.stringify(search.value) + "," +
-                    "\"" + "color" + "\":\"" + (search.style.color.colorHex()) + "\"," +
-                    "\"" + "prompt" + "\":\"" + (search.placeholder) + "\"," +
-                    "\"" + "font-size" + "\":\"" + (search.style.fontSize.split("px")[0]) + "\"," +
-                    "\"" + "ID" + "\":\"" + (search.id.split("WitCatInput")[1]) + "\"," +
-                    "\"" + "Rolling position" + "\":\"" + (search.scrollTop) + "\"," +
-                    "\"" + "Text height" + "\":\"" + (search.scrollHeight) + "\"," +
-                    "\"" + "cursor position" + "\":\"" + (JSON.stringify([search.selectionStart, search.selectionEnd])) + "\"}"
-                )
-            }
-        }
-        else {
-            return ("");
-        }
+        return search === null ? "" : this._getattrib(search, args.type);
     }
     //焦点判断
     isinput(args) {
@@ -931,86 +875,97 @@ class WitCatInput {
         let index = Number(args.num);
         if (searchall.length >= index && index > 0) {
             let search = searchall[index - 1];
-            // 用于通过类型检查，确保不出错
-            if (!(search instanceof HTMLInputElement || search instanceof HTMLTextAreaElement)) {
-                console.warn("Input.js: 获取到的元素的类型不正确: ", search);
-                return "";
-            }
-            switch (args.type) {
-                case "X":
-                    return (Number(search.style.left.split("%")[0]) / 100) * this.runtime.stageWidth;
-                    // 理论上需要加break;，但是前面已经return了
-                case "Y":
-                    return (Number(search.style.top.split("%")[0]) / 100) * this.runtime.stageHeight;
-                case "width":
-                    return (Number(search.style.width.split("%")[0]) / 100) * this.runtime.stageWidth;
-                case "height":
-                    return (Number(search.style.height.split("%")[0]) / 100) * this.runtime.stageHeight;
-                case "content":
-                    return search.value;
-                case "color":
-                    return search.style.color.colorHex();
-                case "prompt":
-                    return search.placeholder;
-                case "font-size":
-                    return search.style.fontSize.split("px")[0];
-                case "ID":
-                    // 直接上正则，可以处理类似“WitCatInput123WitCatInput456”这样包含“WitCatInput”的奇葩ID
-                    {
-                        let match = /^WitCatInput(.*)$/.exec(search.id);
-                        return match === null ? "" : match[1];
-                    }
-                case "rp":
-                    return search.scrollTop;
-                case "th":
-                    return search.scrollHeight;
-                case "cp":
-                    return JSON.stringify([search.selectionStart, search.selectionEnd]);
-                case "op":
-                    return 100 - (Number(search.style.opacity) * 100);
-                case "bg":
-                    // 不适合split的地方，直接上正则
-                    // (注：一开始backgroundImage的值可能是空的或者别的什么东西……)
-                    {
-                        // 打花括号之后就可以在里面声明变量了
-                        let match = /^url\("(.*)"\)$/.exec(search.style.backgroundImage);
-                        if (match !== null) {
-                            return decodeURI(match[1]);
-                        } else {
-                            // 正则匹配失败
-                            return "";
-                        }
-                    }
-                case "ff":
-                    return search.style.fontFamily;
-                case "lh":
-                    return search.style.lineHeight;
-                case "fw":
-                    return search.style.fontWeight;
-                case "ts":
-                    return search.style.textShadow;
-                case "json":
-                    // 直接把整个东西转成 JSON 对象，再拼接
-                    return JSON.stringify(
-                        {
-                            X: (Number(search.style.left.split("%")[0]) / 100) * this.runtime.stageWidth,
-                            Y: (Number(search.style.top.split("%")[0]) / 100) * this.runtime.stageHeight,
-                            width: (Number(search.style.width.split("%")[0]) / 100) * this.runtime.stageWidth,
-                            height: (Number(search.style.height.split("%")[0]) / 100) * this.runtime.stageHeight,
-                            content: search.value,
-                            color: search.style.color.colorHex(),
-                            prompt: search.placeholder,
-                            "font-size": Number(search.style.fontSize.split("px")[0]),
-                            ID: search.id.split("WitCatInput")[1],
-                            "Rolling position": search.scrollTop,
-                            "Text height": search.scrollHeight,
-                            "cursor position": [search.selectionStart, search.selectionEnd]
-                        }
-                    )
-            }
-        }
-        else {
+            return this._getattrib(search, args.type);
+        } else {
             return "";
+        }
+    }
+
+    /**
+     * 获取文本框的属性
+     * @param {Element} element 文本框元素
+     * @param {string} type 属性类型
+     * @returns {number|string}
+     */
+    _getattrib(element, type) {
+        // 用于通过类型检查，确保不出错
+        if (!(element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement)) {
+            console.warn("Input.js: 获取到的元素的类型不正确: ", element);
+            return "";
+        }
+        switch (type) {
+            case "X":
+                return (Number(element.style.left.split("%")[0]) / 100) * this.runtime.stageWidth;
+                // 理论上需要加break;，但是前面已经return了
+            case "Y":
+                return (Number(element.style.top.split("%")[0]) / 100) * this.runtime.stageHeight;
+            case "width":
+                return (Number(element.style.width.split("%")[0]) / 100) * this.runtime.stageWidth;
+            case "height":
+                return (Number(element.style.height.split("%")[0]) / 100) * this.runtime.stageHeight;
+            case "content":
+                return element.value;
+            case "color":
+                return element.style.color.colorHex();
+            case "prompt":
+                return element.placeholder;
+            case "font-size":
+                return element.style.fontSize.split("px")[0];
+            case "ID":
+                // 直接上正则，可以处理类似“WitCatInput123WitCatInput456”这样包含“WitCatInput”的奇葩ID
+                {
+                    let match = /^WitCatInput(.*)$/.exec(element.id);
+                    return match === null ? "" : match[1];
+                }
+            case "rp":
+                return element.scrollTop;
+            case "th":
+                return element.scrollHeight;
+            case "cp":
+                return JSON.stringify([element.selectionStart, element.selectionEnd]);
+            case "op":
+                return 100 - (Number(element.style.opacity) * 100);
+            case "bg":
+                // 不适合split的地方，直接上正则
+                // (注：一开始backgroundImage的值可能是空的或者别的什么东西……)
+                {
+                    // 打花括号之后就可以在里面声明变量了
+                    let match = /^url\("(.*)"\)$/.exec(element.style.backgroundImage);
+                    if (match !== null) {
+                        return decodeURI(match[1]);
+                    } else {
+                        // 正则匹配失败
+                        return "";
+                    }
+                }
+            case "ff":
+                return element.style.fontFamily;
+            case "lh":
+                return element.style.lineHeight;
+            case "fw":
+                return element.style.fontWeight;
+            case "ts":
+                return element.style.textShadow;
+            case "json":
+                // 直接把整个东西转成 JSON 对象，再拼接
+                return JSON.stringify(
+                    {
+                        X: (Number(element.style.left.split("%")[0]) / 100) * this.runtime.stageWidth,
+                        Y: (Number(element.style.top.split("%")[0]) / 100) * this.runtime.stageHeight,
+                        width: (Number(element.style.width.split("%")[0]) / 100) * this.runtime.stageWidth,
+                        height: (Number(element.style.height.split("%")[0]) / 100) * this.runtime.stageHeight,
+                        content: element.value,
+                        color: element.style.color.colorHex(),
+                        prompt: element.placeholder,
+                        "font-size": Number(element.style.fontSize.split("px")[0]),
+                        ID: element.id.split("WitCatInput")[1],
+                        "Rolling position": element.scrollTop,
+                        "Text height": element.scrollHeight,
+                        "cursor position": [element.selectionStart, element.selectionEnd]
+                    }
+                )
+            default:
+                return "";
         }
     }
     //文本框数量
