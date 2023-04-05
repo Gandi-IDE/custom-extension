@@ -1215,7 +1215,7 @@ function string_colorHex(color) {
     } else {
         return String(color);
     }
-};
+}
 
 //键盘事件监听
 document.addEventListener("keydown", keydown);
