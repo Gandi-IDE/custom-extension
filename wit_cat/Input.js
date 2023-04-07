@@ -1,10 +1,10 @@
 // import Cast from "cast.js";
 
-const _picture = "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSI1OTQuMzE4NyIgaGVpZ2h0PSI1MTQuNzMxNjEiIHZpZXdCb3g9IjAsMCw1OTQuMzE4Nyw1MTQuNzMxNjEiPjxkZWZzPjxsaW5lYXJHcmFkaWVudCB4MT0iMjQwLjAwMDAyIiB5MT0iLTEuNjM3MyIgeDI9IjI0MC4wMDAwMiIgeTI9IjM2MS42MzczOSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjb2xvci0xIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM1MmJhYmEiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM0Y2FlYWUiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCB4MT0iMjU2LjE5MzU2IiB5MT0iMTM0LjQ4MzI0IiB4Mj0iMjU2LjE5MzU2IiB5Mj0iMjQ0LjkyOTA3IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgaWQ9ImNvbG9yLTIiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2FlYzdjNyIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzk2YzJjMiIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IHgxPSIyNjkuMjY2NjciIHkxPSIxMzkuMDcyMDEiIHgyPSIyNjkuMjY2NjciIHkyPSIyNDMuOTcwMzYiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiBpZD0iY29sb3ItMyI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZjFmZmZmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjY2NmZmZmIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgeDE9IjI0MS4zODE3MSIgeTE9IjE2MC4yMTE4NSIgeDI9IjI0MS4zODE3MSIgeTI9IjIwNi4wNzQxOSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjb2xvci00Ij48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNhZmM5YzkiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNiYWQ4ZDgiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCB4MT0iMTIyLjU4Nzk3IiB5MT0iLTQxLjcwNzA4IiB4Mj0iMTIyLjU4Nzk3IiB5Mj0iNDMxLjI2NTg5IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgaWQ9ImNvbG9yLTUiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzRjYWVhZSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzQ1YTBhMCIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IHgxPSIyNy41MjYzIiB5MT0iLTI4LjQ5Mzg2IiB4Mj0iMjcuNTI2MyIgeTI9IjIxNi4yNTA4OCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjb2xvci02Ij48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM0Y2FlYWUiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM0NWEwYTAiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCB4MT0iNDQ0LjQxNjk1IiB5MT0iLTIwLjk4NDg1IiB4Mj0iNDQ0LjQxNjk1IiB5Mj0iMTM1LjE3MTMiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiBpZD0iY29sb3ItNyI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjNGNhZWFlIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNDVhMGEwIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgeDE9IjExNi41ODE5NiIgeTE9Ii00OS4yMTQ1OSIgeDI9IjExNi41ODE5NiIgeTI9IjQyMy43NTgzOCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjb2xvci04Ij48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM0Mzk4OTgiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM0Mjk1OTUiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCB4MT0iMjEuNTIwMyIgeTE9Ii0zNi4wMDEzOCIgeDI9IjIxLjUyMDMiIHkyPSIyMDguNzQzMzciIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiBpZD0iY29sb3ItOSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjNDM5ODk4Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNDI5NTk1Ii8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgeDE9IjQzOC40MTA5NCIgeTE9Ii0xNy45ODE4NSIgeDI9IjQzOC40MTA5NCIgeTI9IjEzOC4xNzQzIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgaWQ9ImNvbG9yLTEwIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM0Mzk4OTgiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM0Mjk1OTUiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCB4MT0iMzA3LjI1NzgyIiB5MT0iMjI5LjgyODMiIHgyPSIzMDcuMjU3ODIiIHkyPSI0MTYuNjUyMTgiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiBpZD0iY29sb3ItMTEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzQzOTg5OCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzQyOTU5NSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQ4LjUzMzc2LDY3LjQ2NTcyKSI+PGcgZGF0YS1wYXBlci1kYXRhPSJ7JnF1b3Q7aXNQYWludGluZ0xheWVyJnF1b3Q7OnRydWV9IiBmaWxsLXJ1bGU9Im5vbnplcm8iIHN0cm9rZS1saW5lam9pbj0ibWl0ZXIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgc3Ryb2tlLWRhc2hhcnJheT0iIiBzdHJva2UtZGFzaG9mZnNldD0iMCIgc3R5bGU9Im1peC1ibGVuZC1tb2RlOiBub3JtYWwiPjxwYXRoIGQ9Ik0tMS42OTc0LDM2MS42MzczOXYtMzYzLjI3NDc0aDQ4My4zOTQ4NnYzNjMuMjc0NzR6IiBmaWxsPSJ1cmwoI2NvbG9yLTEpIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMCIgc3Ryb2tlLWxpbmVjYXA9ImJ1dHQiLz48cGF0aCBkPSJNMTgzLjg0MjgzLDE5OS4zNjIxOWMwLC0xNC45MjA1MyAwLC0yNS4zOTMwMyAwLC0zNC4zMjkwNGMwLC0xNC45MjUzNCA4Ljc3Nzk2LC0zMC4wNDk3NSAzMS4wOTM4LC0zMC4wNDk3NWMxNi4xNzQ3LDAgMjY2LjY1ODcxLC0wLjUwMDE2IDI2Ni42NTg3MSwtMC41MDAxNnY3Mi45MDcyNmMwLDAgLTE1LjI3ODcyLC04Ljk2MzM2IC0yNy44ODEzNywxMi41MzU4MmMtNy44MjE5NiwxMy4zNDM2OSAtOS42OTAwNiw2MC43MzAxNCAtMTYuNzgxMzMsNjAuODg4OGMtMTUuMTQ2MjEsMC4zMzg4NyAtMTIuNDk3NTgsLTMzLjYyMDQyIC0yMy4xOTQwOSwtMzQuMDUxMmMtNS40NTEwMiwtMC4zOTY2NiAtMTcuMzU5OTcsOS43NDg5MyAtMjAuMjIxNjEsMjcuNzEwOTJjLTIuMjgzOTUsMTQuMzM1OTEgNC4yNzQ2OSw0Mi4zMDk2OCAtMy42ODkzLDQxLjg3NzMyYy0zMC4zNTE1MiwtMS42NDc3NCAtMTkuNDUwODEsLTcyLjE2MTE0IC00NC44NDIwNywtODcuOTk4MzdjLTEzLjg4NTcyLC04LjY2MDkxIC0xOS4yMjA0NSwtMjkuMjIxMzUgLTQzLjQ1MDI2LC0xNC4yOTI1Yy0xMy43NDA0NSw4LjQ2NTk3IC0xMy45MzQ4NSwtMi42NTIxNiAtMjguMDE5MjUsNS4yMjgzNGMtMTAuOTg5MzMsNi4xNDg3NSAtMTEuODEyNzQsMjUuNDg4MSAtMjAuMDM1ODksMjUuNjM4NDJjLTkuNzM0NDQsMC4xNzc5NCAtMTQuMjg3MDgsLTIzLjI1NDM2IC0yNC4wNTU4MSwtMjYuNDY5MDFjLTE0LjM0MDA2LC00LjcxODk1IC0yMi43NTc1Nyw0LjA1NDM5IC0yNi42MDgwMSw0LjE2OTIzYy0xMS41NTk5NywwLjM0NDc3IC0xOC45NzM1MSwtMTYuNjE4OTYgLTE4Ljk3MzUxLC0yMy4yNjYwOHoiIGZpbGw9InVybCgjY29sb3ItMikiIHN0cm9rZT0iI2NjZmZmZiIgc3Ryb2tlLXdpZHRoPSIwIiBzdHJva2UtbGluZWNhcD0iYnV0dCIvPjxwYXRoIGQ9Ik0xODkuODU0ODMsMjAxLjI1NTM5YzAsLTE0LjMwMDYyIDAsLTIyLjEzNTI4IDAsLTMwLjcwMDAyYzAsLTE0LjMwNTIyIDguNDEzMjUsLTI4LjgwMTI1IDI5LjgwMTkyLC0yOC44MDEyNWMxNS41MDI2OCwwIDI2MS45Mzg1OSwtMC40NzkzOCAyNjEuOTM4NTksLTAuNDc5MzhjMCwwIDAsNS40OTk0MSAwLDEwLjMzNjdjMCwyMi4zNzcxNiAwLDU3LjMzODY5IDAsNTcuMzM4NjljMCwwIC0xNC4yMDA3NiwtNy42MDYyNiAtMjYuNTc4MzUsMTIuMDgzNzZjLTYuNzM2MTIsMTAuNzE1NjkgLTkuNzY0MjUsNTEuMTYzODggLTE2Ljk1NDg3LDU1LjUzOTY1Yy0xMi4zNTEyOCw0LjgzMTYyIC0xNS40NzcyNSwtMjguMTAxNjUgLTI0LjE1NzI1LC0yOC4zNTI3Yy0yMi41NDA5MywtMS41NzMxNyAtMTIuMjUwNTIsNjAuODAwNCAtMjEuMzYxNDQsNjMuOTUxMDFjLTIzLjc5MjUzLDguMjI3NiAtMjIuNDc1MjQsLTU3LjI5NTA5IC00MS45MDgzMywtNzUuMzA0NzVjLTIxLjUyNDMxLC0xOS45NDc3IC00NS4wOTYxMywtMjMuMjk4NzIgLTQ3Ljk3NzYzLC0yMS41MjMzMmMtMTMuMTY5NTcsOC4xMTQyMiAtMTMuMzU1ODgsLTIuNTQxOTggLTI2Ljg1NTEyLDUuMDExMTJjLTEwLjUzMjc1LDUuODkzMjggLTExLjMyMTk1LDI0LjQyOTEyIC0xOS4yMDM0NSwyNC41NzMyYy05LjMyOTk5LDAuMTcwNTUgLTEzLjY5MzQ5LC0yMi4yODgxOSAtMjMuMDU2MzUsLTI1LjM2OTI5Yy0xMy43NDQyNywtNC41MjI4OSAtMjEuODEyMDYsMy44ODU5MyAtMjUuNTAyNTIsMy45OTZjLTExLjA3OTY4LDAuMzMwNDQgLTE4LjE4NTIxLC0xNS45Mjg0NyAtMTguMTg1MjEsLTIyLjI5OTQzeiIgZmlsbD0idXJsKCNjb2xvci0zKSIgc3Ryb2tlPSIjY2NmZmZmIiBzdHJva2Utd2lkdGg9IjAiIHN0cm9rZS1saW5lY2FwPSJidXR0Ii8+PGcgc3Ryb2tlLXdpZHRoPSIwIiBzdHJva2UtbGluZWNhcD0iYnV0dCI+PHBhdGggZD0iTTIzMy40MTQxOCwyMDYuMDc0MTlsMC4wNzA3OSwtNS4zODE2NGw1LjA4MzYyLDAuMDgzMzR2LTQwLjU2NDAzaDUuODYzNzJ2NDAuNjQ3MzdoNC45MTY5NHY1LjE5NjIyeiIgZmlsbD0idXJsKCNjb2xvci00KSIgc3Ryb2tlPSIjMDAwMDAwIi8+PHBhdGggZD0iTTIzMy40MTY0NywxNjUuMTg3MzJ2LTUuMjQxMjJoMTYuMTY3ODR2NS4yNDEyMnoiIGZpbGw9IiNhZmM5YzkiIHN0cm9rZT0ibm9uZSIvPjwvZz48ZyBmaWxsPSIjNDM5ODk4IiBzdHJva2Utd2lkdGg9IjAiIHN0cm9rZS1saW5lY2FwPSJidXR0Ij48cGF0aCBkPSJNMjM3LjA2ODIyLDIwMy4wNTQ3di00NS44NDM1OWg1Ljg2MzcydjQ1Ljg0MzU5eiIgc3Ryb2tlPSIjMDAwMDAwIi8+PHBhdGggZD0iTTIzMS45MTYxLDE2Mi4xODY1OXYtNS4yNDEyMmgxNi4xNjc4NHY1LjI0MTIyeiIgc3Ryb2tlPSJub25lIi8+PHBhdGggZD0iTTIzMS45MTYxLDIwMy4xMzAwMnYtNS4yNDEyM2gxNi4xNjc4NHY1LjI0MTIzeiIgc3Ryb2tlPSJub25lIi8+PC9nPjxwYXRoIGQ9Ik0xODUuOTQzNzIsLTQzLjIwNzgzYzAsMCAtNDguMzE4ODksOTEuMTgwNDggLTYxLjUwODcxLDEzMi45OTE1MWMtMy43ODI2LDExLjk5MDYyIDIwLjc2NTM1LDgxLjEzNzc0IDEwLjk2NDUxLDEyOC44NDU4M2MtNy4zMjI0NCwzNS42NDM4NSAtNjEuMjMxNjYsMjMuODM5NjIgLTY3LjYwOTEzLDM5LjM2MTU0Yy0yMy4wNTY2OSw1Ni4xMTY5MiAtMTMuMjMxNDQsMTczLjI3NDg1IC0xMy4yMzE0NCwxNzMuMjc0ODUiIGZpbGw9Im5vbmUiIHN0cm9rZT0idXJsKCNjb2xvci01KSIgc3Ryb2tlLXdpZHRoPSIzMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTgxLjU4MDM1LC0yOC40OTM4NmMwLDAgLTY0LjU2ODMsNjIuMDg4MTcgLTIzLjg3NTI3LDE2MC43MTM4NWMxOS4xNTIyNiw0Ni40MTgzNyAtODQuMjMyODMsODQuMDMwOSAtODQuMjMyODMsODQuMDMwOSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ1cmwoI2NvbG9yLTYpIiBzdHJva2Utd2lkdGg9IjMyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNNDQ3LjIwMjM2LC0yMC45ODQ4NWMwLDAgLTIwNS4xNjY3LDI5LjE1MjA2IC0yMTMuNzU1NjksODQuMjMzNjJjLTExLjg3OTIsNzYuMTgxODMgMjk2LjMzODI4LC04MC4yNTQ5OCAyOTYuMzM4MjgsLTMuMTUyNTQiIGZpbGw9Im5vbmUiIHN0cm9rZT0idXJsKCNjb2xvci03KSIgc3Ryb2tlLXdpZHRoPSIzMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTE3NS40MzU0NywtNTEuNDY1NzJjMCwwIC00My44MTY2NCw5MS45MzA4NSAtNTcuMDA2NDUsMTMzLjc0MTg5Yy0zLjc4MjYsMTEuOTkwNjIgMjAuNzY1MzQsODEuMTM3NzQgMTAuOTY0NTEsMTI4Ljg0NTgzYy03LjMyMjQ0LDM1LjY0Mzg1IC02MS4yMzE2NiwyMy44Mzk2MiAtNjcuNjA5MTMsMzkuMzYxNTRjLTIzLjA1NjY5LDU2LjExNjkyIC0xMy4yMzE0NCwxNzMuMjc0ODUgLTEzLjIzMTQ0LDE3My4yNzQ4NSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ1cmwoI2NvbG9yLTgpIiBzdHJva2Utd2lkdGg9IjMyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNNzUuNTc0MzQsLTM2LjAwMTM4YzAsMCAtNjQuNTY4Myw2Mi4wODgxNyAtMjMuODc1MjcsMTYwLjcxMzg1YzE5LjE1MjI2LDQ2LjQxODM3IC04NC4yMzI4Myw4NC4wMzA5IC04NC4yMzI4Myw4NC4wMzA5IiBmaWxsPSJub25lIiBzdHJva2U9InVybCgjY29sb3ItOSkiIHN0cm9rZS13aWR0aD0iMzIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik00NDEuMTk2MzUsLTI4LjQ5MjM2YzAsMCAtMjE3LjE3ODcxLDMwLjY1MzU2IC0yMjUuNzY3Nyw4NS43MzUxM2MtMTEuODc5Miw3Ni4xODE4MyAzMTQuMzU2MywtODQuNzU5NDggMzE0LjM1NjMsLTcuNjU3MDUiIGZpbGw9Im5vbmUiIHN0cm9rZT0idXJsKCNjb2xvci0xMCkiIHN0cm9rZS13aWR0aD0iMzIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0xMzIuNzU2NTMsMzc2LjU1NjcyYzAsMCAyMy42NjYyOSwtNzIuOTM5NDcgNjIuNzc2MTcsLTg4LjYzNjA2YzkuMTkxNDgsLTMuNjg4OTYgMTIuNzc1Nyw1MC40NjgyOCAyMS42NzEzNyw2Ni4xNTgwNGM3LjE3NzQ3LDEyLjY1OTI4IDIwLjM5NjExLDguMjI0NjMgMjcuODY2ODgsMy4xNjUyM2MyNi43MjgyMSwtMTguMTAxMDMgNDcuNDk1MTQsLTY4Ljk2MjMyIDYzLjg1NDYsLTc5Ljk4NjY4YzE1LjYzMDY3LC0xMC41MzMyMyAzLjg1MDc3LDExNi4xNDYyNCAyOS41NjUwMiwxNDYuNjYyNWMzLjU1ODkyLDQuMjIzNTMgNTcuMjY3NTEsLTcuNTM0OTMgMTAwLjQwOTksLTU3LjgxNDFjMzguMzI2NzQsLTQ0LjY2NjkgODQuNzQxOCwtODIuNTAzMDggODYuMTg3NTgsLTgyLjk5Njk3IiBmaWxsPSJub25lIiBzdHJva2U9IiM0NjlmOWYiIHN0cm9rZS13aWR0aD0iMzIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0xMjkuNDc1MTYsMzY2LjEyODQ3YzkuODIxNzQsLTQ3LjU1NjQgNzEuODI5NTcsLTEwMS44NzM4NSA3NS4zNzUxLC04Ny40MTA2NGM5LjYxNzEzLDM5LjIzMDg5IC0zLjEzNjcyLDk0LjMwOTI0IDM2Ljc1ODY4LDY3LjMwNzhjMjkuNjg0OTUsLTIwLjA5MDk1IDUxLjg1OTE2LC03MC42NjA1NyA2OS4xMDAwMiwtODIuMjc4ODhjMTUuNjMwNjcsLTEwLjUzMzIzIC01LjE1Mzc0LDEyMi4xNDkyNCAyMC41NjA1MSwxNTIuNjY1NWM0LjcwMjMyLDUuNTgwNDUgNjEuMzQzNDMsLTEzLjk0MjM3IDEwOS41MTI3NSwtNzAuNjk4OTVjMjAuNjc0NiwtMjQuMzYwMzIgODIuMTY0ODIsLTc2LjU1MDIxIDgzLjA4Nzc0LC03Ni44NjU0OSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ1cmwoI2NvbG9yLTExKSIgc3Ryb2tlLXdpZHRoPSIzMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9nPjwvZz48L3N2Zz48IS0tcm90YXRpb25DZW50ZXI6Mjg4LjUzMzc2MDAwMDAwMDAzOjI0Ny40NjU3Mi0tPg==";
+const witcat_input_picture = "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSI1OTQuMzE4NyIgaGVpZ2h0PSI1MTQuNzMxNjEiIHZpZXdCb3g9IjAsMCw1OTQuMzE4Nyw1MTQuNzMxNjEiPjxkZWZzPjxsaW5lYXJHcmFkaWVudCB4MT0iMjQwLjAwMDAyIiB5MT0iLTEuNjM3MyIgeDI9IjI0MC4wMDAwMiIgeTI9IjM2MS42MzczOSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjb2xvci0xIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM1MmJhYmEiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM0Y2FlYWUiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCB4MT0iMjU2LjE5MzU2IiB5MT0iMTM0LjQ4MzI0IiB4Mj0iMjU2LjE5MzU2IiB5Mj0iMjQ0LjkyOTA3IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgaWQ9ImNvbG9yLTIiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2FlYzdjNyIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzk2YzJjMiIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IHgxPSIyNjkuMjY2NjciIHkxPSIxMzkuMDcyMDEiIHgyPSIyNjkuMjY2NjciIHkyPSIyNDMuOTcwMzYiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiBpZD0iY29sb3ItMyI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZjFmZmZmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjY2NmZmZmIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgeDE9IjI0MS4zODE3MSIgeTE9IjE2MC4yMTE4NSIgeDI9IjI0MS4zODE3MSIgeTI9IjIwNi4wNzQxOSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjb2xvci00Ij48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNhZmM5YzkiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNiYWQ4ZDgiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCB4MT0iMTIyLjU4Nzk3IiB5MT0iLTQxLjcwNzA4IiB4Mj0iMTIyLjU4Nzk3IiB5Mj0iNDMxLjI2NTg5IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgaWQ9ImNvbG9yLTUiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzRjYWVhZSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzQ1YTBhMCIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IHgxPSIyNy41MjYzIiB5MT0iLTI4LjQ5Mzg2IiB4Mj0iMjcuNTI2MyIgeTI9IjIxNi4yNTA4OCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjb2xvci02Ij48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM0Y2FlYWUiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM0NWEwYTAiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCB4MT0iNDQ0LjQxNjk1IiB5MT0iLTIwLjk4NDg1IiB4Mj0iNDQ0LjQxNjk1IiB5Mj0iMTM1LjE3MTMiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiBpZD0iY29sb3ItNyI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjNGNhZWFlIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNDVhMGEwIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgeDE9IjExNi41ODE5NiIgeTE9Ii00OS4yMTQ1OSIgeDI9IjExNi41ODE5NiIgeTI9IjQyMy43NTgzOCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjb2xvci04Ij48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM0Mzk4OTgiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM0Mjk1OTUiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCB4MT0iMjEuNTIwMyIgeTE9Ii0zNi4wMDEzOCIgeDI9IjIxLjUyMDMiIHkyPSIyMDguNzQzMzciIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiBpZD0iY29sb3ItOSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjNDM5ODk4Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNDI5NTk1Ii8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgeDE9IjQzOC40MTA5NCIgeTE9Ii0xNy45ODE4NSIgeDI9IjQzOC40MTA5NCIgeTI9IjEzOC4xNzQzIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgaWQ9ImNvbG9yLTEwIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM0Mzk4OTgiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM0Mjk1OTUiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCB4MT0iMzA3LjI1NzgyIiB5MT0iMjI5LjgyODMiIHgyPSIzMDcuMjU3ODIiIHkyPSI0MTYuNjUyMTgiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiBpZD0iY29sb3ItMTEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzQzOTg5OCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzQyOTU5NSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQ4LjUzMzc2LDY3LjQ2NTcyKSI+PGcgZGF0YS1wYXBlci1kYXRhPSJ7JnF1b3Q7aXNQYWludGluZ0xheWVyJnF1b3Q7OnRydWV9IiBmaWxsLXJ1bGU9Im5vbnplcm8iIHN0cm9rZS1saW5lam9pbj0ibWl0ZXIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgc3Ryb2tlLWRhc2hhcnJheT0iIiBzdHJva2UtZGFzaG9mZnNldD0iMCIgc3R5bGU9Im1peC1ibGVuZC1tb2RlOiBub3JtYWwiPjxwYXRoIGQ9Ik0tMS42OTc0LDM2MS42MzczOXYtMzYzLjI3NDc0aDQ4My4zOTQ4NnYzNjMuMjc0NzR6IiBmaWxsPSJ1cmwoI2NvbG9yLTEpIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMCIgc3Ryb2tlLWxpbmVjYXA9ImJ1dHQiLz48cGF0aCBkPSJNMTgzLjg0MjgzLDE5OS4zNjIxOWMwLC0xNC45MjA1MyAwLC0yNS4zOTMwMyAwLC0zNC4zMjkwNGMwLC0xNC45MjUzNCA4Ljc3Nzk2LC0zMC4wNDk3NSAzMS4wOTM4LC0zMC4wNDk3NWMxNi4xNzQ3LDAgMjY2LjY1ODcxLC0wLjUwMDE2IDI2Ni42NTg3MSwtMC41MDAxNnY3Mi45MDcyNmMwLDAgLTE1LjI3ODcyLC04Ljk2MzM2IC0yNy44ODEzNywxMi41MzU4MmMtNy44MjE5NiwxMy4zNDM2OSAtOS42OTAwNiw2MC43MzAxNCAtMTYuNzgxMzMsNjAuODg4OGMtMTUuMTQ2MjEsMC4zMzg4NyAtMTIuNDk3NTgsLTMzLjYyMDQyIC0yMy4xOTQwOSwtMzQuMDUxMmMtNS40NTEwMiwtMC4zOTY2NiAtMTcuMzU5OTcsOS43NDg5MyAtMjAuMjIxNjEsMjcuNzEwOTJjLTIuMjgzOTUsMTQuMzM1OTEgNC4yNzQ2OSw0Mi4zMDk2OCAtMy42ODkzLDQxLjg3NzMyYy0zMC4zNTE1MiwtMS42NDc3NCAtMTkuNDUwODEsLTcyLjE2MTE0IC00NC44NDIwNywtODcuOTk4MzdjLTEzLjg4NTcyLC04LjY2MDkxIC0xOS4yMjA0NSwtMjkuMjIxMzUgLTQzLjQ1MDI2LC0xNC4yOTI1Yy0xMy43NDA0NSw4LjQ2NTk3IC0xMy45MzQ4NSwtMi42NTIxNiAtMjguMDE5MjUsNS4yMjgzNGMtMTAuOTg5MzMsNi4xNDg3NSAtMTEuODEyNzQsMjUuNDg4MSAtMjAuMDM1ODksMjUuNjM4NDJjLTkuNzM0NDQsMC4xNzc5NCAtMTQuMjg3MDgsLTIzLjI1NDM2IC0yNC4wNTU4MSwtMjYuNDY5MDFjLTE0LjM0MDA2LC00LjcxODk1IC0yMi43NTc1Nyw0LjA1NDM5IC0yNi42MDgwMSw0LjE2OTIzYy0xMS41NTk5NywwLjM0NDc3IC0xOC45NzM1MSwtMTYuNjE4OTYgLTE4Ljk3MzUxLC0yMy4yNjYwOHoiIGZpbGw9InVybCgjY29sb3ItMikiIHN0cm9rZT0iI2NjZmZmZiIgc3Ryb2tlLXdpZHRoPSIwIiBzdHJva2UtbGluZWNhcD0iYnV0dCIvPjxwYXRoIGQ9Ik0xODkuODU0ODMsMjAxLjI1NTM5YzAsLTE0LjMwMDYyIDAsLTIyLjEzNTI4IDAsLTMwLjcwMDAyYzAsLTE0LjMwNTIyIDguNDEzMjUsLTI4LjgwMTI1IDI5LjgwMTkyLC0yOC44MDEyNWMxNS41MDI2OCwwIDI2MS45Mzg1OSwtMC40NzkzOCAyNjEuOTM4NTksLTAuNDc5MzhjMCwwIDAsNS40OTk0MSAwLDEwLjMzNjdjMCwyMi4zNzcxNiAwLDU3LjMzODY5IDAsNTcuMzM4NjljMCwwIC0xNC4yMDA3NiwtNy42MDYyNiAtMjYuNTc4MzUsMTIuMDgzNzZjLTYuNzM2MTIsMTAuNzE1NjkgLTkuNzY0MjUsNTEuMTYzODggLTE2Ljk1NDg3LDU1LjUzOTY1Yy0xMi4zNTEyOCw0LjgzMTYyIC0xNS40NzcyNSwtMjguMTAxNjUgLTI0LjE1NzI1LC0yOC4zNTI3Yy0yMi41NDA5MywtMS41NzMxNyAtMTIuMjUwNTIsNjAuODAwNCAtMjEuMzYxNDQsNjMuOTUxMDFjLTIzLjc5MjUzLDguMjI3NiAtMjIuNDc1MjQsLTU3LjI5NTA5IC00MS45MDgzMywtNzUuMzA0NzVjLTIxLjUyNDMxLC0xOS45NDc3IC00NS4wOTYxMywtMjMuMjk4NzIgLTQ3Ljk3NzYzLC0yMS41MjMzMmMtMTMuMTY5NTcsOC4xMTQyMiAtMTMuMzU1ODgsLTIuNTQxOTggLTI2Ljg1NTEyLDUuMDExMTJjLTEwLjUzMjc1LDUuODkzMjggLTExLjMyMTk1LDI0LjQyOTEyIC0xOS4yMDM0NSwyNC41NzMyYy05LjMyOTk5LDAuMTcwNTUgLTEzLjY5MzQ5LC0yMi4yODgxOSAtMjMuMDU2MzUsLTI1LjM2OTI5Yy0xMy43NDQyNywtNC41MjI4OSAtMjEuODEyMDYsMy44ODU5MyAtMjUuNTAyNTIsMy45OTZjLTExLjA3OTY4LDAuMzMwNDQgLTE4LjE4NTIxLC0xNS45Mjg0NyAtMTguMTg1MjEsLTIyLjI5OTQzeiIgZmlsbD0idXJsKCNjb2xvci0zKSIgc3Ryb2tlPSIjY2NmZmZmIiBzdHJva2Utd2lkdGg9IjAiIHN0cm9rZS1saW5lY2FwPSJidXR0Ii8+PGcgc3Ryb2tlLXdpZHRoPSIwIiBzdHJva2UtbGluZWNhcD0iYnV0dCI+PHBhdGggZD0iTTIzMy40MTQxOCwyMDYuMDc0MTlsMC4wNzA3OSwtNS4zODE2NGw1LjA4MzYyLDAuMDgzMzR2LTQwLjU2NDAzaDUuODYzNzJ2NDAuNjQ3MzdoNC45MTY5NHY1LjE5NjIyeiIgZmlsbD0idXJsKCNjb2xvci00KSIgc3Ryb2tlPSIjMDAwMDAwIi8+PHBhdGggZD0iTTIzMy40MTY0NywxNjUuMTg3MzJ2LTUuMjQxMjJoMTYuMTY3ODR2NS4yNDEyMnoiIGZpbGw9IiNhZmM5YzkiIHN0cm9rZT0ibm9uZSIvPjwvZz48ZyBmaWxsPSIjNDM5ODk4IiBzdHJva2Utd2lkdGg9IjAiIHN0cm9rZS1saW5lY2FwPSJidXR0Ij48cGF0aCBkPSJNMjM3LjA2ODIyLDIwMy4wNTQ3di00NS44NDM1OWg1Ljg2MzcydjQ1Ljg0MzU5eiIgc3Ryb2tlPSIjMDAwMDAwIi8+PHBhdGggZD0iTTIzMS45MTYxLDE2Mi4xODY1OXYtNS4yNDEyMmgxNi4xNjc4NHY1LjI0MTIyeiIgc3Ryb2tlPSJub25lIi8+PHBhdGggZD0iTTIzMS45MTYxLDIwMy4xMzAwMnYtNS4yNDEyM2gxNi4xNjc4NHY1LjI0MTIzeiIgc3Ryb2tlPSJub25lIi8+PC9nPjxwYXRoIGQ9Ik0xODUuOTQzNzIsLTQzLjIwNzgzYzAsMCAtNDguMzE4ODksOTEuMTgwNDggLTYxLjUwODcxLDEzMi45OTE1MWMtMy43ODI2LDExLjk5MDYyIDIwLjc2NTM1LDgxLjEzNzc0IDEwLjk2NDUxLDEyOC44NDU4M2MtNy4zMjI0NCwzNS42NDM4NSAtNjEuMjMxNjYsMjMuODM5NjIgLTY3LjYwOTEzLDM5LjM2MTU0Yy0yMy4wNTY2OSw1Ni4xMTY5MiAtMTMuMjMxNDQsMTczLjI3NDg1IC0xMy4yMzE0NCwxNzMuMjc0ODUiIGZpbGw9Im5vbmUiIHN0cm9rZT0idXJsKCNjb2xvci01KSIgc3Ryb2tlLXdpZHRoPSIzMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTgxLjU4MDM1LC0yOC40OTM4NmMwLDAgLTY0LjU2ODMsNjIuMDg4MTcgLTIzLjg3NTI3LDE2MC43MTM4NWMxOS4xNTIyNiw0Ni40MTgzNyAtODQuMjMyODMsODQuMDMwOSAtODQuMjMyODMsODQuMDMwOSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ1cmwoI2NvbG9yLTYpIiBzdHJva2Utd2lkdGg9IjMyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNNDQ3LjIwMjM2LC0yMC45ODQ4NWMwLDAgLTIwNS4xNjY3LDI5LjE1MjA2IC0yMTMuNzU1NjksODQuMjMzNjJjLTExLjg3OTIsNzYuMTgxODMgMjk2LjMzODI4LC04MC4yNTQ5OCAyOTYuMzM4MjgsLTMuMTUyNTQiIGZpbGw9Im5vbmUiIHN0cm9rZT0idXJsKCNjb2xvci03KSIgc3Ryb2tlLXdpZHRoPSIzMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTE3NS40MzU0NywtNTEuNDY1NzJjMCwwIC00My44MTY2NCw5MS45MzA4NSAtNTcuMDA2NDUsMTMzLjc0MTg5Yy0zLjc4MjYsMTEuOTkwNjIgMjAuNzY1MzQsODEuMTM3NzQgMTAuOTY0NTEsMTI4Ljg0NTgzYy03LjMyMjQ0LDM1LjY0Mzg1IC02MS4yMzE2NiwyMy44Mzk2MiAtNjcuNjA5MTMsMzkuMzYxNTRjLTIzLjA1NjY5LDU2LjExNjkyIC0xMy4yMzE0NCwxNzMuMjc0ODUgLTEzLjIzMTQ0LDE3My4yNzQ4NSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ1cmwoI2NvbG9yLTgpIiBzdHJva2Utd2lkdGg9IjMyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNNzUuNTc0MzQsLTM2LjAwMTM4YzAsMCAtNjQuNTY4Myw2Mi4wODgxNyAtMjMuODc1MjcsMTYwLjcxMzg1YzE5LjE1MjI2LDQ2LjQxODM3IC04NC4yMzI4Myw4NC4wMzA5IC04NC4yMzI4Myw4NC4wMzA5IiBmaWxsPSJub25lIiBzdHJva2U9InVybCgjY29sb3ItOSkiIHN0cm9rZS13aWR0aD0iMzIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik00NDEuMTk2MzUsLTI4LjQ5MjM2YzAsMCAtMjE3LjE3ODcxLDMwLjY1MzU2IC0yMjUuNzY3Nyw4NS43MzUxM2MtMTEuODc5Miw3Ni4xODE4MyAzMTQuMzU2MywtODQuNzU5NDggMzE0LjM1NjMsLTcuNjU3MDUiIGZpbGw9Im5vbmUiIHN0cm9rZT0idXJsKCNjb2xvci0xMCkiIHN0cm9rZS13aWR0aD0iMzIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0xMzIuNzU2NTMsMzc2LjU1NjcyYzAsMCAyMy42NjYyOSwtNzIuOTM5NDcgNjIuNzc2MTcsLTg4LjYzNjA2YzkuMTkxNDgsLTMuNjg4OTYgMTIuNzc1Nyw1MC40NjgyOCAyMS42NzEzNyw2Ni4xNTgwNGM3LjE3NzQ3LDEyLjY1OTI4IDIwLjM5NjExLDguMjI0NjMgMjcuODY2ODgsMy4xNjUyM2MyNi43MjgyMSwtMTguMTAxMDMgNDcuNDk1MTQsLTY4Ljk2MjMyIDYzLjg1NDYsLTc5Ljk4NjY4YzE1LjYzMDY3LC0xMC41MzMyMyAzLjg1MDc3LDExNi4xNDYyNCAyOS41NjUwMiwxNDYuNjYyNWMzLjU1ODkyLDQuMjIzNTMgNTcuMjY3NTEsLTcuNTM0OTMgMTAwLjQwOTksLTU3LjgxNDFjMzguMzI2NzQsLTQ0LjY2NjkgODQuNzQxOCwtODIuNTAzMDggODYuMTg3NTgsLTgyLjk5Njk3IiBmaWxsPSJub25lIiBzdHJva2U9IiM0NjlmOWYiIHN0cm9rZS13aWR0aD0iMzIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0xMjkuNDc1MTYsMzY2LjEyODQ3YzkuODIxNzQsLTQ3LjU1NjQgNzEuODI5NTcsLTEwMS44NzM4NSA3NS4zNzUxLC04Ny40MTA2NGM5LjYxNzEzLDM5LjIzMDg5IC0zLjEzNjcyLDk0LjMwOTI0IDM2Ljc1ODY4LDY3LjMwNzhjMjkuNjg0OTUsLTIwLjA5MDk1IDUxLjg1OTE2LC03MC42NjA1NyA2OS4xMDAwMiwtODIuMjc4ODhjMTUuNjMwNjcsLTEwLjUzMzIzIC01LjE1Mzc0LDEyMi4xNDkyNCAyMC41NjA1MSwxNTIuNjY1NWM0LjcwMjMyLDUuNTgwNDUgNjEuMzQzNDMsLTEzLjk0MjM3IDEwOS41MTI3NSwtNzAuNjk4OTVjMjAuNjc0NiwtMjQuMzYwMzIgODIuMTY0ODIsLTc2LjU1MDIxIDgzLjA4Nzc0LC03Ni44NjU0OSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ1cmwoI2NvbG9yLTExKSIgc3Ryb2tlLXdpZHRoPSIzMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9nPjwvZz48L3N2Zz48IS0tcm90YXRpb25DZW50ZXI6Mjg4LjUzMzc2MDAwMDAwMDAzOjI0Ny40NjU3Mi0tPg==";
 
-const _icon = "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIxNzcuMDg4NTUiIGhlaWdodD0iMTc3LjA4ODU1IiB2aWV3Qm94PSIwLDAsMTc3LjA4ODU1LDE3Ny4wODg1NSI+PGRlZnM+PGxpbmVhckdyYWRpZW50IHgxPSIyNTYuMTkzNTYiIHkxPSIxMzcuNDg0NzQiIHgyPSIyNTYuMTkzNTYiIHkyPSIyNDcuOTMwNTciIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiBpZD0iY29sb3ItMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjYWVjN2M3Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjOTZjMmMyIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgeDE9IjI2OS4yNjY2NyIgeTE9IjE0Mi4wNzM1MSIgeDI9IjI2OS4yNjY2NyIgeTI9IjI0Ni45NzE4NiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjb2xvci0yIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmMWZmZmYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNjY2ZmZmYiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCB4MT0iMjQxLjM4MTcxIiB5MT0iMTYwLjIxMTg0IiB4Mj0iMjQxLjM4MTcxIiB5Mj0iMjA2LjA3NDE5IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgaWQ9ImNvbG9yLTMiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2FmYzljOSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2JhZDhkOCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xNTEuNDU1NzYsLTkxLjQ1NTc0KSI+PGcgZGF0YS1wYXBlci1kYXRhPSJ7JnF1b3Q7aXNQYWludGluZ0xheWVyJnF1b3Q7OnRydWV9IiBmaWxsLXJ1bGU9Im5vbnplcm8iIHN0cm9rZS13aWR0aD0iMCIgc3Ryb2tlLWxpbmVjYXA9ImJ1dHQiIHN0cm9rZS1saW5lam9pbj0ibWl0ZXIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgc3Ryb2tlLWRhc2hhcnJheT0iIiBzdHJva2UtZGFzaG9mZnNldD0iMCIgc3R5bGU9Im1peC1ibGVuZC1tb2RlOiBub3JtYWwiPjxwYXRoIGQ9Ik0xNTEuNDU1NzYsMjY4LjU0NDI5di0xNzcuMDg4NTVoMTc3LjA4ODU1djE3Ny4wODg1NXoiIGZpbGw9IiM1MmJhYmEiIHN0cm9rZT0ibm9uZSIvPjxwYXRoIGQ9Ik0xODMuODQyODMsMjAyLjM2MzY5YzAsLTE0LjkyMDUzIDAsLTI1LjM5MzAzIDAsLTM0LjMyOTA0YzAsLTE0LjkyNTM0IDguNzc3OTYsLTMwLjA0OTc1IDMxLjA5MzgsLTMwLjA0OTc1YzE2LjE3NDcsMCAxMTMuNjA3NjgsLTAuNTAwMTYgMTEzLjYwNzY4LC0wLjUwMDE2djcyLjkwNzI2YzAsMCAtMTguMDI5MzEsMS4xMzgxIC0yNy4wMDksNi42NzA4Yy0xMy43NDA0NSw4LjQ2NTk3IC0xMy45MzQ4NSwtMi42NTIxNiAtMjguMDE5MjUsNS4yMjgzNGMtMTAuOTg5MzMsNi4xNDg3NSAtMTEuODEyNzQsMjUuNDg4MSAtMjAuMDM1ODksMjUuNjM4NDJjLTkuNzM0NDQsMC4xNzc5NCAtMTQuMjg3MDgsLTIzLjI1NDM2IC0yNC4wNTU4MSwtMjYuNDY5MDFjLTE0LjM0MDA2LC00LjcxODk1IC0yMi43NTc1Nyw0LjA1NDM5IC0yNi42MDgwMSw0LjE2OTIzYy0xMS41NTk5NywwLjM0NDc3IC0xOC45NzM1MSwtMTYuNjE4OTYgLTE4Ljk3MzUxLC0yMy4yNjYwOHoiIGZpbGw9InVybCgjY29sb3ItMSkiIHN0cm9rZT0iI2NjZmZmZiIvPjxwYXRoIGQ9Ik0xODkuODU0ODMsMjA0LjI1NjljMCwtMTQuMzAwNjIgMCwtMjIuMTM1MjggMCwtMzAuNzAwMDJjMCwtMTQuMzA1MjIgOC40MTMyNSwtMjguODAxMjUgMjkuODAxOTIsLTI4LjgwMTI1YzE1LjUwMjY4LDAgMTA4Ljg4NzU2LC0wLjQ3OTM4IDEwOC44ODc1NiwtMC40NzkzOGMwLDAgMCw1LjQ5OTQxIDAsMTAuMzM2N2MwLDExLjM5MjkxIDAsNTcuMzM4NjkgMCw1Ny4zMzg2OWMwLDAgLTE3LjI4MDI0LDEuMDkwODEgLTI1Ljg4Njg0LDYuMzkzNjVjLTEzLjE2OTU3LDguMTE0MjIgLTEzLjM1NTg4LC0yLjU0MTk4IC0yNi44NTUxMiw1LjAxMTEyYy0xMC41MzI3NSw1Ljg5MzI4IC0xMS4zMjE5NSwyNC40MjkxMiAtMTkuMjAzNDUsMjQuNTczMmMtOS4zMjk5OSwwLjE3MDU1IC0xMy42OTM0OSwtMjIuMjg4MTkgLTIzLjA1NjM1LC0yNS4zNjkyOWMtMTMuNzQ0MjcsLTQuNTIyODkgLTIxLjgxMjA2LDMuODg1OTMgLTI1LjUwMjUyLDMuOTk2Yy0xMS4wNzk2OCwwLjMzMDQ0IC0xOC4xODUyMSwtMTUuOTI4NDcgLTE4LjE4NTIxLC0yMi4yOTk0M3oiIGZpbGw9InVybCgjY29sb3ItMikiIHN0cm9rZT0iI2NjZmZmZiIvPjxnPjxwYXRoIGQ9Ik0yMzMuNDE0MTgsMjA2LjA3NDE5bDAuMDcwNzksLTUuMzgxNjRsNS4wODM2MiwwLjA4MzM0di00MC41NjQwM2g1Ljg2MzcydjQwLjY0NzM3aDQuOTE2OTR2NS4xOTYyMnoiIGZpbGw9InVybCgjY29sb3ItMykiIHN0cm9rZT0iIzAwMDAwMCIvPjxwYXRoIGQ9Ik0yMzMuNDE2NDcsMTY1LjE4NzMydi01LjI0MTIyaDE2LjE2Nzg0djUuMjQxMjJ6IiBmaWxsPSIjYWZjOWM5IiBzdHJva2U9Im5vbmUiLz48L2c+PGcgZmlsbD0iIzQ5YTdhNyI+PHBhdGggZD0iTTIzNy4wNjgyMiwyMDMuMDU0Njl2LTQ1Ljg0MzU5aDUuODYzNzJ2NDUuODQzNTl6IiBzdHJva2U9IiMwMDAwMDAiLz48cGF0aCBkPSJNMjMxLjkxNjEsMTYyLjE4NjU4di01LjI0MTIyaDE2LjE2Nzg0djUuMjQxMjJ6IiBzdHJva2U9Im5vbmUiLz48cGF0aCBkPSJNMjMxLjkxNjEsMjAzLjEzMDAydi01LjI0MTIzaDE2LjE2Nzg0djUuMjQxMjN6IiBzdHJva2U9Im5vbmUiLz48L2c+PC9nPjwvZz48L3N2Zz48IS0tcm90YXRpb25DZW50ZXI6ODguNTQ0MjQ0OTk5OTk5OTk6ODguNTQ0MjU1MDAwMDAwMDItLT4=";
+const witcat_input_icon = "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIxNzcuMDg4NTUiIGhlaWdodD0iMTc3LjA4ODU1IiB2aWV3Qm94PSIwLDAsMTc3LjA4ODU1LDE3Ny4wODg1NSI+PGRlZnM+PGxpbmVhckdyYWRpZW50IHgxPSIyNTYuMTkzNTYiIHkxPSIxMzcuNDg0NzQiIHgyPSIyNTYuMTkzNTYiIHkyPSIyNDcuOTMwNTciIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiBpZD0iY29sb3ItMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjYWVjN2M3Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjOTZjMmMyIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgeDE9IjI2OS4yNjY2NyIgeTE9IjE0Mi4wNzM1MSIgeDI9IjI2OS4yNjY2NyIgeTI9IjI0Ni45NzE4NiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJjb2xvci0yIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmMWZmZmYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNjY2ZmZmYiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCB4MT0iMjQxLjM4MTcxIiB5MT0iMTYwLjIxMTg0IiB4Mj0iMjQxLjM4MTcxIiB5Mj0iMjA2LjA3NDE5IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgaWQ9ImNvbG9yLTMiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2FmYzljOSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2JhZDhkOCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xNTEuNDU1NzYsLTkxLjQ1NTc0KSI+PGcgZGF0YS1wYXBlci1kYXRhPSJ7JnF1b3Q7aXNQYWludGluZ0xheWVyJnF1b3Q7OnRydWV9IiBmaWxsLXJ1bGU9Im5vbnplcm8iIHN0cm9rZS13aWR0aD0iMCIgc3Ryb2tlLWxpbmVjYXA9ImJ1dHQiIHN0cm9rZS1saW5lam9pbj0ibWl0ZXIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgc3Ryb2tlLWRhc2hhcnJheT0iIiBzdHJva2UtZGFzaG9mZnNldD0iMCIgc3R5bGU9Im1peC1ibGVuZC1tb2RlOiBub3JtYWwiPjxwYXRoIGQ9Ik0xNTEuNDU1NzYsMjY4LjU0NDI5di0xNzcuMDg4NTVoMTc3LjA4ODU1djE3Ny4wODg1NXoiIGZpbGw9IiM1MmJhYmEiIHN0cm9rZT0ibm9uZSIvPjxwYXRoIGQ9Ik0xODMuODQyODMsMjAyLjM2MzY5YzAsLTE0LjkyMDUzIDAsLTI1LjM5MzAzIDAsLTM0LjMyOTA0YzAsLTE0LjkyNTM0IDguNzc3OTYsLTMwLjA0OTc1IDMxLjA5MzgsLTMwLjA0OTc1YzE2LjE3NDcsMCAxMTMuNjA3NjgsLTAuNTAwMTYgMTEzLjYwNzY4LC0wLjUwMDE2djcyLjkwNzI2YzAsMCAtMTguMDI5MzEsMS4xMzgxIC0yNy4wMDksNi42NzA4Yy0xMy43NDA0NSw4LjQ2NTk3IC0xMy45MzQ4NSwtMi42NTIxNiAtMjguMDE5MjUsNS4yMjgzNGMtMTAuOTg5MzMsNi4xNDg3NSAtMTEuODEyNzQsMjUuNDg4MSAtMjAuMDM1ODksMjUuNjM4NDJjLTkuNzM0NDQsMC4xNzc5NCAtMTQuMjg3MDgsLTIzLjI1NDM2IC0yNC4wNTU4MSwtMjYuNDY5MDFjLTE0LjM0MDA2LC00LjcxODk1IC0yMi43NTc1Nyw0LjA1NDM5IC0yNi42MDgwMSw0LjE2OTIzYy0xMS41NTk5NywwLjM0NDc3IC0xOC45NzM1MSwtMTYuNjE4OTYgLTE4Ljk3MzUxLC0yMy4yNjYwOHoiIGZpbGw9InVybCgjY29sb3ItMSkiIHN0cm9rZT0iI2NjZmZmZiIvPjxwYXRoIGQ9Ik0xODkuODU0ODMsMjA0LjI1NjljMCwtMTQuMzAwNjIgMCwtMjIuMTM1MjggMCwtMzAuNzAwMDJjMCwtMTQuMzA1MjIgOC40MTMyNSwtMjguODAxMjUgMjkuODAxOTIsLTI4LjgwMTI1YzE1LjUwMjY4LDAgMTA4Ljg4NzU2LC0wLjQ3OTM4IDEwOC44ODc1NiwtMC40NzkzOGMwLDAgMCw1LjQ5OTQxIDAsMTAuMzM2N2MwLDExLjM5MjkxIDAsNTcuMzM4NjkgMCw1Ny4zMzg2OWMwLDAgLTE3LjI4MDI0LDEuMDkwODEgLTI1Ljg4Njg0LDYuMzkzNjVjLTEzLjE2OTU3LDguMTE0MjIgLTEzLjM1NTg4LC0yLjU0MTk4IC0yNi44NTUxMiw1LjAxMTEyYy0xMC41MzI3NSw1Ljg5MzI4IC0xMS4zMjE5NSwyNC40MjkxMiAtMTkuMjAzNDUsMjQuNTczMmMtOS4zMjk5OSwwLjE3MDU1IC0xMy42OTM0OSwtMjIuMjg4MTkgLTIzLjA1NjM1LC0yNS4zNjkyOWMtMTMuNzQ0MjcsLTQuNTIyODkgLTIxLjgxMjA2LDMuODg1OTMgLTI1LjUwMjUyLDMuOTk2Yy0xMS4wNzk2OCwwLjMzMDQ0IC0xOC4xODUyMSwtMTUuOTI4NDcgLTE4LjE4NTIxLC0yMi4yOTk0M3oiIGZpbGw9InVybCgjY29sb3ItMikiIHN0cm9rZT0iI2NjZmZmZiIvPjxnPjxwYXRoIGQ9Ik0yMzMuNDE0MTgsMjA2LjA3NDE5bDAuMDcwNzksLTUuMzgxNjRsNS4wODM2MiwwLjA4MzM0di00MC41NjQwM2g1Ljg2MzcydjQwLjY0NzM3aDQuOTE2OTR2NS4xOTYyMnoiIGZpbGw9InVybCgjY29sb3ItMykiIHN0cm9rZT0iIzAwMDAwMCIvPjxwYXRoIGQ9Ik0yMzMuNDE2NDcsMTY1LjE4NzMydi01LjI0MTIyaDE2LjE2Nzg0djUuMjQxMjJ6IiBmaWxsPSIjYWZjOWM5IiBzdHJva2U9Im5vbmUiLz48L2c+PGcgZmlsbD0iIzQ5YTdhNyI+PHBhdGggZD0iTTIzNy4wNjgyMiwyMDMuMDU0Njl2LTQ1Ljg0MzU5aDUuODYzNzJ2NDUuODQzNTl6IiBzdHJva2U9IiMwMDAwMDAiLz48cGF0aCBkPSJNMjMxLjkxNjEsMTYyLjE4NjU4di01LjI0MTIyaDE2LjE2Nzg0djUuMjQxMjJ6IiBzdHJva2U9Im5vbmUiLz48cGF0aCBkPSJNMjMxLjkxNjEsMjAzLjEzMDAydi01LjI0MTIzaDE2LjE2Nzg0djUuMjQxMjN6IiBzdHJva2U9Im5vbmUiLz48L2c+PC9nPjwvZz48L3N2Zz48IS0tcm90YXRpb25DZW50ZXI6ODguNTQ0MjQ0OTk5OTk5OTk6ODguNTQ0MjU1MDAwMDAwMDItLT4=";
 
-const extensionId = "WitCatInput";
+const witcat_input_extensionId = "WitCatInput";
 
 let keypress = {};
 let lastKey = "", MouseWheel = 0;
@@ -164,10 +164,10 @@ class WitCatInput {
 
     getInfo() {
         return {
-            id: extensionId, // 拓展id
+            id: witcat_input_extensionId, // 拓展id
             name: this.formatMessage("WitCatInput.name"), // 拓展名
-            blockIconURI: _icon,
-            menuIconURI: _icon,
+            blockIconURI: witcat_input_icon,
+            menuIconURI: witcat_input_icon,
             color1: "#52baba",
             color2: "#459c9c",
             blocks: [
@@ -741,90 +741,74 @@ class WitCatInput {
         a.target = "_blank";
         a.click();
     }
+
+    /**
+     * 限制值的范围，如果值是NaN，返回最小值
+     * @param {number} x 数值
+     * @param {number} min 最小值
+     * @param {number} max 最大值
+     * @return {number}
+     */
+    _clamp(x, min, max) {
+        return isNaN(x) ? min : x < min ? min : x > max ? max : x;
+        // return isNaN(x) ? min : Math.min(max, Math.max(min, x));
+    }
+
     //设置或创建文本框
     createinput(args) {
-        let x = args.x;
-        let y = args.y;
-        let width = args.width;
-        let height = args.height;
-        if (args.x > this.runtime.stageWidth) {
-            x = this.runtime.stageWidth;
-        }
-        if (args.x < 0) {
-            x = 0;
-        }
-        if (args.y > this.runtime.stageHeight) {
-            y = this.runtime.stageHeight;
-        }
-        if (args.y < 0) {
-            y = 0;
-        }
-        if (Number(args.x) + Number(args.width) > this.runtime.stageWidth) {
-            width = this.runtime.stageWidth - x;
-        }
-        if (args.width < 0) {
-            width = 0;
-        }
-        if (Number(args.y) + Number(args.height) > this.runtime.stageHeight) {
-            height = this.runtime.stageHeight - y;
-        }
-        if (args.height < 0) {
-            height = 0;
-        }
+        let x = Number(args.x);
+        let y = Number(args.y);
+        let width = Number(args.width);
+        let height = Number(args.height);
+        x = this._clamp(x, 0, this.runtime.stageWidth);
+        y = this._clamp(y, 0, this.runtime.stageHeight);
+        width = this._clamp(width, 0, this.runtime.stageWidth - x);
+        height = this._clamp(height, 0, this.runtime.stageHeight - y);
         x = (x / this.runtime.stageWidth) * 100;
         y = (y / this.runtime.stageHeight) * 100;
         width = (width / this.runtime.stageWidth) * 100;
         height = (height / this.runtime.stageHeight) * 100;
+
         let search = document.getElementById("WitCatInput" + args.id);
-        if (search !== null) {
-            if (search.name === args.type) {
-                let bg = search.style.backgroundImage.split("\"")[1];
-                let ff = search.style.fontFamily;
-                let ta = search.style.textAlign;
-                let lh = search.style.lineHeight;
-                let fw = search.style.fontWeight;
-                let ts = search.style.textShadow;
-                let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:${Number(x)}%; top:${Number(y)}%; width:${Number(width)}%; height:${Number(height)}%;font-size:${Number(adaptive ? (cvs.style.width.split("px")[0] / 360) * args.size : args.size)}px;resize:none;color:${args.color};opacity:1;background: url("${bg}");background-size: 100% 100%;font-family: ${ff};text-align:${ta};line-height: ${Number(lh)};font-weight:${Number(fw)};text-shadow:${ts}`;
-                search.style = dom;
-                search.value = args.text;
-                search.placeholder = args.texts;
-            }
-            else {
-                let bg = search.style.backgroundImage.split("\"")[1];
-                let ff = search.style.fontFamily;
-                let ta = search.style.textAlign;
-                let lh = search.style.lineHeight;
-                let fw = search.style.fontWeight;
-                let ts = search.style.textShadow;
-                cvs.parentNode.removeChild(search);
-                let eleLink = document.createElement(args.type);
-                if (args.type === "input") {
-                    eleLink.type = "text";
-                }
-                let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:${Number(x)}%; top:${Number(y)}%; width:${Number(width)}%; height:${Number(height)}%;font-size:${Number(adaptive ? (cvs.style.width.split("px")[0] / 360) * args.size : args.size)}px;resize:none;color:${args.color};opacity:1;background: url("${bg}");background-size: 100% 100%;font-family: ${ff};text-align:${ta};line-height: ${Number(lh)};font-weight:${Number(fw)};text-shadow:${ts}`;
-                eleLink.style = dom;
-                eleLink.id = "WitCatInput" + args.id;
-                eleLink.value = args.text;
-                eleLink.className = "WitCatInput";
-                eleLink.name = args.type;
-                eleLink.placeholder = args.texts;
-                cvs.parentNode.appendChild(eleLink);
-            }
+        // 这里通过“如果不符合，就删除；如果不存在，就建立”的方式，
+        // 避免后面大量复制粘贴样式操作。
+        // 大段的复制粘贴往往意味着之后会犯错（只改一半）
+        if (search !== null && search.name !== args.type) {
+          cvs.parentNode.removeChild(search);
+          search = null;
         }
-        else {
-            let eleLink = document.createElement(args.type);
+        if (search === null) {
+            search = document.createElement(args.type);
             if (args.type === "input") {
-                eleLink.type = "text";
+                search.type = "text";
             }
-            let dom = `background-color: transparent;border:0px;text-shadow: 0 0 0 #000;outline: none;position:absolute; left:${Number(x)}%; top:${Number(y)}%; width:${Number(width)}%; height:${Number(height)}%;font-size:${Number(adaptive ? (cvs.style.width.split("px")[0] / 360) * inputFontSize[search[i].id.split("WitCatInput")[1]] : args.size)}px;resize:none;color:${args.color};opacity:1`;
-            eleLink.style = dom;
-            eleLink.id = "WitCatInput" + args.id;
-            eleLink.value = args.text;
-            eleLink.className = "WitCatInput";
-            eleLink.name = args.type;
-            eleLink.placeholder = args.texts;
-            cvs.parentNode.appendChild(eleLink);
+            search.id = "WitCatInput" + args.id;
+            search.value = args.text;
+            search.className = "WitCatInput";
+            search.name = args.type;
+            search.placeholder = args.texts;
+            cvs.parentNode.appendChild(search);
         }
+
+        // 现在直接通过style的属性修改样式表，不需要担心“分号注入”问题了
+        let sstyle = search.style;
+        sstyle.backgroundColor = "transparent";
+        sstyle.border = "0px";
+        sstyle.textShadow = "0 0 0 #000";
+        sstyle.outline = "none";
+        sstyle.position = "absolute";
+        sstyle.left = `${x}%`;
+        sstyle.top = `${y}%`;
+        sstyle.width = `${width}%`;
+        sstyle.height = `${height}%`;
+        sstyle.fontSize = `${Number(adaptive ? (Number(cvs.style.width.split("px")[0]) / 360) * args.size : args.size)}px`;
+        sstyle.resize = "none";
+        sstyle.color = args.color;
+        sstyle.opacity = 1;
+        sstyle.backgroundSize = "100% 100%";
+        search.value = args.text;
+        search.placeholder = args.texts;
+
         inputFontSize[args.id] = args.size;
     }
     //删除文本框
@@ -837,63 +821,7 @@ class WitCatInput {
     //获取文本框内容
     getinput(args) {
         let search = document.getElementById("WitCatInput" + args.id);
-        if (search !== null) {
-            if (args.type === "X")
-                return (search.style.left.split("%")[0] / 100) * this.runtime.stageWidth;
-            else if (args.type === "Y")
-                return (search.style.top.split("%")[0] / 100) * this.runtime.stageHeight;
-            else if (args.type === "width")
-                return (search.style.width.split("%")[0] / 100) * this.runtime.stageWidth;
-            else if (args.type === "height")
-                return (search.style.height.split("%")[0] / 100) * this.runtime.stageHeight;
-            else if (args.type === "content")
-                return search.value;
-            else if (args.type === "color")
-                return search.style.color.colorHex();
-            else if (args.type === "prompt")
-                return search.placeholder;
-            else if (args.type === "font-size")
-                return search.style.fontSize.split("px")[0];
-            else if (args.type === "ID")
-                return search.id.split("WitCatInput")[1];
-            else if (args.type === "rp")
-                return search.scrollTop;
-            else if (args.type === "th")
-                return search.scrollHeight;
-            else if (args.type === "cp")
-                return JSON.stringify([search.selectionStart, search.selectionEnd]);
-            else if (args.type === "op")
-                return 100 - (search.style.opacity * 100);
-            else if (args.type === "bg")
-                return search.style.backgroundImage.split("\"")[1];
-            else if (args.type === "ff")
-                return search.style.fontFamily;
-            else if (args.type === "lh")
-                return search.style.lineHeight;
-            else if (args.type === "fw")
-                return search.style.fontWeight;
-            else if (args.type === "ts")
-                return search.style.textShadow;
-            else {
-                return (
-                    "{\"" + "X" + "\":\"" + ((search.style.left.split("%")[0] / 100) * this.runtime.stageWidth) + "\"," +
-                    "\"" + "Y" + "\":\"" + ((search.style.top.split("%")[0] / 100) * this.runtime.stageHeight) + "\"," +
-                    "\"" + "width" + "\":\"" + ((search.style.width.split("%")[0] / 100) * this.runtime.stageWidth) + "\"," +
-                    "\"" + "height" + "\":\"" + ((search.style.height.split("%")[0] / 100) * this.runtime.stageHeight) + "\"," +
-                    "\"" + "content" + "\":" + JSON.stringify(search.value) + "," +
-                    "\"" + "color" + "\":\"" + (search.style.color.colorHex()) + "\"," +
-                    "\"" + "prompt" + "\":\"" + (search.placeholder) + "\"," +
-                    "\"" + "font-size" + "\":\"" + (search.style.fontSize.split("px")[0]) + "\"," +
-                    "\"" + "ID" + "\":\"" + (search.id.split("WitCatInput")[1]) + "\"," +
-                    "\"" + "Rolling position" + "\":\"" + (search.scrollTop) + "\"," +
-                    "\"" + "Text height" + "\":\"" + (search.scrollHeight) + "\"," +
-                    "\"" + "cursor position" + "\":\"" + (JSON.stringify([search.selectionStart, search.selectionEnd])) + "\"}"
-                )
-            }
-        }
-        else {
-            return ("");
-        }
+        return search === null ? "" : this._getattrib(search, args.type);
     }
     //焦点判断
     isinput(args) {
@@ -941,65 +869,105 @@ class WitCatInput {
     compute(args) {
         return (cvs.style.width.split("px")[0] / 360) * args.size;
     }
-    //获取状态
+    //获取指定编号的文本框属性
     number(args) {
-        let search = document.getElementsByClassName("WitCatInput");
-        if (search.length >= args.num && args.num > 0) {
-            if (args.type === "X")
-                return (search[args.num - 1].style.left.split("%")[0] / 100) * this.runtime.stageWidth;
-            else if (args.type === "Y")
-                return (search[args.num - 1].style.top.split("%")[0] / 100) * this.runtime.stageHeight;
-            else if (args.type === "width")
-                return (search[args.num - 1].style.width.split("%")[0] / 100) * this.runtime.stageWidth;
-            else if (args.type === "height")
-                return (search[args.num - 1].style.height.split("%")[0] / 100) * this.runtime.stageHeight;
-            else if (args.type === "content")
-                return search[args.num - 1].value;
-            else if (args.type === "color")
-                return search[args.num - 1].style.color.colorHex();
-            else if (args.type === "prompt")
-                return search[args.num - 1].placeholder;
-            else if (args.type === "font-size")
-                return search[args.num - 1].style.fontSize.split("px")[0];
-            else if (args.type === "ID")
-                return search[args.num - 1].id.split("WitCatInput")[1];
-            else if (args.type === "rp")
-                return search[args.num - 1].scrollTop;
-            else if (args.type === "th")
-                return search[args.num - 1].scrollHeight;
-            else if (args.type === "cp")
-                return JSON.stringify([search[args.num - 1].selectionStart, search[args.num - 1].selectionEnd]);
-            else if (args.type === "op")
-                return 100 - (search[args.num - 1].style.opacity * 100);
-            else if (args.type === "bg")
-                return search[args.num - 1].style.backgroundImage.split("\"")[1];
-            else if (args.type === "ff")
-                return search[args.mun - 1].style.fontFamily;
-            else if (args.type === "lh")
-                return search[args.num - 1].style.lineHeight;
-            else if (args.type === "fw")
-                return search[args.num - 1].style.fontWeight;
-            else if (args.type === "ts")
-                return search[args.num - 1].style.textShadow;
-            else {
-                return (
-                    "{\"" + "X" + "\":\"" + ((search[args.num - 1].style.left.split("%")[0] / 100) * this.runtime.stageWidth) + "\"," +
-                    "\"" + "Y" + "\":\"" + ((search[args.num - 1].style.top.split("%")[0] / 100) * this.runtime.stageHeight) + "\"," +
-                    "\"" + "width" + "\":\"" + ((search[args.num - 1].style.width.split("%")[0] / 100) * this.runtime.stageWidth) + "\"," +
-                    "\"" + "height" + "\":\"" + ((search[args.num - 1].style.height.split("%")[0] / 100) * this.runtime.stageHeight) + "\"," +
-                    "\"" + "content" + "\":" + JSON.stringify(search[args.num - 1].value) + "," +
-                    "\"" + "color" + "\":\"" + (search[args.num - 1].style.color.colorHex()) + "\"," +
-                    "\"" + "prompt" + "\":\"" + (search[args.num - 1].placeholder) + "\"," +
-                    "\"" + "font-size" + "\":\"" + (search[args.num - 1].style.fontSize.split("px")[0]) + "\"," +
-                    "\"" + "ID" + "\":\"" + (search[args.num - 1].id.split("WitCatInput")[1]) + "\"," +
-                    "\"" + "Rolling position" + "\":\"" + (search[args.num - 1].scrollTop) + "\"," +
-                    "\"" + "Text height" + "\":\"" + (search[args.num - 1].scrollHeight) + "\"," +
-                    "\"" + "cursor position" + "\":\"" + (JSON.stringify([search[args.num - 1].selectionStart, search[args.num - 1].selectionEnd])) + "\"}"
-                )
-            }
-        }
-        else {
+        let searchall = document.getElementsByClassName("WitCatInput");
+        let index = Number(args.num);
+        if (searchall.length >= index && index > 0) {
+            let search = searchall[index - 1];
+            return this._getattrib(search, args.type);
+        } else {
             return "";
+        }
+    }
+
+    /**
+     * 获取文本框的属性
+     * @param {Element} element 文本框元素
+     * @param {string} type 属性类型
+     * @returns {number|string}
+     */
+    _getattrib(element, type) {
+        // 用于通过类型检查，确保不出错
+        if (!(element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement)) {
+            console.warn("Input.js: 获取到的元素的类型不正确: ", element);
+            return "";
+        }
+        switch (type) {
+            case "X":
+                return (Number(element.style.left.split("%")[0]) / 100) * this.runtime.stageWidth;
+                // 理论上需要加break;，但是前面已经return了
+            case "Y":
+                return (Number(element.style.top.split("%")[0]) / 100) * this.runtime.stageHeight;
+            case "width":
+                return (Number(element.style.width.split("%")[0]) / 100) * this.runtime.stageWidth;
+            case "height":
+                return (Number(element.style.height.split("%")[0]) / 100) * this.runtime.stageHeight;
+            case "content":
+                return element.value;
+            case "color":
+                return string_colorHex(element.style.color);
+            case "prompt":
+                return element.placeholder;
+            case "font-size":
+                return element.style.fontSize.split("px")[0];
+            case "ID":
+                // 直接上正则，可以处理类似“WitCatInput123WitCatInput456”这样包含“WitCatInput”的奇葩ID
+                {
+                    let match = /^WitCatInput(.*)$/.exec(element.id);
+                    return match === null ? "" : match[1];
+                }
+            case "rp":
+                return element.scrollTop;
+            case "th":
+                return element.scrollHeight;
+            case "cp":
+                return JSON.stringify([element.selectionStart, element.selectionEnd]);
+            case "op":
+                return 100 - (Number(element.style.opacity) * 100);
+            case "bg":
+                // 不适合split的地方，直接上正则
+                // (注：一开始backgroundImage的值可能是空的或者别的什么东西……)
+                {
+                    // 打花括号之后就可以在里面声明变量了
+                    let match = /^url\("(.*)"\)$/.exec(element.style.backgroundImage);
+                    if (match !== null) {
+                        return decodeURI(match[1]);
+                    } else {
+                        // 正则匹配失败
+                        return "";
+                    }
+                }
+            case "ff":
+                return element.style.fontFamily;
+            case "lh":
+                return element.style.lineHeight;
+            case "fw":
+                return element.style.fontWeight;
+            case "ts":
+                return element.style.textShadow;
+            case "json":
+                // 直接把整个东西转成 JSON 对象，再拼接
+                return JSON.stringify(
+                    {
+                        X: this._getattrib(element, "X"),
+                        Y: this._getattrib(element, "Y"),
+                        width: this._getattrib(element, "width"),
+                        height: this._getattrib(element, "height"),
+                        content: this._getattrib(element, "content"),
+                        color: this._getattrib(element, "color"),
+                        prompt: this._getattrib(element, "prompt"),
+                        "font-size": this._getattrib(element, "font-size"),
+                        ID: this._getattrib(element, "ID"),
+                        "Rolling position": this._getattrib(element, "rp"),
+                        "Text height": this._getattrib(element, "th"),
+                        "cursor position": JSON.parse(this._getattrib(element, "cp"))
+                        // 这里看起来缺了一些东西，如果没有合并复制粘贴的代码以及进
+                        // 行优化，将需要修改两次大段内容，现在修改就简单了。
+                    }
+                )
+            default:
+                return "";
         }
     }
     //文本框数量
@@ -1039,100 +1007,80 @@ class WitCatInput {
     setinput(args) {
         let search = document.getElementById("WitCatInput" + args.id);
         if (search !== null) {
+            let sstyle = search.style;
             let x, y, width, height, opacity;
-            if (args.type === "X") {
-                x = args.text;
-                if (args.text > this.runtime.stageWidth) {
-                    x = this.runtime.stageWidth;
-                }
-                if (args.text < 0) {
-                    x = 0;
-                }
-                x = (x / this.runtime.stageWidth) * 100;
-                search.style.left = Number(x) + "%";
-            }
-            else if (args.type === "Y") {
-                y = args.text;
-                if (args.text > this.runtime.stageHeight) {
-                    y = this.runtime.stageHeight;
-                }
-                if (args.text < 0) {
-                    y = 0;
-                }
-                y = (y / this.runtime.stageHeight) * 100;
-                search.style.top = Number(y) + "%";
-            }
-            else if (args.type === "width") {
-                width = args.text;
-                if (Number(x) + Number(args.text) > this.runtime.stageWidth) {
-                    width = this.runtime.stageWidth - x;
-                }
-                if (args.text < 0) {
-                    width = 0;
-                }
-                width = (width / this.runtime.stageWidth) * 100;
-                search.style.width = Number(width) + "%";
-            }
-            else if (args.type === "height") {
-                height = args.text;
-                if (Number(y) + Number(args.text) > this.runtime.stageHeight) {
-                    height = this.runtime.stageHeight - y;
-                }
-                if (args.text < 0) {
-                    height = 0;
-                }
-                height = (height / this.runtime.stageHeight) * 100;
-                search.style.height = Number(height) + "%";
-            }
-            else if (args.type === "content") {
-                search.value = args.text;
-            }
-            else if (args.type === "prompt") {
-                search.placeholder = args.text;
-            }
-            else if (args.type === "color") {
-                search.style.color = args.text;
-            }
-            else if (args.type === "font-size") {
-                search.style.size = Number(args.text);
-                inputFontSize[args.id] = args.text;
-            }
-            else if (args.type === "rp") {
-                search.scrollTop = Number(args.text);
-            }
-            else if (args.type === "op") {
-                if (!isNaN(args.text)) {
-                    opacity = 1 - (args.text / 100);
-                }
-                else {
-                    opacity = 1;
-                }
-                search.style.opacity = opacity;
-            }
-            else if (args.type === "cp") {
-                try {
-                    if (JSON.parse(args.text).length >= 2) {
-                        search.setSelectionRange(JSON.parse(args.text)[0], JSON.parse(args.text)[1]);
+            switch (args.type) {
+                case "X":
+                    x = this._clamp(Number(args.text), 0, this.runtime.stageWidth);
+                    x = (x / this.runtime.stageWidth) * 100;
+                    sstyle.left = x + "%";
+                    break;
+                case "Y":
+                    y = this._clamp(Number(args.text), 0, this.runtime.stageHeight);
+                    y = (y / this.runtime.stageHeight) * 100;
+                    sstyle.top = y + "%";
+                    break;
+                case "width":
+                    x = Number(sstyle.left.split("%")[0]) / 100 * this.runtime.stageWidth;
+                    width = this._clamp(Number(args.text), 0, this.runtime.stageWidth - x);
+                    width = (width / this.runtime.stageWidth) * 100;
+                    sstyle.width = Number(width) + "%";
+                    break;
+                case "height":
+                    y = Number(sstyle.top.split("%")[0]) / 100 * this.runtime.stageHeight;
+                    height = this._clamp(Number(args.text), 0, this.runtime.stageHeight - y);
+                    height = (height / this.runtime.stageHeight) * 100;
+                    sstyle.height = Number(height) + "%";
+                    break;
+                case "content":
+                    search.value = args.text;
+                    break;
+                case "prompt":
+                    search.placeholder = args.text;
+                    break;
+                case "color":
+                    sstyle.color = args.text;
+                    break;
+                case "font-size":
+                    sstyle.fontSize = Number(args.text) + "px";
+                    inputFontSize[args.id] = Number(args.text);
+                    break;
+                case "rp":
+                    search.scrollTop = Number(args.text);
+                    break;
+                case "op":
+                    opacity = this._clamp(Number(args.text), 0, 100);
+                    opacity = 1 - (opacity / 100);
+                    sstyle.opacity = String(opacity);
+                    break;
+                case "cp":
+                    try {
+                        let selection = JSON.parse(args.text);
+                        if (selection instanceof Array && selection.length === 2) {
+                            search.setSelectionRange(selection[0], selection[1]);
+                        }
+                        else if (typeof(selection) === "number") {
+                            search.setSelectionRange(selection, selection);
+                        }
                     }
-                    else {
-                        search.setSelectionRange(args.text, args.text);
+                    catch {
+                        return;
                     }
-                }
-                catch {
-                    return;
-                }
-            }
-            else if (args.type === "bg") {
-                search.style.background = args.text;
-            }
-            else if (args.type === "lh") {
-                search.style.lineHeight = Number(args.text);
-            }
-            else if (args.type === "ts") {
-                search.style.textShadow = args.text;
-            }
-            else if (args.type === "css") {
-                search.style = args.text;
+                    break;
+                case "bg":
+                    sstyle.backgroundImage = 'url("' + encodeURI(String(args.text)) + '")';
+                    sstyle.backgroundSize = "100% 100%";
+                    break;
+                case "lh":
+                    sstyle.lineHeight = Number(args.text) + "px";
+                    break;
+                case "ts":
+                    sstyle.textShadow = args.text;
+                    break;
+                case "css":
+                    // https://www.cnblogs.com/ndos/p/9706646.html
+                    search.setAttribute("style", args.text);
+                    break;
             }
         }
     }
@@ -1227,9 +1175,9 @@ window.tempExt = {
     info: {
         name: "WitCatInput.name",
         description: "WitCatInput.descp",
-        extensionId: extensionId,
-        iconURL: _picture,
-        insetIconURL: _icon,
+        extensionId: witcat_input_extensionId,
+        iconURL: witcat_input_picture,
+        insetIconURL: witcat_input_icon,
         featured: true,
         disabled: false,
         collaborator: "白猫 @ CCW"
@@ -1248,10 +1196,9 @@ window.tempExt = {
 
 /* vim: set expandtab tabstop=2 shiftwidth=2: */
 //颜色转换
-String.prototype.colorHex = function () {
+function string_colorHex(color) {
     // RGB颜色值的正则
     var reg = /^(rgb|RGB)/;
-    var color = this;
     if (reg.test(color)) {
         var strHex = "#";
         // 把RGB的3个数值变成数组
@@ -1268,7 +1215,7 @@ String.prototype.colorHex = function () {
     } else {
         return String(color);
     }
-};
+}
 
 //键盘事件监听
 document.addEventListener("keydown", keydown);
