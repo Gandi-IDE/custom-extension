@@ -729,7 +729,7 @@ class WitCatFileHelper {
                 };
                 reader.onerror = () => {
                     FLAG = 0;
-                    resolve();
+                    resolve("");
                 };
                 reader.readAsText(file);
             }
@@ -752,9 +752,9 @@ class WitCatFileHelper {
      * @returns {Promise<string>} 文件内容
      */
     openfiless(args) {
-        try {
-            FLAG = 1;
-            return new Promise(resolve => {
+        return new Promise(resolve => {
+            try {
+                FLAG = 1;
                 input = document.createElement("input");
                 input.type = "file";
                 input.accept = args.name;
@@ -817,11 +817,12 @@ class WitCatFileHelper {
                         }
                     }, 1000);
                 }
-            });
-        }
-        catch (e) {
-            console.error("witcat open any file error:", e);
-        }
+            }
+            catch (e) {
+                console.error("witcat open any file error:", e);
+                resolve("");
+            }
+        });
     }
     /**
      * 打开文件的信息
