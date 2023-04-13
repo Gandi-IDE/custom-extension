@@ -14,1235 +14,1240 @@ let inputFontSize = {}, adaptive = false, observer;
 //找渲染cvs
 let cvs = document.getElementsByTagName("canvas")[0];
 if (cvs === null) {
-    alert("当前页面不支持输入框，请前往作品详情页体验完整作品！");
+	alert("当前页面不支持输入框，请前往作品详情页体验完整作品！");
 }
 else {
-    for (let i = 1; cvs.className !== "" && i <= document.getElementsByTagName("canvas").length; i++) {
-        cvs = document.getElementsByTagName("canvas")[i];
-    }
-    if (cvs === null) {
-        alert("当前页面不支持输入框，请前往作品详情页体验完整作品！");
-    }
+	for (let i = 1; cvs.className !== "" && i <= document.getElementsByTagName("canvas").length; i++) {
+		cvs = document.getElementsByTagName("canvas")[i];
+	}
+	if (cvs === null) {
+		alert("当前页面不支持输入框，请前往作品详情页体验完整作品！");
+	}
 }
 
 class WitCatInput {
-    constructor(runtime) {
-        this.runtime = runtime;
-        this._formatMessage = runtime.getFormatMessage({
-            "zh-cn": {
-                "WitCatInput.name": "[beta]白猫的输入框",
-                "WitCatInput.createinput": "创建或修改[type]文本框并命名为[id]，X[x]Y[y]宽[width]高[height]内容[text]颜色[color]提示[texts]字体大小[size]",
-                "WitCatInput.deleteinput": "删除文本框[id]",
-                "WitCatInput.getinput": "获得文本框[id]的[type]",
-                "WitCatInput.isinput": "焦点是否在文本框[id]上",
-                "WitCatInput.whatinput": "焦点位置",
-                "WitCatInput.nowinput": "将焦点聚焦在文本框[id]上",
-                "WitCatInput.deleteallinput": "删除所有文本框",
-                "WitCatInput.compute": "当前分辨率下高[size]的字体大小",
-                "WitCatInput.type.1": "单行",
-                "WitCatInput.type.2": "多行",
-                "WitCatInput.number": "第[num]个文本框的[type]",
-                "WitCatInput.numbers": "文本框的数量",
-                "WitCatInput.number.1": "X",
-                "WitCatInput.number.2": "Y",
-                "WitCatInput.number.3": "宽",
-                "WitCatInput.number.4": "高",
-                "WitCatInput.number.5": "内容",
-                "WitCatInput.number.6": "颜色",
-                "WitCatInput.number.7": "提示",
-                "WitCatInput.number.8": "字体大小",
-                "WitCatInput.number.9": "所有(json)",
-                "WitCatInput.number.10": "ID",
-                "WitCatInput.number.11": "滚动位置",
-                "WitCatInput.number.12": "文本高度",
-                "WitCatInput.number.13": "光标位置",
-                "WitCatInput.number.14": "透明度",
-                "WitCatInput.number.15": "背景图片",
-                "WitCatInput.number.16": "字体",
-                "WitCatInput.number.17": "行高",
-                "WitCatInput.number.18": "字体粗细",
-                "WitCatInput.number.19": "阴影",
-                "WitCatInput.fontweight": "设置文本框[id]的字体粗细为[text]", // 在文档中提示用户字体兼容性问题，并推荐合适的字体
-                "WitCatInput.normal": "常规",
-                "WitCatInput.bold": "粗体",
-                "WitCatInput.thin": "细体",
-                "WitCatInput.key": "按下按键[type]?",
-                "WitCatInput.keys": "按下按键[type]?",
-                "WitCatInput.keypress": "按下的按键",
-                "WitCatInput.lastkey": "上次按下的键",
-                "WitCatInput.mousewheel": "鼠标滚轮速度", // 这个积木应该在 More_Mouse 里？
-                "WitCatInput.setinput": "设置文本框[id]的[type]为[text]",
-                "WitCatInput.setread": "设置文本框[id]为[read]", // 重复使用三次？
-                "WitCatInput.setfontfamily": "设置文本框[id]字体从[text]加载字体名[name]", // 分成“加载”和“使用”
-                "WitCatInput.read.1": "可编辑",
-                "WitCatInput.read.2": "不可编辑",
-                "WitCatInput.password.1": "文本框",
-                "WitCatInput.password.2": "密码框",
-                "WitCatInput.textalign.1": "左对齐",
-                "WitCatInput.textalign.2": "中对齐",
-                "WitCatInput.textalign.3": "右对齐",
-                "WitCatInput.docs": "📖拓展教程",
-                "WitCatInput.input": "输入框",
-                "WitCatInput.focal": "焦点",
-                "WitCatInput.keyboard": "键盘",
-                "WitCatInput.shadow": "阴影x[x]y[y]宽[width]颜色[color]",
-                "WitCatInput.fontadaptive": "字体大小自适应[type]",
-                "WitCatInput.set.1": "启用",
-                "WitCatInput.set.2": "禁用",
-            },
-            en: {
-                "WitCatInput.name": "[beta]WitCat‘s Input",
-                "WitCatInput.createinput": "Create or modify [type]input ID[id]X[x]Y[y]width[width]height[height]content[text]color[color]prompt[texts]fontSize[size]",
-                "WitCatInput.deleteinput": "Delete input[id]",
-                "WitCatInput.getinput": "[type] of input [id]",
-                "WitCatInput.isinput": "input [id] received focus?",
-                "WitCatInput.whatinput": "focused input id",
-                "WitCatInput.nowinput": "Focus on input [id]",
-                "WitCatInput.deleteallinput": "Delete all inputs",
-                "WitCatInput.compute": "Font size of now screen[size]",
-                "WitCatInput.type.1": "single-line",
-                "WitCatInput.type.2": "multi-line",
-                "WitCatInput.number": "[type]of input[num]",
-                "WitCatInput.numbers": "input count",
-                "WitCatInput.number.1": "X",
-                "WitCatInput.number.2": "Y",
-                "WitCatInput.number.3": "width",
-                "WitCatInput.number.4": "height",
-                "WitCatInput.number.5": "content",
-                "WitCatInput.number.6": "color",
-                "WitCatInput.number.7": "prompt",
-                "WitCatInput.number.8": "font size",
-                "WitCatInput.number.9": "all(json)",
-                "WitCatInput.number.10": "ID",
-                "WitCatInput.number.11": "scroll position",
-                "WitCatInput.number.12": "text height",
-                "WitCatInput.number.13": "cursor position ",
-                "WitCatInput.number.14": "transparency",
-                "WitCatInput.number.15": "background",
-                "WitCatInput.number.16": "font family",
-                "WitCatInput.number.17": "line height",
-                "WitCatInput.number.18": "font weight",
-                "WitCatInput.number.19": "shadow",
-                "WitCatInput.fontweight": "Set fontweight of input[id] to[text]",
-                "WitCatInput.normal": "normal",
-                "WitCatInput.bold": "bold",
-                "WitCatInput.thin": "thin",
-                "WitCatInput.key": "key[type]pressed?",
-                "WitCatInput.keys": "When key [type] pressed",
-                "WitCatInput.keypress": "pressed keys",
-                "WitCatInput.lastkey": "last key pressed",
-                "WitCatInput.mousewheel": "mouse wheel speed",
-                "WitCatInput.setinput": "Set[type]of input[id]to[text]",
-                "WitCatInput.setread": "Set input[id]to[read]",
-                "WitCatInput.setfontfamily": "ID[id]`s font family url[text] name [name]",
-                "WitCatInput.read.1": "editable",
-                "WitCatInput.read.2": "uneditable",
-                "WitCatInput.password.1": "text",
-                "WitCatInput.password.2": "password",
-                "WitCatInput.textalign.1": "left",
-                "WitCatInput.textalign.2": "center",
-                "WitCatInput.textalign.3": "right",
-                "WitCatInput.docs": "📖Tutorials",
-                "WitCatInput.input": "text area",
-                "WitCatInput.focal": "focal",
-                "WitCatInput.keyboard": "keyboard",
-                "WitCatInput.shadow": "shadow x[x]y[y]weight[width]color[color]",
-                "WitCatInput.fontadaptive": "[type]font size adaptation",
-                "WitCatInput.set.1": "Enable",
-                "WitCatInput.set.2": "Disable",
-            }
-        })
-    }
+	constructor(runtime) {
+		this.runtime = runtime;
+		this._formatMessage = runtime.getFormatMessage({
+			"zh-cn": {
+				"WitCatInput.name": "[beta]白猫的输入框",
+				"WitCatInput.createinput": "创建或修改[type]文本框并命名为[id]，X[x]Y[y]宽[width]高[height]内容[text]颜色[color]提示[texts]字体大小[size]",
+				"WitCatInput.deleteinput": "删除文本框[id]",
+				"WitCatInput.getinput": "获得文本框[id]的[type]",
+				"WitCatInput.isinput": "焦点是否在文本框[id]上",
+				"WitCatInput.whatinput": "焦点位置",
+				"WitCatInput.nowinput": "将焦点聚焦在文本框[id]上",
+				"WitCatInput.deleteallinput": "删除所有文本框",
+				"WitCatInput.compute": "当前分辨率下高[size]的字体大小",
+				"WitCatInput.type.1": "单行",
+				"WitCatInput.type.2": "多行",
+				"WitCatInput.number": "第[num]个文本框的[type]",
+				"WitCatInput.numbers": "文本框的数量",
+				"WitCatInput.number.1": "X",
+				"WitCatInput.number.2": "Y",
+				"WitCatInput.number.3": "宽",
+				"WitCatInput.number.4": "高",
+				"WitCatInput.number.5": "内容",
+				"WitCatInput.number.6": "颜色",
+				"WitCatInput.number.7": "提示",
+				"WitCatInput.number.8": "字体大小",
+				"WitCatInput.number.9": "所有(json)",
+				"WitCatInput.number.10": "ID",
+				"WitCatInput.number.11": "滚动位置",
+				"WitCatInput.number.12": "文本高度",
+				"WitCatInput.number.13": "光标位置",
+				"WitCatInput.number.14": "透明度",
+				"WitCatInput.number.15": "背景图片",
+				"WitCatInput.number.16": "字体",
+				"WitCatInput.number.17": "行高",
+				"WitCatInput.number.18": "字体粗细",
+				"WitCatInput.number.19": "阴影",
+				"WitCatInput.fontweight": "设置文本框[id]的字体粗细为[text]", // 在文档中提示用户字体兼容性问题，并推荐合适的字体
+				"WitCatInput.normal": "常规",
+				"WitCatInput.bold": "粗体",
+				"WitCatInput.thin": "细体",
+				"WitCatInput.key": "按下按键[type]?",
+				"WitCatInput.keys": "按下按键[type]?",
+				"WitCatInput.keypress": "按下的按键",
+				"WitCatInput.lastkey": "上次按下的键",
+				"WitCatInput.mousewheel": "鼠标滚轮速度", // 这个积木应该在 More_Mouse 里？
+				"WitCatInput.setinput": "设置文本框[id]的[type]为[text]",
+				"WitCatInput.setread": "设置文本框[id]为[read]", // 重复使用三次？
+				"WitCatInput.setfontfamily": "设置文本框[id]字体从[text]加载字体名[name]", // 分成“加载”和“使用”
+				"WitCatInput.read.1": "可编辑",
+				"WitCatInput.read.2": "不可编辑",
+				"WitCatInput.password.1": "文本框",
+				"WitCatInput.password.2": "密码框",
+				"WitCatInput.textalign.1": "左对齐",
+				"WitCatInput.textalign.2": "中对齐",
+				"WitCatInput.textalign.3": "右对齐",
+				"WitCatInput.docs": "📖拓展教程",
+				"WitCatInput.input": "输入框",
+				"WitCatInput.focal": "焦点",
+				"WitCatInput.keyboard": "键盘",
+				"WitCatInput.shadow": "阴影x[x]y[y]宽[width]颜色[color]",
+				"WitCatInput.fontadaptive": "字体大小自适应[type]",
+				"WitCatInput.set.1": "启用",
+				"WitCatInput.set.2": "禁用",
+			},
+			en: {
+				"WitCatInput.name": "[beta]WitCat‘s Input",
+				"WitCatInput.createinput": "Create or modify [type]input ID[id]X[x]Y[y]width[width]height[height]content[text]color[color]prompt[texts]fontSize[size]",
+				"WitCatInput.deleteinput": "Delete input[id]",
+				"WitCatInput.getinput": "[type] of input [id]",
+				"WitCatInput.isinput": "input [id] received focus?",
+				"WitCatInput.whatinput": "focused input id",
+				"WitCatInput.nowinput": "Focus on input [id]",
+				"WitCatInput.deleteallinput": "Delete all inputs",
+				"WitCatInput.compute": "Font size of now screen[size]",
+				"WitCatInput.type.1": "single-line",
+				"WitCatInput.type.2": "multi-line",
+				"WitCatInput.number": "[type]of input[num]",
+				"WitCatInput.numbers": "input count",
+				"WitCatInput.number.1": "X",
+				"WitCatInput.number.2": "Y",
+				"WitCatInput.number.3": "width",
+				"WitCatInput.number.4": "height",
+				"WitCatInput.number.5": "content",
+				"WitCatInput.number.6": "color",
+				"WitCatInput.number.7": "prompt",
+				"WitCatInput.number.8": "font size",
+				"WitCatInput.number.9": "all(json)",
+				"WitCatInput.number.10": "ID",
+				"WitCatInput.number.11": "scroll position",
+				"WitCatInput.number.12": "text height",
+				"WitCatInput.number.13": "cursor position ",
+				"WitCatInput.number.14": "transparency",
+				"WitCatInput.number.15": "background",
+				"WitCatInput.number.16": "font family",
+				"WitCatInput.number.17": "line height",
+				"WitCatInput.number.18": "font weight",
+				"WitCatInput.number.19": "shadow",
+				"WitCatInput.fontweight": "Set fontweight of input[id] to[text]",
+				"WitCatInput.normal": "normal",
+				"WitCatInput.bold": "bold",
+				"WitCatInput.thin": "thin",
+				"WitCatInput.key": "key[type]pressed?",
+				"WitCatInput.keys": "When key [type] pressed",
+				"WitCatInput.keypress": "pressed keys",
+				"WitCatInput.lastkey": "last key pressed",
+				"WitCatInput.mousewheel": "mouse wheel speed",
+				"WitCatInput.setinput": "Set[type]of input[id]to[text]",
+				"WitCatInput.setread": "Set input[id]to[read]",
+				"WitCatInput.setfontfamily": "ID[id]`s font family url[text] name [name]",
+				"WitCatInput.read.1": "editable",
+				"WitCatInput.read.2": "uneditable",
+				"WitCatInput.password.1": "text",
+				"WitCatInput.password.2": "password",
+				"WitCatInput.textalign.1": "left",
+				"WitCatInput.textalign.2": "center",
+				"WitCatInput.textalign.3": "right",
+				"WitCatInput.docs": "📖Tutorials",
+				"WitCatInput.input": "text area",
+				"WitCatInput.focal": "focal",
+				"WitCatInput.keyboard": "keyboard",
+				"WitCatInput.shadow": "shadow x[x]y[y]weight[width]color[color]",
+				"WitCatInput.fontadaptive": "[type]font size adaptation",
+				"WitCatInput.set.1": "Enable",
+				"WitCatInput.set.2": "Disable",
+			}
+		})
+	}
 
-    formatMessage(id) {
-        return this._formatMessage({
-            id,
-            default: id,
-            description: id
-        });
-    }
+	formatMessage(id) {
+		return this._formatMessage({
+			id,
+			default: id,
+			description: id
+		});
+	}
 
-    getInfo() {
-        return {
-            id: witcat_input_extensionId, // 拓展id
-            name: this.formatMessage("WitCatInput.name"), // 拓展名
-            blockIconURI: witcat_input_icon,
-            menuIconURI: witcat_input_icon,
-            color1: "#52baba",
-            color2: "#459c9c",
-            blocks: [
-                {
-                    blockType: "button",
-                    text: this.formatMessage('WitCatInput.docs'),
-                    onClick: this.docs,
-                },
-                "---" + this.formatMessage('WitCatInput.input'),
-                {
-                    opcode: "createinput",
-                    blockType: "command",
-                    text: this.formatMessage("WitCatInput.createinput"),
-                    arguments: {
-                        id: {
-                            type: "string",
-                            defaultValue: "i",
-                        },
-                        type: {
-                            type: "string",
-                            menu: "type",
-                        },
-                        x: {
-                            type: "number",
-                            defaultValue: "0",
-                        },
-                        y: {
-                            type: "number",
-                            defaultValue: "0",
-                        },
-                        width: {
-                            type: "number",
-                            defaultValue: "100",
-                        },
-                        height: {
-                            type: "number",
-                            defaultValue: "20",
-                        },
-                        text: {
-                            type: "string",
-                            defaultValue: "hello world!",
-                        },
-                        color: {
-                            type: "string",
-                            defaultValue: "#000000",
-                        },
-                        texts: {
-                            type: "string",
-                            defaultValue: "hello world!",
-                        },
-                        size: {
-                            type: "number",
-                            defaultValue: "16",
-                        }
-                    },
-                },
-                {
-                    opcode: "setinput",
-                    blockType: "command",
-                    text: this.formatMessage("WitCatInput.setinput"),
-                    arguments: {
-                        id: {
-                            type: "string",
-                            defaultValue: "i",
-                        },
-                        type: {
-                            type: "string",
-                            menu: "typess",
-                        },
-                        text: {
-                            type: "string",
-                            defaultValue: "10",
-                        },
-                    },
-                },
-                {
-                    opcode: "shadow",
-                    blockType: "reporter",
-                    text: this.formatMessage("WitCatInput.shadow"),
-                    arguments: {
-                        x: {
-                            type: "number",
-                            defaultValue: "0",
-                        },
-                        y: {
-                            type: "number",
-                            defaultValue: "0",
-                        },
-                        width: {
-                            type: "number",
-                            defaultValue: "3",
-                        },
-                        color: {
-                            type: "string",
-                            defaultValue: "#000000",
-                        },
-                    },
-                },
-                {
-                    opcode: "fontweight",
-                    blockType: "command",
-                    text: this.formatMessage("WitCatInput.fontweight"),
-                    arguments: {
-                        id: {
-                            type: "string",
-                            defaultValue: "i",
-                        },
-                        text: {
-                            type: "string",
-                            menu: "fontweight",
-                        },
-                    },
-                },
-                {
-                    opcode: "setread",
-                    blockType: "command",
-                    text: this.formatMessage("WitCatInput.setread"),
-                    arguments: {
-                        id: {
-                            type: "string",
-                            defaultValue: "i",
-                        },
-                        read: {
-                            type: "string",
-                            menu: "read",
-                        },
-                    },
-                },
-                {
-                    opcode: "password",
-                    blockType: "command",
-                    text: this.formatMessage("WitCatInput.setread"),
-                    arguments: {
-                        id: {
-                            type: "string",
-                            defaultValue: "i",
-                        },
-                        read: {
-                            type: "string",
-                            menu: "password",
-                        },
-                    },
-                },
-                {
-                    opcode: "textalign",
-                    blockType: "command",
-                    text: this.formatMessage("WitCatInput.setread"),
-                    arguments: {
-                        id: {
-                            type: "string",
-                            defaultValue: "i",
-                        },
-                        read: {
-                            type: "string",
-                            menu: "textalign",
-                        },
-                    },
-                },
-                {
-                    opcode: "setfont",
-                    blockType: "command",
-                    text: this.formatMessage("WitCatInput.setfontfamily"),
-                    arguments: {
-                        id: {
-                            type: "string",
-                            defaultValue: "i",
-                        },
-                        text: {
-                            type: "string",
-                            defaultValue: "url",
-                        },
-                        name: {
-                            type: "string",
-                            defaultValue: "arial",
-                        },
-                    },
-                },
-                {
-                    opcode: "compute",
-                    blockType: "reporter",
-                    text: this.formatMessage("WitCatInput.compute"),
-                    arguments: {
-                        size: {
-                            type: "number",
-                            defaultValue: "16",
-                        }
-                    },
-                },
-                {
-                    opcode: "getinput",
-                    blockType: "reporter",
-                    text: this.formatMessage("WitCatInput.getinput"),
-                    arguments: {
-                        id: {
-                            type: "string",
-                            defaultValue: "i",
-                        },
-                        type: {
-                            type: "string",
-                            menu: "types",
-                        }
-                    },
-                },
-                {
-                    opcode: "number",
-                    blockType: "reporter",
-                    text: this.formatMessage("WitCatInput.number"),
-                    arguments: {
-                        num: {
-                            type: "number",
-                            defaultValue: "1",
-                        },
-                        type: {
-                            type: "string",
-                            menu: "types",
-                        }
-                    },
-                },
-                {
-                    opcode: "numbers",
-                    blockType: "reporter",
-                    text: this.formatMessage("WitCatInput.numbers"),
-                    arguments: {},
-                },
-                {
-                    opcode: "deleteinput",
-                    blockType: "command",
-                    text: this.formatMessage("WitCatInput.deleteinput"),
-                    arguments: {
-                        id: {
-                            type: "string",
-                            defaultValue: "i",
-                        }
-                    },
-                },
-                {
-                    opcode: "deleteallinput",
-                    blockType: "command",
-                    text: this.formatMessage("WitCatInput.deleteallinput"),
-                    arguments: {},
-                },
-                {
-                    opcode: "fontadaptive",
-                    blockType: "command",
-                    text: this.formatMessage("WitCatInput.fontadaptive"),
-                    arguments: {
-                        type: {
-                            type: "Boolean",
-                            menu: "set",
-                        }
-                    },
-                },
-                "---" + this.formatMessage('WitCatInput.focal'),
-                {
-                    opcode: "isinput",
-                    blockType: "Boolean",
-                    text: this.formatMessage("WitCatInput.isinput"),
-                    arguments: {
-                        id: {
-                            type: "string",
-                            defaultValue: "i",
-                        }
-                    },
-                },
-                {
-                    opcode: "whatinput",
-                    blockType: "reporter",
-                    text: this.formatMessage("WitCatInput.whatinput"),
-                    arguments: {},
-                },
-                {
-                    opcode: "nowinput",
-                    blockType: "command",
-                    text: this.formatMessage("WitCatInput.nowinput"),
-                    arguments: {
-                        id: {
-                            type: "string",
-                            defaultValue: "i",
-                        }
-                    },
-                },
-                "---" + this.formatMessage('WitCatInput.keyboard'),
-                {
-                    opcode: "key",
-                    blockType: "Boolean",
-                    text: this.formatMessage("WitCatInput.key"),
-                    arguments: {
-                        type: {
-                            type: "string",
-                            defaultValue: "KeyA",
-                        }
-                    },
-                },
-                {
-                    opcode: "mousewheel",
-                    blockType: "reporter",
-                    text: this.formatMessage("WitCatInput.mousewheel"),
-                    arguments: {},
-                },
-                {
-                    opcode: "keys",
-                    blockType: "hat",
-                    text: this.formatMessage("WitCatInput.keys"),
-                    func: false,
-                    arguments: {
-                        type: {
-                            type: "string",
-                            defaultValue: "KeyA",
-                        }
-                    },
-                },
-                {
-                    opcode: "lastkey",
-                    blockType: "reporter",
-                    text: this.formatMessage("WitCatInput.lastkey"),
-                    func: false,
-                    arguments: {},
-                },
-                {
-                    opcode: "keypress",
-                    blockType: "reporter",
-                    text: this.formatMessage("WitCatInput.keypress"),
-                    func: false,
-                    arguments: {},
-                },
-            ],
-            menus: {
-                type: [
-                    {
-                        text: this.formatMessage('WitCatInput.type.1'),
-                        value: 'input'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.type.2'),
-                        value: 'Textarea'
-                    },
-                ],
-                types: [
-                    {
-                        text: this.formatMessage('WitCatInput.number.10'),
-                        value: 'ID'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.1'),
-                        value: 'X'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.2'),
-                        value: 'Y'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.3'),
-                        value: 'width'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.4'),
-                        value: 'height'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.5'),
-                        value: 'content'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.6'),
-                        value: 'color'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.7'),
-                        value: 'prompt'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.8'),
-                        value: 'font-size'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.11'),
-                        value: 'rp'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.12'),
-                        value: 'th'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.13'),
-                        value: 'cp'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.14'),
-                        value: 'op'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.15'),
-                        value: 'bg'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.16'),
-                        value: 'ff'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.17'),
-                        value: 'lh'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.18'),
-                        value: 'fw'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.19'),
-                        value: 'ts'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.9'),
-                        value: 'json'
-                    },
-                ],
-                typess: [
-                    {
-                        text: this.formatMessage('WitCatInput.number.1'),
-                        value: 'X'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.2'),
-                        value: 'Y'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.3'),
-                        value: 'width'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.4'),
-                        value: 'height'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.5'),
-                        value: 'content'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.6'),
-                        value: 'color'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.7'),
-                        value: 'prompt'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.8'),
-                        value: 'font-size'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.11'),
-                        value: 'rp'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.13'),
-                        value: 'cp'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.14'),
-                        value: 'op'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.15'),
-                        value: 'bg'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.17'),
-                        value: 'lh'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.number.19'),
-                        value: 'ts'
-                    },
-                    {
-                        text: '⚠css',
-                        value: 'css'
-                    },
-                ],
-                read: [
-                    {
-                        text: this.formatMessage('WitCatInput.read.1'),
-                        value: 'eb'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.read.2'),
-                        value: 'ue'
-                    },
-                ],
-                password: [
-                    {
-                        text: this.formatMessage('WitCatInput.password.1'),
-                        value: 'text'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.password.2'),
-                        value: 'password'
-                    },
-                ],
-                textalign: [
-                    {
-                        text: this.formatMessage('WitCatInput.textalign.1'),
-                        value: 'left'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.textalign.2'),
-                        value: 'center'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.textalign.3'),
-                        value: 'right'
-                    },
-                ],
-                fontweight: {
-                    acceptReporters: true,
-                    items: [
-                        {
-                            text: `100(${this.formatMessage('WitCatInput.thin')})`,
-                            value: '100'
-                        },
-                        {
-                            text: '200',
-                            value: '200'
-                        },
-                        {
-                            text: '300',
-                            value: '300'
-                        },
-                        {
-                            text: `400(${this.formatMessage('WitCatInput.normal')})`,
-                            value: '400'
-                        },
-                        {
-                            text: '500',
-                            value: '500'
-                        },
-                        {
-                            text: '600',
-                            value: '600'
-                        },
-                        {
-                            text: `700(${this.formatMessage('WitCatInput.bold')})`,
-                            value: '700'
-                        },
-                        {
-                            text: '800',
-                            value: '800'
-                        },
-                        {
-                            text: '900',
-                            value: '900'
-                        },
-                    ],
-                },
-                set: [
-                    {
-                        text: this.formatMessage('WitCatInput.set.1'),
-                        value: 'true'
-                    },
-                    {
-                        text: this.formatMessage('WitCatInput.set.2'),
-                        value: 'false'
-                    },
-                ],
-            }
-        };
-    }
-    //打开教程
-    docs() {
-        let a = document.createElement('a');
-        a.href = "https://www.ccw.site/post/6153a7a6-05fb-462e-b785-b97700b12bc2";
-        a.rel = "noopener noreferrer";
-        a.target = "_blank";
-        a.click();
-    }
+	getInfo() {
+		return {
+			id: witcat_input_extensionId, // 拓展id
+			name: this.formatMessage("WitCatInput.name"), // 拓展名
+			blockIconURI: witcat_input_icon,
+			menuIconURI: witcat_input_icon,
+			color1: "#52baba",
+			color2: "#459c9c",
+			blocks: [
+				{
+					blockType: "button",
+					text: this.formatMessage('WitCatInput.docs'),
+					onClick: this.docs,
+				},
+				"---" + this.formatMessage('WitCatInput.input'),
+				{
+					opcode: "createinput",
+					blockType: "command",
+					text: this.formatMessage("WitCatInput.createinput"),
+					arguments: {
+						id: {
+							type: "string",
+							defaultValue: "i",
+						},
+						type: {
+							type: "string",
+							menu: "type",
+						},
+						x: {
+							type: "number",
+							defaultValue: "0",
+						},
+						y: {
+							type: "number",
+							defaultValue: "0",
+						},
+						width: {
+							type: "number",
+							defaultValue: "100",
+						},
+						height: {
+							type: "number",
+							defaultValue: "20",
+						},
+						text: {
+							type: "string",
+							defaultValue: "hello world!",
+						},
+						color: {
+							type: "string",
+							defaultValue: "#000000",
+						},
+						texts: {
+							type: "string",
+							defaultValue: "hello world!",
+						},
+						size: {
+							type: "number",
+							defaultValue: "16",
+						}
+					},
+				},
+				{
+					opcode: "setinput",
+					blockType: "command",
+					text: this.formatMessage("WitCatInput.setinput"),
+					arguments: {
+						id: {
+							type: "string",
+							defaultValue: "i",
+						},
+						type: {
+							type: "string",
+							menu: "typess",
+						},
+						text: {
+							type: "string",
+							defaultValue: "10",
+						},
+					},
+				},
+				{
+					opcode: "shadow",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatInput.shadow"),
+					arguments: {
+						x: {
+							type: "number",
+							defaultValue: "0",
+						},
+						y: {
+							type: "number",
+							defaultValue: "0",
+						},
+						width: {
+							type: "number",
+							defaultValue: "3",
+						},
+						color: {
+							type: "string",
+							defaultValue: "#000000",
+						},
+					},
+				},
+				{
+					opcode: "fontweight",
+					blockType: "command",
+					text: this.formatMessage("WitCatInput.fontweight"),
+					arguments: {
+						id: {
+							type: "string",
+							defaultValue: "i",
+						},
+						text: {
+							type: "string",
+							menu: "fontweight",
+						},
+					},
+				},
+				{
+					opcode: "setread",
+					blockType: "command",
+					text: this.formatMessage("WitCatInput.setread"),
+					arguments: {
+						id: {
+							type: "string",
+							defaultValue: "i",
+						},
+						read: {
+							type: "string",
+							menu: "read",
+						},
+					},
+				},
+				{
+					opcode: "password",
+					blockType: "command",
+					text: this.formatMessage("WitCatInput.setread"),
+					arguments: {
+						id: {
+							type: "string",
+							defaultValue: "i",
+						},
+						read: {
+							type: "string",
+							menu: "password",
+						},
+					},
+				},
+				{
+					opcode: "textalign",
+					blockType: "command",
+					text: this.formatMessage("WitCatInput.setread"),
+					arguments: {
+						id: {
+							type: "string",
+							defaultValue: "i",
+						},
+						read: {
+							type: "string",
+							menu: "textalign",
+						},
+					},
+				},
+				{
+					opcode: "setfont",
+					blockType: "command",
+					text: this.formatMessage("WitCatInput.setfontfamily"),
+					arguments: {
+						id: {
+							type: "string",
+							defaultValue: "i",
+						},
+						text: {
+							type: "string",
+							defaultValue: "url",
+						},
+						name: {
+							type: "string",
+							defaultValue: "arial",
+						},
+					},
+				},
+				{
+					opcode: "compute",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatInput.compute"),
+					arguments: {
+						size: {
+							type: "number",
+							defaultValue: "16",
+						}
+					},
+				},
+				{
+					opcode: "getinput",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatInput.getinput"),
+					arguments: {
+						id: {
+							type: "string",
+							defaultValue: "i",
+						},
+						type: {
+							type: "string",
+							menu: "types",
+						}
+					},
+				},
+				{
+					opcode: "number",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatInput.number"),
+					arguments: {
+						num: {
+							type: "number",
+							defaultValue: "1",
+						},
+						type: {
+							type: "string",
+							menu: "types",
+						}
+					},
+				},
+				{
+					opcode: "numbers",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatInput.numbers"),
+					arguments: {},
+				},
+				{
+					opcode: "deleteinput",
+					blockType: "command",
+					text: this.formatMessage("WitCatInput.deleteinput"),
+					arguments: {
+						id: {
+							type: "string",
+							defaultValue: "i",
+						}
+					},
+				},
+				{
+					opcode: "deleteallinput",
+					blockType: "command",
+					text: this.formatMessage("WitCatInput.deleteallinput"),
+					arguments: {},
+				},
+				{
+					opcode: "fontadaptive",
+					blockType: "command",
+					text: this.formatMessage("WitCatInput.fontadaptive"),
+					arguments: {
+						type: {
+							type: "Boolean",
+							menu: "set",
+						}
+					},
+				},
+				"---" + this.formatMessage('WitCatInput.focal'),
+				{
+					opcode: "isinput",
+					blockType: "Boolean",
+					text: this.formatMessage("WitCatInput.isinput"),
+					arguments: {
+						id: {
+							type: "string",
+							defaultValue: "i",
+						}
+					},
+				},
+				{
+					opcode: "whatinput",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatInput.whatinput"),
+					arguments: {},
+				},
+				{
+					opcode: "nowinput",
+					blockType: "command",
+					text: this.formatMessage("WitCatInput.nowinput"),
+					arguments: {
+						id: {
+							type: "string",
+							defaultValue: "i",
+						}
+					},
+				},
+				"---" + this.formatMessage('WitCatInput.keyboard'),
+				{
+					opcode: "key",
+					blockType: "Boolean",
+					text: this.formatMessage("WitCatInput.key"),
+					arguments: {
+						type: {
+							type: "string",
+							defaultValue: "KeyA",
+						}
+					},
+				},
+				{
+					opcode: "mousewheel",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatInput.mousewheel"),
+					arguments: {},
+				},
+				{
+					opcode: "keys",
+					blockType: "hat",
+					text: this.formatMessage("WitCatInput.keys"),
+					func: false,
+					arguments: {
+						type: {
+							type: "string",
+							defaultValue: "KeyA",
+						}
+					},
+				},
+				{
+					opcode: "lastkey",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatInput.lastkey"),
+					func: false,
+					arguments: {},
+				},
+				{
+					opcode: "keypress",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatInput.keypress"),
+					func: false,
+					arguments: {},
+				},
+			],
+			menus: {
+				type: [
+					{
+						text: this.formatMessage('WitCatInput.type.1'),
+						value: 'input'
+					},
+					{
+						text: this.formatMessage('WitCatInput.type.2'),
+						value: 'Textarea'
+					},
+				],
+				types: [
+					{
+						text: this.formatMessage('WitCatInput.number.10'),
+						value: 'ID'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.1'),
+						value: 'X'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.2'),
+						value: 'Y'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.3'),
+						value: 'width'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.4'),
+						value: 'height'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.5'),
+						value: 'content'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.6'),
+						value: 'color'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.7'),
+						value: 'prompt'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.8'),
+						value: 'font-size'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.11'),
+						value: 'rp'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.12'),
+						value: 'th'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.13'),
+						value: 'cp'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.14'),
+						value: 'op'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.15'),
+						value: 'bg'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.16'),
+						value: 'ff'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.17'),
+						value: 'lh'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.18'),
+						value: 'fw'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.19'),
+						value: 'ts'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.9'),
+						value: 'json'
+					},
+				],
+				typess: [
+					{
+						text: this.formatMessage('WitCatInput.number.1'),
+						value: 'X'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.2'),
+						value: 'Y'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.3'),
+						value: 'width'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.4'),
+						value: 'height'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.5'),
+						value: 'content'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.6'),
+						value: 'color'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.7'),
+						value: 'prompt'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.8'),
+						value: 'font-size'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.11'),
+						value: 'rp'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.13'),
+						value: 'cp'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.14'),
+						value: 'op'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.15'),
+						value: 'bg'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.17'),
+						value: 'lh'
+					},
+					{
+						text: this.formatMessage('WitCatInput.number.19'),
+						value: 'ts'
+					},
+					{
+						text: '⚠css',
+						value: 'css'
+					},
+				],
+				read: [
+					{
+						text: this.formatMessage('WitCatInput.read.1'),
+						value: 'eb'
+					},
+					{
+						text: this.formatMessage('WitCatInput.read.2'),
+						value: 'ue'
+					},
+				],
+				password: [
+					{
+						text: this.formatMessage('WitCatInput.password.1'),
+						value: 'text'
+					},
+					{
+						text: this.formatMessage('WitCatInput.password.2'),
+						value: 'password'
+					},
+				],
+				textalign: [
+					{
+						text: this.formatMessage('WitCatInput.textalign.1'),
+						value: 'left'
+					},
+					{
+						text: this.formatMessage('WitCatInput.textalign.2'),
+						value: 'center'
+					},
+					{
+						text: this.formatMessage('WitCatInput.textalign.3'),
+						value: 'right'
+					},
+				],
+				fontweight: {
+					acceptReporters: true,
+					items: [
+						{
+							text: `100(${this.formatMessage('WitCatInput.thin')})`,
+							value: '100'
+						},
+						{
+							text: '200',
+							value: '200'
+						},
+						{
+							text: '300',
+							value: '300'
+						},
+						{
+							text: `400(${this.formatMessage('WitCatInput.normal')})`,
+							value: '400'
+						},
+						{
+							text: '500',
+							value: '500'
+						},
+						{
+							text: '600',
+							value: '600'
+						},
+						{
+							text: `700(${this.formatMessage('WitCatInput.bold')})`,
+							value: '700'
+						},
+						{
+							text: '800',
+							value: '800'
+						},
+						{
+							text: '900',
+							value: '900'
+						},
+					],
+				},
+				set: [
+					{
+						text: this.formatMessage('WitCatInput.set.1'),
+						value: 'true'
+					},
+					{
+						text: this.formatMessage('WitCatInput.set.2'),
+						value: 'false'
+					},
+				],
+			}
+		};
+	}
+	//打开教程
+	docs() {
+		let a = document.createElement('a');
+		a.href = "https://www.ccw.site/post/6153a7a6-05fb-462e-b785-b97700b12bc2";
+		a.rel = "noopener noreferrer";
+		a.target = "_blank";
+		a.click();
+	}
 
-    /**
-     * 限制值的范围，如果值是NaN，返回最小值
-     * @param {number} x 数值
-     * @param {number} min 最小值
-     * @param {number} max 最大值
-     * @return {number}
-     */
-    _clamp(x, min, max) {
-        return isNaN(x) ? min : x < min ? min : x > max ? max : x;
-        // return isNaN(x) ? min : Math.min(max, Math.max(min, x));
-    }
+	/**
+	 * 限制值的范围，如果值是NaN，返回最小值
+	 * @param {number} x 数值
+	 * @param {number} min 最小值
+	 * @param {number} max 最大值
+	 * @return {number}
+	 */
+	_clamp(x, min, max) {
+		return isNaN(x) ? min : x < min ? min : x > max ? max : x;
+		// return isNaN(x) ? min : Math.min(max, Math.max(min, x));
+	}
 
-    //设置或创建文本框
-    createinput(args) {
-        let x = Number(args.x);
-        let y = Number(args.y);
-        let width = Number(args.width);
-        let height = Number(args.height);
-        x = this._clamp(x, 0, this.runtime.stageWidth);
-        y = this._clamp(y, 0, this.runtime.stageHeight);
-        width = this._clamp(width, 0, this.runtime.stageWidth - x);
-        height = this._clamp(height, 0, this.runtime.stageHeight - y);
-        x = (x / this.runtime.stageWidth) * 100;
-        y = (y / this.runtime.stageHeight) * 100;
-        width = (width / this.runtime.stageWidth) * 100;
-        height = (height / this.runtime.stageHeight) * 100;
+	//设置或创建文本框
+	createinput(args) {
+		let x = Number(args.x);
+		let y = Number(args.y);
+		let width = Number(args.width);
+		let height = Number(args.height);
+		x = this._clamp(x, 0, this.runtime.stageWidth);
+		y = this._clamp(y, 0, this.runtime.stageHeight);
+		width = this._clamp(width, 0, this.runtime.stageWidth - x);
+		height = this._clamp(height, 0, this.runtime.stageHeight - y);
+		x = (x / this.runtime.stageWidth) * 100;
+		y = (y / this.runtime.stageHeight) * 100;
+		width = (width / this.runtime.stageWidth) * 100;
+		height = (height / this.runtime.stageHeight) * 100;
 
-        let search = document.getElementById("WitCatInput" + args.id);
-        // 这里通过“如果不符合，就删除；如果不存在，就建立”的方式，
-        // 避免后面大量复制粘贴样式操作。
-        // 大段的复制粘贴往往意味着之后会犯错（只改一半）
-        if (search !== null && search.name !== args.type) {
-          cvs.parentNode.removeChild(search);
-          search = null;
-        }
-        if (search === null) {
-            search = document.createElement(args.type);
-            if (args.type === "input") {
-                search.type = "text";
-            }
-            search.id = "WitCatInput" + args.id;
-            search.value = args.text;
-            search.className = "WitCatInput";
-            search.name = args.type;
-            search.placeholder = args.texts;
-            cvs.parentNode.appendChild(search);
-        }
+		let search = document.getElementById("WitCatInput" + args.id);
+		// 这里通过“如果不符合，就删除；如果不存在，就建立”的方式，
+		// 避免后面大量复制粘贴样式操作。
+		// 大段的复制粘贴往往意味着之后会犯错（只改一半）
+		if (search !== null && search.name !== args.type) {
+			cvs.parentNode.removeChild(search);
+			search = null;
+		}
+		if (search === null) {
+			search = document.createElement(args.type);
+			if (args.type === "input") {
+				search.type = "text";
+			}
+			search.id = "WitCatInput" + args.id;
+			search.value = args.text;
+			search.className = "WitCatInput";
+			search.name = args.type;
+			search.placeholder = args.texts;
+			cvs.parentNode.appendChild(search);
+		}
 
-        // 现在直接通过style的属性修改样式表，不需要担心“分号注入”问题了
-        let sstyle = search.style;
-        sstyle.backgroundColor = "transparent";
-        sstyle.border = "0px";
-        sstyle.textShadow = "0 0 0 #000";
-        sstyle.outline = "none";
-        sstyle.position = "absolute";
-        sstyle.left = `${x}%`;
-        sstyle.top = `${y}%`;
-        sstyle.width = `${width}%`;
-        sstyle.height = `${height}%`;
-        sstyle.fontSize = `${Number(adaptive ? (Number(cvs.style.width.split("px")[0]) / 360) * args.size : args.size)}px`;
-        sstyle.resize = "none";
-        sstyle.color = args.color;
-        sstyle.opacity = 1;
-        sstyle.backgroundSize = "100% 100%";
-        search.value = args.text;
-        search.placeholder = args.texts;
+		// 现在直接通过style的属性修改样式表，不需要担心“分号注入”问题了
+		let sstyle = search.style;
+		sstyle.backgroundColor = "transparent";
+		sstyle.border = "0px";
+		sstyle.textShadow = "0 0 0 #000";
+		sstyle.outline = "none";
+		sstyle.position = "absolute";
+		sstyle.left = `${x}%`;
+		sstyle.top = `${y}%`;
+		sstyle.width = `${width}%`;
+		sstyle.height = `${height}%`;
+		sstyle.fontSize = `${Number(adaptive ? (Number(cvs.style.width.split("px")[0]) / 360) * args.size : args.size)}px`;
+		sstyle.resize = "none";
+		sstyle.color = args.color;
+		sstyle.opacity = 1;
+		sstyle.backgroundSize = "100% 100%";
+		search.value = args.text;
+		search.placeholder = args.texts;
 
-        inputFontSize[args.id] = args.size;
-    }
-    //删除文本框
-    deleteinput(args) {
-        let search = document.getElementById("WitCatInput" + args.id);
-        if (search !== null) {
-            cvs.parentNode.removeChild(search);
-        }
-    }
-    //获取文本框内容
-    getinput(args) {
-        let search = document.getElementById("WitCatInput" + args.id);
-        return search === null ? "" : this._getattrib(search, args.type);
-    }
-    //焦点判断
-    isinput(args) {
-        let search = document.getElementById("WitCatInput" + args.id);
-        if (search !== null) {
-            if (search === document.activeElement) {
-                return (true);
-            }
-            else {
-                return (false);
-            }
-        }
-        else {
-            return (false);
-        }
-    }
-    //焦点位置
-    whatinput() {
-        if (document.activeElement.className === "WitCatInput") {
-            return document.activeElement.id.split("WitCatInput")[1];
-        }
-        else {
-            return "";
-        }
-    }
-    //焦点获取
-    nowinput(args) {
-        let search = document.getElementById("WitCatInput" + args.id);
-        if (search !== null) {
-            search.focus();
-        }
-        else if (document.activeElement.className === "WitCatInput") {
-            document.activeElement.blur();
-        }
-    }
-    //删除所有文本框
-    deleteallinput() {
-        let search = document.getElementsByClassName("WitCatInput");
-        let i = 0;
-        for (i = search.length - 1; i >= 0; i--) {
-            search[i].parentNode.removeChild(search[i]);
-        }
-    }
-    //计算坐标
-    compute(args) {
-        return (cvs.style.width.split("px")[0] / 360) * args.size;
-    }
-    //获取指定编号的文本框属性
-    number(args) {
-        let searchall = document.getElementsByClassName("WitCatInput");
-        let index = Number(args.num);
-        if (searchall.length >= index && index > 0) {
-            let search = searchall[index - 1];
-            return this._getattrib(search, args.type);
-        } else {
-            return "";
-        }
-    }
+		inputFontSize[args.id] = args.size;
+	}
+	//删除文本框
+	deleteinput(args) {
+		let search = document.getElementById("WitCatInput" + args.id);
+		if (search !== null) {
+			cvs.parentNode.removeChild(search);
+		}
+	}
+	//获取文本框内容
+	getinput(args) {
+		let search = document.getElementById("WitCatInput" + args.id);
+		return search === null ? "" : this._getattrib(search, args.type);
+	}
+	//焦点判断
+	isinput(args) {
+		let search = document.getElementById("WitCatInput" + args.id);
+		if (search !== null) {
+			if (search === document.activeElement) {
+				return (true);
+			}
+			else {
+				return (false);
+			}
+		}
+		else {
+			return (false);
+		}
+	}
+	//焦点位置
+	whatinput() {
+		if (document.activeElement.className === "WitCatInput") {
+			return document.activeElement.id.split("WitCatInput")[1];
+		}
+		else {
+			return "";
+		}
+	}
+	//焦点获取
+	nowinput(args) {
+		let search = document.getElementById("WitCatInput" + args.id);
+		if (search !== null) {
+			search.focus();
+		}
+		else if (document.activeElement.className === "WitCatInput") {
+			document.activeElement.blur();
+		}
+	}
+	//删除所有文本框
+	deleteallinput() {
+		let search = document.getElementsByClassName("WitCatInput");
+		let i = 0;
+		for (i = search.length - 1; i >= 0; i--) {
+			search[i].parentNode.removeChild(search[i]);
+		}
+	}
+	//计算坐标
+	compute(args) {
+		return (cvs.style.width.split("px")[0] / 360) * args.size;
+	}
+	//获取指定编号的文本框属性
+	number(args) {
+		let searchall = document.getElementsByClassName("WitCatInput");
+		let index = Number(args.num);
+		if (searchall.length >= index && index > 0) {
+			let search = searchall[index - 1];
+			return this._getattrib(search, args.type);
+		} else {
+			return "";
+		}
+	}
 
-    /**
-     * 获取文本框的属性
-     * @param {Element} element 文本框元素
-     * @param {string} type 属性类型
-     * @returns {number|string}
-     */
-    _getattrib(element, type) {
-        // 用于通过类型检查，确保不出错
-        if (!(element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement)) {
-            console.warn("Input.js: 获取到的元素的类型不正确: ", element);
-            return "";
-        }
-        switch (type) {
-            case "X":
-                return (Number(element.style.left.split("%")[0]) / 100) * this.runtime.stageWidth;
-                // 理论上需要加break;，但是前面已经return了
-            case "Y":
-                return (Number(element.style.top.split("%")[0]) / 100) * this.runtime.stageHeight;
-            case "width":
-                return (Number(element.style.width.split("%")[0]) / 100) * this.runtime.stageWidth;
-            case "height":
-                return (Number(element.style.height.split("%")[0]) / 100) * this.runtime.stageHeight;
-            case "content":
-                return element.value;
-            case "color":
-                return string_colorHex(element.style.color);
-            case "prompt":
-                return element.placeholder;
-            case "font-size":
-                return element.style.fontSize.split("px")[0];
-            case "ID":
-                // 直接上正则，可以处理类似“WitCatInput123WitCatInput456”这样包含“WitCatInput”的奇葩ID
-                {
-                    let match = /^WitCatInput(.*)$/.exec(element.id);
-                    return match === null ? "" : match[1];
-                }
-            case "rp":
-                return element.scrollTop;
-            case "th":
-                return element.scrollHeight;
-            case "cp":
-                return JSON.stringify([element.selectionStart, element.selectionEnd]);
-            case "op":
-                return 100 - (Number(element.style.opacity) * 100);
-            case "bg":
-                // 不适合split的地方，直接上正则
-                // (注：一开始backgroundImage的值可能是空的或者别的什么东西……)
-                {
-                    // 打花括号之后就可以在里面声明变量了
-                    let match = /^url\("(.*)"\)$/.exec(element.style.backgroundImage);
-                    if (match !== null) {
-                        return decodeURI(match[1]);
-                    } else {
-                        // 正则匹配失败
-                        return "";
-                    }
-                }
-            case "ff":
-                return element.style.fontFamily;
-            case "lh":
-                return element.style.lineHeight;
-            case "fw":
-                return element.style.fontWeight;
-            case "ts":
-                return element.style.textShadow;
-            case "json":
-                // 直接把整个东西转成 JSON 对象，再拼接
-                return JSON.stringify(
-                    {
-                        X: this._getattrib(element, "X"),
-                        Y: this._getattrib(element, "Y"),
-                        width: this._getattrib(element, "width"),
-                        height: this._getattrib(element, "height"),
-                        content: this._getattrib(element, "content"),
-                        color: this._getattrib(element, "color"),
-                        prompt: this._getattrib(element, "prompt"),
-                        "font-size": this._getattrib(element, "font-size"),
-                        ID: this._getattrib(element, "ID"),
-                        "Rolling position": this._getattrib(element, "rp"),
-                        "Text height": this._getattrib(element, "th"),
-                        "cursor position": JSON.parse(this._getattrib(element, "cp"))
-                        // 这里看起来缺了一些东西，如果没有合并复制粘贴的代码以及进
-                        // 行优化，将需要修改两次大段内容，现在修改就简单了。
-                    }
-                )
-            default:
-                return "";
-        }
-    }
-    //文本框数量
-    numbers() {
-        let search = document.getElementsByClassName("WitCatInput");
-        return search.length;
-    }
-    //按键检测
-    key(args) {
-        let key = args.type.split(",");
-        for (const item of key) {
-            if (!Object.keys(keypress).includes(item)) {
-                return false;
-            }
-        }
-        return true;
-    }
-    //按键检测
-    keys(args) {
-        let key = args.type.split(",");
-        for (const item of key) {
-            if (!Object.keys(keypress).includes(item)) {
-                return false;
-            }
-        }
-        return true;
-    }
-    //上次按下的键
-    lastkey() {
-        return lastKey;
-    }
-    //鼠标滚轮
-    mousewheel() {
-        return MouseWheel;
-    }
-    //设置文本框
-    setinput(args) {
-        let search = document.getElementById("WitCatInput" + args.id);
-        if (search !== null) {
-            let sstyle = search.style;
-            let x, y, width, height, opacity;
-            switch (args.type) {
-                case "X":
-                    x = this._clamp(Number(args.text), 0, this.runtime.stageWidth);
-                    x = (x / this.runtime.stageWidth) * 100;
-                    sstyle.left = x + "%";
-                    break;
-                case "Y":
-                    y = this._clamp(Number(args.text), 0, this.runtime.stageHeight);
-                    y = (y / this.runtime.stageHeight) * 100;
-                    sstyle.top = y + "%";
-                    break;
-                case "width":
-                    x = Number(sstyle.left.split("%")[0]) / 100 * this.runtime.stageWidth;
-                    width = this._clamp(Number(args.text), 0, this.runtime.stageWidth - x);
-                    width = (width / this.runtime.stageWidth) * 100;
-                    sstyle.width = Number(width) + "%";
-                    break;
-                case "height":
-                    y = Number(sstyle.top.split("%")[0]) / 100 * this.runtime.stageHeight;
-                    height = this._clamp(Number(args.text), 0, this.runtime.stageHeight - y);
-                    height = (height / this.runtime.stageHeight) * 100;
-                    sstyle.height = Number(height) + "%";
-                    break;
-                case "content":
-                    search.value = args.text;
-                    break;
-                case "prompt":
-                    search.placeholder = args.text;
-                    break;
-                case "color":
-                    sstyle.color = args.text;
-                    break;
-                case "font-size":
-                    sstyle.fontSize = Number(args.text) + "px";
-                    inputFontSize[args.id] = Number(args.text);
-                    break;
-                case "rp":
-                    search.scrollTop = Number(args.text);
-                    break;
-                case "op":
-                    opacity = this._clamp(Number(args.text), 0, 100);
-                    opacity = 1 - (opacity / 100);
-                    sstyle.opacity = String(opacity);
-                    break;
-                case "cp":
-                    try {
-                        let selection = JSON.parse(args.text);
-                        if (selection instanceof Array && selection.length === 2) {
-                            search.setSelectionRange(selection[0], selection[1]);
-                        }
-                        else if (typeof(selection) === "number") {
-                            search.setSelectionRange(selection, selection);
-                        }
-                    }
-                    catch {
-                        return;
-                    }
-                    break;
-                case "bg":
-                    sstyle.backgroundImage = 'url("' + encodeURI(String(args.text)) + '")';
-                    sstyle.backgroundSize = "100% 100%";
-                    break;
-                case "lh":
-                    sstyle.lineHeight = Number(args.text) + "px";
-                    break;
-                case "ts":
-                    sstyle.textShadow = args.text;
-                    break;
-                case "css":
-                    // https://www.cnblogs.com/ndos/p/9706646.html
-                    search.setAttribute("style", args.text);
-                    break;
-            }
-        }
-    }
-    //设置状态
-    setread(args) {
-        let search = document.getElementById("WitCatInput" + args.id);
-        if (search !== null) {
-            if (args.read === "eb") {
-                search.disabled = false;
-            }
-            else {
-                search.disabled = true;
-            }
-        }
-    }
-    //设置文本框的type
-    password(args) {
-        let search = document.getElementById("WitCatInput" + args.id);
-        if (search !== null) {
-            search.type = args.read;
-        }
-    }
-    //获取按下的按键
-    keypress() {
-        return JSON.stringify(Object.keys(keypress));
-    }
-    //设置字体
-    setfont(args) {
-        let search = document.getElementById("WitCatInput" + args.id);
-        if (search !== null) {
-            var xhr = new XMLHttpRequest(); // 定义一个异步对象
-            xhr.open('GET', args.text, true); // 异步GET方式加载字体
-            xhr.responseType = "arraybuffer"; //把异步获取类型改为arraybuffer二进制类型
-            xhr.onload = function () {
-                // 这里做了一个判断：如果浏览器支持FontFace方法执行
-                if (typeof FontFace != 'undefined') {
-                    document.fonts.add(new FontFace(args.name, this.response)); // 将字体对象添加到页面中
-                    search.style.fontFamily = `"${args.name}"`;
-                } else {
-                    search.innerHTML = `@font-face{font-family:"${args.name}";src:url("${args.text}") `;
-                }
-            }
-            xhr.send();
-        }
-    }
-    //设置对齐方式
-    textalign(args) {
-        let search = document.getElementById("WitCatInput" + args.id);
-        if (search !== null) {
-            search.style.textAlign = args.read;
-        }
-    }
-    //设置文本框字体粗细
-    fontweight(args) {
-        let search = document.getElementById("WitCatInput" + args.id);
-        if (search !== null) {
-            search.style.fontWeight = args.text;
-        }
-    }
-    //创建阴影
-    shadow(args) {
-        return `${args.x}px ${args.y}px ${args.width}px ${args.color}`
-    }
-    //设置字体自适应
-    fontadaptive(args) {
-        if (args.type == "true") {
-            if (!adaptive) {
-                let search = document.getElementsByClassName("WitCatInput");
-                const config = { attributes: true, childList: true, subtree: true, attributeFilter: ['style'] };
-                const callback = function () {
-                    let len = search.length
-                    for (let i = 0; i < len; i++) {
-                        search[i].style.fontSize = ((cvs.style.width.split("px")[0] / 360) * inputFontSize[search[i].id.split("WitCatInput")[1]]) + "px";
-                    }
-                };
-                observer = new MutationObserver(callback);
-                observer.observe(cvs, config);
-                adaptive = true;
-            }
-        }
-        else {
-            if (adaptive) {
-                observer.disconnect();
-                adaptive = false;
-            }
-        }
-    }
+	/**
+	 * 获取文本框的属性
+	 * @param {Element} element 文本框元素
+	 * @param {string} type 属性类型
+	 * @returns {number|string}
+	 */
+	_getattrib(element, type) {
+		// 用于通过类型检查，确保不出错
+		if (!(element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement)) {
+			console.warn("Input.js: 获取到的元素的类型不正确: ", element);
+			return "";
+		}
+		switch (type) {
+			case "X":
+				return (Number(element.style.left.split("%")[0]) / 100) * this.runtime.stageWidth;
+			// 理论上需要加break;，但是前面已经return了
+			case "Y":
+				return (Number(element.style.top.split("%")[0]) / 100) * this.runtime.stageHeight;
+			case "width":
+				return (Number(element.style.width.split("%")[0]) / 100) * this.runtime.stageWidth;
+			case "height":
+				return (Number(element.style.height.split("%")[0]) / 100) * this.runtime.stageHeight;
+			case "content":
+				return element.value;
+			case "color":
+				return string_colorHex(element.style.color);
+			case "prompt":
+				return element.placeholder;
+			case "font-size":
+				return element.style.fontSize.split("px")[0];
+			case "ID":
+				// 直接上正则，可以处理类似“WitCatInput123WitCatInput456”这样包含“WitCatInput”的奇葩ID
+				{
+					let match = /^WitCatInput(.*)$/.exec(element.id);
+					return match === null ? "" : match[1];
+				}
+			case "rp":
+				return element.scrollTop;
+			case "th":
+				return element.scrollHeight;
+			case "cp":
+				return JSON.stringify([element.selectionStart, element.selectionEnd]);
+			case "op":
+				return 100 - (Number(element.style.opacity) * 100);
+			case "bg":
+				// 不适合split的地方，直接上正则
+				// (注：一开始backgroundImage的值可能是空的或者别的什么东西……)
+				{
+					// 打花括号之后就可以在里面声明变量了
+					let match = /^url\("(.*)"\)$/.exec(element.style.backgroundImage);
+					if (match !== null) {
+						return decodeURI(match[1]);
+					} else {
+						// 正则匹配失败
+						return "";
+					}
+				}
+			case "ff":
+				return element.style.fontFamily;
+			case "lh":
+				return element.style.lineHeight;
+			case "fw":
+				return element.style.fontWeight;
+			case "ts":
+				return element.style.textShadow;
+			case "json":
+				// 直接把整个东西转成 JSON 对象，再拼接
+				return JSON.stringify(
+					{
+						X: this._getattrib(element, "X"),
+						Y: this._getattrib(element, "Y"),
+						width: this._getattrib(element, "width"),
+						height: this._getattrib(element, "height"),
+						content: this._getattrib(element, "content"),
+						color: this._getattrib(element, "color"),
+						prompt: this._getattrib(element, "prompt"),
+						"font-size": this._getattrib(element, "font-size"),
+						ID: this._getattrib(element, "ID"),
+						"Rolling position": this._getattrib(element, "rp"),
+						"Text height": this._getattrib(element, "th"),
+						"cursor position": JSON.parse(this._getattrib(element, "cp"))
+						// 这里看起来缺了一些东西，如果没有合并复制粘贴的代码以及进
+						// 行优化，将需要修改两次大段内容，现在修改就简单了。
+					}
+				)
+			default:
+				return "";
+		}
+	}
+	//文本框数量
+	numbers() {
+		let search = document.getElementsByClassName("WitCatInput");
+		return search.length;
+	}
+	//按键检测
+	key(args) {
+		let key = args.type.split(",");
+		for (const item of key) {
+			if (!Object.keys(keypress).includes(item)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	//按键检测
+	keys(args) {
+		let key = args.type.split(",");
+		for (const item of key) {
+			if (!Object.keys(keypress).includes(item)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	//上次按下的键
+	lastkey() {
+		return lastKey;
+	}
+	//鼠标滚轮
+	mousewheel() {
+		return MouseWheel;
+	}
+	//设置文本框
+	setinput(args) {
+		let search = document.getElementById("WitCatInput" + args.id);
+		if (search !== null) {
+			let sstyle = search.style;
+			let x, y, width, height, opacity;
+			switch (args.type) {
+				case "X":
+					x = this._clamp(Number(args.text), 0, this.runtime.stageWidth);
+					x = (x / this.runtime.stageWidth) * 100;
+					sstyle.left = x + "%";
+					break;
+				case "Y":
+					y = this._clamp(Number(args.text), 0, this.runtime.stageHeight);
+					y = (y / this.runtime.stageHeight) * 100;
+					sstyle.top = y + "%";
+					break;
+				case "width":
+					x = Number(sstyle.left.split("%")[0]) / 100 * this.runtime.stageWidth;
+					width = this._clamp(Number(args.text), 0, this.runtime.stageWidth - x);
+					width = (width / this.runtime.stageWidth) * 100;
+					sstyle.width = Number(width) + "%";
+					break;
+				case "height":
+					y = Number(sstyle.top.split("%")[0]) / 100 * this.runtime.stageHeight;
+					height = this._clamp(Number(args.text), 0, this.runtime.stageHeight - y);
+					height = (height / this.runtime.stageHeight) * 100;
+					sstyle.height = Number(height) + "%";
+					break;
+				case "content":
+					search.value = args.text;
+					break;
+				case "prompt":
+					search.placeholder = args.text;
+					break;
+				case "color":
+					sstyle.color = args.text;
+					break;
+				case "font-size":
+					sstyle.fontSize = Number(args.text) + "px";
+					inputFontSize[args.id] = Number(args.text);
+					break;
+				case "rp":
+					search.scrollTop = Number(args.text);
+					break;
+				case "op":
+					opacity = this._clamp(Number(args.text), 0, 100);
+					opacity = 1 - (opacity / 100);
+					sstyle.opacity = String(opacity);
+					break;
+				case "cp":
+					try {
+						let selection = JSON.parse(args.text);
+						if (selection instanceof Array && selection.length === 2) {
+							search.setSelectionRange(selection[0], selection[1]);
+						}
+						else if (typeof (selection) === "number") {
+							search.setSelectionRange(selection, selection);
+						}
+					}
+					catch {
+						return;
+					}
+					break;
+				case "bg":
+					if (args.text.startsWith("https://m.ccw.site/") || args.text.startsWith("https://m.xiguacity.com/")) {
+						sstyle.backgroundImage = 'url("' + encodeURI(String(args.text)) + '")';
+						sstyle.backgroundSize = "100% 100%";
+					}
+					else {
+						console.warn("禁止的链接/图片\nBanned links/pictures");
+					}
+					break;
+				case "lh":
+					sstyle.lineHeight = Number(args.text) + "px";
+					break;
+				case "ts":
+					sstyle.textShadow = args.text;
+					break;
+				case "css":
+					// https://www.cnblogs.com/ndos/p/9706646.html
+					search.setAttribute("style", args.text);
+					break;
+			}
+		}
+	}
+	//设置状态
+	setread(args) {
+		let search = document.getElementById("WitCatInput" + args.id);
+		if (search !== null) {
+			if (args.read === "eb") {
+				search.disabled = false;
+			}
+			else {
+				search.disabled = true;
+			}
+		}
+	}
+	//设置文本框的type
+	password(args) {
+		let search = document.getElementById("WitCatInput" + args.id);
+		if (search !== null) {
+			search.type = args.read;
+		}
+	}
+	//获取按下的按键
+	keypress() {
+		return JSON.stringify(Object.keys(keypress));
+	}
+	//设置字体
+	setfont(args) {
+		let search = document.getElementById("WitCatInput" + args.id);
+		if (search !== null) {
+			var xhr = new XMLHttpRequest(); // 定义一个异步对象
+			xhr.open('GET', args.text, true); // 异步GET方式加载字体
+			xhr.responseType = "arraybuffer"; //把异步获取类型改为arraybuffer二进制类型
+			xhr.onload = function () {
+				// 这里做了一个判断：如果浏览器支持FontFace方法执行
+				if (typeof FontFace != 'undefined') {
+					document.fonts.add(new FontFace(args.name, this.response)); // 将字体对象添加到页面中
+					search.style.fontFamily = `"${args.name}"`;
+				} else {
+					search.innerHTML = `@font-face{font-family:"${args.name}";src:url("${args.text}") `;
+				}
+			}
+			xhr.send();
+		}
+	}
+	//设置对齐方式
+	textalign(args) {
+		let search = document.getElementById("WitCatInput" + args.id);
+		if (search !== null) {
+			search.style.textAlign = args.read;
+		}
+	}
+	//设置文本框字体粗细
+	fontweight(args) {
+		let search = document.getElementById("WitCatInput" + args.id);
+		if (search !== null) {
+			search.style.fontWeight = args.text;
+		}
+	}
+	//创建阴影
+	shadow(args) {
+		return `${args.x}px ${args.y}px ${args.width}px ${args.color}`
+	}
+	//设置字体自适应
+	fontadaptive(args) {
+		if (args.type == "true") {
+			if (!adaptive) {
+				let search = document.getElementsByClassName("WitCatInput");
+				const config = { attributes: true, childList: true, subtree: true, attributeFilter: ['style'] };
+				const callback = function () {
+					let len = search.length
+					for (let i = 0; i < len; i++) {
+						search[i].style.fontSize = ((cvs.style.width.split("px")[0] / 360) * inputFontSize[search[i].id.split("WitCatInput")[1]]) + "px";
+					}
+				};
+				observer = new MutationObserver(callback);
+				observer.observe(cvs, config);
+				adaptive = true;
+			}
+		}
+		else {
+			if (adaptive) {
+				observer.disconnect();
+				adaptive = false;
+			}
+		}
+	}
 }
 
 window.tempExt = {
-    Extension: WitCatInput,
-    info: {
-        name: "WitCatInput.name",
-        description: "WitCatInput.descp",
-        extensionId: witcat_input_extensionId,
-        iconURL: witcat_input_picture,
-        insetIconURL: witcat_input_icon,
-        featured: true,
-        disabled: false,
-        collaborator: "白猫 @ CCW"
-    },
-    l10n: {
-        "zh-cn": {
-            "WitCatInput.name": "[beta]白猫的输入框",
-            "WitCatInput.descp": "全新的输入框！"
-        },
-        en: {
-            "WitCatInput.name": "[beta]WitCat‘s Input",
-            "WitCatInput.descp": "what a nice input!"
-        }
-    }
+	Extension: WitCatInput,
+	info: {
+		name: "WitCatInput.name",
+		description: "WitCatInput.descp",
+		extensionId: witcat_input_extensionId,
+		iconURL: witcat_input_picture,
+		insetIconURL: witcat_input_icon,
+		featured: true,
+		disabled: false,
+		collaborator: "白猫 @ CCW"
+	},
+	l10n: {
+		"zh-cn": {
+			"WitCatInput.name": "[beta]白猫的输入框",
+			"WitCatInput.descp": "全新的输入框！"
+		},
+		en: {
+			"WitCatInput.name": "[beta]WitCat‘s Input",
+			"WitCatInput.descp": "what a nice input!"
+		}
+	}
 };
 
 /* vim: set expandtab tabstop=2 shiftwidth=2: */
 //颜色转换
 function string_colorHex(color) {
-    // RGB颜色值的正则
-    var reg = /^(rgb|RGB)/;
-    if (reg.test(color)) {
-        var strHex = "#";
-        // 把RGB的3个数值变成数组
-        var colorArr = color.replace(/(?:\(|\)|rgb|RGB)*/g, "").split(",");
-        // 转成16进制
-        for (var i = 0; i < colorArr.length; i++) {
-            var hex = Number(colorArr[i]).toString(16);
-            if (hex === "0") {
-                hex += hex;
-            }
-            strHex += hex;
-        }
-        return strHex;
-    } else {
-        return String(color);
-    }
+	// RGB颜色值的正则
+	var reg = /^(rgb|RGB)/;
+	if (reg.test(color)) {
+		var strHex = "#";
+		// 把RGB的3个数值变成数组
+		var colorArr = color.replace(/(?:\(|\)|rgb|RGB)*/g, "").split(",");
+		// 转成16进制
+		for (var i = 0; i < colorArr.length; i++) {
+			var hex = Number(colorArr[i]).toString(16);
+			if (hex === "0") {
+				hex += hex;
+			}
+			strHex += hex;
+		}
+		return strHex;
+	} else {
+		return String(color);
+	}
 }
 
 //键盘事件监听
 document.addEventListener("keydown", keydown);
 document.addEventListener("keyup", keyup);
 function keydown(event) {
-    keypress[event.code] = true;
-    lastKey = event.code;
+	keypress[event.code] = true;
+	lastKey = event.code;
 }
 function keyup(event) {
-    delete keypress[event.code];
+	delete keypress[event.code];
 }
 //滚轮事件监听
 var scrollFunc = e => {
-    e = e || window.event;
-    if (e.wheelDelta) {  //判断浏览器IE，谷歌滑轮事件
-        MouseWheel = e.wheelDelta;
-    } else if (e.detail) {  //Firefox滑轮事件
-        MouseWheel = e.detail;
-    }
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-        MouseWheel = 0;
-    }, 30);
+	e = e || window.event;
+	if (e.wheelDelta) {  //判断浏览器IE，谷歌滑轮事件
+		MouseWheel = e.wheelDelta;
+	} else if (e.detail) {  //Firefox滑轮事件
+		MouseWheel = e.detail;
+	}
+	clearTimeout(timer);
+	timer = setTimeout(() => {
+		MouseWheel = 0;
+	}, 30);
 };
 //给页面绑定滑轮滚动事件
 if (cvs.parentNode.addEventListener) { //火狐使用DOMMouseScroll绑定
-    cvs.parentNode.addEventListener('DOMMouseScroll', scrollFunc, false);
+	cvs.parentNode.addEventListener('DOMMouseScroll', scrollFunc, false);
 }
 //其他浏览器直接绑定滚动事件
 cvs.parentNode.onmousewheel = scrollFunc;
