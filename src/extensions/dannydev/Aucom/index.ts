@@ -1,6 +1,6 @@
 import { GandiExtension, BlockUtil, ArgumentType, ReporterScope, BlockType } from '@cocrea/extension-kit'
 import { extensionId } from './extInfo'
-import ext from './ext.js.js';
+import ext from './ext.js';
 import cover from "./assets/cover.jpg";
 import blockIcon from "./assets/icon.png";
 var zh_cn = {}
