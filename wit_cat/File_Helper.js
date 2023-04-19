@@ -634,30 +634,23 @@ class WitCatFileHelper {
     }
     /**
      * 读取本地变量
-     * @param {object} args
-     * @property {SCarg} args.name 变量名
-     * @returns {Promise<string|number>} 变量值
+     * @deprecated
      */
     upload() {
         console.warn("文件助手：读取本地变量积木已下线\nFile Helper: read key value pair block has been offline");
     }
     /**
      * 保存本地变量
-     * @param {object} args
-     * @property {SCarg} args.name 变量名
-     * @property {SCarg} args.text 变量内容
-     * @returns {void}
+     * @deprecated
      */
     save() {
         console.warn("文件助手：保存本地变量积木已下线\nFile Helper: save key value pair block has been offline");
     }
     /**
      * 删除本地变量
-     * @param {object} args
-     * @property {SCarg} args.name 变量名
-     * @returns {void}
+     * @deprecated
      */
-    delete(args) {
+    delete() {
         console.warn("文件助手：删除本地变量积木已下线\nFile Helper: delete key value pair block has been offline");
     }
     /**
@@ -827,7 +820,8 @@ class WitCatFileHelper {
     /**
      * 打开文件的信息
      * @param {object} args
-     * @property {SCarg|"name"|"suffix"|"size"} args.type
+     * @property {SCarg|"name"|"suffix"|"size"|"content"} args.type
+     * @property {SCarg} args.num
      * @returns {string}
      */
     file(args) {
@@ -869,98 +863,31 @@ class WitCatFileHelper {
     }
     /**
      * 设置状态
-     * @param {object} args
-     * @property {SCarg} args.name 变量名
-     * @property {SCarg|"#witcat"|"$witcat"|"@witcat"} args.show 新的变量修改权限
-     * @returns {void}
+     * @deprecated
      */
-    showvar(args) {
-        const name = args.name;
-        let h = this.runtime.ccwAPI.getProjectUUID();
-        //寻找状态
-        read("witcat" + h + "#" + name, e => {
-            read(e.value + h + "©" + name, ev => {
-                if (h === "") {
-                    alert("请先保存作品");
-                } else {
-                    if (ev.value != undefined) {
-                        deletes(e.value + h + "©" + name);
-                        add("witcat" + h + "#" + name, args.show);
-                        add(args.show + h + "©" + name, ev.value);
-                    }
-                }
-            });
-        });
+    showvar() {
+        console.warn("文件助手：判断键值对积木已下线\nFile Helper: Determine the key value pair block has been offline");
     }
     /**
      * 修改别人的键
-     * @param {object} args
-     * @property {SCarg} args.name 变量名
-     * @property {SCarg} args.id 作品id
-     * @property {SCarg} args.text 变量的值
-     * @returns {void}
+     * @deprecated
      */
-    saveother(args) {
-        let name = args.name;
-        let h = args.id;
-        let text = args.text;
-        //寻找状态
-        read("witcat" + h + "#" + name, e => {
-            if (e.value === "#witcat" || e.value === undefined) {
-                add("#witcat" + h + "©" + name, text);
-            }
-        });
+    saveother() {
+        console.warn("文件助手：判断键值对积木已下线\nFile Helper: Determine the key value pair block has been offline");
     }
     /**
      * 获取别人的键
-     * @param {object} args
-     * @property {SCarg} args.name 变量名
-     * @property {SCarg} args.id 作品id
-     * @returns {Promise<string>} 结果
+     * @deprecated
      */
-    uploadother(args) {
-        let name = args.name;
-        let h = args.id;
-        //寻找状态
-        return new Promise(resolve => {
-            read("witcat" + h + "#" + name, e => {
-                if (e.value != undefined && e.value != "@witcat") {
-                    read(e.value + h + "©" + name, ev => {
-                        resolve(ev.value);
-                    });
-                }
-                else {
-                    resolve("");
-                }
-            });
-        });
+    uploadother() {
+        console.warn("文件助手：判断键值对积木已下线\nFile Helper: Determine the key value pair block has been offline");
     }
     /**
      * 获取键状态
-     * @param {object} args
-     * @property {SCarg} args.name 变量名
-     * @property {SCarg} args.id 作品id
-     * @returns {Promise<string>} 键状态结果
+     * @deprecated
      */
-    other(args) {
-        let name = args.name;
-        let h = args.id;
-        //寻找状态
-        return new Promise(resolve => {
-            read("witcat" + h + "#" + name, e => {
-                if (e.value == "#witcat") {
-                    resolve("公开");
-                }
-                if (e.value == "$witcat") {
-                    resolve("只读");
-                }
-                if (e.value == "@witcat") {
-                    resolve("私有");
-                }
-                resolve("键不存在");
-
-            });
-        });
+    other() {
+        console.warn("文件助手：判断键值对积木已下线\nFile Helper: Determine the key value pair block has been offline");
     }
     /**
      * 删除多行文本行
