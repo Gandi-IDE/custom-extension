@@ -715,10 +715,14 @@ class WitCatFileHelper {
             input.click();
             input.onchange = () => {
                 const reader = new FileReader();
+                if (input.files === null || input.files.length < 1) {
+                    resolve("");
+                    return;
+                }
                 const file = input.files[0];
                 reader.onload = (e) => {
                     FLAG = 0;
-                    resolve(e.target.result);
+                    resolve(String(e.target.result));
                 };
                 reader.onerror = () => {
                     FLAG = 0;
@@ -822,24 +826,28 @@ class WitCatFileHelper {
      */
     file(args) {
         try {
+            if (input.files === null) {
+                return "";
+            }
+            const file = input.files[Number(args.num) - 1];
             switch (args.type) {
                 case "name":
-                    return input.files[args.num - 1].name;
-                    break;
+                    return file.name;
                 case "suffix":
-                    let n = input.files[args.num - 1].name;
-                    return n.substring(n.lastIndexOf(".") + 1);
-                    break;
+                    let n = file.name;
+                    if (n.includes(".")) {
+                        return n.substring(n.lastIndexOf(".") + 1);
+                    } else {
+                        return "";
+                    }
                 case "size":
-                    return getFileSize(input.files[args.num - 1]) / 1024 + "KB";
-                    break;
+                    return file.size / 1024 + "KB";
                 case "content":
                     return new Promise(resolve => {
                         const reader = new FileReader();
-                        const file = input.files[args.num - 1];
                         reader.onload = (e) => {
                             FLAG = 0;
-                            resolve(e.target.result);
+                            resolve(String(e.target.result));
                         };
                         reader.onerror = () => {
                             FLAG = 0;
@@ -850,7 +858,8 @@ class WitCatFileHelper {
                         else
                             resolve("");
                     })
-                    break;
+                default:
+                    return "";
             }
         }
         catch {
@@ -1097,7 +1106,4 @@ function downloadable(callback) {
     else {
         console.warn("下载太频繁！\nToo many downloads!");
     }
-}
-function getFileSize(e) {
-    return e.size;
 }
