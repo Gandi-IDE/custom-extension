@@ -753,10 +753,7 @@ class WitCatFileHelper {
                 input.accept = args.name;
                 input.style.display = "none";
                 console.log(args);
-                if (args.nums === "multiple")
-                    input.multiple = true;
-                else
-                    input.multiple = false;
+                input.multiple = args.nums === "multiple";
                 input.click();
                 input.onchange = () => {
                     FLAG = 0;
