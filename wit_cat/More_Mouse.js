@@ -559,24 +559,13 @@ class WitCatMouse {
 	}
 	//右键菜单
 	set(args) {
-		history.pushState(null, null, null);
 		cvs.parentNode.oncontextmenu = () => {
-			if (args.set === "true") {
-				return true;
-			}
-			else {
-				return false;
-			}
+			return args.set === "true";
 		}
 	}
 	//按下判断
 	when(args) {
-		if (button[args.key] === "down") {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return button[args.key] === "down";
 	}
 	//控制鼠标
 	mouseuse(args) {
@@ -711,44 +700,20 @@ class WitCatMouse {
 	//鼠标点击/双击
 	mouse(args) {
 		if (args.way === "click") {
-			if (click === false) {
-				return click;
-			}
-			else {
-				return true;
-			}
+			return click !== false;
 		}
 		if (args.way === "dclick") {
-			if (dclick === false) {
-				return dclick;
-			}
-			else {
-				return true;
-			}
+			return dclick !== false;
 		}
+		return false;
 	}
 	mouses(args) {
-		if (args.way === "click") {
-			if (click === false) {
-				return click;
-			}
-			else {
-				return true;
-			}
-		}
-		if (args.way === "dclick") {
-			if (dclick === false) {
-				return dclick;
-			}
-			else {
-				return true;
-			}
-		}
+		return this.mouse(args);
 	}
 	//判断按下多久
 	mousetd(args) {
 		if (mousetd[args.key] != "") {
-			let time = Math.abs(Date.now() - (args.time * 1000 + mousetd[args.key]));
+			let time = Date.now() - (args.time * 1000 + mousetd[args.key]);
 			if (-50 <= time && time <= 50) {
 				return true;
 			}
@@ -756,13 +721,7 @@ class WitCatMouse {
 		return false;
 	}
 	mousetds(args) {
-		if ([args.key] != "") {
-			let time = Math.abs(Date.now() - (args.time * 1000 + mousetd[args.key]));
-			if (-50 <= time && time <= 50) {
-				return true;
-			}
-		}
-		return false;
+		return this.mousetd(args);
 	}
 	//鼠标被按下的时间
 	mouset(args) {
@@ -803,7 +762,11 @@ document.addEventListener('mousedown', e => {
 	button[e.button] = "down";
 	mousetd[e.button] = Date.now();
 	if (button[0] === "down") {
-		touch = JSON.parse("[{\"clientX\":\"" + e.clientX + "\",\"clientY\":\"" + e.clientY + "\",\"identifier\":\"mouse\"}]");
+		touch = [{
+			clientX: e.clientX,
+			clientY: e.clientY,
+			identifier: "mouse"
+		}];
 	}
 })
 document.addEventListener('mouseup', e => {
@@ -813,7 +776,11 @@ document.addEventListener('mouseup', e => {
 })
 document.addEventListener("mousemove", ev => {
 	if (button[0] === "down") {
-		touch = JSON.parse("[{\"clientX\":\"" + ev.clientX + "\",\"clientY\":\"" + ev.clientY + "\",\"identifier\":\"mouse\"}]");
+		touch = [{
+			clientX: ev.clientX,
+			clientY: ev.clientY,
+			identifier: "mouse"
+		}];
 	}
 	else {
 		touch = [];
@@ -847,16 +814,18 @@ cvs.addEventListener('touchend', e => {
 	mousetd[0] = "";
 	button[0] = "up";
 })
-cvs.addEventListener('click', e => {
-	click = e;
-	clearTimeout(click);
+cvs.addEventListener('click', () => {
+	if (click !== false) {
+		clearTimeout(click);
+	}
 	click = setTimeout(() => {
 		click = false;
 	}, 50);
 });
-cvs.addEventListener('dblclick', e => {
-	dclick = e;
-	clearTimeout(dclick);
+cvs.addEventListener('dblclick', () => {
+	if (dclick !== false) {
+		clearTimeout(dclick);
+	}
 	dclick = setTimeout(() => {
 		dclick = false;
 	}, 50);
