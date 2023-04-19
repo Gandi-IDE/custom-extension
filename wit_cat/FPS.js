@@ -146,14 +146,14 @@ class WitCatFPS {
         return fps;
     }
     nscratch() {
-        return fpson ? parseInt(1000 / (Date.now() - time)) : 0;
+        return fpson ? Math.floor(1000 / (Date.now() - time)) : 0;
     }
     //浏览器的帧率
     web() {
         return wfps;
     }
     nweb() {
-        return webfpson ? parseInt(1000 / (Date.now() - wtime)) : 0;
+        return webfpson ? Math.floor(1000 / (Date.now() - wtime)) : 0;
     }
     //设置舞台帧率检测
     turnon(args) {
@@ -170,12 +170,11 @@ class WitCatFPS {
                     fps = sfpss;
                     sfpss = 0;
                 }, 1000)
-            };
+            }
         }
         else {
             if (fpson == true) {
                 fpson = false;
-                const oldStep = this.runtime._step;
                 this.runtime._step = this.step;
                 clearInterval(scratchfps);
                 fps = 0;
@@ -192,7 +191,7 @@ class WitCatFPS {
                     wfps = wfpss;
                     wfpss = 0;
                 }, 1000)
-            };
+            }
         }
         else {
             if (webfpson == true) {
