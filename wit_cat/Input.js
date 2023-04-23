@@ -804,7 +804,7 @@ class WitCatInput {
 		sstyle.fontSize = `${Number(adaptive ? (Number(cvs.style.width.split("px")[0]) / 360) * args.size : args.size)}px`;
 		sstyle.resize = "none";
 		sstyle.color = args.color;
-		sstyle.opacity = 1;
+		sstyle.opacity = "1";
 		sstyle.backgroundSize = "100% 100%";
 		search.value = args.text;
 		search.placeholder = args.texts;
@@ -867,7 +867,7 @@ class WitCatInput {
 	}
 	//计算坐标
 	compute(args) {
-		return (cvs.style.width.split("px")[0] / 360) * args.size;
+		return (Number(cvs.style.width.split("px")[0]) / 360) * args.size;
 	}
 	//获取指定编号的文本框属性
 	number(args) {
@@ -987,13 +987,7 @@ class WitCatInput {
 	}
 	//按键检测
 	keys(args) {
-		let key = args.type.split(",");
-		for (const item of key) {
-			if (!Object.keys(keypress).includes(item)) {
-				return false;
-			}
-		}
-		return true;
+		return this.key(args);
 	}
 	//上次按下的键
 	lastkey() {
