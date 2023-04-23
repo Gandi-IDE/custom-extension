@@ -761,44 +761,41 @@ class WitCatFileHelper {
                 input.click();
                 input.onchange = () => {
                     FLAG = 0;
-                    const reader = new FileReader();
-                    const readers = new FileReader();
+                    if (input.files === null || input.files.length === 0) {
+                        console.warn("File_Helper.js: 没有选择文件")
+                        resolve("");
+                        return;
+                    }
                     const file = input.files[0];
+                    if (file.size > 50 * 1024 * 1024) { // 50M
+                        let usercheck = confirm(this.formatMessage("WitCatFileHelper.asks"));
+                        if (!usercheck) {
+                            console.error("文件过大\nfile is too lage.");
+                            resolve("");
+                            return;
+                        }
+                    }
+
+                    const reader = new FileReader();
+                    switch (args.type) {
+                        case "base64":
+                            reader.readAsDataURL(file);
+                            break;
+                        case "utf-8":
+                            reader.readAsText(file);
+                            break;
+                    }
                     reader.onload = (e) => {
                         FLAG = 0;
-                        resolve(e.target.result);
+                        if (e.target !== null && typeof (e.target.result) === "string") {
+                            resolve(e.target.result);
+                        } else {
+                            resolve("");
+                        }
                     };
                     reader.onerror = (e) => {
                         FLAG = 0;
-                        resolve("error:", e);
-                    };
-                    readers.readAsArrayBuffer(file);
-                    readers.onload = (e) => {
-                        uri = e.target.result;
-                        console.log(uri.byteLength / 1024 + " KB");
-                        if (uri.byteLength / 1024 / 1024 < 50) {
-                            if (args.type == "base64") {
-                                reader.readAsDataURL(file);
-                            }
-                            if (args.type == "utf-8") {
-                                reader.readAsText(file);
-                            }
-                        }
-                        else {
-                            let a = confirm(this.formatMessage("WitCatFileHelper.asks"));
-                            if (a) {
-                                if (args.type == "base64") {
-                                    reader.readAsDataURL(file);
-                                }
-                                if (args.type == "utf-8") {
-                                    reader.readAsText(file);
-                                }
-                            }
-                            else {
-                                console.error("文件过大\nfile is too lage.");
-                                resolve("");
-                            }
-                        }
+                        resolve("error:" + e);
                     };
                 }
                 window.onfocus = () => {
