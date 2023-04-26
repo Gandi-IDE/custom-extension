@@ -29,6 +29,9 @@ const infoL10n = {
   en: buildInfoL10n(en),
 };
 
+const collaborator = 'YUEN@CCW';
+const collaboratorURL = 'https://www.ccw.site/student/628979aa804a3a2bc801b097';
+
 export default {
   Extension: () => ext,
   info: {
@@ -39,7 +42,8 @@ export default {
     insetIconURL: blockIcon,
     featured: true,
     disabled: false,
-    collaborator: "YUEN",
+    collaborator,
+    collaboratorURL,
     doc: `${extensionId}.docURL`,
   },
   l10n: infoL10n,
