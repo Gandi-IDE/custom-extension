@@ -9,23 +9,89 @@ const witcat_IndexedDB_extensionId = "WitCatIndexedDB";
  * read //只读
  * allow//公开
  */
-let gandi, gandis, move = [], isDraging = false, mouseOffsetX = 0, mouseOffsetY = 0;
-let list, table;
+
+/** @typedef {string|number|boolean} SCarg 来自Scratch圆形框的参数，虽然这个框可能只能输入数字，但是可以放入变量，因此有可能获得数字、布尔和文本（极端情况下还有 null 或 undefined，需要同时处理 */
+
+/**
+ * 管理页面
+ * @type {HTMLDivElement}
+ */
+let gandi;
+
+/**
+ * 移动事件回调
+ */
+let move = [];
+let isDraging = false, mouseOffsetX = 0, mouseOffsetY = 0;
+
+/**
+ * 作品列表
+ * @type {HTMLDivElement}
+ */
+let list;
+
+/**
+ * 变量列表
+ * @type {HTMLTableElement}
+ */
+let table;
+
+/**
+ * 缓存键值对
+ * @type {{[key: string]: string|number|boolean}}
+ */
 let buffer = {};        //缓存键值对
-let wait = [], waits = true;
+
+/**
+ * 数据库等待操作
+ */
+let wait = [];
+let waits = true;
+
+/**
+ * 用于拖动移动窗口的标题
+ * @type {HTMLDivElement}
+ */
 let c;
+
+/**
+ * 使用中文？
+ * @type {boolean}
+ */
 let language;
 
-// 是否开启尺寸修改
+/** 是否开启尺寸修改 */
 let resizeable = false;
-// 鼠标按下时的坐标，并在修改尺寸时保存上一个鼠标的位置
+
+/**
+ * 鼠标按下时的坐标，并在修改尺寸时保存上一个鼠标的位置
+ * @type {number}
+ */
 let clientX, clientY;
-// div可修改的最小宽高
+
+/** div可修改的最小宽高 */
 let minW = 500, minH = 300;
-// 鼠标按下时的位置，使用n、s、w、e表示
+
+/**
+ * 鼠标按下时的位置，使用n、s、w、e表示
+ * @type {'n'|'s'|'w'|'e'|''}
+ */
 let direc = '';
+
 //键值对
-let db, id;
+
+/**
+ * 本地数据库
+ * @type {IDBDatabase}
+ */
+let db;
+
+/**
+ * 当前查看中的作品 id
+ * 追踪了下调用，这个变量似乎有问题。
+ */
+let id;
+
 let request = window.indexedDB.open("witcat", 2);
 request.onupgradeneeded = function (event) {
     console.log("初始化本地存储键值对");
@@ -385,6 +451,7 @@ class WitCatIndexedDB {
             }
         };
     }
+
     /**
      * 打开教程
      * @returns {void}
@@ -396,23 +463,30 @@ class WitCatIndexedDB {
         a.target = "_blank";
         a.click();
     }
+
     /**
      * 打开管理页面
+     * @returns {void}
      */
     Manages() {
         openManages()
     }
+
     /**
      * 设置作品描述
-     * @param {object} args 
+     * @param {object} args
+     * @param {SCarg} args.text 作品描述
+     * @returns {void}
      */
     description(args) {
         SSetKey(args.name, undefined, undefined, this.runtime.ccwAPI.getProjectUUID(), undefined, undefined, args.text);
     }
+
     /**
      * 读取本地变量
      * @param {object} args
-     * @property {SCarg} args.name 变量名
+     * @param {SCarg} args.name 变量名
+     * @param {SCarg|"value"|"description"} args.type 变量类型(value数值，description说明)
      * @returns {Promise<string|number>} 变量值
      */
     upload(args) {
@@ -440,11 +514,12 @@ class WitCatIndexedDB {
             }
         });
     }
+
     /**
      * 保存本地变量
      * @param {object} args
-     * @property {SCarg} args.name 变量名
-     * @property {SCarg} args.text 变量内容 
+     * @param {SCarg} args.name 变量名
+     * @param {SCarg} args.text 变量内容
      * @returns {void}
      */
     save(args) {
@@ -455,38 +530,45 @@ class WitCatIndexedDB {
                 SSetKey(args.name, args.text, undefined, this.runtime.ccwAPI.getProjectUUID(), "self");
         })
     }
+
     /**
      * 设置键描述
-     * @param {object} args 
+     * @param {object} args
+     * @param {SCarg} args.name 变量名
+     * @param {SCarg} args.text 变量描述
+     * @returns {void}
      */
     saves(args) {
         SSetKey(args.name, undefined, args.text, this.runtime.ccwAPI.getProjectUUID());
     }
+
     /**
      * 删除本地变量
      * @param {object} args
-     * @property {SCarg} args.name 变量名
+     * @param {SCarg} args.name 变量名
      * @returns {void}
      */
     delete(args) {
         SDeleteKey(args, this.runtime.ccwAPI.getProjectUUID());
     }
+
     /**
      * 设置状态
      * @param {object} args
-     * @property {SCarg} args.name 变量名
-     * @property {SCarg|"#witcat"|"$witcat"|"@witcat"} args.show 新的变量修改权限
+     * @param {SCarg} args.name 变量名
+     * @param {SCarg|"self"|"allow"|"read"} args.show 新的变量修改权限
      * @returns {void}
      */
     showvar(args) {
         SSetKey(args.name, undefined, undefined, this.runtime.ccwAPI.getProjectUUID(), args.show);
     }
+
     /**
      * 修改别人的键
      * @param {object} args
-     * @property {SCarg} args.name 变量名
-     * @property {SCarg} args.id 作品id
-     * @property {SCarg} args.text 变量的值
+     * @param {SCarg} args.name 变量名
+     * @param {SCarg} args.id 作品id
+     * @param {SCarg} args.text 变量的值
      * @returns {void}
      */
     saveother(args) {
@@ -502,11 +584,13 @@ class WitCatIndexedDB {
             }
         })
     }
+
     /**
      * 获取别人的键
      * @param {object} args
-     * @property {SCarg} args.name 变量名
-     * @property {SCarg} args.id 作品id
+     * @param {SCarg} args.name 变量名
+     * @param {SCarg} args.id 作品id
+     * @param {SCarg|"value"|"description"} args.type 变量类型(value数值，description说明)
      * @returns {Promise<string>} 结果
      */
     uploadother(args) {
@@ -550,11 +634,12 @@ class WitCatIndexedDB {
             })
         })
     }
+
     /**
      * 获取键状态
      * @param {object} args
-     * @property {SCarg} args.name 变量名
-     * @property {SCarg} args.id 作品id
+     * @param {SCarg} args.name 变量名
+     * @param {SCarg} args.id 作品id
      * @returns {Promise<string>} 键状态结果
      */
     other(args) {
@@ -593,9 +678,13 @@ class WitCatIndexedDB {
             })
         });
     }
+
     /**
      * 判断键值对内容
-     * @deprecated
+     * @param {object} args
+     * @param {SCarg} args.num 变量编号 1开始
+     * @param {SCarg|"value"|"description"} args.type 变量类型(value数值，description说明)
+     * @returns {Promise<SCarg>}
      */
     number(args) {
         return new Promise(resolve => {
@@ -630,9 +719,10 @@ class WitCatIndexedDB {
             });
         });
     }
+
     /**
      * 键值对数量
-     * @deprecated
+     * @returns {Promise<number>}
      */
     numbers() {
         return new Promise(resolve => {
@@ -648,12 +738,13 @@ class WitCatIndexedDB {
             });
         });
     }
+
     /**
      * 设置针对作品的状态
      * @param {object} args
-     * @param {string} args.name
-     * @param {string} args.id
-     * @param {string} args.show
+     * @param {SCarg} args.name
+     * @param {SCarg} args.id
+     * @param {SCarg|"self"|"allow"|"read"} args.show
      */
     showvaro(args) {
         SSetKey(args.name, undefined, undefined, this.runtime.ccwAPI.getProjectUUID(), args.show, args.id);
@@ -687,8 +778,8 @@ window.tempExt = {
 /**
  * 设置键值对
  * @param {string} key_ 键名
- * @param {json} value 键值:不可包含"key"
- * @param {(string)=>void} recall 回调函数
+ * @param {{[key: string]: any}} json 键值:不可包含"key"
+ * @param {()=>void} recall 回调函数
  * @returns {void}
  */
 function SetKey(key_, json, recall) {
@@ -719,6 +810,7 @@ function SetKey(key_, json, recall) {
             recall();
     }
 }
+
 /**
  * 删除键值对
  * @param {string} key_ 键名
@@ -728,9 +820,10 @@ function DeleteKey(key_) {
     var store = transaction.objectStore('key');
     store.delete(key_);
 }
+
 /** 读取键值对
  * @param {string} key_ 键名
- * @param {(string)=>void} recall 回调函数:e => json(key为键名)
+ * @param {(result: any)=>void} recall 回调函数:e => json(key为键名)
  */
 function ReadKey(key_, recall) {
     new Promise(resove => {
@@ -751,21 +844,25 @@ function ReadKey(key_, recall) {
         };
     })
 }
+
 /**
  * 根据内容删除数组某一项
  * @param {string} val 内容
  */
-Array.prototype.remove = (val) => {
-    this.forEach(e, i => {
+Array.prototype.remove = function (val) {
+    this.forEach((e, i) => {
         if (e === val)
             this.splice(i, 1);
     });
 };
+
 /**
-* scratch的删除键
-* @param {string} h 链接
-* @param {void} recall 回调函数
-*/
+ * scratch的删除键
+ * @param {object} args
+ * @param {string} args.name 删除的键名
+ * @param {string} h 链接
+ * @returns {void}
+ */
 function SDeleteKey(args, h) {
     let json = {};
     json.name = args.name;
@@ -773,6 +870,15 @@ function SDeleteKey(args, h) {
     json.type = "delete";
     wait.push(json);
 }
+
+/**
+ * 删除键？
+ * @param {object} args
+ * @param {string} args.name 删除的键名
+ * @param {string} args.h 作品id
+ * @param {string} args.type 不知道
+ * @param {()=>void} recall 回调函数
+ */
 function DeleteKeys({ name, h, type }, recall) {
     new Promise((resolve) => {
         if (buffer[h + "⨆" + name])
@@ -800,6 +906,13 @@ function DeleteKeys({ name, h, type }, recall) {
     if (recall !== undefined)
         recall();
 }
+
+/**
+ * 删除键？
+ * @param {string} name 删除的键名
+ * @param {string} h 作品id
+ * @param {string} type 不知道
+ */
 function SDeleteKeys(name, h, type) {
     let a = confirm("确定删除？");
     if (a) {
@@ -863,7 +976,7 @@ function SSetKey(name, text, content, h, state, id, description) {
     wait.push(json);
 }
 
-
+/** 不知道…… */
 function SetKeys({ name, text, content, h, state, id, description }, recall) {
     new Promise((resolve) => {
         if (name !== undefined)
@@ -918,7 +1031,8 @@ function SetKeys({ name, text, content, h, state, id, description }, recall) {
     if (recall !== undefined)
         recall();
 }
-//加载管理界面
+
+/** 加载管理界面 */
 function load() {
     list.firstElementChild.innerHTML = "";
     ReadKey("ALL_DB", (e) => {
@@ -939,6 +1053,7 @@ function load() {
     })
 }
 
+/** 根据作品数据生成表格 */
 function DBopen(ID) {
     id = ID;
     if (language)
@@ -998,6 +1113,8 @@ function DBopen(ID) {
         });
     })
 }
+
+/** 关闭管理器 */
 function outkey() {
     document.getElementById("move-header").removeEventListener("mousemove", move[0]);
     document.removeEventListener("mousemove", move[1]);
@@ -1008,11 +1125,13 @@ function outkey() {
     gandi.remove();
 }
 
-//更改窗口大小
+//调整窗口大小
+/** 鼠标松开 */
 function up() {
     resizeable = false
 }
 
+/** 鼠标按下 */
 function down(e) {
     let d = getDirection(e)
     if (d !== '') {
@@ -1023,6 +1142,7 @@ function down(e) {
     }
 }
 
+/** 鼠标移动 */
 function moves(e) {
     let d = getDirection(e);
     let cursor
@@ -1039,7 +1159,8 @@ function moves(e) {
         }
     }
 }
-//获取鼠标对于窗口边缘位置
+
+/** 获取鼠标对于窗口边缘位置 */
 function getDirection(ev) {
     let xP, yP, offset, dir;
     dir = '';
@@ -1053,7 +1174,7 @@ function getDirection(ev) {
     return dir;
 }
 
-//打开管理页面
+/** 打开管理页面 */
 function openManages() {
     language = confirm("选择你的语言，中文请点击确定\nchoose your language,click Cancel if you are english");
     if (!document.getElementsByTagName("body")[0].contains(gandi)) {
@@ -1382,13 +1503,14 @@ function openManages() {
     }
     load();
 }
-//删除按钮
+
+/** 删除按钮 */
 function deleteButton() {
     document.getElementById("witcatkey-values").remove();
     document.getElementById("witcatkey-value").remove();
 }
 
-//检测作品详情页显示按钮
+/** 检测作品详情页显示按钮 */
 function showButton() {
     let url = window.location.pathname;
     if (url.split("/")[1] === "detail" || url.split("/")[1].split("")[0] === "@") {
