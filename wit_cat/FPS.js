@@ -5,12 +5,23 @@ const _picture = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAAEPCAYAAACa
 const _icon = "data:image/png;base64,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";
 
 const extensionId = "WitCatFPS";
-let fps = 0, wfps = 0, fpson = false, webfpson = false, time, wtime, scratchfps, wscratchfps, sfpss = 0, wfpss = 0;
+let fps = 0, wfps = 0, fpson = false, webfpson = false;
+/** @type {number} */
+let time;
+/** @type {number} */
+let wtime;
+/** @type {number} */
+let scratchfps;
+/** @type {number} */
+let wscratchfps;
+let sfpss = 0, wfpss = 0;
 let animationHeight = () => {
     wfpss++;
     wtime = Date.now();
     requestAnimationFrame(animationHeight);
 }
+
+/** @typedef {string|number|boolean} SCarg 来自Scratch圆形框的参数，虽然这个框可能只能输入数字，但是可以放入变量，因此有可能获得数字、布尔和文本（极端情况下还有 null 或 undefined，需要同时处理 */
 
 class WitCatFPS {
     constructor(runtime) {
@@ -48,6 +59,11 @@ class WitCatFPS {
         })
     }
 
+    /**
+     * 翻译
+     * @param {string} id
+     * @return {string}
+     */
     formatMessage(id) {
         return this._formatMessage({
             id,
@@ -133,7 +149,8 @@ class WitCatFPS {
             },
         };
     }
-    //打开教程
+
+    /** 打开教程 */
     docs() {
         let a = document.createElement('a');
         a.href = "https://www.ccw.site/post/d6d96e80-3f58-4a19-b7e6-c567d3a6a583";
@@ -141,21 +158,45 @@ class WitCatFPS {
         a.target = "_blank";
         a.click();
     }
-    //舞台的帧率
+
+    /**
+     * 舞台的帧率
+     * @return {number}
+     */
     scratch() {
         return fps;
     }
+
+    /**
+     * 舞台的瞬时帧率
+     * @return {number}
+     */
     nscratch() {
         return fpson ? Math.floor(1000 / (Date.now() - time)) : 0;
     }
-    //浏览器的帧率
+
+    /**
+     * 浏览器的帧率
+     * @return {number}
+     */
     web() {
         return wfps;
     }
+
+    /**
+     * 浏览器的瞬时帧率
+     * @return {number}
+     */
     nweb() {
         return webfpson ? Math.floor(1000 / (Date.now() - wtime)) : 0;
     }
-    //设置舞台帧率检测
+
+    /**
+     * 设置舞台帧率检测
+     * @param {object} args
+     * @param {SCarg|"true"|"false"} args.type
+     * @return {void}
+     */
     turnon(args) {
         if (args.type == "true") {
             if (fpson == false) {
@@ -181,7 +222,13 @@ class WitCatFPS {
             }
         }
     }
-    //设置浏览器帧率检测
+
+    /**
+     * 设置浏览器帧率检测
+     * @param {object} args
+     * @param {SCarg|"true"|"false"} args.type
+     * @return {void}
+     */
     webturnon(args) {
         if (args.type == "true") {
             if (webfpson == false) {
