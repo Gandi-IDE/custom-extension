@@ -602,19 +602,17 @@ class WitCatFileHelper {
      */
     downloads(args) {
         downloadable(() => {
-            let h = args.text;
+            let h = String(args.text);
 
-            let s = args.s;
+            let s = String(args.s);
             if (s != "") {
-                h = args.text.split(s).join("\n");
-            } else {
-                h = args.text;
+                h = h.split(s).join("\n");
             }
 
             // 字符内容转变成blob地址
             let blob = new Blob([h]);
             let download = URL.createObjectURL(blob);
-            downloadFile(download, args.name, this.formatMessage("WitCatFileHelper.downloadask"), h);
+            downloadFile(download, String(args.name), this.formatMessage("WitCatFileHelper.downloadask"), h);
         });
     }
     /**
@@ -626,12 +624,12 @@ class WitCatFileHelper {
      */
     download(args) {
         downloadable(() => {
-            const content = args.text;
+            const content = String(args.text);
 
             // 字符内容转变成blob地址
             let blob = new Blob([content]);
             let download = URL.createObjectURL(blob);
-            downloadFile(download, args.name, this.formatMessage("WitCatFileHelper.downloadask"), content);
+            downloadFile(download, String(args.name), this.formatMessage("WitCatFileHelper.downloadask"), content);
         });
     }
     /**
@@ -664,8 +662,8 @@ class WitCatFileHelper {
      * @returns {string} 分割结果
      */
     segmentation(args) {
-        let text = args.text;
-        let s = args.s;
+        let text = String(args.text);
+        let s = String(args.s);
         let array = text.split(s);
         let r = "";
         if (args.thing === "true") {
@@ -722,9 +720,9 @@ class WitCatFileHelper {
                     return;
                 }
                 const file = input.files[0];
-                reader.onload = (e) => {
+                reader.onload = () => {
                     FLAG = 0;
-                    resolve(String(e.target.result));
+                    resolve(String(reader.result));
                 };
                 reader.onerror = () => {
                     FLAG = 0;
@@ -757,7 +755,7 @@ class WitCatFileHelper {
                 FLAG = 1;
                 input = document.createElement("input");
                 input.type = "file";
-                input.accept = args.name;
+                input.accept = String(args.name);
                 input.style.display = "none";
                 console.log(args);
                 input.multiple = args.nums === "multiple";
@@ -846,9 +844,9 @@ class WitCatFileHelper {
                     // 之后再说
                     return new Promise(resolve => {
                         const reader = new FileReader();
-                        reader.onload = (e) => {
+                        reader.onload = () => {
                             FLAG = 0;
-                            resolve(String(e.target.result));
+                            resolve(String(reader.result));
                         };
                         reader.onerror = () => {
                             FLAG = 0;
@@ -903,13 +901,18 @@ class WitCatFileHelper {
      * @returns {string} 结果
      */
     deleteMultiplelinestext(args) {
-        let texts = multipleText(args.text);
-        let num = args.num;
-        if (args.num === "last") {
-            num = texts.length;
-        }
-        if (args.num === "first") {
-            num = 1;
+        let texts = multipleText(String(args.text));
+        let num = 0;
+        // 已经是 Scratch 3.0 了，这种遗老就不要了吧
+        switch (args.num) {
+            case "first":
+                num = 1;
+                break;
+            case "last":
+                num = texts.length;
+                break;
+            default:
+                num = Number(args.num);
         }
         texts.splice(num - 1, 1);
         return texts.join("\n");
@@ -923,15 +926,19 @@ class WitCatFileHelper {
      * @returns {string} 结果
      */
     addMultiplelinestext(args) {
-        let texts = multipleText(args.texts);
-        let num = args.num;
-        if (args.num === "last") {
-            num = texts.length + 1;
+        let texts = multipleText(String(args.texts));
+        let num = 0;
+        switch (args.num) {
+            case "first":
+                num = 1;
+                break;
+            case "last":
+                num = texts.length + 1;
+                break;
+            default:
+                num = Number(args.num);
         }
-        if (args.num === "first") {
-            num = 1;
-        }
-        texts.splice(num - 1, 0, args.text);
+        texts.splice(num - 1, 0, String(args.text));
         return texts.join("\n");
     }
     /**
@@ -942,13 +949,17 @@ class WitCatFileHelper {
      * @returns {string} 结果
      */
     whatMultiplelinestext(args) {
-        let text = args.text.split("\n");
-        let num = args.num;
-        if (args.num === "last") {
-            num = text.length;
-        }
-        if (args.num === "first") {
-            num = 1;
+        let text = String(args.text).split("\n");
+        let num = 0;
+        switch (args.num) {
+            case "first":
+                num = 1;
+                break;
+            case "last":
+                num = text.length;
+                break;
+            default:
+                num = Number(args.num);
         }
         if (text.length >= num && num > 0) {
             // 万一是小数呢？
@@ -965,7 +976,7 @@ class WitCatFileHelper {
      * @returns {number} 行数
      */
     numMultiplelinestext(args) {
-        let text = args.text.split("\n");
+        let text = String(args.text).split("\n");
         return text.length;
     }
     /**
@@ -975,7 +986,7 @@ class WitCatFileHelper {
      * @returns {string} 数组的JSON
      */
     turnMultiplelinestext(args) {
-        let texts = multipleText(args.text);
+        let texts = multipleText(String(args.text));
         return JSON.stringify(texts);
     }
     /**
@@ -985,7 +996,7 @@ class WitCatFileHelper {
      * @returns {Promise<string>} 多行文本
      */
     turnsMultiplelinestext(args) {
-        let texts = JSON.parse(args.text);
+        let texts = JSON.parse(String(args.text));
         return texts.join("\n");
     }
     /**
@@ -1028,7 +1039,7 @@ class WitCatFileHelper {
      * @returns {Promise<string>} 结果
      */
     arrayjoin(args) {
-        return JSON.parse(args.text).join(args.s);
+        return JSON.parse(String(args.text)).join(args.s);
     }
 }
 
