@@ -1094,7 +1094,7 @@ function multipleText(text) {
  * @param {string} contant 文件的内容
  * @return {void}
  */
-function downloadFile(url, name = "	wit_cat.txt", ask, contant) {
+function downloadFile(url, name = "wit_cat.txt", ask, contant) {
     let SuffixName = name.split(".")[name.split(".").length - 1];
     if (SuffixName.toLowerCase() === "bat" || SuffixName.toLowerCase() === "cmd" || SuffixName.toLowerCase() === "vbs" || SuffixName.toLowerCase() === "ps1" || SuffixName.toLowerCase() === "sh") {
         let a = confirm(ask + SuffixName + ":\n" + contant);
