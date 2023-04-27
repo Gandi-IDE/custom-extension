@@ -93,10 +93,10 @@ let db;
 let id;
 
 let request = window.indexedDB.open("witcat", 2);
-request.onupgradeneeded = function (event) {
+request.onupgradeneeded = function () {
     console.log("初始化本地存储键值对");
     let objectStore;
-    db = event.target.result;
+    db = request.result;
     if (!db.objectStoreNames.contains('key')) {
         objectStore = db.createObjectStore('key', {
             keyPath: 'key',
