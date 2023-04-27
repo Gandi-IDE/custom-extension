@@ -1261,7 +1261,7 @@ function openManages() {
         .table {
             width: 100%;
             table-layout: fixed;
-            border-collapse: separate; 
+            border-collapse: separate;
         }
 
         .table td {
