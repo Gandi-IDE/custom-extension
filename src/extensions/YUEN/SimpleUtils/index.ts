@@ -629,57 +629,28 @@ export default class SimpleUtils extends GandiExtension {
 
   saveJSON(args: { listArgs: string }, utils: any) {
     /**
-     * s = StringJSON ClientInfo
-     * ss = JSONObj s
-     * sss = ["Edge","109.x.x","Windows","10/11","PC","x64"]
-     * 这里变量有点乱
+     * @example
+     * list = ["Edge","109.x.x","Windows","10/11","PC","x64"]
      */
-    const s = this.client_info("JSON");
-    const ss = JSON.parse(s);
-    const sss = [];
+    const { listArgs } = args;
 
-    for (const key in ss) {
-      sss.push('"' + ss[key] + '"');
+    if ("empty" === listArgs) {
+      this.extErr(
+        new Error("⚠YUEN: in saveJSON error fill list: list is not selected")
+      );
+      return;
     }
-    const { listArgs, TITLE } = args;
-    const b = "[" + sss.toString() + "]";
-    let a;
-    if ("empty" !== listArgs) {
-      try {
-        a = JSON.parse(b);
-      } catch (t) {
-        this.extErr(
-          "⚠YUEN: in saveJSON error fill list: invalid JSON String".concat(
-            t.message
-          )
-        );
-      }
-      if (Array.isArray(a)) {
-        try {
-          a = a.map(function (t) {
-            return t instanceof Object ? JSON.stringify(t) : t;
-          });
-        } catch (t) {
-          this.extErr(
-            "⚠YUEN: fill list: JSON Array cannot be converted to string ".concat(
-              t.message
-            )
-          );
-        }
-        let _ = utils.target.lookupVariableById(listArgs);
-        if (
-          (void 0 === _ &&
-            (_ = utils.target.lookupVariableByNameAndType(listArgs, "list")),
-          void 0 !== _)
-        ) {
-          const n = [];
-          _.value = n.concat(a);
-        }
-      } else {
-        this.extErr("⚠YUEN: in saveJSON error fill list: JSON is not an array");
-      }
-    } else {
-      this.extErr("⚠YUEN: in saveJSON error fill list: list is not selected");
+
+    const client_info = JSON.parse(this.client_info("JSON"));
+    const list: string[] = Object.values(client_info);
+
+    let _ = utils.target.lookupVariableById(listArgs);
+    if (_ === undefined) {
+      _ = utils.target.lookupVariableByNameAndType(listArgs, "list");
+    }
+    if (_ !== undefined) {
+      // 真的需要深拷贝？
+      _.value = list.concat();
     }
   }
 
