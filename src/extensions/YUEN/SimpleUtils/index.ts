@@ -112,9 +112,9 @@ export default class SimpleUtils extends GandiExtension {
       "NT 10.0": "10/11",
     };
     // 修复了之前兼容的问题 23/02/21
-    var userAgent = navigator.userAgent;
+    const userAgent = navigator.userAgent;
     if (userAgent) {
-      var isOpera = userAgent.indexOf("Opera") > -1;
+      const isOpera = userAgent.indexOf("Opera") > -1;
       //判断是否Opera浏览器
       if (isOpera) {
         userAgentObj.browserName = "Opera";
@@ -164,7 +164,7 @@ export default class SimpleUtils extends GandiExtension {
           (userAgentObj.browserVersion = userAgent
             .split("xigua-python/")[1]
             .split(" ")[0]);
-        var winJV = userAgent.split("Windows ")[1].split(")")[0].split("; ")[1];
+        const winJV = userAgent.split("Windows ")[1].split(")")[0].split("; ")[1];
         // 兼容西瓜客户端
         userAgentObj.CPU_Type = winJV;
       }
@@ -174,14 +174,14 @@ export default class SimpleUtils extends GandiExtension {
           (userAgentObj.browserVersion = userAgent
             .split("xigua-scratch/")[1]
             .split(" ")[0]);
-        var winJV = userAgent.split("Windows ")[1].split(")")[0].split("; ")[1];
+        const winJV = userAgent.split("Windows ")[1].split(")")[0].split("; ")[1];
         // 兼容西瓜客户端
         userAgentObj.CPU_Type = winJV;
       }
 
       //判断是否Windows
       if (userAgent.indexOf("Windows") > -1) {
-        var Version =
+        const Version =
           userAgent.split("Windows ")[1].split(")")[0].indexOf("; ") > -1
             ? userAgent.split("Windows ")[1].split(")")[0].split("; ")[0]
             : userAgent.split("Windows ")[1].split(")")[0];
@@ -192,7 +192,7 @@ export default class SimpleUtils extends GandiExtension {
       }
 
       if (userAgent.indexOf("Mac") > -1) {
-        var Version = userAgent.split("Mac OS X ")[1].split(")")[0];
+        const Version = userAgent.split("Mac OS X ")[1].split(")")[0];
         userAgentObj.osName = "Mac OS X";
         userAgentObj.osVersion = Version;
         // 设置设备名
@@ -200,7 +200,7 @@ export default class SimpleUtils extends GandiExtension {
       }
 
       if (userAgent.indexOf("iPhone") > -1) {
-        var Version = userAgent.split("CPU iPhone OS")[1].split(" ")[0];
+        const Version = userAgent.split("CPU iPhone OS")[1].split(" ")[0];
         userAgentObj.osName = "iPhone";
         userAgentObj.osVersion = Version;
 
@@ -209,7 +209,7 @@ export default class SimpleUtils extends GandiExtension {
       }
 
       if (userAgent.indexOf("iPad") > -1) {
-        var Version = userAgent.split("iPad; CPU OS ")[1].split(" ")[0];
+        const Version = userAgent.split("iPad; CPU OS ")[1].split(" ")[0];
         userAgentObj.osName = "iPad";
         userAgentObj.osVersion = Version;
 
@@ -218,14 +218,14 @@ export default class SimpleUtils extends GandiExtension {
       }
 
       if (userAgent.indexOf("Android") > -1) {
-        var V = userAgent.split("Android ")[1].split(";")[0];
+        const V = userAgent.split("Android ")[1].split(";")[0];
         /**
          * userAgent.split("Android " + V)[1].split(")")[0].indexOf("; ") > -1
          * 默认是有厂商+版本的
          * 这里做了兼容
          * 如果ua里没有设备版本默认返回"Androiid设备"
          */
-        var winD =
+        const winD =
           userAgent
             .split("Android " + V)[1]
             .split(")")[0]
@@ -238,7 +238,7 @@ export default class SimpleUtils extends GandiExtension {
       }
       //console.log(userAgentObj);
       // 转换格式 Obj to String JSON
-      var string = JSON.stringify(userAgentObj);
+      const string = JSON.stringify(userAgentObj);
 
       /**
        * @description: 兼容l10n，之前把默认字段写成了JSON但是menu里的是json
@@ -366,9 +366,9 @@ export default class SimpleUtils extends GandiExtension {
   // v1.0.4
   // 统一异常，方便修复扩展报错
   extErr(e: Error) {
-    var error = e;
-    var sub = "⚠⚠⚠报错";
-    var bool = error.includes(sub);
+    const error = e;
+    const sub = "⚠⚠⚠报错";
+    const bool = error.includes(sub);
     if (bool) {
       console.error("[YUENExt] : ".concat(e));
       throw new Error("[YUENExt] : ".concat(e));
@@ -562,14 +562,14 @@ export default class SimpleUtils extends GandiExtension {
   ) {
     console.log(args, utils);
     const { listArgs, variableArgs, NUM } = args;
-    var _ = utils.target.lookupVariableById(listArgs);
+    let _ = utils.target.lookupVariableById(listArgs);
     if (
       (void 0 === _ &&
         (_ = utils.target.lookupVariableByNameAndType(listArgs, "list")),
       void 0 !== _)
     ) {
     }
-    let t = _.value.length;
+    const t = _.value.length;
     const times = t;
     // Initialize loop
     if (typeof utils.stackFrame.loopCounter === "undefined") {
@@ -582,14 +582,14 @@ export default class SimpleUtils extends GandiExtension {
     utils.stackFrame.loopCounter--;
     // If we still have some left, start the branch.
     if (utils.stackFrame.loopCounter >= 0) {
-      var _ = utils.target.lookupVariableById(variableArgs);
+      let _ = utils.target.lookupVariableById(variableArgs);
       if (
         (void 0 === _ &&
           (_ = utils.target.lookupVariableByNameAndType(variableArgs, "")),
         void 0 !== _)
       ) {
       }
-      let numb = Number(NUM) + Number(_.value);
+      const numb = Number(NUM) + Number(_.value);
       _.value = numb;
       utils.startBranch(1, true);
     }
@@ -611,12 +611,12 @@ export default class SimpleUtils extends GandiExtension {
     const ss = JSON.parse(s);
     const sss = [];
 
-    for (var key in ss) {
+    for (const key in ss) {
       sss.push('"' + ss[key] + '"');
     }
     const { listArgs, TITLE } = args;
-    var b = "[" + sss.toString() + "]";
-    var a;
+    const b = "[" + sss.toString() + "]";
+    let a;
     if ("empty" !== listArgs) {
       try {
         a = JSON.parse(b);
@@ -639,13 +639,13 @@ export default class SimpleUtils extends GandiExtension {
             )
           );
         }
-        var _ = utils.target.lookupVariableById(listArgs);
+        let _ = utils.target.lookupVariableById(listArgs);
         if (
           (void 0 === _ &&
             (_ = utils.target.lookupVariableByNameAndType(listArgs, "list")),
           void 0 !== _)
         ) {
-          var n = [];
+          const n = [];
           _.value = n.concat(a);
         }
       } else {
@@ -663,7 +663,7 @@ export default class SimpleUtils extends GandiExtension {
    */
   // 运行环境
   deploy_env() {
-    var ur1 = window.location.pathname;
+    const ur1 = window.location.pathname;
     //var ur2 = window.location.search;
     return ur1.indexOf("gandi") > -1 || ur1.indexOf("creator") > -1
       ? "dev"
@@ -688,12 +688,12 @@ export default class SimpleUtils extends GandiExtension {
   Notification(args: { TITLE: SCarg; CONTENT: SCarg; ICON: SCarg }) {
     const { TITLE, CONTENT, ICON } = args;
     const globals = "yuen.sleep." + window.location.pathname;
-    var tt = window.localStorage.getItem(globals);
-    var t = Number(window.localStorage.getItem(globals)) + 60000 * 60 * 24 * 7;
+    const tt = window.localStorage.getItem(globals);
+    const t = Number(window.localStorage.getItem(globals)) + 60000 * 60 * 24 * 7;
     if (t <= Date.now() || tt == "null") {
       localStorage.removeItem(globals);
     }
-    var ttt = Number(window.localStorage.getItem(globals));
+    const ttt = Number(window.localStorage.getItem(globals));
     if (ttt + 60000 * 4 <= Date.now()) {
       new window.Notification(TITLE, {
         body: CONTENT,
@@ -714,12 +714,12 @@ export default class SimpleUtils extends GandiExtension {
   alert(args: { CONTENT_1: string }) {
     const { CONTENT_1 } = args;
     const globals = "yuen.sleep." + window.location.pathname;
-    var tt = window.localStorage.getItem(globals);
-    var t = Number(window.localStorage.getItem(globals)) + 60000 * 60 * 24 * 7;
+    const tt = window.localStorage.getItem(globals);
+    const t = Number(window.localStorage.getItem(globals)) + 60000 * 60 * 24 * 7;
     if (t <= Date.now() || tt == "null") {
       localStorage.removeItem(globals);
     }
-    var ttt = Number(window.localStorage.getItem(globals));
+    const ttt = Number(window.localStorage.getItem(globals));
     if (ttt + 60000 * 4 <= Date.now()) {
       alert(CONTENT_1);
       window.localStorage.setItem(globals, Date.now().toString());
@@ -735,7 +735,7 @@ export default class SimpleUtils extends GandiExtension {
    * @returns
    */
   get_client_info(args: { TYPE: string }) {
-    var a = this.client_info(args.TYPE);
+    const a = this.client_info(args.TYPE);
     return a;
   }
 }
