@@ -283,24 +283,19 @@ export default class SimpleUtils extends GandiExtension {
    */
   // dynamic menu
   spriteMenu() {
-    const sprites = [];
-    let num = -1;
-    for (const targetId in this.runtime.targets) {
-      if (!this.runtime.targets.hasOwnProperty(targetId)) continue;
-      if (!this.runtime.targets[targetId].isOriginal) continue;
-      const { name } = this.runtime.targets[targetId].sprite;
-      const { id } = this.runtime.targets[targetId];
-      num = num + 1;
-      if (name === "Stage" && this.runtime.targets[targetId].isStage === true) {
-        sprites.push({ text: "舞台", value: num });
-      } else {
-        sprites.push({ text: name, value: num });
+    const sprites: { text: string; value: number }[] = [];
+    this.runtime.targets.forEach((target: string, targetId: number) => {
+      if (target.isOriginal) {
+        const { name } = target.sprite;
+        if (target.isStage) {
+          sprites.push({ text: "[舞台]", value: targetId });
+        } else {
+          sprites.push({ text: "[角色]" + name, value: targetId });
+        }
       }
-    }
-    if (
-      JSON.stringify(sprites) === "[]" ||
-      JSON.stringify(this.runtime.targets) === "[]"
-    ) {
+    });
+    if (sprites.length === 0) {
+      // 这不可能发生
       return [{ text: "-没有角色-", value: "empty" }];
     } else {
       return sprites;
