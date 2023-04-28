@@ -160,20 +160,20 @@ export default class SimpleUtils extends GandiExtension {
 
       // is xigua-client
       if (userAgent.indexOf("xigua-python") > -1) {
-        (userAgentObj.browserName = "西瓜Python"),
-          (userAgentObj.browserVersion = userAgent
-            .split("xigua-python/")[1]
-            .split(" ")[0]);
+        userAgentObj.browserName = "西瓜Python";
+        userAgentObj.browserVersion = userAgent
+          .split("xigua-python/")[1]
+          .split(" ")[0];
         const winJV = userAgent.split("Windows ")[1].split(")")[0].split("; ")[1];
         // 兼容西瓜客户端
         userAgentObj.CPU_Type = winJV;
       }
 
       if (userAgent.indexOf("xigua-scratch") > -1) {
-        (userAgentObj.browserName = "西瓜Scratch"),
-          (userAgentObj.browserVersion = userAgent
-            .split("xigua-scratch/")[1]
-            .split(" ")[0]);
+        userAgentObj.browserName = "西瓜Scratch";
+        userAgentObj.browserVersion = userAgent
+          .split("xigua-scratch/")[1]
+          .split(" ")[0];
         const winJV = userAgent.split("Windows ")[1].split(")")[0].split("; ")[1];
         // 兼容西瓜客户端
         userAgentObj.CPU_Type = winJV;
@@ -298,34 +298,38 @@ export default class SimpleUtils extends GandiExtension {
     let variable = this.runtime._stageTarget.variables;
     const variableList = [];
     Object.keys(variable).forEach(function (r) {
-      "list" === variable[r].type &&
+      if (variable[r].type === "list") {
         variableList.push({
           text: "[PUBLISH]".concat(variable[r].name),
           value: variable[r].id,
         });
+      }
     });
     try {
       variable = this.runtime._editingTarget.variables;
     } catch (t) {
       variable = "e";
     }
-    return (
-      "e" !== variable &&
-        this.runtime._editingTarget !== this.runtime._stageTarget &&
-        Object.keys(variable).forEach(function (r) {
-          "list" === variable[r].type &&
-            variableList.push({
-              text: "[PRIVATE]".concat(variable[r].name),
-              value: variable[r].id,
-            });
-        }),
-      0 === variableList.length &&
-        variableList.push({
-          text: "-没有列表-",
-          value: "empty",
-        }),
-      variableList
-    );
+    if (
+      variable !== "e" &&
+      this.runtime._editingTarget !== this.runtime._stageTarget
+    ) {
+      Object.keys(variable).forEach(function (r) {
+        if (variable[r].type === "list") {
+          variableList.push({
+            text: "[PRIVATE]".concat(variable[r].name),
+            value: variable[r].id,
+          });
+        }
+      });
+    }
+    if (variableList.length === 0) {
+      variableList.push({
+        text: "-没有列表-",
+        value: "empty",
+      });
+    }
+    return variableList;
   }
   // v1.0.4
   // 修改自ccwdata
@@ -333,34 +337,38 @@ export default class SimpleUtils extends GandiExtension {
     let variable = this.runtime._stageTarget.variables;
     const variableList = [];
     Object.keys(variable).forEach(function (r) {
-      "" === variable[r].type &&
+      if (variable[r].type === "") {
         variableList.push({
           text: "[PUBLISH]".concat(variable[r].name),
           value: variable[r].id,
         });
+      }
     });
     try {
       variable = this.runtime._editingTarget.variables;
     } catch (t) {
       variable = "e";
     }
-    return (
-      "e" !== variable &&
-        this.runtime._editingTarget !== this.runtime._stageTarget &&
-        Object.keys(variable).forEach(function (r) {
-          "" === variable[r].type &&
-            variableList.push({
-              text: "[PRIVATE]".concat(variable[r].name),
-              value: variable[r].id,
-            });
-        }),
-      0 === variableList.length &&
-        variableList.push({
-          text: "-没有变量-",
-          value: "empty",
-        }),
-      variableList
-    );
+    if (
+      variable !== "e" &&
+      this.runtime._editingTarget !== this.runtime._stageTarget
+    ) {
+      Object.keys(variable).forEach(function (r) {
+        if (variable[r].type === "") {
+          variableList.push({
+            text: "[PRIVATE]".concat(variable[r].name),
+            value: variable[r].id,
+          });
+        }
+      });
+    }
+    if (variableList.length === 0) {
+      variableList.push({
+        text: "-没有变量-",
+        value: "empty",
+      });
+    }
+    return variableList;
   }
 
   // v1.0.4
@@ -562,15 +570,25 @@ export default class SimpleUtils extends GandiExtension {
   ) {
     console.log(args, utils);
     const { listArgs, variableArgs, NUM } = args;
-    let _ = utils.target.lookupVariableById(listArgs);
-    if (
-      (void 0 === _ &&
-        (_ = utils.target.lookupVariableByNameAndType(listArgs, "list")),
-      void 0 !== _)
-    ) {
+    let list = utils.target.lookupVariableById(listArgs);
+    if (list === undefined) {
+      list = utils.target.lookupVariableByNameAndType(listArgs, "list");
     }
-    const t = _.value.length;
-    const times = t;
+    if (list === undefined) {
+      this.extErr(new Error("⚠YUEN: set_value_for_list_lenght : list"));
+      return;
+    }
+    const times = list.value.length;
+    // variable 只需要获取一次
+    let variable = utils.target.lookupVariableById(variableArgs);
+    if (variable === undefined) {
+      variable = utils.target.lookupVariableByNameAndType(variableArgs, "");
+    }
+    if (variable === undefined) {
+      this.extErr(new Error("⚠YUEN: set_value_for_list_lenght : variable"));
+      return;
+    }
+
     // Initialize loop
     if (typeof utils.stackFrame.loopCounter === "undefined") {
       utils.stackFrame.loopCounter = times;
@@ -582,15 +600,8 @@ export default class SimpleUtils extends GandiExtension {
     utils.stackFrame.loopCounter--;
     // If we still have some left, start the branch.
     if (utils.stackFrame.loopCounter >= 0) {
-      let _ = utils.target.lookupVariableById(variableArgs);
-      if (
-        (void 0 === _ &&
-          (_ = utils.target.lookupVariableByNameAndType(variableArgs, "")),
-        void 0 !== _)
-      ) {
-      }
-      const numb = Number(NUM) + Number(_.value);
-      _.value = numb;
+      const numb = Number(NUM) + Number(variable.value);
+      variable.value = numb;
       utils.startBranch(1, true);
     }
   }
@@ -735,7 +746,6 @@ export default class SimpleUtils extends GandiExtension {
    * @returns
    */
   get_client_info(args: { TYPE: string }) {
-    const a = this.client_info(args.TYPE);
-    return a;
+    return this.client_info(args.TYPE);
   }
 }
