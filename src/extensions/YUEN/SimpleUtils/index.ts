@@ -164,7 +164,10 @@ export default class SimpleUtils extends GandiExtension {
         userAgentObj.browserVersion = userAgent
           .split("xigua-python/")[1]
           .split(" ")[0];
-        const winJV = userAgent.split("Windows ")[1].split(")")[0].split("; ")[1];
+        const winJV = userAgent
+          .split("Windows ")[1]
+          .split(")")[0]
+          .split("; ")[1];
         // 兼容西瓜客户端
         userAgentObj.CPU_Type = winJV;
       }
@@ -174,19 +177,32 @@ export default class SimpleUtils extends GandiExtension {
         userAgentObj.browserVersion = userAgent
           .split("xigua-scratch/")[1]
           .split(" ")[0];
-        const winJV = userAgent.split("Windows ")[1].split(")")[0].split("; ")[1];
+        const winJV = userAgent
+          .split("Windows ")[1]
+          .split(")")[0]
+          .split("; ")[1];
         // 兼容西瓜客户端
         userAgentObj.CPU_Type = winJV;
       }
 
       //判断是否Windows
       if (userAgent.indexOf("Windows") > -1) {
-        const Version =
-          userAgent.split("Windows ")[1].split(")")[0].indexOf("; ") > -1
-            ? userAgent.split("Windows ")[1].split(")")[0].split("; ")[0]
-            : userAgent.split("Windows ")[1].split(")")[0];
+        const Version = userAgent
+          .split("Windows ")[1]
+          .split(")")[0]
+          .split("; ")[0];
         userAgentObj.osName = "Windows";
-        userAgentObj.osVersion = userAgentWindowsVrsion[Version];
+        if (
+          Object.prototype.hasOwnProperty.call(userAgentWindowsVrsion, Version)
+        ) {
+          userAgentObj.osVersion =
+            userAgentWindowsVrsion[
+              Version as keyof typeof userAgentWindowsVrsion
+            ];
+        } else {
+          // 列表中找不到，直接使用 Version 的值
+          userAgentObj.osVersion = Version;
+        }
         // 设置设备名
         userAgentObj.deviceName = "PC";
       }
@@ -251,6 +267,9 @@ export default class SimpleUtils extends GandiExtension {
       } else {
         return userAgentObj[TYPE];
       }
+    } else {
+      // userAgent 用不了
+      return "";
     }
   }
 
