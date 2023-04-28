@@ -388,14 +388,15 @@ export default class SimpleUtils extends GandiExtension {
   // v1.0.4
   // 统一异常，方便修复扩展报错
   extErr(e: Error) {
-    const error = e;
+    const error = e.message;
     const sub = "⚠⚠⚠报错";
     const bool = error.includes(sub);
     if (bool) {
-      console.error("[YUENExt] : ".concat(e));
-      throw new Error("[YUENExt] : ".concat(e));
+      console.error("[YUENExt] : ", e);
+      throw e;
+      // throw new Error("[YUENExt] : ".concat(e.toString(x)));
     } else {
-      console.warn("[YUENExt] : ".concat(e));
+      console.warn("[YUENExt] : ", e);
     }
   }
 
