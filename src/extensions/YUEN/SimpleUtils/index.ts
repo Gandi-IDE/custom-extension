@@ -314,7 +314,7 @@ export default class SimpleUtils extends GandiExtension {
     Object.keys(variable).forEach(function (r) {
       if (variable[r].type === "list") {
         variableList.push({
-          text: "[PUBLISH]".concat(variable[r].name),
+          text: "[所有角色]".concat(variable[r].name),
           value: variable[r].id,
         });
       }
@@ -331,7 +331,7 @@ export default class SimpleUtils extends GandiExtension {
       Object.keys(variable).forEach(function (r) {
         if (variable[r].type === "list") {
           variableList.push({
-            text: "[PRIVATE]".concat(variable[r].name),
+            text: "[当前角色]".concat(variable[r].name),
             value: variable[r].id,
           });
         }
@@ -353,7 +353,7 @@ export default class SimpleUtils extends GandiExtension {
     Object.keys(variable).forEach(function (r) {
       if (variable[r].type === "") {
         variableList.push({
-          text: "[PUBLISH]".concat(variable[r].name),
+          text: "[所有角色]".concat(variable[r].name),
           value: variable[r].id,
         });
       }
@@ -370,7 +370,7 @@ export default class SimpleUtils extends GandiExtension {
       Object.keys(variable).forEach(function (r) {
         if (variable[r].type === "") {
           variableList.push({
-            text: "[PRIVATE]".concat(variable[r].name),
+            text: "[当前角色]".concat(variable[r].name),
             value: variable[r].id,
           });
         }
