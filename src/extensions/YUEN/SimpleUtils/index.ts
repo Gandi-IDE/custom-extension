@@ -223,7 +223,7 @@ export default class SimpleUtils extends GandiExtension {
          * userAgent.split("Android " + V)[1].split(")")[0].indexOf("; ") > -1
          * 默认是有厂商+版本的
          * 这里做了兼容
-         * 如果ua里没有设备版本默认返回"Androiid设备"
+         * 如果ua里没有设备版本默认返回"Android设备"
          */
         const winD =
           userAgent
@@ -237,8 +237,6 @@ export default class SimpleUtils extends GandiExtension {
         userAgentObj.osVersion = V;
       }
       //console.log(userAgentObj);
-      // 转换格式 Obj to String JSON
-      const string = JSON.stringify(userAgentObj);
 
       /**
        * @description: 兼容l10n，之前把默认字段写成了JSON但是menu里的是json
@@ -247,6 +245,8 @@ export default class SimpleUtils extends GandiExtension {
        * @return {*}
        */
       if (TYPE == "json" || TYPE == "JSON") {
+        // 转换格式 Obj to String JSON
+        const string = JSON.stringify(userAgentObj);
         return string;
       } else {
         return userAgentObj[TYPE];
@@ -467,6 +467,7 @@ export default class SimpleUtils extends GandiExtension {
      * v1.0.0
      */
     const GET_CLIENT_INFO = BlockUtil.createReporter();
+    GET_CLIENT_INFO.setReporterScope(ReporterScope.GLOBAL);
     GET_CLIENT_INFO.setOpcode("get_client_info");
     GET_CLIENT_INFO.setText("get_client_info");
     GET_CLIENT_INFO.setArguments({ TYPE });
@@ -501,6 +502,7 @@ export default class SimpleUtils extends GandiExtension {
 
     // 运行环境 当前是编辑器还是发布页
     const DEPLOY_ENV = BlockUtil.createReporter();
+    DEPLOY_ENV.setReporterScope(ReporterScope.GLOBAL);
     DEPLOY_ENV.setOpcode("deploy_env");
     DEPLOY_ENV.setText("deploy_env");
     DEPLOY_ENV.setArguments({});
@@ -568,7 +570,6 @@ export default class SimpleUtils extends GandiExtension {
     },
     utils: any
   ) {
-    console.log(args, utils);
     const { listArgs, variableArgs, NUM } = args;
     let list = utils.target.lookupVariableById(listArgs);
     if (list === undefined) {
@@ -706,9 +707,9 @@ export default class SimpleUtils extends GandiExtension {
     }
     const ttt = Number(window.localStorage.getItem(globals));
     if (ttt + 60000 * 4 <= Date.now()) {
-      new window.Notification(TITLE, {
-        body: CONTENT,
-        icon: ICON,
+      new window.Notification(String(TITLE), {
+        body: String(CONTENT),
+        icon: String(ICON),
       });
       window.localStorage.setItem(globals, Date.now().toString());
     } else {
