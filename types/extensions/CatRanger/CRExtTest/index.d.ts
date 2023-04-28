@@ -1,4 +1,6 @@
 import { GandiExtension } from '@cocrea/extension-kit';
+/** Scratch 参数类型 */
+type SCarg = string | number | boolean;
 export default class CRExtTest extends GandiExtension {
     get extensionId(): string;
     get localization(): {
@@ -48,15 +50,20 @@ export default class CRExtTest extends GandiExtension {
     get blockPrefix(): string;
     get deprecatedBlocksByOpcodes(): string[];
     init(): void;
-    test(args: any): void;
-    targetReporter(args: any): void;
-    globalReporter(args: any): void;
-    conditionalBlocks(args: any): void;
-    loopBlocks(args: any): void;
-    eventBlocks(args: any): void;
-    hatBlocks(args: any): void;
+    test(args: {
+        A: SCarg;
+        B: SCarg;
+        C: SCarg;
+    }): void;
+    targetReporter(): void;
+    globalReporter(): void;
+    conditionalBlocks(): void;
+    loopBlocks(): void;
+    eventBlocks(): void;
+    hatBlocks(): void;
     buildDynamicMenu(): {
         text: string;
         value: string;
     }[];
 }
+export {};
