@@ -284,7 +284,7 @@ export default class SimpleUtils extends GandiExtension {
   // dynamic menu
   spriteMenu() {
     const sprites: { text: string; value: number }[] = [];
-    this.runtime.targets.forEach((target: string, targetId: number) => {
+    this.runtime.targets.forEach((target: any, targetId: number) => {
       if (target.isOriginal) {
         const { name } = target.sprite;
         if (target.isStage) {
