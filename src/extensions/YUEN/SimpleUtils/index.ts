@@ -626,7 +626,6 @@ export default class SimpleUtils extends GandiExtension {
    * 保存客户端信息到列表
    * v1.0.4
    */
-
   saveJSON(args: { listArgs: string }, utils: any) {
     /**
      * @example
@@ -696,7 +695,6 @@ export default class SimpleUtils extends GandiExtension {
    * 检测用户网络连接情况
    * @returns
    */
-  // 联网检测
   is_online() {
     return window.navigator.onLine;
   }
@@ -710,7 +708,8 @@ export default class SimpleUtils extends GandiExtension {
     const { TITLE, CONTENT, ICON } = args;
     const globals = "yuen.sleep." + window.location.pathname;
     const tt = window.localStorage.getItem(globals);
-    const t = Number(window.localStorage.getItem(globals)) + 60000 * 60 * 24 * 7;
+    const t =
+      Number(window.localStorage.getItem(globals)) + 60000 * 60 * 24 * 7;
     if (t <= Date.now() || tt == "null") {
       localStorage.removeItem(globals);
     }
@@ -736,7 +735,8 @@ export default class SimpleUtils extends GandiExtension {
     const { CONTENT_1 } = args;
     const globals = "yuen.sleep." + window.location.pathname;
     const tt = window.localStorage.getItem(globals);
-    const t = Number(window.localStorage.getItem(globals)) + 60000 * 60 * 24 * 7;
+    const t =
+      Number(window.localStorage.getItem(globals)) + 60000 * 60 * 24 * 7;
     if (t <= Date.now() || tt == "null") {
       localStorage.removeItem(globals);
     }
