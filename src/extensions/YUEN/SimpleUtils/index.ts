@@ -18,6 +18,18 @@ import en from "./l10n/en.json";
 import cover from "./assets/cover.png";
 import blockIcon from "./assets/icon.png";
 
+/** Scratch 参数类型 */
+type SCarg = string | number | boolean;
+
+type userAgentObj_type = {
+  browserName: string; // 浏览器名称
+  browserVersion: string; // 浏览器版本
+  osName: string; // 操作系统名称
+  osVersion: string; // 操作系统版本
+  deviceName: string; // 设备名称
+  CPU_Type: string; // 兼容xigua-client
+};
+
 export default class SimpleUtils extends GandiExtension {
   get extensionId(): string {
     return extensionId;
@@ -78,8 +90,8 @@ export default class SimpleUtils extends GandiExtension {
    * @param TYPE old args.TYPE
    * @returns
    */
-  client_info(TYPE) {
-    const userAgentObj = {
+  client_info(TYPE: "json" | "JSON" | keyof userAgentObj_type): string {
+    const userAgentObj: userAgentObj_type = {
       browserName: "", // 浏览器名称
       browserVersion: "", // 浏览器版本
       osName: "", // 操作系统名称
@@ -353,7 +365,7 @@ export default class SimpleUtils extends GandiExtension {
 
   // v1.0.4
   // 统一异常，方便修复扩展报错
-  extErr(e) {
+  extErr(e: Error) {
     var error = e;
     var sub = "⚠⚠⚠报错";
     var bool = error.includes(sub);
@@ -540,7 +552,14 @@ export default class SimpleUtils extends GandiExtension {
    * v1.0.5
    */
 
-  set_value_for_list_lenght(args, utils) {
+  set_value_for_list_lenght(
+    args: {
+      listArgs: SCarg;
+      variableArgs: SCarg;
+      NUM: SCarg;
+    },
+    utils: any
+  ) {
     console.log(args, utils);
     const { listArgs, variableArgs, NUM } = args;
     var _ = utils.target.lookupVariableById(listArgs);
@@ -581,7 +600,7 @@ export default class SimpleUtils extends GandiExtension {
    * v1.0.4
    */
 
-  saveJSON(args, utils) {
+  saveJSON(args: { listArgs: string }, utils: any) {
     /**
      * s = StringJSON ClientInfo
      * ss = JSONObj s
@@ -663,10 +682,10 @@ export default class SimpleUtils extends GandiExtension {
 
   /**
    * 通知
+   * Notification弹窗
    * @param args
    */
-  // Notification弹窗
-  Notification(args) {
+  Notification(args: { TITLE: SCarg; CONTENT: SCarg; ICON: SCarg }) {
     const { TITLE, CONTENT, ICON } = args;
     const globals = "yuen.sleep." + window.location.pathname;
     var tt = window.localStorage.getItem(globals);
@@ -689,10 +708,10 @@ export default class SimpleUtils extends GandiExtension {
 
   /**
    * 弹窗
+   * alert弹窗
    * @param args
    */
-  // alert弹窗
-  alert(args) {
+  alert(args: { CONTENT_1: string }) {
     const { CONTENT_1 } = args;
     const globals = "yuen.sleep." + window.location.pathname;
     var tt = window.localStorage.getItem(globals);
@@ -711,11 +730,11 @@ export default class SimpleUtils extends GandiExtension {
   }
 
   /**
-   *
-   * @param args 获取客户端信息
+   * 获取客户端信息
+   * @param args
    * @returns
    */
-  get_client_info(args) {
+  get_client_info(args: { TYPE: string }) {
     var a = this.client_info(args.TYPE);
     return a;
   }
