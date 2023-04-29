@@ -509,16 +509,16 @@ export default class SimpleUtils extends GandiExtension {
 
     // 通知 v1.0.0
     // 获取通知权限
-    const getNotifPerm = BlockUtil.createBool();
-    getNotifPerm.setOpcode("getNotifPerm");
-    getNotifPerm.setText("getNotifPerm");
-    getNotifPerm.setArguments({});
+    const get_notif_perm = BlockUtil.createBool();
+    get_notif_perm.setOpcode("get_notif_perm");
+    get_notif_perm.setText("get_notif_perm");
+    get_notif_perm.setArguments({});
 
     // 询问通知权限
-    const askNotifPerm = BlockUtil.createCommand();
-    askNotifPerm.setOpcode("askNotifPerm");
-    askNotifPerm.setText("askNotifPerm");
-    askNotifPerm.setArguments({});
+    const ask_notif_perm = BlockUtil.createCommand();
+    ask_notif_perm.setOpcode("ask_notif_perm");
+    ask_notif_perm.setText("ask_notif_perm");
+    ask_notif_perm.setArguments({});
 
     // 发送通知
     const notification = BlockUtil.createCommand();
@@ -581,8 +581,8 @@ export default class SimpleUtils extends GandiExtension {
      * 弹窗
      */
     this.addTextLabel("t.default.2");
-    this.addBlock(askNotifPerm);
-    this.addBlock(getNotifPerm);
+    this.addBlock(ask_notif_perm);
+    this.addBlock(get_notif_perm);
     this.addBlock(notification);
     this.addBlock(TOAST);
 
@@ -711,14 +711,14 @@ export default class SimpleUtils extends GandiExtension {
   /**
    * 获取是否拥有通知权限
    */
-  getNotifPerm(): boolean {
+  get_notif_perm(): boolean {
     const perm = Notification.permission;
     return perm === "granted";
   }
   /**
    * 申请通知权限
    */
-  async askNotifPerm() {
+  async ask_notif_perm() {
     const perm = Notification.permission;
     if (perm === "default") {
       await Notification.requestPermission();
@@ -734,7 +734,7 @@ export default class SimpleUtils extends GandiExtension {
   async Notification(args: { TITLE: SCarg; CONTENT: SCarg; ICON: SCarg }) {
     const { TITLE, CONTENT, ICON } = args;
     // 不用担心，重复调用时浏览器只会询问一次
-    await this.askNotifPerm();
+    await this.ask_notif_perm();
     let perm = Notification.permission;
     if (perm !== "granted") {
       console.warn(`YUEN: 还没有获取通知权限`);
