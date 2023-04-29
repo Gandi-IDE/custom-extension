@@ -21,6 +21,7 @@ import blockIcon from "./assets/icon.png";
 /** Scratch 参数类型 */
 type SCarg = string | number | boolean;
 
+/** 浏览器信息 */
 type userAgentObj_type = {
   browserName: string; // 浏览器名称
   browserVersion: string; // 浏览器版本
@@ -78,6 +79,15 @@ export default class SimpleUtils extends GandiExtension {
   // v1.0.4
   // add runtime
   runtime: any;
+
+  /** 弹窗通知冷却时间(秒) */
+  get ALERT_COOLDOWN(): number {
+    return 3 /* 30 */ /* 4*60 */;
+  }
+
+  /** 上一次调用的时间 */
+  alert_calltime: number = -Infinity;
+
   constructor(runtime: any) {
     super(runtime);
     this.runtime = runtime;
@@ -706,23 +716,14 @@ export default class SimpleUtils extends GandiExtension {
    */
   Notification(args: { TITLE: SCarg; CONTENT: SCarg; ICON: SCarg }) {
     const { TITLE, CONTENT, ICON } = args;
-    const globals = "yuen.sleep." + window.location.pathname;
-    const tt = window.localStorage.getItem(globals);
-    const t =
-      Number(window.localStorage.getItem(globals)) + 60000 * 60 * 24 * 7;
-    if (t <= Date.now() || tt == "null") {
-      localStorage.removeItem(globals);
-    }
-    const ttt = Number(window.localStorage.getItem(globals));
-    if (ttt + 60000 * 4 <= Date.now()) {
+    if (this.alert_calltime + this.ALERT_COOLDOWN * 1000 <= Date.now()) {
+      this.alert_calltime = Date.now();
       new window.Notification(String(TITLE), {
         body: String(CONTENT),
         icon: String(ICON),
       });
-      window.localStorage.setItem(globals, Date.now().toString());
     } else {
-      alert("YUEN: 4分钟内调用过一次了，请4分钟后调用");
-      console.warn("YUEN: 4分钟内只能调用1次弹窗或通知");
+      console.warn(`YUEN: ${this.ALERT_COOLDOWN}秒内只能调用1次弹窗或通知`);
     }
   }
 
@@ -733,20 +734,11 @@ export default class SimpleUtils extends GandiExtension {
    */
   alert(args: { CONTENT_1: string }) {
     const { CONTENT_1 } = args;
-    const globals = "yuen.sleep." + window.location.pathname;
-    const tt = window.localStorage.getItem(globals);
-    const t =
-      Number(window.localStorage.getItem(globals)) + 60000 * 60 * 24 * 7;
-    if (t <= Date.now() || tt == "null") {
-      localStorage.removeItem(globals);
-    }
-    const ttt = Number(window.localStorage.getItem(globals));
-    if (ttt + 60000 * 4 <= Date.now()) {
+    if (this.alert_calltime + this.ALERT_COOLDOWN * 1000 <= Date.now()) {
+      this.alert_calltime = Date.now();
       alert(CONTENT_1);
-      window.localStorage.setItem(globals, Date.now().toString());
     } else {
-      alert("YUEN: 4分钟内调用过一次了，请4分钟后调用");
-      console.warn("YUEN: 4分钟内只能调用1次弹窗或通知");
+      console.warn(`YUEN: ${this.ALERT_COOLDOWN}秒内只能调用1次弹窗或通知`);
     }
   }
 
