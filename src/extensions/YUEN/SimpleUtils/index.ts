@@ -508,10 +508,23 @@ export default class SimpleUtils extends GandiExtension {
     saveJSON.setArguments({ listArgs });
 
     // 通知 v1.0.0
-    const Notification = BlockUtil.createCommand();
-    Notification.setOpcode("Notification");
-    Notification.setText("notification");
-    Notification.setArguments({ TITLE, CONTENT, ICON });
+    // 获取通知权限
+    const getNotifPerm = BlockUtil.createBool();
+    getNotifPerm.setOpcode("getNotifPerm");
+    getNotifPerm.setText("getNotifPerm");
+    getNotifPerm.setArguments({});
+
+    // 询问通知权限
+    const askNotifPerm = BlockUtil.createCommand();
+    askNotifPerm.setOpcode("askNotifPerm");
+    askNotifPerm.setText("askNotifPerm");
+    askNotifPerm.setArguments({});
+
+    // 发送通知
+    const notification = BlockUtil.createCommand();
+    notification.setOpcode("Notification");
+    notification.setText("notification");
+    notification.setArguments({ TITLE, CONTENT, ICON });
 
     // 是否联网 v1.0.0
     const IS_ONLINE = BlockUtil.createBool();
@@ -568,7 +581,9 @@ export default class SimpleUtils extends GandiExtension {
      * 弹窗
      */
     this.addTextLabel("t.default.2");
-    this.addBlock(Notification);
+    this.addBlock(askNotifPerm);
+    this.addBlock(getNotifPerm);
+    this.addBlock(notification);
     this.addBlock(TOAST);
 
     /**
@@ -710,6 +725,23 @@ export default class SimpleUtils extends GandiExtension {
   }
 
   /**
+   * 获取是否拥有通知权限
+   */
+  getNotifPerm(): boolean {
+    const perm = Notification.permission;
+    return perm === "granted";
+  }
+  /**
+   * 申请通知权限
+   */
+  async askNotifPerm() {
+    const perm = Notification.permission;
+    if (perm === "default") {
+      await Notification.requestPermission();
+    }
+  }
+
+  /**
    * 通知
    * Notification弹窗
    * @param args
@@ -717,16 +749,15 @@ export default class SimpleUtils extends GandiExtension {
    */
   async Notification(args: { TITLE: SCarg; CONTENT: SCarg; ICON: SCarg }) {
     const { TITLE, CONTENT, ICON } = args;
+    // 不用担心，重复调用时浏览器只会询问一次
+    await this.askNotifPerm();
+    let perm = Notification.permission;
+    if (perm !== "granted") {
+      console.warn(`YUEN: 还没有获取通知权限`);
+      return;
+    }
     if (this.alert_calltime + this.ALERT_COOLDOWN * 1000 <= Date.now()) {
       this.alert_calltime = Date.now();
-      let perm = Notification.permission;
-      if (perm === "default") {
-        perm = await Notification.requestPermission();
-      }
-      if (perm !== "granted") {
-        console.warn(`YUEN: 用户禁用通知权限`);
-        return;
-      }
       new Notification(String(TITLE), {
         body: String(CONTENT),
         icon: String(ICON),
