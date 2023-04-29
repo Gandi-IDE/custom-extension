@@ -683,35 +683,19 @@ export default class SimpleUtils extends GandiExtension {
    * prod：不在编辑器内
    * dev：在编辑器内
    */
-  // 运行环境
   deploy_env() {
     const ur1 = window.location.pathname;
     //let ur2 = window.location.search;
 
-    // http://ccw.site/gandi
-    // .....--........-^^^^^
-    // https://ccw.site/gandi
-    // ......--........-^^^^^
-    // https://www.ccw.site/gandi
-    // ......--............-^^^^^
-    // https://www.ccw.site/gandi/project
-    // ......--............-^^^^^-
-    const rege = /^[^\/]*\/\/[^\/]*\/(?:gandi|creator)(?:\/|$)/;
-    //          |\____/\__/\____/\/\_______________/\______/
-    //          |   |    |   |    |        |            |
-    //          `--文本开头  |    |        |            |
-    //              |    |   |    |        |            |
-    //              `--前面协议（http/https）的部分     |
-    //                   |   |    |        |            |
-    //                   `--“//”部分       |            |
-    //                       |    |        |            |
-    //                       `--域名（ccw.site）部分    |
-    //                            |        |            |
-    //                            `--“/”部分            |
-    //                                     |            |
-    //                   gandi或者creator--'            |
-    //                                                  |
-    //                                 “/”或者文本末尾--'
+    // /gandi
+    // ^^^^^^
+    // /gandi/project
+    // ^^^^^^-
+    const rege = /\/(?:gandi|creator)(?:\/|$)/;
+    //            \/\_______________/\______/
+    //   “/”部分--'         |         |
+    //    gandi或者creator--'         |
+    //               “/”或者文本末尾--'
     return rege.test(ur1) ? "dev" : "prod";
   }
 
