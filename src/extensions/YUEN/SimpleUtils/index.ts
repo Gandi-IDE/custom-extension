@@ -713,12 +713,21 @@ export default class SimpleUtils extends GandiExtension {
    * 通知
    * Notification弹窗
    * @param args
+   * @async
    */
-  Notification(args: { TITLE: SCarg; CONTENT: SCarg; ICON: SCarg }) {
+  async Notification(args: { TITLE: SCarg; CONTENT: SCarg; ICON: SCarg }) {
     const { TITLE, CONTENT, ICON } = args;
     if (this.alert_calltime + this.ALERT_COOLDOWN * 1000 <= Date.now()) {
       this.alert_calltime = Date.now();
-      new window.Notification(String(TITLE), {
+      let perm = Notification.permission;
+      if (perm === "default") {
+        perm = await Notification.requestPermission();
+      }
+      if (perm !== "granted") {
+        console.warn(`YUEN: 用户禁用通知权限`);
+        return;
+      }
+      new Notification(String(TITLE), {
         body: String(CONTENT),
         icon: String(ICON),
       });
