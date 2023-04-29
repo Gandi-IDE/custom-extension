@@ -9,7 +9,6 @@ const witcat_file_helper_icon = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA
 const witcat_file_helper_extensionId = "WitCatFileHelper";
 let download = 0;
 /** @type {HTMLInputElement} */
-let input;
 setInterval(() => {
     if (download > 0) {
         download--;
@@ -20,6 +19,12 @@ setInterval(() => {
 
 class WitCatFileHelper {
     constructor(runtime) {
+        /**
+         * 被打开的文件列表(input.files)
+         * @type {File[]}
+         */
+        this.filelist = [];
+
         this.runtime = runtime;
         this._formatMessage = runtime.getFormatMessage({
             "zh-cn": {
@@ -702,39 +707,94 @@ class WitCatFileHelper {
             return "";
         }
     }
+
+    /**
+     * 打开文件选择框
+     * @param {string} accept 接受的文件扩展名
+     * @param {boolean} multiple 接受多个文件
+     * @return {Promise<File[]>} [异步地]返回选择后的文件列表input.files转换成的数组(可能没有文件)
+     */
+    _inputfileclick(accept, multiple) {
+        return new Promise((resolve, reject) => {
+            const input = document.createElement("input");
+            input.type = "file";
+            input.accept = accept;
+            input.style.display = "none";
+            input.multiple = multiple;
+            input.click();
+            input.addEventListener("change", () => {
+                if (input.files === null) {
+                    reject(new Error("不应该看到这个"));
+                } else {
+                    // 返回了关键的 input.files，而不是整个 input。
+                    // 之后如果要考虑“读取素材库文件”，“拖动导入文件”等
+                    // 只能获得 Blob/File 的情况，可以方便适配
+                    // 这里加 Array.from 是因为 input.files 是 FileList，
+                    // 不是 File[]，一些数组拥有的功能它没有。虽然一般情况下
+                    // 不会注意到区别，但是类型检查会把这种情况查出来。
+                    resolve(Array.from(input.files));
+                }
+            }, {once: true}); // 只触发一次
+            window.addEventListener("focus", () => {
+                setTimeout(() => {
+                    if (input.files === null) {
+                        reject(new Error("不应该看到这个"));
+                    } else {
+                        resolve(Array.from(input.files));
+                    }
+                }, 1000);
+            }, {once: true}); // 只触发一次
+        });
+    }
+
+    /**
+     * 读取文件
+     * @param {File|Blob} file File 或者 Blob
+     * @param {"arraybuffer"|"dataurl"|"text"} mode 读取模式
+     * @return {Promise<string|ArrayBuffer|null>} [异步地]返回读取后的内容
+     */
+    _readerasync(file, mode) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => {
+                resolve(reader.result);
+            };
+            reader.onerror = (e) => {
+                reject(e);
+            };
+            switch (mode) {
+                case "arraybuffer":
+                    reader.readAsArrayBuffer(file);
+                    break;
+                case "dataurl":
+                    reader.readAsDataURL(file);
+                    break;
+                case "text":
+                    reader.readAsText(file);
+                    break;
+                default:
+                    reject(new Error("mode 错误: 应该是 arraybuffer, dataurl 或者 text"));
+                    return;
+            }
+        });
+    }
+
     /**
      * 打开文件
      * @returns {Promise<string>} 文件内容
      */
-    openfile() {
-        return new Promise(resolve => {
-            input = document.createElement("input");
-            input.type = "file";
-            input.style.display = "none";
-            input.click();
-            input.onchange = () => {
-                const reader = new FileReader();
-                if (input.files === null || input.files.length < 1) {
-                    resolve("");
-                    return;
-                }
-                const file = input.files[0];
-                reader.onload = () => {
-                    resolve(String(reader.result));
-                };
-                reader.onerror = () => {
-                    resolve("");
-                };
-                reader.readAsText(file);
-            }
-            window.onfocus = () => {
-                // 开始计时或者播放
-                setTimeout(() => {
-                    resolve("");
-                }, 1000);
-            }
-        });
+    async openfile() {
+        // 因为可以返回 Promise，所以这里直接用 async
+        // 注意读取后的 File[] 保存到了 this.filelist
+        this.filelist = await this._inputfileclick("*/*", false);
+        const file = this.filelist[0];
+        if (file === undefined) {
+            // 记住这是 async
+            return "";
+        }
+        return String(await this._readerasync(file, "text"));
     }
+
     /**
      * 打开任意文件
      * @param {object} args
@@ -743,65 +803,47 @@ class WitCatFileHelper {
      * @param {SCarg|"base64"|"utf-8"} args.type 返回值类型
      * @returns {Promise<string>} 文件内容
      */
-    openfiless(args) {
-        return new Promise(resolve => {
-            try {
-                input = document.createElement("input");
-                input.type = "file";
-                input.accept = String(args.name);
-                input.style.display = "none";
-                console.log(args);
-                input.multiple = args.nums === "multiple";
-                input.click();
-                input.onchange = () => {
-                    if (input.files === null || input.files.length === 0) {
-                        console.warn("File_Helper.js: 没有选择文件")
-                        resolve("");
-                        return;
-                    }
-                    const file = input.files[0];
-                    if (file.size > 50 * 1024 * 1024) { // 50M
-                        let usercheck = confirm(this.formatMessage("WitCatFileHelper.asks"));
-                        if (!usercheck) {
-                            console.error("文件过大\nfile is too lage.");
-                            resolve("");
-                            return;
-                        }
-                    }
+    async openfiless(args) {
+        try {
+            // 因为可以返回 Promise，所以这里直接用 async
+            // 注意读取后的 File[] 保存到了 this.filelist
+            let accepttype = String(args.name);
+            let multiple = args.nums === "multiple";
 
-                    const reader = new FileReader();
-                    switch (args.type) {
-                        case "base64":
-                            reader.readAsDataURL(file);
-                            break;
-                        case "utf-8":
-                            reader.readAsText(file);
-                            break;
-                    }
-                    reader.onload = (e) => {
-                        if (e.target !== null && typeof (e.target.result) === "string") {
-                            resolve(e.target.result);
-                        } else {
-                            resolve("");
-                        }
-                    };
-                    reader.onerror = (e) => {
-                        resolve("error:" + e);
-                    };
-                }
-                window.onfocus = () => {
-                    // 开始计时或者播放
-                    setTimeout(() => {
-                        resolve("");
-                    }, 1000);
+            this.filelist = await this._inputfileclick(accepttype, multiple);
+            if (this.filelist.length === 0) {
+                console.warn("File_Helper.js: 没有选择文件")
+                // 这是 async 函数
+                return "";
+            }
+
+            const file = this.filelist[0];
+            if (file.size > 50 * 1024 * 1024) { // 50M
+                let usercheck = confirm(this.formatMessage("WitCatFileHelper.asks"));
+                if (!usercheck) {
+                    console.error("文件过大\nfile is too lage.");
+                    return "";
                 }
             }
-            catch (e) {
-                console.error("witcat open any file error:", e);
-                resolve("");
+
+            /** @type {"text"|"arraybuffer"|"dataurl"} */
+            let mode = "text";
+            switch (args.type) {
+                case "base64":
+                    mode = "dataurl";
+                    break;
+                case "utf-8":
+                    mode = "text";
+                    break;
             }
-        });
+            return String(await this._readerasync(this.filelist[0], mode));
+        }
+        catch (e) {
+            console.error("witcat open any file error:", e);
+            return "";
+        }
     }
+
     /**
      * 打开文件的信息
      * @param {object} args
@@ -811,10 +853,7 @@ class WitCatFileHelper {
      */
     file(args) {
         try {
-            if (input.files === null) {
-                return "";
-            }
-            const file = input.files[Number(args.num) - 1];
+            const file = this.filelist[Number(args.num) - 1];
             switch (args.type) {
                 case "name":
                     return file.name;
@@ -829,18 +868,8 @@ class WitCatFileHelper {
                     return file.size / 1024 + "KB";
                 case "content":
                     // 之后再说
-                    return new Promise(resolve => {
-                        const reader = new FileReader();
-                        reader.onload = () => {
-                            resolve(String(reader.result));
-                        };
-                        reader.onerror = () => {
-                            resolve("");
-                        };
-                        if (file !== undefined)
-                            reader.readAsText(file);
-                        else
-                            resolve("");
+                    return new Promise(async (resolve) => {
+                        resolve(String(await this._readerasync(file, "text")));
                     })
                 default:
                     return "";
