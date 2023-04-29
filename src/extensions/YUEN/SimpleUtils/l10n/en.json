@@ -10,11 +10,11 @@
     "osVersion": "osVersion",
     "deviceName": "deviceName",
     "CPU_Type": "CPU bits",
-    "is_online": "Is Online?",
+    "is_online": "is Online?",
     "get_notif_perm": "notify permission granted?",
     "ask_notif_perm": "Ask for notify permission",
     "notification": "Notify title: [TITLE] content: [CONTENT] icon: [ICON]",
-    "alert": "alert Toast [CONTENT_1]",
+    "alert": "Alert [CONTENT_1]",
     "default": " ",
     "t.default": "🌅Basic functionality",
     "t.default.1": "🔢Common Boolean and return values",
@@ -25,6 +25,6 @@
     "title": "Notification Name",
     "content": "i like COCREA",
     "icon": "https://cocrea.world/favicon-32x32.png",
-    "saveJSON": "Overlay client information to list [listArgs]",
+    "saveJSON": "Fill client information in list [listArgs]",
     "set_value_for_list_lenght": "Repeat the [listArgs] project several times, incrementing [variableArgs] by [NUM]"
 }
