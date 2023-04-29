@@ -539,6 +539,11 @@ export default class SimpleUtils extends GandiExtension {
     TOAST.setArguments({ CONTENT_1 });
 
     // 运行环境 当前是编辑器还是发布页
+    const IS_SEE_INSIDE = BlockUtil.createBool();
+    IS_SEE_INSIDE.setOpcode("is_see_inside");
+    IS_SEE_INSIDE.setText("is_see_inside");
+    IS_SEE_INSIDE.setArguments({});
+
     const DEPLOY_ENV = BlockUtil.createReporter();
     DEPLOY_ENV.setReporterScope(ReporterScope.GLOBAL);
     DEPLOY_ENV.setOpcode("deploy_env");
@@ -573,6 +578,7 @@ export default class SimpleUtils extends GandiExtension {
      */
     this.addTextLabel("t.default.1");
     this.addBlock(IS_ONLINE);
+    this.addBlock(IS_SEE_INSIDE);
     this.addBlock(DEPLOY_ENV);
 
     /**
@@ -679,14 +685,10 @@ export default class SimpleUtils extends GandiExtension {
   }
 
   /**
-   * 运行环境
-   * prod：不在编辑器内
-   * dev：在编辑器内
+   * 是否在创作页？
    */
-  deploy_env() {
+  is_see_inside() {
     const ur1 = window.location.pathname;
-    //let ur2 = window.location.search;
-
     // /gandi
     // ^^^^^^
     // /gandi/project
@@ -696,7 +698,16 @@ export default class SimpleUtils extends GandiExtension {
     //   “/”部分--'         |         |
     //    gandi或者creator--'         |
     //               “/”或者文本末尾--'
-    return rege.test(ur1) ? "dev" : "prod";
+    return rege.test(ur1);
+  }
+
+  /**
+   * 运行环境
+   * prod：不在编辑器内
+   * dev：在编辑器内
+   */
+  deploy_env() {
+    return this.is_see_inside ? "dev" : "prod";
   }
 
   /**
