@@ -1528,7 +1528,7 @@ function deleteButton() {
 /** 检测作品详情页显示按钮 */
 function showButton() {
     let url = window.location.pathname;
-    if (url.split("/")[1] === "detail" || url.split("/")[1].split("")[0] === "@") {
+    if (!(url.startsWith("/gandi/") || url.startsWith("/creator/"))) {
         alert("此作品使用了本地储存，将会在您的电脑上存储内容，如需要删除，可以从右下角按钮（可以隐藏）进入管理页面\nThis work uses local storage and will store content on your computer. If you need to delete it, you can enter the management page from the lower right button (which can be hidden)")
         let t = document.createElement("button");
         t.style.position = "fixed";
