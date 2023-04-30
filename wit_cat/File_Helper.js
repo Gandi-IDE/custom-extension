@@ -827,7 +827,7 @@ class WitCatFileHelper {
     async openfile() {
         // 因为可以返回 Promise，所以这里直接用 async
         // 注意读取后的 File[] 保存到了 this.filelist
-        this.filelist = await this._inputfileclick("*/*", false);
+        this.filelist = await this._inputfileclick("", false);
         const file = this.filelist[0];
         if (file === undefined) {
             // 记住这是 async
