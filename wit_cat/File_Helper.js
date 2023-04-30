@@ -926,7 +926,7 @@ class WitCatFileHelper {
                     mode = "text";
                     break;
             }
-            return String(await this._readerasync(this.filelist[0], mode));
+            return String(await this._readerasync(file, mode));
         }
         catch (e) {
             console.error("witcat open any file error:", e);
