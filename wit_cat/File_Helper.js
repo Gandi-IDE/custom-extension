@@ -13,10 +13,16 @@ const witcat_file_helper_extensionId = "WitCatFileHelper";
 class WitCatFileHelper {
     constructor(runtime) {
         /**
-         * 被打开的文件列表(input.files)
+         * 被打开的文件列表(类似input.files)
          * @type {File[]}
          */
         this.filelist = [];
+
+        /**
+         * 预读取的文件内容
+         * @type {string[]}
+         */
+        this.filecontent = [];
 
         /**
          * 短时间内连续下载数量
@@ -832,13 +838,37 @@ class WitCatFileHelper {
     }
 
     /**
+     * 提前加载所有已经打开的文件，注意是 async 的
+     */
+    async _preloadcontent() {
+        this.filecontent = [];
+        for (let file of this.filelist) {
+            this.filecontent.push(String(await this._readerasync(file, "text")));
+        }
+    }
+
+    /**
      * 打开文件
      * @returns {Promise<string>} 文件内容
      */
     async openfile() {
         // 因为可以返回 Promise，所以这里直接用 async
+        const filelist = await this._inputfileclick("", false);
+        // 首先，检查所有打开的文件大小
+        if (filelist.some((file) => file.size > 50 * 1024 * 1024)) { // 50M
+            let usercheck = confirm(this.formatMessage("WitCatFileHelper.asks"));
+            if (!usercheck) {
+                console.error("文件过大\nfile is too lage.");
+                return "";
+            }
+        }
+
+        // 检查通过后，才把文件列表更新到类里。
         // 注意读取后的 File[] 保存到了 this.filelist
-        this.filelist = await this._inputfileclick("", false);
+        this.filelist = filelist;
+        // 提前加载所有文件的内容，这样就不需要担心后面读取文件内容的时候要异步了
+        this._preloadcontent();
+
         const file = this.filelist[0];
         if (file === undefined) {
             // 记住这是 async
@@ -862,7 +892,22 @@ class WitCatFileHelper {
             let accepttype = String(args.name);
             let multiple = args.nums === "multiple";
 
-            this.filelist = await this._inputfileclick(accepttype, multiple);
+            const filelist = await this._inputfileclick(accepttype, multiple);
+            // 首先，检查所有打开的文件大小
+            if (filelist.some((file) => file.size > 50 * 1024 * 1024)) { // 50M
+                let usercheck = confirm(this.formatMessage("WitCatFileHelper.asks"));
+                if (!usercheck) {
+                    console.error("文件过大\nfile is too lage.");
+                    return "";
+                }
+            }
+
+            // 检查通过后，才把文件列表更新到类里。
+            this.filelist = filelist;
+            // 提前加载所有文件的内容，这样就不需要担心后面读取文件内容的时候要异步了
+            this._preloadcontent();
+
+            // 返回第一个文件的内容
             if (this.filelist.length === 0) {
                 console.warn("File_Helper.js: 没有选择文件")
                 // 这是 async 函数
@@ -870,13 +915,6 @@ class WitCatFileHelper {
             }
 
             const file = this.filelist[0];
-            if (file.size > 50 * 1024 * 1024) { // 50M
-                let usercheck = confirm(this.formatMessage("WitCatFileHelper.asks"));
-                if (!usercheck) {
-                    console.error("文件过大\nfile is too lage.");
-                    return "";
-                }
-            }
 
             /** @type {"text"|"arraybuffer"|"dataurl"} */
             let mode = "text";
@@ -901,7 +939,7 @@ class WitCatFileHelper {
      * @param {object} args
      * @param {SCarg|"name"|"suffix"|"size"|"content"} args.type
      * @param {SCarg} args.num
-     * @returns {string|Promise<string>}
+     * @returns {string}
      */
     file(args) {
         try {
@@ -919,10 +957,8 @@ class WitCatFileHelper {
                 case "size":
                     return file.size / 1024 + "KB";
                 case "content":
-                    // 之后再说
-                    return new Promise(async (resolve) => {
-                        resolve(String(await this._readerasync(file, "text")));
-                    })
+                    // 直接读取预加载的文件内容
+                    return this.filecontent[Number(args.num) - 1];
                 default:
                     return "";
             }
