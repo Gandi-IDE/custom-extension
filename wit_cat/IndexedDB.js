@@ -92,8 +92,24 @@ let db;
  */
 let id;
 
-let request = window.indexedDB.open("witcat", 2);
-request.onupgradeneeded = function () {
+/**
+ * 异步打开数据库
+ * @param {string} name
+ * @param {number} version
+ * @param {(request: IDBRequest, event: IDBVersionChangeEvent) => any} upgrade_func
+ */
+function openDBAsync(name, version, upgrade_func) {
+    return new Promise((resolve, reject) => {
+        let request = window.indexedDB.open(name, version);
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = (err) => reject(err);
+        request.onupgradeneeded = (event) => {
+            upgrade_func(request, event);
+        };
+    });
+};
+
+openDBAsync("witcat", 2, (request) => {
     console.log("初始化本地存储键值对");
     let objectStore;
     db = request.result;
@@ -103,14 +119,13 @@ request.onupgradeneeded = function () {
         });
         console.log("IndexedDB: load with", objectStore);
     }
-}
-request.onerror = function () {
-    alert("此浏览器貌似不支持使用本地存储键值对，建议使用chrome或者edge\nThis browser does not seem to support the use of IndexedDB key-value pairs, you can use Chrome or Edge");
-};
-request.onsuccess = function () {
-    db = request.result;
+}).then((res) => {
+    db = res;
     console.log('witcat:load key-value success');
-};
+}).catch(() => {
+    alert("此浏览器貌似不支持使用本地存储键值对，建议使用chrome或者edge\n" +
+        "This browser does not seem to support the use of IndexedDB key-value pairs, you can use Chrome or Edge");
+});
 
 //处理缓存信息
 let interval = setInterval(() => {
