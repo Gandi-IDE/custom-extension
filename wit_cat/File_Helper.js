@@ -80,8 +80,10 @@ class WitCatFileHelper {
                 "WitCatFileHelper.file": "上次打开第[num]个文件的[type]",
                 "WitCatFileHelper.file.1": "文件名",
                 "WitCatFileHelper.file.2": "文件后缀",
-                "WitCatFileHelper.file.3": "文件大小",
+                "WitCatFileHelper.file.3": "文件大小(KB)",
                 "WitCatFileHelper.file.4": "文件内容",
+                "WitCatFileHelper.file.5": "文件大小(字节数)",
+                "WitCatFileHelper.file.6": "文件大小(自动单位)",
                 "WitCatFileHelper.docs": "📖拓展教程",
                 "WitCatFileHelper.arrayjoin": "用[s]作为分隔符合并数组[text]",
                 "WitCatFileHelper.asks": "文件大小太大，可能导致浏览器崩溃，确定继续？",
@@ -131,8 +133,10 @@ class WitCatFileHelper {
                 "WitCatFileHelper.file": "[type] of [num] file opened",
                 "WitCatFileHelper.file.1": "name",
                 "WitCatFileHelper.file.2": "extension",
-                "WitCatFileHelper.file.3": "size",
+                "WitCatFileHelper.file.3": "size(KB)",
                 "WitCatFileHelper.file.4": "content",
+                "WitCatFileHelper.file.5": "size(bytes)",
+                "WitCatFileHelper.file.6": "size(auto-unit)",
                 "WitCatFileHelper.docs": "📖 Tutorial",
                 "WitCatFileHelper.arrayjoin": "join array [text], seperating by [s]",
                 "WitCatFileHelper.asks": "The file size is too large and may cause the browser to crash, are you sure to continue?",
@@ -573,6 +577,14 @@ class WitCatFileHelper {
                         value: 'size'
                     },
                     {
+                        text: this.formatMessage('WitCatFileHelper.file.5'),
+                        value: 'sizeB'
+                    },
+                    {
+                        text: this.formatMessage('WitCatFileHelper.file.6'),
+                        value: 'sizeH'
+                    },
+                    {
                         text: this.formatMessage('WitCatFileHelper.file.4'),
                         value: 'content'
                     },
@@ -956,6 +968,10 @@ class WitCatFileHelper {
                     }
                 case "size":
                     return file.size / 1024 + "KB";
+                case "sizeH":
+                    return HumanSize(file.size);
+                case "sizeB":
+                    return file.size;
                 case "content":
                     // 直接读取预加载的文件内容
                     return this.filecontent[Number(args.num) - 1];
@@ -1182,4 +1198,25 @@ function multipleText(text) {
     // 如果末尾是 \r，那么去掉。
     let a = texts.map(line => line.slice(-1) === "\r" ? line.slice(0, -1) : line);
     return a;
+}
+
+/**
+ * 把文件大小转换成合适的单位 (K, M, G, T, P)
+ * @param {number} size 文件大小
+ * @returns {string}
+ */
+function HumanSize(size) {
+    const units = ["", "K", "M", "G", "T", "P"];
+    let i = 0;
+    let sizen = size;
+    while (i < units.length - 1 && sizen > 1024) {
+        i++;
+        sizen /= 1024;
+    }
+    if (i === 0) { // 没有单位
+        return String(sizen);
+    } else {
+        // 保留两位小数
+        return sizen.toFixed(2) + units[i];
+    }
 }
