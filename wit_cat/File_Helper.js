@@ -633,7 +633,18 @@ class WitCatFileHelper {
         const maliext = ["bat", "cmd", "vbs", "ps1", "sh"];
         if (maliext.includes(SuffixName.toLowerCase())) {
             const ask = this.formatMessage("WitCatFileHelper.downloadask");
-            let a = confirm(ask + "\n" + text);
+            // 如果生成大量文字，则截短文字
+            let showtext = text;
+            const max_length = 1000;
+            const short_length = 20;
+            if (showtext.length > max_length) {
+                showtext = `${
+                    showtext.slice(0, max_length - short_length)
+                }(... 省略 ${
+                    showtext.length - max_length + short_length
+                } 字符)`;
+            }
+            let a = confirm(ask + "\n\n" + showtext);
             if (!a) {
                 return;
             }
