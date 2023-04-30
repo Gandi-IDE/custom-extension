@@ -606,8 +606,8 @@ class WitCatFileHelper {
      * @param {()=>void} callback 可以下载则调用
      */
     _downloadable(callback) {
-        this.downloadcnt += 1;
         if (this.downloadcnt < 3) {
+            this.downloadcnt += 1;
             callback();
         }
         else {
