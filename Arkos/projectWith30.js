@@ -4,8 +4,6 @@ import Color from '../utils/color.js'
 // import icon from './assets/icon.svg'
 //鸣谢：-6 优化代码和修复了一些 bug；_30 提供了部分拓展积木
 
-console.log(Cast.toNumber('123'))
-console.log(Cast.toNumber('aab'))
 class ArkosExtensions {
 	constructor(runtime) {
 		this.runtime = runtime
@@ -53,11 +51,11 @@ class ArkosExtensions {
 				'ArkosExt.isHiding': '角色隐藏？',
 				'ArkosExt.getRotationStyle': '当前旋转方式',
 				'ArkosExt.getWidthOrHeight': '获取当前造型的[t]',
-				'ArkosExt.setSize': '⚠️强行将大小设为[size]（无视限制）',
+				'ArkosExt.setSize': '强行将大小设为[size]（无视限制）',
 				'ArkosExt.width': '宽',
 				'ArkosExt.height': '高',
 
-				'ArkosExt.setXY': '⚠️强行移到x:[x]y:[y]（无视边界）',
+				'ArkosExt.setXY': '强行移到x:[x]y:[y]（无视边界）',
 				'ArkosExt.getBoundaryCoord': '获取角色的[t]',
 				'ArkosExt.top': '上边缘y',
 				'ArkosExt.bottom': '下边缘y',
@@ -118,11 +116,16 @@ class ArkosExtensions {
 
 				'30Ext.info': '✨ 以下扩展由_30提供',
 				'30Ext.info.1': '🔮 定向缩放操作',
+				'30Ext.block.mirrorSprite': '(❌废弃，请使用新积木)[mirrorMethod]当前角色',
+				'30Ext.block.clearMirror': '(❌废弃，请使用新积木)清除角色镜像变换',
 				'30Ext.block.scaleSpriteX': '将角色水平缩放比例设为[input](倍)',
 				'30Ext.block.scaleSpriteY': '将角色垂直缩放比例设为[input](倍)',
 				'30Ext.info.2': '图层操作',
 				'30Ext.block.getLayer': '角色当前图层序数',
 				'30Ext.block.setLayer': '将角色移到第[input]图层',
+				'30Ext.block.getScale': '当前角色的[input]缩放(倍数)',
+				'30Ext.block.hor': '水平',
+				'30Ext.block.ver': '垂直',
 			},
 
 			en: {
@@ -146,11 +149,11 @@ class ArkosExtensions {
 				'ArkosExt.isHiding': 'is hiding?',
 				'ArkosExt.getRotationStyle': 'rotation style',
 				'ArkosExt.getWidthOrHeight': 'get [t] of the current costume',
-				'ArkosExt.setSize': '⚠️force the size to [size] % (regardless of limitation) ',
+				'ArkosExt.setSize': 'force the size to [size] % (regardless of limitation) ',
 				'ArkosExt.width': 'width',
 				'ArkosExt.height': 'height',
 
-				'ArkosExt.setXY': '⚠️force to x:[x]y:[y] (regardless of the boundary)',
+				'ArkosExt.setXY': 'force to x:[x]y:[y] (regardless of the boundary)',
 				'ArkosExt.getBoundaryCoord': 'get [t] of the sprite',
 				'ArkosExt.top': 'top y',
 				'ArkosExt.bottom': 'bottom y',
@@ -222,11 +225,16 @@ class ArkosExtensions {
 
 				'30Ext.info': '✨ Contributed by _30',
 				'30Ext.info.1': '🔮 Directional scale',
+				'30Ext.block.mirrorSprite': '(❌abandoned, use new block instead)[mirrorMethod] current sprite',
+				'30Ext.block.clearMirror': '(❌abandoned, use new block instead)Clear the mirror transform',
 				'30Ext.block.scaleSpriteX': 'Set the horizontal scaling of the sprite to [input] (Times)',
 				'30Ext.block.scaleSpriteY': 'Set the vertical scaling of the sprite to [input] (Times)',
 				'30Ext.info.2': 'Layer Manage',
 				'30Ext.block.getLayer': 'Current layer of the sprite',
 				'30Ext.block.setLayer': 'Move the sprite to layer [input]',
+				'30Ext.block.getScale': '[input]scaling of the sprite (Times)',
+				'30Ext.block.hor': 'horizontal',
+				'30Ext.block.ver': 'vertical',
 			},
 		})
 	}
@@ -1018,6 +1026,38 @@ class ArkosExtensions {
 				//
 				"---" + this.formatMessage("30Ext.info"), //感谢30提供的扩展
 				"---" + this.formatMessage("30Ext.info.1"), //定向缩放
+				{
+					opcode: 'mirrorSprite',
+					blockType: 'command',
+					text: this.formatMessage('30Ext.block.mirrorSprite'),
+					hideFromPalette: true,
+					arguments: {
+						mirrorMethod: {
+							type: 'string',
+							defaultValue: ''
+						}
+					}
+				},
+				// 清除镜像
+				{
+					opcode: 'clearMirror',
+					blockType: 'command',
+					hideFromPalette: true,
+					text: this.formatMessage('30Ext.block.clearMirror')
+				},
+				//获取缩放 
+				{
+					opcode: 'getScale',
+					blockType: 'reporter',
+					text: this.formatMessage('30Ext.block.getScale'),
+					arguments: {
+						input: {
+							type: 'string',
+							menu: 'HVMenu',
+						}
+					},
+					filter: ['sprite']
+				},
 				// x向缩放
 				{
 					opcode: 'scaleSpriteX',
@@ -1066,6 +1106,15 @@ class ArkosExtensions {
 				},
 			],
 			menus: {
+				HVMenu: [{
+					text: this.formatMessage('30Ext.block.hor'), //水平
+					value: 'h'
+				},
+				{
+					text: this.formatMessage('30Ext.block.ver'), //垂直
+					value: 'v'
+				},
+			],
 				conInfoMenu: [{
 						text: this.formatMessage('ArkosExt.conInfo1'), //名称
 						value: '1'
@@ -1538,7 +1587,7 @@ class ArkosExtensions {
 			this.sortedTable[args.list].list,
 			this.sortedTable[args.list].order, {
 				name: args.name,
-				rankValue: args.value,
+				rankValue: Cast.toNumber(args.value),
 				extra: args.extra
 			});
 	}
@@ -1808,6 +1857,21 @@ class ArkosExtensions {
 	//
 	//角色造型操作
 	//
+	clearMirror(){
+		console.warn("镜像积木已下线，请使用新积木\nMirror block is offline, please use new blocks.");
+	}
+
+	mirrorSprite(){
+		console.warn("镜像积木已下线，请使用新积木\nMirror block is offline, please use new blocks.");
+	}
+
+	getScale(args, util) {
+		let drawable = this.runtime.renderer._allDrawables[util.target.drawableID]
+		if(!drawable.ext30_scale) return 1
+		else if(args.input === 'v') return drawable.ext30_scale[1]
+		else return drawable.ext30_scale[0]
+	}
+	
 	scaleSprite(index, value, util) {
 		let target = util.target;
 		let drawable = this.runtime.renderer._allDrawables[target.drawableID];
@@ -1844,6 +1908,32 @@ class ArkosExtensions {
 	setLayer(args, util) {
 		util.target.renderer.setDrawableOrder(util.target.drawableID, args.input, 'sprite');
 	}
+}
+
+
+
+window.tempExt = {
+	Extension: ArkosExtensions,
+	info: {
+		name: 'hcn.extensionName',
+		description: 'hcn.description',
+		extensionId: 'hcnTest',
+		// iconURL: icon,
+		// insetIconURL: cover,
+		featured: true,
+		disabled: false,
+		collaborator: 'only for hcn test',
+	},
+	l10n: {
+		'zh-cn': {
+			'hcn.extensionName': 'hcn 的测试',
+			'hcn.description': 'hcn 的测试',
+		},
+		en: {
+			'hcn.extensionName': 'hcn test',
+			'hcn.description': 'hcn test',
+		},
+	},
 }
 
 
