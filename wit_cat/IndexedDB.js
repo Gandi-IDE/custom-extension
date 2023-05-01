@@ -107,7 +107,7 @@ function openDBAsync(name, version, upgrade_func) {
             upgrade_func(request, event);
         };
     });
-};
+}
 
 openDBAsync("witcat", 2, (request) => {
     console.log("初始化本地存储键值对");
@@ -791,74 +791,116 @@ window.tempExt = {
 };
 
 /**
+ * 把 indexedDB request 转换为 Promise，
+ * 成功返回 request.result，失败返回 error 事件的 Error
+ * @param {IDBRequest} request
+ * @returns {Promise<any>}
+ */
+function requestAsync(request) {
+    return new Promise((resolve, reject) => {
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = (err) => reject(err);
+    });
+}
+
+/**
  * 设置键值对
  * @param {string} key_ 键名
  * @param {{[key: string]: any}} json 键值:不可包含"key"
  * @param {()=>void} recall 回调函数
  * @returns {void}
+ * @deprecated
  */
 function SetKey(key_, json, recall) {
+    SetKeyAsync(key_, json).then(() => {
+        if (recall)
+            recall();
+    }).catch((err) => {
+        console.warn(err);
+    });
+}
+
+/**
+ * 异步设置键值对
+ * @param {string} key_ 键名
+ * @param {{[key: string]: any}} json 键值:不可包含"key"
+ * @returns {Promise<any>} 设置成功后 resolve
+ */
+async function SetKeyAsync(key_, json) {
     json.key = key_;
-    var transaction = db.transaction(['key'], "readwrite");
-    var store = transaction.objectStore('key');
+    let transaction = db.transaction(['key'], "readwrite");
+    let store = transaction.objectStore('key');
 
-    var objectStore = transaction.objectStore('key');
-    var request = objectStore.get(key_);
+    let objectStore = transaction.objectStore('key');
+    let request = objectStore.get(key_);
+    let result = await requestAsync(request);
 
-    request.onerror = function () {
-        return;
-    };
-
-    request.onsuccess = function () {
-        if (request.result) {
-            store.put(json);
-        } else {
-            store.add(json);
-        }
-        if (recall)
-            recall();
-    };
-
-    store.onerror = function () {
-        console.error('数据写入失败');
-        if (recall)
-            recall();
+    if (result) {
+        request = store.put(json);
+    } else {
+        request = store.add(json);
     }
+
+    await requestAsync(request);
+
+    // store 上没有 error 事件。
+    // store.onerror = function (err) {
+    //     console.error('数据写入失败');
+    //     reject(err);
+    // }
 }
 
 /**
  * 删除键值对
  * @param {string} key_ 键名
+ * @deprecated
  */
 function DeleteKey(key_) {
-    var transaction = db.transaction(['key'], "readwrite");
-    var store = transaction.objectStore('key');
-    store.delete(key_);
+    DeleteKeyAsync(key_);
+}
+
+/**
+ * 异步删除键值对
+ * @param {string} key_ 键名
+ * @returns {Promise<any>} 删除后 Promise 会 resolve，确保已经删除。
+ */
+async function DeleteKeyAsync(key_) {
+    let transaction = db.transaction(['key'], "readwrite");
+    let store = transaction.objectStore('key');
+    await requestAsync(store.delete(key_));
 }
 
 /** 读取键值对
  * @param {string} key_ 键名
  * @param {(result: any)=>void} recall 回调函数:e => json(key为键名)
+ * @deprecated
  */
 function ReadKey(key_, recall) {
-    new Promise(resove => {
-        var transaction = db.transaction(['key']);
-        var objectStore = transaction.objectStore('key');
-        var request = objectStore.get(key_);
-
-        request.onerror = function () {
-            recall("");
-        };
-
-        request.onsuccess = function () {
-            if (request.result) {
-                recall(request.result);
-            } else {
-                recall("")
-            }
-        };
-    })
+    ReadKeyAsync(key_).then((res) => {
+        recall(res);
+    }).catch((err) => {
+        // 对错误进行一些处理？
+        console.warn(err);
+        recall("");
+    });
 }
+
+/** 异步读取键值对
+ * @param {string} key_ 键名
+ * @returns {Promise<any>} 异步返回值，或者错误
+ */
+async function ReadKeyAsync(key_) {
+    let transaction = db.transaction(['key']);
+    let objectStore = transaction.objectStore('key');
+    let request = objectStore.get(key_);
+    let result = await requestAsync(request);
+    if (result) { // 是不是想要 request.result === null/undefined ?
+        return result;
+    } else {
+        throw new Error("request.result is falsy");
+    }
+}
+
 
 /**
  * 根据内容删除数组某一项
