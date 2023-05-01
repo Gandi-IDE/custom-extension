@@ -1175,17 +1175,11 @@ window.tempExt = {
  * @returns {string[]}
  */
 function multipleText(text) {
+    // 最好用正则处理\r，\n，\r\n三种换行符
+    // let texts = text.split(/\r\n?|\n/g);
+
     let texts = text.split("\n");
-    /** @type {string[]} */
-    let a = [];
-    if (text.indexOf("\r") !== -1) {
-        texts.forEach(e => {
-            a.push(e.split("\r")[0]);
-        });
-    }
-    else {
-        a = texts;
-    }
+    // 如果末尾是 \r，那么去掉。
+    let a = texts.map(line => line.slice(-1) === "\r" ? line.slice(0, -1) : line);
     return a;
 }
-
