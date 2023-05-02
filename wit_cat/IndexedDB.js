@@ -1182,7 +1182,10 @@ function up() {
     resizeable = false
 }
 
-/** 鼠标按下 */
+/**
+ * 鼠标按下
+ * @param {MouseEvent} e
+ */ 
 function down(e) {
     let d = getDirection(e)
     if (d !== '') {
@@ -1190,10 +1193,14 @@ function down(e) {
         direc = d
         clientX = e.clientX
         clientY = e.clientY
+        e.preventDefault()
     }
 }
 
-/** 鼠标移动 */
+/**
+ * 鼠标移动
+ * @param {MouseEvent} e
+ */
 function moves(e) {
     let d = getDirection(e);
     let cursor
@@ -1208,10 +1215,15 @@ function moves(e) {
         if (direc.indexOf('s') !== -1) {
             c.style.height = Math.max(minH, e.clientY - c.offsetTop - 98) + 'px';
         }
+
+        e.preventDefault();
     }
 }
 
-/** 获取鼠标对于窗口边缘位置 */
+/**
+ * 获取鼠标对于窗口边缘位置/
+ * @param { MouseEvent } ev
+ */
 function getDirection(ev) {
     let xP, yP, offset, dir;
     dir = '';
@@ -1522,16 +1534,14 @@ function openManages() {
         table = document.getElementsByClassName("table")[0];
         c = document.getElementById('move');
         move[0] = document.getElementById('move-header').addEventListener('mousedown', function (e) {
-            var e = e || window.event;
             mouseOffsetX = e.pageX - document.getElementById('move').offsetLeft;
             mouseOffsetY = e.pageY - document.getElementById('move').offsetTop;
-
             isDraging = true;
+            e.preventDefault();
         })
-        move[1] = document.addEventListener("mousemove", () => {
-            var e = e || window.event;
-            var moveX = 0;
-            var moveY = 0;
+        move[1] = document.addEventListener("mousemove", (e) => {
+            let moveX = 0;
+            let moveY = 0;
 
             if (isDraging === true) {
                 moveX = e.pageX - mouseOffsetX;
