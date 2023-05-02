@@ -680,7 +680,7 @@ class WitCatIndexedDB {
      * 判断键值对内容
      * @param {object} args
      * @param {SCarg} args.num 变量编号 1开始
-     * @param {SCarg|"value"|"description"} args.type 变量类型(value数值，description说明)
+     * @param {SCarg|"key"|"value"|"description"} args.type 变量类型(key键名，value数值，description说明)
      * @returns {Promise<SCarg>}
      */
     async number(args) {
@@ -1208,7 +1208,7 @@ function moves(e) {
 }
 
 /**
- * 获取鼠标对于窗口边缘位置/
+ * 获取鼠标对于窗口边缘位置
  * @param { MouseEvent } ev
  */
 function getDirection(ev) {
