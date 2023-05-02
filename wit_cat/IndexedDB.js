@@ -74,7 +74,6 @@ let minW = 500, minH = 300;
 
 /**
  * 鼠标按下时的位置，使用n、s、w、e表示
- * @type {'n'|'s'|'w'|'e'|''}
  */
 let direc = '';
 
