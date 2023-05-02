@@ -8,6 +8,7 @@ class ArkosExtensions {
 	constructor(runtime) {
 		this.runtime = runtime
 		this.tempData = {}
+		this.lastKeyPressed={} //记录上一帧按下的键状态
 		this.sortedTable = {
 			list1: {
 				order: 'desc',
@@ -24,6 +25,7 @@ class ArkosExtensions {
 				'ArkosExt.info1': '🚶 坐标和方向',
 				'ArkosExt.info2': '🔠 字符串处理',
 				'ArkosExt.info3': '🛠 实用积木',
+				'ArkosExt.info3.5': '⚙️ JSON工具',
 				'ArkosExt.info4': '📄 信息获取',
 				'ArkosExt.info5': '📊 排序表',
 				'ArkosExt.info6': '🗂️ 临时数据',
@@ -54,6 +56,27 @@ class ArkosExtensions {
 				'ArkosExt.setSize': '强行将大小设为[size]（无视限制）',
 				'ArkosExt.width': '宽',
 				'ArkosExt.height': '高',
+				'ArkosExt.true': '成立',
+				'ArkosExt.false': '不成立',
+				'ArkosExt.probability': '概率[p]',
+				'ArkosExt.getKeyDown': '按下[key],且上次检测未按下',
+				'ArkosExt.dataChanged': '当值[c]发生变化',
+				'ArkosExt.isNum': '是数字',
+				'ArkosExt.isInt': '是整数',
+				'ArkosExt.sgn': '[c]的符号',
+				'ArkosExt.defaultValue': '[c],默认值=[d]',
+				'ArkosExt.reporterToBoolean': '[t][type]',
+				'ArkosExt.max': '最大值',
+				'ArkosExt.min': '最小值',
+				'ArkosExt.diff': '差',
+				'ArkosExt.sumOfSqu': '平方和',
+				'ArkosExt.sqrtSumOfSqu': '平方和开根号',
+				'ArkosExt.contain': '[list]包含[c]?(以[ch]分隔)',
+				'ArkosExt.lenOfJSONList': '列表JSON[list]的长度',
+				'ArkosExt.JSONListContains': '列表JSON[list]包含[c]?',
+				'ArkosExt.editJSONList': '列表JSON[list]将[c][type]',
+				'ArkosExt.JSONm1': '加到末尾',
+				'ArkosExt.JSONm2': '从中删除',
 
 				'ArkosExt.setXY': '强行移到x:[x]y:[y]（无视边界）',
 				'ArkosExt.getBoundaryCoord': '获取角色的[t]',
@@ -62,6 +85,7 @@ class ArkosExtensions {
 				'ArkosExt.left': '左边缘x',
 				'ArkosExt.right': '右边缘x',
 				'ArkosExt.isOutOfSight': '角色移到舞台区外？',
+				'ArkosExt.cloneCount': '当前克隆体数量',
 
 				'ArkosExt.and': '且',
 				'ArkosExt.or': '或',
@@ -86,6 +110,7 @@ class ArkosExtensions {
 				'ArkosExt.deleteAllTempData': '🗂️清空所有临时数据',
 				'ArkosExt.getCountOfTempData': '🗂️临时数据量',
 				'ArkosExt.delTempData': '🗂️删除名为[data]的临时数据',
+				'ArkosExt.ifTempDataExist': '🗂️存在名为[data]的临时数据？',
 
 				'ArkosExt.setTempVar': '🗂️将临时变量[var]设为[t]',
 				'ArkosExt.addTempVar': '🗂️将临时变量[var]增加[t]',
@@ -101,6 +126,8 @@ class ArkosExtensions {
 				'ArkosExt.delItemOfTempList': '🗂️删除临时列表[list]第[n]项',
 				'ArkosExt.getItemOfTempList': '🗂️临时列表[list]第[n]项',
 				'ArkosExt.lengthOfTempList': '🗂️临时列表[list]长度',
+				'ArkosExt.ifListItemExist': '🗂️临时列表[list]包含[c]？',
+				'ArkosExt.getListItemIdx': '🗂️临时列表[list]中第一个[c]的编号',
 
 				'ArkosExt.clearTempCon': '🗂️创建或清空临时容器[con]',
 				'ArkosExt.initTempCon': '🗂️临时容器[con]内容设为[t]',
@@ -113,6 +140,7 @@ class ArkosExtensions {
 				'ArkosExt.conInfo1': '名称',
 				'ArkosExt.conInfo2': '内容',
 				'ArkosExt.lengthOfTempCon': '🗂️临时容器[con]中内容数',
+				'ArkosExt.ifConItemExist': '🗂️临时容器[con]包含[c]？',
 
 				'30Ext.info': '✨ 以下扩展由_30提供',
 				'30Ext.info.1': '🔮 定向缩放操作',
@@ -123,7 +151,7 @@ class ArkosExtensions {
 				'30Ext.info.2': '图层操作',
 				'30Ext.block.getLayer': '角色当前图层序数',
 				'30Ext.block.setLayer': '将角色移到第[input]图层',
-				'30Ext.block.getScale': '当前角色的[input]缩放(倍数)',
+				'30Ext.block.getScale': '当前角色的[input]缩放(倍)',
 				'30Ext.block.hor': '水平',
 				'30Ext.block.ver': '垂直',
 			},
@@ -152,6 +180,27 @@ class ArkosExtensions {
 				'ArkosExt.setSize': 'force the size to [size] % (regardless of limitation) ',
 				'ArkosExt.width': 'width',
 				'ArkosExt.height': 'height',
+				'ArkosExt.defaultValue': '[c],default=[d]',
+				'ArkosExt.max': 'max',
+				'ArkosExt.min': 'min',
+				'ArkosExt.diff': 'difference between',
+				'ArkosExt.sumOfSqu': 'square sum',
+				'ArkosExt.sqrtSumOfSqu': 'sqrt square sum',
+				'ArkosExt.contain': '[list]contains[c](separated by[ch])',
+				'ArkosExt.lenOfJSONList': 'length of JSON[list]',
+				'ArkosExt.JSONListContains': 'list JSON[list]contains key[c]?',
+				'ArkosExt.editJSONList': '[c][type]list JSON[list]',
+				'ArkosExt.JSONm1': 'add to',
+				'ArkosExt.JSONm2': 'delete from',
+				'ArkosExt.true': 'is',
+				'ArkosExt.false': 'not',
+				'ArkosExt.reporterToBoolean': '[type][t]',
+				'ArkosExt.probability': 'probability[p]',
+				'ArkosExt.getKeyDown': 'key[key]pressed, and not pressed last time',
+				'ArkosExt.dataChanged': 'value[c]changed',
+				'ArkosExt.isNum': 'is a number',
+				'ArkosExt.isInt': 'is an integer',
+				'ArkosExt.sgn': 'sign of[c]',
 
 				'ArkosExt.setXY': 'force to x:[x]y:[y] (regardless of the boundary)',
 				'ArkosExt.getBoundaryCoord': 'get [t] of the sprite',
@@ -160,6 +209,7 @@ class ArkosExtensions {
 				'ArkosExt.left': 'left x',
 				'ArkosExt.right': 'right x',
 				'ArkosExt.isOutOfSight': 'is out of stage?',
+				'ArkosExt.cloneCount': 'the number of clones',
 
 				'ArkosExt.and': 'and',
 				'ArkosExt.or': 'or',
@@ -184,6 +234,7 @@ class ArkosExtensions {
 				'ArkosExt.info1': '🚶 Coordinate and Direction',
 				'ArkosExt.info2': '🔠 String Processing',
 				'ArkosExt.info3': '🛠 Utilities',
+				'ArkosExt.info3.5': '⚙️ JSON utils',
 				'ArkosExt.info4': '📄 Information',
 				'ArkosExt.info5': '📊 Sorted Table',
 				'ArkosExt.info6': '🗂️ Temporary Data',
@@ -194,6 +245,7 @@ class ArkosExtensions {
 				'ArkosExt.deleteAllTempData': '🗂️clear all temporary data',
 				'ArkosExt.getCountOfTempData': '🗂️count of temporary data',
 				'ArkosExt.delTempData': '🗂️delete temporary data[data]',
+				'ArkosExt.ifTempDataExist': '🗂️temporary data[data]exists',
 
 				'ArkosExt.setTempVar': '🗂️set temp var[var] to [t]',
 				'ArkosExt.addTempVar': '🗂️change temp var[var] by [t]',
@@ -210,6 +262,8 @@ class ArkosExtensions {
 				'ArkosExt.delItemOfTempList': '🗂️delete [n]of temp list[list]',
 				'ArkosExt.getItemOfTempList': '🗂️item[n]of temp list[list]',
 				'ArkosExt.lengthOfTempList': '🗂️length of temp list[list]',
+				'ArkosExt.ifListItemExist': '🗂️temp list[list]contains[c]?',
+				'ArkosExt.getListItemIdx': '🗂️item # of[c]in temp list[list]',
 
 				'ArkosExt.clearTempCon': '🗂️create or clear temp container[con]',
 				'ArkosExt.initTempCon': '🗂️set temp container[con]to[t]',
@@ -222,6 +276,7 @@ class ArkosExtensions {
 				'ArkosExt.conInfo1': 'name',
 				'ArkosExt.conInfo2': 'content',
 				'ArkosExt.lengthOfTempCon': '🗂️count of contents in temp container[con]',
+				'ArkosExt.ifConItemExist': '🗂️temp container[con]contains[c]?',
 
 				'30Ext.info': '✨ Contributed by _30',
 				'30Ext.info.1': '🔮 Directional scale',
@@ -420,15 +475,152 @@ class ArkosExtensions {
 						},
 					},
 				},
-				//返回值转bool积木
+				//（隐藏）返回值转bool积木
 				{
 					opcode: 'reporterToBoolean',
 					blockType: 'Boolean',
 					text: '[t]',
+					hideFromPalette: true,
 					arguments: {
 						t: {
 							type: 'string',
 							defaultValue: '1',
+						}
+					},
+				},
+				//返回值转bool积木2
+				{
+					opcode: 'reporterToBoolean2',
+					blockType: 'Boolean',
+					text: this.formatMessage('ArkosExt.reporterToBoolean'),
+					arguments: {
+						t: {
+							type: 'string',
+							defaultValue: '1',
+						},
+						type: {
+							type: 'string',
+							menu: 'TorF2',
+						}
+					},
+				},
+				//概率
+				{
+					opcode: 'probability',
+					blockType: 'Boolean',
+					text: this.formatMessage('ArkosExt.probability'),
+					arguments: {
+						p: {
+							type: 'number',
+							defaultValue: '0.5',
+						}
+					},
+				},
+				//（有bug暂时隐藏）按下x键且上次没按
+				// {
+				// 	opcode: 'getKeyDown',
+				// 	blockType: 'Boolean',
+				// 	text: this.formatMessage('ArkosExt.getKeyDown'),
+				// 	arguments: {
+				// 		key: {
+				// 			type: 'string',
+				// 			defaultValue: 'a',
+				// 		}
+				// 	},
+				// },
+				//（暂时不知如何实现）检测值变化
+				// {
+				// 	opcode: 'dataChanged',
+				// 	blockType: 'Boolean',
+				// 	text: this.formatMessage('ArkosExt.dataChanged'),
+				// 	arguments: {
+				// 		c: {
+				// 			type: 'string',
+				// 			defaultValue: '变量',
+				// 		}
+				// 	},
+				// },
+				//判断是否是数字
+				{
+					opcode: 'isNum',
+					blockType: 'Boolean',
+					text: '[type][c]',
+					arguments: {
+						c: {
+							type: 'number',
+							defaultValue: '0.2',
+						},
+						type: {
+							type: 'string',
+							menu: 'isNumMenu',
+						},
+					},
+				},
+				//符号
+				{
+					opcode: 'sgn',
+					blockType: 'reporter',
+					text: this.formatMessage('ArkosExt.sgn'),
+					arguments: {
+						c: {
+							type: 'number',
+							defaultValue: '-5',
+						}
+					},
+				},
+				//默认值
+				{
+					opcode: 'defaultValue',
+					blockType: 'reporter',
+					text: this.formatMessage('ArkosExt.defaultValue'),
+					arguments: {
+						c: {
+							type: 'string',
+							defaultValue: '',
+						},
+						d: {
+							type: 'string',
+							defaultValue: '10',
+						}
+					},
+				},
+				//max min 差..
+				{
+					opcode: 'binaryCal',
+					blockType: 'reporter',
+					text: '[cal][a][b]',
+					arguments: {
+						cal: {
+							type: 'string',
+							menu: 'biCalMenu',
+						},
+						a: {
+							type: 'string',
+							defaultValue: '1',
+						},
+						b: {
+							type: 'string',
+							defaultValue: '99',
+						}
+					},
+				},
+				//xx,xx,xx包含xx？
+				{
+					opcode: 'contain',
+					blockType: 'Boolean',
+					text: this.formatMessage('ArkosExt.contain'),
+					arguments: {
+						list: {
+							type: 'string',
+							defaultValue: '苹果,香蕉,橘子,菠萝',
+						},
+						ch: {
+							type: 'string',
+							defaultValue: ',',
+						},
+						c: {
+							type: 'string',
+							defaultValue: '苹果',
 						}
 					},
 				},
@@ -537,6 +729,55 @@ class ArkosExtensions {
 					},
 					filter: ['sprite']
 				},
+				"---" + this.formatMessage("ArkosExt.info3.5"), //🔧JSON积木
+				//JSON列表长度
+				{
+					opcode: 'lenOfJSONList',
+					blockType: 'reporter',
+					text: this.formatMessage('ArkosExt.lenOfJSONList'),
+					arguments: {
+						list: {
+							type: 'string',
+							defaultValue: '[1,2,"apple"]',
+						}
+					},
+				},
+				//JSON列表包含XX
+				{
+					opcode: 'JSONListContains',
+					blockType: 'Boolean',
+					text: this.formatMessage('ArkosExt.JSONListContains'),
+					arguments: {
+						list: {
+							type: 'string',
+							defaultValue: '[1,2,"apple"]',
+						},
+						c: {
+							type: 'string',
+							defaultValue: 'apple',
+						}
+					},
+				},
+				//JSON列表加入/删除
+				{
+					opcode: 'editJSONList',
+					blockType: 'reporter',
+					text: this.formatMessage('ArkosExt.editJSONList'),
+					arguments: {
+						list: {
+							type: 'string',
+							defaultValue: '[1,2,"apple"]',
+						},
+						c: {
+							type: 'string',
+							defaultValue: 'apple',
+						},
+						type: {
+							type: 'string',
+							menu: 'JSONm', 
+						}
+					},
+				},
 				"---" + this.formatMessage("ArkosExt.info4"), //📄数据获取 
 				//获取特效值
 				{
@@ -595,6 +836,12 @@ class ArkosExtensions {
 					blockType: 'Boolean',
 					text: this.formatMessage('ArkosExt.isOutOfSight'),
 					filter: ['sprite']
+				},
+				//克隆体数量
+				{
+					opcode: 'cloneCount',
+					blockType: 'reporter',
+					text: this.formatMessage('ArkosExt.cloneCount')
 				},
 				"---" + this.formatMessage("ArkosExt.info5"), //📊排序表 
 				//📊清空排序表
@@ -738,6 +985,18 @@ class ArkosExtensions {
 					opcode: 'delTempData',
 					blockType: 'command',
 					text: this.formatMessage('ArkosExt.delTempData'),
+					arguments: {
+						data: {
+							type: 'string',
+							defaultValue: 'i',
+						},
+					},
+				},
+				//判断数据存在
+				{
+					opcode: 'ifTempDataExist',
+					blockType: 'Boolean',
+					text: this.formatMessage('ArkosExt.ifTempDataExist'),
 					arguments: {
 						data: {
 							type: 'string',
@@ -903,6 +1162,38 @@ class ArkosExtensions {
 						},
 					},
 				},
+				//临时列表包含xx?
+				{
+					opcode: 'ifListItemExist',
+					blockType: 'Boolean',
+					text: this.formatMessage('ArkosExt.ifListItemExist'),
+					arguments: {
+						list: {
+							type: 'string',
+							defaultValue: 'list',
+						},
+						c: {
+							type: 'string',
+							defaultValue: 'thing',
+						},
+					},
+				},
+				//获取列表第一个xx的索引
+				{
+					opcode: 'getListItemIdx',
+					blockType: 'reporter',
+					text: this.formatMessage('ArkosExt.getListItemIdx'),
+					arguments: {
+						list: {
+							type: 'string',
+							defaultValue: 'list',
+						},
+						c: {
+							type: 'string',
+							defaultValue: 'thing',
+						},
+					},
+				},
 				"---" + this.formatMessage("ArkosExt.info9"), //临时容器
 				//创建或清空临时容器
 				{
@@ -1021,6 +1312,22 @@ class ArkosExtensions {
 						},
 					},
 				},
+				//ifConItemExist
+				{
+					opcode: 'ifConItemExist',
+					blockType: 'Boolean',
+					text: this.formatMessage('ArkosExt.ifConItemExist'),
+					arguments: {
+						con: {
+							type: 'string',
+							defaultValue: 'con1',
+						},
+						c: {
+							type: 'string',
+							defaultValue: 'coins',
+						}
+					},
+				},
 
 
 				//
@@ -1106,15 +1413,72 @@ class ArkosExtensions {
 				},
 			],
 			menus: {
-				HVMenu: [{
-					text: this.formatMessage('30Ext.block.hor'), //水平
-					value: 'h'
+				isNumMenu:[{
+					text: this.formatMessage('ArkosExt.isNum'), 
+					value: '1'
 				},
 				{
-					text: this.formatMessage('30Ext.block.ver'), //垂直
-					value: 'v'
-				},
+					text: this.formatMessage('ArkosExt.isInt'), 
+					value: '2'
+				}
 			],
+				biCalMenu: [{
+						text: this.formatMessage('ArkosExt.max'), 
+						value: '1'
+					},
+					{
+						text: this.formatMessage('ArkosExt.min'), 
+						value: '2'
+					},
+					{
+						text: this.formatMessage('ArkosExt.diff'), 
+						value: '3'
+					},
+					{
+						text: this.formatMessage('ArkosExt.sumOfSqu'), 
+						value: '4'
+					},
+					{
+						text: this.formatMessage('ArkosExt.sqrtSumOfSqu'), 
+						value: '5'
+					}
+				],
+				TorF: [{
+						text: 'true', 
+						value: '1'
+					},
+					{
+						text: 'false', 
+						value: '2'
+					},
+				],
+				TorF2: [{
+						text: this.formatMessage('ArkosExt.true'), 
+						value: '1'
+					},
+					{
+						text: this.formatMessage('ArkosExt.false'), 
+						value: '0'
+					},
+				],
+				JSONm: [{
+						text: this.formatMessage('ArkosExt.JSONm1'), //加入
+						value: '1'
+					},
+					{
+						text: this.formatMessage('ArkosExt.JSONm2'), //删除
+						value: '2'
+					},
+				],
+				HVMenu: [{
+						text: this.formatMessage('30Ext.block.hor'), //水平
+						value: 'h'
+					},
+					{
+						text: this.formatMessage('30Ext.block.ver'), //垂直
+						value: 'v'
+					},
+				],
 				conInfoMenu: [{
 						text: this.formatMessage('ArkosExt.conInfo1'), //名称
 						value: '1'
@@ -1356,10 +1720,6 @@ class ArkosExtensions {
 		return !util.target.visible;
 	}
 
-	//获取图层(逝一逝)
-	// getLayer (args, util) {
-	//   return util.target.layer;
-	// }
 
 	//获取当前角色的旋转方式
 	getRotationStyle(args, util) {
@@ -1457,12 +1817,28 @@ class ArkosExtensions {
 		return false;
 	}
 
-	//形如：<() >
+	cloneCount(){
+		return this.runtime._cloneCounter;
+	}
+
+	//（废弃）形如：<() >
 	reporterToBoolean(args) {
-		if(Cast.toString(args.t)
-			.toLowerCase() === 'false') return false;
-		if(args.t === '0') return false;
+		const t = Cast.toString(args.t).toLowerCase()
+		if(t === 'false'||t === '0'||t === 'undefined'||t === 'null'||t === '') return false;
 		return (args.t) ? true : false;
+	}
+
+	//形如：<()成立/不成立 >
+	reporterToBoolean2(args) {
+		const t = Cast.toString(args.t).toLowerCase()
+		let b
+		if(t === 'false'||t === '0'||t === 'undefined'||t === 'null'||t === '') b = false;
+		else b = (args.t) ? true : false;
+		return (args.type === '1')? b : (!b);
+	}
+
+	trueOrFalse(args) {
+		return (args.type === '1')? true : false;
 	}
 
 	compare(a, b, op) {
@@ -1481,6 +1857,125 @@ class ArkosExtensions {
 				return Cast.compare(a, b) !== 0;
 			default:
 				return false;
+		}
+	}
+
+	binaryCal(args){
+		let a = Cast.toNumber(args.a)
+		let b = Cast.toNumber(args.b)
+		switch (args.cal) {
+			case '1':
+				return (Cast.compare(args.a, args.b) > 0) ? args.a : args.b; //max
+			case '2':
+				return (Cast.compare(args.a, args.b) > 0) ? args.b : args.a; //min
+			case '3':
+				return Math.abs(a-b);//差
+			case '4':
+				return a*a+b*b;//平方和
+			default:
+				return Math.sqrt(a*a+b*b);//平方和开方
+		}
+	}
+
+	defaultValue(args){
+		return (args.c === '')? args.d : args.c;
+	}
+
+	isNum(args){
+		if(args.type === '1')
+		{
+			return !isNaN(args.c);
+		}
+		if(args.type === '2') 
+		{
+			if(isNaN(args.c)) return false;
+			return Cast.isInt(args.c);
+		}
+		return false;
+	}
+
+	//取符号。负数为-1,0和正数为1
+	sgn(args){
+		let c = Cast.toNumber(args.c)
+		return c<0 ? -1 : 1; 
+	}
+
+	//概率
+	probability(args){
+		let p = Cast.toNumber(args.p)
+		if(p===1) return true;
+		if(p===0) return false;
+		return (Math.random() < p)? true : false;
+	}
+
+	//积木暂时隐藏，不上线
+	getKeyDown (args, util) {
+		let flag = false
+		let pressed =  util.ioQuery('keyboard', 'getKeyIsDown', [args.key]);
+		if(!this.lastKeyPressed[args.key] && pressed) flag = true; //这一帧按下，且上一帧未按下
+		this.lastKeyPressed[args.key] = pressed
+		return flag;
+    }
+
+	//暂时不知如何实现
+	dataChanged(args, util){
+		// let cached = util.target.blocks._cache._executeCached
+		// console.log(Object.keys(cached)[0])
+		// console.log(util.target.blocks._cache)
+		console.log(util.target.blocks)
+		return false;
+	}
+
+	//xxx,xx,xx 包含xx？
+	contain(args) {
+		let list = Cast.toString(args.list).split(Cast.toString(args.ch))
+		return this._ifListItemExist(list, Cast.toString(args.c))
+	}
+
+	lenOfJSONList(args) {
+		try {
+			let list = JSON.parse(Cast.toString(args.list))
+			if(typeof(list) === 'object' && list !== null) {
+				return Object.keys(list).length;
+			}
+			return 0;
+		} catch (e) {
+			return 0;
+		}
+	}
+	
+	JSONListContains(args) {
+		try {
+			let list = JSON.parse(Cast.toString(args.list))
+			if(Array.isArray(list)) {
+				return this._ifListItemExist(list, Cast.toString(args.c));
+			}
+			return false;
+		} catch (e) {
+			return false;
+		}
+	}
+
+	//加入/从JSON列表删除
+	editJSONList(args) {
+		try {
+			let list = JSON.parse(Cast.toString(args.list))
+			if(Array.isArray(list)) {
+				const item = this._anythingToNumberString(args.c)
+				if(args.type === '1') //加入列表
+				{
+					list.push(item);
+				}
+				if(args.type === '2') //从列表删除
+				{
+					const idx = this._getListItemIdx(list, item) - 1
+					if(idx >= 0) list.splice(idx, 1);
+				}
+				return JSON.stringify(list);
+			}
+			return '';
+		} catch (e) {
+			return '';
 		}
 	}
 
@@ -1689,6 +2184,10 @@ class ArkosExtensions {
 		delete this.tempData[Cast.toString(args.data)];
 	}
 
+	ifTempDataExist(args) {
+		return this.tempData.hasOwnProperty(Cast.toString(args.data))
+	}
+
 	setTempVar(args) {
 		this.tempData[Cast.toString(args.var)] = args.t;
 	}
@@ -1770,6 +2269,48 @@ class ArkosExtensions {
 		return list.length;
 	}
 
+	//检查list是否包含item
+	_ifListItemExist(list, item) {
+		if (list.indexOf(item) >= 0) {
+            return true;
+        }
+        // Try using Scratch comparison operator on each item.
+        // (Scratch considers the string '123' equal to the number 123).
+        for (let i = 0; i < list.length; i++) {
+            if (Cast.compare(list[i], item) === 0) {
+                return true;
+            }
+        }
+		return false;
+	}
+
+	ifListItemExist(args) {
+		let list = this.tempData[Cast.toString(args.list)]
+		if(!Array.isArray(list)) return false;
+		const item = Cast.toString(args.c)
+
+		return this._ifListItemExist(list, item)
+	}
+
+	//获取list中item索引
+	_getListItemIdx(list, item) {
+		for (let i = 0; i < list.length; i++) {
+            if (Cast.compare(list[i], item) === 0) {
+                return i + 1;
+            }
+        }
+		return 0;
+	}
+
+	getListItemIdx(args) {
+		let list = this.tempData[Cast.toString(args.list)]
+		if(!Array.isArray(list)) return 0;
+		const item = Cast.toString(args.c)
+
+		return this._getListItemIdx(list, item)
+		
+	}
+
 	//容器
 	clearTempCon(args) {
 		this.tempData[Cast.toString(args.con)] = {};
@@ -1833,8 +2374,13 @@ class ArkosExtensions {
 	lengthOfTempCon(args) {
 		let con = this.tempData[Cast.toString(args.con)]
 		if(!(typeof(con) === 'object' && con !== null)) return 0;
-		return Object.keys(con)
-			.length;
+		return Object.keys(con).length;
+	}
+
+	ifConItemExist(args) {
+		let con = this.tempData[Cast.toString(args.con)]
+		if(!(typeof(con) === 'object' && con !== null)) return false;
+		return con.hasOwnProperty(Cast.toString(args.c));
 	}
 
 
@@ -1908,32 +2454,6 @@ class ArkosExtensions {
 	setLayer(args, util) {
 		util.target.renderer.setDrawableOrder(util.target.drawableID, args.input, 'sprite');
 	}
-}
-
-
-
-window.tempExt = {
-	Extension: ArkosExtensions,
-	info: {
-		name: 'hcn.extensionName',
-		description: 'hcn.description',
-		extensionId: 'hcnTest',
-		// iconURL: icon,
-		// insetIconURL: cover,
-		featured: true,
-		disabled: false,
-		collaborator: 'only for hcn test',
-	},
-	l10n: {
-		'zh-cn': {
-			'hcn.extensionName': 'hcn 的测试',
-			'hcn.description': 'hcn 的测试',
-		},
-		en: {
-			'hcn.extensionName': 'hcn test',
-			'hcn.description': 'hcn test',
-		},
-	},
 }
 
 
