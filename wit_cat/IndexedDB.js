@@ -134,12 +134,12 @@ let interval = setInterval(() => {
             waits = false;
             new Promise((resolve) => {
                 if (wait[0].type === "set") {
-                    SetKeys(wait[0], () => {
+                    SetKeysAsync(wait[0]).then(() => {
                         resolve();
                     });
                 }
                 else {
-                    DeleteKeys(wait[0], () => {
+                    DeleteKeysAsync(wait[0]).then(() => {
                         resolve();
                     });
                 }
@@ -504,30 +504,26 @@ class WitCatIndexedDB {
      * @param {SCarg|"value"|"description"} args.type 变量类型(value数值，description说明)
      * @returns {Promise<string|number>} 变量值
      */
-    upload(args) {
+    async upload(args) {
         let h = this.runtime.ccwAPI.getProjectUUID();
-        return new Promise(resolve => {
-            console.log(args.type)
-            if (args.type === "value") {
-                ReadKey(h + "⨆" + args.name, (e) => {
-                    if (buffer[h + "⨆" + args.name])
-                        resolve(buffer[h + "⨆" + args.name])
-                    else if (e)
-                        resolve(e.value);
-                    else
-                        resolve("")
-                })
+        console.log(args.type)
+        if (args.type === "value") {
+            let e = await ReadKeyAsync(h + "⨆" + args.name);
+            if (buffer[h + "⨆" + args.name])
+                return buffer[h + "⨆" + args.name];
+            else if (e)
+                return e.value;
+            else
+                return "";
+        }
+        else {
+            let e = await ReadKeyAsync("ALL_DB");
+            if (e[h]) {
+                let v = e[h];
+                let a = JSON.parse(v.split("§")[1]);
+                return a[args.name] ? a[args.name] : "";
             }
-            else {
-                ReadKey("ALL_DB", (e) => {
-                    if (e[h]) {
-                        let v = e[h];
-                        let a = JSON.parse(v.split("§")[1]);
-                        resolve(a[args.name] ? a[args.name] : "");
-                    }
-                })
-            }
-        });
+        }
     }
 
     /**
@@ -538,7 +534,8 @@ class WitCatIndexedDB {
      * @returns {void}
      */
     save(args) {
-        ReadKey(this.runtime.ccwAPI.getProjectUUID() + "⨆" + args.name, (e) => {
+        // 如果 save 积木允许在保存结束后异步返回，那么可以用 async/await
+        ReadKeyAsync(this.runtime.ccwAPI.getProjectUUID() + "⨆" + args.name).then((e) => {
             if (e)
                 SSetKey(args.name, args.text, undefined, this.runtime.ccwAPI.getProjectUUID());
             else
@@ -587,7 +584,7 @@ class WitCatIndexedDB {
      * @returns {void}
      */
     saveother(args) {
-        ReadKey(args.id + "⨆" + args.name, (e) => {
+        ReadKeyAsync(args.id + "⨆" + args.name).then((e) => {
             let h = this.runtime.ccwAPI.getProjectUUID();
             if (e[h]) {
                 if (e[h] === "allow")
@@ -608,46 +605,41 @@ class WitCatIndexedDB {
      * @param {SCarg|"value"|"description"} args.type 变量类型(value数值，description说明)
      * @returns {Promise<string>} 结果
      */
-    uploadother(args) {
-        return new Promise(resolve => {
-            ReadKey(args.id + "⨆" + args.name, (e) => {
-                let h = this.runtime.ccwAPI.getProjectUUID();
-                if (e[h]) {
-                    if (e[h] === "allow" || e[h] === "read") {
-                        if (args.type === "value") {
-                            resolve(e.value);
-                        }
-                        else {
-                            ReadKey("ALL_DB", (ele) => {
-                                if (ele[args.id]) {
-                                    let a = JSON.parse(ele[args.id].split("§")[1]);
-                                    resolve(a[args.name] ? a[args.name] : "");
-                                }
-                            })
-                        }
-                    }
-                    else
-                        resolve("");
+    async uploadother(args) {
+        let e = await ReadKeyAsync(args.id + "⨆" + args.name);
+        let h = this.runtime.ccwAPI.getProjectUUID();
+        if (e[h]) {
+            if (e[h] === "allow" || e[h] === "read") {
+                if (args.type === "value") {
+                    return e.value;
                 }
                 else {
-                    if (e.all === "allow" || e.all === "read") {
-                        if (args.type === "value") {
-                            resolve(e.value);
-                        }
-                        else {
-                            ReadKey("ALL_DB", (ele) => {
-                                if (ele[args.id]) {
-                                    let a = JSON.parse(ele[args.id].split("§")[1]);
-                                    resolve(a[args.name] ? a[args.name] : "");
-                                }
-                            })
-                        }
+                    let ele = await ReadKeyAsync("ALL_DB");
+                    if (ele[args.id]) {
+                        let a = JSON.parse(ele[args.id].split("§")[1]);
+                        return a[args.name] ? a[args.name] : "";
                     }
-                    else
-                        resolve("");
                 }
-            })
-        })
+            }
+            else
+                return "";
+        }
+        else {
+            if (e.all === "allow" || e.all === "read") {
+                if (args.type === "value") {
+                    return e.value;
+                }
+                else {
+                    let ele = await ReadKeyAsync("ALL_DB");
+                    if (ele[args.id]) {
+                        let a = JSON.parse(ele[args.id].split("§")[1]);
+                        return a[args.name] ? a[args.name] : "";
+                    }
+                }
+            }
+            else
+                return "";
+        }
     }
 
     /**
@@ -657,41 +649,32 @@ class WitCatIndexedDB {
      * @param {SCarg} args.id 作品id
      * @returns {Promise<string>} 键状态结果
      */
-    other(args) {
-        return new Promise(resolve => {
-            ReadKey(args.id + "⨆" + args.name, (e) => {
-                let h = this.runtime.ccwAPI.getProjectUUID();
-                if (!e)
-                    resolve("undefined");
-                if (e[h]) {
-                    switch (e[h]) {
-                        case "allow":
-                            resolve("can read and modify");
-                            break;
-                        case "read":
-                            resolve("can read");
-                            break;
-                        case "self":
-                            resolve("can't read");
-                            break;
-                    }
-                }
-                else {
-                    switch (e.all) {
-                        case "allow":
-                            resolve("can read and modify");
-                            break;
-                        case "read":
-                            resolve("can read");
-                            break;
-                        case "self":
-                            resolve("can't read");
-                            break;
-                    }
-                }
-                resolve("null");
-            })
-        });
+    async other(args) {
+        let e = await ReadKeyAsync(args.id + "⨆" + args.name);
+        let h = this.runtime.ccwAPI.getProjectUUID();
+        if (!e)
+            return "undefined";
+        if (e[h]) {
+            switch (e[h]) {
+                case "allow":
+                    return "can read and modify";
+                case "read":
+                    return "can read";
+                case "self":
+                    return "can't read";
+            }
+        }
+        else {
+            switch (e.all) {
+                case "allow":
+                    return "can read and modify";
+                case "read":
+                    return "can read";
+                case "self":
+                    return "can't read";
+            }
+        }
+        return "null";
     }
 
     /**
@@ -701,57 +684,50 @@ class WitCatIndexedDB {
      * @param {SCarg|"value"|"description"} args.type 变量类型(value数值，description说明)
      * @returns {Promise<SCarg>}
      */
-    number(args) {
-        return new Promise(resolve => {
-            ReadKey("ALL_DB", (e) => {
-                let num = Number(args.num);
-                let h = this.runtime.ccwAPI.getProjectUUID();
-                if (e[h]) {
-                    let v = JSON.parse(e[h].split("§")[1]);
-                    let a = Object.keys(v);
-                    if (a[num - 1]) {
-                        if (args.type === "key")
-                            resolve(a[num - 1]);
-                        else if (args.type === "description") {
-                            resolve(v[a[num - 1]]);
-                        }
-                        else {
-                            ReadKey(h + "⨆" + a[num - 1], (e) => {
-                                if (buffer[h + "⨆" + a[num - 1]])
-                                    resolve(buffer[h + "⨆" + args.name])
-                                else if (e)
-                                    resolve(e.value);
-                                else
-                                    resolve("");
-                            })
-                        }
-                    }
-                    else
-                        resolve("");
+    async number(args) {
+        let e = await ReadKeyAsync("ALL_DB");
+        let num = Number(args.num);
+        let h = this.runtime.ccwAPI.getProjectUUID();
+        if (e[h]) {
+            let v = JSON.parse(e[h].split("§")[1]);
+            let a = Object.keys(v);
+            if (a[num - 1]) {
+                if (args.type === "key")
+                    return a[num - 1];
+                else if (args.type === "description") {
+                    return v[a[num - 1]];
                 }
-                else
-                    resolve("");
-            });
-        });
+                else {
+                    let e = await ReadKeyAsync(h + "⨆" + a[num - 1]);
+                    if (buffer[h + "⨆" + a[num - 1]])
+                        return buffer[h + "⨆" + args.name];
+                    else if (e)
+                        return e.value;
+                    else
+                        return "";
+                }
+            }
+            else
+                return "";
+        }
+        else
+            return "";
     }
 
     /**
      * 键值对数量
      * @returns {Promise<number>}
      */
-    numbers() {
-        return new Promise(resolve => {
-            ReadKey("ALL_DB", (e) => {
-                let h = this.runtime.ccwAPI.getProjectUUID();
-                if (e[h]) {
-                    let v = e[h];
-                    let a = JSON.parse(v.split("§")[1]);
-                    resolve(Object.keys(a).length);
-                }
-                else
-                    resolve("0");
-            });
-        });
+    async numbers() {
+        let e = await ReadKeyAsync("ALL_DB");
+        let h = this.runtime.ccwAPI.getProjectUUID();
+        if (e[h]) {
+            let v = e[h];
+            let a = JSON.parse(v.split("§")[1]);
+            return Object.keys(a).length;
+        }
+        else
+            return "0";
     }
 
     /**
@@ -897,7 +873,8 @@ async function ReadKeyAsync(key_) {
     if (result) { // 是不是想要 request.result === null/undefined ?
         return result;
     } else {
-        throw new Error("request.result is falsy");
+        console.warn(`result of ${key_} is falsy`);
+        return "";
     }
 }
 
@@ -935,33 +912,40 @@ function SDeleteKey(args, h) {
  * @param {string} args.h 作品id
  * @param {string} args.type 不知道
  * @param {()=>void} recall 回调函数
+ * @deprecated
  */
 function DeleteKeys({ name, h, type }, recall) {
-    new Promise((resolve) => {
-        if (buffer[h + "⨆" + name])
-            delete buffer[h + "⨆" + name]
-        DeleteKey(h + "⨆" + name);
-        ReadKey("ALL_DB", (e) => {
-            if (e[h] !== undefined) {
-                let v = e[h];
-                let a = JSON.parse(v.split("§")[1]);
-                delete a[name];
-                e[h] = `${v.split("§")[0]}§${JSON.stringify(a)}`;
-            }
-            if (type !== undefined)
-                delete e[h];
-            if (e !== undefined)
-                SetKey("ALL_DB", e, () => {
-                    resolve();
-                })
-            else
-                SetKey("ALL_DB", {}, () => {
-                    resolve();
-                })
-        })
-    })
-    if (recall !== undefined)
-        recall();
+    DeleteKeysAsync({ name, h, type }).then(() => {
+        if (recall !== undefined)
+            recall();
+    });
+}
+
+/**
+ * 异步删除键？
+ * @param {object} args
+ * @param {string} args.name 删除的键名
+ * @param {string} args.h 作品id
+ * @param {string} args.type 不知道
+ * @returns {Promise<void>}
+ */
+async function DeleteKeysAsync({ name, h, type }) {
+    if (buffer[h + "⨆" + name])
+        delete buffer[h + "⨆" + name]
+    await DeleteKeyAsync(h + "⨆" + name);
+    let e = await ReadKeyAsync("ALL_DB");
+    if (e[h] !== undefined) {
+        let v = e[h];
+        let a = JSON.parse(v.split("§")[1]);
+        delete a[name];
+        e[h] = `${v.split("§")[0]}§${JSON.stringify(a)}`;
+    }
+    if (type !== undefined)
+        delete e[h];
+    if (e !== undefined)
+        await SetKeyAsync("ALL_DB", e);
+    else
+        await SetKeyAsync("ALL_DB", {});
 }
 
 /**
@@ -969,44 +953,54 @@ function DeleteKeys({ name, h, type }, recall) {
  * @param {string} name 删除的键名
  * @param {string} h 作品id
  * @param {string} type 不知道
+ * @deprecated
  */
 function SDeleteKeys(name, h, type) {
+    SDeleteKeysAsync(name, h, type);
+}
+
+/**
+ * 异步删除键？
+ * @param {string} name 删除的键名
+ * @param {string} h 作品id
+ * @param {string} type 不知道
+ */
+async function SDeleteKeysAsync(name, h, type) {
     let a = confirm("确定删除？");
     if (a) {
         if (type === undefined) {
             if (name !== undefined)
-                DeleteKey(h + "⨆" + name);
-            ReadKey("ALL_DB", (e) => {
-                if (e[h] !== undefined && name !== undefined) {
-                    let v = e[h];
-                    let a = JSON.parse(v.split("§")[1]);
-                    delete a[name];
-                    e[h] = `${v.split("§")[0]}§${JSON.stringify(a)}`;
-                }
-                if (e !== undefined)
-                    SetKey("ALL_DB", e)
-                else
-                    SetKey("ALL_DB", {})
-                DBopen(id);
-            })
+                // 直接分支，不 await？
+                DeleteKeyAsync(h + "⨆" + name);
+            let e = await ReadKeyAsync("ALL_DB");
+            if (e[h] !== undefined && name !== undefined) {
+                let v = e[h];
+                let a = JSON.parse(v.split("§")[1]);
+                delete a[name];
+                e[h] = `${v.split("§")[0]}§${JSON.stringify(a)}`;
+            }
+            if (e !== undefined)
+                await SetKeyAsync("ALL_DB", e)
+            else
+                await SetKeyAsync("ALL_DB", {})
+            DBopen(id);
         }
         else {
-            ReadKey("ALL_DB", (e) => {
-                if (e[h] !== undefined) {
-                    let v = e[h];
-                    let a = JSON.parse(v.split("§")[1]);
-                    let k = Object.keys(a);
-                    k.forEach(ele => {
-                        DeleteKey(h + "⨆" + ele);
-                    });
+            let e = await ReadKeyAsync("ALL_DB");
+            if (e[h] !== undefined) {
+                let v = e[h];
+                let a = JSON.parse(v.split("§")[1]);
+                let k = Object.keys(a);
+                for (let ele of k) {
+                    await DeleteKeyAsync(h + "⨆" + ele);
                 }
-                delete e[h];
-                if (e !== undefined)
-                    SetKey("ALL_DB", e)
-                else
-                    SetKey("ALL_DB", {})
-                load();
-            })
+            }
+            delete e[h];
+            if (e !== undefined)
+                await SetKeyAsync("ALL_DB", e)
+            else
+                await SetKeyAsync("ALL_DB", {})
+            load();
         }
     }
 }
@@ -1018,7 +1012,6 @@ function SDeleteKeys(name, h, type) {
  * @param {string} id 单独设置状态的作品id
  * @param {string} content 键值对描述
  * @param {string} description 作品描述
- * @param {void} recall 回调函数
  */
 function SSetKey(name, text, content, h, state, id, description) {
     let json = {};
@@ -1033,85 +1026,88 @@ function SSetKey(name, text, content, h, state, id, description) {
     wait.push(json);
 }
 
-/** 不知道…… */
+/**
+ * 不知道……
+ * @deprecated
+ */
 function SetKeys({ name, text, content, h, state, id, description }, recall) {
-    new Promise((resolve) => {
-        if (name !== undefined)
-            buffer[h + "⨆" + name] = text;
-        ReadKey(h + "⨆" + name, (jsons) => {
-            let json = jsons ? jsons : {};
-            if (name !== undefined) {
-                if (json.all === undefined) {
-                    json.all = (state ? state : "self");
-                }
-                if (state !== undefined) {
-                    if (id !== undefined) {
-                        if (state === json.all) {
-                            if (json[id] !== undefined)
-                                delete json[id];
-                        }
-                        else
-                            json[id] = state;
-                    }
-                    else
-                        json.all = state;
-                }
-                json.value = text !== undefined ? text : (json.value !== undefined ? json.value : "");
-                SetKey(h + "⨆" + name, json)
-            }
-            ReadKey("ALL_DB", (e) => {
-                if (e[h]) {
-                    let v = e[h];
-                    let a = JSON.parse(v.split("§")[1]);
-                    if (a[name] !== undefined && content !== undefined)
-                        a[name] = content;
-                    else if (name !== undefined)
-                        a[name] = content !== undefined ? content : (a[name] === undefined ? "" : a[name]);
-                    e[h] = `${description ? description : v.split("§")[0]}§${JSON.stringify(a)}`;
-                }
-                else {
-                    if (!e)
-                        e = {};
-                    let a = {};
-                    if (name !== undefined)
-                        a[name] = (content ? content : "");
-                    e[h] = `${description ? description : ""}§${JSON.stringify(a)}`;
-                }
-                SetKey("ALL_DB", e, () => {
-                    if (buffer[h + "⨆" + name])
-                        delete buffer[h + "⨆" + name]
-                    resolve();
-                })
-            })
-        })
-    })
+    // 没有 await ?
+    SetKeysAsync({ name, text, content, h, state, id, description });
     if (recall !== undefined)
         recall();
 }
 
-/** 加载管理界面 */
-function load() {
-    list.firstElementChild.innerHTML = "";
-    ReadKey("ALL_DB", (e) => {
-        //e:整个键
-        delete e.key;
-        let a = Object.keys(e);
-        a.forEach(v => {
-            //v:
-            let s;
-            if (language)
-                s = `<button onclick="DBopen(event.target.innerText)" description="${e[v].split("§")[0]}">${v}</button><button onclick=SDeleteKeys(undefined,'${v}',true) description="三思！！！">删除</button>`
+/** 不知道…… */
+async function SetKeysAsync({ name, text, content, h, state, id, description }) {
+    if (name !== undefined)
+        buffer[h + "⨆" + name] = text;
+    let jsons = await ReadKeyAsync(h + "⨆" + name);
+    let json = jsons ? jsons : {};
+    if (name !== undefined) {
+        if (json.all === undefined) {
+            json.all = (state ? state : "self");
+        }
+        if (state !== undefined) {
+            if (id !== undefined) {
+                if (state === json.all) {
+                    if (json[id] !== undefined)
+                        delete json[id];
+                }
+                else
+                    json[id] = state;
+            }
             else
-                s = `<button onclick="DBopen(event.target.innerText)" description="${e[v].split("§")[0]}">${v}</button><button onclick=SDeleteKeys(undefined,'${v}',true) description="sure?">delete</button>`
-            let ss = document.createElement("li");
-            ss.innerHTML = s;
-            list.firstElementChild.appendChild(ss);
-        });
-    })
+                json.all = state;
+        }
+        json.value = text !== undefined ? text : (json.value !== undefined ? json.value : "");
+        await SetKeyAsync(h + "⨆" + name, json)
+    }
+    let e = await ReadKeyAsync("ALL_DB");
+    if (e[h]) {
+        let v = e[h];
+        let a = JSON.parse(v.split("§")[1]);
+        if (a[name] !== undefined && content !== undefined)
+            a[name] = content;
+        else if (name !== undefined)
+            a[name] = content !== undefined ? content : (a[name] === undefined ? "" : a[name]);
+        e[h] = `${description ? description : v.split("§")[0]}§${JSON.stringify(a)}`;
+    }
+    else {
+        if (!e)
+            e = {};
+        /** @type {{ [key: string]: any }} */
+        let a = {};
+        if (name !== undefined)
+            a[name] = (content ? content : "");
+        e[h] = `${description ? description : ""}§${JSON.stringify(a)}`;
+    }
+    await SetKeyAsync("ALL_DB", e);
+    if (buffer[h + "⨆" + name])
+        delete buffer[h + "⨆" + name]
+}
+
+/** 加载管理界面 */
+async function load() {
+    list.firstElementChild.innerHTML = "";
+    let e = await ReadKeyAsync("ALL_DB");
+    //e:整个键
+    delete e.key;
+    let a = Object.keys(e);
+    a.forEach(v => {
+        //v:
+        let s;
+        if (language)
+            s = `<button onclick="DBopen(event.target.innerText)" description="${e[v].split("§")[0]}">${v}</button><button onclick=SDeleteKeysAsync(undefined,'${v}',true) description="三思！！！">删除</button>`
+        else
+            s = `<button onclick="DBopen(event.target.innerText)" description="${e[v].split("§")[0]}">${v}</button><button onclick=SDeleteKeysAsync(undefined,'${v}',true) description="sure?">delete</button>`
+        let ss = document.createElement("li");
+        ss.innerHTML = s;
+        list.firstElementChild.appendChild(ss);
+    });
 }
 
 /** 根据作品数据生成表格 */
-function DBopen(ID) {
+async function DBopen(ID) {
     id = ID;
     if (language)
         table.firstElementChild.innerHTML = `
@@ -1131,44 +1127,42 @@ function DBopen(ID) {
                 <th>state</th>
                 <th>operate</th>
             </tr>`;
-    ReadKey("ALL_DB", (e) => {
-        //e:整个键
-        let a = JSON.parse(e[ID].split("§")[1]);
-        let q = Object.keys(a);
-        q.forEach(v => {
-            ReadKey(ID + "⨆" + v, (jsons) => {
-                let state;
-                switch (jsons.all) {
-                    case "allow":
-                        if (language)
-                            state = "公开";
-                        else
-                            state = "can read and modify";
-                        break;
-                    case "read":
-                        if (language)
-                            state = "只读";
-                        else
-                            state = "can read";
-                        break;
-                    case "self":
-                        if (language)
-                            state = "私有";
-                        else
-                            state = "can`t read";
-                        break;
-                }
-                let s;
+    let e = await ReadKeyAsync("ALL_DB");
+    //e:整个键
+    let a = JSON.parse(e[ID].split("§")[1]);
+    let q = Object.keys(a);
+    for (let v of q) {
+        let jsons = await ReadKeyAsync(ID + "⨆" + v);
+        let state;
+        switch (jsons.all) {
+            case "allow":
                 if (language)
-                    s = `<td>${v}</td><td>${jsons.value}</td><td>${a[v]}</td><td>${state}</td><td><button onclick=SDeleteKeys("${v}","${ID}")>删除</button></td>`;
+                    state = "公开";
                 else
-                    s = `<td>${v}</td><td>${jsons.value}</td><td>${a[v]}</td><td>${state}</td><td><button onclick=SDeleteKeys("${v}","${ID}")>delete</button></td>`;
-                let ss = document.createElement("tr");
-                ss.innerHTML = s;
-                table.firstElementChild.appendChild(ss);
-            });
-        });
-    })
+                    state = "can read and modify";
+                break;
+            case "read":
+                if (language)
+                    state = "只读";
+                else
+                    state = "can read";
+                break;
+            case "self":
+                if (language)
+                    state = "私有";
+                else
+                    state = "can`t read";
+                break;
+        }
+        let s;
+        if (language)
+            s = `<td>${v}</td><td>${jsons.value}</td><td>${a[v]}</td><td>${state}</td><td><button onclick=SDeleteKeysAsync("${v}","${ID}")>删除</button></td>`;
+        else
+            s = `<td>${v}</td><td>${jsons.value}</td><td>${a[v]}</td><td>${state}</td><td><button onclick=SDeleteKeysAsync("${v}","${ID}")>delete</button></td>`;
+        let ss = document.createElement("tr");
+        ss.innerHTML = s;
+        table.firstElementChild.appendChild(ss);
+    }
 }
 
 /** 关闭管理器 */
