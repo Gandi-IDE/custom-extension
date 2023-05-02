@@ -878,18 +878,6 @@ async function ReadKeyAsync(key_) {
     }
 }
 
-
-/**
- * 根据内容删除数组某一项
- * @param {string} val 内容
- */
-Array.prototype.remove = function (val) {
-    this.forEach((e, i) => {
-        if (e === val)
-            this.splice(i, 1);
-    });
-};
-
 /**
  * scratch的删除键
  * @param {object} args
