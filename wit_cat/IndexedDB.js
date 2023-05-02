@@ -1245,7 +1245,7 @@ function openManages() {
         gandi.style.zIndex = 100;
         gandi.style.position = "fixed";
         gandi.style.top = "100px";
-        gandi.innerHTML = ` <style>
+        gandi.innerHTML = `<style>
         .move {
             border-radius: 7px;
             box-shadow: 5px 5px 20px #40464d;
@@ -1478,7 +1478,7 @@ function openManages() {
         }
     </style>`;
         if (language)
-            gandi.innerHTML = `${gandi.innerHTML}}
+            gandi.innerHTML = `${gandi.innerHTML}
     <div class="move" id="move">
         <div class="move-header" id="move-header">
             <img src="https://zhishi.oss-cn-beijing.aliyuncs.com/works-covers/55f9e357-35be-4486-bed8-559873050bc8.png"
