@@ -15,8 +15,12 @@ declare const _default: {
         doc: string;
     };
     l10n: {
-        'zh-cn': {};
-        en: {};
+        'zh-cn': {
+            [key: string]: string;
+        };
+        en: {
+            [key: string]: string;
+        };
     };
 };
 export default _default;
