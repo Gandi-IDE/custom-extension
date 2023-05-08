@@ -63,12 +63,6 @@ let language;
 /** 是否开启尺寸修改 */
 let resizeable = false;
 
-/**
- * 鼠标按下时的坐标，并在修改尺寸时保存上一个鼠标的位置
- * @type {number}
- */
-let clientX, clientY;
-
 /** div可修改的最小宽高 */
 let minW = 500, minH = 300;
 
@@ -84,12 +78,6 @@ let direc = '';
  * @type {IDBDatabase}
  */
 let db;
-
-/**
- * 当前查看中的作品 id
- * 追踪了下调用，这个变量似乎有问题。
- */
-let id;
 
 /**
  * 异步打开数据库
@@ -127,7 +115,7 @@ openDBAsync("witcat", 2, (request) => {
 });
 
 //处理缓存信息
-let interval = setInterval(() => {
+setInterval(() => {
     if (wait.length > 0) {
         if (waits) {
             waits = false;
@@ -501,15 +489,16 @@ class WitCatIndexedDB {
      * @param {object} args
      * @param {SCarg} args.name 变量名
      * @param {SCarg|"value"|"description"} args.type 变量类型(value数值，description说明)
-     * @returns {Promise<string|number>} 变量值
+     * @returns {Promise<string|number|boolean>} 变量值
      */
     async upload(args) {
+        let name = String(args.name)
         let h = this.runtime.ccwAPI.getProjectUUID();
         console.log(args.type)
         if (args.type === "value") {
-            let e = await ReadKeyAsync(h + "⨆" + args.name);
-            if (buffer[h + "⨆" + args.name])
-                return buffer[h + "⨆" + args.name];
+            let e = await ReadKeyAsync(h + "⨆" + name);
+            if (buffer[h + "⨆" + name])
+                return buffer[h + "⨆" + name];
             else if (e)
                 return e.value;
             else
@@ -520,8 +509,10 @@ class WitCatIndexedDB {
             if (e[h]) {
                 let v = e[h];
                 let a = JSON.parse(v.split("§")[1]);
-                return a[args.name] ? a[args.name] : "";
+                return a[name] ? a[name] : "";
             }
+            else
+                return "";
         }
     }
 
@@ -536,9 +527,9 @@ class WitCatIndexedDB {
         // 如果 save 积木允许在保存结束后异步返回，那么可以用 async/await
         ReadKeyAsync(this.runtime.ccwAPI.getProjectUUID() + "⨆" + args.name).then((e) => {
             if (e)
-                SSetKey(args.name, args.text, undefined, this.runtime.ccwAPI.getProjectUUID());
+                SSetKey(args.name, args.text, undefined, this.runtime.ccwAPI.getProjectUUID(), undefined, undefined, undefined);
             else
-                SSetKey(args.name, args.text, undefined, this.runtime.ccwAPI.getProjectUUID(), "self");
+                SSetKey(args.name, args.text, undefined, this.runtime.ccwAPI.getProjectUUID(), "self", undefined, undefined);
         })
     }
 
@@ -550,7 +541,7 @@ class WitCatIndexedDB {
      * @returns {void}
      */
     saves(args) {
-        SSetKey(args.name, undefined, args.text, this.runtime.ccwAPI.getProjectUUID());
+        SSetKey(String(args.name), undefined, args.text, this.runtime.ccwAPI.getProjectUUID(), undefined, undefined, undefined);
     }
 
     /**
@@ -571,7 +562,7 @@ class WitCatIndexedDB {
      * @returns {void}
      */
     showvar(args) {
-        SSetKey(args.name, undefined, undefined, this.runtime.ccwAPI.getProjectUUID(), args.show);
+        SSetKey(args.name, undefined, undefined, this.runtime.ccwAPI.getProjectUUID(), args.show, undefined, undefined);
     }
 
     /**
@@ -587,11 +578,11 @@ class WitCatIndexedDB {
             let h = this.runtime.ccwAPI.getProjectUUID();
             if (e[h]) {
                 if (e[h] === "allow")
-                    SSetKey(args.name, args.text, undefined, args.id);
+                    SSetKey(String(args.name), args.text, undefined, args.id, undefined, undefined, undefined);
             }
             else {
                 if (e.all === "allow")
-                    SSetKey(args.name, args.text, undefined, args.id);
+                    SSetKey(String(args.name), args.text, undefined, args.id, undefined, undefined, undefined);
             }
         })
     }
@@ -605,7 +596,9 @@ class WitCatIndexedDB {
      * @returns {Promise<string>} 结果
      */
     async uploadother(args) {
-        let e = await ReadKeyAsync(args.id + "⨆" + args.name);
+        let id = String(args.id)
+        let name = String(args.name)
+        let e = await ReadKeyAsync(id + "⨆" + name);
         let h = this.runtime.ccwAPI.getProjectUUID();
         if (e[h]) {
             if (e[h] === "allow" || e[h] === "read") {
@@ -614,10 +607,12 @@ class WitCatIndexedDB {
                 }
                 else {
                     let ele = await ReadKeyAsync("ALL_DB");
-                    if (ele[args.id]) {
-                        let a = JSON.parse(ele[args.id].split("§")[1]);
-                        return a[args.name] ? a[args.name] : "";
+                    if (ele[id]) {
+                        let a = JSON.parse(ele[id].split("§")[1]);
+                        return a[name] ? a[name] : "";
                     }
+                    else
+                        return "";
                 }
             }
             else
@@ -630,10 +625,12 @@ class WitCatIndexedDB {
                 }
                 else {
                     let ele = await ReadKeyAsync("ALL_DB");
-                    if (ele[args.id]) {
-                        let a = JSON.parse(ele[args.id].split("§")[1]);
-                        return a[args.name] ? a[args.name] : "";
+                    if (ele[id]) {
+                        let a = JSON.parse(ele[id].split("§")[1]);
+                        return a[name] ? a[name] : "";
                     }
+                    else
+                        return "";
                 }
             }
             else
@@ -699,7 +696,7 @@ class WitCatIndexedDB {
                 else {
                     let e = await ReadKeyAsync(h + "⨆" + a[num - 1]);
                     if (buffer[h + "⨆" + a[num - 1]])
-                        return buffer[h + "⨆" + args.name];
+                        return buffer[h + "⨆" + a[num - 1]];
                     else if (e)
                         return e.value;
                     else
@@ -726,7 +723,7 @@ class WitCatIndexedDB {
             return Object.keys(a).length;
         }
         else
-            return "0";
+            return 0;
     }
 
     /**
@@ -737,7 +734,7 @@ class WitCatIndexedDB {
      * @param {SCarg|"self"|"allow"|"read"} args.show
      */
     showvaro(args) {
-        SSetKey(args.name, undefined, undefined, this.runtime.ccwAPI.getProjectUUID(), args.show, args.id);
+        SSetKey(String(args.name), undefined, undefined, this.runtime.ccwAPI.getProjectUUID(), args.show, args.id, undefined);
     }
 }
 
@@ -779,23 +776,6 @@ function requestAsync(request) {
 }
 
 /**
- * 设置键值对
- * @param {string} key_ 键名
- * @param {{[key: string]: any}} json 键值:不可包含"key"
- * @param {()=>void} recall 回调函数
- * @returns {void}
- * @deprecated
- */
-function SetKey(key_, json, recall) {
-    SetKeyAsync(key_, json).then(() => {
-        if (recall)
-            recall();
-    }).catch((err) => {
-        console.warn(err);
-    });
-}
-
-/**
  * 异步设置键值对
  * @param {string} key_ 键名
  * @param {{[key: string]: any}} json 键值:不可包含"key"
@@ -826,15 +806,6 @@ async function SetKeyAsync(key_, json) {
 }
 
 /**
- * 删除键值对
- * @param {string} key_ 键名
- * @deprecated
- */
-function DeleteKey(key_) {
-    DeleteKeyAsync(key_);
-}
-
-/**
  * 异步删除键值对
  * @param {string} key_ 键名
  * @returns {Promise<any>} 删除后 Promise 会 resolve，确保已经删除。
@@ -843,21 +814,6 @@ async function DeleteKeyAsync(key_) {
     let transaction = db.transaction(['key'], "readwrite");
     let store = transaction.objectStore('key');
     await requestAsync(store.delete(key_));
-}
-
-/** 读取键值对
- * @param {string} key_ 键名
- * @param {(result: any)=>void} recall 回调函数:e => json(key为键名)
- * @deprecated
- */
-function ReadKey(key_, recall) {
-    ReadKeyAsync(key_).then((res) => {
-        recall(res);
-    }).catch((err) => {
-        // 对错误进行一些处理？
-        console.warn(err);
-        recall("");
-    });
 }
 
 /** 异步读取键值对
@@ -885,27 +841,12 @@ async function ReadKeyAsync(key_) {
  * @returns {void}
  */
 function SDeleteKey(args, h) {
-    let json = {};
-    json.name = args.name;
-    json.h = h;
-    json.type = "delete";
+    let json = {
+        name: args.name,
+        h,
+        type: "delete"
+    };
     wait.push(json);
-}
-
-/**
- * 删除键？
- * @param {object} args
- * @param {string} args.name 删除的键名
- * @param {string} args.h 作品id
- * @param {string} args.type 不知道
- * @param {()=>void} recall 回调函数
- * @deprecated
- */
-function DeleteKeys({ name, h, type }, recall) {
-    DeleteKeysAsync({ name, h, type }).then(() => {
-        if (recall !== undefined)
-            recall();
-    });
 }
 
 /**
@@ -936,17 +877,6 @@ async function DeleteKeysAsync({ name, h, type }) {
 }
 
 /**
- * 删除键？
- * @param {string} name 删除的键名
- * @param {string} h 作品id
- * @param {string} type 不知道
- * @deprecated
- */
-function SDeleteKeys(name, h, type) {
-    SDeleteKeysAsync(name, h, type);
-}
-
-/**
  * 异步删除键？
  * @param {string} name 删除的键名
  * @param {string} h 作品id
@@ -970,7 +900,7 @@ async function SDeleteKeysAsync(name, h, type) {
                 await SetKeyAsync("ALL_DB", e)
             else
                 await SetKeyAsync("ALL_DB", {})
-            DBopen(id);
+            DBopen(""); // 修改成当前作品 ID？
         }
         else {
             let e = await ReadKeyAsync("ALL_DB");
@@ -995,36 +925,29 @@ async function SDeleteKeysAsync(name, h, type) {
 /**
  * scratch的设置键
  * @param {string} h 链接
+ * @param {string} name
+ * @param {string} text
  * @param {string} state 状态 self //私有 read //只读 allow//公开
  * @param {string} id 单独设置状态的作品id
  * @param {string} content 键值对描述
  * @param {string} description 作品描述
  */
 function SSetKey(name, text, content, h, state, id, description) {
-    let json = {};
-    json.name = name;
-    json.text = text;
-    json.content = content;
-    json.h = h;
-    json.state = state;
-    json.id = id;
-    json.description = description;
-    json.type = "set";
+    let json = { name, text, content, h, state, id, description, type: "set" };
     wait.push(json);
 }
 
 /**
  * 不知道……
- * @deprecated
+ * @param {object} args
+ * @param {string} args.name
+ * @param {string} args.text
+ * @param {string} args.content
+ * @param {string} args.h
+ * @param {string} args.state
+ * @param {string} args.id
+ * @param {string} args.description
  */
-function SetKeys({ name, text, content, h, state, id, description }, recall) {
-    // 没有 await ?
-    SetKeysAsync({ name, text, content, h, state, id, description });
-    if (recall !== undefined)
-        recall();
-}
-
-/** 不知道…… */
 async function SetKeysAsync({ name, text, content, h, state, id, description }) {
     if (name !== undefined)
         buffer[h + "⨆" + name] = text;
@@ -1093,9 +1016,11 @@ async function load() {
     });
 }
 
-/** 根据作品数据生成表格 */
+/**
+ * 根据作品数据生成表格
+ * @param {string} ID
+ */
 async function DBopen(ID) {
-    id = ID;
     if (language)
         table.firstElementChild.innerHTML = `
             <tr>
@@ -1178,8 +1103,6 @@ function down(e) {
     if (d !== '') {
         resizeable = true
         direc = d
-        clientX = e.clientX
-        clientY = e.clientY
         e.preventDefault()
     }
 }
@@ -1229,7 +1152,7 @@ function openManages() {
     language = confirm("选择你的语言，中文请点击确定\nchoose your language,click Cancel if you are english");
     if (!document.getElementsByTagName("body")[0].contains(gandi)) {
         gandi = document.createElement("div");
-        gandi.style.zIndex = 100;
+        gandi.style.zIndex = "100";
         gandi.style.position = "fixed";
         gandi.style.top = "100px";
         gandi.innerHTML = `<style>
@@ -1521,8 +1444,8 @@ function openManages() {
         table = document.getElementsByClassName("table")[0];
         c = document.getElementById('move');
         move[0] = document.getElementById('move-header').addEventListener('mousedown', function (e) {
-            mouseOffsetX = e.pageX - document.getElementById('move').offsetLeft;
-            mouseOffsetY = e.pageY - document.getElementById('move').offsetTop;
+            mouseOffsetX = e.pageX - c.offsetLeft;
+            mouseOffsetY = e.pageY - c.offsetTop;
             isDraging = true;
             e.preventDefault();
         })
@@ -1534,8 +1457,8 @@ function openManages() {
                 moveX = e.pageX - mouseOffsetX;
                 moveY = e.pageY - mouseOffsetY;
 
-                document.getElementById('move').style.left = moveX + "px";
-                document.getElementById('move').style.top = moveY + "px";
+                c.style.left = moveX + "px";
+                c.style.top = moveY + "px";
             }
         })
 
@@ -1571,7 +1494,7 @@ function showButton() {
         t.style.borderRadius = "10px 0px 0px 0px";
         t.style.width = "170px";
         t.style.height = "50px";
-        t.style.zIndex = 9999999;
+        t.style.zIndex = "9999999";
         t.id = "witcatkey-value";
         t.setAttribute("onclick", "openManages()");
         document.body.appendChild(t);
@@ -1583,7 +1506,7 @@ function showButton() {
         y.style.borderRadius = "0px 0px 0px 0px";
         y.style.width = "50px";
         y.style.height = "50px";
-        y.style.zIndex = 9999999;
+        y.style.zIndex = "9999999";
         y.id = "witcatkey-values";
         y.setAttribute("onclick", "deleteButton()");
         document.body.appendChild(y);
