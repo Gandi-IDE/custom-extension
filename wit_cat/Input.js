@@ -6,12 +6,21 @@ const witcat_input_icon = "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHh
 
 const witcat_input_extensionId = "WitCatInput";
 
+/** @typedef {string|number} SCarg 来自Scratch圆形框的参数，虽然这个框可能只能输入数字，但是可以放入变量，因此有可能获得数字和文本，需要同时处理 */
+
+/** @type {{[key: string]: true}} */
 let keypress = {};
 let lastKey = "", MouseWheel = 0;
+/** @type {number} */
 let timer;
-let inputFontSize = {}, adaptive = false, observer;
+/** @type {{[key: string]: number}} */
+let inputFontSize = {};
+let adaptive = false;
+/** @type {MutationObserver} */
+let observer;
 
 //找渲染cvs
+/** @type {HTMLCanvasElement} */
 let cvs = document.getElementsByTagName("canvas")[0];
 if (cvs === null) {
 	alert("当前页面不支持输入框，请前往作品详情页体验完整作品！");
@@ -154,6 +163,11 @@ class WitCatInput {
 		})
 	}
 
+	/**
+	 * 翻译
+	 * @param {string} id
+	 * @returns {string}
+	 */
 	formatMessage(id) {
 		return this._formatMessage({
 			id,
@@ -733,7 +747,11 @@ class WitCatInput {
 			}
 		};
 	}
-	//打开教程
+
+	/**
+	 * 打开教程
+	 * @returns {void}
+	 */
 	docs() {
 		let a = document.createElement('a');
 		a.href = "https://www.ccw.site/post/6153a7a6-05fb-462e-b785-b97700b12bc2";
@@ -754,7 +772,20 @@ class WitCatInput {
 		// return isNaN(x) ? min : Math.min(max, Math.max(min, x));
 	}
 
-	//设置或创建文本框
+	/**
+	 * 设置或创建文本框
+	 * @param {object} args
+	 * @param {SCarg} args.id 文本框 ID
+	 * @param {SCarg} args.type 文本框类型 "input"|"textarea"
+	 * @param {SCarg} args.x 左上角x
+	 * @param {SCarg} args.y 左上角y
+	 * @param {SCarg} args.width 宽度
+	 * @param {SCarg} args.height 高度
+	 * @param {SCarg} args.text 初始文本
+	 * @param {SCarg} args.color 文字颜色
+	 * @param {SCarg} args.texts 提示文本
+	 * @param {SCarg} args.size 文字大小 
+	 */
 	createinput(args) {
 		let x = Number(args.x);
 		let y = Number(args.y);
@@ -811,34 +842,56 @@ class WitCatInput {
 
 		inputFontSize[args.id] = args.size;
 	}
-	//删除文本框
+
+	/**
+	 * 删除文本框
+	 * @param {object} args
+	 * @param {SCarg} args.id 文本框id
+	 */
 	deleteinput(args) {
 		let search = document.getElementById("WitCatInput" + args.id);
 		if (search !== null) {
 			cvs.parentNode.removeChild(search);
 		}
 	}
-	//获取文本框内容
+
+	/**
+	 * 获取文本框内容
+	 * @param {object} args
+	 * @param {SCarg} args.id 文本框id
+	 * @param {SCarg} args.type 内容类型
+	 * @return {SCarg}
+	 */
 	getinput(args) {
 		let search = document.getElementById("WitCatInput" + args.id);
 		return search === null ? "" : this._getattrib(search, args.type);
 	}
-	//焦点判断
+
+	/**
+	 * 焦点判断
+	 * @param {object} args
+	 * @param {SCarg} args.id 文本框 ID
+	 * @returns {boolean}
+	 */
 	isinput(args) {
 		let search = document.getElementById("WitCatInput" + args.id);
 		if (search !== null) {
 			if (search === document.activeElement) {
-				return (true);
+				return true;
 			}
 			else {
-				return (false);
+				return false;
 			}
 		}
 		else {
-			return (false);
+			return false;
 		}
 	}
-	//焦点位置
+
+	/**
+	 * 焦点位置
+	 * @returns {string} 文本框 ID
+	 */
 	whatinput() {
 		if (document.activeElement.className === "WitCatInput") {
 			return document.activeElement.id.split("WitCatInput")[1];
@@ -847,7 +900,12 @@ class WitCatInput {
 			return "";
 		}
 	}
-	//焦点获取
+
+	/**
+	 * 焦点获取
+	 * @param {object} args
+	 * @param {SCarg} args.id 文本框 ID
+	 */
 	nowinput(args) {
 		let search = document.getElementById("WitCatInput" + args.id);
 		if (search !== null) {
@@ -857,7 +915,10 @@ class WitCatInput {
 			document.activeElement.blur();
 		}
 	}
-	//删除所有文本框
+
+	/**
+	 * 删除所有文本框
+	 */
 	deleteallinput() {
 		let search = document.getElementsByClassName("WitCatInput");
 		let i = 0;
@@ -865,11 +926,23 @@ class WitCatInput {
 			search[i].parentNode.removeChild(search[i]);
 		}
 	}
-	//计算坐标
+
+	/**
+	 * 计算文字大小
+	 * @param {object} args
+	 * @param {SCarg} args.size Scratch 文字大小
+	 */
 	compute(args) {
 		return (Number(cvs.style.width.split("px")[0]) / 360) * args.size;
 	}
-	//获取指定编号的文本框属性
+
+	/**
+	 * 获取指定编号的文本框属性
+	 * @param {object} args
+	 * @param {SCarg} args.num 文本框序号
+	 * @param {SCarg} args.type 属性类型
+	 * @returns {SCarg}
+	 */
 	number(args) {
 		let searchall = document.getElementsByClassName("WitCatInput");
 		let index = Number(args.num);
@@ -970,12 +1043,22 @@ class WitCatInput {
 				return "";
 		}
 	}
-	//文本框数量
+
+	/**
+	 * 文本框数量
+	 * @returns {number}
+	 */
 	numbers() {
 		let search = document.getElementsByClassName("WitCatInput");
 		return search.length;
 	}
-	//按键检测
+
+	/**
+	 * 按键检测
+	 * @param {object} args
+	 * @param {SCarg} args.type 按键类型，用逗号分隔
+	 * @returns {boolean}
+	 */
 	key(args) {
 		let key = args.type.split(",");
 		for (const item of key) {
@@ -985,19 +1068,40 @@ class WitCatInput {
 		}
 		return true;
 	}
-	//按键检测
+
+	/**
+	 * 按键检测(帽子积木)
+	 * @param {object} args
+	 * @param {SCarg} args.type 按键类型，用逗号分隔
+	 * @returns {boolean}
+	 */
 	keys(args) {
 		return this.key(args);
 	}
-	//上次按下的键
+
+	/**
+	 * 上次按下的键
+	 * @returns {string}
+	 */
 	lastkey() {
 		return lastKey;
 	}
-	//鼠标滚轮
+
+	/**
+	 * 鼠标滚轮速度
+	 * @returns {number}
+	 */
 	mousewheel() {
 		return MouseWheel;
 	}
-	//设置文本框
+
+	/**
+	 * 设置文本框
+	 * @param {object} args
+	 * @param {SCarg} args.id 文本框 ID
+	 * @param {SCarg} args.type 属性类型
+	 * @param {SCarg} args.text 属性值
+	 */
 	setinput(args) {
 		let search = document.getElementById("WitCatInput" + args.id);
 		if (search !== null) {
@@ -1083,7 +1187,13 @@ class WitCatInput {
 			}
 		}
 	}
-	//设置状态
+
+	/**
+	 * 设置是否可修改
+	 * @param {object} args
+	 * @param {SCarg} args.id 文本框 ID
+	 * @param {SCarg} args.read 能否修改
+	 */
 	setread(args) {
 		let search = document.getElementById("WitCatInput" + args.id);
 		if (search !== null) {
@@ -1095,18 +1205,35 @@ class WitCatInput {
 			}
 		}
 	}
-	//设置文本框的type
+
+	/**
+	 * 设置文本框是否为密码框
+	 * @param {object} args
+	 * @param {SCarg} args.id 文本框 ID
+	 * @param {SCarg} args.read 是密码框 "test"|"password"
+	 */
 	password(args) {
 		let search = document.getElementById("WitCatInput" + args.id);
 		if (search !== null) {
 			search.type = args.read;
 		}
 	}
-	//获取按下的按键
+
+	/**
+	 * 获取按下的按键
+	 * @returns {string}
+	 */
 	keypress() {
 		return JSON.stringify(Object.keys(keypress));
 	}
-	//设置字体
+
+	/**
+	 * 设置字体
+	 * @param {object} args
+	 * @param {SCarg} args.id 文本框 ID
+	 * @param {SCarg} args.name 字体名
+	 * @param {SCarg} args.text 字体链接
+	 */
 	setfont(args) {
 		let search = document.getElementById("WitCatInput" + args.id);
 		if (search !== null) {
@@ -1125,25 +1252,51 @@ class WitCatInput {
 			xhr.send();
 		}
 	}
-	//设置对齐方式
+
+	/**
+	 * 设置对齐方式
+	 * @param {object} args
+	 * @param {SCarg} args.id 文本框 ID
+	 * @param {SCarg} args.read 对齐方式 "left"|"center"|"right"
+	 */
 	textalign(args) {
 		let search = document.getElementById("WitCatInput" + args.id);
 		if (search !== null) {
 			search.style.textAlign = args.read;
 		}
 	}
-	//设置文本框字体粗细
+
+	/**
+	 * 设置文本框字体粗细
+	 * @param {object} args
+	 * @param {SCarg} args.id 文本框 ID
+	 * @param {SCarg} args.text 字体粗细
+	 */
 	fontweight(args) {
 		let search = document.getElementById("WitCatInput" + args.id);
 		if (search !== null) {
 			search.style.fontWeight = args.text;
 		}
 	}
-	//创建阴影
+
+	/**
+	 * 创建阴影
+	 * @param {object} args
+	 * @param {SCarg} args.x 偏移x
+	 * @param {SCarg} args.y 偏移y
+	 * @param {SCarg} args.width 宽度
+	 * @param {SCarg} args.color 颜色
+	 * @returns {string}
+	 */
 	shadow(args) {
 		return `${args.x}px ${args.y}px ${args.width}px ${args.color}`
 	}
-	//设置字体自适应
+
+	/**
+	 * 设置字体自适应
+	 * @param {object} args
+	 * @param {SCarg} args.type
+	 */
 	fontadaptive(args) {
 		if (args.type == "true") {
 			if (!adaptive) {
@@ -1193,8 +1346,10 @@ window.tempExt = {
 	}
 };
 
-/* vim: set expandtab tabstop=2 shiftwidth=2: */
-//颜色转换
+/**
+ * 颜色转换
+ * @param {string} color
+ */
 function string_colorHex(color) {
 	// RGB颜色值的正则
 	var reg = /^(rgb|RGB)/;
@@ -1219,14 +1374,28 @@ function string_colorHex(color) {
 //键盘事件监听
 document.addEventListener("keydown", keydown);
 document.addEventListener("keyup", keyup);
+
+/**
+ * 按下键的处理
+ * @param {KeyboardEvent} event
+ */
 function keydown(event) {
 	keypress[event.code] = true;
 	lastKey = event.code;
 }
+
+/**
+ * 松开键的处理
+ * @param {KeyboardEvent} event
+ */
 function keyup(event) {
 	delete keypress[event.code];
 }
-//滚轮事件监听
+
+/**
+ * 滚轮事件监听
+ * @param {Event} e
+ */
 var scrollFunc = e => {
 	e = e || window.event;
 	if (e.wheelDelta) {  //判断浏览器IE，谷歌滑轮事件
