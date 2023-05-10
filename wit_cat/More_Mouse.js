@@ -5,17 +5,30 @@ const witcat_more_mouse_picture = "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSI
 const witcat_more_mouse_icon = "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIxNzcuMDg4NTUiIGhlaWdodD0iMTc3LjA4ODU1IiB2aWV3Qm94PSIwLDAsMTc3LjA4ODU1LDE3Ny4wODg1NSI+PGRlZnM+PGxpbmVhckdyYWRpZW50IHgxPSIyNDcuMDc3MyIgeTE9IjExOS4xNDIzMSIgeDI9IjI0Ny4wNzczIiB5Mj0iMjIyLjA2OTQ4IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgaWQ9ImNvbG9yLTEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2U1ZWFmMyIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xNTEuNDU1NzYsLTkxLjQ1NTc0KSI+PGcgZGF0YS1wYXBlci1kYXRhPSJ7JnF1b3Q7aXNQYWludGluZ0xheWVyJnF1b3Q7OnRydWV9IiBmaWxsLXJ1bGU9Im5vbnplcm8iIHN0cm9rZS13aWR0aD0iMCIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2UtZGFzaGFycmF5PSIiIHN0cm9rZS1kYXNob2Zmc2V0PSIwIiBzdHlsZT0ibWl4LWJsZW5kLW1vZGU6IG5vcm1hbCI+PHBhdGggZD0iTTE1MS40NTU3NiwyNjguNTQ0Mjl2LTE3Ny4wODg1NWgxNzcuMDg4NTV2MTc3LjA4ODU1eiIgZmlsbD0iIzhlYWNlMSIgc3Ryb2tlPSJub25lIiBzdHJva2UtbGluZWNhcD0iYnV0dCIvPjxwYXRoIGQ9Ik0yMzguMjAwNywyNDAuODU3NjlsLTEwLjQ4NDQxLC0zNS4xNjgwMmwtMjEuMzAyNDQsMjEuOTAwNjJsNC40Njc1OCwtMTA0Ljg5OTUxbDYzLjcxNjM3LDc5LjQ1MzQ5bC0yOS4yODgyNCwtMS41OTkxMmw5LjIwMDkxLDM0LjM1MTE1eiIgZmlsbD0iIzcyOGJiNSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNMjQ1Ljg4MDQ3LDIyMi4wNjk0OGwtMTEuOTY4MjcsLTMwLjUxOTFsLTIwLjM0NjA3LDIwLjM0NjA3di05Mi43NTQxM2w2Ny4wMjIzNCw2Ny4wMjIzNGgtMjkuMzIyMjdsMTAuNjUxNTEsMjkuODYwM3oiIGZpbGw9InVybCgjY29sb3ItMSkiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9nPjwvZz48L3N2Zz48IS0tcm90YXRpb25DZW50ZXI6ODguNTQ0MjQ0OTk5OTk5OTk6ODguNTQ0MjU1LS0+";
 
 const witcat_more_mouse_extensionId = "WitCatMouse";
+
+/** @typedef {string|number} SCarg 来自Scratch圆形框的参数，虽然这个框可能只能输入数字，但是可以放入变量，因此有可能获得数字和文本，需要同时处理 */
+
+/** @type {("up"|"down")[]} */
 let button = ["up", "up", "up", "up", "up"];
 let xMouse = 0;
 let yMouse = 0;
+/** @type {null|number} */
 let timer = null;
+/** @type {{identifier: number|"mouse", clientX: number, clientY: number, [key: string]: any}[]} */
 let touch = [];
-let click = false, dclick = false;
+/** @type {false|number} */
+let click = false;
+/** @type {false|number} */
+let dclick = false;
+/** @type {(""|number)[]} */
 let mousetd = ["", "", "", "", ""];
 
-
-//base64转blob
-function base64ImgtoFile(dataurl, filename = 'file') {
+/**
+ * data url 转 file
+ * @param {string} dataurl
+ * @param {string} filename
+ */
+function base64ImgtoFile(dataurl, filename = "file") {
 	try {
 		const arr = dataurl.split(',')
 		const mime = arr[0].match(/:(.*?);/)[1]
@@ -35,7 +48,10 @@ function base64ImgtoFile(dataurl, filename = 'file') {
 	}
 }
 
-//检测是不是ico的base64
+/**
+ * 检测是不是ico的base64
+ * @param {string} str
+ */
 function isBase64(str) {
 	let a = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$";
 	if (str.match(a) == null) {
@@ -179,6 +195,11 @@ class WitCatMouse {
 		})
 	}
 
+	/**
+	 * 翻译
+	 * @param {string} id
+	 * @returns {string}
+	 */
 	formatMessage(id) {
 		return this._formatMessage({
 			id,
@@ -557,17 +578,32 @@ class WitCatMouse {
 			}
 		};
 	}
-	//右键菜单
+
+	/**
+	 * 启用右键菜单？
+	 * @param {object} args
+	 * @param {SCarg} args.set
+	 */
 	set(args) {
 		cvs.parentNode.oncontextmenu = () => {
 			return args.set === "true";
 		}
 	}
-	//按下判断
+
+	/**
+	 * 按下判断
+	 * @param {object} args
+	 * @param {SCarg} args.key
+	 */
 	when(args) {
 		return button[args.key] === "down";
 	}
-	//控制鼠标
+
+	/**
+	 * 控制鼠标
+	 * @param {object} args
+	 * @param {SCarg} args.mouseuse
+	 */
 	mouseuse(args) {
 		if (args.mouseuse === "release") {
 			document.exitPointerLock();
@@ -576,7 +612,13 @@ class WitCatMouse {
 			cvs.parentNode.requestPointerLock();
 		}
 	}
-	//鼠标移动量
+
+	/**
+	 * 鼠标移动量
+	 * @param {object} args
+	 * @param {SCarg} args.way
+	 * @returns {number}
+	 */
 	acceleration(args) {
 		if (args.way === "x") {
 			return xMouse;
@@ -585,11 +627,22 @@ class WitCatMouse {
 			return -yMouse;
 		}
 	}
-	//数量
+
+	/**
+	 * 手指数量
+	 * @returns {number}
+	 */
 	down() {
 		return touch.length;
 	}
-	//坐标
+
+	/**
+	 * 坐标
+	 * @param {object} args
+	 * @param {SCarg} args.num 手指编号
+	 * @param {SCarg} args.type 数据类型 "x"|"y"|"identifier"
+	 * @returns {number|string}
+	 */
 	num(args) {
 		if (args.num > 0 && args.num <= touch.length) {
 			if (args.type === "x") {
@@ -603,34 +656,68 @@ class WitCatMouse {
 			}
 		}
 		else {
-			return null;
+			return 0;
 		}
 	}
-	//全屏
+
+	/**
+	 * 全屏
+	 * @deprecated
+	 */
 	fill() {
 		console.warn("全屏因浏览器兼容问题已下线，在未来修复后将会重新上线\nFull screen has been taken offline due to browser compatibility issues. It will be back online after a future fix");
 	}
-	//设置分辨率
+
+	/**
+	 * 设置分辨率
+	 * @deprecated
+	 */
 	setfill() {
 		console.warn("全屏因浏览器兼容问题已下线，在未来修复后将会重新上线\nFull screen has been taken offline due to browser compatibility issues. It will be back online after a future fix");
 	}
-	//当前分辨率
+
+	/**
+	 * 当前分辨率
+	 * @returns {number}
+	 */
 	resolution() {
 		return cvs.height;
 	}
-	//设备是否支持触屏
+
+	/**
+	 * 设备是否支持触屏/鼠标
+	 * @param {object} args
+	 * @param {SCarg} args.type
+	 * @returns {boolean}
+	 */
 	cantouch(args) {
 		return (args.type in document.documentElement);
 	}
-	//是否是手机
+
+	/**
+	 * 是否是手机
+	 * @returns {boolean}
+	 */
 	IsMobile() {
 		return /Android|iPhone|iPad|iPod|BlackBerry|webOS|Windows Phone|SymbianOS|IEMobile|Opera Mini/i.test(navigator.userAgent);
 	}
-	//设置光标
+
+	/**
+	 * 设置光标样式
+	 * @param {object} args
+	 * @param {SCarg} args.cursor 样式
+	 */
 	cursor(args) {
 		cvs.parentNode.parentNode.parentNode.style.cursor = args.cursor;
 	}
-	//设置光标为url
+
+	/**
+	 * 设置光标为url
+	 * @param {object} args
+	 * @param {SCarg} args.text 样式
+	 * @param {SCarg} args.x x偏移
+	 * @param {SCarg} args.y y偏移
+	 */
 	cursorurl(args) {
 		if (isBase64(args.text)) {
 			const img = args.text;
@@ -642,7 +729,10 @@ class WitCatMouse {
 			}
 		}
 	}
-	//打开ico文件
+
+	/**
+	 * 打开ico文件
+	 */
 	url() {
 		return new Promise(resolve => {
 			const input = document.createElement("input");
@@ -689,7 +779,10 @@ class WitCatMouse {
 			}
 		});
 	}
-	//打开教程
+
+	/**
+	 * 打开教程
+	 */
 	docs() {
 		let a = document.createElement('a');
 		a.href = "https://www.ccw.site/post/c36aa805-b29d-48da-aba1-468a6cf80bfa";
@@ -697,7 +790,13 @@ class WitCatMouse {
 		a.target = "_blank";
 		a.click();
 	}
-	//鼠标点击/双击
+
+	/**
+	 * 鼠标点击/双击
+	 * @param {object} args
+	 * @param {SCarg} args.way 点击/双击
+	 * @returns {boolean}
+	 */
 	mouse(args) {
 		if (args.way === "click") {
 			return click !== false;
@@ -707,10 +806,24 @@ class WitCatMouse {
 		}
 		return false;
 	}
+
+	/**
+	 * 鼠标点击/双击(帽子积木)
+	 * @param {object} args
+	 * @param {SCarg} args.way 点击/双击
+	 * @returns {boolean}
+	 */
 	mouses(args) {
 		return this.mouse(args);
 	}
-	//判断按下多久
+
+	/**
+	 * 判断鼠标键按下时长
+	 * @param {object} args
+	 * @param {SCarg} args.key 按键编号
+	 * @param {SCarg} args.time 按键时长
+	 * @returns {boolean}
+	 */
 	mousetd(args) {
 		if (mousetd[args.key] != "") {
 			let time = Date.now() - (args.time * 1000 + mousetd[args.key]);
@@ -720,10 +833,24 @@ class WitCatMouse {
 		}
 		return false;
 	}
+
+	/**
+	 * 判断鼠标键按下时长(帽子积木)
+	 * @param {object} args
+	 * @param {SCarg} args.key 按键编号
+	 * @param {SCarg} args.time 按键时长
+	 * @returns {boolean}
+	 */
 	mousetds(args) {
 		return this.mousetd(args);
 	}
-	//鼠标被按下的时间
+
+	/**
+	 * 鼠标被按下的时间
+	 * @param {object} args
+	 * @param {SCarg} args.key 按键编号
+	 * @returns {number}
+	 */
 	mouset(args) {
 		if (mousetd[args.key] != "") {
 			return (Date.now() - mousetd[args.key]) / 1000;
@@ -756,7 +883,6 @@ window.tempExt = {
 	}
 };
 
-/* vim: set expandtab tabstop=2 shiftwidth=2: */
 //鼠标
 document.addEventListener('mousedown', e => {
 	button[e.button] = "down";
