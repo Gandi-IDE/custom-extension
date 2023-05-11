@@ -14,7 +14,7 @@ let xMouse = 0;
 let yMouse = 0;
 /** @type {null|number} */
 let timer = null;
-/** @type {{identifier: number|"mouse", clientX: number, clientY: number, [key: string]: any}[]} */
+/** @type {TouchList | {identifier: "mouse", clientX: number, clientY: number}[]} */
 let touch = [];
 /** @type {false|number} */
 let click = false;
@@ -27,11 +27,16 @@ let mousetd = ["", "", "", "", ""];
  * data url 转 file
  * @param {string} dataurl
  * @param {string} filename
+ * @returns {File|false}
  */
 function base64ImgtoFile(dataurl, filename = "file") {
 	try {
 		const arr = dataurl.split(',')
-		const mime = arr[0].match(/:(.*?);/)[1]
+		const match = arr[0].match(/:(.*?);/)
+		if (match === null) {
+			return false;
+		}
+		const mime = match[1]
 		const suffix = mime.split('/')[1]
 		const bstr = atob(arr[1])
 		let n = bstr.length
@@ -341,7 +346,8 @@ class WitCatMouse {
 				{
 					blockType: "button",
 					text: this.formatMessage('WitCatMouse.url'),
-					onClick: this.url,
+					// 这里的 bind 必须，因为 this.url 里面引用了 this
+					onClick: this.url.bind(this),
 				},
 				{
 					opcode: "cursor",
@@ -596,7 +602,7 @@ class WitCatMouse {
 	 * @param {SCarg} args.key
 	 */
 	when(args) {
-		return button[args.key] === "down";
+		return button[Number(args.key)] === "down";
 	}
 
 	/**
@@ -609,7 +615,7 @@ class WitCatMouse {
 			document.exitPointerLock();
 		}
 		else {
-			cvs.parentNode.requestPointerLock();
+			document.body.requestPointerLock();
 		}
 	}
 
@@ -644,15 +650,16 @@ class WitCatMouse {
 	 * @returns {number|string}
 	 */
 	num(args) {
-		if (args.num > 0 && args.num <= touch.length) {
+		const touch1 = touch[Number(args.num) - 1];
+		if (touch1 !== undefined) {
 			if (args.type === "x") {
-				return this.runtime.stageWidth * ((touch[args.num - 1].clientX - cvs.getBoundingClientRect().left) / cvs.offsetWidth);
+				return this.runtime.stageWidth * ((touch1.clientX - cvs.getBoundingClientRect().left) / cvs.offsetWidth);
 			}
 			else if (args.type === "y") {
-				return this.runtime.stageHeight * ((touch[args.num - 1].clientY - cvs.getBoundingClientRect().top) / cvs.offsetHeight);
+				return this.runtime.stageHeight * ((touch1.clientY - cvs.getBoundingClientRect().top) / cvs.offsetHeight);
 			}
 			else {
-				return touch[args.num - 1].identifier;
+				return touch1.identifier;
 			}
 		}
 		else {
@@ -708,7 +715,7 @@ class WitCatMouse {
 	 * @param {SCarg} args.cursor 样式
 	 */
 	cursor(args) {
-		cvs.parentNode.parentNode.parentNode.style.cursor = args.cursor;
+		cvs.style.cursor = String(args.cursor);
 	}
 
 	/**
@@ -719,65 +726,95 @@ class WitCatMouse {
 	 * @param {SCarg} args.y y偏移
 	 */
 	cursorurl(args) {
-		if (isBase64(args.text)) {
+		if (isBase64(String(args.text))) {
 			const img = args.text;
-			let file = base64ImgtoFile(img); // 得到File对象
+			let file = base64ImgtoFile(String(img)); // 得到File对象
 			if (file != false) {
 				let imgUrl = window.webkitURL.createObjectURL(file) || window.URL.createObjectURL(file) // imgUrl图片网络路径
-				cvs.parentNode.parentNode.parentNode.style.cursor = "url(" + imgUrl + ")" + args.x + " " + args.y + ",auto";
+				cvs.style.cursor = "url(" + imgUrl + ")" + args.x + " " + args.y + ",auto";
 				return;
 			}
 		}
 	}
 
 	/**
-	 * 打开ico文件
+	 * 打开文件选择框
+	 * @param {string} accept 接受的文件扩展名
+	 * @param {boolean} multiple 接受多个文件
+	 * @return {Promise<File[]>} [异步地]返回选择后的文件列表input.files转换成的数组(可能没有文件)
 	 */
-	url() {
-		return new Promise(resolve => {
+	_inputfileclick(accept, multiple) {
+		return new Promise((resolve, reject) => {
 			const input = document.createElement("input");
 			input.type = "file";
+			input.accept = accept;
 			input.style.display = "none";
-			input.accept = ".ico";
+			input.multiple = multiple;
 			input.click();
-			input.onchange = () => {
-				const reader = new FileReader();
-				const readers = new FileReader();
-				const file = input.files[0];
-				reader.onload = (e) => {
-					prompt("请复制以下代码：", e.currentTarget.result);
-					resolve(e.target.result);
-				};
-				reader.onerror = () => {
-					resolve();
-				};
-				readers.readAsArrayBuffer(file);
-
-				readers.onload = (e) => {
-					if (file.name.split('.')[file.name.split('.').length - 1] == "ico") {
-						var uri = e.target.result;
-						console.log(uri.byteLength / 1024 + " KB");
-						if (uri.byteLength / 1024 <= 10) {
-							reader.readAsDataURL(file);
-						}
-						else {
-							console.warn("文件过大，可能导致工程文件崩溃！！！\nThe file is too large, may cause the project file crash!!!");
-							alert("文件过大，可能导致工程文件崩溃！！！\nThe file is too large, may cause the project file crash!!!");
-						}
-					}
-					else {
-						console.warn("请选择*.ico文件\nPlease select the *.ico file");
-						alert("请选择*.ico文件\nPlease select the *.ico file");
-					}
-				};
-			}
-			window.onfocus = () => {
-				// 开始计时或者播放
+			input.addEventListener("change", () => {
+				if (input.files === null) {
+					reject(new Error("不应该看到这个"));
+				} else {
+					// 返回了关键的 input.files，而不是整个 input。
+					// 之后如果要考虑“读取素材库文件”，“拖动导入文件”等
+					// 只能获得 Blob/File 的情况，可以方便适配
+					// 这里加 Array.from 是因为 input.files 是 FileList，
+					// 不是 File[]，一些数组拥有的功能它没有。虽然一般情况下
+					// 不会注意到区别，但是类型检查会把这种情况查出来。
+					resolve(Array.from(input.files));
+				}
+			}, {once: true}); // 只触发一次
+			window.addEventListener("focus", () => {
 				setTimeout(() => {
-					resolve("");
+					if (input.files === null) {
+						reject(new Error("不应该看到这个"));
+					} else {
+						resolve(Array.from(input.files));
+					}
 				}, 1000);
+			}, {once: true}); // 只触发一次
+		});
+	}
+
+	/**
+	 * 读取文件
+	 * @param {File|Blob} file File 或者 Blob
+	 * @param {"arraybuffer"|"dataurl"|"text"} mode 读取模式
+	 * @return {Promise<string|ArrayBuffer|null>} [异步地]返回读取后的内容
+	 */
+	_readerasync(file, mode) {
+		return new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.onload = () => {
+				resolve(reader.result);
+			};
+			reader.onerror = (e) => {
+				reject(e);
+			};
+			switch (mode) {
+				case "arraybuffer":
+					reader.readAsArrayBuffer(file);
+					break;
+				case "dataurl":
+					reader.readAsDataURL(file);
+					break;
+				case "text":
+					reader.readAsText(file);
+					break;
+				default:
+					reject(new Error("mode 错误: 应该是 arraybuffer, dataurl 或者 text"));
+					return;
 			}
 		});
+	}
+
+	/**
+	 * 打开ico文件
+	 */
+	async url() {
+		const filelist = await this._inputfileclick("", false);
+		const dataurl = String(await this._readerasync(filelist[0], "dataurl"));
+		prompt("请复制以下代码：", dataurl);
 	}
 
 	/**
@@ -825,8 +862,9 @@ class WitCatMouse {
 	 * @returns {boolean}
 	 */
 	mousetd(args) {
-		if (mousetd[args.key] != "") {
-			let time = Date.now() - (args.time * 1000 + mousetd[args.key]);
+		const mousetdkey = mousetd[Number(args.key)];
+		if (mousetdkey != "") {
+			let time = Date.now() - (Number(args.time) * 1000 + mousetdkey);
 			if (-50 <= time && time <= 50) {
 				return true;
 			}
@@ -852,8 +890,9 @@ class WitCatMouse {
 	 * @returns {number}
 	 */
 	mouset(args) {
-		if (mousetd[args.key] != "") {
-			return (Date.now() - mousetd[args.key]) / 1000;
+		const mousetdkey = mousetd[Number(args.key)];
+		if (mousetdkey != "") {
+			return (Date.now() - mousetdkey) / 1000;
 		}
 		return 0;
 	}
@@ -913,7 +952,9 @@ document.addEventListener("mousemove", ev => {
 	}
 	xMouse = ev.movementX; // 获得鼠标指针的x移动量
 	yMouse = ev.movementY; // 获得鼠标指针的y移动量
-	clearTimeout(timer);
+	if (timer !== null) {
+		clearTimeout(timer);
+	}
 	timer = setTimeout(() => {
 		xMouse = 0;
 		yMouse = 0;
@@ -928,7 +969,9 @@ cvs.addEventListener('touchstart', e => {
 cvs.addEventListener('touchmove', e => {
 	xMouse = e.targetTouches[0].clientX - touch[0].clientX; // 获得手指的x移动量
 	yMouse = e.targetTouches[0].clientY - touch[0].clientY; // 获得手指的y移动量
-	clearTimeout(timer);
+	if (timer !== null) {
+		clearTimeout(timer);
+	}
 	timer = setTimeout(() => {
 		xMouse = 0;
 		yMouse = 0;
