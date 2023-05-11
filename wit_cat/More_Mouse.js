@@ -23,51 +23,6 @@ let dclick = false;
 /** @type {(""|number)[]} */
 let mousetd = ["", "", "", "", ""];
 
-/**
- * data url 转 file
- * @param {string} dataurl
- * @param {string} filename
- * @returns {File|false}
- */
-function base64ImgtoFile(dataurl, filename = "file") {
-	try {
-		const arr = dataurl.split(',')
-		const match = arr[0].match(/:(.*?);/)
-		if (match === null) {
-			return false;
-		}
-		const mime = match[1]
-		const suffix = mime.split('/')[1]
-		const bstr = atob(arr[1])
-		let n = bstr.length
-		const u8arr = new Uint8Array(n)
-		while (n--) {
-			u8arr[n] = bstr.charCodeAt(n)
-		}
-		return new File([u8arr], `${filename}.${suffix}`, {
-			type: mime
-		})
-	}
-	catch {
-		return false;
-	}
-}
-
-/**
- * 检测是不是ico的base64
- * @param {string} str
- */
-function isBase64(str) {
-	let a = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$";
-	if (str.match(a) == null) {
-		return true;
-	}
-	else {
-		console.warn("请使用ico格式的base64文本\nPlease use base64 text in ico format");
-		return false;
-	}
-}
-
 //找渲染cvs
 let cvs = document.getElementsByTagName("canvas")[0];
 if (cvs === null) {
@@ -726,15 +681,14 @@ class WitCatMouse {
 	 * @param {SCarg} args.y y偏移
 	 */
 	cursorurl(args) {
-		if (isBase64(String(args.text))) {
-			const img = args.text;
-			let file = base64ImgtoFile(String(img)); // 得到File对象
-			if (file != false) {
-				let imgUrl = window.webkitURL.createObjectURL(file) || window.URL.createObjectURL(file) // imgUrl图片网络路径
-				cvs.style.cursor = "url(" + imgUrl + ")" + args.x + " " + args.y + ",auto";
-				return;
-			}
-		}
+		let url = String(args.text);
+		const x = Number(args.x);
+		const y = Number(args.y);
+		// 针对 url() 里的语法，先转义回去，再完整地转义回来。
+		url = encodeURIComponent(decodeURIComponent(url))
+		// 实际上 cursorurl 处可以直接使用 正常的 url 和 data url。
+		// 不需要特地转换。
+		cvs.style.cursor = `url("${url}") ${x} ${y}, auto`;
 	}
 
 	/**
