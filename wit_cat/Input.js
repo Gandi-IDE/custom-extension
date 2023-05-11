@@ -6,7 +6,7 @@ const witcat_input_icon = "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHh
 
 const witcat_input_extensionId = "WitCatInput";
 
-/** @typedef {string|number} SCarg 来自Scratch圆形框的参数，虽然这个框可能只能输入数字，但是可以放入变量，因此有可能获得数字和文本，需要同时处理 */
+/** @typedef {string|number|boolean} SCarg 来自Scratch圆形框的参数，虽然这个框可能只能输入数字，但是可以放入变量，因此有可能获得数字和文本，需要同时处理 */
 
 /** @type {{[key: string]: true}} */
 let keypress = {};
@@ -817,7 +817,12 @@ class WitCatInput {
 		width = (width / this.runtime.stageWidth) * 100;
 		height = (height / this.runtime.stageHeight) * 100;
 
-		let search = document.getElementById("WitCatInput" + args.id);
+		/** @type {HTMLInputElement|HTMLTextAreaElement|null} */
+		let search = null;
+		let search_1 = document.getElementById("WitCatInput" + args.id);
+		if (search_1 instanceof HTMLInputElement || search_1 instanceof HTMLTextAreaElement) {
+			search = search_1;
+		}
 		// 这里通过“如果不符合，就删除；如果不存在，就建立”的方式，
 		// 避免后面大量复制粘贴样式操作。
 		// 大段的复制粘贴往往意味着之后会犯错（只改一半）
@@ -826,15 +831,21 @@ class WitCatInput {
 			search = null;
 		}
 		if (search === null) {
+			if (args.type !== "input" && args.type !== "textarea") {
+				// 防止修改 JSON 注入
+				console.warn("Input.js: 类型应该是 input 或者 textarea");
+				return;
+			}
 			search = document.createElement(args.type);
-			if (args.type === "input") {
+			// 条件修改只是为了通过类型检查
+			if (search instanceof HTMLInputElement) {
 				search.type = "text";
 			}
 			search.id = "WitCatInput" + args.id;
-			search.value = args.text;
+			search.value = String(args.text);
 			search.className = "WitCatInput";
-			search.name = args.type;
-			search.placeholder = args.texts;
+			search.name = String(args.type);
+			search.placeholder = String(args.texts);
 			this.inputParent.appendChild(search);
 		}
 
@@ -849,15 +860,15 @@ class WitCatInput {
 		sstyle.top = `${y}%`;
 		sstyle.width = `${width}%`;
 		sstyle.height = `${height}%`;
-		sstyle.fontSize = `${Number(adaptive ? (Number(this.canvas.style.width.split("px")[0]) / 360) * args.size : args.size)}px`;
+		sstyle.fontSize = `${adaptive ? (Number(this.canvas.style.width.split("px")[0]) / 360) * Number(args.size) : Number(args.size)}px`;
 		sstyle.resize = "none";
-		sstyle.color = args.color;
+		sstyle.color = String(args.color);
 		sstyle.opacity = "1";
 		sstyle.backgroundSize = "100% 100%";
-		search.value = args.text;
-		search.placeholder = args.texts;
+		search.value = String(args.text);
+		search.placeholder = String(args.texts);
 
-		inputFontSize[args.id] = args.size;
+		inputFontSize[String(args.id)] = Number(args.size);
 	}
 
 	/**
@@ -884,7 +895,7 @@ class WitCatInput {
 	 */
 	getinput(args) {
 		let search = document.getElementById("WitCatInput" + args.id);
-		return search === null ? "" : this._getattrib(search, args.type);
+		return search === null ? "" : this._getattrib(search, String(args.type));
 	}
 
 	/**
@@ -913,7 +924,7 @@ class WitCatInput {
 	 * @returns {string} 文本框 ID
 	 */
 	whatinput() {
-		if (document.activeElement.className === "WitCatInput") {
+		if (document.activeElement !== null && document.activeElement.className === "WitCatInput") {
 			return document.activeElement.id.split("WitCatInput")[1];
 		}
 		else {
@@ -931,7 +942,7 @@ class WitCatInput {
 		if (search !== null) {
 			search.focus();
 		}
-		else if (document.activeElement.className === "WitCatInput") {
+		else if (document.activeElement !== null && document.activeElement.className === "WitCatInput") {
 			document.activeElement.blur();
 		}
 	}
@@ -940,10 +951,12 @@ class WitCatInput {
 	 * 删除所有文本框
 	 */
 	deleteallinput() {
+		if (this.inputParent === null) {
+			return;
+		}
 		let search = document.getElementsByClassName("WitCatInput");
-		let i = 0;
-		for (i = search.length - 1; i >= 0; i--) {
-			search[i].parentNode.removeChild(search[i]);
+		for (const item of Array.from(search)) {
+			this.inputParent.removeChild(item);
 		}
 	}
 
@@ -951,12 +964,13 @@ class WitCatInput {
 	 * 计算文字大小
 	 * @param {object} args
 	 * @param {SCarg} args.size Scratch 文字大小
+	 * @returns {number}
 	 */
 	compute(args) {
 		if (this.canvas === null) {
-			return;
+			return 0;
 		}
-		return (Number(this.canvas.style.width.split("px")[0]) / 360) * args.size;
+		return Number(this.canvas.style.width.split("px")[0]) / 360 * Number(args.size);
 	}
 
 	/**
@@ -969,9 +983,9 @@ class WitCatInput {
 	number(args) {
 		let searchall = document.getElementsByClassName("WitCatInput");
 		let index = Number(args.num);
-		if (searchall.length >= index && index > 0) {
-			let search = searchall[index - 1];
-			return this._getattrib(search, args.type);
+		let search = searchall[index - 1];
+		if (search !== undefined) {
+			return this._getattrib(search, String(args.type));
 		} else {
 			return "";
 		}
@@ -1027,7 +1041,7 @@ class WitCatInput {
 				{
 					// 打花括号之后就可以在里面声明变量了
 					let match = /^url\("(.*)"\)$/.exec(element.style.backgroundImage);
-					if (match !== null) {
+					if (match !== null && match[1] !== undefined) {
 						return decodeURI(match[1]);
 					} else {
 						// 正则匹配失败
@@ -1057,7 +1071,7 @@ class WitCatInput {
 						ID: this._getattrib(element, "ID"),
 						"Rolling position": this._getattrib(element, "rp"),
 						"Text height": this._getattrib(element, "th"),
-						"cursor position": JSON.parse(this._getattrib(element, "cp"))
+						"cursor position": JSON.parse(String(this._getattrib(element, "cp")))
 						// 这里看起来缺了一些东西，如果没有合并复制粘贴的代码以及进
 						// 行优化，将需要修改两次大段内容，现在修改就简单了。
 					}
@@ -1083,7 +1097,7 @@ class WitCatInput {
 	 * @returns {boolean}
 	 */
 	key(args) {
-		let key = args.type.split(",");
+		let key = String(args.type).split(",");
 		for (const item of key) {
 			if (!Object.keys(keypress).includes(item)) {
 				return false;
@@ -1154,17 +1168,17 @@ class WitCatInput {
 					sstyle.height = Number(height) + "%";
 					break;
 				case "content":
-					search.value = args.text;
+					search.value = String(args.text);
 					break;
 				case "prompt":
-					search.placeholder = args.text;
+					search.placeholder = String(args.text);
 					break;
 				case "color":
-					sstyle.color = args.text;
+					sstyle.color = String(args.text);
 					break;
 				case "font-size":
 					sstyle.fontSize = Number(args.text) + "px";
-					inputFontSize[args.id] = Number(args.text);
+					inputFontSize[String(args.id)] = Number(args.text);
 					break;
 				case "rp":
 					search.scrollTop = Number(args.text);
@@ -1176,7 +1190,7 @@ class WitCatInput {
 					break;
 				case "cp":
 					try {
-						let selection = JSON.parse(args.text);
+						let selection = JSON.parse(String(args.text));
 						if (selection instanceof Array && selection.length === 2) {
 							search.setSelectionRange(selection[0], selection[1]);
 						}
@@ -1189,7 +1203,7 @@ class WitCatInput {
 					}
 					break;
 				case "bg":
-					if (args.text.startsWith("https://m.ccw.site/") || args.text.startsWith("https://m.xiguacity.com/")) {
+					if (String(args.text).startsWith("https://m.ccw.site/") || String(args.text).startsWith("https://m.xiguacity.com/")) {
 						sstyle.backgroundImage = 'url("' + encodeURI(String(args.text)) + '")';
 						sstyle.backgroundSize = "100% 100%";
 					}
@@ -1201,11 +1215,11 @@ class WitCatInput {
 					sstyle.lineHeight = Number(args.text) + "px";
 					break;
 				case "ts":
-					sstyle.textShadow = args.text;
+					sstyle.textShadow = String(args.text);
 					break;
 				case "css":
 					// https://www.cnblogs.com/ndos/p/9706646.html
-					search.setAttribute("style", args.text);
+					search.setAttribute("style", String(args.text));
 					break;
 			}
 		}
@@ -1258,15 +1272,15 @@ class WitCatInput {
 	 * @param {SCarg} args.text 字体链接
 	 */
 	setfont(args) {
-		let search = document.getElementById("WitCatInput" + args.id);
+		const search = document.getElementById("WitCatInput" + args.id);
 		if (search !== null) {
-			var xhr = new XMLHttpRequest(); // 定义一个异步对象
-			xhr.open('GET', args.text, true); // 异步GET方式加载字体
+			const xhr = new XMLHttpRequest(); // 定义一个异步对象
+			xhr.open('GET', String(args.text), true); // 异步GET方式加载字体
 			xhr.responseType = "arraybuffer"; //把异步获取类型改为arraybuffer二进制类型
 			xhr.onload = function () {
 				// 这里做了一个判断：如果浏览器支持FontFace方法执行
 				if (typeof FontFace != 'undefined') {
-					document.fonts.add(new FontFace(args.name, this.response)); // 将字体对象添加到页面中
+					document.fonts.add(new FontFace(String(args.name), this.response)); // 将字体对象添加到页面中
 					search.style.fontFamily = `"${args.name}"`;
 				} else {
 					search.innerHTML = `@font-face{font-family:"${args.name}";src:url("${args.text}") `;
@@ -1285,7 +1299,7 @@ class WitCatInput {
 	textalign(args) {
 		let search = document.getElementById("WitCatInput" + args.id);
 		if (search !== null) {
-			search.style.textAlign = args.read;
+			search.style.textAlign = String(args.read);
 		}
 	}
 
@@ -1298,7 +1312,7 @@ class WitCatInput {
 	fontweight(args) {
 		let search = document.getElementById("WitCatInput" + args.id);
 		if (search !== null) {
-			search.style.fontWeight = args.text;
+			search.style.fontWeight = String(args.text);
 		}
 	}
 
@@ -1329,9 +1343,11 @@ class WitCatInput {
 				let search = document.getElementsByClassName("WitCatInput");
 				const config = { attributes: true, childList: true, subtree: true, attributeFilter: ['style'] };
 				const callback = () => {
-					let len = search.length
-					for (let i = 0; i < len; i++) {
-						search[i].style.fontSize = ((this.canvas.style.width.split("px")[0] / 360) * inputFontSize[search[i].id.split("WitCatInput")[1]]) + "px";
+					if (this.canvas === null) {
+						return;
+					}
+					for (let searchi of Array.from(search)) {
+						searchi.style.fontSize = ((Number(this.canvas.style.width.split("px")[0]) / 360) * inputFontSize[searchi.id.split("WitCatInput")[1]]) + "px";
 					}
 				};
 				observer = new MutationObserver(callback);
