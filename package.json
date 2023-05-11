@@ -1,17 +1,21 @@
 {
   "name": "@gandi-ide/custom-extension",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "community developed extension for gandi",
-  "main": "index.ts",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/custom-extensions.js",
   "repository": "https://github.com/CCW-Site/ccw-user-extension.git",
   "author": "nick <huchangning@xigua.city>",
   "license": "MIT",
   "scripts": {
-    "dev": "webpack serve --mode development",
+    "dev": "yarn build && webpack serve --mode development",
     "build": "yarn clean && webpack --config webpack.config.js",
     "watch": "yarn clean && webpack --watch --progress",
     "lint": "tslint -p tsconfig.json",
-    "clean": "rimraf ./dist && rimraf types"
+    "clean": "rimraf ./dist && rimraf types",
+    "prepublish": "yarn clean && webpack --config webpack.publish.config"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
