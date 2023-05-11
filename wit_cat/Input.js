@@ -19,23 +19,37 @@ let adaptive = false;
 /** @type {MutationObserver} */
 let observer;
 
-//找渲染cvs
-/** @type {HTMLCanvasElement} */
-let cvs = document.getElementsByTagName("canvas")[0];
-if (cvs === null) {
-	alert("当前页面不支持输入框，请前往作品详情页体验完整作品！");
-}
-else {
-	for (let i = 1; cvs.className !== "" && i <= document.getElementsByTagName("canvas").length; i++) {
-		cvs = document.getElementsByTagName("canvas")[i];
-	}
-	if (cvs === null) {
-		alert("当前页面不支持输入框，请前往作品详情页体验完整作品！");
-	}
-}
-
 class WitCatInput {
 	constructor(runtime) {
+		/**
+		 * Scratch 所使用的 Canvas，获取不到返回 null
+		 * @type {HTMLCanvasElement | null}
+		 */
+		this.canvas = null;
+
+		/**
+		 * 所有输入框所在的父角色，目前设为 Canvas 的父角色。
+		 * 获取不到返回 null
+		 * @type {HTMLElement | null}
+		 */
+		this.inputParent = null;
+
+		// 这里应该有一种方法能够通过 runtime 获得 Canvas
+		let allcvs = Array.from(document.getElementsByTagName("canvas"));
+		for (const cvs of allcvs) {
+			// 说句实话，我不知道原版的代码的这个判断想干什么
+			if (cvs.className !== "") {
+				this.canvas = cvs;
+				this.inputParent = cvs.parentElement;
+				break;
+			}
+		}
+		if (this.canvas === null || this.inputParent === null) {
+			alert("当前页面不支持文本框，请前往作品详情页体验完整作品！");
+			// 注意：在提示之后，扩展仍然在运行。需要在后面引用 Canvas 的部分进行判断。
+		}
+		this._addevent();
+
 		this.runtime = runtime;
 		this._formatMessage = runtime.getFormatMessage({
 			"zh-cn": {
@@ -787,6 +801,9 @@ class WitCatInput {
 	 * @param {SCarg} args.size 文字大小 
 	 */
 	createinput(args) {
+		if (this.canvas === null || this.inputParent === null) {
+			return;
+		}
 		let x = Number(args.x);
 		let y = Number(args.y);
 		let width = Number(args.width);
@@ -804,8 +821,8 @@ class WitCatInput {
 		// 这里通过“如果不符合，就删除；如果不存在，就建立”的方式，
 		// 避免后面大量复制粘贴样式操作。
 		// 大段的复制粘贴往往意味着之后会犯错（只改一半）
-		if (search !== null && search.name !== args.type) {
-			cvs.parentNode.removeChild(search);
+		if (search !== null && search.tagName !== args.type) {
+			this.inputParent.removeChild(search);
 			search = null;
 		}
 		if (search === null) {
@@ -818,7 +835,7 @@ class WitCatInput {
 			search.className = "WitCatInput";
 			search.name = args.type;
 			search.placeholder = args.texts;
-			cvs.parentNode.appendChild(search);
+			this.inputParent.appendChild(search);
 		}
 
 		// 现在直接通过style的属性修改样式表，不需要担心“分号注入”问题了
@@ -832,7 +849,7 @@ class WitCatInput {
 		sstyle.top = `${y}%`;
 		sstyle.width = `${width}%`;
 		sstyle.height = `${height}%`;
-		sstyle.fontSize = `${Number(adaptive ? (Number(cvs.style.width.split("px")[0]) / 360) * args.size : args.size)}px`;
+		sstyle.fontSize = `${Number(adaptive ? (Number(this.canvas.style.width.split("px")[0]) / 360) * args.size : args.size)}px`;
 		sstyle.resize = "none";
 		sstyle.color = args.color;
 		sstyle.opacity = "1";
@@ -849,9 +866,12 @@ class WitCatInput {
 	 * @param {SCarg} args.id 文本框id
 	 */
 	deleteinput(args) {
+		if (this.inputParent === null) {
+			return;
+		}
 		let search = document.getElementById("WitCatInput" + args.id);
 		if (search !== null) {
-			cvs.parentNode.removeChild(search);
+			this.inputParent.removeChild(search);
 		}
 	}
 
@@ -933,7 +953,10 @@ class WitCatInput {
 	 * @param {SCarg} args.size Scratch 文字大小
 	 */
 	compute(args) {
-		return (Number(cvs.style.width.split("px")[0]) / 360) * args.size;
+		if (this.canvas === null) {
+			return;
+		}
+		return (Number(this.canvas.style.width.split("px")[0]) / 360) * args.size;
 	}
 
 	/**
@@ -1298,18 +1321,21 @@ class WitCatInput {
 	 * @param {SCarg} args.type
 	 */
 	fontadaptive(args) {
+		if (this.canvas === null) {
+			return;
+		}
 		if (args.type == "true") {
 			if (!adaptive) {
 				let search = document.getElementsByClassName("WitCatInput");
 				const config = { attributes: true, childList: true, subtree: true, attributeFilter: ['style'] };
-				const callback = function () {
+				const callback = () => {
 					let len = search.length
 					for (let i = 0; i < len; i++) {
-						search[i].style.fontSize = ((cvs.style.width.split("px")[0] / 360) * inputFontSize[search[i].id.split("WitCatInput")[1]]) + "px";
+						search[i].style.fontSize = ((this.canvas.style.width.split("px")[0] / 360) * inputFontSize[search[i].id.split("WitCatInput")[1]]) + "px";
 					}
 				};
 				observer = new MutationObserver(callback);
-				observer.observe(cvs, config);
+				observer.observe(this.canvas, config);
 				adaptive = true;
 			}
 		}
@@ -1319,6 +1345,33 @@ class WitCatInput {
 				adaptive = false;
 			}
 		}
+	}
+
+	_addevent() {
+		if (this.canvas === null || this.inputParent === null) {
+			return;
+		}
+		//键盘事件监听
+		document.addEventListener("keydown", (event) => {
+			keypress[event.code] = true;
+			lastKey = event.code;
+		});
+		document.addEventListener("keyup", (event) => {
+			delete keypress[event.code];
+		});
+
+		//给页面绑定滑轮滚动事件
+		this.canvas.addEventListener('wheel', (e) => {
+			// 注意这个负数……
+			// 目前的标准用法是使用 deltaY，但是 deltaY 的符号和 WheelDeltaY 相反。
+			// 为了和原有的行为一致，乘上 -3
+			// 在我的浏览器中 deltaY = WheelDeltaY / -3
+			MouseWheel = e.deltaY * -3;
+			clearTimeout(timer);
+			timer = setTimeout(() => {
+				MouseWheel = 0;
+			}, 30);
+		}, {capture: true});
 	}
 }
 
@@ -1371,41 +1424,3 @@ function string_colorHex(color) {
 	}
 }
 
-//键盘事件监听
-document.addEventListener("keydown", keydown);
-document.addEventListener("keyup", keyup);
-
-/**
- * 按下键的处理
- * @param {KeyboardEvent} event
- */
-function keydown(event) {
-	keypress[event.code] = true;
-	lastKey = event.code;
-}
-
-/**
- * 松开键的处理
- * @param {KeyboardEvent} event
- */
-function keyup(event) {
-	delete keypress[event.code];
-}
-
-/**
- * 滚轮事件监听
- * @param {WheelEvent} e
- */
-function scrollFunc(e) {
-	// 注意这个负数……
-	// 目前的标准用法是使用 deltaY，但是 deltaY 的符号和 WheelDeltaY 相反。
-	// 为了和原有的行为一致，乘上 -3
-	// 在我的浏览器中 deltaY = WheelDeltaY / -3
-	MouseWheel = e.deltaY * -3;
-	clearTimeout(timer);
-	timer = setTimeout(() => {
-		MouseWheel = 0;
-	}, 30);
-};
-//给页面绑定滑轮滚动事件
-cvs.addEventListener('wheel', scrollFunc, {capture: true});
