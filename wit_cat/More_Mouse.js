@@ -23,22 +23,29 @@ let dclick = false;
 /** @type {(""|number)[]} */
 let mousetd = ["", "", "", "", ""];
 
-//找渲染cvs
-let cvs = document.getElementsByTagName("canvas")[0];
-if (cvs === null) {
-	alert("当前页面不支持多指触控/全屏，请前往作品详情页体验完整作品！");
-}
-else {
-	for (let i = 1; cvs.className !== "" && i <= document.getElementsByTagName("canvas").length; i++) {
-		cvs = document.getElementsByTagName("canvas")[i];
-	}
-	if (cvs === null) {
-		alert("当前页面不支持多指触控/全屏，请前往作品详情页体验完整作品！");
-	}
-}
-
 class WitCatMouse {
 	constructor(runtime) {
+		/**
+		 * Scratch 所使用的 Canvas，获取不到返回 null
+		 * @type {HTMLCanvasElement | null}
+		 */
+		this.canvas = null;
+
+		// 这里应该有一种方法能够通过 runtime 获得 Canvas
+		let allcvs = Array.from(document.getElementsByTagName("canvas"));
+		for (const cvs of allcvs) {
+			// 说句实话，我不知道原版的代码的这个判断想干什么
+			if (cvs.className !== "") {
+				this.canvas = cvs;
+				break;
+			}
+		}
+		if (this.canvas === null) {
+			alert("当前页面不支持多指触控/全屏，请前往作品详情页体验完整作品！");
+			// 注意：在提示之后，扩展仍然在运行。需要在后面引用 Canvas 的部分进行判断。
+		}
+		this._addevent();
+
 		this.runtime = runtime;
 		this._formatMessage = runtime.getFormatMessage({
 			"zh-cn": {
@@ -546,7 +553,10 @@ class WitCatMouse {
 	 * @param {SCarg} args.set
 	 */
 	set(args) {
-		cvs.parentNode.oncontextmenu = () => {
+		if (this.canvas === null) {
+			return;
+		}
+		this.canvas.parentNode.oncontextmenu = () => {
 			return args.set === "true";
 		}
 	}
@@ -605,13 +615,16 @@ class WitCatMouse {
 	 * @returns {number|string}
 	 */
 	num(args) {
+		if (this.canvas === null) {
+			return 0;
+		}
 		const touch1 = touch[Number(args.num) - 1];
 		if (touch1 !== undefined) {
 			if (args.type === "x") {
-				return this.runtime.stageWidth * ((touch1.clientX - cvs.getBoundingClientRect().left) / cvs.offsetWidth);
+				return this.runtime.stageWidth * ((touch1.clientX - this.canvas.getBoundingClientRect().left) / this.canvas.offsetWidth);
 			}
 			else if (args.type === "y") {
-				return this.runtime.stageHeight * ((touch1.clientY - cvs.getBoundingClientRect().top) / cvs.offsetHeight);
+				return this.runtime.stageHeight * ((touch1.clientY - this.canvas.getBoundingClientRect().top) / this.canvas.offsetHeight);
 			}
 			else {
 				return touch1.identifier;
@@ -643,7 +656,10 @@ class WitCatMouse {
 	 * @returns {number}
 	 */
 	resolution() {
-		return cvs.height;
+		if (this.canvas === null) {
+			return 0;
+		}
+		return this.canvas.height;
 	}
 
 	/**
@@ -670,7 +686,10 @@ class WitCatMouse {
 	 * @param {SCarg} args.cursor 样式
 	 */
 	cursor(args) {
-		cvs.style.cursor = String(args.cursor);
+		if (this.canvas === null) {
+			return;
+		}
+		this.canvas.style.cursor = String(args.cursor);
 	}
 
 	/**
@@ -681,6 +700,9 @@ class WitCatMouse {
 	 * @param {SCarg} args.y y偏移
 	 */
 	cursorurl(args) {
+		if (this.canvas === null) {
+			return;
+		}
 		let url = String(args.text);
 		const x = Number(args.x);
 		const y = Number(args.y);
@@ -688,7 +710,7 @@ class WitCatMouse {
 		url = encodeURIComponent(decodeURIComponent(url))
 		// 实际上 cursorurl 处可以直接使用 正常的 url 和 data url。
 		// 不需要特地转换。
-		cvs.style.cursor = `url("${url}") ${x} ${y}, auto`;
+		this.canvas.style.cursor = `url("${url}") ${x} ${y}, auto`;
 	}
 
 	/**
@@ -850,6 +872,90 @@ class WitCatMouse {
 		}
 		return 0;
 	}
+
+	/** 添加事件触发器 */
+	_addevent() {
+		if (this.canvas === null) {
+			return;
+		}
+		//鼠标
+		document.addEventListener('mousedown', e => {
+			button[e.button] = "down";
+			mousetd[e.button] = Date.now();
+			if (button[0] === "down") {
+				touch = [{
+					clientX: e.clientX,
+					clientY: e.clientY,
+					identifier: "mouse"
+				}];
+			}
+		})
+		document.addEventListener('mouseup', e => {
+			button[e.button] = "up";
+			mousetd[e.button] = "";
+			touch = [];
+		})
+		document.addEventListener("mousemove", ev => {
+			if (button[0] === "down") {
+				touch = [{
+					clientX: ev.clientX,
+					clientY: ev.clientY,
+					identifier: "mouse"
+				}];
+			}
+			else {
+				touch = [];
+			}
+			xMouse = ev.movementX; // 获得鼠标指针的x移动量
+			yMouse = ev.movementY; // 获得鼠标指针的y移动量
+			if (timer !== null) {
+				clearTimeout(timer);
+			}
+			timer = setTimeout(() => {
+				xMouse = 0;
+				yMouse = 0;
+			}, 30);
+		});
+		//多指触控
+		this.canvas.addEventListener('touchstart', e => {
+			touch = e.targetTouches;
+			button[0] = "down";
+			mousetd[0] = Date.now();
+		})
+		this.canvas.addEventListener('touchmove', e => {
+			xMouse = e.targetTouches[0].clientX - touch[0].clientX; // 获得手指的x移动量
+			yMouse = e.targetTouches[0].clientY - touch[0].clientY; // 获得手指的y移动量
+			if (timer !== null) {
+				clearTimeout(timer);
+			}
+			timer = setTimeout(() => {
+				xMouse = 0;
+				yMouse = 0;
+			}, 30);
+			touch = e.targetTouches;
+		})
+		this.canvas.addEventListener('touchend', e => {
+			touch = e.targetTouches;
+			mousetd[0] = "";
+			button[0] = "up";
+		})
+		this.canvas.addEventListener('click', () => {
+			if (click !== false) {
+				clearTimeout(click);
+			}
+			click = setTimeout(() => {
+				click = false;
+			}, 50);
+		});
+		this.canvas.addEventListener('dblclick', () => {
+			if (dclick !== false) {
+				clearTimeout(dclick);
+			}
+			dclick = setTimeout(() => {
+				dclick = false;
+			}, 50);
+		});
+	}
 }
 
 window.tempExt = {
@@ -876,80 +982,3 @@ window.tempExt = {
 	}
 };
 
-//鼠标
-document.addEventListener('mousedown', e => {
-	button[e.button] = "down";
-	mousetd[e.button] = Date.now();
-	if (button[0] === "down") {
-		touch = [{
-			clientX: e.clientX,
-			clientY: e.clientY,
-			identifier: "mouse"
-		}];
-	}
-})
-document.addEventListener('mouseup', e => {
-	button[e.button] = "up";
-	mousetd[e.button] = "";
-	touch = [];
-})
-document.addEventListener("mousemove", ev => {
-	if (button[0] === "down") {
-		touch = [{
-			clientX: ev.clientX,
-			clientY: ev.clientY,
-			identifier: "mouse"
-		}];
-	}
-	else {
-		touch = [];
-	}
-	xMouse = ev.movementX; // 获得鼠标指针的x移动量
-	yMouse = ev.movementY; // 获得鼠标指针的y移动量
-	if (timer !== null) {
-		clearTimeout(timer);
-	}
-	timer = setTimeout(() => {
-		xMouse = 0;
-		yMouse = 0;
-	}, 30);
-});
-//多指触控
-cvs.addEventListener('touchstart', e => {
-	touch = e.targetTouches;
-	button[0] = "down";
-	mousetd[0] = Date.now();
-})
-cvs.addEventListener('touchmove', e => {
-	xMouse = e.targetTouches[0].clientX - touch[0].clientX; // 获得手指的x移动量
-	yMouse = e.targetTouches[0].clientY - touch[0].clientY; // 获得手指的y移动量
-	if (timer !== null) {
-		clearTimeout(timer);
-	}
-	timer = setTimeout(() => {
-		xMouse = 0;
-		yMouse = 0;
-	}, 30);
-	touch = e.targetTouches;
-})
-cvs.addEventListener('touchend', e => {
-	touch = e.targetTouches;
-	mousetd[0] = "";
-	button[0] = "up";
-})
-cvs.addEventListener('click', () => {
-	if (click !== false) {
-		clearTimeout(click);
-	}
-	click = setTimeout(() => {
-		click = false;
-	}, 50);
-});
-cvs.addEventListener('dblclick', () => {
-	if (dclick !== false) {
-		clearTimeout(dclick);
-	}
-	dclick = setTimeout(() => {
-		dclick = false;
-	}, 50);
-});
