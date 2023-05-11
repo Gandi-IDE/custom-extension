@@ -11,8 +11,8 @@ const witcat_input_extensionId = "WitCatInput";
 /** @type {{[key: string]: true}} */
 let keypress = {};
 let lastKey = "", MouseWheel = 0;
-/** @type {number} */
-let timer;
+/** @type {number|undefined} */
+let timer = undefined;
 /** @type {{[key: string]: number}} */
 let inputFontSize = {};
 let adaptive = false;
@@ -1394,23 +1394,18 @@ function keyup(event) {
 
 /**
  * 滚轮事件监听
- * @param {Event} e
+ * @param {WheelEvent} e
  */
-var scrollFunc = e => {
-	e = e || window.event;
-	if (e.wheelDelta) {  //判断浏览器IE，谷歌滑轮事件
-		MouseWheel = e.wheelDelta;
-	} else if (e.detail) {  //Firefox滑轮事件
-		MouseWheel = e.detail;
-	}
+function scrollFunc(e) {
+	// 注意这个负数……
+	// 目前的标准用法是使用 deltaY，但是 deltaY 的符号和 WheelDeltaY 相反。
+	// 为了和原有的行为一致，乘上 -3
+	// 在我的浏览器中 deltaY = WheelDeltaY / -3
+	MouseWheel = e.deltaY * -3;
 	clearTimeout(timer);
 	timer = setTimeout(() => {
 		MouseWheel = 0;
 	}, 30);
 };
 //给页面绑定滑轮滚动事件
-if (cvs.parentNode.addEventListener) { //火狐使用DOMMouseScroll绑定
-	cvs.parentNode.addEventListener('DOMMouseScroll', scrollFunc, false);
-}
-//其他浏览器直接绑定滚动事件
-cvs.parentNode.onmousewheel = scrollFunc;
+cvs.addEventListener('wheel', scrollFunc, {capture: true});
