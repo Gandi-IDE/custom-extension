@@ -65,8 +65,8 @@ class WitCatInput {
 		// 这里应该有一种方法能够通过 runtime 获得 Canvas
 		let allcvs = Array.from(document.getElementsByTagName("canvas"));
 		for (const cvs of allcvs) {
-			// 说句实话，我不知道原版的代码的这个判断想干什么
-			if (cvs.className !== "") {
+			// 筛选出真正的绘画 Canvas
+			if (cvs.className === "") {
 				this.canvas = cvs;
 				this.inputParent = cvs.parentElement;
 				break;
