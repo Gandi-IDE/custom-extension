@@ -31,15 +31,15 @@ class WitCatMouse {
 		 */
 		this.canvas = null;
 
-		// 这里应该有一种方法能够通过 runtime 获得 Canvas
-		let allcvs = Array.from(document.getElementsByTagName("canvas"));
-		for (const cvs of allcvs) {
-			// 筛选真正的绘画 canvas
-			if (cvs.className === "") {
-				this.canvas = cvs;
-				break;
+		try {
+			const canvas = runtime.renderer.canvas;
+			if (canvas instanceof HTMLCanvasElement) {
+				this.canvas = canvas;
 			}
+		} catch(err) {
+			console.error(err);
 		}
+
 		if (this.canvas === null) {
 			alert("当前页面不支持多指触控/全屏，请前往作品详情页体验完整作品！");
 			// 注意：在提示之后，扩展仍然在运行。需要在后面引用 Canvas 的部分进行判断。
