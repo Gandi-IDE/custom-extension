@@ -859,13 +859,17 @@ class WitCatInput {
 			search = null;
 		}
 		if (search === null) {
-			if (args.type !== "input" && args.type !== "textarea") {
+			// 标准下 input 和 textarea 都应该是小写，
+			// 但是菜单中的 textarea 是大写的。
+			// 为了兼容不能修改菜单数值，只能转换。
+			const argstype = String(args.type).toLowerCase();
+			if (argstype !== "input" && argstype !== "textarea") {
 				// 防止修改 JSON 注入
 				console.warn("Input.js: 类型应该是 input 或者 textarea");
 				return;
 			}
-			search = document.createElement(args.type);
-			// 条件修改只是为了通过类型检查
+			search = document.createElement(argstype);
+			// 只有 input 才有 type 属性，textarea 没有
 			if (search instanceof HTMLInputElement) {
 				search.type = "text";
 			}
