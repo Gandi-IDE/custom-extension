@@ -888,7 +888,7 @@ class WitCatInput {
 		sstyle.top = `${y}%`;
 		sstyle.width = `${width}%`;
 		sstyle.height = `${height}%`;
-		sstyle.fontSize = `${this.adaptive ? (Number(this.canvas.style.width.split("px")[0]) / 360) * Number(args.size) : Number(args.size)}px`;
+		sstyle.fontSize = `${this.adaptive ? (parseFloat(this.canvas.style.width) / 360) * Number(args.size) : Number(args.size)}px`;
 		sstyle.resize = "none";
 		sstyle.color = String(args.color);
 		sstyle.opacity = "1";
@@ -1003,7 +1003,7 @@ class WitCatInput {
 		if (this.canvas === null) {
 			return 0;
 		}
-		return Number(this.canvas.style.width.split("px")[0]) / 360 * Number(args.size);
+		return parseFloat(this.canvas.style.width) / 360 * Number(args.size);
 	}
 
 	/**
@@ -1038,14 +1038,14 @@ class WitCatInput {
 		}
 		switch (type) {
 			case "X":
-				return (Number(element.style.left.split("%")[0]) / 100) * this.runtime.stageWidth;
+				return parseFloat(element.style.left) / 100 * this.runtime.stageWidth;
 			// 理论上需要加break;，但是前面已经return了
 			case "Y":
-				return (Number(element.style.top.split("%")[0]) / 100) * this.runtime.stageHeight;
+				return parseFloat(element.style.top) / 100 * this.runtime.stageHeight;
 			case "width":
-				return (Number(element.style.width.split("%")[0]) / 100) * this.runtime.stageWidth;
+				return parseFloat(element.style.width) / 100 * this.runtime.stageWidth;
 			case "height":
-				return (Number(element.style.height.split("%")[0]) / 100) * this.runtime.stageHeight;
+				return parseFloat(element.style.height) / 100 * this.runtime.stageHeight;
 			case "content":
 				return element.value;
 			case "color":
@@ -1053,7 +1053,7 @@ class WitCatInput {
 			case "prompt":
 				return element.placeholder;
 			case "font-size":
-				return element.style.fontSize.split("px")[0];
+				return parseFloat(element.style.fontSize);
 			case "ID":
 				// 直接上正则，可以处理类似“WitCatInput123WitCatInput456”这样包含“WitCatInput”的奇葩ID
 				{
@@ -1189,13 +1189,13 @@ class WitCatInput {
 					sstyle.top = y + "%";
 					break;
 				case "width":
-					x = Number(sstyle.left.split("%")[0]) / 100 * this.runtime.stageWidth;
+					x = parseFloat(sstyle.left) / 100 * this.runtime.stageWidth;
 					width = this._clamp(Number(args.text), 0, this.runtime.stageWidth - x);
 					width = (width / this.runtime.stageWidth) * 100;
 					sstyle.width = Number(width) + "%";
 					break;
 				case "height":
-					y = Number(sstyle.top.split("%")[0]) / 100 * this.runtime.stageHeight;
+					y = parseFloat(sstyle.top) / 100 * this.runtime.stageHeight;
 					height = this._clamp(Number(args.text), 0, this.runtime.stageHeight - y);
 					height = (height / this.runtime.stageHeight) * 100;
 					sstyle.height = Number(height) + "%";
@@ -1388,7 +1388,7 @@ class WitCatInput {
 						if (fontsize === undefined) {
 							continue;
 						}
-						searchi.style.fontSize = Number(this.canvas.style.width.split("px")[0]) / 360 * fontsize + "px";
+						searchi.style.fontSize = parseFloat(this.canvas.style.width) / 360 * fontsize + "px";
 					}
 				};
 				this.observer = new MutationObserver(callback);
