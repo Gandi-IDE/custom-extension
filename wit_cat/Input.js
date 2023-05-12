@@ -942,8 +942,13 @@ class WitCatInput {
 		if (search !== null) {
 			search.focus();
 		}
-		else if (document.activeElement !== null && document.activeElement.className === "WitCatInput") {
-			document.activeElement.blur();
+		else {
+			const active = document.activeElement;
+			if (active !== null && active.className === "WitCatInput") {
+				if (active instanceof HTMLInputElement || active instanceof HTMLTextAreaElement) {
+					active.blur();
+				}
+			}
 		}
 	}
 
@@ -1025,7 +1030,7 @@ class WitCatInput {
 				// 直接上正则，可以处理类似“WitCatInput123WitCatInput456”这样包含“WitCatInput”的奇葩ID
 				{
 					let match = /^WitCatInput(.*)$/.exec(element.id);
-					return match === null ? "" : match[1];
+					return match === null || match[1] === undefined ? "" : match[1];
 				}
 			case "rp":
 				return element.scrollTop;
@@ -1347,7 +1352,15 @@ class WitCatInput {
 						return;
 					}
 					for (let searchi of Array.from(search)) {
-						searchi.style.fontSize = ((Number(this.canvas.style.width.split("px")[0]) / 360) * inputFontSize[searchi.id.split("WitCatInput")[1]]) + "px";
+						const searchid = searchi.id.split("WitCatInput")[1];
+						if (searchid === undefined) {
+							continue;
+						}
+						const fontsize = inputFontSize[searchid];
+						if (fontsize === undefined) {
+							continue;
+						}
+						searchi.style.fontSize = Number(this.canvas.style.width.split("px")[0]) / 360 * fontsize + "px";
 					}
 				};
 				observer = new MutationObserver(callback);
