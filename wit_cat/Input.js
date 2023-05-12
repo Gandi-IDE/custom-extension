@@ -62,16 +62,16 @@ class WitCatInput {
 		 */
 		this.inputParent = null;
 
-		// 这里应该有一种方法能够通过 runtime 获得 Canvas
-		let allcvs = Array.from(document.getElementsByTagName("canvas"));
-		for (const cvs of allcvs) {
-			// 筛选出真正的绘画 Canvas
-			if (cvs.className === "") {
-				this.canvas = cvs;
-				this.inputParent = cvs.parentElement;
-				break;
+		try {
+			const canvas = runtime.renderer.canvas;
+			if (canvas instanceof HTMLCanvasElement) {
+				this.canvas = canvas;
+				this.inputParent = canvas.parentElement;
 			}
+		} catch(err) {
+			console.error(err);
 		}
+
 		if (this.canvas === null || this.inputParent === null) {
 			alert("当前页面不支持文本框，请前往作品详情页体验完整作品！");
 			// 注意：在提示之后，扩展仍然在运行。需要在后面引用 Canvas 的部分进行判断。
