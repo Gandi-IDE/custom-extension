@@ -587,9 +587,26 @@ class WitCatMouse {
 		if (this.canvas === null) {
 			return;
 		}
-		this.canvas.parentNode.oncontextmenu = () => {
-			return args.set === "true";
+		// 在把自己的方法设为给其他事件/函数的回调时加上 bind(this) 是很有必要的，
+		// 确保回调函数触发时，里面的 this 指向自己。
+		// 不过回调函数里面没有用到 this，所以是否有这个 bind 没有区别。
+		// 如果加上了 bind，因为每次 bind() 都会生成一个新函数，
+		// removeEventListener 的时候就会因为函数不一致导致 remove 不掉，
+		// 需要提前把 bind 过的函数设为某类内变量。
+		if (args.set === "false") {
+			this.canvas.parentElement.addEventListener("contextmenu", this._nocontextmenu);
+		} else {
+			this.canvas.parentElement.removeEventListener("contextmenu", this._nocontextmenu);
 		}
+	}
+
+	/**
+	 * 禁用右键菜单用的事件捕获函数
+	 * @param {Event} event
+	 */
+	_nocontextmenu(event) {
+		// 阻止右键菜单
+		event.preventDefault();
 	}
 
 	/**
