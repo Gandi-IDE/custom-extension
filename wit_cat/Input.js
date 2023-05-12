@@ -953,7 +953,7 @@ class WitCatInput {
 	 */
 	whatinput() {
 		if (document.activeElement !== null && document.activeElement.className === "WitCatInput") {
-			return document.activeElement.id.split("WitCatInput")[1];
+			return this._getWitCatID(document.activeElement);
 		}
 		else {
 			return "";
@@ -1173,7 +1173,7 @@ class WitCatInput {
 	 * @param {SCarg} args.text 属性值
 	 */
 	setinput(args) {
-		let search = document.getElementById("WitCatInput" + args.id);
+		let search = this._findWitCatInput(String(args.id));
 		if (search !== null) {
 			let sstyle = search.style;
 			let x, y, width, height, opacity;
@@ -1265,7 +1265,7 @@ class WitCatInput {
 	 * @param {SCarg} args.read 能否修改
 	 */
 	setread(args) {
-		let search = document.getElementById("WitCatInput" + args.id);
+		let search = this._findWitCatInput(String(args.id));
 		if (search !== null) {
 			if (args.read === "eb") {
 				search.disabled = false;
@@ -1283,7 +1283,7 @@ class WitCatInput {
 	 * @param {SCarg} args.read 是密码框 "test"|"password"
 	 */
 	password(args) {
-		let search = document.getElementById("WitCatInput" + args.id);
+		let search = this._findWitCatInput(String(args.id));
 		if (search !== null) {
 			search.type = args.read;
 		}
@@ -1380,10 +1380,7 @@ class WitCatInput {
 						return;
 					}
 					for (let searchi of Array.from(search)) {
-						const searchid = searchi.id.split("WitCatInput")[1];
-						if (searchid === undefined) {
-							continue;
-						}
+						const searchid = this._getWitCatID(searchi);
 						const fontsize = this.inputFontSize[searchid];
 						if (fontsize === undefined) {
 							continue;
@@ -1406,6 +1403,9 @@ class WitCatInput {
 		}
 	}
 
+	/**
+	 * 添加键盘鼠标事件
+	 */
 	_addevent() {
 		if (this.canvas === null || this.inputParent === null) {
 			return;
@@ -1432,6 +1432,40 @@ class WitCatInput {
 			}, 30);
 		}, {capture: true});
 	}
+
+	/**
+	 * 获取指定元素的 WitCatInput ID
+	 * @param {Element} element 元素
+	 * @returns {string} 元素 ID 去掉 WitCatInput 后的部分，如果没有，返回 ""
+	 */
+	_getWitCatID(element){
+		const match = /^WitCatInput(.*)$/.exec(element.id);
+		if (match === null || match[1] === undefined) {
+			console.warn("Input.js: 无法获取 WitCatInput ID: ", element);
+			return "";
+		}
+		return match[1];
+	}
+
+	/**
+	 * 获取指定 WitCatInput ID 的元素
+	 * @param {string} witcatID 元素
+	 * @returns {HTMLInputElement | HTMLTextAreaElement | null} 获取的元素，或者 null
+	 */
+	_findWitCatInput(witcatID){
+		const search = document.getElementById("WitCatInput" + witcatID);
+		if (search === null) {
+			console.warn("Input.js: 找不到 ID", witcatID);
+			return null;
+		}
+		if (search instanceof HTMLInputElement || search instanceof HTMLTextAreaElement) {
+			return search;
+		}
+		console.warn("Input.js: 元素不是 <input> 或者 <textarea>");
+		return null;
+	}
+
+
 }
 
 window.tempExt = {
