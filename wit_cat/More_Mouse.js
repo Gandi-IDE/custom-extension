@@ -788,9 +788,12 @@ class WitCatMouse {
 	 * 打开ico文件
 	 */
 	async url() {
-		const filelist = await this._inputfileclick("", false);
-		const dataurl = String(await this._readerasync(filelist[0], "dataurl"));
-		prompt("请复制以下代码：", dataurl);
+		const file = (await this._inputfileclick(".ico", false))[0];
+		if (file !== undefined) {
+			// 加一个扩展名判断？
+			const dataurl = String(await this._readerasync(file, "dataurl"));
+			prompt("请复制以下代码：", dataurl);
+		}
 	}
 
 	/**
