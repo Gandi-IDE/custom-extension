@@ -8,19 +8,47 @@ const witcat_input_extensionId = "WitCatInput";
 
 /** @typedef {string|number|boolean} SCarg 来自Scratch圆形框的参数，虽然这个框可能只能输入数字，但是可以放入变量，因此有可能获得数字和文本，需要同时处理 */
 
-/** @type {{[key: string]: true}} */
-let keypress = {};
-let lastKey = "", MouseWheel = 0;
-/** @type {number|undefined} */
-let timer = undefined;
-/** @type {{[key: string]: number}} */
-let inputFontSize = {};
-let adaptive = false;
-/** @type {MutationObserver} */
-let observer;
-
 class WitCatInput {
 	constructor(runtime) {
+		/**
+		 * 按下的按键
+		 * @type {{[key: string]: true}}
+		 */
+		this.keypresslist = {};
+
+		/**
+		 * 最后一次按下的按键
+		 */
+		this.lastKey = "";
+
+		/**
+		 * 鼠标滚轮速度
+		 */
+		this.MouseWheel = 0;
+
+		/**
+		 * 鼠标速度复位为0的计时器
+		 * @type {number|undefined}
+		 */
+		this.timer = undefined;
+
+		/**
+		 * 保存输入框文本大小，当舞台大小变化时，同比修改输入框文本大小
+		 * @type {{[key: string]: number}}
+		 */
+		this.inputFontSize = {};
+
+		/**
+		 * 是否开启同比修改输入框文本大小的功能
+		 */
+		this.adaptive = false;
+
+		/**
+		 * 监控舞台大小的变化
+		 * @type {MutationObserver | null}
+		 */
+		this.observer = null;
+
 		/**
 		 * Scratch 所使用的 Canvas，获取不到返回 null
 		 * @type {HTMLCanvasElement | null}
@@ -860,7 +888,7 @@ class WitCatInput {
 		sstyle.top = `${y}%`;
 		sstyle.width = `${width}%`;
 		sstyle.height = `${height}%`;
-		sstyle.fontSize = `${adaptive ? (Number(this.canvas.style.width.split("px")[0]) / 360) * Number(args.size) : Number(args.size)}px`;
+		sstyle.fontSize = `${this.adaptive ? (Number(this.canvas.style.width.split("px")[0]) / 360) * Number(args.size) : Number(args.size)}px`;
 		sstyle.resize = "none";
 		sstyle.color = String(args.color);
 		sstyle.opacity = "1";
@@ -868,7 +896,7 @@ class WitCatInput {
 		search.value = String(args.text);
 		search.placeholder = String(args.texts);
 
-		inputFontSize[String(args.id)] = Number(args.size);
+		this.inputFontSize[String(args.id)] = Number(args.size);
 	}
 
 	/**
@@ -1104,7 +1132,7 @@ class WitCatInput {
 	key(args) {
 		let key = String(args.type).split(",");
 		for (const item of key) {
-			if (!Object.keys(keypress).includes(item)) {
+			if (!Object.keys(this.keypresslist).includes(item)) {
 				return false;
 			}
 		}
@@ -1126,7 +1154,7 @@ class WitCatInput {
 	 * @returns {string}
 	 */
 	lastkey() {
-		return lastKey;
+		return this.lastKey;
 	}
 
 	/**
@@ -1134,7 +1162,7 @@ class WitCatInput {
 	 * @returns {number}
 	 */
 	mousewheel() {
-		return MouseWheel;
+		return this.MouseWheel;
 	}
 
 	/**
@@ -1183,7 +1211,7 @@ class WitCatInput {
 					break;
 				case "font-size":
 					sstyle.fontSize = Number(args.text) + "px";
-					inputFontSize[String(args.id)] = Number(args.text);
+					this.inputFontSize[String(args.id)] = Number(args.text);
 					break;
 				case "rp":
 					search.scrollTop = Number(args.text);
@@ -1266,7 +1294,7 @@ class WitCatInput {
 	 * @returns {string}
 	 */
 	keypress() {
-		return JSON.stringify(Object.keys(keypress));
+		return JSON.stringify(Object.keys(this.keypresslist));
 	}
 
 	/**
@@ -1344,7 +1372,7 @@ class WitCatInput {
 			return;
 		}
 		if (args.type == "true") {
-			if (!adaptive) {
+			if (!this.adaptive) {
 				let search = document.getElementsByClassName("WitCatInput");
 				const config = { attributes: true, childList: true, subtree: true, attributeFilter: ['style'] };
 				const callback = () => {
@@ -1356,22 +1384,24 @@ class WitCatInput {
 						if (searchid === undefined) {
 							continue;
 						}
-						const fontsize = inputFontSize[searchid];
+						const fontsize = this.inputFontSize[searchid];
 						if (fontsize === undefined) {
 							continue;
 						}
 						searchi.style.fontSize = Number(this.canvas.style.width.split("px")[0]) / 360 * fontsize + "px";
 					}
 				};
-				observer = new MutationObserver(callback);
-				observer.observe(this.canvas, config);
-				adaptive = true;
+				this.observer = new MutationObserver(callback);
+				this.observer.observe(this.canvas, config);
+				this.adaptive = true;
 			}
 		}
 		else {
-			if (adaptive) {
-				observer.disconnect();
-				adaptive = false;
+			if (this.adaptive) {
+				if (this.observer !== null) {
+					this.observer.disconnect();
+				}
+				this.adaptive = false;
 			}
 		}
 	}
@@ -1382,11 +1412,11 @@ class WitCatInput {
 		}
 		//键盘事件监听
 		document.addEventListener("keydown", (event) => {
-			keypress[event.code] = true;
-			lastKey = event.code;
+			this.keypresslist[event.code] = true;
+			this.lastKey = event.code;
 		});
 		document.addEventListener("keyup", (event) => {
-			delete keypress[event.code];
+			delete this.keypresslist[event.code];
 		});
 
 		//给页面绑定滑轮滚动事件
@@ -1395,10 +1425,10 @@ class WitCatInput {
 			// 目前的标准用法是使用 deltaY，但是 deltaY 的符号和 WheelDeltaY 相反。
 			// 为了和原有的行为一致，乘上 -3
 			// 在我的浏览器中 deltaY = WheelDeltaY / -3
-			MouseWheel = e.deltaY * -3;
-			clearTimeout(timer);
-			timer = setTimeout(() => {
-				MouseWheel = 0;
+			this.MouseWheel = e.deltaY * -3;
+			clearTimeout(this.timer);
+			this.timer = setTimeout(() => {
+				this.MouseWheel = 0;
 			}, 30);
 		}, {capture: true});
 	}
