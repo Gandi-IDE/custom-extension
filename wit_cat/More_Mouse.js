@@ -8,23 +8,54 @@ const witcat_more_mouse_extensionId = "WitCatMouse";
 
 /** @typedef {string|number} SCarg 来自Scratch圆形框的参数，虽然这个框可能只能输入数字，但是可以放入变量，因此有可能获得数字和文本，需要同时处理 */
 
-/** @type {("up"|"down")[]} */
-let button = ["up", "up", "up", "up", "up"];
-let xMouse = 0;
-let yMouse = 0;
-/** @type {null|number} */
-let timer = null;
-/** @type {TouchList | {identifier: "mouse", clientX: number, clientY: number}[]} */
-let touch = [];
-/** @type {false|number} */
-let click = false;
-/** @type {false|number} */
-let dclick = false;
-/** @type {(""|number)[]} */
-let mousetd = ["", "", "", "", ""];
-
 class WitCatMouse {
 	constructor(runtime) {
+		/**
+		 * 鼠标键是否按下
+		 * @type {("up"|"down")[]}
+		 */
+		this.button = ["up", "up", "up", "up", "up"];
+
+		/**
+		 * 鼠标x移动速度
+		 */
+		this.xMouse = 0;
+
+		/**
+		 * 鼠标y移动速度
+		 */
+		this.yMouse = 0;
+
+		/**
+		 * 鼠标速度重置计时器
+		 * @type {null|number}
+		 */
+		this.timer = null;
+
+		/**
+		 * 手指列表
+		 * @type {TouchList | {identifier: "mouse", clientX: number, clientY: number}[]}
+		 */
+		this.touch = [];
+
+		/**
+		 * 点击事件计时器
+		 * @type {false|number}
+		 */
+		this.click = false;
+
+		/**
+		 * 双击事件计时器
+		 * @type {false|number}
+		 */
+		this.dclick = false;
+
+		/**
+		 * 鼠标按下计时器(记录按下鼠标的时刻)
+		 * @type {(""|number)[]}
+		 */
+		this.mousetdlist = ["", "", "", "", ""];
+
 		/**
 		 * Scratch 所使用的 Canvas，获取不到返回 null
 		 * @type {HTMLCanvasElement | null}
@@ -567,7 +598,7 @@ class WitCatMouse {
 	 * @param {SCarg} args.key
 	 */
 	when(args) {
-		return button[Number(args.key)] === "down";
+		return this.button[Number(args.key)] === "down";
 	}
 
 	/**
@@ -592,10 +623,10 @@ class WitCatMouse {
 	 */
 	acceleration(args) {
 		if (args.way === "x") {
-			return xMouse;
+			return this.xMouse;
 		}
 		else {
-			return -yMouse;
+			return -this.yMouse;
 		}
 	}
 
@@ -604,7 +635,7 @@ class WitCatMouse {
 	 * @returns {number}
 	 */
 	down() {
-		return touch.length;
+		return this.touch.length;
 	}
 
 	/**
@@ -618,7 +649,7 @@ class WitCatMouse {
 		if (this.canvas === null) {
 			return 0;
 		}
-		const touch1 = touch[Number(args.num) - 1];
+		const touch1 = this.touch[Number(args.num) - 1];
 		if (touch1 !== undefined) {
 			if (args.type === "x") {
 				return this.runtime.stageWidth * ((touch1.clientX - this.canvas.getBoundingClientRect().left) / this.canvas.offsetWidth);
@@ -815,10 +846,10 @@ class WitCatMouse {
 	 */
 	mouse(args) {
 		if (args.way === "click") {
-			return click !== false;
+			return this.click !== false;
 		}
 		if (args.way === "dclick") {
-			return dclick !== false;
+			return this.dclick !== false;
 		}
 		return false;
 	}
@@ -841,7 +872,7 @@ class WitCatMouse {
 	 * @returns {boolean}
 	 */
 	mousetd(args) {
-		const mousetdkey = mousetd[Number(args.key)];
+		const mousetdkey = this.mousetdlist[Number(args.key)];
 		if (mousetdkey != "") {
 			let time = Date.now() - (Number(args.time) * 1000 + mousetdkey);
 			if (-50 <= time && time <= 50) {
@@ -869,7 +900,7 @@ class WitCatMouse {
 	 * @returns {number}
 	 */
 	mouset(args) {
-		const mousetdkey = mousetd[Number(args.key)];
+		const mousetdkey = this.mousetdlist[Number(args.key)];
 		if (mousetdkey != "") {
 			return (Date.now() - mousetdkey) / 1000;
 		}
@@ -883,10 +914,10 @@ class WitCatMouse {
 		}
 		//鼠标
 		document.addEventListener('mousedown', e => {
-			button[e.button] = "down";
-			mousetd[e.button] = Date.now();
-			if (button[0] === "down") {
-				touch = [{
+			this.button[e.button] = "down";
+			this.mousetdlist[e.button] = Date.now();
+			if (this.button[0] === "down") {
+				this.touch = [{
 					clientX: e.clientX,
 					clientY: e.clientY,
 					identifier: "mouse"
@@ -894,68 +925,68 @@ class WitCatMouse {
 			}
 		})
 		document.addEventListener('mouseup', e => {
-			button[e.button] = "up";
-			mousetd[e.button] = "";
-			touch = [];
+			this.button[e.button] = "up";
+			this.mousetdlist[e.button] = "";
+			this.touch = [];
 		})
 		document.addEventListener("mousemove", ev => {
-			if (button[0] === "down") {
-				touch = [{
+			if (this.button[0] === "down") {
+				this.touch = [{
 					clientX: ev.clientX,
 					clientY: ev.clientY,
 					identifier: "mouse"
 				}];
 			}
 			else {
-				touch = [];
+				this.touch = [];
 			}
-			xMouse = ev.movementX; // 获得鼠标指针的x移动量
-			yMouse = ev.movementY; // 获得鼠标指针的y移动量
-			if (timer !== null) {
-				clearTimeout(timer);
+			this.xMouse = ev.movementX; // 获得鼠标指针的x移动量
+			this.yMouse = ev.movementY; // 获得鼠标指针的y移动量
+			if (this.timer !== null) {
+				clearTimeout(this.timer);
 			}
-			timer = setTimeout(() => {
-				xMouse = 0;
-				yMouse = 0;
+			this.timer = setTimeout(() => {
+				this.xMouse = 0;
+				this.yMouse = 0;
 			}, 30);
 		});
 		//多指触控
 		this.canvas.addEventListener('touchstart', e => {
-			touch = e.targetTouches;
-			button[0] = "down";
-			mousetd[0] = Date.now();
+			this.touch = e.targetTouches;
+			this.button[0] = "down";
+			this.mousetdlist[0] = Date.now();
 		})
 		this.canvas.addEventListener('touchmove', e => {
-			xMouse = e.targetTouches[0].clientX - touch[0].clientX; // 获得手指的x移动量
-			yMouse = e.targetTouches[0].clientY - touch[0].clientY; // 获得手指的y移动量
-			if (timer !== null) {
-				clearTimeout(timer);
+			this.xMouse = e.targetTouches[0].clientX - this.touch[0].clientX; // 获得手指的x移动量
+			this.yMouse = e.targetTouches[0].clientY - this.touch[0].clientY; // 获得手指的y移动量
+			if (this.timer !== null) {
+				clearTimeout(this.timer);
 			}
-			timer = setTimeout(() => {
-				xMouse = 0;
-				yMouse = 0;
+			this.timer = setTimeout(() => {
+				this.xMouse = 0;
+				this.yMouse = 0;
 			}, 30);
-			touch = e.targetTouches;
+			this.touch = e.targetTouches;
 		})
 		this.canvas.addEventListener('touchend', e => {
-			touch = e.targetTouches;
-			mousetd[0] = "";
-			button[0] = "up";
+			this.touch = e.targetTouches;
+			this.mousetdlist[0] = "";
+			this.button[0] = "up";
 		})
 		this.canvas.addEventListener('click', () => {
-			if (click !== false) {
-				clearTimeout(click);
+			if (this.click !== false) {
+				clearTimeout(this.click);
 			}
-			click = setTimeout(() => {
-				click = false;
+			this.click = setTimeout(() => {
+				this.click = false;
 			}, 50);
 		});
 		this.canvas.addEventListener('dblclick', () => {
-			if (dclick !== false) {
-				clearTimeout(dclick);
+			if (this.dclick !== false) {
+				clearTimeout(this.dclick);
 			}
-			dclick = setTimeout(() => {
-				dclick = false;
+			this.dclick = setTimeout(() => {
+				this.dclick = false;
 			}, 50);
 		});
 	}
