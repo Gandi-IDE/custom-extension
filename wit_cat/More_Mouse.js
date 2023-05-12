@@ -34,8 +34,8 @@ class WitCatMouse {
 		// 这里应该有一种方法能够通过 runtime 获得 Canvas
 		let allcvs = Array.from(document.getElementsByTagName("canvas"));
 		for (const cvs of allcvs) {
-			// 说句实话，我不知道原版的代码的这个判断想干什么
-			if (cvs.className !== "") {
+			// 筛选真正的绘画 canvas
+			if (cvs.className === "") {
 				this.canvas = cvs;
 				break;
 			}
