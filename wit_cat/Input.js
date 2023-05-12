@@ -1285,7 +1285,11 @@ class WitCatInput {
 	password(args) {
 		let search = this._findWitCatInput(String(args.id));
 		if (search !== null) {
-			search.type = args.read;
+			if (search instanceof HTMLTextAreaElement) {
+				console.warn("Input.js: 多行文本框无法设为密码框");
+				return;
+			}
+			search.type = String(args.read);
 		}
 	}
 
