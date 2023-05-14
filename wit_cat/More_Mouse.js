@@ -594,9 +594,9 @@ class WitCatMouse {
 		// removeEventListener 的时候就会因为函数不一致导致 remove 不掉，
 		// 需要提前把 bind 过的函数设为某类内变量。
 		if (args.set === "false") {
-			this.canvas.parentElement.addEventListener("contextmenu", this._nocontextmenu);
+			this.canvas.addEventListener("contextmenu", this._nocontextmenu);
 		} else {
-			this.canvas.parentElement.removeEventListener("contextmenu", this._nocontextmenu);
+			this.canvas.removeEventListener("contextmenu", this._nocontextmenu);
 		}
 	}
 
