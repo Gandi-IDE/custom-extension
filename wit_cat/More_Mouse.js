@@ -5,64 +5,78 @@ const witcat_more_mouse_picture = "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSI
 const witcat_more_mouse_icon = "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIxNzcuMDg4NTUiIGhlaWdodD0iMTc3LjA4ODU1IiB2aWV3Qm94PSIwLDAsMTc3LjA4ODU1LDE3Ny4wODg1NSI+PGRlZnM+PGxpbmVhckdyYWRpZW50IHgxPSIyNDcuMDc3MyIgeTE9IjExOS4xNDIzMSIgeDI9IjI0Ny4wNzczIiB5Mj0iMjIyLjA2OTQ4IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgaWQ9ImNvbG9yLTEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2U1ZWFmMyIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xNTEuNDU1NzYsLTkxLjQ1NTc0KSI+PGcgZGF0YS1wYXBlci1kYXRhPSJ7JnF1b3Q7aXNQYWludGluZ0xheWVyJnF1b3Q7OnRydWV9IiBmaWxsLXJ1bGU9Im5vbnplcm8iIHN0cm9rZS13aWR0aD0iMCIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2UtZGFzaGFycmF5PSIiIHN0cm9rZS1kYXNob2Zmc2V0PSIwIiBzdHlsZT0ibWl4LWJsZW5kLW1vZGU6IG5vcm1hbCI+PHBhdGggZD0iTTE1MS40NTU3NiwyNjguNTQ0Mjl2LTE3Ny4wODg1NWgxNzcuMDg4NTV2MTc3LjA4ODU1eiIgZmlsbD0iIzhlYWNlMSIgc3Ryb2tlPSJub25lIiBzdHJva2UtbGluZWNhcD0iYnV0dCIvPjxwYXRoIGQ9Ik0yMzguMjAwNywyNDAuODU3NjlsLTEwLjQ4NDQxLC0zNS4xNjgwMmwtMjEuMzAyNDQsMjEuOTAwNjJsNC40Njc1OCwtMTA0Ljg5OTUxbDYzLjcxNjM3LDc5LjQ1MzQ5bC0yOS4yODgyNCwtMS41OTkxMmw5LjIwMDkxLDM0LjM1MTE1eiIgZmlsbD0iIzcyOGJiNSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNMjQ1Ljg4MDQ3LDIyMi4wNjk0OGwtMTEuOTY4MjcsLTMwLjUxOTFsLTIwLjM0NjA3LDIwLjM0NjA3di05Mi43NTQxM2w2Ny4wMjIzNCw2Ny4wMjIzNGgtMjkuMzIyMjdsMTAuNjUxNTEsMjkuODYwM3oiIGZpbGw9InVybCgjY29sb3ItMSkiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9nPjwvZz48L3N2Zz48IS0tcm90YXRpb25DZW50ZXI6ODguNTQ0MjQ0OTk5OTk5OTk6ODguNTQ0MjU1LS0+";
 
 const witcat_more_mouse_extensionId = "WitCatMouse";
-let button = ["up", "up", "up", "up", "up"];
-let xMouse = 0;
-let yMouse = 0;
-let timer = null;
-let touch = [];
-let click = false, dclick = false;
-let mousetd = ["", "", "", "", ""];
 
-
-//base64转blob
-function base64ImgtoFile(dataurl, filename = 'file') {
-	try {
-		const arr = dataurl.split(',')
-		const mime = arr[0].match(/:(.*?);/)[1]
-		const suffix = mime.split('/')[1]
-		const bstr = atob(arr[1])
-		let n = bstr.length
-		const u8arr = new Uint8Array(n)
-		while (n--) {
-			u8arr[n] = bstr.charCodeAt(n)
-		}
-		return new File([u8arr], `${filename}.${suffix}`, {
-			type: mime
-		})
-	}
-	catch {
-		return false;
-	}
-}
-
-//检测是不是ico的base64
-function isBase64(str) {
-	let a = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$";
-	if (str.match(a) == null) {
-		return true;
-	}
-	else {
-		console.warn("请使用ico格式的base64文本\nPlease use base64 text in ico format");
-		return false;
-	}
-}
-
-//找渲染cvs
-let cvs = document.getElementsByTagName("canvas")[0];
-if (cvs === null) {
-	alert("当前页面不支持多指触控/全屏，请前往作品详情页体验完整作品！");
-}
-else {
-	for (let i = 1; cvs.className !== "" && i <= document.getElementsByTagName("canvas").length; i++) {
-		cvs = document.getElementsByTagName("canvas")[i];
-	}
-	if (cvs === null) {
-		alert("当前页面不支持多指触控/全屏，请前往作品详情页体验完整作品！");
-	}
-}
+/** @typedef {string|number} SCarg 来自Scratch圆形框的参数，虽然这个框可能只能输入数字，但是可以放入变量，因此有可能获得数字和文本，需要同时处理 */
 
 class WitCatMouse {
 	constructor(runtime) {
+		/**
+		 * 鼠标键是否按下
+		 * @type {("up"|"down")[]}
+		 */
+		this.button = ["up", "up", "up", "up", "up"];
+
+		/**
+		 * 鼠标x移动速度
+		 */
+		this.xMouse = 0;
+
+		/**
+		 * 鼠标y移动速度
+		 */
+		this.yMouse = 0;
+
+		/**
+		 * 鼠标速度重置计时器
+		 * @type {null|number}
+		 */
+		this.timer = null;
+
+		/**
+		 * 手指列表
+		 * @type {{identifier: number|"mouse", clientX: number, clientY: number}[]}
+		 */
+		this.touch = [];
+
+		/**
+		 * 点击事件计时器
+		 * @type {false|number}
+		 */
+		this.click = false;
+
+		/**
+		 * 双击事件计时器
+		 * @type {false|number}
+		 */
+		this.dclick = false;
+
+		/**
+		 * 鼠标按下计时器(记录按下鼠标的时刻)
+		 * @type {(""|number)[]}
+		 */
+		this.mousetdlist = ["", "", "", "", ""];
+
+		/**
+		 * Scratch 所使用的 Canvas，获取不到返回 null
+		 * @type {HTMLCanvasElement | null}
+		 */
+		this.canvas = null;
+
+		try {
+			const canvas = runtime.renderer.canvas;
+			if (canvas instanceof HTMLCanvasElement) {
+				this.canvas = canvas;
+			}
+		} catch(err) {
+			console.error(err);
+		}
+
+		if (this.canvas === null) {
+			alert("当前页面不支持多指触控/全屏，请前往作品详情页体验完整作品！");
+			// 注意：在提示之后，扩展仍然在运行。需要在后面引用 Canvas 的部分进行判断。
+		}
+		this._addevent();
+
 		this.runtime = runtime;
 		this._formatMessage = runtime.getFormatMessage({
 			"zh-cn": {
@@ -179,6 +193,11 @@ class WitCatMouse {
 		})
 	}
 
+	/**
+	 * 翻译
+	 * @param {string} id
+	 * @returns {string}
+	 */
 	formatMessage(id) {
 		return this._formatMessage({
 			id,
@@ -320,7 +339,8 @@ class WitCatMouse {
 				{
 					blockType: "button",
 					text: this.formatMessage('WitCatMouse.url'),
-					onClick: this.url,
+					// 这里的 bind 必须，因为 this.url 里面引用了 this
+					onClick: this.url.bind(this),
 				},
 				{
 					opcode: "cursor",
@@ -557,139 +577,276 @@ class WitCatMouse {
 			}
 		};
 	}
-	//右键菜单
+
+	/**
+	 * 启用右键菜单？
+	 * @param {object} args
+	 * @param {SCarg} args.set
+	 */
 	set(args) {
-		cvs.parentNode.oncontextmenu = () => {
-			return args.set === "true";
+		if (this.canvas === null) {
+			return;
+		}
+		// 在把自己的方法设为给其他事件/函数的回调时加上 bind(this) 是很有必要的，
+		// 确保回调函数触发时，里面的 this 指向自己。
+		// 不过回调函数里面没有用到 this，所以是否有这个 bind 没有区别。
+		// 如果加上了 bind，因为每次 bind() 都会生成一个新函数，
+		// removeEventListener 的时候就会因为函数不一致导致 remove 不掉，
+		// 需要提前把 bind 过的函数设为某类内变量。
+		if (args.set === "false") {
+			this.canvas.addEventListener("contextmenu", this._nocontextmenu);
+		} else {
+			this.canvas.removeEventListener("contextmenu", this._nocontextmenu);
 		}
 	}
-	//按下判断
-	when(args) {
-		return button[args.key] === "down";
+
+	/**
+	 * 禁用右键菜单用的事件捕获函数
+	 * @param {Event} event
+	 */
+	_nocontextmenu(event) {
+		// 阻止右键菜单
+		event.preventDefault();
 	}
-	//控制鼠标
+
+	/**
+	 * 按下判断
+	 * @param {object} args
+	 * @param {SCarg} args.key
+	 */
+	when(args) {
+		return this.button[Number(args.key)] === "down";
+	}
+
+	/**
+	 * 控制鼠标
+	 * @param {object} args
+	 * @param {SCarg} args.mouseuse
+	 */
 	mouseuse(args) {
 		if (args.mouseuse === "release") {
 			document.exitPointerLock();
 		}
 		else {
-			cvs.parentNode.requestPointerLock();
+			document.body.requestPointerLock();
 		}
 	}
-	//鼠标移动量
+
+	/**
+	 * 鼠标移动量
+	 * @param {object} args
+	 * @param {SCarg} args.way
+	 * @returns {number}
+	 */
 	acceleration(args) {
 		if (args.way === "x") {
-			return xMouse;
+			return this.xMouse;
 		}
 		else {
-			return -yMouse;
+			return -this.yMouse;
 		}
 	}
-	//数量
+
+	/**
+	 * 手指数量
+	 * @returns {number}
+	 */
 	down() {
-		return touch.length;
+		return this.touch.length;
 	}
-	//坐标
+
+	/**
+	 * 坐标
+	 * @param {object} args
+	 * @param {SCarg} args.num 手指编号
+	 * @param {SCarg} args.type 数据类型 "x"|"y"|"identifier"
+	 * @returns {number|string}
+	 */
 	num(args) {
-		if (args.num > 0 && args.num <= touch.length) {
+		if (this.canvas === null) {
+			return 0;
+		}
+		const touch1 = this.touch[Number(args.num) - 1];
+		if (touch1 !== undefined) {
 			if (args.type === "x") {
-				return this.runtime.stageWidth * ((touch[args.num - 1].clientX - cvs.getBoundingClientRect().left) / cvs.offsetWidth);
+				return this.runtime.stageWidth * ((touch1.clientX - this.canvas.getBoundingClientRect().left) / this.canvas.offsetWidth);
 			}
 			else if (args.type === "y") {
-				return this.runtime.stageHeight * ((touch[args.num - 1].clientY - cvs.getBoundingClientRect().top) / cvs.offsetHeight);
+				return this.runtime.stageHeight * ((touch1.clientY - this.canvas.getBoundingClientRect().top) / this.canvas.offsetHeight);
 			}
 			else {
-				return touch[args.num - 1].identifier;
+				return touch1.identifier;
 			}
 		}
 		else {
-			return null;
+			return 0;
 		}
 	}
-	//全屏
+
+	/**
+	 * 全屏
+	 * @deprecated
+	 */
 	fill() {
 		console.warn("全屏因浏览器兼容问题已下线，在未来修复后将会重新上线\nFull screen has been taken offline due to browser compatibility issues. It will be back online after a future fix");
 	}
-	//设置分辨率
+
+	/**
+	 * 设置分辨率
+	 * @deprecated
+	 */
 	setfill() {
 		console.warn("全屏因浏览器兼容问题已下线，在未来修复后将会重新上线\nFull screen has been taken offline due to browser compatibility issues. It will be back online after a future fix");
 	}
-	//当前分辨率
+
+	/**
+	 * 当前分辨率
+	 * @returns {number}
+	 */
 	resolution() {
-		return cvs.height;
+		if (this.canvas === null) {
+			return 0;
+		}
+		return this.canvas.height;
 	}
-	//设备是否支持触屏
+
+	/**
+	 * 设备是否支持触屏/鼠标
+	 * @param {object} args
+	 * @param {SCarg} args.type
+	 * @returns {boolean}
+	 */
 	cantouch(args) {
 		return (args.type in document.documentElement);
 	}
-	//是否是手机
+
+	/**
+	 * 是否是手机
+	 * @returns {boolean}
+	 */
 	IsMobile() {
 		return /Android|iPhone|iPad|iPod|BlackBerry|webOS|Windows Phone|SymbianOS|IEMobile|Opera Mini/i.test(navigator.userAgent);
 	}
-	//设置光标
+
+	/**
+	 * 设置光标样式
+	 * @param {object} args
+	 * @param {SCarg} args.cursor 样式
+	 */
 	cursor(args) {
-		cvs.parentNode.parentNode.parentNode.style.cursor = args.cursor;
-	}
-	//设置光标为url
-	cursorurl(args) {
-		if (isBase64(args.text)) {
-			const img = args.text;
-			let file = base64ImgtoFile(img); // 得到File对象
-			if (file != false) {
-				let imgUrl = window.webkitURL.createObjectURL(file) || window.URL.createObjectURL(file) // imgUrl图片网络路径
-				cvs.parentNode.parentNode.parentNode.style.cursor = "url(" + imgUrl + ")" + args.x + " " + args.y + ",auto";
-				return;
-			}
+		if (this.canvas === null) {
+			return;
 		}
+		this.canvas.style.cursor = String(args.cursor);
 	}
-	//打开ico文件
-	url() {
-		return new Promise(resolve => {
+
+	/**
+	 * 设置光标为url
+	 * @param {object} args
+	 * @param {SCarg} args.text 样式
+	 * @param {SCarg} args.x x偏移
+	 * @param {SCarg} args.y y偏移
+	 */
+	cursorurl(args) {
+		if (this.canvas === null) {
+			return;
+		}
+		let url = String(args.text);
+		const x = Number(args.x);
+		const y = Number(args.y);
+		// 针对 url() 里的语法，先转义回去，再完整地转义回来。
+		url = encodeURIComponent(decodeURIComponent(url))
+		// 实际上 cursorurl 处可以直接使用 正常的 url 和 data url。
+		// 不需要特地转换。
+		this.canvas.style.cursor = `url("${url}") ${x} ${y}, auto`;
+	}
+
+	/**
+	 * 打开文件选择框
+	 * @param {string} accept 接受的文件扩展名
+	 * @param {boolean} multiple 接受多个文件
+	 * @return {Promise<File[]>} [异步地]返回选择后的文件列表input.files转换成的数组(可能没有文件)
+	 */
+	_inputfileclick(accept, multiple) {
+		return new Promise((resolve, reject) => {
 			const input = document.createElement("input");
 			input.type = "file";
+			input.accept = accept;
 			input.style.display = "none";
-			input.accept = ".ico";
+			input.multiple = multiple;
 			input.click();
-			input.onchange = () => {
-				const reader = new FileReader();
-				const readers = new FileReader();
-				const file = input.files[0];
-				reader.onload = (e) => {
-					prompt("请复制以下代码：", e.currentTarget.result);
-					resolve(e.target.result);
-				};
-				reader.onerror = () => {
-					resolve();
-				};
-				readers.readAsArrayBuffer(file);
-
-				readers.onload = (e) => {
-					if (file.name.split('.')[file.name.split('.').length - 1] == "ico") {
-						var uri = e.target.result;
-						console.log(uri.byteLength / 1024 + " KB");
-						if (uri.byteLength / 1024 <= 10) {
-							reader.readAsDataURL(file);
-						}
-						else {
-							console.warn("文件过大，可能导致工程文件崩溃！！！\nThe file is too large, may cause the project file crash!!!");
-							alert("文件过大，可能导致工程文件崩溃！！！\nThe file is too large, may cause the project file crash!!!");
-						}
-					}
-					else {
-						console.warn("请选择*.ico文件\nPlease select the *.ico file");
-						alert("请选择*.ico文件\nPlease select the *.ico file");
-					}
-				};
-			}
-			window.onfocus = () => {
-				// 开始计时或者播放
+			input.addEventListener("change", () => {
+				if (input.files === null) {
+					reject(new Error("不应该看到这个"));
+				} else {
+					// 返回了关键的 input.files，而不是整个 input。
+					// 之后如果要考虑“读取素材库文件”，“拖动导入文件”等
+					// 只能获得 Blob/File 的情况，可以方便适配
+					// 这里加 Array.from 是因为 input.files 是 FileList，
+					// 不是 File[]，一些数组拥有的功能它没有。虽然一般情况下
+					// 不会注意到区别，但是类型检查会把这种情况查出来。
+					resolve(Array.from(input.files));
+				}
+			}, {once: true}); // 只触发一次
+			window.addEventListener("focus", () => {
 				setTimeout(() => {
-					resolve("");
+					if (input.files === null) {
+						reject(new Error("不应该看到这个"));
+					} else {
+						resolve(Array.from(input.files));
+					}
 				}, 1000);
+			}, {once: true}); // 只触发一次
+		});
+	}
+
+	/**
+	 * 读取文件
+	 * @param {File|Blob} file File 或者 Blob
+	 * @param {"arraybuffer"|"dataurl"|"text"} mode 读取模式
+	 * @return {Promise<string|ArrayBuffer|null>} [异步地]返回读取后的内容
+	 */
+	_readerasync(file, mode) {
+		return new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.onload = () => {
+				resolve(reader.result);
+			};
+			reader.onerror = (e) => {
+				reject(e);
+			};
+			switch (mode) {
+				case "arraybuffer":
+					reader.readAsArrayBuffer(file);
+					break;
+				case "dataurl":
+					reader.readAsDataURL(file);
+					break;
+				case "text":
+					reader.readAsText(file);
+					break;
+				default:
+					reject(new Error("mode 错误: 应该是 arraybuffer, dataurl 或者 text"));
+					return;
 			}
 		});
 	}
-	//打开教程
+
+	/**
+	 * 打开ico文件
+	 */
+	async url() {
+		const file = (await this._inputfileclick(".ico", false))[0];
+		if (file !== undefined) {
+			// 加一个扩展名判断？
+			const dataurl = String(await this._readerasync(file, "dataurl"));
+			prompt("请复制以下代码：", dataurl);
+		}
+	}
+
+	/**
+	 * 打开教程
+	 */
 	docs() {
 		let a = document.createElement('a');
 		a.href = "https://www.ccw.site/post/c36aa805-b29d-48da-aba1-468a6cf80bfa";
@@ -697,38 +854,177 @@ class WitCatMouse {
 		a.target = "_blank";
 		a.click();
 	}
-	//鼠标点击/双击
+
+	/**
+	 * 鼠标点击/双击
+	 * @param {object} args
+	 * @param {SCarg} args.way 点击/双击
+	 * @returns {boolean}
+	 */
 	mouse(args) {
 		if (args.way === "click") {
-			return click !== false;
+			return this.click !== false;
 		}
 		if (args.way === "dclick") {
-			return dclick !== false;
+			return this.dclick !== false;
 		}
 		return false;
 	}
+
+	/**
+	 * 鼠标点击/双击(帽子积木)
+	 * @param {object} args
+	 * @param {SCarg} args.way 点击/双击
+	 * @returns {boolean}
+	 */
 	mouses(args) {
 		return this.mouse(args);
 	}
-	//判断按下多久
+
+	/**
+	 * 判断鼠标键按下时长
+	 * @param {object} args
+	 * @param {SCarg} args.key 按键编号
+	 * @param {SCarg} args.time 按键时长
+	 * @returns {boolean}
+	 */
 	mousetd(args) {
-		if (mousetd[args.key] != "") {
-			let time = Date.now() - (args.time * 1000 + mousetd[args.key]);
+		const mousetdkey = this.mousetdlist[Number(args.key)];
+		if (mousetdkey !== undefined && mousetdkey != "") {
+			let time = Date.now() - (Number(args.time) * 1000 + mousetdkey);
 			if (-50 <= time && time <= 50) {
 				return true;
 			}
 		}
 		return false;
 	}
+
+	/**
+	 * 判断鼠标键按下时长(帽子积木)
+	 * @param {object} args
+	 * @param {SCarg} args.key 按键编号
+	 * @param {SCarg} args.time 按键时长
+	 * @returns {boolean}
+	 */
 	mousetds(args) {
 		return this.mousetd(args);
 	}
-	//鼠标被按下的时间
+
+	/**
+	 * 鼠标被按下的时间
+	 * @param {object} args
+	 * @param {SCarg} args.key 按键编号
+	 * @returns {number}
+	 */
 	mouset(args) {
-		if (mousetd[args.key] != "") {
-			return (Date.now() - mousetd[args.key]) / 1000;
+		const mousetdkey = this.mousetdlist[Number(args.key)];
+		if (mousetdkey !== undefined && mousetdkey != "") {
+			return (Date.now() - mousetdkey) / 1000;
 		}
 		return 0;
+	}
+
+	/**
+	 * 复制触摸点数
+	 * @param {TouchList} touches
+	 */
+	_copytouch(touches) {
+		this.touch = Array.from(touches).map((touch) => {
+			return {
+				clientX: touch.clientX,
+				clientY: touch.clientY,
+				identifier: touch.identifier
+			}
+		});
+	}
+
+	/** 添加事件触发器 */
+	_addevent() {
+		if (this.canvas === null) {
+			return;
+		}
+		//鼠标
+		this.canvas.addEventListener('mousedown', e => {
+			this.button[e.button] = "down";
+			this.mousetdlist[e.button] = Date.now();
+			if (this.button[0] === "down") {
+				this.touch = [{
+					clientX: e.clientX,
+					clientY: e.clientY,
+					identifier: "mouse"
+				}];
+			}
+		})
+		document.addEventListener('mouseup', e => {
+			this.button[e.button] = "up";
+			this.mousetdlist[e.button] = "";
+			this.touch = [];
+		})
+		document.addEventListener("mousemove", ev => {
+			if (this.button[0] === "down") {
+				this.touch = [{
+					clientX: ev.clientX,
+					clientY: ev.clientY,
+					identifier: "mouse"
+				}];
+			}
+			else {
+				this.touch = [];
+			}
+			this.xMouse = ev.movementX; // 获得鼠标指针的x移动量
+			this.yMouse = ev.movementY; // 获得鼠标指针的y移动量
+			if (this.timer !== null) {
+				clearTimeout(this.timer);
+			}
+			this.timer = setTimeout(() => {
+				this.xMouse = 0;
+				this.yMouse = 0;
+			}, 30);
+		});
+		//多指触控
+		this.canvas.addEventListener('touchstart', e => {
+			// e.targetTouches 会随着时间改变，必须复制一份。
+			this._copytouch(e.targetTouches);
+			this.button[0] = "down";
+			this.mousetdlist[0] = Date.now();
+		})
+		this.canvas.addEventListener('touchmove', e => {
+			if(e.targetTouches[0] !== undefined && this.touch[0] !== undefined){
+				this.xMouse = e.targetTouches[0].clientX - this.touch[0].clientX; // 获得手指的x移动量
+				this.yMouse = e.targetTouches[0].clientY - this.touch[0].clientY; // 获得手指的y移动量
+			}
+			if (this.timer !== null) {
+				clearTimeout(this.timer);
+			}
+			this.timer = setTimeout(() => {
+				this.xMouse = 0;
+				this.yMouse = 0;
+			}, 30);
+			// e.targetTouches 会随着时间改变，必须复制一份。
+			this._copytouch(e.targetTouches);
+		})
+		this.canvas.addEventListener('touchend', e => {
+			// e.targetTouches 会随着时间改变，必须复制一份。
+			this._copytouch(e.targetTouches);
+			this.mousetdlist[0] = "";
+			this.button[0] = "up";
+		})
+		this.canvas.addEventListener('click', () => {
+			if (this.click !== false) {
+				clearTimeout(this.click);
+			}
+			this.click = setTimeout(() => {
+				this.click = false;
+			}, 50);
+		});
+		this.canvas.addEventListener('dblclick', () => {
+			if (this.dclick !== false) {
+				clearTimeout(this.dclick);
+			}
+			this.dclick = setTimeout(() => {
+				this.dclick = false;
+			}, 50);
+		});
 	}
 }
 
@@ -756,77 +1052,3 @@ window.tempExt = {
 	}
 };
 
-/* vim: set expandtab tabstop=2 shiftwidth=2: */
-//鼠标
-document.addEventListener('mousedown', e => {
-	button[e.button] = "down";
-	mousetd[e.button] = Date.now();
-	if (button[0] === "down") {
-		touch = [{
-			clientX: e.clientX,
-			clientY: e.clientY,
-			identifier: "mouse"
-		}];
-	}
-})
-document.addEventListener('mouseup', e => {
-	button[e.button] = "up";
-	mousetd[e.button] = "";
-	touch = [];
-})
-document.addEventListener("mousemove", ev => {
-	if (button[0] === "down") {
-		touch = [{
-			clientX: ev.clientX,
-			clientY: ev.clientY,
-			identifier: "mouse"
-		}];
-	}
-	else {
-		touch = [];
-	}
-	xMouse = ev.movementX; // 获得鼠标指针的x移动量
-	yMouse = ev.movementY; // 获得鼠标指针的y移动量
-	clearTimeout(timer);
-	timer = setTimeout(() => {
-		xMouse = 0;
-		yMouse = 0;
-	}, 30);
-});
-//多指触控
-cvs.addEventListener('touchstart', e => {
-	touch = e.targetTouches;
-	button[0] = "down";
-	mousetd[0] = Date.now();
-})
-cvs.addEventListener('touchmove', e => {
-	xMouse = e.targetTouches[0].clientX - touch[0].clientX; // 获得手指的x移动量
-	yMouse = e.targetTouches[0].clientY - touch[0].clientY; // 获得手指的y移动量
-	clearTimeout(timer);
-	timer = setTimeout(() => {
-		xMouse = 0;
-		yMouse = 0;
-	}, 30);
-	touch = e.targetTouches;
-})
-cvs.addEventListener('touchend', e => {
-	touch = e.targetTouches;
-	mousetd[0] = "";
-	button[0] = "up";
-})
-cvs.addEventListener('click', () => {
-	if (click !== false) {
-		clearTimeout(click);
-	}
-	click = setTimeout(() => {
-		click = false;
-	}, 50);
-});
-cvs.addEventListener('dblclick', () => {
-	if (dclick !== false) {
-		clearTimeout(dclick);
-	}
-	dclick = setTimeout(() => {
-		dclick = false;
-	}, 50);
-});
