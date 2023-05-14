@@ -34,7 +34,7 @@ class WitCatMouse {
 
 		/**
 		 * 手指列表
-		 * @type {TouchList | {identifier: "mouse", clientX: number, clientY: number}[]}
+		 * @type {{identifier: number|"mouse", clientX: number, clientY: number}[]}
 		 */
 		this.touch = [];
 
@@ -924,13 +924,27 @@ class WitCatMouse {
 		return 0;
 	}
 
+	/**
+	 * 复制触摸点数
+	 * @param {TouchList} touches
+	 */
+	_copytouch(touches) {
+		this.touch = Array.from(touches).map((touch) => {
+			return {
+				clientX: touch.clientX,
+				clientY: touch.clientY,
+				identifier: touch.identifier
+			}
+		});
+	}
+
 	/** 添加事件触发器 */
 	_addevent() {
 		if (this.canvas === null) {
 			return;
 		}
 		//鼠标
-		document.addEventListener('mousedown', e => {
+		this.canvas.addEventListener('mousedown', e => {
 			this.button[e.button] = "down";
 			this.mousetdlist[e.button] = Date.now();
 			if (this.button[0] === "down") {
@@ -969,13 +983,16 @@ class WitCatMouse {
 		});
 		//多指触控
 		this.canvas.addEventListener('touchstart', e => {
-			this.touch = e.targetTouches;
+			// e.targetTouches 会随着时间改变，必须复制一份。
+			this._copytouch(e.targetTouches);
 			this.button[0] = "down";
 			this.mousetdlist[0] = Date.now();
 		})
 		this.canvas.addEventListener('touchmove', e => {
-			this.xMouse = e.targetTouches[0].clientX - this.touch[0].clientX; // 获得手指的x移动量
-			this.yMouse = e.targetTouches[0].clientY - this.touch[0].clientY; // 获得手指的y移动量
+			if(e.targetTouches[0] !== undefined && this.touch[0] !== undefined){
+				this.xMouse = e.targetTouches[0].clientX - this.touch[0].clientX; // 获得手指的x移动量
+				this.yMouse = e.targetTouches[0].clientY - this.touch[0].clientY; // 获得手指的y移动量
+			}
 			if (this.timer !== null) {
 				clearTimeout(this.timer);
 			}
@@ -983,10 +1000,12 @@ class WitCatMouse {
 				this.xMouse = 0;
 				this.yMouse = 0;
 			}, 30);
-			this.touch = e.targetTouches;
+			// e.targetTouches 会随着时间改变，必须复制一份。
+			this._copytouch(e.targetTouches);
 		})
 		this.canvas.addEventListener('touchend', e => {
-			this.touch = e.targetTouches;
+			// e.targetTouches 会随着时间改变，必须复制一份。
+			this._copytouch(e.targetTouches);
 			this.mousetdlist[0] = "";
 			this.button[0] = "up";
 		})
