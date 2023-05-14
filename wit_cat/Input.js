@@ -6,27 +6,78 @@ const witcat_input_icon = "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHh
 
 const witcat_input_extensionId = "WitCatInput";
 
-let keypress = {};
-let lastKey = "", MouseWheel = 0;
-let timer;
-let inputFontSize = {}, adaptive = false, observer;
-
-//找渲染cvs
-let cvs = document.getElementsByTagName("canvas")[0];
-if (cvs === null) {
-	alert("当前页面不支持输入框，请前往作品详情页体验完整作品！");
-}
-else {
-	for (let i = 1; cvs.className !== "" && i <= document.getElementsByTagName("canvas").length; i++) {
-		cvs = document.getElementsByTagName("canvas")[i];
-	}
-	if (cvs === null) {
-		alert("当前页面不支持输入框，请前往作品详情页体验完整作品！");
-	}
-}
+/** @typedef {string|number|boolean} SCarg 来自Scratch圆形框的参数，虽然这个框可能只能输入数字，但是可以放入变量，因此有可能获得数字和文本，需要同时处理 */
 
 class WitCatInput {
 	constructor(runtime) {
+		/**
+		 * 按下的按键
+		 * @type {{[key: string]: true}}
+		 */
+		this.keypresslist = {};
+
+		/**
+		 * 最后一次按下的按键
+		 */
+		this.lastKey = "";
+
+		/**
+		 * 鼠标滚轮速度
+		 */
+		this.MouseWheel = 0;
+
+		/**
+		 * 鼠标速度复位为0的计时器
+		 * @type {number|undefined}
+		 */
+		this.timer = undefined;
+
+		/**
+		 * 保存输入框文本大小，当舞台大小变化时，同比修改输入框文本大小
+		 * @type {{[key: string]: number}}
+		 */
+		this.inputFontSize = {};
+
+		/**
+		 * 是否开启同比修改输入框文本大小的功能
+		 */
+		this.adaptive = false;
+
+		/**
+		 * 监控舞台大小的变化
+		 * @type {MutationObserver | null}
+		 */
+		this.observer = null;
+
+		/**
+		 * Scratch 所使用的 Canvas，获取不到返回 null
+		 * @type {HTMLCanvasElement | null}
+		 */
+		this.canvas = null;
+
+		/**
+		 * 所有输入框所在的父角色，目前设为 Canvas 的父角色。
+		 * 获取不到返回 null
+		 * @type {HTMLElement | null}
+		 */
+		this.inputParent = null;
+
+		try {
+			const canvas = runtime.renderer.canvas;
+			if (canvas instanceof HTMLCanvasElement) {
+				this.canvas = canvas;
+				this.inputParent = canvas.parentElement;
+			}
+		} catch(err) {
+			console.error(err);
+		}
+
+		if (this.canvas === null || this.inputParent === null) {
+			alert("当前页面不支持文本框，请前往作品详情页体验完整作品！");
+			// 注意：在提示之后，扩展仍然在运行。需要在后面引用 Canvas 的部分进行判断。
+		}
+		this._addevent();
+
 		this.runtime = runtime;
 		this._formatMessage = runtime.getFormatMessage({
 			"zh-cn": {
@@ -154,6 +205,11 @@ class WitCatInput {
 		})
 	}
 
+	/**
+	 * 翻译
+	 * @param {string} id
+	 * @returns {string}
+	 */
 	formatMessage(id) {
 		return this._formatMessage({
 			id,
@@ -733,7 +789,11 @@ class WitCatInput {
 			}
 		};
 	}
-	//打开教程
+
+	/**
+	 * 打开教程
+	 * @returns {void}
+	 */
 	docs() {
 		let a = document.createElement('a');
 		a.href = "https://www.ccw.site/post/6153a7a6-05fb-462e-b785-b97700b12bc2";
@@ -754,8 +814,24 @@ class WitCatInput {
 		// return isNaN(x) ? min : Math.min(max, Math.max(min, x));
 	}
 
-	//设置或创建文本框
+	/**
+	 * 设置或创建文本框
+	 * @param {object} args
+	 * @param {SCarg} args.id 文本框 ID
+	 * @param {SCarg} args.type 文本框类型 "input"|"textarea"
+	 * @param {SCarg} args.x 左上角x
+	 * @param {SCarg} args.y 左上角y
+	 * @param {SCarg} args.width 宽度
+	 * @param {SCarg} args.height 高度
+	 * @param {SCarg} args.text 初始文本
+	 * @param {SCarg} args.color 文字颜色
+	 * @param {SCarg} args.texts 提示文本
+	 * @param {SCarg} args.size 文字大小 
+	 */
 	createinput(args) {
+		if (this.canvas === null || this.inputParent === null) {
+			return;
+		}
 		let x = Number(args.x);
 		let y = Number(args.y);
 		let width = Number(args.width);
@@ -769,25 +845,40 @@ class WitCatInput {
 		width = (width / this.runtime.stageWidth) * 100;
 		height = (height / this.runtime.stageHeight) * 100;
 
-		let search = document.getElementById("WitCatInput" + args.id);
+		/** @type {HTMLInputElement|HTMLTextAreaElement|null} */
+		let search = null;
+		let search_1 = document.getElementById("WitCatInput" + args.id);
+		if (search_1 instanceof HTMLInputElement || search_1 instanceof HTMLTextAreaElement) {
+			search = search_1;
+		}
 		// 这里通过“如果不符合，就删除；如果不存在，就建立”的方式，
 		// 避免后面大量复制粘贴样式操作。
 		// 大段的复制粘贴往往意味着之后会犯错（只改一半）
-		if (search !== null && search.name !== args.type) {
-			cvs.parentNode.removeChild(search);
+		if (search !== null && search.tagName !== args.type) {
+			this.inputParent.removeChild(search);
 			search = null;
 		}
 		if (search === null) {
-			search = document.createElement(args.type);
-			if (args.type === "input") {
+			// 标准下 input 和 textarea 都应该是小写，
+			// 但是菜单中的 textarea 是大写的。
+			// 为了兼容不能修改菜单数值，只能转换。
+			const argstype = String(args.type).toLowerCase();
+			if (argstype !== "input" && argstype !== "textarea") {
+				// 防止修改 JSON 注入
+				console.warn("Input.js: 类型应该是 input 或者 textarea");
+				return;
+			}
+			search = document.createElement(argstype);
+			// 只有 input 才有 type 属性，textarea 没有
+			if (search instanceof HTMLInputElement) {
 				search.type = "text";
 			}
 			search.id = "WitCatInput" + args.id;
-			search.value = args.text;
+			search.value = String(args.text);
 			search.className = "WitCatInput";
-			search.name = args.type;
-			search.placeholder = args.texts;
-			cvs.parentNode.appendChild(search);
+			search.name = String(args.type);
+			search.placeholder = String(args.texts);
+			this.inputParent.appendChild(search);
 		}
 
 		// 现在直接通过style的属性修改样式表，不需要担心“分号注入”问题了
@@ -801,81 +892,137 @@ class WitCatInput {
 		sstyle.top = `${y}%`;
 		sstyle.width = `${width}%`;
 		sstyle.height = `${height}%`;
-		sstyle.fontSize = `${Number(adaptive ? (Number(cvs.style.width.split("px")[0]) / 360) * args.size : args.size)}px`;
+		sstyle.fontSize = `${this.adaptive ? (parseFloat(this.canvas.style.width) / 360) * Number(args.size) : Number(args.size)}px`;
 		sstyle.resize = "none";
-		sstyle.color = args.color;
+		sstyle.color = String(args.color);
 		sstyle.opacity = "1";
 		sstyle.backgroundSize = "100% 100%";
-		search.value = args.text;
-		search.placeholder = args.texts;
+		search.value = String(args.text);
+		search.placeholder = String(args.texts);
 
-		inputFontSize[args.id] = args.size;
+		this.inputFontSize[String(args.id)] = Number(args.size);
 	}
-	//删除文本框
+
+	/**
+	 * 删除文本框
+	 * @param {object} args
+	 * @param {SCarg} args.id 文本框id
+	 */
 	deleteinput(args) {
+		if (this.inputParent === null) {
+			return;
+		}
 		let search = document.getElementById("WitCatInput" + args.id);
 		if (search !== null) {
-			cvs.parentNode.removeChild(search);
+			this.inputParent.removeChild(search);
 		}
 	}
-	//获取文本框内容
+
+	/**
+	 * 获取文本框内容
+	 * @param {object} args
+	 * @param {SCarg} args.id 文本框id
+	 * @param {SCarg} args.type 内容类型
+	 * @return {SCarg}
+	 */
 	getinput(args) {
 		let search = document.getElementById("WitCatInput" + args.id);
-		return search === null ? "" : this._getattrib(search, args.type);
+		return search === null ? "" : this._getattrib(search, String(args.type));
 	}
-	//焦点判断
+
+	/**
+	 * 焦点判断
+	 * @param {object} args
+	 * @param {SCarg} args.id 文本框 ID
+	 * @returns {boolean}
+	 */
 	isinput(args) {
 		let search = document.getElementById("WitCatInput" + args.id);
 		if (search !== null) {
 			if (search === document.activeElement) {
-				return (true);
+				return true;
 			}
 			else {
-				return (false);
+				return false;
 			}
 		}
 		else {
-			return (false);
+			return false;
 		}
 	}
-	//焦点位置
+
+	/**
+	 * 焦点位置
+	 * @returns {string} 文本框 ID
+	 */
 	whatinput() {
-		if (document.activeElement.className === "WitCatInput") {
-			return document.activeElement.id.split("WitCatInput")[1];
+		if (document.activeElement !== null && document.activeElement.className === "WitCatInput") {
+			return this._getWitCatID(document.activeElement);
 		}
 		else {
 			return "";
 		}
 	}
-	//焦点获取
+
+	/**
+	 * 焦点获取
+	 * @param {object} args
+	 * @param {SCarg} args.id 文本框 ID
+	 */
 	nowinput(args) {
 		let search = document.getElementById("WitCatInput" + args.id);
 		if (search !== null) {
 			search.focus();
 		}
-		else if (document.activeElement.className === "WitCatInput") {
-			document.activeElement.blur();
+		else {
+			const active = document.activeElement;
+			if (active !== null && active.className === "WitCatInput") {
+				if (active instanceof HTMLInputElement || active instanceof HTMLTextAreaElement) {
+					active.blur();
+				}
+			}
 		}
 	}
-	//删除所有文本框
+
+	/**
+	 * 删除所有文本框
+	 */
 	deleteallinput() {
+		if (this.inputParent === null) {
+			return;
+		}
 		let search = document.getElementsByClassName("WitCatInput");
-		let i = 0;
-		for (i = search.length - 1; i >= 0; i--) {
-			search[i].parentNode.removeChild(search[i]);
+		for (const item of Array.from(search)) {
+			this.inputParent.removeChild(item);
 		}
 	}
-	//计算坐标
+
+	/**
+	 * 计算文字大小
+	 * @param {object} args
+	 * @param {SCarg} args.size Scratch 文字大小
+	 * @returns {number}
+	 */
 	compute(args) {
-		return (Number(cvs.style.width.split("px")[0]) / 360) * args.size;
+		if (this.canvas === null) {
+			return 0;
+		}
+		return parseFloat(this.canvas.style.width) / 360 * Number(args.size);
 	}
-	//获取指定编号的文本框属性
+
+	/**
+	 * 获取指定编号的文本框属性
+	 * @param {object} args
+	 * @param {SCarg} args.num 文本框序号
+	 * @param {SCarg} args.type 属性类型
+	 * @returns {SCarg}
+	 */
 	number(args) {
 		let searchall = document.getElementsByClassName("WitCatInput");
 		let index = Number(args.num);
-		if (searchall.length >= index && index > 0) {
-			let search = searchall[index - 1];
-			return this._getattrib(search, args.type);
+		let search = searchall[index - 1];
+		if (search !== undefined) {
+			return this._getattrib(search, String(args.type));
 		} else {
 			return "";
 		}
@@ -895,14 +1042,14 @@ class WitCatInput {
 		}
 		switch (type) {
 			case "X":
-				return (Number(element.style.left.split("%")[0]) / 100) * this.runtime.stageWidth;
+				return parseFloat(element.style.left) / 100 * this.runtime.stageWidth;
 			// 理论上需要加break;，但是前面已经return了
 			case "Y":
-				return (Number(element.style.top.split("%")[0]) / 100) * this.runtime.stageHeight;
+				return parseFloat(element.style.top) / 100 * this.runtime.stageHeight;
 			case "width":
-				return (Number(element.style.width.split("%")[0]) / 100) * this.runtime.stageWidth;
+				return parseFloat(element.style.width) / 100 * this.runtime.stageWidth;
 			case "height":
-				return (Number(element.style.height.split("%")[0]) / 100) * this.runtime.stageHeight;
+				return parseFloat(element.style.height) / 100 * this.runtime.stageHeight;
 			case "content":
 				return element.value;
 			case "color":
@@ -910,12 +1057,12 @@ class WitCatInput {
 			case "prompt":
 				return element.placeholder;
 			case "font-size":
-				return element.style.fontSize.split("px")[0];
+				return parseFloat(element.style.fontSize);
 			case "ID":
 				// 直接上正则，可以处理类似“WitCatInput123WitCatInput456”这样包含“WitCatInput”的奇葩ID
 				{
 					let match = /^WitCatInput(.*)$/.exec(element.id);
-					return match === null ? "" : match[1];
+					return match === null || match[1] === undefined ? "" : match[1];
 				}
 			case "rp":
 				return element.scrollTop;
@@ -931,7 +1078,7 @@ class WitCatInput {
 				{
 					// 打花括号之后就可以在里面声明变量了
 					let match = /^url\("(.*)"\)$/.exec(element.style.backgroundImage);
-					if (match !== null) {
+					if (match !== null && match[1] !== undefined) {
 						return decodeURI(match[1]);
 					} else {
 						// 正则匹配失败
@@ -961,7 +1108,7 @@ class WitCatInput {
 						ID: this._getattrib(element, "ID"),
 						"Rolling position": this._getattrib(element, "rp"),
 						"Text height": this._getattrib(element, "th"),
-						"cursor position": JSON.parse(this._getattrib(element, "cp"))
+						"cursor position": JSON.parse(String(this._getattrib(element, "cp")))
 						// 这里看起来缺了一些东西，如果没有合并复制粘贴的代码以及进
 						// 行优化，将需要修改两次大段内容，现在修改就简单了。
 					}
@@ -970,36 +1117,67 @@ class WitCatInput {
 				return "";
 		}
 	}
-	//文本框数量
+
+	/**
+	 * 文本框数量
+	 * @returns {number}
+	 */
 	numbers() {
 		let search = document.getElementsByClassName("WitCatInput");
 		return search.length;
 	}
-	//按键检测
+
+	/**
+	 * 按键检测
+	 * @param {object} args
+	 * @param {SCarg} args.type 按键类型，用逗号分隔
+	 * @returns {boolean}
+	 */
 	key(args) {
-		let key = args.type.split(",");
+		let key = String(args.type).split(",");
 		for (const item of key) {
-			if (!Object.keys(keypress).includes(item)) {
+			if (!Object.keys(this.keypresslist).includes(item)) {
 				return false;
 			}
 		}
 		return true;
 	}
-	//按键检测
+
+	/**
+	 * 按键检测(帽子积木)
+	 * @param {object} args
+	 * @param {SCarg} args.type 按键类型，用逗号分隔
+	 * @returns {boolean}
+	 */
 	keys(args) {
 		return this.key(args);
 	}
-	//上次按下的键
+
+	/**
+	 * 上次按下的键
+	 * @returns {string}
+	 */
 	lastkey() {
-		return lastKey;
+		return this.lastKey;
 	}
-	//鼠标滚轮
+
+	/**
+	 * 鼠标滚轮速度
+	 * @returns {number}
+	 */
 	mousewheel() {
-		return MouseWheel;
+		return this.MouseWheel;
 	}
-	//设置文本框
+
+	/**
+	 * 设置文本框
+	 * @param {object} args
+	 * @param {SCarg} args.id 文本框 ID
+	 * @param {SCarg} args.type 属性类型
+	 * @param {SCarg} args.text 属性值
+	 */
 	setinput(args) {
-		let search = document.getElementById("WitCatInput" + args.id);
+		let search = this._findWitCatInput(String(args.id));
 		if (search !== null) {
 			let sstyle = search.style;
 			let x, y, width, height, opacity;
@@ -1015,29 +1193,29 @@ class WitCatInput {
 					sstyle.top = y + "%";
 					break;
 				case "width":
-					x = Number(sstyle.left.split("%")[0]) / 100 * this.runtime.stageWidth;
+					x = parseFloat(sstyle.left) / 100 * this.runtime.stageWidth;
 					width = this._clamp(Number(args.text), 0, this.runtime.stageWidth - x);
 					width = (width / this.runtime.stageWidth) * 100;
 					sstyle.width = Number(width) + "%";
 					break;
 				case "height":
-					y = Number(sstyle.top.split("%")[0]) / 100 * this.runtime.stageHeight;
+					y = parseFloat(sstyle.top) / 100 * this.runtime.stageHeight;
 					height = this._clamp(Number(args.text), 0, this.runtime.stageHeight - y);
 					height = (height / this.runtime.stageHeight) * 100;
 					sstyle.height = Number(height) + "%";
 					break;
 				case "content":
-					search.value = args.text;
+					search.value = String(args.text);
 					break;
 				case "prompt":
-					search.placeholder = args.text;
+					search.placeholder = String(args.text);
 					break;
 				case "color":
-					sstyle.color = args.text;
+					sstyle.color = String(args.text);
 					break;
 				case "font-size":
 					sstyle.fontSize = Number(args.text) + "px";
-					inputFontSize[args.id] = Number(args.text);
+					this.inputFontSize[String(args.id)] = Number(args.text);
 					break;
 				case "rp":
 					search.scrollTop = Number(args.text);
@@ -1049,7 +1227,7 @@ class WitCatInput {
 					break;
 				case "cp":
 					try {
-						let selection = JSON.parse(args.text);
+						let selection = JSON.parse(String(args.text));
 						if (selection instanceof Array && selection.length === 2) {
 							search.setSelectionRange(selection[0], selection[1]);
 						}
@@ -1062,7 +1240,7 @@ class WitCatInput {
 					}
 					break;
 				case "bg":
-					if (args.text.startsWith("https://m.ccw.site/") || args.text.startsWith("https://m.xiguacity.com/")) {
+					if (String(args.text).startsWith("https://m.ccw.site/") || String(args.text).startsWith("https://m.xiguacity.com/")) {
 						sstyle.backgroundImage = 'url("' + encodeURI(String(args.text)) + '")';
 						sstyle.backgroundSize = "100% 100%";
 					}
@@ -1074,18 +1252,24 @@ class WitCatInput {
 					sstyle.lineHeight = Number(args.text) + "px";
 					break;
 				case "ts":
-					sstyle.textShadow = args.text;
+					sstyle.textShadow = String(args.text);
 					break;
 				case "css":
 					// https://www.cnblogs.com/ndos/p/9706646.html
-					search.setAttribute("style", args.text);
+					search.setAttribute("style", String(args.text));
 					break;
 			}
 		}
 	}
-	//设置状态
+
+	/**
+	 * 设置是否可修改
+	 * @param {object} args
+	 * @param {SCarg} args.id 文本框 ID
+	 * @param {SCarg} args.read 能否修改
+	 */
 	setread(args) {
-		let search = document.getElementById("WitCatInput" + args.id);
+		let search = this._findWitCatInput(String(args.id));
 		if (search !== null) {
 			if (args.read === "eb") {
 				search.disabled = false;
@@ -1095,28 +1279,49 @@ class WitCatInput {
 			}
 		}
 	}
-	//设置文本框的type
+
+	/**
+	 * 设置文本框是否为密码框
+	 * @param {object} args
+	 * @param {SCarg} args.id 文本框 ID
+	 * @param {SCarg} args.read 是密码框 "test"|"password"
+	 */
 	password(args) {
-		let search = document.getElementById("WitCatInput" + args.id);
+		let search = this._findWitCatInput(String(args.id));
 		if (search !== null) {
-			search.type = args.read;
+			if (search instanceof HTMLTextAreaElement) {
+				console.warn("Input.js: 多行文本框无法设为密码框");
+				return;
+			}
+			search.type = String(args.read);
 		}
 	}
-	//获取按下的按键
+
+	/**
+	 * 获取按下的按键
+	 * @returns {string}
+	 */
 	keypress() {
-		return JSON.stringify(Object.keys(keypress));
+		return JSON.stringify(Object.keys(this.keypresslist));
 	}
-	//设置字体
+
+	/**
+	 * 设置字体
+	 * @param {object} args
+	 * @param {SCarg} args.id 文本框 ID
+	 * @param {SCarg} args.name 字体名
+	 * @param {SCarg} args.text 字体链接
+	 */
 	setfont(args) {
-		let search = document.getElementById("WitCatInput" + args.id);
+		const search = document.getElementById("WitCatInput" + args.id);
 		if (search !== null) {
-			var xhr = new XMLHttpRequest(); // 定义一个异步对象
-			xhr.open('GET', args.text, true); // 异步GET方式加载字体
+			const xhr = new XMLHttpRequest(); // 定义一个异步对象
+			xhr.open('GET', String(args.text), true); // 异步GET方式加载字体
 			xhr.responseType = "arraybuffer"; //把异步获取类型改为arraybuffer二进制类型
 			xhr.onload = function () {
 				// 这里做了一个判断：如果浏览器支持FontFace方法执行
 				if (typeof FontFace != 'undefined') {
-					document.fonts.add(new FontFace(args.name, this.response)); // 将字体对象添加到页面中
+					document.fonts.add(new FontFace(String(args.name), this.response)); // 将字体对象添加到页面中
 					search.style.fontFamily = `"${args.name}"`;
 				} else {
 					search.innerHTML = `@font-face{font-family:"${args.name}";src:url("${args.text}") `;
@@ -1125,48 +1330,150 @@ class WitCatInput {
 			xhr.send();
 		}
 	}
-	//设置对齐方式
+
+	/**
+	 * 设置对齐方式
+	 * @param {object} args
+	 * @param {SCarg} args.id 文本框 ID
+	 * @param {SCarg} args.read 对齐方式 "left"|"center"|"right"
+	 */
 	textalign(args) {
 		let search = document.getElementById("WitCatInput" + args.id);
 		if (search !== null) {
-			search.style.textAlign = args.read;
+			search.style.textAlign = String(args.read);
 		}
 	}
-	//设置文本框字体粗细
+
+	/**
+	 * 设置文本框字体粗细
+	 * @param {object} args
+	 * @param {SCarg} args.id 文本框 ID
+	 * @param {SCarg} args.text 字体粗细
+	 */
 	fontweight(args) {
 		let search = document.getElementById("WitCatInput" + args.id);
 		if (search !== null) {
-			search.style.fontWeight = args.text;
+			search.style.fontWeight = String(args.text);
 		}
 	}
-	//创建阴影
+
+	/**
+	 * 创建阴影
+	 * @param {object} args
+	 * @param {SCarg} args.x 偏移x
+	 * @param {SCarg} args.y 偏移y
+	 * @param {SCarg} args.width 宽度
+	 * @param {SCarg} args.color 颜色
+	 * @returns {string}
+	 */
 	shadow(args) {
 		return `${args.x}px ${args.y}px ${args.width}px ${args.color}`
 	}
-	//设置字体自适应
+
+	/**
+	 * 设置字体自适应
+	 * @param {object} args
+	 * @param {SCarg} args.type
+	 */
 	fontadaptive(args) {
+		if (this.canvas === null) {
+			return;
+		}
 		if (args.type == "true") {
-			if (!adaptive) {
+			if (!this.adaptive) {
 				let search = document.getElementsByClassName("WitCatInput");
 				const config = { attributes: true, childList: true, subtree: true, attributeFilter: ['style'] };
-				const callback = function () {
-					let len = search.length
-					for (let i = 0; i < len; i++) {
-						search[i].style.fontSize = ((cvs.style.width.split("px")[0] / 360) * inputFontSize[search[i].id.split("WitCatInput")[1]]) + "px";
+				const callback = () => {
+					if (this.canvas === null) {
+						return;
+					}
+					for (let searchi of Array.from(search)) {
+						const searchid = this._getWitCatID(searchi);
+						const fontsize = this.inputFontSize[searchid];
+						if (fontsize === undefined) {
+							continue;
+						}
+						searchi.style.fontSize = parseFloat(this.canvas.style.width) / 360 * fontsize + "px";
 					}
 				};
-				observer = new MutationObserver(callback);
-				observer.observe(cvs, config);
-				adaptive = true;
+				this.observer = new MutationObserver(callback);
+				this.observer.observe(this.canvas, config);
+				this.adaptive = true;
 			}
 		}
 		else {
-			if (adaptive) {
-				observer.disconnect();
-				adaptive = false;
+			if (this.adaptive) {
+				if (this.observer !== null) {
+					this.observer.disconnect();
+				}
+				this.adaptive = false;
 			}
 		}
 	}
+
+	/**
+	 * 添加键盘鼠标事件
+	 */
+	_addevent() {
+		if (this.canvas === null || this.inputParent === null) {
+			return;
+		}
+		//键盘事件监听
+		document.addEventListener("keydown", (event) => {
+			this.keypresslist[event.code] = true;
+			this.lastKey = event.code;
+		});
+		document.addEventListener("keyup", (event) => {
+			delete this.keypresslist[event.code];
+		});
+
+		//给页面绑定滑轮滚动事件
+		this.canvas.addEventListener('wheel', (e) => {
+			// 注意这个负数……
+			// 目前的标准用法是使用 deltaY，但是 deltaY 的符号和 WheelDeltaY 相反。
+			// 为了和原有的行为一致，乘上 -3
+			// 在我的浏览器中 deltaY = WheelDeltaY / -3
+			this.MouseWheel = e.deltaY * -3;
+			clearTimeout(this.timer);
+			this.timer = setTimeout(() => {
+				this.MouseWheel = 0;
+			}, 30);
+		}, {capture: true});
+	}
+
+	/**
+	 * 获取指定元素的 WitCatInput ID
+	 * @param {Element} element 元素
+	 * @returns {string} 元素 ID 去掉 WitCatInput 后的部分，如果没有，返回 ""
+	 */
+	_getWitCatID(element){
+		const match = /^WitCatInput(.*)$/.exec(element.id);
+		if (match === null || match[1] === undefined) {
+			console.warn("Input.js: 无法获取 WitCatInput ID: ", element);
+			return "";
+		}
+		return match[1];
+	}
+
+	/**
+	 * 获取指定 WitCatInput ID 的元素
+	 * @param {string} witcatID 元素
+	 * @returns {HTMLInputElement | HTMLTextAreaElement | null} 获取的元素，或者 null
+	 */
+	_findWitCatInput(witcatID){
+		const search = document.getElementById("WitCatInput" + witcatID);
+		if (search === null) {
+			console.warn("Input.js: 找不到 ID", witcatID);
+			return null;
+		}
+		if (search instanceof HTMLInputElement || search instanceof HTMLTextAreaElement) {
+			return search;
+		}
+		console.warn("Input.js: 元素不是 <input> 或者 <textarea>");
+		return null;
+	}
+
+
 }
 
 window.tempExt = {
@@ -1193,8 +1500,10 @@ window.tempExt = {
 	}
 };
 
-/* vim: set expandtab tabstop=2 shiftwidth=2: */
-//颜色转换
+/**
+ * 颜色转换
+ * @param {string} color
+ */
 function string_colorHex(color) {
 	// RGB颜色值的正则
 	var reg = /^(rgb|RGB)/;
@@ -1216,32 +1525,3 @@ function string_colorHex(color) {
 	}
 }
 
-//键盘事件监听
-document.addEventListener("keydown", keydown);
-document.addEventListener("keyup", keyup);
-function keydown(event) {
-	keypress[event.code] = true;
-	lastKey = event.code;
-}
-function keyup(event) {
-	delete keypress[event.code];
-}
-//滚轮事件监听
-var scrollFunc = e => {
-	e = e || window.event;
-	if (e.wheelDelta) {  //判断浏览器IE，谷歌滑轮事件
-		MouseWheel = e.wheelDelta;
-	} else if (e.detail) {  //Firefox滑轮事件
-		MouseWheel = e.detail;
-	}
-	clearTimeout(timer);
-	timer = setTimeout(() => {
-		MouseWheel = 0;
-	}, 30);
-};
-//给页面绑定滑轮滚动事件
-if (cvs.parentNode.addEventListener) { //火狐使用DOMMouseScroll绑定
-	cvs.parentNode.addEventListener('DOMMouseScroll', scrollFunc, false);
-}
-//其他浏览器直接绑定滚动事件
-cvs.parentNode.onmousewheel = scrollFunc;
