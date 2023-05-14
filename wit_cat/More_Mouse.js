@@ -890,7 +890,7 @@ class WitCatMouse {
 	 */
 	mousetd(args) {
 		const mousetdkey = this.mousetdlist[Number(args.key)];
-		if (mousetdkey != "") {
+		if (mousetdkey !== undefined && mousetdkey != "") {
 			let time = Date.now() - (Number(args.time) * 1000 + mousetdkey);
 			if (-50 <= time && time <= 50) {
 				return true;
@@ -918,7 +918,7 @@ class WitCatMouse {
 	 */
 	mouset(args) {
 		const mousetdkey = this.mousetdlist[Number(args.key)];
-		if (mousetdkey != "") {
+		if (mousetdkey !== undefined && mousetdkey != "") {
 			return (Date.now() - mousetdkey) / 1000;
 		}
 		return 0;
