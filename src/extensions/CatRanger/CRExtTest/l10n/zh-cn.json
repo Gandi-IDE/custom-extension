@@ -1,0 +1,16 @@
+{
+  "name": "开发中 CatRanger.CRExtTest",
+  "desc": "演示demo，发布前请删除",
+  "docURL": "中文文档地址",
+  "test": "test[A][B][C]",
+  "commandArugA": "commandArugA",
+  "menuOpt1": "menuOpt1",
+  "menuOpt12": "menuOpt12",
+  "commandArguB": "commandArguB",
+  "targetReporter": "targetReporter[A][B][C]",
+  "globalReporter": "globalReporter[A][B][C]",
+  "conditionalBlocks": "conditionalBlocks[A][B][C]",
+  "loopBlocks": "loopBlocks[A][B][C]",
+  "eventBlocks": "eventBlocks[A][B][C]",
+  "hatBlocks": "hatBlocks[A][B][C]"
+}

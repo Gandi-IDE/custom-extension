@@ -5,7 +5,16 @@
     <title>Getting Started</title>
   </head>
   <body>
-    <script type="module"  src="./Nick/index.js"></script>
+    <script type="text/javascript">
+      console.log('js init')
+      function cb (){
+        console.log(ExtensionLib);
+      }
+      </script>
+    <script src="http://localhost:9999/static/js/main.js" onload="cb()">
+      
+    </script>
+    
   </body>
 </html>
 

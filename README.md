@@ -1,96 +1,129 @@
-# ccw-user-extensions
+# ccw-extensions-template
 
-- [ccw-user-extensions](#ccw-user-extensions)
-  * [What for](#what-for)
-  * [How to jump in](#how-to-jump-in)
-    + [Normal remote extension (for anyone)](#normal-remote-extension--for-anyone-)
-    + [CCW approved extension (for CCW collaborator)](#ccw-approved-extension--for-ccw-collaborator-)
-    + [Apply for CCW collaborator](#apply-for-ccw-collaborator)
-  * [How to develop](#how-to-develop)
-    + [Define a extension](#define-a-extension)
-      - [normal remote extension](#normal-remote-extension)
-      - [CCW approved extension](#ccw-approved-extension)
-    + [Test your extension](#test-your-extension)
-      - [normal remote extension](#normal-remote-extension-1)
-      - [CCW approved extension](#ccw-approved-extension-1)
-    + [Asset standard](#asset-standard)
+[中文文档](./README.zh.md)
+If you don't want to use new templates,please refer to this [document](./src/original/README.md)
 
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+[TOC]
 
-## What for
-This repo is for CCW Creator who wants make and test their own extensions.
-## How to jump in
-There are two ways to develop and test your extensions.
-### Normal remote extension (for anyone)
-You can build your blocks and test them.
+<br/>
+<br/>
 
-You can use all javascript capacity to do what you want.
+## What is for
 
-There only have one limit: normal remote extension will be running in a sandbox and unable to access vm or runtime utilities.
-### CCW approved extension (for CCW collaborator)
+This branch is a template for developing extensions for Gandi IDE, an in-browser game engine, a mod of [Scratch](https://scratch.mit.edu/).
 
-As a CCW collaborator, your can push code into this repo.
+## Requirements
 
-Extensions in this repo will have full access to vm and runtime utilities allows you build advanced block for all CCW Creator.
+1. a modern PC or Mac
+2. any web development IDE you like.(highly recommended VSCode)
+3. install 'git'
+4. install 'node.js' version > 12.16
+5. install 'yarn' latest version
 
-When your complete testing,you can apply for publish extensions to CCW Extension Library. All CCW Creator can use it in their project.
-### Apply for CCW collaborator
-- fork this repo and submit your PR。
-## How to develop 
+## How to create a new extension
 
-### Define a extension
-#### normal remote extension
+1. create a new folder
+2. fork and git clone this branch
+3. run command 'yarn'
+4. run command 'yarn extension-kit create'
+5. follow the instructions to create extension files
+6. now you will see your new extension files in 'src/extension/{{developer}}/{{extensionId}}' folder
+7. open 'src/extension/{{developer}}/{{extensionId}}/index.ts' file to start coding
 
-[.example/normal-ext.js](https://github.com/CCW-Site/ccw-user-extension/blob/main/example/normal-ext.js)
+    Tips: don not modify any files if you don't know what those files are.
 
-#### CCW approved extension
+## Localization
 
-[.example/ccw-approved-ext.js](https://github.com/CCW-Site/ccw-user-extension/blob/main/example/ccw-approved-ext.js)
-### Test your extension
-#### normal remote extension
-if your work on a normal remote extension, you can upload your extension js file to any http server and make sure it can be accessed in open network.
+run command 'yarn extension l10n {extension_path}'
 
-when complete above moves, use below url in browser(recommend Chrome)
+like 'yarn extension l10n src/extension/Arkos/file_helper'
+
+l10n file will be created in path 'src/extension/Arkos/file_helper/l10n'
+
+it will analyze your code and generate l10n key-value into zh-cn.json and en.json like below
+
 ```
-https://www.ccw.site/creator?extension=${your_file_url}
-```
-
-For example
-```
-https://www.ccw.site/creator?extension=https://ccw-user-extension.ccw.site/example/normal-ext.js
-```
-Extensions will be added to the bottom of block menu if there is no error in your code.
-
-#### CCW approved extension
-Push code and a bot will deploy your commit to a http server automatically. The URL is like below.
-
-The automatic deploy url format is like below
-```
-https://ccw-user-extension.ccw.site/${your_folder}/${jsFile}
+{
+  test: 'test[A][B][C]',
+  commandArugA: 'commandArugA',
+  menuOpt1: 'menuOpt1',
+  menuOpt12: 'menuOpt12',
+  commandArguB: 'commandArguB',
+  targetReporter: 'targetReporter[A][B][C]',
+  globalReporter: 'globalReporter[A][B][C]',
+  conditionalBlocks: 'conditionalBlocks[A][B][C]',
+  loopBlocks: 'loopBlocks[A][B][C]',
+  eventBlocks: 'eventBlocks[A][B][C]',
+  hatBlocks: 'hatBlocks[A][B][C]'
+}
 ```
 
-When completing the above moves, use the URL below in your browser(recommend Chrome).
-```
-https://www.ccw.site/creator?ext=https://ccw-user-extension.ccw.site/${your_folder}/${jsFile}
-```
-For example
-```
-https://www.ccw.site/creator?ext=https://ccw-user-extension.ccw.site/example/ccw-approved-ext.js
+keys and arguments placeholder are mapping from block code, you just need translate it.
+
+## How to test
+
+1. run 'yarn dev' to start the local dev server. Keep it running if no errors are shown.
+2. open Gandi, choose [Custom Extension] in Extension Library.
+3. paste URL 'http://localhost:9999/static/js/main.js' to the input and confirm
+4. the extension will be shown in the Custom category.
+
+## How to publish
+
+1. submit to Gandi team
+    - make a PR to this Branch
+    - when PR is reviewed and merged, you extension will show in Gandi Extension Library
+2. deploy by yourself, use URL load
+    - run 'yarn build'
+    - upload 'dist' folder to any http or CDN server
+    - make sure the file is accessible by URL after upload
+
+        recommend CDN service: <https://www.jsdelivr.com/?docs=gh>
+    - add Custom Extension by URL
+
+## How to create a block
+
+use function in 'BlockUtil', all functions
+
+```js
+    export default {
+        createReporter, 
+        createBool, 
+        createCommand, 
+        createConditional, 
+        createLoop, 
+        createButton, 
+        createEvent, 
+        createHat, 
+        createMenu, 
+        createDynamicMenu, 
+        createArgument
+    }
 ```
 
-Extensions will be registed in Extension Library. You must add it by hand before you use it.
+you can find usage simple in 'index.ts' after use create command
 
-### Asset standard
+
+## Runtime API
+
+[TODO]
+
+#### Gandi Community API
+
+[TODO]
+
+## Asset
+
+You can change the cover and icon in the 'assets' folder.
+The image type and resolution should be correct, as shown below:
 
 Extension cover
-type: png/jpg/svg
+type: jpg
 size: 600 × 372 px
 
-Extension block icon
-type: svg
+Extension icon
+type: png
 size: 80 x 80 px
 
-Extension menu icon
-type: svg
-size: 80 x 80 px
+## Q & A
 
+If you have any other questions, feel free to leave a message and discuss it in the issues section.
