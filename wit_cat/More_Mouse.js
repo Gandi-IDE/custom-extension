@@ -748,7 +748,7 @@ class WitCatMouse {
 		if (this.canvas === null) {
 			return;
 		}
-		this.canvas.style.cursor = String(args.cursor);
+		this.canvas.parentNode.parentNode.parentNode.style.cursor = String(args.cursor);
 	}
 
 	/**
@@ -766,10 +766,10 @@ class WitCatMouse {
 		const x = Number(args.x);
 		const y = Number(args.y);
 		// 针对 url() 里的语法，先转义回去，再完整地转义回来。
-		url = encodeURIComponent(decodeURIComponent(url))
+		url = this.base64ToBlob(url);
 		// 实际上 cursorurl 处可以直接使用 正常的 url 和 data url。
 		// 不需要特地转换。
-		this.canvas.style.cursor = `url("${url}") ${x} ${y}, auto`;
+		this.canvas.parentNode.parentNode.parentNode.style.cursor = `url("${url}") ${x} ${y}, auto`;
 	}
 
 	/**
@@ -847,12 +847,50 @@ class WitCatMouse {
 	 * 打开ico文件
 	 */
 	async url() {
-		const file = (await this._inputfileclick(".ico", false))[0];
-		if (file !== undefined) {
-			// 加一个扩展名判断？
-			const dataurl = String(await this._readerasync(file, "dataurl"));
-			prompt("请复制以下代码：", dataurl);
-		}
+		new Promise(resolve => {
+			const input = document.createElement("input");
+			input.type = "file";
+			input.style = "display:none;";
+			input.accept = ".ico";
+			input.click();
+			input.onchange = () => {
+				const reader = new FileReader();
+				const readers = new FileReader();
+				const file = input.files[0];
+				reader.onload = (e) => {
+					prompt("请复制以下代码：", e.currentTarget.result);
+					resolve(e.target.result);
+				};
+				reader.onerror = () => {
+					resolve();
+				};
+				readers.readAsArrayBuffer(file);
+
+				readers.onload = (e) => {
+					if (file.name.split('.')[file.name.split('.').length - 1] == "ico") {
+						var uri = e.target.result;
+						console.log(uri.byteLength / 1024 + " KB");
+						if (uri.byteLength / 1024 <= 10) {
+							reader.readAsDataURL(file);
+						}
+						else {
+							console.warn("文件过大，可能导致工程文件崩溃！！！\nThe file is too large, may cause the project file crash!!!");
+							alert("文件过大，可能导致工程文件崩溃！！！\nThe file is too large, may cause the project file crash!!!");
+						}
+					}
+					else {
+						console.warn("请选择*.ico文件\nPlease select the *.ico file");
+						alert("请选择*.ico文件\nPlease select the *.ico file");
+					}
+				};
+			}
+			window.onfocus = () => {
+				// 开始计时或者播放
+				setTimeout(() => {
+					resolve("");
+				}, 1000);
+			}
+		});
 	}
 
 	/**
@@ -1059,6 +1097,36 @@ class WitCatMouse {
 			}, 30);
 		}, { capture: true });
 	}
+	/**
+	 * base64转blob
+	 * @param {string} base64 传入base64
+	 * @returns {string}
+	 */
+	base64ToBlob(base64) {
+		try {
+			let audioSrc = base64; // 拼接最终的base64
+
+			let arr = audioSrc.split(',');
+			let array = arr[0].match(/:(.*?);/);
+			let mime = (array && array.length > 1 ? array[1] : type) || type;
+			// 去掉url的头，并转化为byte
+			let bytes = window.atob(arr[1]);
+			// 处理异常,将ascii码小于0的转换为大于0
+			let ab = new ArrayBuffer(bytes.length);
+			// 生成视图（直接针对内存）：8位无符号整数，长度1个字节
+			let ia = new Uint8Array(ab);
+			for (let i = 0; i < bytes.length; i++) {
+				ia[i] = bytes.charCodeAt(i);
+			}
+			return URL.createObjectURL(new Blob([ab], {
+				type: mime
+			}))
+		}
+		catch {
+			return undefined;
+		}
+	}
+
 }
 
 window.tempExt = {
