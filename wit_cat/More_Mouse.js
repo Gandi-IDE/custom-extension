@@ -60,21 +60,21 @@ class WitCatMouse {
 		this.mousetdlist = ["", "", "", "", ""];
 
 		/**
-		 * Scratch 所使用的 Canvas，获取不到返回 null
-		 * @type {HTMLCanvasElement | null}
+		 * Scratch 所使用的 canvas，获取不到返回 null
+		 * @return {HTMLCanvasElement | null}
 		 */
-		this.canvas = null;
-
-		try {
-			const canvas = runtime.renderer.canvas;
-			if (canvas instanceof HTMLCanvasElement) {
-				this.canvas = canvas;
+		this.canvas = () => {
+			try {
+				const canvas = runtime.renderer.canvas;
+				if (canvas instanceof HTMLCanvasElement) {
+					return canvas;
+				}
+			} catch (err) {
+				return null;
 			}
-		} catch (err) {
-			console.error(err);
-		}
+		};
 
-		if (this.canvas === null) {
+		if (this.canvas() === null) {
 			alert("当前页面不支持多指触控/全屏，请前往作品详情页体验完整作品！");
 			// 注意：在提示之后，扩展仍然在运行。需要在后面引用 Canvas 的部分进行判断。
 		}
@@ -595,7 +595,7 @@ class WitCatMouse {
 	 * @param {SCarg} args.set
 	 */
 	set(args) {
-		if (this.canvas === null) {
+		if (this.canvas() === null) {
 			return;
 		}
 		// 在把自己的方法设为给其他事件/函数的回调时加上 bind(this) 是很有必要的，
@@ -605,9 +605,9 @@ class WitCatMouse {
 		// removeEventListener 的时候就会因为函数不一致导致 remove 不掉，
 		// 需要提前把 bind 过的函数设为某类内变量。
 		if (args.set === "false") {
-			this.canvas.addEventListener("contextmenu", this._nocontextmenu);
+			this.canvas().addEventListener("contextmenu", this._nocontextmenu);
 		} else {
-			this.canvas.removeEventListener("contextmenu", this._nocontextmenu);
+			this.canvas().removeEventListener("contextmenu", this._nocontextmenu);
 		}
 	}
 
@@ -674,16 +674,16 @@ class WitCatMouse {
 	 * @returns {number|string}
 	 */
 	num(args) {
-		if (this.canvas === null) {
+		if (this.canvas() === null) {
 			return 0;
 		}
 		const touch1 = this.touch[Number(args.num) - 1];
 		if (touch1 !== undefined) {
 			if (args.type === "x") {
-				return this.runtime.stageWidth * ((touch1.clientX - this.canvas.getBoundingClientRect().left) / this.canvas.offsetWidth);
+				return this.runtime.stageWidth * ((touch1.clientX - this.canvas().getBoundingClientRect().left) / this.canvas().offsetWidth);
 			}
 			else if (args.type === "y") {
-				return this.runtime.stageHeight * ((touch1.clientY - this.canvas.getBoundingClientRect().top) / this.canvas.offsetHeight);
+				return this.runtime.stageHeight * ((touch1.clientY - this.canvas().getBoundingClientRect().top) / this.canvas().offsetHeight);
 			}
 			else {
 				return touch1.identifier;
@@ -715,10 +715,10 @@ class WitCatMouse {
 	 * @returns {number}
 	 */
 	resolution() {
-		if (this.canvas === null) {
+		if (this.canvas() === null) {
 			return 0;
 		}
-		return this.canvas.height;
+		return this.canvas().height;
 	}
 
 	/**
@@ -745,10 +745,10 @@ class WitCatMouse {
 	 * @param {SCarg} args.cursor 样式
 	 */
 	cursor(args) {
-		if (this.canvas === null) {
+		if (this.canvas() === null) {
 			return;
 		}
-		this.canvas.parentNode.parentNode.parentNode.style.cursor = String(args.cursor);
+		this.canvas().parentNode.parentNode.parentNode.style.cursor = String(args.cursor);
 	}
 
 	/**
@@ -759,7 +759,7 @@ class WitCatMouse {
 	 * @param {SCarg} args.y y偏移
 	 */
 	cursorurl(args) {
-		if (this.canvas === null) {
+		if (this.canvas() === null) {
 			return;
 		}
 		let url = String(args.text);
@@ -769,7 +769,7 @@ class WitCatMouse {
 		url = this.base64ToBlob(url);
 		// 实际上 cursorurl 处可以直接使用 正常的 url 和 data url。
 		// 不需要特地转换。
-		this.canvas.parentNode.parentNode.parentNode.style.cursor = `url("${url}") ${x} ${y}, auto`;
+		this.canvas().parentNode.parentNode.parentNode.style.cursor = `url("${url}") ${x} ${y}, auto`;
 	}
 
 	/**
@@ -999,11 +999,11 @@ class WitCatMouse {
 
 	/** 添加事件触发器 */
 	_addevent() {
-		if (this.canvas === null) {
+		if (this.canvas() === null) {
 			return;
 		}
 		//鼠标
-		this.canvas.addEventListener('mousedown', e => {
+		this.canvas().addEventListener('mousedown', e => {
 			this.button[e.button] = "down";
 			this.mousetdlist[e.button] = Date.now();
 			if (this.button[0] === "down") {
@@ -1041,13 +1041,13 @@ class WitCatMouse {
 			}, 30);
 		});
 		//多指触控
-		this.canvas.addEventListener('touchstart', e => {
+		this.canvas().addEventListener('touchstart', e => {
 			// e.targetTouches 会随着时间改变，必须复制一份。
 			this._copytouch(e.targetTouches);
 			this.button[0] = "down";
 			this.mousetdlist[0] = Date.now();
 		})
-		this.canvas.addEventListener('touchmove', e => {
+		this.canvas().addEventListener('touchmove', e => {
 			if (e.targetTouches[0] !== undefined && this.touch[0] !== undefined) {
 				this.xMouse = e.targetTouches[0].clientX - this.touch[0].clientX; // 获得手指的x移动量
 				this.yMouse = e.targetTouches[0].clientY - this.touch[0].clientY; // 获得手指的y移动量
@@ -1062,13 +1062,13 @@ class WitCatMouse {
 			// e.targetTouches 会随着时间改变，必须复制一份。
 			this._copytouch(e.targetTouches);
 		})
-		this.canvas.addEventListener('touchend', e => {
+		this.canvas().addEventListener('touchend', e => {
 			// e.targetTouches 会随着时间改变，必须复制一份。
 			this._copytouch(e.targetTouches);
 			this.mousetdlist[0] = "";
 			this.button[0] = "up";
 		})
-		this.canvas.addEventListener('click', () => {
+		this.canvas().addEventListener('click', () => {
 			if (this.click !== false) {
 				clearTimeout(this.click);
 			}
@@ -1076,7 +1076,7 @@ class WitCatMouse {
 				this.click = false;
 			}, 50);
 		});
-		this.canvas.addEventListener('dblclick', () => {
+		this.canvas().addEventListener('dblclick', () => {
 			if (this.dclick !== false) {
 				clearTimeout(this.dclick);
 			}
@@ -1085,12 +1085,12 @@ class WitCatMouse {
 			}, 50);
 		});
 		//给页面绑定滑轮滚动事件
-		this.canvas.addEventListener('wheel', (e) => {
+		this.canvas().addEventListener('wheel', (e) => {
 			// 注意这个负数……
 			// 目前的标准用法是使用 deltaY，但是 deltaY 的符号和 WheelDeltaY 相反。
 			// 为了和原有的行为一致，乘上 -3
 			// 在我的浏览器中 deltaY = WheelDeltaY / -3
-			this.MouseWheel = -e.deltaY;
+			this.MouseWheel = e.WheelDelta;
 			clearTimeout(this.timer);
 			this.timer = setTimeout(() => {
 				this.MouseWheel = 0;
