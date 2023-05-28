@@ -48,29 +48,38 @@ class WitCatInput {
 		this.observer = null;
 
 		/**
-		 * Scratch 所使用的 Canvas，获取不到返回 null
-		 * @type {HTMLCanvasElement | null}
+		 * Scratch 所使用的 canvas，获取不到返回 null
+		 * @return {HTMLCanvasElement | null}
 		 */
-		this.canvas = null;
+		this.canvas = () => {
+			try {
+				const canvas = runtime.renderer.canvas;
+				if (canvas instanceof HTMLCanvasElement) {
+					return canvas;
+				}
+			} catch (err) {
+				return null;
+			}
+		};
 
 		/**
-		 * 所有输入框所在的父角色，目前设为 Canvas 的父角色。
+		 * 所有输入框所在的父角色，目前设为 canvas 的父角色。
 		 * 获取不到返回 null
-		 * @type {HTMLElement | null}
+		 * @return {HTMLElement | null}
 		 */
-		this.inputParent = null;
-
-		try {
-			const canvas = runtime.renderer.canvas;
-			if (canvas instanceof HTMLCanvasElement) {
-				this.canvas = canvas;
-				this.inputParent = canvas.parentElement;
+		this.inputParent = () => {
+			try {
+				const canvas = runtime.renderer.canvas;
+				if (canvas instanceof HTMLCanvasElement) {
+					return canvas.parentElement;
+				}
+			} catch (err) {
+				console.error(err);
+				return null;
 			}
-		} catch (err) {
-			console.error(err);
-		}
+		};
 
-		if (this.canvas === null || this.inputParent === null) {
+		if (this.canvas() === null || this.inputParent() === null) {
 			alert("当前页面不支持文本框，请前往作品详情页体验完整作品！");
 			// 注意：在提示之后，扩展仍然在运行。需要在后面引用 Canvas 的部分进行判断。
 		}
@@ -844,7 +853,7 @@ class WitCatInput {
 	 * @param {SCarg} args.size 文字大小 
 	 */
 	createinput(args) {
-		if (this.canvas === null || this.inputParent === null) {
+		if (this.canvas() === null || this.inputParent() === null) {
 			return;
 		}
 		let x = Number(args.x);
@@ -870,7 +879,7 @@ class WitCatInput {
 		// 避免后面大量复制粘贴样式操作。
 		// 大段的复制粘贴往往意味着之后会犯错（只改一半）
 		if (search !== null && search.tagName !== args.type) {
-			this.inputParent.removeChild(search);
+			this.inputParent().removeChild(search);
 			search = null;
 		}
 		if (search === null) {
@@ -893,7 +902,7 @@ class WitCatInput {
 			search.className = "WitCatInput";
 			search.name = String(args.type);
 			search.placeholder = String(args.texts);
-			this.inputParent.appendChild(search);
+			this.inputParent().appendChild(search);
 		}
 
 		// 现在直接通过style的属性修改样式表，不需要担心“分号注入”问题了
@@ -907,7 +916,7 @@ class WitCatInput {
 		sstyle.top = `${y}%`;
 		sstyle.width = `${width}%`;
 		sstyle.height = `${height}%`;
-		sstyle.fontSize = `${this.adaptive ? (parseFloat(this.canvas.style.width) / 360) * Number(args.size) : Number(args.size)}px`;
+		sstyle.fontSize = `${this.adaptive ? (parseFloat(this.canvas().style.width) / 360) * Number(args.size) : Number(args.size)}px`;
 		sstyle.resize = "none";
 		sstyle.color = String(args.color);
 		sstyle.opacity = "1";
@@ -924,12 +933,12 @@ class WitCatInput {
 	 * @param {SCarg} args.id 文本框id
 	 */
 	deleteinput(args) {
-		if (this.inputParent === null) {
+		if (this.inputParent() === null) {
 			return;
 		}
 		let search = document.getElementById("WitCatInput" + args.id);
 		if (search !== null) {
-			this.inputParent.removeChild(search);
+			this.inputParent().removeChild(search);
 		}
 	}
 
@@ -1003,12 +1012,12 @@ class WitCatInput {
 	 * 删除所有文本框
 	 */
 	deleteallinput() {
-		if (this.inputParent === null) {
+		if (this.inputParent() === null) {
 			return;
 		}
 		let search = document.getElementsByClassName("WitCatInput");
 		for (const item of Array.from(search)) {
-			this.inputParent.removeChild(item);
+			this.inputParent().removeChild(item);
 		}
 	}
 
@@ -1019,10 +1028,10 @@ class WitCatInput {
 	 * @returns {number}
 	 */
 	compute(args) {
-		if (this.canvas === null) {
+		if (this.canvas() === null) {
 			return 0;
 		}
-		return parseFloat(this.canvas.style.width) / 360 * Number(args.size);
+		return parseFloat(this.canvas().style.width) / 360 * Number(args.size);
 	}
 
 	/**
@@ -1401,7 +1410,7 @@ class WitCatInput {
 	 * @param {SCarg} args.type
 	 */
 	fontadaptive(args) {
-		if (this.canvas === null) {
+		if (this.canvas() === null) {
 			return;
 		}
 		if (args.type == "true") {
@@ -1409,7 +1418,7 @@ class WitCatInput {
 				let search = document.getElementsByClassName("WitCatInput");
 				const config = { attributes: true, childList: true, subtree: true, attributeFilter: ['style'] };
 				const callback = () => {
-					if (this.canvas === null) {
+					if (this.canvas() === null) {
 						return;
 					}
 					for (let searchi of Array.from(search)) {
@@ -1418,11 +1427,11 @@ class WitCatInput {
 						if (fontsize === undefined) {
 							continue;
 						}
-						searchi.style.fontSize = parseFloat(this.canvas.style.width) / 360 * fontsize + "px";
+						searchi.style.fontSize = parseFloat(this.canvas().style.width) / 360 * fontsize + "px";
 					}
 				};
 				this.observer = new MutationObserver(callback);
-				this.observer.observe(this.canvas, config);
+				this.observer.observe(this.canvas(), config);
 				this.adaptive = true;
 			}
 		}
@@ -1440,7 +1449,7 @@ class WitCatInput {
 	 * 添加键盘鼠标事件
 	 */
 	_addevent() {
-		if (this.canvas === null || this.inputParent === null) {
+		if (this.canvas() === null || this.inputParent() === null) {
 			return;
 		}
 		//键盘事件监听
@@ -1453,7 +1462,7 @@ class WitCatInput {
 		});
 
 		//给页面绑定滑轮滚动事件
-		this.canvas.addEventListener('wheel', (e) => {
+		this.canvas().addEventListener('wheel', (e) => {
 			// 注意这个负数……
 			// 目前的标准用法是使用 deltaY，但是 deltaY 的符号和 WheelDeltaY 相反。
 			// 为了和原有的行为一致，乘上 -3
