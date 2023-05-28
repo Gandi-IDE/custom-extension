@@ -18,6 +18,19 @@ import en from "./l10n/en.json";
 import cover from "./assets/cover.png";
 import blockIcon from "./assets/icon.png";
 
+/** Scratch 参数类型 */
+type SCarg = string | number | boolean;
+
+/** 浏览器信息 */
+type userAgentObj_type = {
+  browserName: string; // 浏览器名称
+  browserVersion: string; // 浏览器版本
+  osName: string; // 操作系统名称
+  osVersion: string; // 操作系统版本
+  deviceName: string; // 设备名称
+  CPU_Type: string; // 兼容xigua-client
+};
+
 export default class SimpleUtils extends GandiExtension {
   get extensionId(): string {
     return extensionId;
@@ -66,6 +79,15 @@ export default class SimpleUtils extends GandiExtension {
   // v1.0.4
   // add runtime
   runtime: any;
+
+  /** 弹窗通知冷却时间(秒) */
+  get ALERT_COOLDOWN(): number {
+    return 3 /* 30 */ /* 4*60 */;
+  }
+
+  /** 上一次调用的时间 */
+  alert_calltime: number = -Infinity;
+
   constructor(runtime: any) {
     super(runtime);
     this.runtime = runtime;
@@ -78,8 +100,8 @@ export default class SimpleUtils extends GandiExtension {
    * @param TYPE old args.TYPE
    * @returns
    */
-  client_info(TYPE) {
-    const userAgentObj = {
+  client_info(TYPE: "json" | "JSON" | keyof userAgentObj_type): string {
+    const userAgentObj: userAgentObj_type = {
       browserName: "", // 浏览器名称
       browserVersion: "", // 浏览器版本
       osName: "", // 操作系统名称
@@ -100,9 +122,9 @@ export default class SimpleUtils extends GandiExtension {
       "NT 10.0": "10/11",
     };
     // 修复了之前兼容的问题 23/02/21
-    var userAgent = navigator.userAgent;
+    const userAgent = navigator.userAgent;
     if (userAgent) {
-      var isOpera = userAgent.indexOf("Opera") > -1;
+      const isOpera = userAgent.indexOf("Opera") > -1;
       //判断是否Opera浏览器
       if (isOpera) {
         userAgentObj.browserName = "Opera";
@@ -148,39 +170,55 @@ export default class SimpleUtils extends GandiExtension {
 
       // is xigua-client
       if (userAgent.indexOf("xigua-python") > -1) {
-        (userAgentObj.browserName = "西瓜Python"),
-          (userAgentObj.browserVersion = userAgent
-            .split("xigua-python/")[1]
-            .split(" ")[0]);
-        var winJV = userAgent.split("Windows ")[1].split(")")[0].split("; ")[1];
+        userAgentObj.browserName = "西瓜Python";
+        userAgentObj.browserVersion = userAgent
+          .split("xigua-python/")[1]
+          .split(" ")[0];
+        const winJV = userAgent
+          .split("Windows ")[1]
+          .split(")")[0]
+          .split("; ")[1];
         // 兼容西瓜客户端
         userAgentObj.CPU_Type = winJV;
       }
 
       if (userAgent.indexOf("xigua-scratch") > -1) {
-        (userAgentObj.browserName = "西瓜Scratch"),
-          (userAgentObj.browserVersion = userAgent
-            .split("xigua-scratch/")[1]
-            .split(" ")[0]);
-        var winJV = userAgent.split("Windows ")[1].split(")")[0].split("; ")[1];
+        userAgentObj.browserName = "西瓜Scratch";
+        userAgentObj.browserVersion = userAgent
+          .split("xigua-scratch/")[1]
+          .split(" ")[0];
+        const winJV = userAgent
+          .split("Windows ")[1]
+          .split(")")[0]
+          .split("; ")[1];
         // 兼容西瓜客户端
         userAgentObj.CPU_Type = winJV;
       }
 
       //判断是否Windows
       if (userAgent.indexOf("Windows") > -1) {
-        var Version =
-          userAgent.split("Windows ")[1].split(")")[0].indexOf("; ") > -1
-            ? userAgent.split("Windows ")[1].split(")")[0].split("; ")[0]
-            : userAgent.split("Windows ")[1].split(")")[0];
+        const Version = userAgent
+          .split("Windows ")[1]
+          .split(")")[0]
+          .split("; ")[0];
         userAgentObj.osName = "Windows";
-        userAgentObj.osVersion = userAgentWindowsVrsion[Version];
+        if (
+          Object.prototype.hasOwnProperty.call(userAgentWindowsVrsion, Version)
+        ) {
+          userAgentObj.osVersion =
+            userAgentWindowsVrsion[
+              Version as keyof typeof userAgentWindowsVrsion
+            ];
+        } else {
+          // 列表中找不到，直接使用 Version 的值
+          userAgentObj.osVersion = Version;
+        }
         // 设置设备名
         userAgentObj.deviceName = "PC";
       }
 
       if (userAgent.indexOf("Mac") > -1) {
-        var Version = userAgent.split("Mac OS X ")[1].split(")")[0];
+        const Version = userAgent.split("Mac OS X ")[1].split(")")[0];
         userAgentObj.osName = "Mac OS X";
         userAgentObj.osVersion = Version;
         // 设置设备名
@@ -188,7 +226,7 @@ export default class SimpleUtils extends GandiExtension {
       }
 
       if (userAgent.indexOf("iPhone") > -1) {
-        var Version = userAgent.split("CPU iPhone OS")[1].split(" ")[0];
+        const Version = userAgent.split("CPU iPhone OS")[1].split(" ")[0];
         userAgentObj.osName = "iPhone";
         userAgentObj.osVersion = Version;
 
@@ -197,7 +235,7 @@ export default class SimpleUtils extends GandiExtension {
       }
 
       if (userAgent.indexOf("iPad") > -1) {
-        var Version = userAgent.split("iPad; CPU OS ")[1].split(" ")[0];
+        const Version = userAgent.split("iPad; CPU OS ")[1].split(" ")[0];
         userAgentObj.osName = "iPad";
         userAgentObj.osVersion = Version;
 
@@ -206,14 +244,14 @@ export default class SimpleUtils extends GandiExtension {
       }
 
       if (userAgent.indexOf("Android") > -1) {
-        var V = userAgent.split("Android ")[1].split(";")[0];
+        const V = userAgent.split("Android ")[1].split(";")[0];
         /**
          * userAgent.split("Android " + V)[1].split(")")[0].indexOf("; ") > -1
          * 默认是有厂商+版本的
          * 这里做了兼容
-         * 如果ua里没有设备版本默认返回"Androiid设备"
+         * 如果ua里没有设备版本默认返回"Android设备"
          */
-        var winD =
+        const winD =
           userAgent
             .split("Android " + V)[1]
             .split(")")[0]
@@ -225,8 +263,6 @@ export default class SimpleUtils extends GandiExtension {
         userAgentObj.osVersion = V;
       }
       //console.log(userAgentObj);
-      // 转换格式 Obj to String JSON
-      var string = JSON.stringify(userAgentObj);
 
       /**
        * @description: 兼容l10n，之前把默认字段写成了JSON但是menu里的是json
@@ -235,10 +271,15 @@ export default class SimpleUtils extends GandiExtension {
        * @return {*}
        */
       if (TYPE == "json" || TYPE == "JSON") {
+        // 转换格式 Obj to String JSON
+        const string = JSON.stringify(userAgentObj);
         return string;
       } else {
         return userAgentObj[TYPE];
       }
+    } else {
+      // userAgent 用不了
+      return "";
     }
   }
 
@@ -252,24 +293,19 @@ export default class SimpleUtils extends GandiExtension {
    */
   // dynamic menu
   spriteMenu() {
-    const sprites = [];
-    let num = -1;
-    for (const targetId in this.runtime.targets) {
-      if (!this.runtime.targets.hasOwnProperty(targetId)) continue;
-      if (!this.runtime.targets[targetId].isOriginal) continue;
-      const { name } = this.runtime.targets[targetId].sprite;
-      const { id } = this.runtime.targets[targetId];
-      num = num + 1;
-      if (name === "Stage" && this.runtime.targets[targetId].isStage === true) {
-        sprites.push({ text: "舞台", value: num });
-      } else {
-        sprites.push({ text: name, value: num });
+    const sprites: { text: string; value: number }[] = [];
+    this.runtime.targets.forEach((target: any, targetId: number) => {
+      if (target.isOriginal) {
+        const { name } = target.sprite;
+        if (target.isStage) {
+          sprites.push({ text: "[舞台]", value: targetId });
+        } else {
+          sprites.push({ text: "[角色]" + name, value: targetId });
+        }
       }
-    }
-    if (
-      JSON.stringify(sprites) === "[]" ||
-      JSON.stringify(this.runtime.targets) === "[]"
-    ) {
+    });
+    if (sprites.length === 0) {
+      // 这不可能发生
       return [{ text: "-没有角色-", value: "empty" }];
     } else {
       return sprites;
@@ -286,34 +322,38 @@ export default class SimpleUtils extends GandiExtension {
     let variable = this.runtime._stageTarget.variables;
     const variableList = [];
     Object.keys(variable).forEach(function (r) {
-      "list" === variable[r].type &&
+      if (variable[r].type === "list") {
         variableList.push({
-          text: "[PUBLISH]".concat(variable[r].name),
+          text: "[所有角色]".concat(variable[r].name),
           value: variable[r].id,
         });
+      }
     });
     try {
       variable = this.runtime._editingTarget.variables;
     } catch (t) {
       variable = "e";
     }
-    return (
-      "e" !== variable &&
-        this.runtime._editingTarget !== this.runtime._stageTarget &&
-        Object.keys(variable).forEach(function (r) {
-          "list" === variable[r].type &&
-            variableList.push({
-              text: "[PRIVATE]".concat(variable[r].name),
-              value: variable[r].id,
-            });
-        }),
-      0 === variableList.length &&
-        variableList.push({
-          text: "-没有列表-",
-          value: "empty",
-        }),
-      variableList
-    );
+    if (
+      variable !== "e" &&
+      this.runtime._editingTarget !== this.runtime._stageTarget
+    ) {
+      Object.keys(variable).forEach(function (r) {
+        if (variable[r].type === "list") {
+          variableList.push({
+            text: "[当前角色]".concat(variable[r].name),
+            value: variable[r].id,
+          });
+        }
+      });
+    }
+    if (variableList.length === 0) {
+      variableList.push({
+        text: "-没有列表-",
+        value: "empty",
+      });
+    }
+    return variableList;
   }
   // v1.0.4
   // 修改自ccwdata
@@ -321,47 +361,52 @@ export default class SimpleUtils extends GandiExtension {
     let variable = this.runtime._stageTarget.variables;
     const variableList = [];
     Object.keys(variable).forEach(function (r) {
-      "" === variable[r].type &&
+      if (variable[r].type === "") {
         variableList.push({
-          text: "[PUBLISH]".concat(variable[r].name),
+          text: "[所有角色]".concat(variable[r].name),
           value: variable[r].id,
         });
+      }
     });
     try {
       variable = this.runtime._editingTarget.variables;
     } catch (t) {
       variable = "e";
     }
-    return (
-      "e" !== variable &&
-        this.runtime._editingTarget !== this.runtime._stageTarget &&
-        Object.keys(variable).forEach(function (r) {
-          "" === variable[r].type &&
-            variableList.push({
-              text: "[PRIVATE]".concat(variable[r].name),
-              value: variable[r].id,
-            });
-        }),
-      0 === variableList.length &&
-        variableList.push({
-          text: "-没有变量-",
-          value: "empty",
-        }),
-      variableList
-    );
+    if (
+      variable !== "e" &&
+      this.runtime._editingTarget !== this.runtime._stageTarget
+    ) {
+      Object.keys(variable).forEach(function (r) {
+        if (variable[r].type === "") {
+          variableList.push({
+            text: "[当前角色]".concat(variable[r].name),
+            value: variable[r].id,
+          });
+        }
+      });
+    }
+    if (variableList.length === 0) {
+      variableList.push({
+        text: "-没有变量-",
+        value: "empty",
+      });
+    }
+    return variableList;
   }
 
   // v1.0.4
   // 统一异常，方便修复扩展报错
-  extErr(e) {
-    var error = e;
-    var sub = "⚠⚠⚠报错";
-    var bool = error.includes(sub);
+  extErr(e: Error) {
+    const error = e.message;
+    const sub = "⚠⚠⚠报错";
+    const bool = error.includes(sub);
     if (bool) {
-      console.error("[YUENExt] : ".concat(e));
-      throw new Error("[YUENExt] : ".concat(e));
+      console.error("[YUENExt] : ", e);
+      throw e;
+      // throw new Error("[YUENExt] : ".concat(e.toString(x)));
     } else {
-      console.warn("[YUENExt] : ".concat(e));
+      console.warn("[YUENExt] : ", e);
     }
   }
 
@@ -447,6 +492,7 @@ export default class SimpleUtils extends GandiExtension {
      * v1.0.0
      */
     const GET_CLIENT_INFO = BlockUtil.createReporter();
+    GET_CLIENT_INFO.setReporterScope(ReporterScope.GLOBAL);
     GET_CLIENT_INFO.setOpcode("get_client_info");
     GET_CLIENT_INFO.setText("get_client_info");
     GET_CLIENT_INFO.setArguments({ TYPE });
@@ -462,10 +508,23 @@ export default class SimpleUtils extends GandiExtension {
     saveJSON.setArguments({ listArgs });
 
     // 通知 v1.0.0
-    const Notification = BlockUtil.createCommand();
-    Notification.setOpcode("Notification");
-    Notification.setText("notification");
-    Notification.setArguments({ TITLE, CONTENT, ICON });
+    // 获取通知权限
+    const get_notif_perm = BlockUtil.createBool();
+    get_notif_perm.setOpcode("get_notif_perm");
+    get_notif_perm.setText("get_notif_perm");
+    get_notif_perm.setArguments({});
+
+    // 询问通知权限
+    const ask_notif_perm = BlockUtil.createCommand();
+    ask_notif_perm.setOpcode("ask_notif_perm");
+    ask_notif_perm.setText("ask_notif_perm");
+    ask_notif_perm.setArguments({});
+
+    // 发送通知
+    const notification = BlockUtil.createCommand();
+    notification.setOpcode("Notification");
+    notification.setText("notification");
+    notification.setArguments({ TITLE, CONTENT, ICON });
 
     // 是否联网 v1.0.0
     const IS_ONLINE = BlockUtil.createBool();
@@ -480,7 +539,13 @@ export default class SimpleUtils extends GandiExtension {
     TOAST.setArguments({ CONTENT_1 });
 
     // 运行环境 当前是编辑器还是发布页
+    const IS_SEE_INSIDE = BlockUtil.createBool();
+    IS_SEE_INSIDE.setOpcode("is_see_inside");
+    IS_SEE_INSIDE.setText("is_see_inside");
+    IS_SEE_INSIDE.setArguments({});
+
     const DEPLOY_ENV = BlockUtil.createReporter();
+    DEPLOY_ENV.setReporterScope(ReporterScope.GLOBAL);
     DEPLOY_ENV.setOpcode("deploy_env");
     DEPLOY_ENV.setText("deploy_env");
     DEPLOY_ENV.setArguments({});
@@ -513,6 +578,7 @@ export default class SimpleUtils extends GandiExtension {
      */
     this.addTextLabel("t.default.1");
     this.addBlock(IS_ONLINE);
+    this.addBlock(IS_SEE_INSIDE);
     this.addBlock(DEPLOY_ENV);
 
     /**
@@ -521,7 +587,9 @@ export default class SimpleUtils extends GandiExtension {
      * 弹窗
      */
     this.addTextLabel("t.default.2");
-    this.addBlock(Notification);
+    this.addBlock(ask_notif_perm);
+    this.addBlock(get_notif_perm);
+    this.addBlock(notification);
     this.addBlock(TOAST);
 
     /**
@@ -540,18 +608,34 @@ export default class SimpleUtils extends GandiExtension {
    * v1.0.5
    */
 
-  set_value_for_list_lenght(args, utils) {
-    console.log(args, utils);
+  set_value_for_list_lenght(
+    args: {
+      listArgs: SCarg;
+      variableArgs: SCarg;
+      NUM: SCarg;
+    },
+    utils: any
+  ) {
     const { listArgs, variableArgs, NUM } = args;
-    var _ = utils.target.lookupVariableById(listArgs);
-    if (
-      (void 0 === _ &&
-        (_ = utils.target.lookupVariableByNameAndType(listArgs, "list")),
-      void 0 !== _)
-    ) {
+    let list = utils.target.lookupVariableById(listArgs);
+    if (list === undefined) {
+      list = utils.target.lookupVariableByNameAndType(listArgs, "list");
     }
-    let t = _.value.length;
-    const times = t;
+    if (list === undefined) {
+      this.extErr(new Error("⚠YUEN: set_value_for_list_lenght : list"));
+      return;
+    }
+    const times = list.value.length;
+    // variable 只需要获取一次
+    let variable = utils.target.lookupVariableById(variableArgs);
+    if (variable === undefined) {
+      variable = utils.target.lookupVariableByNameAndType(variableArgs, "");
+    }
+    if (variable === undefined) {
+      this.extErr(new Error("⚠YUEN: set_value_for_list_lenght : variable"));
+      return;
+    }
+
     // Initialize loop
     if (typeof utils.stackFrame.loopCounter === "undefined") {
       utils.stackFrame.loopCounter = times;
@@ -563,15 +647,8 @@ export default class SimpleUtils extends GandiExtension {
     utils.stackFrame.loopCounter--;
     // If we still have some left, start the branch.
     if (utils.stackFrame.loopCounter >= 0) {
-      var _ = utils.target.lookupVariableById(variableArgs);
-      if (
-        (void 0 === _ &&
-          (_ = utils.target.lookupVariableByNameAndType(variableArgs, "")),
-        void 0 !== _)
-      ) {
-      }
-      let numb = Number(NUM) + Number(_.value);
-      _.value = numb;
+      const numb = Number(NUM) + Number(variable.value);
+      variable.value = numb;
       utils.startBranch(1, true);
     }
   }
@@ -580,61 +657,48 @@ export default class SimpleUtils extends GandiExtension {
    * 保存客户端信息到列表
    * v1.0.4
    */
-
-  saveJSON(args, utils) {
+  saveJSON(args: { listArgs: string }, utils: any) {
     /**
-     * s = StringJSON ClientInfo
-     * ss = JSONObj s
-     * sss = ["Edge","109.x.x","Windows","10/11","PC","x64"]
-     * 这里变量有点乱
+     * @example
+     * list = ["Edge","109.x.x","Windows","10/11","PC","x64"]
      */
-    const s = this.client_info("JSON");
-    const ss = JSON.parse(s);
-    const sss = [];
+    const { listArgs } = args;
 
-    for (var key in ss) {
-      sss.push('"' + ss[key] + '"');
+    if ("empty" === listArgs) {
+      this.extErr(
+        new Error("⚠YUEN: in saveJSON error fill list: list is not selected")
+      );
+      return;
     }
-    const { listArgs, TITLE } = args;
-    var b = "[" + sss.toString() + "]";
-    var a;
-    if ("empty" !== listArgs) {
-      try {
-        a = JSON.parse(b);
-      } catch (t) {
-        this.extErr(
-          "⚠YUEN: in saveJSON error fill list: invalid JSON String".concat(
-            t.message
-          )
-        );
-      }
-      if (Array.isArray(a)) {
-        try {
-          a = a.map(function (t) {
-            return t instanceof Object ? JSON.stringify(t) : t;
-          });
-        } catch (t) {
-          this.extErr(
-            "⚠YUEN: fill list: JSON Array cannot be converted to string ".concat(
-              t.message
-            )
-          );
-        }
-        var _ = utils.target.lookupVariableById(listArgs);
-        if (
-          (void 0 === _ &&
-            (_ = utils.target.lookupVariableByNameAndType(listArgs, "list")),
-          void 0 !== _)
-        ) {
-          var n = [];
-          _.value = n.concat(a);
-        }
-      } else {
-        this.extErr("⚠YUEN: in saveJSON error fill list: JSON is not an array");
-      }
-    } else {
-      this.extErr("⚠YUEN: in saveJSON error fill list: list is not selected");
+
+    const client_info = JSON.parse(this.client_info("JSON"));
+    const list: string[] = Object.values(client_info);
+
+    let _ = utils.target.lookupVariableById(listArgs);
+    if (_ === undefined) {
+      _ = utils.target.lookupVariableByNameAndType(listArgs, "list");
     }
+    if (_ !== undefined) {
+      // 真的需要深拷贝？
+      _.value = list.concat();
+    }
+  }
+
+  /**
+   * 是否在创作页？
+   */
+  is_see_inside() {
+    const ur1 = window.location.pathname;
+    // /gandi
+    // ^^^^^^
+    // /gandi/project
+    // ^^^^^^-
+    const rege = /\/(?:gandi|creator)(?:\/|$)/;
+    //            \/\_______________/\______/
+    //   “/”部分--'         |         |
+    //    gandi或者creator--'         |
+    //               “/”或者文本末尾--'
+    return rege.test(ur1);
   }
 
   /**
@@ -642,13 +706,8 @@ export default class SimpleUtils extends GandiExtension {
    * prod：不在编辑器内
    * dev：在编辑器内
    */
-  // 运行环境
   deploy_env() {
-    var ur1 = window.location.pathname;
-    //var ur2 = window.location.search;
-    return ur1.indexOf("gandi") > -1 || ur1.indexOf("creator") > -1
-      ? "dev"
-      : "prod";
+    return this.is_see_inside ? "dev" : "prod";
   }
 
   /**
@@ -656,67 +715,74 @@ export default class SimpleUtils extends GandiExtension {
    * 检测用户网络连接情况
    * @returns
    */
-  // 联网检测
   is_online() {
     return window.navigator.onLine;
   }
 
   /**
-   * 通知
-   * @param args
+   * 获取是否拥有通知权限
    */
-  // Notification弹窗
-  Notification(args) {
-    const { TITLE, CONTENT, ICON } = args;
-    const globals = "yuen.sleep." + window.location.pathname;
-    var tt = window.localStorage.getItem(globals);
-    var t = Number(window.localStorage.getItem(globals)) + 60000 * 60 * 24 * 7;
-    if (t <= Date.now() || tt == "null") {
-      localStorage.removeItem(globals);
+  get_notif_perm(): boolean {
+    const perm = Notification.permission;
+    return perm === "granted";
+  }
+  /**
+   * 申请通知权限
+   */
+  async ask_notif_perm() {
+    const perm = Notification.permission;
+    if (perm === "default") {
+      await Notification.requestPermission();
     }
-    var ttt = Number(window.localStorage.getItem(globals));
-    if (ttt + 60000 * 4 <= Date.now()) {
-      new window.Notification(TITLE, {
-        body: CONTENT,
-        icon: ICON,
+  }
+
+  /**
+   * 通知
+   * Notification弹窗
+   * @param args
+   * @async
+   */
+  async Notification(args: { TITLE: SCarg; CONTENT: SCarg; ICON: SCarg }) {
+    const { TITLE, CONTENT, ICON } = args;
+    // 不用担心，重复调用时浏览器只会询问一次
+    await this.ask_notif_perm();
+    let perm = Notification.permission;
+    if (perm !== "granted") {
+      console.warn(`YUEN: 还没有获取通知权限`);
+      return;
+    }
+    if (this.alert_calltime + this.ALERT_COOLDOWN * 1000 <= Date.now()) {
+      this.alert_calltime = Date.now();
+      new Notification(String(TITLE), {
+        body: String(CONTENT),
+        icon: String(ICON),
       });
-      window.localStorage.setItem(globals, Date.now().toString());
     } else {
-      alert("YUEN: 4分钟内调用过一次了，请4分钟后调用");
-      console.warn("YUEN: 4分钟内只能调用1次弹窗或通知");
+      console.warn(`YUEN: ${this.ALERT_COOLDOWN}秒内只能调用1次弹窗或通知`);
     }
   }
 
   /**
    * 弹窗
+   * alert弹窗
    * @param args
    */
-  // alert弹窗
-  alert(args) {
+  alert(args: { CONTENT_1: string }) {
     const { CONTENT_1 } = args;
-    const globals = "yuen.sleep." + window.location.pathname;
-    var tt = window.localStorage.getItem(globals);
-    var t = Number(window.localStorage.getItem(globals)) + 60000 * 60 * 24 * 7;
-    if (t <= Date.now() || tt == "null") {
-      localStorage.removeItem(globals);
-    }
-    var ttt = Number(window.localStorage.getItem(globals));
-    if (ttt + 60000 * 4 <= Date.now()) {
+    if (this.alert_calltime + this.ALERT_COOLDOWN * 1000 <= Date.now()) {
+      this.alert_calltime = Date.now();
       alert(CONTENT_1);
-      window.localStorage.setItem(globals, Date.now().toString());
     } else {
-      alert("YUEN: 4分钟内调用过一次了，请4分钟后调用");
-      console.warn("YUEN: 4分钟内只能调用1次弹窗或通知");
+      console.warn(`YUEN: ${this.ALERT_COOLDOWN}秒内只能调用1次弹窗或通知`);
     }
   }
 
   /**
-   *
-   * @param args 获取客户端信息
+   * 获取客户端信息
+   * @param args
    * @returns
    */
-  get_client_info(args) {
-    var a = this.client_info(args.TYPE);
-    return a;
+  get_client_info(args: { TYPE: string }) {
+    return this.client_info(args.TYPE);
   }
 }

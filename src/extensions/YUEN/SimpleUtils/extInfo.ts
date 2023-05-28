@@ -15,12 +15,18 @@ export const extensionNS = "YUEN";
 
 export const extensionId = `${extensionNS}.SimpleUtils`;
 
-const buildInfoL10n = (l10n) => {
+const buildInfoL10n = (l10n: {
+  name: string;
+  desc: string;
+  docURL: string;
+  [key: string]: string;
+}) => {
   const { name, desc, docURL } = l10n;
-  const infoL10n = {};
-  infoL10n[`${extensionId}.name`] = name;
-  infoL10n[`${extensionId}.desc`] = desc;
-  infoL10n[`${extensionId}.docURL`] = docURL;
+  const infoL10n = {
+    [`${extensionId}.name`]: name,
+    [`${extensionId}.desc`]: desc,
+    [`${extensionId}.docURL`]: docURL,
+  };
   return infoL10n;
 };
 
