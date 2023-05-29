@@ -22,34 +22,34 @@ import blockIcon from "./assets/icon.png";
 type SCarg = string | number | boolean;
 
 export default class SimpleUtils extends GandiExtension {
-  get extensionId(): string {
+  override get extensionId(): string {
     return extensionId;
   }
 
-  get localization() {
+  override get localization() {
     return {
       "zh-cn": zhCn,
       en: en,
     };
   }
 
-  get documentURL(): string {
+  override get documentURL(): string {
     return "";
   }
 
-  get menuIconURI(): string {
+  override get menuIconURI(): string {
     return blockIcon;
   }
 
-  get blockIconURI(): string {
+  override get blockIconURI(): string {
     return blockIcon;
   }
 
-  get coverURI(): string {
+  override get coverURI(): string {
     return cover;
   }
 
-  get authorInfo() {
+  override get authorInfo() {
     return {
       labelName: "YUEN",
       username: "YUEN",
@@ -58,11 +58,11 @@ export default class SimpleUtils extends GandiExtension {
     };
   }
 
-  get blockPrefix(): string {
+  override get blockPrefix(): string {
     return "";
   }
 
-  get deprecatedBlocksByOpcodes(): string[] {
+  override get deprecatedBlocksByOpcodes(): string[] {
     return [];
   }
 
@@ -101,7 +101,7 @@ export default class SimpleUtils extends GandiExtension {
     };
 
     // Windows NT内核版本转常用版本
-    const userAgentWindowsVrsion = {
+    const userAgentWindowsVrsion: { [key: string]: string } = {
       "NT 5.1": "XP",
       "NT 5.2": "XP",
       "NT 6.0": "Vista",
@@ -118,7 +118,7 @@ export default class SimpleUtils extends GandiExtension {
       //判断是否Opera浏览器
       if (isOpera) {
         userAgentObj.browserName = "Opera";
-        userAgentObj.browserVersion = userAgent.split("Version/")[1];
+        userAgentObj.browserVersion = userAgent?.split("Version/")?.[1] ?? "";
       }
       //判断是否IE浏览器
       if (
@@ -127,7 +127,8 @@ export default class SimpleUtils extends GandiExtension {
         !isOpera
       ) {
         userAgentObj.browserName = "IE";
-        userAgentObj.browserVersion = userAgent.split("MSIE ")[1].split(" ")[1];
+        userAgentObj.browserVersion =
+          userAgent?.split("MSIE ")?.[1]?.split(" ")?.[1] ?? "";
       }
       //判断是否Safari浏览器
       if (userAgent.indexOf("Safari") > -1) {
@@ -135,80 +136,77 @@ export default class SimpleUtils extends GandiExtension {
         /**
          * 230207已修复
          */
-        userAgentObj.browserVersion = userAgent
-          .split("Safari")[1]
-          .split(" ")[0];
+        userAgentObj.browserVersion =
+          userAgent?.split("Safari")?.[1]?.split(" ")?.[0] ?? "";
       }
       //判断是否Firefox浏览器
       if (userAgent.indexOf("Firefox") > -1) {
         userAgentObj.browserName = "Firefox";
-        userAgentObj.browserVersion = userAgent.split("Firefox/")[1];
+        userAgentObj.browserVersion = userAgent?.split("Firefox/")?.[1] ?? "";
       }
       //判断是否Chrome浏览器
       if (userAgent.indexOf("Chrome") > -1) {
         userAgentObj.browserName = "Chrome";
-        userAgentObj.browserVersion = userAgent
-          .split("Chrome/")[1]
-          .split(" ")[0];
+        userAgentObj.browserVersion =
+          userAgent?.split("Chrome/")?.[1]?.split(" ")?.[0] ?? "";
       }
 
       // is Edg
       if (userAgent.indexOf("Edg") > -1) {
         userAgentObj.browserName = "Edge";
-        userAgentObj.browserVersion = userAgent.split("Edg/")[1].split(" ")[0];
+        userAgentObj.browserVersion =
+          userAgent?.split("Edg/")?.[1]?.split(" ")?.[0] ?? "";
       }
 
       // is xigua-client
       if (userAgent.indexOf("xigua-python") > -1) {
         userAgentObj.browserName = "西瓜Python";
-        userAgentObj.browserVersion = userAgent
-          .split("xigua-python/")[1]
-          .split(" ")[0];
-        const winJV = userAgent
-          .split("Windows ")[1]
-          .split(")")[0]
-          .split("; ")[1];
+        userAgentObj.browserVersion =
+          userAgent?.split("xigua-python/")?.[1]?.split(" ")?.[0] ?? "";
+        const winJV =
+          userAgent
+            ?.split("Windows ")?.[1]
+            ?.split(")")?.[0]
+            ?.split("; ")?.[1] ?? "";
         // 兼容西瓜客户端
         userAgentObj.CPU_Type = winJV;
       }
 
       if (userAgent.indexOf("xigua-scratch") > -1) {
         userAgentObj.browserName = "西瓜Scratch";
-        userAgentObj.browserVersion = userAgent
-          .split("xigua-scratch/")[1]
-          .split(" ")[0];
-        const winJV = userAgent
-          .split("Windows ")[1]
-          .split(")")[0]
-          .split("; ")[1];
+        userAgentObj.browserVersion =
+          userAgent?.split("xigua-scratch/")?.[1]?.split(" ")?.[0] ?? "";
+        const winJV =
+          userAgent
+            ?.split("Windows ")?.[1]
+            ?.split(")")?.[0]
+            ?.split("; ")?.[1] ?? "";
         // 兼容西瓜客户端
         userAgentObj.CPU_Type = winJV;
       }
 
       //判断是否Windows
       if (userAgent.indexOf("Windows") > -1) {
-        const Version = userAgent
-          .split("Windows ")[1]
-          .split(")")[0]
-          .split("; ")[0];
+        const Version =
+          userAgent
+            ?.split("Windows ")?.[1]
+            ?.split(")")?.[0]
+            ?.split("; ")?.[0] ?? "";
         userAgentObj.osName = "Windows";
-        if (
-          Object.prototype.hasOwnProperty.call(userAgentWindowsVrsion, Version)
-        ) {
-          userAgentObj.osVersion =
-            userAgentWindowsVrsion[
-              Version as keyof typeof userAgentWindowsVrsion
-            ];
-        } else {
+        const VersionName = userAgentWindowsVrsion[Version];
+        if (VersionName === undefined) {
           // 列表中找不到，直接使用 Version 的值
           userAgentObj.osVersion = Version;
+        } else {
+          userAgentObj.osVersion = VersionName;
         }
         // 设置设备名
         userAgentObj.deviceName = "PC";
       }
 
       if (userAgent.indexOf("Mac") > -1) {
-        const Version = userAgent.split("Mac OS X ")[1].split(")")[0];
+        const Version =
+          userAgent?.split("Mac OS X ")?.[1]?.split(")")?.[0] ?? "";
         userAgentObj.osName = "Mac OS X";
         userAgentObj.osVersion = Version;
         // 设置设备名
@@ -216,7 +214,8 @@ export default class SimpleUtils extends GandiExtension {
       }
 
       if (userAgent.indexOf("iPhone") > -1) {
-        const Version = userAgent.split("CPU iPhone OS")[1].split(" ")[0];
+        const Version =
+          userAgent?.split("CPU iPhone OS")?.[1]?.split(" ")?.[0] ?? "";
         userAgentObj.osName = "iPhone";
         userAgentObj.osVersion = Version;
 
@@ -225,7 +224,8 @@ export default class SimpleUtils extends GandiExtension {
       }
 
       if (userAgent.indexOf("iPad") > -1) {
-        const Version = userAgent.split("iPad; CPU OS ")[1].split(" ")[0];
+        const Version =
+          userAgent?.split("iPad; CPU OS ")?.[1]?.split(" ")?.[0] ?? "";
         userAgentObj.osName = "iPad";
         userAgentObj.osVersion = Version;
 
@@ -234,7 +234,7 @@ export default class SimpleUtils extends GandiExtension {
       }
 
       if (userAgent.indexOf("Android") > -1) {
-        const V = userAgent.split("Android ")[1].split(";")[0];
+        const V = userAgent.split("Android ")?.[1]?.split(";")?.[0] ?? "";
         /**
          * userAgent.split("Android " + V)[1].split(")")[0].indexOf("; ") > -1
          * 默认是有厂商+版本的
@@ -243,10 +243,10 @@ export default class SimpleUtils extends GandiExtension {
          */
         const winD =
           userAgent
-            .split("Android " + V)[1]
-            .split(")")[0]
-            .indexOf("; ") > -1
-            ? userAgent.split("Android " + V + "; ")[1].split(")")[0]
+            .split("Android " + V)?.[1]
+            ?.split(")")?.[0]
+            ?.indexOf("; ") ?? -1 > -1
+            ? userAgent.split("Android " + V + "; ")?.[1]?.split(")")?.[0] ?? ""
             : "Android设备";
         userAgentObj.osName = "Android";
         userAgentObj.deviceName = winD;
@@ -401,7 +401,7 @@ export default class SimpleUtils extends GandiExtension {
     }
   }
 
-  init() {
+  override init() {
     /**
      * 获取设备信息
      * v1.0.0
@@ -424,11 +424,11 @@ export default class SimpleUtils extends GandiExtension {
      * v1.0.4
      */
     // 预留
-    const spriteMenu = BlockUtil.createDynamicMenu(
-      "spriteMenu",
-      "spriteMenu",
-      true
-    );
+    // const spriteMenu = BlockUtil.createDynamicMenu(
+    //   "spriteMenu",
+    //   "spriteMenu",
+    //   true
+    // );
 
     const listMenu = BlockUtil.createDynamicMenu("listMenu", "listMenu", true);
 
@@ -448,11 +448,11 @@ export default class SimpleUtils extends GandiExtension {
 
     // v1.0.4
     // 预留和客户端信息覆盖到列表
-    const spriteArgs = BlockUtil.createArgument(
-      ArgumentType.STRING,
-      "",
-      spriteMenu
-    );
+    // const spriteArgs = BlockUtil.createArgument(
+    //   ArgumentType.STRING,
+    //   "",
+    //   spriteMenu
+    // );
 
     const listArgs = BlockUtil.createArgument(
       ArgumentType.STRING,
