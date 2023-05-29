@@ -68,6 +68,8 @@ class WitCatMouse {
 				const canvas = runtime.renderer.canvas;
 				if (canvas instanceof HTMLCanvasElement) {
 					return canvas;
+				} else {
+					return null;
 				}
 			} catch (err) {
 				return null;
@@ -595,7 +597,8 @@ class WitCatMouse {
 	 * @param {SCarg} args.set
 	 */
 	set(args) {
-		if (this.canvas() === null) {
+		const canvas = this.canvas();
+		if (canvas === null) {
 			return;
 		}
 		// 在把自己的方法设为给其他事件/函数的回调时加上 bind(this) 是很有必要的，
@@ -605,9 +608,9 @@ class WitCatMouse {
 		// removeEventListener 的时候就会因为函数不一致导致 remove 不掉，
 		// 需要提前把 bind 过的函数设为某类内变量。
 		if (args.set === "false") {
-			this.canvas().addEventListener("contextmenu", this._nocontextmenu);
+			canvas.addEventListener("contextmenu", this._nocontextmenu);
 		} else {
-			this.canvas().removeEventListener("contextmenu", this._nocontextmenu);
+			canvas.removeEventListener("contextmenu", this._nocontextmenu);
 		}
 	}
 
@@ -674,16 +677,17 @@ class WitCatMouse {
 	 * @returns {number|string}
 	 */
 	num(args) {
-		if (this.canvas() === null) {
+		const canvas = this.canvas();
+		if (canvas === null) {
 			return 0;
 		}
 		const touch1 = this.touch[Number(args.num) - 1];
 		if (touch1 !== undefined) {
 			if (args.type === "x") {
-				return this.runtime.stageWidth * ((touch1.clientX - this.canvas().getBoundingClientRect().left) / this.canvas().offsetWidth);
+				return this.runtime.stageWidth * ((touch1.clientX - canvas.getBoundingClientRect().left) / canvas.offsetWidth);
 			}
 			else if (args.type === "y") {
-				return this.runtime.stageHeight * ((touch1.clientY - this.canvas().getBoundingClientRect().top) / this.canvas().offsetHeight);
+				return this.runtime.stageHeight * ((touch1.clientY - canvas.getBoundingClientRect().top) / canvas.offsetHeight);
 			}
 			else {
 				return touch1.identifier;
@@ -715,10 +719,11 @@ class WitCatMouse {
 	 * @returns {number}
 	 */
 	resolution() {
-		if (this.canvas() === null) {
+		const canvas = this.canvas();
+		if (canvas === null) {
 			return 0;
 		}
-		return this.canvas().height;
+		return canvas.height;
 	}
 
 	/**
@@ -745,10 +750,11 @@ class WitCatMouse {
 	 * @param {SCarg} args.cursor 样式
 	 */
 	cursor(args) {
-		if (this.canvas() === null) {
+		const canvasParent = this.canvas()?.parentNode?.parentNode?.parentNode;
+		if (canvasParent === null || canvasParent === undefined) {
 			return;
 		}
-		this.canvas().parentNode.parentNode.parentNode.style.cursor = String(args.cursor);
+		canvasParent.style.cursor = String(args.cursor);
 	}
 
 	/**
@@ -759,17 +765,19 @@ class WitCatMouse {
 	 * @param {SCarg} args.y y偏移
 	 */
 	cursorurl(args) {
-		if (this.canvas() === null) {
+		const canvasParent = this.canvas()?.parentNode?.parentNode?.parentNode;
+		if (canvasParent === null || canvasParent === undefined) {
 			return;
 		}
 		let url = String(args.text);
 		const x = Number(args.x);
 		const y = Number(args.y);
-		// 针对 url() 里的语法，先转义回去，再完整地转义回来。
-		url = this.base64ToBlob(url);
+		// 针对 url() 里的语法，转义。
+		url = url.replace(/"/g, "%22").replace(/\n/g, "%0D")
+			.replace(/\r/g, "%0A").replace(/\0/g, "%00");
 		// 实际上 cursorurl 处可以直接使用 正常的 url 和 data url。
 		// 不需要特地转换。
-		this.canvas().parentNode.parentNode.parentNode.style.cursor = `url("${url}") ${x} ${y}, auto`;
+		canvasParent.style.cursor = `url("${url}") ${x} ${y}, auto`;
 	}
 
 	/**
@@ -847,50 +855,12 @@ class WitCatMouse {
 	 * 打开ico文件
 	 */
 	async url() {
-		new Promise(resolve => {
-			const input = document.createElement("input");
-			input.type = "file";
-			input.style = "display:none;";
-			input.accept = ".ico";
-			input.click();
-			input.onchange = () => {
-				const reader = new FileReader();
-				const readers = new FileReader();
-				const file = input.files[0];
-				reader.onload = (e) => {
-					prompt("请复制以下代码：", e.currentTarget.result);
-					resolve(e.target.result);
-				};
-				reader.onerror = () => {
-					resolve();
-				};
-				readers.readAsArrayBuffer(file);
-
-				readers.onload = (e) => {
-					if (file.name.split('.')[file.name.split('.').length - 1] == "ico") {
-						var uri = e.target.result;
-						console.log(uri.byteLength / 1024 + " KB");
-						if (uri.byteLength / 1024 <= 10) {
-							reader.readAsDataURL(file);
-						}
-						else {
-							console.warn("文件过大，可能导致工程文件崩溃！！！\nThe file is too large, may cause the project file crash!!!");
-							alert("文件过大，可能导致工程文件崩溃！！！\nThe file is too large, may cause the project file crash!!!");
-						}
-					}
-					else {
-						console.warn("请选择*.ico文件\nPlease select the *.ico file");
-						alert("请选择*.ico文件\nPlease select the *.ico file");
-					}
-				};
-			}
-			window.onfocus = () => {
-				// 开始计时或者播放
-				setTimeout(() => {
-					resolve("");
-				}, 1000);
-			}
-		});
+		const file = (await this._inputfileclick(".ico", false))[0];
+		if (file !== undefined) {
+			// 加一个扩展名判断？
+			const dataurl = String(await this._readerasync(file, "dataurl"));
+			prompt("请复制以下代码：", dataurl);
+		}
 	}
 
 	/**
@@ -919,15 +889,13 @@ class WitCatMouse {
 		}
 		return false;
 	}
+
 	/**
-	* 鼠标滚轮速度
+	 * 鼠标滚轮速度
 	 * @returns {number}
 	 */
 	mousewheel() {
-		clearTimeout(this.timer);
-		let a = this.MouseWheel;
-		this.MouseWheel = 0;
-		return a;
+		return this.MouseWheel;
 	}
 
 	/**
@@ -999,11 +967,12 @@ class WitCatMouse {
 
 	/** 添加事件触发器 */
 	_addevent() {
-		if (this.canvas() === null) {
+		const canvas = this.canvas();
+		if (canvas === null) {
 			return;
 		}
 		//鼠标
-		this.canvas().addEventListener('mousedown', e => {
+		canvas.addEventListener('mousedown', e => {
 			this.button[e.button] = "down";
 			this.mousetdlist[e.button] = Date.now();
 			if (this.button[0] === "down") {
@@ -1041,13 +1010,13 @@ class WitCatMouse {
 			}, 30);
 		});
 		//多指触控
-		this.canvas().addEventListener('touchstart', e => {
+		canvas.addEventListener('touchstart', e => {
 			// e.targetTouches 会随着时间改变，必须复制一份。
 			this._copytouch(e.targetTouches);
 			this.button[0] = "down";
 			this.mousetdlist[0] = Date.now();
 		})
-		this.canvas().addEventListener('touchmove', e => {
+		canvas.addEventListener('touchmove', e => {
 			if (e.targetTouches[0] !== undefined && this.touch[0] !== undefined) {
 				this.xMouse = e.targetTouches[0].clientX - this.touch[0].clientX; // 获得手指的x移动量
 				this.yMouse = e.targetTouches[0].clientY - this.touch[0].clientY; // 获得手指的y移动量
@@ -1062,13 +1031,13 @@ class WitCatMouse {
 			// e.targetTouches 会随着时间改变，必须复制一份。
 			this._copytouch(e.targetTouches);
 		})
-		this.canvas().addEventListener('touchend', e => {
+		canvas.addEventListener('touchend', e => {
 			// e.targetTouches 会随着时间改变，必须复制一份。
 			this._copytouch(e.targetTouches);
 			this.mousetdlist[0] = "";
 			this.button[0] = "up";
 		})
-		this.canvas().addEventListener('click', () => {
+		canvas.addEventListener('click', () => {
 			if (this.click !== false) {
 				clearTimeout(this.click);
 			}
@@ -1076,7 +1045,7 @@ class WitCatMouse {
 				this.click = false;
 			}, 50);
 		});
-		this.canvas().addEventListener('dblclick', () => {
+		canvas.addEventListener('dblclick', () => {
 			if (this.dclick !== false) {
 				clearTimeout(this.dclick);
 			}
@@ -1085,48 +1054,16 @@ class WitCatMouse {
 			}, 50);
 		});
 		//给页面绑定滑轮滚动事件
-		this.canvas().addEventListener('wheel', (e) => {
-			// 注意这个负数……
-			// 目前的标准用法是使用 deltaY，但是 deltaY 的符号和 WheelDeltaY 相反。
-			// 为了和原有的行为一致，乘上 -3
-			// 在我的浏览器中 deltaY = WheelDeltaY / -3
-			this.MouseWheel = e.WheelDelta;
-			clearTimeout(this.timer);
+		canvas.addEventListener('wheel', (e) => {
+			this.MouseWheel = e.deltaY;
+			if (this.timer !== null) {
+				clearTimeout(this.timer);
+			}
 			this.timer = setTimeout(() => {
 				this.MouseWheel = 0;
 			}, 30);
 		}, { capture: true });
 	}
-	/**
-	 * base64转blob
-	 * @param {string} base64 传入base64
-	 * @returns {string}
-	 */
-	base64ToBlob(base64) {
-		try {
-			let audioSrc = base64; // 拼接最终的base64
-
-			let arr = audioSrc.split(',');
-			let array = arr[0].match(/:(.*?);/);
-			let mime = (array && array.length > 1 ? array[1] : type) || type;
-			// 去掉url的头，并转化为byte
-			let bytes = window.atob(arr[1]);
-			// 处理异常,将ascii码小于0的转换为大于0
-			let ab = new ArrayBuffer(bytes.length);
-			// 生成视图（直接针对内存）：8位无符号整数，长度1个字节
-			let ia = new Uint8Array(ab);
-			for (let i = 0; i < bytes.length; i++) {
-				ia[i] = bytes.charCodeAt(i);
-			}
-			return URL.createObjectURL(new Blob([ab], {
-				type: mime
-			}))
-		}
-		catch {
-			return undefined;
-		}
-	}
-
 }
 
 window.tempExt = {
@@ -1152,4 +1089,3 @@ window.tempExt = {
 		}
 	}
 };
-
