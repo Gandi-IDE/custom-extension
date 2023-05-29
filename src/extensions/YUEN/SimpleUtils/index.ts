@@ -21,16 +21,6 @@ import blockIcon from "./assets/icon.png";
 /** Scratch 参数类型 */
 type SCarg = string | number | boolean;
 
-/** 浏览器信息 */
-type userAgentObj_type = {
-  browserName: string; // 浏览器名称
-  browserVersion: string; // 浏览器版本
-  osName: string; // 操作系统名称
-  osVersion: string; // 操作系统版本
-  deviceName: string; // 设备名称
-  CPU_Type: string; // 兼容xigua-client
-};
-
 export default class SimpleUtils extends GandiExtension {
   get extensionId(): string {
     return extensionId;
@@ -100,8 +90,8 @@ export default class SimpleUtils extends GandiExtension {
    * @param TYPE old args.TYPE
    * @returns
    */
-  client_info(TYPE: "json" | "JSON" | keyof userAgentObj_type): string {
-    const userAgentObj: userAgentObj_type = {
+  client_info(TYPE: string): string {
+    const userAgentObj = {
       browserName: "", // 浏览器名称
       browserVersion: "", // 浏览器版本
       osName: "", // 操作系统名称
@@ -275,7 +265,8 @@ export default class SimpleUtils extends GandiExtension {
         const string = JSON.stringify(userAgentObj);
         return string;
       } else {
-        return userAgentObj[TYPE];
+        // 这里比较难处理……
+        return userAgentObj[TYPE as keyof typeof userAgentObj] ?? "";
       }
     } else {
       // userAgent 用不了
