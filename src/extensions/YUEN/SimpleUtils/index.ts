@@ -707,7 +707,7 @@ export default class SimpleUtils extends GandiExtension {
    * dev：在编辑器内
    */
   deploy_env() {
-    return this.is_see_inside ? "dev" : "prod";
+    return this.is_see_inside() ? "dev" : "prod";
   }
 
   /**
