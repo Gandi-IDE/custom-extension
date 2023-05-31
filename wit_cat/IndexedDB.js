@@ -70,7 +70,6 @@ let buffer = {};        //缓存键值对
  * @type {(WaitSetKey|WaitDeleteKey)[]}
  */
 let wait = [];
-let waits = true;
 
 /**
  * 用于拖动移动窗口的标题
@@ -139,26 +138,14 @@ openDBAsync("witcat", 2, (request) => {
 });
 
 //处理缓存信息
-setInterval(() => {
-    if (wait.length > 0) {
-        if (waits) {
-            waits = false;
-            new Promise((resolve) => {
-                if (wait[0].type === "set") {
-                    SetKeysAsync(wait[0]).then(() => {
-                        resolve();
-                    });
-                }
-                else {
-                    DeleteKeysAsync(wait[0]).then(() => {
-                        resolve();
-                    });
-                }
-            })
-            if (wait[0].recall !== undefined)
-                wait[0].recall();
-            wait = wait.splice(1, wait.length);
-            waits = true;
+setInterval(async () => {
+    const wait0 = wait.shift(); // 获取并删除数组的第一项
+    if (wait0 !== undefined) {
+        if (wait0.type === "set") {
+            await SetKeysAsync(wait0);
+        }
+        else {
+            await DeleteKeysAsync(wait0);
         }
     }
 }, 100)
@@ -505,7 +492,8 @@ class WitCatIndexedDB {
      * @returns {void}
      */
     description(args) {
-        SSetKey(args.name, undefined, undefined, this.runtime.ccwAPI.getProjectUUID(), undefined, undefined, args.text);
+        // args.name 不存在
+        SSetKey(undefined, undefined, undefined, this.runtime.ccwAPI.getProjectUUID(), undefined, undefined, String(args.text));
     }
 
     /**
@@ -521,8 +509,9 @@ class WitCatIndexedDB {
         console.log(args.type)
         if (args.type === "value") {
             let e = await ReadKeyAsync(h + "⨆" + name);
-            if (buffer[h + "⨆" + name])
-                return buffer[h + "⨆" + name];
+            let buffervalue = buffer[h + "⨆" + name];
+            if (buffervalue)
+                return buffervalue;
             else if (e)
                 return e.value;
             else
@@ -551,9 +540,9 @@ class WitCatIndexedDB {
         // 如果 save 积木允许在保存结束后异步返回，那么可以用 async/await
         ReadKeyAsync(this.runtime.ccwAPI.getProjectUUID() + "⨆" + args.name).then((e) => {
             if (e)
-                SSetKey(args.name, args.text, undefined, this.runtime.ccwAPI.getProjectUUID(), undefined, undefined, undefined);
+                SSetKey(String(args.name), args.text, undefined, this.runtime.ccwAPI.getProjectUUID(), undefined, undefined, undefined);
             else
-                SSetKey(args.name, args.text, undefined, this.runtime.ccwAPI.getProjectUUID(), "self", undefined, undefined);
+                SSetKey(String(args.name), args.text, undefined, this.runtime.ccwAPI.getProjectUUID(), "self", undefined, undefined);
         })
     }
 
@@ -575,7 +564,7 @@ class WitCatIndexedDB {
      * @returns {void}
      */
     delete(args) {
-        SDeleteKey(args, this.runtime.ccwAPI.getProjectUUID());
+        SDeleteKey({name: String(args.name)}, this.runtime.ccwAPI.getProjectUUID());
     }
 
     /**
@@ -586,7 +575,7 @@ class WitCatIndexedDB {
      * @returns {void}
      */
     showvar(args) {
-        SSetKey(args.name, undefined, undefined, this.runtime.ccwAPI.getProjectUUID(), args.show, undefined, undefined);
+        SSetKey(String(args.name), undefined, undefined, this.runtime.ccwAPI.getProjectUUID(), String(args.show), undefined, undefined);
     }
 
     /**
@@ -602,11 +591,11 @@ class WitCatIndexedDB {
             let h = this.runtime.ccwAPI.getProjectUUID();
             if (e[h]) {
                 if (e[h] === "allow")
-                    SSetKey(String(args.name), args.text, undefined, args.id, undefined, undefined, undefined);
+                    SSetKey(String(args.name), args.text, undefined, String(args.id), undefined, undefined, undefined);
             }
             else {
                 if (e.all === "allow")
-                    SSetKey(String(args.name), args.text, undefined, args.id, undefined, undefined, undefined);
+                    SSetKey(String(args.name), args.text, undefined, String(args.id), undefined, undefined, undefined);
             }
         })
     }
@@ -719,8 +708,9 @@ class WitCatIndexedDB {
                 }
                 else {
                     let e = await ReadKeyAsync(h + "⨆" + a[num - 1]);
-                    if (buffer[h + "⨆" + a[num - 1]])
-                        return buffer[h + "⨆" + a[num - 1]];
+                    const temp = buffer[h + "⨆" + a[num - 1]]
+                    if (temp)
+                        return temp;
                     else if (e)
                         return e.value;
                     else
@@ -758,7 +748,7 @@ class WitCatIndexedDB {
      * @param {SCarg|"self"|"allow"|"read"} args.show
      */
     showvaro(args) {
-        SSetKey(String(args.name), undefined, undefined, this.runtime.ccwAPI.getProjectUUID(), args.show, args.id, undefined);
+        SSetKey(String(args.name), undefined, undefined, this.runtime.ccwAPI.getProjectUUID(), String(args.show), String(args.id), undefined);
     }
 }
 
@@ -806,7 +796,7 @@ function requestAsync(request) {
  * @returns {Promise<any>} 设置成功后 resolve
  */
 async function SetKeyAsync(key_, json) {
-    json.key = key_;
+    json["key"] = key_;
     let transaction = db.transaction(['key'], "readwrite");
     let store = transaction.objectStore('key');
 
@@ -865,12 +855,11 @@ async function ReadKeyAsync(key_) {
  * @returns {void}
  */
 function SDeleteKey(args, h) {
-    let json = {
+    wait.push({
         name: args.name,
         h,
         type: "delete"
-    };
-    wait.push(json);
+    });
 }
 
 /**
@@ -912,8 +901,7 @@ async function SDeleteKeysAsync(name, h, type) {
         if (type === undefined) {
             // 删除单个键
             if (name !== undefined)
-                // 直接分支，不 await？
-                DeleteKeyAsync(h + "⨆" + name);
+                await DeleteKeyAsync(h + "⨆" + name);
             let e = await ReadKeyAsync("ALL_DB");
             if (e[h] !== undefined && name !== undefined) {
                 let v = e[h];
@@ -959,8 +947,7 @@ async function SDeleteKeysAsync(name, h, type) {
  * @param {SCarg|undefined} description 作品描述
  */
 function SSetKey(name, text, content, h, state, id, description) {
-    let json = { name, text, content, h, state, id, description, type: "set" };
-    wait.push(json);
+    wait.push({ name, text, content, h, state, id, description, type: "set" });
 }
 
 /**
@@ -1471,13 +1458,13 @@ function openManages() {
         list = document.getElementsByClassName("list")[0];
         table = document.getElementsByClassName("table")[0];
         c = document.getElementById('move');
-        move[0] = document.getElementById('move-header').addEventListener('mousedown', function (e) {
+        document.getElementById('move-header').addEventListener('mousedown', move[0] = function (e) {
             mouseOffsetX = e.pageX - c.offsetLeft;
             mouseOffsetY = e.pageY - c.offsetTop;
             isDraging = true;
             e.preventDefault();
         })
-        move[1] = document.addEventListener("mousemove", (e) => {
+        document.addEventListener("mousemove", move[1] = (e) => {
             let moveX = 0;
             let moveY = 0;
 
@@ -1490,15 +1477,15 @@ function openManages() {
             }
         })
 
-        move[2] = document.addEventListener("mouseup", () => {
+        document.addEventListener("mouseup", move[2] = () => {
             isDraging = false;
         })
 
-        move[3] = document.addEventListener('mousemove', moves)
+        document.addEventListener('mousemove', move[3] = moves)
 
-        move[4] = c.addEventListener('mousedown', down)
+        c.addEventListener('mousedown', move[4] = down)
 
-        move[5] = document.addEventListener('mouseup', up)
+        document.addEventListener('mouseup', move[5] = up)
     }
     load();
 }
