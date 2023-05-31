@@ -20,6 +20,7 @@ let gandi;
 
 /**
  * 移动事件回调
+ * @type {((e: MouseEvent)=>void)[]}
  */
 let move = [];
 let isDraging = false, mouseOffsetX = 0, mouseOffsetY = 0;
@@ -43,7 +44,30 @@ let table;
 let buffer = {};        //缓存键值对
 
 /**
+ * @typedef {object} WaitDeleteKey 删除键请求
+ * @property {string} name 键名字
+ * @property {string} h 作品 ID
+ * @property {"delete"} type 请求类型(delete)
+ */
+
+/**
+ * @typedef {object} WaitSetKey 设置键请求
+ * @property {string|undefined} h 作品 ID
+ * @property {string|undefined} name 键名字
+ * @property {SCarg|undefined} text 键值
+ * @property {string|undefined} state 状态
+ *   self //私有
+ *   read //只读
+ *   allow//公开
+ * @property {string|undefined} id 单独设置状态的作品id
+ * @property {SCarg|undefined} content 键值对描述
+ * @property {SCarg|undefined} description 作品描述
+ * @property {"set"} type 请求类型(set)
+ */
+
+/**
  * 数据库等待操作
+ * @type {(WaitSetKey|WaitDeleteKey)[]}
  */
 let wait = [];
 let waits = true;
@@ -834,10 +858,10 @@ async function ReadKeyAsync(key_) {
 }
 
 /**
- * scratch的删除键
+ * 将删除键操作添加到等待队列
  * @param {object} args
  * @param {string} args.name 删除的键名
- * @param {string} h 链接
+ * @param {string} h 作品 ID
  * @returns {void}
  */
 function SDeleteKey(args, h) {
@@ -850,11 +874,11 @@ function SDeleteKey(args, h) {
 }
 
 /**
- * 异步删除键？
+ * 异步删除键
  * @param {object} args
  * @param {string} args.name 删除的键名
  * @param {string} args.h 作品id
- * @param {string} args.type 不知道
+ * @param {"delete"} args.type 只能是 "delete"
  * @returns {Promise<void>}
  */
 async function DeleteKeysAsync({ name, h, type }) {
@@ -868,24 +892,25 @@ async function DeleteKeysAsync({ name, h, type }) {
         delete a[name];
         e[h] = `${v.split("§")[0]}§${JSON.stringify(a)}`;
     }
-    if (type !== undefined)
+    if (type !== undefined) // 计算结果只能是 true，推断有问题？
         delete e[h];
-    if (e !== undefined)
+    if (e !== undefined) // 如果 e 是 undefined，前面的 e[h] 报错
         await SetKeyAsync("ALL_DB", e);
     else
         await SetKeyAsync("ALL_DB", {});
 }
 
 /**
- * 异步删除键？
- * @param {string} name 删除的键名
+ * 管理页面异步删除键
+ * @param {string|undefined} name 删除的键名
  * @param {string} h 作品id
- * @param {string} type 不知道
+ * @param {true|undefined} type 是否删除整个作品的键
  */
 async function SDeleteKeysAsync(name, h, type) {
     let a = confirm("确定删除？");
     if (a) {
         if (type === undefined) {
+            // 删除单个键
             if (name !== undefined)
                 // 直接分支，不 await？
                 DeleteKeyAsync(h + "⨆" + name);
@@ -903,6 +928,7 @@ async function SDeleteKeysAsync(name, h, type) {
             DBopen(""); // 修改成当前作品 ID？
         }
         else {
+            // 删除整个作品的所有键
             let e = await ReadKeyAsync("ALL_DB");
             if (e[h] !== undefined) {
                 let v = e[h];
@@ -923,14 +949,14 @@ async function SDeleteKeysAsync(name, h, type) {
 }
 
 /**
- * scratch的设置键
- * @param {string} h 链接
- * @param {string} name
- * @param {string} text
- * @param {string} state 状态 self //私有 read //只读 allow//公开
- * @param {string} id 单独设置状态的作品id
- * @param {string} content 键值对描述
- * @param {string} description 作品描述
+ * 将设置键操作添加到等待队列
+ * @param {string|undefined} name
+ * @param {SCarg|undefined} text
+ * @param {SCarg|undefined} content 键值对描述
+ * @param {string|undefined} h 作品 ID
+ * @param {string|undefined} state 状态 self //私有 read //只读 allow//公开
+ * @param {string|undefined} id 单独设置状态的作品id
+ * @param {SCarg|undefined} description 作品描述
  */
 function SSetKey(name, text, content, h, state, id, description) {
     let json = { name, text, content, h, state, id, description, type: "set" };
@@ -938,28 +964,28 @@ function SSetKey(name, text, content, h, state, id, description) {
 }
 
 /**
- * 不知道……
+ * 异步设置键
  * @param {object} args
- * @param {string} args.name
- * @param {string} args.text
- * @param {string} args.content
- * @param {string} args.h
- * @param {string} args.state
- * @param {string} args.id
- * @param {string} args.description
+ * @param {string|undefined} args.name
+ * @param {SCarg|undefined} args.text
+ * @param {SCarg|undefined} args.content 键值对描述
+ * @param {string|undefined} args.h 作品 ID
+ * @param {string|undefined} args.state 状态 self //私有 read //只读 allow//公开
+ * @param {string|undefined} args.id 单独设置状态的作品id
+ * @param {SCarg|undefined} args.description 作品描述
  */
 async function SetKeysAsync({ name, text, content, h, state, id, description }) {
-    if (name !== undefined)
+    if (name !== undefined) // 要设置键值吗?
         buffer[h + "⨆" + name] = text;
     let jsons = await ReadKeyAsync(h + "⨆" + name);
     let json = jsons ? jsons : {};
     if (name !== undefined) {
         if (json.all === undefined) {
-            json.all = (state ? state : "self");
+            json.all = (state ? state : "self"); // 默认权限
         }
-        if (state !== undefined) {
-            if (id !== undefined) {
-                if (state === json.all) {
+        if (state !== undefined) { // 要设置权限吗?
+            if (id !== undefined) { // 要给单独的作品设置权限吗?
+                if (state === json.all) { // 要删除权限吗?（准备修改）
                     if (json[id] !== undefined)
                         delete json[id];
                 }
@@ -969,30 +995,32 @@ async function SetKeysAsync({ name, text, content, h, state, id, description }) 
             else
                 json.all = state;
         }
-        json.value = text !== undefined ? text : (json.value !== undefined ? json.value : "");
+        json.value = text !== undefined ? text : (json.value !== undefined ? json.value : ""); // 数值如果是 undefined，就取默认值
         await SetKeyAsync(h + "⨆" + name, json)
     }
     let e = await ReadKeyAsync("ALL_DB");
-    if (e[h]) {
+    if (e[h]) { // 更新描述
         let v = e[h];
         let a = JSON.parse(v.split("§")[1]);
-        if (a[name] !== undefined && content !== undefined)
+        if (a[name] !== undefined && content !== undefined) // 要修改描述吗?
             a[name] = content;
-        else if (name !== undefined)
+        else if (name !== undefined) // 要添加描述吗?
             a[name] = content !== undefined ? content : (a[name] === undefined ? "" : a[name]);
+        // 更新作品描述?
         e[h] = `${description ? description : v.split("§")[0]}§${JSON.stringify(a)}`;
     }
-    else {
+    else { // 添加描述
         if (!e)
             e = {};
         /** @type {{ [key: string]: any }} */
         let a = {};
-        if (name !== undefined)
+        if (name !== undefined) // 要添加描述吗?
             a[name] = (content ? content : "");
+        // 更新作品描述?
         e[h] = `${description ? description : ""}§${JSON.stringify(a)}`;
     }
     await SetKeyAsync("ALL_DB", e);
-    if (buffer[h + "⨆" + name])
+    if (buffer[h + "⨆" + name]) // 删除缓存
         delete buffer[h + "⨆" + name]
 }
 
