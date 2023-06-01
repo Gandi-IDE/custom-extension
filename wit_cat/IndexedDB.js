@@ -4,6 +4,13 @@ const witcat_IndexedDB_picture = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA
 const witcat_IndexedDB_icon = "data:image/png;base64,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";
 
 const witcat_IndexedDB_extensionId = "WitCatIndexedDB";
+
+/**
+ * m开头的变量/函数和管理页面有关
+ * k开头的函数和扩展所指键值有关
+ * db开头队伍函数和数据库操作有关
+ */
+
 /**
  * self //私有
  * read //只读
@@ -16,32 +23,32 @@ const witcat_IndexedDB_extensionId = "WitCatIndexedDB";
  * 管理页面
  * @type {HTMLDivElement}
  */
-let gandi;
+let mPage;
 
 /**
  * 移动事件回调
  * @type {((e: MouseEvent)=>void)[]}
  */
-const move = [];
-let isDraging = false, mouseOffsetX = 0, mouseOffsetY = 0;
+const mMoveFunc = [];
+let mMove = false, mMoveOffsetX = 0, mMoveOffsetY = 0;
 
 /**
  * 作品列表
  * @type {HTMLDivElement}
  */
-let list;
+let mProjects;
 
 /**
  * 变量列表
  * @type {HTMLTableElement}
  */
-let table;
+let mVariables;
 
 /**
  * 缓存键值对
  * @type {{[key: string]: string|number|boolean}}
  */
-const buffer = {};        //缓存键值对
+const kCache = {};        //缓存键值对
 
 /**
  * @typedef {object} WaitDeleteKey 删除键请求
@@ -69,30 +76,30 @@ const buffer = {};        //缓存键值对
  * 数据库等待操作
  * @type {(WaitSetKey|WaitDeleteKey)[]}
  */
-const wait = [];
+const kWaitlist = [];
 
 /**
  * 用于拖动移动窗口的标题
  * @type {HTMLDivElement}
  */
-let c;
+let mCaption;
 
 /**
  * 使用中文？
  * @type {boolean}
  */
-let language;
+let mLangCh;
 
 /** 是否开启尺寸修改 */
-let resizeable = false;
+let mResizable = false;
 
 /** div可修改的最小宽高 */
-const minW = 500, minH = 300;
+const mResizeMinW = 500, mResizeMinH = 300;
 
 /**
  * 鼠标按下时的位置，使用n、s、w、e表示
  */
-let direc = '';
+let mResizeDirec = '';
 
 //键值对
 
@@ -106,20 +113,20 @@ let db;
  * 异步打开数据库
  * @param {string} name
  * @param {number} version
- * @param {(request: IDBRequest, event: IDBVersionChangeEvent) => any} upgrade_func
+ * @param {(request: IDBRequest, event: IDBVersionChangeEvent) => any} upgradeFunc
  */
-function openDBAsync(name, version, upgrade_func) {
+function dbOpen(name, version, upgradeFunc) {
     return new Promise((resolve, reject) => {
         const request = window.indexedDB.open(name, version);
         request.onsuccess = () => resolve(request.result);
         request.onerror = (err) => reject(err);
         request.onupgradeneeded = (event) => {
-            upgrade_func(request, event);
+            upgradeFunc(request, event);
         };
     });
 }
 
-openDBAsync("witcat", 2, (request) => {
+dbOpen("witcat", 2, (request) => {
     console.log("初始化本地存储键值对");
     let objectStore;
     db = request.result;
@@ -139,23 +146,23 @@ openDBAsync("witcat", 2, (request) => {
 
 //处理缓存信息
 setInterval(async () => {
-    const wait0 = wait.shift(); // 获取并删除数组的第一项
+    const wait0 = kWaitlist.shift(); // 获取并删除数组的第一项
     if (wait0 !== undefined) {
         if (wait0.type === "set") {
-            await SetKeysAsync(wait0);
+            await kKeySetAsync(wait0);
         }
         else {
-            await DeleteKeysAsync(wait0);
+            await kKeyDeleteAsync(wait0);
         }
     }
 }, 100)
 
-showButton();
+mButtonShow();
 
 class WitCatIndexedDB {
     constructor(runtime) {
         this.runtime = runtime;
-        this._formatMessage = runtime.getFormatMessage({
+        this.FormatMessage = runtime.getFormatMessage({
             "zh-cn": {
                 "WitCatIndexedDB.name": "[beta]白猫的本地储存",
                 "WitCatIndexedDB.inputmanagement": "🔑键值对",
@@ -217,7 +224,7 @@ class WitCatIndexedDB {
      * @returns {string}
      */
     formatMessage(id) {
-        return this._formatMessage({
+        return this.FormatMessage({
             id,
             default: id,
             description: id
@@ -241,7 +248,7 @@ class WitCatIndexedDB {
                 {
                     blockType: "button",
                     text: this.formatMessage('WitCatIndexedDB.Manages'),
-                    onClick: this.Manages,
+                    onClick: mOpen,
                 },
                 {
                     opcode: "description",
@@ -478,14 +485,6 @@ class WitCatIndexedDB {
     }
 
     /**
-     * 打开管理页面
-     * @returns {void}
-     */
-    Manages() {
-        openManages()
-    }
-
-    /**
      * 设置作品描述
      * @param {object} args
      * @param {SCarg} args.text 作品描述
@@ -493,7 +492,7 @@ class WitCatIndexedDB {
      */
     description(args) {
         // args.name 不存在
-        SSetKey(undefined, undefined, undefined, this.runtime.ccwAPI.getProjectUUID(), undefined, undefined, String(args.text));
+        kWaitSet(undefined, undefined, undefined, this.runtime.ccwAPI.getProjectUUID(), undefined, undefined, String(args.text));
     }
 
     /**
@@ -508,8 +507,8 @@ class WitCatIndexedDB {
         const h = this.runtime.ccwAPI.getProjectUUID();
         console.log(args.type)
         if (args.type === "value") {
-            const e = await ReadKeyAsync(h + "⨆" + name);
-            const buffervalue = buffer[h + "⨆" + name];
+            const e = await dbKeyGetAsync(h + "⨆" + name);
+            const buffervalue = kCache[h + "⨆" + name];
             if (buffervalue)
                 return buffervalue;
             else if (e)
@@ -518,7 +517,7 @@ class WitCatIndexedDB {
                 return "";
         }
         else {
-            const e = await ReadKeyAsync("ALL_DB");
+            const e = await dbKeyGetAsync("ALL_DB");
             if (e[h]) {
                 const v = e[h];
                 const a = JSON.parse(v.split("§")[1]);
@@ -538,11 +537,11 @@ class WitCatIndexedDB {
      */
     save(args) {
         // 如果 save 积木允许在保存结束后异步返回，那么可以用 async/await
-        ReadKeyAsync(this.runtime.ccwAPI.getProjectUUID() + "⨆" + args.name).then((e) => {
+        dbKeyGetAsync(this.runtime.ccwAPI.getProjectUUID() + "⨆" + args.name).then((e) => {
             if (e)
-                SSetKey(String(args.name), args.text, undefined, this.runtime.ccwAPI.getProjectUUID(), undefined, undefined, undefined);
+                kWaitSet(String(args.name), args.text, undefined, this.runtime.ccwAPI.getProjectUUID(), undefined, undefined, undefined);
             else
-                SSetKey(String(args.name), args.text, undefined, this.runtime.ccwAPI.getProjectUUID(), "self", undefined, undefined);
+                kWaitSet(String(args.name), args.text, undefined, this.runtime.ccwAPI.getProjectUUID(), "self", undefined, undefined);
         })
     }
 
@@ -554,7 +553,7 @@ class WitCatIndexedDB {
      * @returns {void}
      */
     saves(args) {
-        SSetKey(String(args.name), undefined, args.text, this.runtime.ccwAPI.getProjectUUID(), undefined, undefined, undefined);
+        kWaitSet(String(args.name), undefined, args.text, this.runtime.ccwAPI.getProjectUUID(), undefined, undefined, undefined);
     }
 
     /**
@@ -564,7 +563,7 @@ class WitCatIndexedDB {
      * @returns {void}
      */
     delete(args) {
-        SDeleteKey({name: String(args.name)}, this.runtime.ccwAPI.getProjectUUID());
+        kWaitDelete({name: String(args.name)}, this.runtime.ccwAPI.getProjectUUID());
     }
 
     /**
@@ -575,7 +574,7 @@ class WitCatIndexedDB {
      * @returns {void}
      */
     showvar(args) {
-        SSetKey(String(args.name), undefined, undefined, this.runtime.ccwAPI.getProjectUUID(), String(args.show), undefined, undefined);
+        kWaitSet(String(args.name), undefined, undefined, this.runtime.ccwAPI.getProjectUUID(), String(args.show), undefined, undefined);
     }
 
     /**
@@ -587,15 +586,15 @@ class WitCatIndexedDB {
      * @returns {void}
      */
     saveother(args) {
-        ReadKeyAsync(args.id + "⨆" + args.name).then((e) => {
+        dbKeyGetAsync(args.id + "⨆" + args.name).then((e) => {
             const h = this.runtime.ccwAPI.getProjectUUID();
             if (e[h]) {
                 if (e[h] === "allow")
-                    SSetKey(String(args.name), args.text, undefined, String(args.id), undefined, undefined, undefined);
+                    kWaitSet(String(args.name), args.text, undefined, String(args.id), undefined, undefined, undefined);
             }
             else {
                 if (e.all === "allow")
-                    SSetKey(String(args.name), args.text, undefined, String(args.id), undefined, undefined, undefined);
+                    kWaitSet(String(args.name), args.text, undefined, String(args.id), undefined, undefined, undefined);
             }
         })
     }
@@ -611,7 +610,7 @@ class WitCatIndexedDB {
     async uploadother(args) {
         const id = String(args.id)
         const name = String(args.name)
-        const e = await ReadKeyAsync(id + "⨆" + name);
+        const e = await dbKeyGetAsync(id + "⨆" + name);
         const h = this.runtime.ccwAPI.getProjectUUID();
         if (e[h]) {
             if (e[h] === "allow" || e[h] === "read") {
@@ -619,7 +618,7 @@ class WitCatIndexedDB {
                     return e.value;
                 }
                 else {
-                    const ele = await ReadKeyAsync("ALL_DB");
+                    const ele = await dbKeyGetAsync("ALL_DB");
                     if (ele[id]) {
                         const a = JSON.parse(ele[id].split("§")[1]);
                         return a[name] ? a[name] : "";
@@ -637,7 +636,7 @@ class WitCatIndexedDB {
                     return e.value;
                 }
                 else {
-                    const ele = await ReadKeyAsync("ALL_DB");
+                    const ele = await dbKeyGetAsync("ALL_DB");
                     if (ele[id]) {
                         const a = JSON.parse(ele[id].split("§")[1]);
                         return a[name] ? a[name] : "";
@@ -659,7 +658,7 @@ class WitCatIndexedDB {
      * @returns {Promise<string>} 键状态结果
      */
     async other(args) {
-        const e = await ReadKeyAsync(args.id + "⨆" + args.name);
+        const e = await dbKeyGetAsync(args.id + "⨆" + args.name);
         const h = this.runtime.ccwAPI.getProjectUUID();
         if (!e)
             return "undefined";
@@ -694,7 +693,7 @@ class WitCatIndexedDB {
      * @returns {Promise<SCarg>}
      */
     async number(args) {
-        const e = await ReadKeyAsync("ALL_DB");
+        const e = await dbKeyGetAsync("ALL_DB");
         const num = Number(args.num);
         const h = this.runtime.ccwAPI.getProjectUUID();
         if (e[h]) {
@@ -707,8 +706,8 @@ class WitCatIndexedDB {
                     return v[a[num - 1]];
                 }
                 else {
-                    const e = await ReadKeyAsync(h + "⨆" + a[num - 1]);
-                    const temp = buffer[h + "⨆" + a[num - 1]]
+                    const e = await dbKeyGetAsync(h + "⨆" + a[num - 1]);
+                    const temp = kCache[h + "⨆" + a[num - 1]]
                     if (temp)
                         return temp;
                     else if (e)
@@ -729,7 +728,7 @@ class WitCatIndexedDB {
      * @returns {Promise<number>}
      */
     async numbers() {
-        const e = await ReadKeyAsync("ALL_DB");
+        const e = await dbKeyGetAsync("ALL_DB");
         const h = this.runtime.ccwAPI.getProjectUUID();
         if (e[h]) {
             const v = e[h];
@@ -748,7 +747,7 @@ class WitCatIndexedDB {
      * @param {SCarg|"self"|"allow"|"read"} args.show
      */
     showvaro(args) {
-        SSetKey(String(args.name), undefined, undefined, this.runtime.ccwAPI.getProjectUUID(), String(args.show), String(args.id), undefined);
+        kWaitSet(String(args.name), undefined, undefined, this.runtime.ccwAPI.getProjectUUID(), String(args.show), String(args.id), undefined);
     }
 }
 
@@ -782,7 +781,7 @@ window.tempExt = {
  * @param {IDBRequest} request
  * @returns {Promise<any>}
  */
-function requestAsync(request) {
+function dbReqAsync(request) {
     return new Promise((resolve, reject) => {
         request.onsuccess = () => resolve(request.result);
         request.onerror = (err) => reject(err);
@@ -795,14 +794,14 @@ function requestAsync(request) {
  * @param {{[key: string]: any}} json 键值:不可包含"key"
  * @returns {Promise<any>} 设置成功后 resolve
  */
-async function SetKeyAsync(key_, json) {
+async function dbKeySetAsync(key_, json) {
     json["key"] = key_;
     const transaction = db.transaction(['key'], "readwrite");
     const store = transaction.objectStore('key');
 
     const objectStore = transaction.objectStore('key');
     let request = objectStore.get(key_);
-    const result = await requestAsync(request);
+    const result = await dbReqAsync(request);
 
     if (result) {
         request = store.put(json);
@@ -810,7 +809,7 @@ async function SetKeyAsync(key_, json) {
         request = store.add(json);
     }
 
-    await requestAsync(request);
+    await dbReqAsync(request);
 
     // store 上没有 error 事件。
     // store.onerror = function (err) {
@@ -824,10 +823,10 @@ async function SetKeyAsync(key_, json) {
  * @param {string} key_ 键名
  * @returns {Promise<any>} 删除后 Promise 会 resolve，确保已经删除。
  */
-async function DeleteKeyAsync(key_) {
+async function dbKeyDeleteAsync(key_) {
     const transaction = db.transaction(['key'], "readwrite");
     const store = transaction.objectStore('key');
-    await requestAsync(store.delete(key_));
+    await dbReqAsync(store.delete(key_));
 }
 
 /**
@@ -835,11 +834,11 @@ async function DeleteKeyAsync(key_) {
  * @param {string} key_ 键名
  * @returns {Promise<any>} 异步返回值，或者错误
  */
-async function ReadKeyAsync(key_) {
+async function dbKeyGetAsync(key_) {
     const transaction = db.transaction(['key']);
     const objectStore = transaction.objectStore('key');
     const request = objectStore.get(key_);
-    const result = await requestAsync(request);
+    const result = await dbReqAsync(request);
     if (result) { // 是不是想要 request.result === null/undefined ?
         return result;
     } else {
@@ -855,8 +854,8 @@ async function ReadKeyAsync(key_) {
  * @param {string} h 作品 ID
  * @returns {void}
  */
-function SDeleteKey(args, h) {
-    wait.push({
+function kWaitDelete(args, h) {
+    kWaitlist.push({
         name: args.name,
         h,
         type: "delete"
@@ -871,11 +870,11 @@ function SDeleteKey(args, h) {
  * @param {"delete"} args.type 只能是 "delete"
  * @returns {Promise<void>}
  */
-async function DeleteKeysAsync({ name, h, type }) {
-    if (buffer[h + "⨆" + name])
-        delete buffer[h + "⨆" + name]
-    await DeleteKeyAsync(h + "⨆" + name);
-    const e = await ReadKeyAsync("ALL_DB");
+async function kKeyDeleteAsync({ name, h, type }) {
+    if (kCache[h + "⨆" + name])
+        delete kCache[h + "⨆" + name]
+    await dbKeyDeleteAsync(h + "⨆" + name);
+    const e = await dbKeyGetAsync("ALL_DB");
     if (e[h] !== undefined) {
         const v = e[h];
         const a = JSON.parse(v.split("§")[1]);
@@ -885,9 +884,9 @@ async function DeleteKeysAsync({ name, h, type }) {
     if (type !== undefined) // 计算结果只能是 true，推断有问题？
         delete e[h];
     if (e !== undefined) // 如果 e 是 undefined，前面的 e[h] 报错
-        await SetKeyAsync("ALL_DB", e);
+        await dbKeySetAsync("ALL_DB", e);
     else
-        await SetKeyAsync("ALL_DB", {});
+        await dbKeySetAsync("ALL_DB", {});
 }
 
 /**
@@ -896,14 +895,14 @@ async function DeleteKeysAsync({ name, h, type }) {
  * @param {string} h 作品id
  * @param {true|undefined} type 是否删除整个作品的键
  */
-async function SDeleteKeysAsync(name, h, type) {
+async function mKeyDeleteAsync(name, h, type) {
     const a = confirm("确定删除？");
     if (a) {
         if (type === undefined) {
             // 删除单个键
             if (name !== undefined)
-                await DeleteKeyAsync(h + "⨆" + name);
-            const e = await ReadKeyAsync("ALL_DB");
+                await dbKeyDeleteAsync(h + "⨆" + name);
+            const e = await dbKeyGetAsync("ALL_DB");
             if (e[h] !== undefined && name !== undefined) {
                 const v = e[h];
                 const a = JSON.parse(v.split("§")[1]);
@@ -911,28 +910,28 @@ async function SDeleteKeysAsync(name, h, type) {
                 e[h] = `${v.split("§")[0]}§${JSON.stringify(a)}`;
             }
             if (e !== undefined)
-                await SetKeyAsync("ALL_DB", e)
+                await dbKeySetAsync("ALL_DB", e)
             else
-                await SetKeyAsync("ALL_DB", {})
-            DBopen(""); // 修改成当前作品 ID？
+                await dbKeySetAsync("ALL_DB", {})
+            mProjectLoad(""); // 修改成当前作品 ID？
         }
         else {
             // 删除整个作品的所有键
-            const e = await ReadKeyAsync("ALL_DB");
+            const e = await dbKeyGetAsync("ALL_DB");
             if (e[h] !== undefined) {
                 const v = e[h];
                 const a = JSON.parse(v.split("§")[1]);
                 const k = Object.keys(a);
                 for (const ele of k) {
-                    await DeleteKeyAsync(h + "⨆" + ele);
+                    await dbKeyDeleteAsync(h + "⨆" + ele);
                 }
             }
             delete e[h];
             if (e !== undefined)
-                await SetKeyAsync("ALL_DB", e)
+                await dbKeySetAsync("ALL_DB", e)
             else
-                await SetKeyAsync("ALL_DB", {})
-            load();
+                await dbKeySetAsync("ALL_DB", {})
+            mLoad();
         }
     }
 }
@@ -947,8 +946,8 @@ async function SDeleteKeysAsync(name, h, type) {
  * @param {string|undefined} id 单独设置状态的作品id
  * @param {SCarg|undefined} description 作品描述
  */
-function SSetKey(name, text, content, h, state, id, description) {
-    wait.push({ name, text, content, h, state, id, description, type: "set" });
+function kWaitSet(name, text, content, h, state, id, description) {
+    kWaitlist.push({ name, text, content, h, state, id, description, type: "set" });
 }
 
 /**
@@ -962,10 +961,10 @@ function SSetKey(name, text, content, h, state, id, description) {
  * @param {string|undefined} args.id 单独设置状态的作品id
  * @param {SCarg|undefined} args.description 作品描述
  */
-async function SetKeysAsync({ name, text, content, h, state, id, description }) {
+async function kKeySetAsync({ name, text, content, h, state, id, description }) {
     if (name !== undefined) // 要设置键值吗?
-        buffer[h + "⨆" + name] = text;
-    const jsons = await ReadKeyAsync(h + "⨆" + name);
+        kCache[h + "⨆" + name] = text;
+    const jsons = await dbKeyGetAsync(h + "⨆" + name);
     const json = jsons ? jsons : {};
     if (name !== undefined) {
         if (json.all === undefined) {
@@ -984,9 +983,9 @@ async function SetKeysAsync({ name, text, content, h, state, id, description }) 
                 json.all = state;
         }
         json.value = text !== undefined ? text : (json.value !== undefined ? json.value : ""); // 数值如果是 undefined，就取默认值
-        await SetKeyAsync(h + "⨆" + name, json)
+        await dbKeySetAsync(h + "⨆" + name, json)
     }
-    let e = await ReadKeyAsync("ALL_DB");
+    let e = await dbKeyGetAsync("ALL_DB");
     if (e[h]) { // 更新描述
         const v = e[h];
         const a = JSON.parse(v.split("§")[1]);
@@ -1007,28 +1006,28 @@ async function SetKeysAsync({ name, text, content, h, state, id, description }) 
         // 更新作品描述?
         e[h] = `${description ? description : ""}§${JSON.stringify(a)}`;
     }
-    await SetKeyAsync("ALL_DB", e);
-    if (buffer[h + "⨆" + name]) // 删除缓存
-        delete buffer[h + "⨆" + name]
+    await dbKeySetAsync("ALL_DB", e);
+    if (kCache[h + "⨆" + name]) // 删除缓存
+        delete kCache[h + "⨆" + name]
 }
 
 /** 加载管理界面 */
-async function load() {
-    list.firstElementChild.innerHTML = "";
-    const e = await ReadKeyAsync("ALL_DB");
+async function mLoad() {
+    mProjects.firstElementChild.innerHTML = "";
+    const e = await dbKeyGetAsync("ALL_DB");
     //e:整个键
     delete e.key;
     const a = Object.keys(e);
     a.forEach(v => {
         //v:
         let s;
-        if (language)
-            s = `<button onclick="DBopen(event.target.innerText)" description="${e[v].split("§")[0]}">${v}</button><button onclick=SDeleteKeysAsync(undefined,'${v}',true) description="三思！！！">删除</button>`
+        if (mLangCh)
+            s = `<button onclick="mLoad(event.target.innerText)" description="${e[v].split("§")[0]}">${v}</button><button onclick=mKeyDeleteAsync(undefined,'${v}',true) description="三思！！！">删除</button>`
         else
-            s = `<button onclick="DBopen(event.target.innerText)" description="${e[v].split("§")[0]}">${v}</button><button onclick=SDeleteKeysAsync(undefined,'${v}',true) description="sure?">delete</button>`
+            s = `<button onclick="mLoad(event.target.innerText)" description="${e[v].split("§")[0]}">${v}</button><button onclick=mKeyDeleteAsync(undefined,'${v}',true) description="sure?">delete</button>`
         const ss = document.createElement("li");
         ss.innerHTML = s;
-        list.firstElementChild.appendChild(ss);
+        mProjects.firstElementChild.appendChild(ss);
     });
 }
 
@@ -1036,9 +1035,9 @@ async function load() {
  * 根据作品数据生成表格
  * @param {string} ID
  */
-async function DBopen(ID) {
-    if (language)
-        table.firstElementChild.innerHTML = `
+async function mProjectLoad(ID) {
+    if (mLangCh)
+        mVariables.firstElementChild.innerHTML = `
             <tr>
                 <th>键</th>
                 <th>值</th>
@@ -1047,7 +1046,7 @@ async function DBopen(ID) {
                 <th>操作</th>
             </tr>`;
     else
-        table.firstElementChild.innerHTML = `
+        mVariables.firstElementChild.innerHTML = `
             <tr>
                 <th>key</th>
                 <th>value</th>
@@ -1055,70 +1054,70 @@ async function DBopen(ID) {
                 <th>state</th>
                 <th>operate</th>
             </tr>`;
-    const e = await ReadKeyAsync("ALL_DB");
+    const e = await dbKeyGetAsync("ALL_DB");
     //e:整个键
     const a = JSON.parse(e[ID].split("§")[1]);
     const q = Object.keys(a);
     for (const v of q) {
-        const jsons = await ReadKeyAsync(ID + "⨆" + v);
+        const jsons = await dbKeyGetAsync(ID + "⨆" + v);
         let state;
         switch (jsons.all) {
             case "allow":
-                if (language)
+                if (mLangCh)
                     state = "公开";
                 else
                     state = "can read and modify";
                 break;
             case "read":
-                if (language)
+                if (mLangCh)
                     state = "只读";
                 else
                     state = "can read";
                 break;
             case "self":
-                if (language)
+                if (mLangCh)
                     state = "私有";
                 else
                     state = "can`t read";
                 break;
         }
         let s;
-        if (language)
-            s = `<td>${v}</td><td>${jsons.value}</td><td>${a[v]}</td><td>${state}</td><td><button onclick=SDeleteKeysAsync("${v}","${ID}")>删除</button></td>`;
+        if (mLangCh)
+            s = `<td>${v}</td><td>${jsons.value}</td><td>${a[v]}</td><td>${state}</td><td><button onclick=mKeyDeleteAsync("${v}","${ID}")>删除</button></td>`;
         else
-            s = `<td>${v}</td><td>${jsons.value}</td><td>${a[v]}</td><td>${state}</td><td><button onclick=SDeleteKeysAsync("${v}","${ID}")>delete</button></td>`;
+            s = `<td>${v}</td><td>${jsons.value}</td><td>${a[v]}</td><td>${state}</td><td><button onclick=mKeyDeleteAsync("${v}","${ID}")>delete</button></td>`;
         const ss = document.createElement("tr");
         ss.innerHTML = s;
-        table.firstElementChild.appendChild(ss);
+        mVariables.firstElementChild.appendChild(ss);
     }
 }
 
 /** 关闭管理器 */
-function outkey() {
-    document.getElementById("move-header").removeEventListener("mousemove", move[0]);
-    document.removeEventListener("mousemove", move[1]);
-    document.removeEventListener("mousemove", move[2]);
-    document.removeEventListener("mousemove", move[3]);
-    c.removeEventListener("mousemove", move[4]);
-    document.removeEventListener("mousemove", move[5]);
-    gandi.remove();
+function mClose() {
+    document.getElementById("move-header").removeEventListener("mousemove", mMoveFunc[0]);
+    document.removeEventListener("mousemove", mMoveFunc[1]);
+    document.removeEventListener("mousemove", mMoveFunc[2]);
+    document.removeEventListener("mousemove", mMoveFunc[3]);
+    mCaption.removeEventListener("mousemove", mMoveFunc[4]);
+    document.removeEventListener("mousemove", mMoveFunc[5]);
+    mPage.remove();
 }
 
 //调整窗口大小
 /** 鼠标松开 */
-function up() {
-    resizeable = false
+function mMoveMouseup() {
+    mResizable = false
 }
 
 /**
  * 鼠标按下
  * @param {MouseEvent} e
  */ 
-function down(e) {
-    const d = getDirection(e)
+function mMoveMousedown(e) {
+    const d = mResizeDirection(e)
     if (d !== '') {
-        resizeable = true
-        direc = d
+        mResizable = true
+        mResizeDirec = d
         e.preventDefault()
     }
 }
@@ -1127,19 +1126,19 @@ function down(e) {
  * 鼠标移动
  * @param {MouseEvent} e
  */
-function moves(e) {
-    const d = getDirection(e);
+function mMoveMousemove(e) {
+    const d = mResizeDirection(e);
     let cursor
     if (d === '') cursor = 'default';
     else cursor = d + '-resize';
-    c.style.cursor = cursor;
-    if (resizeable) {
-        if (direc.indexOf('e') !== -1) {
-            c.style.width = Math.max(minW, e.clientX - c.offsetLeft + 2) + 'px';
+    mCaption.style.cursor = cursor;
+    if (mResizable) {
+        if (mResizeDirec.indexOf('e') !== -1) {
+            mCaption.style.width = Math.max(mResizeMinW, e.clientX - mCaption.offsetLeft + 2) + 'px';
         }
 
-        if (direc.indexOf('s') !== -1) {
-            c.style.height = Math.max(minH, e.clientY - c.offsetTop - 98) + 'px';
+        if (mResizeDirec.indexOf('s') !== -1) {
+            mCaption.style.height = Math.max(mResizeMinH, e.clientY - mCaption.offsetTop - 98) + 'px';
         }
 
         e.preventDefault();
@@ -1150,27 +1149,27 @@ function moves(e) {
  * 获取鼠标对于窗口边缘位置
  * @param { MouseEvent } ev
  */
-function getDirection(ev) {
+function mResizeDirection(ev) {
     let dir = '';
 
     const xP = ev.clientX;
     const yP = ev.clientY;
     const offset = 10;
-    if (yP > c.clientHeight + c.offsetTop - offset + 100) dir += 's';
-    if (xP > c.clientWidth + c.offsetLeft - offset) dir += 'e';
+    if (yP > mCaption.clientHeight + mCaption.offsetTop - offset + 100) dir += 's';
+    if (xP > mCaption.clientWidth + mCaption.offsetLeft - offset) dir += 'e';
 
     return dir;
 }
 
 /** 打开管理页面 */
-function openManages() {
-    language = confirm("选择你的语言，中文请点击确定\nchoose your language,click Cancel if you are english");
-    if (!document.getElementsByTagName("body")[0].contains(gandi)) {
-        gandi = document.createElement("div");
-        gandi.style.zIndex = "100";
-        gandi.style.position = "fixed";
-        gandi.style.top = "100px";
-        gandi.innerHTML = `<style>
+function mOpen() {
+    mLangCh = confirm("选择你的语言，中文请点击确定\nchoose your language,click Cancel if you are english");
+    if (!document.getElementsByTagName("body")[0].contains(mPage)) {
+        mPage = document.createElement("div");
+        mPage.style.zIndex = "100";
+        mPage.style.position = "fixed";
+        mPage.style.top = "100px";
+        mPage.innerHTML = `<style>
         .move {
             border-radius: 7px;
             box-shadow: 5px 5px 20px #40464d;
@@ -1402,13 +1401,13 @@ function openManages() {
             overflow: hidden;
         }
     </style>`;
-        if (language)
-            gandi.innerHTML = `${gandi.innerHTML}
+        if (mLangCh)
+            mPage.innerHTML = `${mPage.innerHTML}
     <div class="move" id="move">
         <div class="move-header" id="move-header">
             <img src="https://zhishi.oss-cn-beijing.aliyuncs.com/works-covers/55f9e357-35be-4486-bed8-559873050bc8.png"
                 class="logo">
-            <button onclick=outkey()>X</button>
+            <button onclick=mClose()>X</button>
         </div>
         <div class="move-body">
             <div class="list">
@@ -1429,12 +1428,12 @@ function openManages() {
         </div>
     </div>`;
         else
-            gandi.innerHTML = `${gandi.innerHTML}}
+            mPage.innerHTML = `${mPage.innerHTML}}
     <div class="move" id="move">
         <div class="move-header" id="move-header">
             <img src="https://zhishi.oss-cn-beijing.aliyuncs.com/works-covers/cdb2587b-957f-40dd-b0b1-75e4d73385cd.png"
                 class="logo">
-            <button onclick=outkey()>X</button>
+            <button onclick=mClose()>X</button>
         </div>
         <div class="move-body">
             <div class="list">
@@ -1454,50 +1453,50 @@ function openManages() {
             </div>
         </div>
     </div>`;
-        document.getElementsByTagName("body")[0].appendChild(gandi);
-        list = document.getElementsByClassName("list")[0];
-        table = document.getElementsByClassName("table")[0];
-        c = document.getElementById('move');
-        document.getElementById('move-header').addEventListener('mousedown', move[0] = function (e) {
-            mouseOffsetX = e.pageX - c.offsetLeft;
-            mouseOffsetY = e.pageY - c.offsetTop;
-            isDraging = true;
+        document.getElementsByTagName("body")[0].appendChild(mPage);
+        mProjects = document.getElementsByClassName("list")[0];
+        mVariables = document.getElementsByClassName("table")[0];
+        mCaption = document.getElementById('move');
+        document.getElementById('move-header').addEventListener('mousedown', mMoveFunc[0] = function (e) {
+            mMoveOffsetX = e.pageX - mCaption.offsetLeft;
+            mMoveOffsetY = e.pageY - mCaption.offsetTop;
+            mMove = true;
             e.preventDefault();
         })
-        document.addEventListener("mousemove", move[1] = (e) => {
+        document.addEventListener("mousemove", mMoveFunc[1] = (e) => {
             let moveX = 0;
             let moveY = 0;
 
-            if (isDraging === true) {
-                moveX = e.pageX - mouseOffsetX;
-                moveY = e.pageY - mouseOffsetY;
+            if (mMove === true) {
+                moveX = e.pageX - mMoveOffsetX;
+                moveY = e.pageY - mMoveOffsetY;
 
-                c.style.left = moveX + "px";
-                c.style.top = moveY + "px";
+                mCaption.style.left = moveX + "px";
+                mCaption.style.top = moveY + "px";
             }
         })
 
-        document.addEventListener("mouseup", move[2] = () => {
-            isDraging = false;
+        document.addEventListener("mouseup", mMoveFunc[2] = () => {
+            mMove = false;
         })
 
-        document.addEventListener('mousemove', move[3] = moves)
+        document.addEventListener('mousemove', mMoveFunc[3] = mMoveMousemove)
 
-        c.addEventListener('mousedown', move[4] = down)
+        mCaption.addEventListener('mousedown', mMoveFunc[4] = mMoveMousedown)
 
-        document.addEventListener('mouseup', move[5] = up)
+        document.addEventListener('mouseup', mMoveFunc[5] = mMoveMouseup)
     }
-    load();
+    mLoad();
 }
 
 /** 删除按钮 */
-function deleteButton() {
+function mButtonDelete() {
     document.getElementById("witcatkey-values").remove();
     document.getElementById("witcatkey-value").remove();
 }
 
 /** 检测作品详情页显示按钮 */
-function showButton() {
+function mButtonShow() {
     const url = window.location.pathname;
     if (!(url.startsWith("/gandi/") || url.startsWith("/creator/"))) {
         alert("此作品使用了本地储存，将会在您的电脑上存储内容，如需要删除，可以从右下角按钮（可以隐藏）进入管理页面\nThis work uses local storage and will store content on your computer. If you need to delete it, you can enter the management page from the lower right button (which can be hidden)")
@@ -1523,7 +1522,7 @@ function showButton() {
         y.style.height = "50px";
         y.style.zIndex = "9999999";
         y.id = "witcatkey-values";
-        y.setAttribute("onclick", "deleteButton()");
+        y.setAttribute("onclick", "mDeleteButton()");
         document.body.appendChild(y);
     }
 }
