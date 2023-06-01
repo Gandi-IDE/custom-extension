@@ -34,13 +34,16 @@ let mMove = false, mMoveOffsetX = 0, mMoveOffsetY = 0;
 
 /**
  * 作品列表
- * @type {HTMLDivElement}
+ * @type {HTMLUListElement}
  */
 let mProjects;
 
+/** 当前作品 ID */
+let mProjectID = "";
+
 /**
  * 变量列表
- * @type {HTMLTableElement}
+ * @type {HTMLTableSectionElement}
  */
 let mVariables;
 
@@ -893,7 +896,7 @@ async function kKeyDeleteAsync({ name, h, type }) {
  * 管理页面异步删除键
  * @param {string|undefined} name 删除的键名
  * @param {string} h 作品id
- * @param {true|undefined} type 是否删除整个作品的键
+ * @param {true|undefined} [type] 是否删除整个作品的键
  */
 async function mKeyDeleteAsync(name, h, type) {
     const a = confirm("确定删除？");
@@ -913,7 +916,7 @@ async function mKeyDeleteAsync(name, h, type) {
                 await dbKeySetAsync("ALL_DB", e)
             else
                 await dbKeySetAsync("ALL_DB", {})
-            mProjectLoad(""); // 修改成当前作品 ID？
+            mProjectLoad(mProjectID);
         }
         else {
             // 删除整个作品的所有键
@@ -1013,21 +1016,27 @@ async function kKeySetAsync({ name, text, content, h, state, id, description }) 
 
 /** 加载管理界面 */
 async function mLoad() {
-    mProjects.firstElementChild.innerHTML = "";
+    mProjects.innerHTML = "";
     const e = await dbKeyGetAsync("ALL_DB");
     //e:整个键
     delete e.key;
     const a = Object.keys(e);
     a.forEach(v => {
-        //v:
-        let s;
-        if (mLangCh)
-            s = `<button onclick="mLoad(event.target.innerText)" description="${e[v].split("§")[0]}">${v}</button><button onclick=mKeyDeleteAsync(undefined,'${v}',true) description="三思！！！">删除</button>`
-        else
-            s = `<button onclick="mLoad(event.target.innerText)" description="${e[v].split("§")[0]}">${v}</button><button onclick=mKeyDeleteAsync(undefined,'${v}',true) description="sure?">delete</button>`
         const ss = document.createElement("li");
-        ss.innerHTML = s;
-        mProjects.firstElementChild.appendChild(ss);
+        const buttonLoad = document.createElement("button");
+        buttonLoad.innerText = v;
+        buttonLoad.setAttribute("description", e[v].split("§")[0]);
+        buttonLoad.addEventListener("click", () => {
+            mProjectLoad(v);
+        });
+        const buttonDel = document.createElement("button");
+        buttonDel.innerText = mLangCh ? "删除" : "delete";
+        buttonDel.setAttribute("description", mLangCh ? "三思！！！" : "sure?");
+        buttonDel.addEventListener("click", () => {
+            mKeyDeleteAsync(undefined, v, true);
+        });
+        ss.append(buttonLoad, buttonDel);
+        mProjects.appendChild(ss);
     });
 }
 
@@ -1036,65 +1045,69 @@ async function mLoad() {
  * @param {string} ID
  */
 async function mProjectLoad(ID) {
-    if (mLangCh)
-        mVariables.firstElementChild.innerHTML = `
-            <tr>
-                <th>键</th>
-                <th>值</th>
-                <th>描述</th>
-                <th>状态</th>
-                <th>操作</th>
-            </tr>`;
-    else
-        mVariables.firstElementChild.innerHTML = `
-            <tr>
-                <th>key</th>
-                <th>value</th>
-                <th>description</th>
-                <th>state</th>
-                <th>operate</th>
-            </tr>`;
+    mProjectID = ID;
     const e = await dbKeyGetAsync("ALL_DB");
     //e:整个键
     const a = JSON.parse(e[ID].split("§")[1]);
     const q = Object.keys(a);
-    for (const v of q) {
-        const jsons = await dbKeyGetAsync(ID + "⨆" + v);
-        let state;
-        switch (jsons.all) {
-            case "allow":
-                if (mLangCh)
-                    state = "公开";
-                else
-                    state = "can read and modify";
-                break;
-            case "read":
-                if (mLangCh)
-                    state = "只读";
-                else
-                    state = "can read";
-                break;
-            case "self":
-                if (mLangCh)
-                    state = "私有";
-                else
-                    state = "can`t read";
-                break;
-        }
-        let s;
-        if (mLangCh)
-            s = `<td>${v}</td><td>${jsons.value}</td><td>${a[v]}</td><td>${state}</td><td><button onclick=mKeyDeleteAsync("${v}","${ID}")>删除</button></td>`;
-        else
-            s = `<td>${v}</td><td>${jsons.value}</td><td>${a[v]}</td><td>${state}</td><td><button onclick=mKeyDeleteAsync("${v}","${ID}")>delete</button></td>`;
+    // tbody
+    mVariables.innerHTML = "载入中……";
+    /** 整张表 @type {SCarg[][]} */
+    const table = await Promise.all(
+        q.map(async (v) => {
+            const jsons = await dbKeyGetAsync(ID + "⨆" + v);
+            let state;
+            switch (jsons.all) {
+                case "allow":
+                    if (mLangCh)
+                        state = "公开";
+                    else
+                        state = "can read and modify";
+                    break;
+                case "read":
+                    if (mLangCh)
+                        state = "只读";
+                    else
+                        state = "can read";
+                    break;
+                case "self":
+                    if (mLangCh)
+                        state = "私有";
+                    else
+                        state = "can`t read";
+                    break;
+            }
+            /** 每一列 @type string[] */
+            const row = [v, jsons.value, a[v], state];
+            return row;
+        })
+    );
+    mVariables.innerHTML = "";
+    for (const row of table) {
+        /** 新的一行 */
         const ss = document.createElement("tr");
-        ss.innerHTML = s;
-        mVariables.firstElementChild.appendChild(ss);
+        for (let val of row) {
+            const td = document.createElement("td");
+            /** 设置 innerText */
+            td.innerText = val;
+            ss.append(td);
+        }
+        /** 删除值用的按钮 */
+        const delbuttontd = document.createElement("td");
+        const delbutton = document.createElement("button");
+        delbutton.innerText = mLangCh ? "删除" : "delete";
+        delbutton.addEventListener("click", () => {
+            mKeyDeleteAsync(row[0], ID);
+        });
+        delbuttontd.append(delbutton);
+        ss.append(delbuttontd);
+        mVariables.appendChild(ss);
     }
 }
 
 /** 关闭管理器 */
 function mClose() {
-    document.getElementById("move-header").removeEventListener("mousemove", mMoveFunc[0]);
+    document.getElementById("WitCatIndexDBMoveHeader").removeEventListener("mousemove", mMoveFunc[0]);
     document.removeEventListener("mousemove", mMoveFunc[1]);
     document.removeEventListener("mousemove", mMoveFunc[2]);
     document.removeEventListener("mousemove", mMoveFunc[3]);
@@ -1164,7 +1177,7 @@ function mResizeDirection(ev) {
 /** 打开管理页面 */
 function mOpen() {
     mLangCh = confirm("选择你的语言，中文请点击确定\nchoose your language,click Cancel if you are english");
-    if (!document.getElementsByTagName("body")[0].contains(mPage)) {
+    if (!document.body.contains(mPage)) {
         mPage = document.createElement("div");
         mPage.style.zIndex = "100";
         mPage.style.position = "fixed";
@@ -1241,8 +1254,7 @@ function mOpen() {
             text-align: center;
             background-color: #ffffff;
         }
-    </style>
-    <style>
+
         .move {
             width: 600px;
             height: 400px;
@@ -1400,64 +1412,67 @@ function mOpen() {
             height: 90%;
             overflow: hidden;
         }
-    </style>`;
-        if (mLangCh)
-            mPage.innerHTML = `${mPage.innerHTML}
-    <div class="move" id="move">
-        <div class="move-header" id="move-header">
-            <img src="https://zhishi.oss-cn-beijing.aliyuncs.com/works-covers/55f9e357-35be-4486-bed8-559873050bc8.png"
+    </style>
+    <div class="move" id="WitCatIndexDBMove">
+        <div class="move-header" id="WitCatIndexDBMoveHeader">
+            <img src="${
+                mLangCh
+                ? "https://zhishi.oss-cn-beijing.aliyuncs.com/works-covers/55f9e357-35be-4486-bed8-559873050bc8.png"
+                : "https://zhishi.oss-cn-beijing.aliyuncs.com/works-covers/cdb2587b-957f-40dd-b0b1-75e4d73385cd.png"
+            }"
                 class="logo">
-            <button onclick=mClose()>X</button>
+            <button id="WitCatIndexDBClose">X</button>
         </div>
         <div class="move-body">
             <div class="list">
-                <ul>
-                </ul>
+                <ul id="WitCatIndexDBProjects"></ul>
             </div>
             <div class="showss">
                 <table class="table">
-                    <tr>
-                        <th>键</th>
-                        <th>值</th>
-                        <th>描述</th>
-                        <th>状态</th>
-                        <th>操作</th>
-                    </tr>
+                    <thead>
+                        <tr>
+                        ${
+                            mLangCh
+                            ? `
+                            <th>键</th>
+                            <th>值</th>
+                            <th>描述</th>
+                            <th>状态</th>
+                            <th>操作</th>`
+                            : `
+                            <th>key</th>
+                            <th>value</th>
+                            <th>description</th>
+                            <th>state</th>
+                            <th>operate</th>`
+                        }
+                        </tr>
+                    </thead>
+                    <tbody id="WitCatIndexDBVariables"></tbody>
                 </table>
             </div>
         </div>
     </div>`;
-        else
-            mPage.innerHTML = `${mPage.innerHTML}}
-    <div class="move" id="move">
-        <div class="move-header" id="move-header">
-            <img src="https://zhishi.oss-cn-beijing.aliyuncs.com/works-covers/cdb2587b-957f-40dd-b0b1-75e4d73385cd.png"
-                class="logo">
-            <button onclick=mClose()>X</button>
-        </div>
-        <div class="move-body">
-            <div class="list">
-                <ul>
-                </ul>
-            </div>
-            <div class="showss">
-                <table class="table">
-                    <tr>
-                        <th>key</th>
-                        <th>value</th>
-                        <th>description</th>
-                        <th>state</th>
-                        <th>operate</th>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>`;
-        document.getElementsByTagName("body")[0].appendChild(mPage);
-        mProjects = document.getElementsByClassName("list")[0];
-        mVariables = document.getElementsByClassName("table")[0];
-        mCaption = document.getElementById('move');
-        document.getElementById('move-header').addEventListener('mousedown', mMoveFunc[0] = function (e) {
+        document.body.appendChild(mPage);
+        const mProjectsTemp = document.getElementById("WitCatIndexDBProjects");
+        const mVariablesTemp = document.getElementById("WitCatIndexDBVariables");
+        const mCaptionTemp = document.getElementById('WitCatIndexDBMove');
+        const mCloseTemp = document.getElementById('WitCatIndexDBClose');
+        if (!(
+            mProjectsTemp instanceof HTMLUListElement &&
+            mVariablesTemp instanceof HTMLTableSectionElement &&
+            mCaptionTemp instanceof HTMLDivElement &&
+            mCloseTemp instanceof HTMLButtonElement
+        )) {
+            throw new Error("标签类型不正确");
+        }
+        mProjects = mProjectsTemp;
+        mVariables = mVariablesTemp;
+        mCaption = mCaptionTemp;
+
+        mCloseTemp.addEventListener("click", mClose);
+
+        document.getElementById('WitCatIndexDBMoveHeader').addEventListener('mousedown', mMoveFunc[0] = function (e) {
             mMoveOffsetX = e.pageX - mCaption.offsetLeft;
             mMoveOffsetY = e.pageY - mCaption.offsetTop;
             mMove = true;
@@ -1510,7 +1525,7 @@ function mButtonShow() {
         t.style.height = "50px";
         t.style.zIndex = "9999999";
         t.id = "witcatkey-value";
-        t.setAttribute("onclick", "openManages()");
+        t.addEventListener("click", mOpen);
         document.body.appendChild(t);
         const y = document.createElement("button");
         y.style.position = "fixed";
@@ -1522,7 +1537,7 @@ function mButtonShow() {
         y.style.height = "50px";
         y.style.zIndex = "9999999";
         y.id = "witcatkey-values";
-        y.setAttribute("onclick", "mDeleteButton()");
+        y.addEventListener("click", mButtonDelete);
         document.body.appendChild(y);
     }
 }
