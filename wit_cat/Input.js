@@ -1031,7 +1031,7 @@ class WitCatInput {
       return;
     }
     const search = document.getElementsByClassName("WitCatInput");
-    Array.prototype.filter.map(search, (item) =>
+    Array.prototype.map.call(search, (item) =>
       this.inputParent().removeChild(item)
     );
   }
@@ -1452,7 +1452,7 @@ class WitCatInput {
           if (this.canvas() === null) {
             return;
           }
-          Array.prototype.filter.map(search, (item) => {
+          Array.prototype.map.call(search, (item) => {
             const searchId = this._getWitCatID(item);
             const fontsize = this.inputFontSize[searchId];
             if (fontsize) {
