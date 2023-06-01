@@ -171,12 +171,12 @@ class WitCatIndexedDB {
                 "WitCatIndexedDB.save": "设置键[name]的值为[text]",
                 "WitCatIndexedDB.saves": "设置键[name]的描述为[text]",
                 "WitCatIndexedDB.description": "设置作品的描述为[text]",
-                "WitCatIndexedDB.upload": "获取键[name]的[type]",
+                "WitCatIndexedDB.load": "获取键[name]的[type]",
                 "WitCatIndexedDB.delete": "删除键[name]",
                 "WitCatIndexedDB.showvar": "设置键[name]为[show]",
                 "WitCatIndexedDB.showvaro": "设置键[name]针对[id]为[show]",
                 "WitCatIndexedDB.saveother": "设置作品ID[id]的键[name]的值为[text]",
-                "WitCatIndexedDB.uploadother": "获取作品[id]的键[name]的[type]",
+                "WitCatIndexedDB.loadother": "获取作品[id]的键[name]的[type]",
                 "WitCatIndexedDB.other": "作品[id]的键[name]的状态",
                 "WitCatIndexedDB.showon": "只读",
                 "WitCatIndexedDB.showoff": "私有",
@@ -197,12 +197,12 @@ class WitCatIndexedDB {
                 "WitCatIndexedDB.save": "Set value of key [name] to [text]",
                 "WitCatIndexedDB.saves": "Set description of key [name] to [text]",
                 "WitCatIndexedDB.description": "Set description of project to [text]",
-                "WitCatIndexedDB.upload": "[type] of key [name]",
+                "WitCatIndexedDB.load": "[type] of key [name]",
                 "WitCatIndexedDB.delete": "Delete key [name]",
                 "WitCatIndexedDB.showvar": "Other project [show] value of key [name]",
                 "WitCatIndexedDB.showvaro": "Other project [show] value of key [name] with [id]",
                 "WitCatIndexedDB.saveother": "Set value of key [name] of project [id] to [text]",
-                "WitCatIndexedDB.uploadother": "[type] of key [name] of project [id]",
+                "WitCatIndexedDB.loadother": "[type] of key [name] of project [id]",
                 "WitCatIndexedDB.other": "get permission of value [name] of project [id]",
                 "WitCatIndexedDB.showon": "can read",
                 "WitCatIndexedDB.showoff": "can't read",
@@ -263,9 +263,9 @@ class WitCatIndexedDB {
                 },
                 "---" + this.formatMessage("WitCatIndexedDB.inputmanagement"),
                 {
-                    opcode: "upload",
+                    opcode: "load",
                     blockType: "reporter",
-                    text: this.formatMessage("WitCatIndexedDB.upload"),
+                    text: this.formatMessage("WitCatIndexedDB.load"),
                     arguments: {
                         name: {
                             type: "string",
@@ -395,9 +395,9 @@ class WitCatIndexedDB {
                     },
                 },
                 {
-                    opcode: "uploadother",
+                    opcode: "loadother",
                     blockType: "reporter",
-                    text: this.formatMessage("WitCatIndexedDB.uploadother"),
+                    text: this.formatMessage("WitCatIndexedDB.loadother"),
                     arguments: {
                         id: {
                             type: "string",
@@ -502,7 +502,7 @@ class WitCatIndexedDB {
      * @param {SCarg|"value"|"description"} args.type 变量类型(value数值，description说明)
      * @returns {Promise<string|number|boolean>} 变量值
      */
-    async upload(args) {
+    async load(args) {
         const name = String(args.name)
         const h = this.runtime.ccwAPI.getProjectUUID();
         console.log(args.type)
@@ -607,7 +607,7 @@ class WitCatIndexedDB {
      * @param {SCarg|"value"|"description"} args.type 变量类型(value数值，description说明)
      * @returns {Promise<string>} 结果
      */
-    async uploadother(args) {
+    async loadother(args) {
         const id = String(args.id)
         const name = String(args.name)
         const e = await dbKeyGetAsync(id + "⨆" + name);
