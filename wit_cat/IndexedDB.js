@@ -165,7 +165,7 @@ mButtonShow();
 class WitCatIndexedDB {
     constructor(runtime) {
         this.runtime = runtime;
-        this.FormatMessage = runtime.getFormatMessage({
+        this._formatMessage = runtime.getFormatMessage({
             "zh-cn": {
                 "WitCatIndexedDB.name": "[beta]白猫的本地储存",
                 "WitCatIndexedDB.inputmanagement": "🔑键值对",
@@ -227,7 +227,7 @@ class WitCatIndexedDB {
      * @returns {string}
      */
     formatMessage(id) {
-        return this.FormatMessage({
+        return this._formatMessage({
             id,
             default: id,
             description: id
