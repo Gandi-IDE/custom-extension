@@ -1094,13 +1094,13 @@ class WitCatIndexedDB {
         this.mProjectID = ID;
         const keys = await this.kKeyListAsync(ID);
         // tbody
-        this.mVariables.innerHTML = "载入中……";
+        this.mVariables.innerHTML = this.mLangCh ? "载入中……" : "Loading...";
         /** 整张表 @type {SCarg[][]} */
         const table = await Promise.all(
             keys.map(async (v) => {
                 const info = await this.kKeyGetAsync(ID, v);
                 if (info === undefined) {
-                    return ["--", "--", "--", "--"];
+                    return [v, "--", "--", "--"];
                 }
                 let state = "--";
                 switch (info.perms.all) {
@@ -1399,8 +1399,7 @@ class WitCatIndexedDB {
                 this.mLangCh
                     ? "https://zhishi.oss-cn-beijing.aliyuncs.com/works-covers/55f9e357-35be-4486-bed8-559873050bc8.png"
                     : "https://zhishi.oss-cn-beijing.aliyuncs.com/works-covers/cdb2587b-957f-40dd-b0b1-75e4d73385cd.png"
-            }"
-                class="logo">
+            }" class="logo">
             <button id="WitCatIndexDBClose">X</button>
         </div>
         <div class="move-body">
