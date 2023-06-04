@@ -299,8 +299,8 @@ class DateTime {
    */
   _padZero(str, n) {
     let num = Number(str);
-    if (num === NaN || num < 0) throw new Error("`" + str + "' is not a vaild number");
-    return String(Math.floor(num)).padStart(n, 0);
+    if (isNaN(num) || num < 0) throw new Error(`\`${str}' 不是一个合适的数字`);
+    return String(Math.floor(num)).padStart(n, "0");
   }
 
   /**
@@ -313,7 +313,11 @@ class DateTime {
     try {
       return func();
     } catch (e) {
-      return e;
+      if (e instanceof Error) {
+        return e;
+      } else {
+        throw e;
+      }
     }
   }
 
@@ -327,7 +331,11 @@ class DateTime {
    */
   date(args) {
     return this._catchret(() => {
-      return this._localDate(new Date(`${this._padZero(args.YEAR, 4)}-${this._padZero(args.MONTH, 2)}-${this._padZero(args.DATE, 2)}T00:00:00.000`)).split("T")[0];
+      const result = this._localDate(new Date(`${this._padZero(args.YEAR, 4)}-${this._padZero(args.MONTH, 2)}-${this._padZero(args.DATE, 2)}T00:00:00.000`)).split("T")[0];
+      if (result === undefined) {
+        throw new Error(`日期时间扩展错误，Date() 的格式改变`);
+      }
+      return result;
     });
   }
 
@@ -362,20 +370,22 @@ class DateTime {
 
   /**
    * 现在的时间
-   * @param {object} args
    * @returns {string}
    */
-  now(args) {
+  now() {
     return this._localDate(new Date());
   }
 
   /**
    * 今天，也就是现在的时间去掉“时:分:秒.毫秒”部分
-   * @param {object} args
    * @returns {string}
    */
-  today(args) {
-    return this.now({}).split("T")[0];
+  today() {
+    const result = this.now().split("T")[0];
+    if (result === undefined) {
+      throw new Error(`日期时间扩展错误，Date() 的格式改变`);
+    }
+    return result;
   }
 
   /**
@@ -416,7 +426,7 @@ class DateTime {
    */
   diff(args) {
     return this._catchret(() => {
-      let diff = new Date(args.TIME2).getTime() - new Date(args.TIME1).getTime();
+      let diff = new Date(String(args.TIME2)).getTime() - new Date(String(args.TIME1)).getTime();
       switch (args.UNIT) {
         case "days":
           return diff / (24 * 60 * 60 * 1000);
@@ -428,6 +438,8 @@ class DateTime {
           return diff / (1000);
         case "millisecond":
           return diff;
+        default:
+          throw new Error(`选项错误`);
       }
     });
   }
@@ -442,7 +454,7 @@ class DateTime {
    */
   add(args) {
     return this._catchret(() => {
-      let orig = new Date(args.TIME1).getTime();
+      let orig = new Date(String(args.TIME1)).getTime();
       let diff = Number(args.TIME2);
       switch (args.UNIT) {
         case "days":
@@ -474,7 +486,7 @@ class DateTime {
    */
   get(args) {
     return this._catchret(() => {
-      let orig = new Date(args.TIME);
+      let orig = new Date(String(args.TIME));
       switch (args.UNIT) {
         case "year":
           return orig.getFullYear();
@@ -492,16 +504,17 @@ class DateTime {
           return orig.getSeconds();
         case "millisecond":
           return orig.getMilliseconds();
+        default:
+          throw new Error(`选项错误`);
       }
     });
   }
 
   /**
    * 获得时区
-   * @param {object} args
    * @returns {string}
    */
-  timezone(args) {
+  timezone() {
     let toff = new Date().getTimezoneOffset();
     return (toff > 0 ? "-" : "+") +
       this._padZero(Math.abs(toff) / 60, 2) +
@@ -510,10 +523,9 @@ class DateTime {
 
   /**
    * 获得时区偏移分钟数
-   * @param {object} args
    * @returns {number}
    */
-  timezonemin(args) {
+  timezonemin() {
     let toff = new Date().getTimezoneOffset();
     return -toff;
   }
