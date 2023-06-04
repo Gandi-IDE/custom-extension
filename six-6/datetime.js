@@ -6,6 +6,8 @@ let _picture = "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodH
 
 let _icon = "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSI2NC43MDI3MSIgaGVpZ2h0PSI2NC43MDI3MSIgdmlld0JveD0iMCwwLDY0LjcwMjcxLDY0LjcwMjcxIj48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjA3LjY0ODY0LC0xNDcuNjQ4NjUpIj48ZyBkYXRhLXBhcGVyLWRhdGE9InsmcXVvdDtpc1BhaW50aW5nTGF5ZXImcXVvdDs6dHJ1ZX0iIGZpbGwtcnVsZT0ibm9uemVybyIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2UtZGFzaGFycmF5PSIiIHN0cm9rZS1kYXNob2Zmc2V0PSIwIiBzdHlsZT0ibWl4LWJsZW5kLW1vZGU6IG5vcm1hbCI+PGc+PHBhdGggZD0iTTIwOS42NDg2NCwxODBjMCwtMTYuNzYyNTkgMTMuNTg4NzcsLTMwLjM1MTM1IDMwLjM1MTM2LC0zMC4zNTEzNWMxNi43NjI1OSwwIDMwLjM1MTM1LDEzLjU4ODc2IDMwLjM1MTM1LDMwLjM1MTM1YzAsMTYuNzYyNTkgLTEzLjU4ODc2LDMwLjM1MTM1IC0zMC4zNTEzNSwzMC4zNTEzNWMtMTYuNzYyNTksMCAtMzAuMzUxMzUsLTEzLjU4ODc3IC0zMC4zNTEzNSwtMzAuMzUxMzV6IiBmaWxsPSIjYmVmZmQyIiBzdHJva2U9IiM1YmUyODQiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9ImJ1dHQiLz48cGF0aCBkPSJNMjQwLjQ5NDE4LDE4MS41NDAzNWwtMjYuNjI4OTMsLTEyLjIwMjg3YzAsMCA2LjgyODc3LC0xNy42MTcyMyAyNi41OTM0NiwtMTcuMzgzNzNjMC4wNDQwMSwwLjAwMDUyIDAuMDM1NDgsMjkuNTg2NiAwLjAzNTQ4LDI5LjU4NjZ6IiBmaWxsPSIjYTdlMGI4IiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTIyNy4xMTQzNSwxNzUuMDE1NzJsMTMuMDM0OTcsNi4yMjE1OSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNDhiMzY4IiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0yNDAuMTQ5MzIsMTgxLjI1MjE4di0yMS41ODMxOCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNDhiMzY4IiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjwvZz48L2c+PC9nPjwvc3ZnPg==";
 
+/** @typedef {string|number|boolean} SCarg 来自Scratch圆形框的参数，虽然这个框可能只能输入数字，但是可以放入变量，因此有可能获得数字和文本，需要同时处理 */
+
 class DateTime {
   constructor(runtime) {
     this._formatMessage = runtime.getFormatMessage({
@@ -58,6 +60,11 @@ class DateTime {
     })
   }
 
+  /**
+   * 翻译
+   * @param {string} id
+   * @returns {string}
+   */
   formatMessage(id) {
     return this._formatMessage({
       id,
@@ -284,12 +291,24 @@ class DateTime {
     };
   }
 
+  /**
+   * 将 str 转化为数字并在前面补 0 直到长度 n
+   * @param {SCarg} str
+   * @param {number} n
+   * @returns {string}
+   */
   _padZero(str, n) {
     let num = Number(str);
     if (num === NaN || num < 0) throw new Error("`" + str + "' is not a vaild number");
     return String(Math.floor(num)).padStart(n, 0);
   }
 
+  /**
+   * 返回函数的执行结果，或者错误描述
+   * @template T
+   * @param {()=>T} func
+   * @returns {T|Error}
+   */
   _catchret(func) {
     try {
       return func();
@@ -298,32 +317,73 @@ class DateTime {
     }
   }
 
+  /**
+   * 根据数据创建日期文本
+   * @param {object} args
+   * @param {SCarg} args.YEAR 年
+   * @param {SCarg} args.MONTH 月
+   * @param {SCarg} args.DATE 日
+   * @returns {string|Error}
+   */
   date(args) {
     return this._catchret(() => {
       return this._localDate(new Date(`${this._padZero(args.YEAR, 4)}-${this._padZero(args.MONTH, 2)}-${this._padZero(args.DATE, 2)}T00:00:00.000`)).split("T")[0];
     });
   }
 
+  /**
+   * 根据数据创建时间文本（本地时间）
+   * @param {object} args
+   * @param {SCarg} args.YEAR 年
+   * @param {SCarg} args.MONTH 月
+   * @param {SCarg} args.DATE 日
+   * @param {SCarg} args.HOUR 时
+   * @param {SCarg} args.MINUTE 分
+   * @param {SCarg} args.SECOND 秒
+   * @returns {string|Error}
+   */
   time(args) {
     return this._catchret(() => {
       return this._localDate(new Date(`${this._padZero(args.YEAR, 4)}-${this._padZero(args.MONTH, 2)}-${this._padZero(args.DATE, 2)}T${this._padZero(args.HOUR, 2)}:${this._padZero(args.MINUTE, 2)}:${this._padZero(args.SECOND, 2)}.000`));
     });
   }
 
+  /**
+   * 获取“本地时间”表示，返回文本
+   * 实际上是当前时间减去时差，换算成 ISO 格式后去掉后面的 Z，字面上相当于本地时间
+   * @param {Date} date
+   * @return {string} “本地时间”文本表示，类似 2022-06-10T12:34:56.789
+   */
   _localDate(date) {
     let timeoffs = date.getTimezoneOffset();
     return new Date(date.getTime() - timeoffs * 1000 * 60)
       .toISOString().slice(0, -1);
   }
 
+  /**
+   * 现在的时间
+   * @param {object} args
+   * @returns {string}
+   */
   now(args) {
     return this._localDate(new Date());
   }
 
+  /**
+   * 今天，也就是现在的时间去掉“时:分:秒.毫秒”部分
+   * @param {object} args
+   * @returns {string}
+   */
   today(args) {
     return this.now({}).split("T")[0];
   }
 
+  /**
+   * 2000年1月1日0点整后 DAYS 天对应的时间（对应 Scratch 相关积木）
+   * @param {object} args
+   * @param {SCarg} args.DAYS
+   * @returns {string|Error}
+   */
   after2000(args) {
     return this.add({
       TIME1: "2000-01-01T00:00:00Z",
@@ -332,6 +392,12 @@ class DateTime {
     });
   }
 
+  /**
+   * 时间 TIME 距离 UTC 2000年1月1日0点整的天数（对应 Scratch 相关积木）
+   * @param {object} args
+   * @param {SCarg} args.TIME
+   * @returns {number|Error}
+   */
   diff2000(args) {
     return this.diff({
       TIME1: "2000-01-01T00:00:00Z",
@@ -340,6 +406,14 @@ class DateTime {
     });
   }
 
+  /**
+   * 比较两个时间
+   * @param {object} args
+   * @param {SCarg} args.TIME1 开始时间
+   * @param {SCarg} args.TIME2 结束时间
+   * @param {SCarg} args.UNIT 单位
+   * @returns {number|Error}
+   */
   diff(args) {
     return this._catchret(() => {
       let diff = new Date(args.TIME2).getTime() - new Date(args.TIME1).getTime();
@@ -358,6 +432,14 @@ class DateTime {
     });
   }
 
+  /**
+   * 增加时间
+   * @param {object} args
+   * @param {SCarg} args.TIME1 开始时间
+   * @param {SCarg} args.TIME2 增加的数值
+   * @param {SCarg} args.UNIT 增加数值的单位
+   * @returns {string|Error}
+   */
   add(args) {
     return this._catchret(() => {
       let orig = new Date(args.TIME1).getTime();
@@ -383,6 +465,13 @@ class DateTime {
     });
   }
 
+  /**
+   * 获得时间的部分
+   * @param {object} args
+   * @param {SCarg} args.TIME 时间
+   * @param {SCarg} args.UNIT 部分
+   * @returns {number|Error}
+   */
   get(args) {
     return this._catchret(() => {
       let orig = new Date(args.TIME);
@@ -407,6 +496,11 @@ class DateTime {
     });
   }
 
+  /**
+   * 获得时区
+   * @param {object} args
+   * @returns {string}
+   */
   timezone(args) {
     let toff = new Date().getTimezoneOffset();
     return (toff > 0 ? "-" : "+") +
@@ -414,6 +508,11 @@ class DateTime {
       this._padZero(Math.abs(toff) % 60, 2);
   }
 
+  /**
+   * 获得时区偏移分钟数
+   * @param {object} args
+   * @returns {number}
+   */
   timezonemin(args) {
     let toff = new Date().getTimezoneOffset();
     return -toff;
