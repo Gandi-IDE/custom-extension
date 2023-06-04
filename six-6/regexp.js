@@ -586,12 +586,12 @@ class RegExpVI {
    * @returns {string}
    */
   range(args) {
-    const re = /[\\\]\^]/g;
+    const re = /[\\\]^]/g;
     let text = String(args.TEXT);
     if (args.RANGE === "true") {
       text = text.replace(/.-./g, (x) => {
-        let a = x.codePointAt(0);
-        let b = x.codePointAt(2);
+        const a = x.codePointAt(0);
+        const b = x.codePointAt(2);
         const ac = x[0];
         const bc = x[2];
         if (a === undefined || b === undefined ||
@@ -619,7 +619,7 @@ class RegExpVI {
    * @returns {string}
    */
   str(args) {
-    const re = /[\\\[\].*?+(){}^$|]/g;
+    const re = /[\\[\].*?+(){}^$|]/g;
     return String(args.TEXT).replace(re, "\\$&");
   }
 
@@ -698,10 +698,10 @@ class RegExpVI {
     if (y < 0) y = 0;
     // 大小顺序乱的话，就反转。
     if (x > y) {
-      let t = x;
+      const t = x;
       x = y;
-      y = t
-    };
+      y = t;
+    }
     return "(?:" + String(args.REGEXP) + "){" +
       (x === y ? x : x + "," + y) +
       String(args.MODE);
@@ -724,7 +724,7 @@ class RegExpVI {
    * @returns {string}
    */
   groupreference(args) {
-    let N = Math.floor(Number(args.N));
+    const N = Math.floor(Number(args.N));
     return N > 0 ? "\\" + N : "";
   }
 
@@ -801,7 +801,7 @@ class RegExpVI {
    */
   foundtextgroups(args) {
     if (this.result === null) return "";
-    let N = Math.floor(Number(args.N));
+    const N = Math.floor(Number(args.N));
     const result = this.result[N];
     return result === undefined ? "" : result;
   }
@@ -817,19 +817,19 @@ class RegExpVI {
    */
   findall(args, util) {
     let regexp;
-    let result = [];
+    const result = [];
     try {
       regexp = new RegExp(String(args.REGEXP), "g");
     } catch (e) {
       // 这里应该提示用户表达式出错了
       return;
     }
-    let text = String(args.TEXT);
+    const text = String(args.TEXT);
     let res;
     while (res = regexp.exec(text), res !== null) {
       result.push(res[0]);
     }
-    let vari = util.target.lookupVariableById(args.LISTID);
+    const vari = util.target.lookupVariableById(args.LISTID);
     if (vari !== null)
       vari.value = result;
   }
@@ -852,9 +852,9 @@ class RegExpVI {
       // 这里应该提示用户表达式出错了
       return;
     }
-    let text = String(args.TEXT);
+    const text = String(args.TEXT);
     result = text.split(regexp);
-    let vari = util.target.lookupVariableById(args.LISTID);
+    const vari = util.target.lookupVariableById(args.LISTID);
     if (vari !== null)
       vari.value = result;
   }
@@ -876,7 +876,7 @@ class RegExpVI {
       // 这里应该提示用户表达式出错了
       return "";
     }
-    let text = String(args.TEXT);
+    const text = String(args.TEXT);
     let dest = String(args.DEST);
     if (String(args.GROUP) === "false") {
       dest = dest.replace(/\$/g, "$$$$");
@@ -892,10 +892,10 @@ class RegExpVI {
     if (this.runtime === undefined) {
       return [];
     }
-    let list = [];
+    const list = [];
     let varis = this.runtime._stageTarget.variables;
     Object.keys(varis).forEach(i => {
-      let v = varis[i];
+      const v = varis[i];
       if (v.type === "list") {
         list.push({
           text: v.name,
@@ -907,7 +907,7 @@ class RegExpVI {
       !this.runtime._editingTarget.isStage) {
       varis = this.runtime._editingTarget.variables;
       Object.keys(varis).forEach(i => {
-        let v = varis[i];
+        const v = varis[i];
         if (v.type === "list") {
           list.push({
             text: v.name,
