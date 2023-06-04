@@ -25,6 +25,7 @@ class RegExpVI {
     this.result = null;
 
     this.runtime = runtime;
+
     this._formatMessage = runtime.getFormatMessage({
       "zh-cn": {
         "RegExpVI.name": "正则表达式vi",
@@ -586,16 +587,22 @@ class RegExpVI {
    */
   range(args) {
     const re = /[\\\]\^]/g;
-    let text = args.TEXT;
+    let text = String(args.TEXT);
     if (args.RANGE === "true") {
-      text = text.replace(/.-./g, function(x) {
+      text = text.replace(/.-./g, (x) => {
         let a = x.codePointAt(0);
         let b = x.codePointAt(2);
+        const ac = x[0];
+        const bc = x[2];
+        if (a === undefined || b === undefined ||
+          ac === undefined || bc === undefined) {
+          throw new Error("不可能发生此情况");
+        }
         if (a < b) return x;
         // 如果范围表达左右相等，就输出单字
-        else if (a === b) return x[0];
+        else if (a === b) return ac;
         // 如果范围表达左大于右，就反转
-        else return x[2] + "-" + x[0];
+        else return bc + "-" + ac;
       });
     } else {
       if (text.includes("-")) {
@@ -744,12 +751,11 @@ class RegExpVI {
 
   /**
    * 查找下一个
-   * @param {object} args
    * @returns {void}
    */
-  findnext(args) {
+  findnext() {
     if (this.result !== null) {
-      if (this.result[0].length === 0)
+      if (this.result[0] !== undefined && this.result[0].length === 0)
         this.regexp.lastIndex++;
       this.result = this.regexp.exec(this.text);
     }
@@ -757,37 +763,33 @@ class RegExpVI {
 
   /**
    * 找到了？
-   * @param {object} args
    * @returns {boolean}
    */
-  isfound(args) {
+  isfound() {
     return this.result !== null;
   }
 
   /**
    * 找到的文本
-   * @param {object} args
    * @returns {string}
    */
-  foundtext(args) {
-    return this.result === null ? "" : this.result[0];
+  foundtext() {
+    return this.result === null ? "" : this.result[0] === undefined ? "" : this.result[0];
   }
 
   /**
    * 找到的文本的开始位置
-   * @param {object} args
    * @returns {number}
    */
-  foundtextbegin(args) {
+  foundtextbegin() {
     return this.regexp.lastIndex - this.foundtext().length + 1;
   }
 
   /**
    * 找到的文本的结束位置
-   * @param {object} args
    * @returns {number}
    */
-  foundtextend(args) {
+  foundtextend() {
     return this.regexp.lastIndex;
   }
 
@@ -800,11 +802,8 @@ class RegExpVI {
   foundtextgroups(args) {
     if (this.result === null) return "";
     let N = Math.floor(Number(args.N));
-    if (N >= this.result.length) {
-      return "";
-    } else {
-      return this.result[N] === null ? "" : this.result[N];
-    };
+    const result = this.result[N];
+    return result === undefined ? "" : result;
   }
 
   /**
@@ -871,7 +870,6 @@ class RegExpVI {
    */
   replace(args) {
     let regexp;
-    let result = [];
     try {
       regexp = new RegExp(String(args.REGEXP), "g");
     } catch (e) {
