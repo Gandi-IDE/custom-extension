@@ -1038,7 +1038,7 @@ class WitCatMouse {
 			this.mousetdlist[0] = "";
 			this.button[0] = "up";
 		})
-		canvas.addEventListener('click', () => {
+		document.addEventListener('click', () => {
 			if (this.click !== false) {
 				clearTimeout(this.click);
 			}
@@ -1046,7 +1046,7 @@ class WitCatMouse {
 				this.click = false;
 			}, 50);
 		});
-		canvas.addEventListener('dblclick', () => {
+		document.addEventListener('dblclick', () => {
 			if (this.dclick !== false) {
 				clearTimeout(this.dclick);
 			}
@@ -1055,7 +1055,7 @@ class WitCatMouse {
 			}, 50);
 		});
 		//给页面绑定滑轮滚动事件
-		canvas.addEventListener('wheel', (e) => {
+		document.addEventListener('wheel', (e) => {
 			this.MouseWheel = e.deltaY;
 			if (this.timer !== null) {
 				clearTimeout(this.timer);
