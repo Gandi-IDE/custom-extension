@@ -782,7 +782,7 @@ class WitCatIndexedDB {
         }
         const transaction = this.db.transaction(['indexeddb-store'], "readwrite");
         const objectStore = transaction.objectStore('indexeddb-store');
-        const request = objectStore.index('uuid-name').openKeyCursor([json.uuid, json.name]);
+        const request = objectStore.index('uuid-name').openCursor([json.uuid, json.name]);
         const cursor = await this.dbReqAsync(request);
 
         if (cursor === null) {
