@@ -142,6 +142,7 @@ class WitCatIndexedDB {
                 "WitCatIndexedDB.showon": "只读",
                 "WitCatIndexedDB.showoff": "私有",
                 "WitCatIndexedDB.showall": "公开",
+                "WitCatIndexedDB.default": "默认",
                 "WitCatIndexedDB.number": "第[num]个键值对的[type]",
                 "WitCatIndexedDB.numbers": "键值对数量",
                 "WitCatIndexedDB.number.1": "键",
@@ -168,6 +169,7 @@ class WitCatIndexedDB {
                 "WitCatIndexedDB.showon": "can read",
                 "WitCatIndexedDB.showoff": "can't read",
                 "WitCatIndexedDB.showall": "can read and modify",
+                "WitCatIndexedDB.default": "default setting",
                 "WitCatIndexedDB.number": "[type] of key [num]",
                 "WitCatIndexedDB.numbers": "key count",
                 "WitCatIndexedDB.number.1": "key",
@@ -331,7 +333,7 @@ class WitCatIndexedDB {
                         },
                         show: {
                             type: "string",
-                            menu: "setvariable",
+                            menu: "setvariablewithdefault",
                         },
                     },
                 },
@@ -391,6 +393,24 @@ class WitCatIndexedDB {
                 },
             ],
             menus: {
+                setvariablewithdefault: [
+                    {
+                        text: this.formatMessage('WitCatIndexedDB.showall'),
+                        value: 'allow'
+                    },
+                    {
+                        text: this.formatMessage('WitCatIndexedDB.showon'),
+                        value: 'read'
+                    },
+                    {
+                        text: this.formatMessage('WitCatIndexedDB.showoff'),
+                        value: 'self'
+                    },
+                    {
+                        text: this.formatMessage('WitCatIndexedDB.default'),
+                        value: 'default'
+                    },
+                ],
                 setvariable: [
                     {
                         text: this.formatMessage('WitCatIndexedDB.showall'),
@@ -666,7 +686,7 @@ class WitCatIndexedDB {
      * @param {object} args
      * @param {SCarg} args.name
      * @param {SCarg} args.id
-     * @param {SCarg|"self"|"allow"|"read"} args.show
+     * @param {SCarg|"self"|"allow"|"read"|"default"} args.show
      */
     async showvaro(args) {
         const h = this.runtime.ccwAPI.getProjectUUID();
@@ -678,8 +698,15 @@ class WitCatIndexedDB {
                     console.warn(`键不存在: ${args.name}`);
                     return undefined;
                 }
-                if (args.show === "self" || args.show === "read" || args.show === "allow") {
+                switch (args.show) {
+                    case "self":
+                    case "read":
+                    case "allow":
                     info.perms.projects[String(args.id)] = args.show;
+                        break;
+                    case "default":
+                        delete info.perms.projects[String(args.id)] 
+                        break;
                 }
                 return info;
             }
