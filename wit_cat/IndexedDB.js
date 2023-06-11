@@ -761,7 +761,7 @@ class WitCatIndexedDB {
         /** @type {DBInfo|undefined} */
         const info = cursor === null ? undefined : cursor.value;
         const modi = mfunc(info);
-        if (modi !== null) {
+        if (modi !== undefined) {
             if (cursor !== null) {
                 await this.dbReqAsync(cursor.update(modi));
             } else {
@@ -977,8 +977,8 @@ class WitCatIndexedDB {
      * @param {string} uuid 作品 ID
      * @param {string} name 键名
      * @param {(oldinfo: DBKeyInfo|undefined) => (DBKeyInfo|undefined)} mfunc 修改函数
-     *   oldinfo = null 代表原值不存在
-     *   返回值为 null 代表不修改
+     *   oldinfo = undefined 代表原值不存在
+     *   返回值为 undefined 代表不修改
      * @returns {Promise<void>}
      */
     async kKeyModifyAsync(uuid, name, mfunc) {
