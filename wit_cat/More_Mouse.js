@@ -866,7 +866,25 @@ class WitCatMouse {
 		if (file !== undefined) {
 			// 加一个扩展名判断？
 			const dataurl = String(await this._readerasync(file, 'dataurl'));
-			prompt('请复制以下代码：', dataurl);
+			let div = document.createElement('div');
+			div.style.position = 'fixed';
+			div.style.top = '10px';
+			div.style.left = '10px';
+			div.style.width = 'calc(100% - 20px)';
+			div.style.height = 'calc(100% - 20px)';
+			div.style.boder = '#0000008f 10px solid';
+			div.style.padding = '10px';
+			div.style.backgroundColor = '#fff';
+			div.style.borderRadius = '20px';
+			div.style.zIndex = '9999999999999';
+			div.style.overflow = 'scroll';
+			div.innerHTML = `<p>三击全选并复制，按下ESC关闭</p></br><p>${dataurl}</p>`;
+			document.addEventListener("keydown", (event) => {
+				if (event.code === 'Escape') {
+					div.remove();
+				}
+			});
+			document.body.appendChild(div);
 		}
 	}
 
