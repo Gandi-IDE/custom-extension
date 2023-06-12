@@ -86,6 +86,7 @@ class WitCatMouse {
 
 		this._formatMessage = runtime.getFormatMessage({
 			'zh-cn': {
+				'WitCatMouse.copythis': '复制以下内容：',
 				'WitCatMouse.name': '[beta]白猫的高级鼠标',
 				'WitCatMouse.name.1': '高级鼠标',
 				'WitCatMouse.name.2': '多指触控',
@@ -142,6 +143,7 @@ class WitCatMouse {
 				'WitCatMouse.mousewheel': '鼠标滚轮速度',
 			},
 			en: {
+				'WitCatMouse.copythis': 'Copy the following text:',
 				'WitCatMouse.name': '[beta]WitCat’s Mouse',
 				'WitCatMouse.name.1': 'more mouse',
 				'WitCatMouse.name.2': 'more touch',
@@ -868,23 +870,106 @@ class WitCatMouse {
 			const dataurl = String(await this._readerasync(file, 'dataurl'));
 			let div = document.createElement('div');
 			div.style.position = 'fixed';
-			div.style.top = '10px';
-			div.style.left = '10px';
-			div.style.width = 'calc(100% - 20px)';
-			div.style.height = 'calc(100% - 20px)';
-			div.style.boder = '#0000008f 10px solid';
-			div.style.padding = '10px';
-			div.style.backgroundColor = '#fff';
-			div.style.borderRadius = '20px';
-			div.style.zIndex = '9999999999999';
-			div.style.overflow = 'scroll';
-			div.innerHTML = `<p>三击全选并复制，按下ESC关闭</p></br><p>${dataurl}</p>`;
-			document.addEventListener("keydown", (event) => {
-				if (event.code === 'Escape') {
-					div.remove();
-				}
-			});
+			div.style.top = '0px';
+			div.style.left = '0px';
+			div.style.width = '100%';
+			div.style.height = '100%';
+			div.style.zIndex = '9999';
+			div.style.transition = 'all 0.2s ease-out';
+			div.style.backgroundColor = '#00000000';
+			div.innerHTML = `
+<div id="myModal" class="modal">
+<div class="modals">
+  <span class="close">
+      &times;
+  </span>
+  <h5>${this.formatMessage('WitCatMouse.copythis')}</h5>
+  <div class="modal-content">
+  <p>${dataurl}</p>
+  </div>
+</div>
+</div>
+<style>
+.modal{
+	height:0%;
+	transition:all 0.2s ease-out;
+}
+
+.modal-content {
+	margin-top:16px;
+	height:calc(100% - 16px);
+	overflow: scroll;
+}
+.modals{
+    background-color: #00000000;
+    margin: 15% auto; 
+    padding: 20px;
+	border-radius:20px;
+    width: 50%; 
+    height:50%;
+    position:relative;
+}
+ 
+.modal-content::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+
+.modal-content p,.modals h5 {
+    color: var(--theme-text-primary);
+}
+
+.modals h5 {
+	font-size: 20px;
+}
+
+.close {
+  cursor: pointer;
+  position:absolute;
+  top:0;
+  right:10px;
+  color:#aaa;
+  font-size:28px;
+  font-weight:bold;
+}
+
+//关闭特效
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+</style>
+`;
 			document.body.appendChild(div);
+
+			var modal = document.getElementById('myModal');
+			var span = document.querySelector('.close');
+			//创建点击事件
+			span.onclick = function () {
+				div.style.backgroundColor = '#00000000';
+				modal.style.height = '0%';
+				document.getElementsByClassName('modals')[0].style.backgroundColor = '#00000000';
+				setTimeout(() => {
+					div.remove();
+				}, 180);
+			}
+			// 在用户点击其他地方时，关闭弹窗
+			document.addEventListener("click", function (event) {
+				if (event.target == modal) {
+					div.style.backgroundColor = '#00000000';
+					modal.style.height = '0%';
+					document.getElementsByClassName('modals')[0].style.backgroundColor = '#00000000';
+					setTimeout(() => {
+						div.remove();
+					}, 180);
+				}
+			})
+			setTimeout(() => {
+				div.style.backgroundColor = 'var(--theme-scrollbar-color)';
+				modal.style.height = '80%';
+				document.getElementsByClassName('modals')[0].style.backgroundColor = 'var(--theme-color-300)';
+			}, 100);
 		}
 	}
 
