@@ -1,8 +1,8 @@
-import zhCn from "./l10n/zh-cn.json";
-import en from "./l10n/en.json";
-import cover from "./assets/cover.png";
-import blockIcon from "./assets/icon.png";
-import ext from "./index";
+import zhCn from './l10n/zh-cn.json';
+import en from './l10n/en.json';
+import cover from './assets/cover.png';
+import blockIcon from './assets/icon.png';
+import ext from './index';
 
 export const extensionNS = 'KYSTEAM';
 
@@ -35,14 +35,14 @@ export default {
     disabled: false,
     collaborator: 'KYS TEAM',
     collaboratorList:[{
-      collaborator: "酷可mc@CCW",
-      collaboratorURL: "https://www.ccw.site/student/610b508176415b2f27e0f851",
+      collaborator: '酷可mc@CCW',
+      collaboratorURL: 'https://www.ccw.site/student/610b508176415b2f27e0f851',
   }, {
-      collaborator: "YUEN@CCW",
-      collaboratorURL: "https://www.ccw.site/student/6173f57f48cf8f4796fc860e",
+      collaborator: 'YUEN@CCW',
+      collaboratorURL: 'https://www.ccw.site/student/6173f57f48cf8f4796fc860e',
   }, {
-      collaborator: "碳酸七嘤钠@CCW",
-      collaboratorURL: "https://www.ccw.site/student/59f6f49b5f94a62d030b07fc",
+      collaborator: '碳酸七嘤钠@CCW',
+      collaboratorURL: 'https://www.ccw.site/student/59f6f49b5f94a62d030b07fc',
   }],
     doc: `${extensionId}.docURL`,
   },

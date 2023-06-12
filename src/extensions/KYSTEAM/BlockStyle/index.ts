@@ -12,6 +12,13 @@ interface IMenu {
   type: string;
 }
 
+interface ICat {
+  md5: string;
+  /** 不传参用默认配色 */
+  ear?: string;
+  face?: string;
+}
+
 export default class BlockStyle extends GandiExtension {
   runtime: any;
   ccwAPI: any;
@@ -1116,6 +1123,9 @@ export default class BlockStyle extends GandiExtension {
     //   face: '#4f422f',
     // };
     let assetMap = {
+      default: {
+        md5: '',
+      },
       ikun: {
         md5: '29c2600f6c6bc15dc3b0f39f6938ce94',
       },
@@ -1153,10 +1163,8 @@ export default class BlockStyle extends GandiExtension {
       // 皮卡丘的资源从后端加载
       // 因为内容太多了 随时都要调整
     };
-    const data = eval(
-      '(' +
-        this.getJSON('https://yuensite.f3322.net:7001/config/cat-config.json') +
-        ')'
+    const data = this.getJSON(
+      'https://yuensite.f3322.net:7001/config/cat-config.json'
     );
     const json = typeof data == 'object' ? data : {};
     assetMap = {
@@ -1167,13 +1175,16 @@ export default class BlockStyle extends GandiExtension {
   }
 
   getJSON(url: string | URL) {
-    if (localStorage.getItem('KYSTEAM_BlockStyle_PermissionVerification') == 'true') {
+    if (
+      localStorage.getItem('KYSTEAM_BlockStyle_PermissionVerification') ==
+      'true'
+    ) {
       const xhr = new XMLHttpRequest();
       xhr.open('get', url, false);
       xhr.send();
-      return xhr.responseText;
+      return JSON.parse(xhr.responseText);
     }
-    return;
+    return false;
   }
 
   getCatInfoByName(name: string | number) {
@@ -1182,21 +1193,17 @@ export default class BlockStyle extends GandiExtension {
       const suffix = 'svg';
       return `${URI}/${md5}.${suffix}`;
     };
-    interface IAssetMap {
-      /** 资源是从 Gandi-成就-图标-上传 拿到的 只截取md5部分 */
-      face: string;
-      ear: string;
-    }
     const assetMap = this.getCatInfoByList();
     // 兜底的数据 防止因为检索不到md5导致报错
-    const assetDefault: IAssetMap = {
+    const assetDefault: ICat = {
       face: '#00000099',
       ear: '#ffd5e6',
+      md5: '',
     };
     // 如果没有耳朵和脸的颜色 就用默认配色
     const _data = { ...assetDefault, ...assetMap[name] };
     // 污染拿到的数据 注入转为url的md5
-    _data.md5 = getUrlByMd5(assetMap[name].md5);
+    _data.md5 = getUrlByMd5(_data.md5);
     const searchData = _data || assetDefault;
     return searchData;
   }
@@ -1214,44 +1221,38 @@ export default class BlockStyle extends GandiExtension {
     /** 数据 */
     const Subject: IMenu[] = [];
     let _InjectSub: IMenu[] = Boolean(localStorage.getItem('KYS#MenuStatus'))
-      ? eval(`(${localStorage.getItem('KYS#MenuData')})`)
+      ? JSON.parse(localStorage.getItem('KYS#MenuData'))
       : [];
     const _Subject: IMenu[] = [
       /** official */
-      { text: '默认猫头', value: 'NotFound', type: 'Official' },
-      { text: '春', value: 'spring', type: 'Official' },
-      { text: '夏', value: 'summer', type: 'Official' },
-      { text: '秋', value: 'autumn', type: 'Official' },
-      { text: '冬', value: 'winter', type: 'Official' },
-      // 皮卡丘的资源迁移到后端
-      /** ccw community */
-      { text: '古风玉簪', value: 'xiaoyh', type: 'Community' },
+      { text: '默认猫头', value: 'default', type: 'Official' },
+      { text: '春', value: 'spring', type: 'sodaw' },
+      { text: '夏', value: 'summer', type: 'sodaw' },
+      { text: '秋', value: 'autumn', type: 'sodaw' },
+      { text: '冬', value: 'winter', type: 'sodaw' },
       /** kukemc */
       { text: '水果', value: 'fruit', type: 'Kuke' },
       { text: '自然', value: 'nature', type: 'Kuke' },
       { text: '零食', value: 'snacks', type: 'Kuke' },
       { text: 'IKUN', value: 'ikun', type: 'Kuke' },
       { text: '菜猫', value: 'vegetables', type: 'Kuke' },
-      { text: '闪瞎你的眼', value: 'star', type: 'Kuke' },
     ];
-
-    const _Tag = {
-      Official: '官方',
-      Community: '社区',
-      Kuke: '酷可mc',
-      pikaqiu: '软萌软萌d皮卡丘',
-    };
-    const data = eval(
-      '(' +
-        this.getJSON(
-          'https://yuensite.f3322.net:7001/config/menu-config.json'
-        ) +
-        ')'
+    const _SubLength = _Subject.length;
+    const TagData = this.getJSON(
+      'https://yuensite.f3322.net:7001/config/tag-config.json'
     );
-    _InjectSub = _InjectSub.concat(typeof data == 'object' ? data : []);
+    const MenuData = this.getJSON(
+      'https://yuensite.f3322.net:7001/config/menu-config.json'
+    );
+    _InjectSub = _InjectSub.concat(typeof MenuData == 'object' ? MenuData : []);
 
     const arrayData = _Subject.concat(_InjectSub);
 
+    const _Tag = {
+      Official: '官方',
+      Kuke: '酷可mc',
+      ...(typeof TagData == 'object' ? TagData : {}),
+    };
     for (const i in arrayData) {
       const sub = arrayData[i];
       /** 当数据发生错误时，就用数据本身的tag */
@@ -1259,7 +1260,7 @@ export default class BlockStyle extends GandiExtension {
       /** 移除Menu不需要的键 */
       delete sub.type;
       /** 拼接tag */
-      sub.text = `[${tag}] ${sub.text}`;
+      sub.text = `[${tag}] ${_SubLength <= Number(i) ? '☁' : ''}${sub.text}`;
       Subject.push(sub);
     }
     return Subject;
