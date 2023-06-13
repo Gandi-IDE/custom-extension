@@ -122,7 +122,7 @@ class WitCatIndexedDB {
         this.mButtonShow();
 
         this.runtime = runtime;
-        console.log( this.runtime );
+        console.log(this.runtime);
         this._formatMessage = runtime.getFormatMessage({
             "zh-cn": {
                 "WitCatIndexedDB.name": "[beta]白猫的本地储存",
@@ -211,7 +211,7 @@ class WitCatIndexedDB {
                 {
                     blockType: "button",
                     text: this.formatMessage('WitCatIndexedDB.Manages'),
-                    onClick: () => {this.mOpen()},
+                    onClick: () => { this.mOpen() },
                 },
                 {
                     opcode: "description",
@@ -608,7 +608,10 @@ class WitCatIndexedDB {
         const id = String(args.id)
         const name = String(args.name)
         const h = this.runtime.ccwAPI.getProjectUUID();
-        return await this.kKeyCheckGetAsync(id, name, h);
+        if (args.type === 'value')
+            return await this.kKeyCheckGetAsync(id, name, h);
+        else
+            return await this.kKeyCheckGetAsync(id, name, h, 'descp');
     }
 
     /**
@@ -702,10 +705,10 @@ class WitCatIndexedDB {
                     case "self":
                     case "read":
                     case "allow":
-                    info.perms.projects[String(args.id)] = args.show;
+                        info.perms.projects[String(args.id)] = args.show;
                         break;
                     case "default":
-                        delete info.perms.projects[String(args.id)] 
+                        delete info.perms.projects[String(args.id)]
                         break;
                 }
                 return info;
@@ -979,7 +982,7 @@ class WitCatIndexedDB {
      * @param {string} fromuuid 读键的作品 ID
      * @returns {Promise<SCarg>}
      */
-    async kKeyCheckGetAsync(uuid, name, fromuuid) {
+    async kKeyCheckGetAsync(uuid, name, fromuuid, type) {
         /** @type {DBKeyInfo|undefined} */
         const info = await this.dbKeyGetAsync(uuid, name);
         if (info === undefined) {
@@ -992,7 +995,10 @@ class WitCatIndexedDB {
                 ? info.perms.all !== "self"
                 : info.perms.projects[uuid] !== "self")
         ) {
-            return info.value;
+            if (type === 'descp')
+                return info.descp;
+            else
+                return info.value;
         } else {
             console.warn(`读取 ${uuid} 上的键 ${name} 的权限不够，这个键的权限描述是：`, info.perms);
             return "";
@@ -1422,11 +1428,10 @@ class WitCatIndexedDB {
     </style>
     <div class="move" id="WitCatIndexDBMove">
         <div class="move-header" id="WitCatIndexDBMoveHeader">
-            <img src="${
-                this.mLangCh
+            <img src="${this.mLangCh
                     ? "https://zhishi.oss-cn-beijing.aliyuncs.com/works-covers/55f9e357-35be-4486-bed8-559873050bc8.png"
                     : "https://zhishi.oss-cn-beijing.aliyuncs.com/works-covers/cdb2587b-957f-40dd-b0b1-75e4d73385cd.png"
-            }" class="logo">
+                }" class="logo">
             <button id="WitCatIndexDBClose">X</button>
         </div>
         <div class="move-body">
@@ -1437,21 +1442,20 @@ class WitCatIndexedDB {
                 <table class="table">
                     <thead>
                         <tr>
-                        ${
-                            this.mLangCh
-                                ? `
+                        ${this.mLangCh
+                    ? `
                             <th>键</th>
                             <th>值</th>
                             <th>描述</th>
                             <th>状态</th>
                             <th>操作</th>`
-                                : `
+                    : `
                             <th>key</th>
                             <th>value</th>
                             <th>description</th>
                             <th>state</th>
                             <th>operate</th>`
-                        }
+                }
                         </tr>
                     </thead>
                     <tbody id="WitCatIndexDBVariables"></tbody>
@@ -1551,7 +1555,7 @@ class WitCatIndexedDB {
     /**
      * 鼠标按下
      * @param {MouseEvent} e
-     */ 
+     */
     mMoveMousedown(e) {
         const d = this.mResizeDirection(e)
         if (d !== '') {
