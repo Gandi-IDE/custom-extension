@@ -25,14 +25,61 @@ export default class BlockStyle extends GandiExtension {
   Blockly: any;
   onlineConfig: any;
   useMouseCursor: boolean;
+  extConfigHost: string;
+  env: string;
+  catInfos: any;
+  menuInfos: any;
+  tagInfos: any;
+  dynamicMenu: any;
   constructor(runtime: { ccwAPI: any; scratchBlocks: any }) {
     super(runtime);
     this.runtime = runtime;
     this.ccwAPI = runtime.ccwAPI;
     this.Blockly = runtime.scratchBlocks;
+    this.env = 'prod';
     this.onlineConfig = {};
-    this.onlineConfig.cdnHost = '//m.ccw.site';
+    this.onlineConfig.cdnHost = 'https://m.ccw.site';
     this.useMouseCursor = false;
+    this.extConfigHost =
+      this.env === 'prod'
+        ? this.onlineConfig.cdnHost + '/gandi/extension/block_style_assets'
+        : this.env === 'test'
+        ? 'https://yuensite.f3322.net:7001'
+        : 'https://192.168.2.88:7000';
+    this.tagInfos = this.getJSON(
+      this.extConfigHost + '/config/tag-config.json'
+    );
+    this.menuInfos = this.getJSON(
+      this.extConfigHost + '/config/menu-config.json'
+    );
+    /** 兜底数据 */
+
+    const empty = { text: 'empty 空数据', value: 'default', type: 'Official' };
+    const _default = {
+      text: '一只普通的猫猫',
+      value: 'default',
+      type: 'Official',
+    };
+    /** 数据 */
+    const Subject: IMenu[] = [_default];
+    const tagData = this.getCacheData(1);
+    const menuData = this.getCacheData(2);
+    // HACK 至于为什么不直接用MenuData？ 因为后续arrayData里还会从其他地方注入（本地资源包...）
+    const arrayData = typeof menuData == 'object' ? menuData : [empty];
+
+    const _Tag = typeof tagData == 'object' ? tagData : {};
+    for (const i in arrayData) {
+      const sub = arrayData[i];
+      const tag = _Tag[sub.type] ? _Tag[sub.type] : sub.type;
+      delete sub.type;
+      sub.text = `☁ [${tag}] ${sub.text}`;
+      console.log(sub);
+      Subject.push(sub);
+    }
+    this.dynamicMenu = Subject;
+    this.catInfos = this.getJSON(
+      this.extConfigHost + '/config/cat-config.json'
+    );
   }
 
   get extensionId(): string {
@@ -64,8 +111,8 @@ export default class BlockStyle extends GandiExtension {
 
   get authorInfo() {
     return {
-      labelName: 'kukemc@KYSTEAM',
-      username: 'kukemc@KYSTEAM',
+      labelName: 'KYSTEAM',
+      username: 'KYSTEAM',
       homepage: 'https://www.ccw.site/student/203910367',
       email: 'en5991@outlook.com',
     };
@@ -79,27 +126,8 @@ export default class BlockStyle extends GandiExtension {
     return [];
   }
 
-  PermissionVerification() {
-    if (localStorage.getItem('KYSTEAM_BlockStyle_NotNewUser') == 'true') {
-      return;
-    } else {
-      const bool = confirm(
-        '欢迎使用积木样式\n首次使用需要确认是否从网络上获取积木样式资源包\n如果点击取消只能使用本地资源包\n请问是否同意'
-      );
-      localStorage.setItem('KYSTEAM_BlockStyle_NotNewUser', 'true');
-      localStorage.setItem(
-        'KYSTEAM_BlockStyle_PermissionVerification',
-        String(bool)
-      );
-      return;
-    }
-  }
   init() {
-    this.PermissionVerification();
     // create menus
-    /**
-     * @HACK 按需使用Switch
-     */
     const SwitchMenu = BlockUtil.createMenu(
       'SwitchMenu',
       [
@@ -116,9 +144,6 @@ export default class BlockStyle extends GandiExtension {
     );
 
     // create arguments
-    /**
-     * @TODO
-     */
     const MouseCursor = BlockUtil.createArgument(
       ArgumentType.STRING,
       '',
@@ -126,11 +151,8 @@ export default class BlockStyle extends GandiExtension {
     );
     const Style = BlockUtil.createArgument(ArgumentType.STRING, '', StyleMenu);
     const URI = BlockUtil.createArgument(ArgumentType.STRING, 'Args.URI');
-    // create blocks
-    /**
-     * @TODO
-     */
 
+    // create blocks
     const OfficialCat = BlockUtil.createCommand(
       'OfficialCatBlock',
       'Block.OfficialCat'
@@ -162,14 +184,9 @@ export default class BlockStyle extends GandiExtension {
     this.addBlock(CloseAllCat);
     this.addBlock(useMouseCursor);
   }
-  // block function
-  /**
-   * @TODO
-   */
 
+  // block function
   CloseAllCatBlock() {
-    // XXX 没有思路
-    // ⚠⚠⚠ 不要删掉这里的注释 ⚠⚠⚠
     // Blockly.BlockSvg.START_HAT_HEIGHT = 16;
     // Blockly.BlockSvg.START_HAT_PATH = 'c 25,-22 71,-22 96,0';
     // Blockly.BlockSvg.TOP_LEFT_CORNER_DEFINE_HAT = 'a 20,20 0 0,1 20,-20';
@@ -192,17 +209,11 @@ export default class BlockStyle extends GandiExtension {
       face: '#00000099',
       ear: '#ffd5e6',
     };
-    /**
-     * KYSTEAM_cat
-     * 这是每个积木块上的 id
-     */
 
-    // 刷新工作区的函数需要关闭/开启共用 为了不重复创建 把它放到判断之前
     const workspace_ = () => {
       // 工作区
       const workspace = Blockly.getMainWorkspace();
       if (workspace) {
-        // 优先更新当前编辑的角色（用户看到的）
         if (this.runtime._editingTarget) {
           // 刷新
           this.runtime._events.BLOCKS_NEED_UPDATE();
@@ -635,12 +646,9 @@ export default class BlockStyle extends GandiExtension {
     };
 
     Blockly.BlockSvg.prototype.sa_catBlockConstructor = function () {
-      /** userPicG是用户image上层的dom 用于隔离 */
-      // TODO 为了容易把‘猫’卸载掉 svgGroup_是积木的最底层 但这样就不容易卸载了 容易误伤 把svgGroup_里再套一个<g/>里面是userPicG & catPath_ 这里为了方便查找 给<g/>设个id
       this.cat_ = Blockly.utils.createSvgElement('g', {}, this.svgGroup_);
-      this.cat_.setAttribute('id', 'KYSTEAM_cat');
-      this.userPicG = Blockly.utils.createSvgElement('g', {}, this.cat_);
       this.catPath_ = Blockly.utils.createSvgElement('g', {}, this.cat_);
+      this.userPicG = Blockly.utils.createSvgElement('g', {}, this.cat_);
 
       this.svgFace_ = Blockly.utils.createSvgElement('g', {}, this.catPath_);
 
@@ -658,6 +666,7 @@ export default class BlockStyle extends GandiExtension {
     const Blockly = this.Blockly;
     let shouldWatchMouseCursor = this.useMouseCursor;
     const catInfo = this.getCatInfoByName(Style);
+    console.log(catInfo);
     /**
      * KYSTEAM_cat
      * 这是每个积木块上的 id
@@ -876,11 +885,38 @@ export default class BlockStyle extends GandiExtension {
           }, 100);
         }
       );
-      this.userPic = Blockly.utils.createSvgElement('image', {}, this.userPicG);
 
-      this.userPic.setAttribute('href', catInfo.md5);
-      this.userPic.setAttribute('x', '-1');
-      this.userPic.setAttribute('y', '-33');
+      if (catInfo.use_asset_v2) {
+        this.userPic2 = Blockly.utils.createSvgElement(
+          'image',
+          {},
+          this.userPicG_2
+        );
+
+        this.userPic2.setAttribute('href', catInfo.md52);
+        this.userPic2.setAttribute('x', '-1');
+        this.userPic2.setAttribute('y', '-33');
+
+        this.userPic1 = Blockly.utils.createSvgElement(
+          'image',
+          {},
+          this.userPicG_1
+        );
+
+        this.userPic1.setAttribute('href', catInfo.md51);
+        this.userPic1.setAttribute('x', '-1');
+        this.userPic1.setAttribute('y', '-33');
+      } else {
+        this.userPic1 = Blockly.utils.createSvgElement(
+          'image',
+          {},
+          this.userPicG_1
+        );
+
+        this.userPic1.setAttribute('href', catInfo.md5);
+        this.userPic1.setAttribute('x', '-1');
+        this.userPic1.setAttribute('y', '-33');
+      }
 
       this.catPath_.ear.addEventListener('mouseenter', function () {
         clearTimeout(that.earFn);
@@ -1102,9 +1138,15 @@ export default class BlockStyle extends GandiExtension {
 
     Blockly.BlockSvg.prototype.sa_catBlockConstructor = function () {
       this.cat_ = Blockly.utils.createSvgElement('g', {}, this.svgGroup_);
-      this.userPicG = Blockly.utils.createSvgElement('g', {}, this.cat_);
-      this.catPath_ = Blockly.utils.createSvgElement('g', {}, this.cat_);
-
+      // HACK 针对启用v2的猫猫要特判一下
+      if (catInfo.use_asset_v2) {
+        this.userPicG_2 = Blockly.utils.createSvgElement('g', {}, this.cat_);
+        this.catPath_ = Blockly.utils.createSvgElement('g', {}, this.cat_);
+        this.userPicG_1 = Blockly.utils.createSvgElement('g', {}, this.cat_);
+      } else {
+        this.userPicG_1 = Blockly.utils.createSvgElement('g', {}, this.cat_);
+        this.catPath_ = Blockly.utils.createSvgElement('g', {}, this.cat_);
+      }
       this.svgFace_ = Blockly.utils.createSvgElement('g', {}, this.catPath_);
 
       this.catPath_.svgFace = this.svgFace_; /** svgFace_在catPath_里 */
@@ -1118,78 +1160,25 @@ export default class BlockStyle extends GandiExtension {
   // Cute cat info
 
   getCatInfoByList() {
-    // const pikaqiuStyleTemplate = {
-    //   ear: '#eb94eb',
-    //   face: '#4f422f',
-    // };
-    let assetMap = {
-      default: {
-        md5: '',
-      },
-      ikun: {
-        md5: '29c2600f6c6bc15dc3b0f39f6938ce94',
-      },
-      vegetables: {
-        md5: '0897617a242c0db8072dcaa42b53348b',
-      },
-      fruit: {
-        md5: '9a47b93a9e410baf23fe9f83919de156',
-      },
-      nature: {
-        md5: 'cd71e8c6c2251da328245dc32e8b283a',
-      },
-      snacks: {
-        md5: '7e3fd9c7bb8ad0cda64b4f58dccd01e1',
-      },
-      spring: {
-        md5: 'cfed3220b96a2840d2e406fdc6c6b24b',
-        ear: '#ffffffb2',
-      },
-      summer: {
-        md5: '935f90e9916d261ea984410463cbd48a',
-        ear: '#ffffffb2',
-      },
-      autumn: {
-        md5: 'fd686d41bead2b6d6924386d205ac832',
-        ear: '#ffffffb2',
-      },
-      winter: {
-        md5: '8a3d1838492e967f139056806f8f186a',
-      },
-      // HACK 如果日后xiaoyh知道了，还是有必要处理一下的
-      xiaoyh /** 丫鬟 ?== xiaoyh ≠ ccw那个xiaoyh 只是方便英文命名 */: {
-        md5: 'a61c3e02ef65452f8017e24dad8c7e1f',
-      },
-      // 皮卡丘的资源从后端加载
-      // 因为内容太多了 随时都要调整
-    };
-    const data = this.getJSON(
-      'https://yuensite.f3322.net:7001/config/cat-config.json'
-    );
-    const json = typeof data == 'object' ? data : {};
-    assetMap = {
-      ...assetMap,
-      ...json,
-    };
-    return assetMap;
+    // 下层处理时把数据污染上就可以 这里用于占位
+    const empty = {};
+    const _default = {};
+    let data = this.getCacheData(3);
+    data =
+      typeof data == 'object' ? { default: _default, ...data } : { ...empty };
+    return data;
   }
 
   getJSON(url: string | URL) {
-    if (
-      localStorage.getItem('KYSTEAM_BlockStyle_PermissionVerification') ==
-      'true'
-    ) {
-      const xhr = new XMLHttpRequest();
-      xhr.open('get', url, false);
-      xhr.send();
-      return JSON.parse(xhr.responseText);
-    }
-    return false;
+    const xhr = new XMLHttpRequest();
+    xhr.open('get', url, false);
+    xhr.send();
+    return JSON.parse(xhr.responseText);
   }
 
   getCatInfoByName(name: string | number) {
     const getUrlByMd5 = (md5: any) => {
-      const URI = `${this.onlineConfig.cdnHost}/gandi_application/user_assets`;
+      const URI = this.extConfigHost + '/assetV2';
       const suffix = 'svg';
       return `${URI}/${md5}.${suffix}`;
     };
@@ -1200,69 +1189,29 @@ export default class BlockStyle extends GandiExtension {
       ear: '#ffd5e6',
       md5: '',
     };
+
     // 如果没有耳朵和脸的颜色 就用默认配色
     const _data = { ...assetDefault, ...assetMap[name] };
     // 污染拿到的数据 注入转为url的md5
+    _data.md51 = _data.use_asset_v2 ? getUrlByMd5(_data.md5 + '_2') : null;
+    _data.md52 = _data.use_asset_v2 ? getUrlByMd5(_data.md5 + '_1') : null;
     _data.md5 = getUrlByMd5(_data.md5);
     const searchData = _data || assetDefault;
     return searchData;
   }
 
   //dynamic menu function
-  /**
-   * @TODO
-   */
+  getCacheData(type) {
+    if (type == 1) return this.tagInfos;
+    if (type == 2) return this.menuInfos;
+    if (type == 3) return this.catInfos;
+  }
 
   /**
    * @description: 积木选择菜单
    * @return {IMenu[]}
    */
   StyleMenu(): IMenu[] {
-    /** 数据 */
-    const Subject: IMenu[] = [];
-    let _InjectSub: IMenu[] = Boolean(localStorage.getItem('KYS#MenuStatus'))
-      ? JSON.parse(localStorage.getItem('KYS#MenuData'))
-      : [];
-    const _Subject: IMenu[] = [
-      /** official */
-      { text: '默认猫头', value: 'default', type: 'Official' },
-      { text: '春', value: 'spring', type: 'sodaw' },
-      { text: '夏', value: 'summer', type: 'sodaw' },
-      { text: '秋', value: 'autumn', type: 'sodaw' },
-      { text: '冬', value: 'winter', type: 'sodaw' },
-      /** kukemc */
-      { text: '水果', value: 'fruit', type: 'Kuke' },
-      { text: '自然', value: 'nature', type: 'Kuke' },
-      { text: '零食', value: 'snacks', type: 'Kuke' },
-      { text: 'IKUN', value: 'ikun', type: 'Kuke' },
-      { text: '菜猫', value: 'vegetables', type: 'Kuke' },
-    ];
-    const _SubLength = _Subject.length;
-    const TagData = this.getJSON(
-      'https://yuensite.f3322.net:7001/config/tag-config.json'
-    );
-    const MenuData = this.getJSON(
-      'https://yuensite.f3322.net:7001/config/menu-config.json'
-    );
-    _InjectSub = _InjectSub.concat(typeof MenuData == 'object' ? MenuData : []);
-
-    const arrayData = _Subject.concat(_InjectSub);
-
-    const _Tag = {
-      Official: '官方',
-      Kuke: '酷可mc',
-      ...(typeof TagData == 'object' ? TagData : {}),
-    };
-    for (const i in arrayData) {
-      const sub = arrayData[i];
-      /** 当数据发生错误时，就用数据本身的tag */
-      const tag = _Tag[sub.type] ? _Tag[sub.type] : sub.type;
-      /** 移除Menu不需要的键 */
-      delete sub.type;
-      /** 拼接tag */
-      sub.text = `[${tag}] ${_SubLength <= Number(i) ? '☁' : ''}${sub.text}`;
-      Subject.push(sub);
-    }
-    return Subject;
+    return this.dynamicMenu;
   }
 }
