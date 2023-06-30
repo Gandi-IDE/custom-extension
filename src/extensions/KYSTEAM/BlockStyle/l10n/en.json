@@ -1,0 +1,14 @@
+{
+    "name": "[beta] Building block style",
+    "desc": "Come and play with cute cats~",
+    "docURL": "Chinese Document Url",
+    "Switch.OFF": "❎OFF",
+    "Switch.ON": "✅ON",
+    "Args.URI": "https://m.ccw.site/gandi/GandiIDE.png",
+    "Label.Set": "⚙ Load cute cats",
+    "Block.OfficialCat": "Load official cute cat resources [Style]",
+    "Block.CustomCat": "Load custom cute cat resources based on image links [URI]",
+    "Label.Tool": "🔧 Scratch Blocks Tool",
+    "Block.CloseAllCat": "Turn off block styles",
+    "Block.UseMouseCursor": "Whether to enable cat's eye tracking [MouseCursor]"
+}

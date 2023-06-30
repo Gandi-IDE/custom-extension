@@ -1,0 +1,14 @@
+{
+    "name": "[beta] 积木样式",
+    "desc": "快来和猫猫一起玩吧~",
+    "docURL": "Chinese Document Url",
+    "Switch.OFF": "❎OFF",
+    "Switch.ON": "✅ON",
+    "Args.URI": "https://m.ccw.site/gandi/GandiIDE.png",
+    "Label.Set": "⚙ 使用可爱的猫猫",
+    "Block.OfficialCat": "从右侧选择一个可爱的猫猫 [Style]",
+    "Block.CustomCat": "使用自定义图像链接加载可爱的猫猫 [URI]",
+    "Label.Tool": "🔧 工具",
+    "Block.CloseAllCat": "关闭可爱的猫猫",
+    "Block.UseMouseCursor": "是否开启猫眼追踪 [MouseCursor]"
+}
