@@ -138,7 +138,7 @@ export default class ddevcom extends GandiExtension {
         //设置block
         blk = null
         if (blck[i]['blockType'] == BlockType.BOOLEAN) { blk = BlockUtil.createBool(); blk.setReporterScope(ReporterScope.GLOBAL) }
-        if (blck[i]['blockType'] == BlockType.BUTTON) { blk = BlockUtil.createButton(); }
+        if (blck[i]['blockType'] == BlockType.BUTTON) { blk = BlockUtil.createButton('btn', null); }
         if (blck[i]['blockType'] == BlockType.COMMAND) { blk = BlockUtil.createCommand(); }
         if (blck[i]['blockType'] == BlockType.CONDITIONAL) {blk = BlockUtil.createConditional(); blk.setBranchCount(2);blk.setIsTerminal(true)}
         if (blck[i]['blockType'] == BlockType.EVENT) { blk = BlockUtil.createEvent();     blk.setShouldRestartExistingThreads(false);blk.setIsEdgeActivated(true);}

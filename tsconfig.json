@@ -1,5 +1,5 @@
 {
-  "include": ["./src", "image.d.ts",],
+  "include": ["./src", "image.d.ts","global.d.ts"],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",

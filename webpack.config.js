@@ -1,6 +1,7 @@
 const path = require('path')
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const baseConfig = require('./webpack.base.config');
+const webpack = require('webpack');
 module.exports = {
   ...baseConfig,
   mode: 'production',
@@ -29,4 +30,9 @@ module.exports = {
     port: 9999,
     static: 'static',
   },
+  plugins: baseConfig.plugins.concat([
+    new webpack.DefinePlugin({
+        'DEPLOY_ENV': '"dev"',
+    })
+  ])
 }
