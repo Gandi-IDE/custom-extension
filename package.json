@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
-    "@cocrea/extension-kit": "^0.1.5",
+    "@cocrea/extension-kit": "0.1.6",
     "babel-loader": "^8.2.5",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.1",
