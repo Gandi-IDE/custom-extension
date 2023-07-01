@@ -31,6 +31,8 @@ export default class BlockStyle extends GandiExtension {
   menuInfos: any;
   tagInfos: any;
   dynamicMenu: any;
+  useMouseCursorBlock: any;
+  use: any;
   constructor(runtime: { ccwAPI: any; scratchBlocks: any }) {
     super(runtime);
     this.runtime = runtime;
@@ -62,8 +64,8 @@ export default class BlockStyle extends GandiExtension {
     };
     /** 数据 */
     const Subject: IMenu[] = [_default];
-    const tagData = this.getCacheData(1);
-    const menuData = this.getCacheData(2);
+    const tagData = this.tagInfos;
+    const menuData = this.menuInfos;
     // HACK 至于为什么不直接用MenuData？ 因为后续arrayData里还会从其他地方注入（本地资源包...）
     const arrayData = typeof menuData == 'object' ? menuData : [empty];
 
@@ -73,7 +75,6 @@ export default class BlockStyle extends GandiExtension {
       const tag = _Tag[sub.type] ? _Tag[sub.type] : sub.type;
       delete sub.type;
       sub.text = `☁ [${tag}] ${sub.text}`;
-      console.log(sub);
       Subject.push(sub);
     }
     this.dynamicMenu = Subject;
@@ -143,12 +144,6 @@ export default class BlockStyle extends GandiExtension {
       true
     );
 
-    // create arguments
-    const MouseCursor = BlockUtil.createArgument(
-      ArgumentType.STRING,
-      '',
-      SwitchMenu
-    );
     const Style = BlockUtil.createArgument(ArgumentType.STRING, '', StyleMenu);
     const URI = BlockUtil.createArgument(ArgumentType.STRING, 'Args.URI');
 
@@ -170,19 +165,17 @@ export default class BlockStyle extends GandiExtension {
       'Block.CloseAllCat'
     );
 
-    const useMouseCursor = BlockUtil.createCommand(
-      'UseMouseCursorBlock',
-      'Block.UseMouseCursor'
+    this.useMouseCursorBlock = BlockUtil.createButton(
+      `Block.UseMouseCursor.${this.useMouseCursor === true ? 'ON' : 'OFF'}`,
+      this.UseMouseCursorBlock.bind(this)
     );
-    useMouseCursor.setArguments({ MouseCursor });
-
     this.addTextLabel('Label.Set');
     this.addBlock(OfficialCat);
     this.addBlock(CustomCat);
 
     this.addTextLabel('Label.Tool');
     this.addBlock(CloseAllCat);
-    this.addBlock(useMouseCursor);
+    this.addBlock(this.useMouseCursorBlock);
   }
 
   // block function
@@ -196,11 +189,15 @@ export default class BlockStyle extends GandiExtension {
   }
 
   /** 猫眼是否跟踪鼠标 */
-  UseMouseCursorBlock(args: { MouseCursor: string }) {
-    this.useMouseCursor = args.MouseCursor == 'true' ? true : false;
+  UseMouseCursorBlock(e) {
+    this.useMouseCursor = !this.useMouseCursor;
+    this.useMouseCursorBlock.setText(
+      `Block.UseMouseCursor.${this.useMouseCursor === true ? 'ON' : 'OFF'}`
+    );
+    this.runtime.emit('TOOLBOX_EXTENSIONS_NEED_UPDATE');
   }
 
-  CustomCatBlock(args: { URI: any }) {
+  CustomCatBlock(args: { URI: string }) {
     const { URI } = args;
     const Blockly = this.Blockly;
     let shouldWatchMouseCursor = this.useMouseCursor;
@@ -661,12 +658,11 @@ export default class BlockStyle extends GandiExtension {
     workspace_();
   }
 
-  OfficialCatBlock(args: { Style: any }) {
+  OfficialCatBlock(args: { Style: string }) {
     const { Style } = args;
     const Blockly = this.Blockly;
     let shouldWatchMouseCursor = this.useMouseCursor;
     const catInfo = this.getCatInfoByName(Style);
-    console.log(catInfo);
     /**
      * KYSTEAM_cat
      * 这是每个积木块上的 id
@@ -1163,7 +1159,7 @@ export default class BlockStyle extends GandiExtension {
     // 下层处理时把数据污染上就可以 这里用于占位
     const empty = {};
     const _default = {};
-    let data = this.getCacheData(3);
+    let data = this.catInfos;
     data =
       typeof data == 'object' ? { default: _default, ...data } : { ...empty };
     return data;
@@ -1198,13 +1194,6 @@ export default class BlockStyle extends GandiExtension {
     _data.md5 = getUrlByMd5(_data.md5);
     const searchData = _data || assetDefault;
     return searchData;
-  }
-
-  //dynamic menu function
-  getCacheData(type) {
-    if (type == 1) return this.tagInfos;
-    if (type == 2) return this.menuInfos;
-    if (type == 3) return this.catInfos;
   }
 
   /**

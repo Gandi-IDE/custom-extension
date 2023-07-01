@@ -10,5 +10,6 @@
     "Block.CustomCat": "使用自定义图像链接加载可爱的猫猫 [URI]",
     "Label.Tool": "🔧 工具",
     "Block.CloseAllCat": "关闭可爱的猫猫",
-    "Block.UseMouseCursor": "是否开启猫眼追踪 [MouseCursor]"
+    "Block.UseMouseCursor.OFF": "❌关闭 猫眼追踪",
+    "Block.UseMouseCursor.ON": "✅开启 猫眼追踪"
 }
