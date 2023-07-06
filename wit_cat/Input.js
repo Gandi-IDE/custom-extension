@@ -1456,7 +1456,6 @@ class WitCatInput {
 						const searchId = this._getWitCatID(item);
 						const fontsize = this.inputFontSize[searchId];
 						if (fontsize) {
-							console.log("1111");
 							item.style.fontSize = `${(parseFloat(this.canvas().style.width) / 360) * fontsize
 								}px`;
 						}
