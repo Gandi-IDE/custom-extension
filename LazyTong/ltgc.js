@@ -5,160 +5,7 @@ class LazyTongGestureControl {
     this.runtime = runtime;
     this._formatMessage = runtime.getFormatMessage({
       "zh-cn": {
-        "LazyTongGestureControl.extensionName": "LazyTong手势控制",
-        "LazyTongGestureControl.openHelpDocs": "打开帮助文档",
-        "LazyTongGestureControl.detectSwipe": "检测到向 [direction] 方滑动",
-        "LazyTongGestureControl.detectRotation": "检测到 [rotateDirection] 时针转圈",
-        "LazyTongGestureControl.up": "上",
-        "LazyTongGestureControl.down": "下",
-        "LazyTongGestureControl.left": "左",
-        "LazyTongGestureControl.right": "右",
-        "LazyTongGestureControl.following": "顺",
-        "LazyTongGestureControl.opposite": "逆",
-      },
-      "en": {
-        "LazyTongGestureControl.extensionName": "LazyTong Gesture Control",
-        "LazyTongGestureControl.openHelpDocs": "Open help documentation",
-        "LazyTongGestureControl.detectSwipe": "Detected swipe in the [direction] direction",
-        "LazyTongGestureControl.detectRotation": "Detected [rotateDirection] the direction of rotate",
-        "LazyTongGestureControl.up": "up",
-        "LazyTongGestureControl.down": "down",
-        "LazyTongGestureControl.left": "left",
-        "LazyTongGestureControl.right": "right",
-        "LazyTongGestureControl.following": "following",
-        "LazyTongGestureControl.opposite": "opposite",
-      },
-    });
-  }
-
-  formatMessage(id) {
-    return this._formatMessage({
-      id,
-      default: id,
-      description: id,
-    });
-  }
-
-  swipeDetected = false;
-  swipeDirection = "";
-  rotationDetected = false;
-  rotationDirection = "";
-
-  setupGestureDetection() {
-    const stageElement = document.querySelector(".stage");
-    const alloyFinger = new AlloyFinger(stageElement, {
-      swipe: (evt) => {
-        this.detectSwipe(evt.direction);
-      },
-      rotate: (evt) => {
-        this.detectRotation(evt.angle > 0 ? "following" : "opposite");
-      },
-    });
-  }
-
-  detectSwipe(direction) {
-    this.swipeDetected = true;
-    this.swipeDirection = direction;
-  }
-
-  detectRotation(direction) {
-    this.rotationDetected = true;
-    this.rotationDirection = direction;
-  }
-
-  getInfo() {
-    return {
-      id: "LazyTongGestureControl",
-      name: this.formatMessage("LazyTongGestureControl.extensionName"),
-      color1: "#90EE90",
-      blocks: [
-        {
-          opcode: "openHelpDocs",
-          blockType: "button",
-          text: this.formatMessage("LazyTongGestureControl.openHelpDocs"),
-        },
-        {
-          opcode: "detectSwipe",
-          blockType: "Boolean",
-          text: this.formatMessage("LazyTongGestureControl.detectSwipe"),
-          arguments: {
-            direction: {
-              type: "string",
-              menu: "directions",
-              defaultValue: "up",
-            },
-          },
-          menus: {
-            directions: {
-              acceptReporters: true,
-              items: [
-                { text: this.formatMessage("LazyTongGestureControl.up"), value: "Up" },
-                { text: this.formatMessage("LazyTongGestureControl.down"), value: "Down" },
-                { text: this.formatMessage("LazyTongGestureControl.left"), value: "Left" },
-                { text: this.formatMessage("LazyTongGestureControl.right"), value: "Right" },
-              ],
-            },
-          },
-        },
-        {
-          opcode: "detectRotation",
-          blockType: "Boolean",
-          text: this.formatMessage("LazyTongGestureControl.detectRotation"),
-          arguments: {
-            rotateDirection: {
-              type: "string",
-              menu: "rotateDirections",
-              defaultValue: "following",
-            },
-          },
-          menus: {
-            rotateDirections: {
-              acceptReporters: true,
-              items: [
-                { text: this.formatMessage("LazyTongGestureControl.following"), value: "following" },
-                { text: this.formatMessage("LazyTongGestureControl.opposite"), value: "opposite" },
-              ],
-            },
-          },
-        },
-      ],
-    };
-  }
-
-  openHelpDocs() {
-    window.open("https://lazytongtech.github.io/help?project=ltgc");
-  }
-
-  detectSwipe(args) {
-    return this.swipeDetected && this.swipeDirection === args.direction;
-  }
-
-  detectRotation(args) {
-    if (this.rotationDetected && this.rotationDirection === args.rotateDirection) {
-      this.rotationDetected = false;
-      return true;
-    }
-    return false;
-  }
-}
-
-window.tempExt = {
-  Extension: LazyTongGestureControl,
-  info: {
-    name: "LazyTongGestureControl.extensionName",
-    description: "LazyTongGestureControl.description",
-    extensionId: "LazyTongGestureControl",
-    iconURL: "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSI5OHB4IiBoZWlnaHQ9IjExOXB4IiB2aWV3Qm94PSIwIDAgOTggMTE5IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA5OCAxMTkiIHhtbDpzcGFjZT0icHJlc2VydmUiPiAgPGltYWdlIGlkPSJpbWFnZTAiIHdpZHRoPSI5OCIgaGVpZ2h下面是格式化后的代码：
-
-```javascript
-import * as AlloyFinger from "./alloy_finger.js";
-
-class LazyTongGestureControl {
-  constructor(runtime) {
-    this.runtime = runtime;
-    this._formatMessage = runtime.getFormatMessage({
-      "zh-cn": {
-        "LazyTongGestureControl.extensionName": "LazyTong手势控制",
+        "LazyTongGestureControl.extensionName": "手势控制",
         "LazyTongGestureControl.openHelpDocs": "打开帮助文档",
         "LazyTongGestureControl.detectSwipe": "检测到向 [direction] 方滑动",
         "LazyTongGestureControl.detectRotation": "检测到 [rotateDirection] 时针转圈",
@@ -309,11 +156,11 @@ window.tempExt = {
   },
   l10n: {
    "zh-cn": {
-      "LazyTongGestureControl.extensionName": "LazyTong手势控制",
+      "LazyTongGestureControl.extensionName": "手势控制",
       "LazyTongGestureControl.description": "让你的项目支持手势操作！",
     },
     en: {
-      "LazyTongGestureControl.extensionName": "LazyTong Gesture Control",
+      "LazyTongGestureControl.extensionName": "Gesture Control",
       "LazyTongGestureControl.description": "Make your project support gesture manipulation!",
     },
   },
