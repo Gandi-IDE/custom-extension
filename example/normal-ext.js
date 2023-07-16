@@ -133,7 +133,7 @@ class Circletetik {
         },
         {
           opcode: 'calcPointXOnCircle',
-          blockType: Scratch.BlockType.BOOLEAN,
+          blockType: Scratch.BlockType.REPORTER,
           text: 'Calc point X on circle with radius [RADIUS], angle of [ANGLE] degree and center on x [X] and y[Y] ',
           arguments: {
             // Required: the ID of the argument, which will be the name in the
