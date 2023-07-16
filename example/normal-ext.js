@@ -1,9 +1,9 @@
-class Circletetik {
+class ExampleExtension {
   getInfo() {
     return {
       // Required: the machine-readable name of this extension.
       // Will be used as the extension's namespace. Must not contain a '.' character.
-      id: 'circletetik',
+      id: 'someBlocks',
 
       // Optional: the human-readable name of this extension as string.
       // This and any other string to be displayed in the Scratch UI may either be
@@ -15,18 +15,19 @@ class Circletetik {
       // internally namespace the messages such that two extensions could have
       // messages with the same ID without colliding.
       // See also: https://github.com/yahoo/react-intl/wiki/API#definemessages
-      name: 'fath circletetik',
+      name: 'someBlocks.name',
       // block color
-      color1: '#75c975',
+      color1: '#4D7EB4',
       // Optional: URI for an icon for this extension. Data URI OK.
       menuIconURI:
-        'https://replit.com/@FathiKamal/custom-extension-3#Fath/assets/circletetik-removebg-preview.png',
+        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAFCAAAAACyOJm3AAAAFklEQVQYV2P4DwMMEMgAI/+DE' +
+        'UIMBgAEWB7i7uidhAAAAABJRU5ErkJggg==',
       
-      blockIconURI: 'https://replit.com/@FathiKamal/custom-extension-3#Fath/assets/circletetik-removebg-preview.png',
+      blockIconURI: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABmJLR0QA/wD/AP+gvaeTAAAEtklEQVRoge2ZW4hWVRTHf984Kk1jlj2kI2H2UIwRacVot7EiSLtQBFlPRWUvSQTdsJCCyogy6CWSiMoeqrGioKDJLmpWYxcjxyZSJ4hRuznihZnQRj09rP/unO+b852z9/edT3qYPxz2OXuv9V9rX87Za68DYxhDQ1AqmO9sYAEwDzgDaAMmq20/8BuwDegBuoEfC7Y/CuOAl4HdwAfAyRmy44E7gF4gCrw2A7eLoxpagC758jZwXEhHbqww+FIVuYuBvoTcHuBN4DagA5ghR1p036G2Lsk6vT7goio2llf4cndIR96X0tPAQeCIOpfE/cCI5AaAxUBzgI1m4E7pRuK6t0LmioT9JyT3TYANfpHS6SKPgMPAc8DMBGkErAAmhpBXYCLwbILvcezdekydiICngON1P0TAuz0opTY9P0g8+u76B5uForBYnBE2AxFwFFsVJWACNphHyX6nyrBJRFcm6s4BPiLuyJL6fR+FJQn+dcCFibY5qt8RQuiWzocV9d2qf71WTz3wRhXbq1T/YgjZNOy7HwGPqO4SPR8ATqrH0xxMkY1INgHuwpbUIeDMUMKbpRwBn2BT7b5kjcYK2foUeJcClvMiYG+CaASbrUZjOvZiO7vD2Ke6LpxCvG6/rpcsAN/K5jvAqXnCTR6EfwK/6n5t7X4FY53KrXh8qXw6AvbpBfgipe1qYKeMLfTk89HbUGG7EGzDpnl2StsO4rU8EMCZp3eu2rb6kPnOiAvF93jKF4FBlScWSepinpaUtoXY6A5gZxFf5Om1yObBIE9z4JbAsYa3XZ+ldVp9vhSCun3oAP7ARuXLAL2vdCXPJ83A56oP4YmA34HzA/TK0IntqBEWJrQG6G6R3irsKDAdeE11vQE8rcQhyhDVT5FVMYP4TLKS8CTFfOJBSF7DxIGgL5qwiDcC/sJjl3coYUFiBKzBEhG1YA7wHjYgg9jIpu1DPhiX8OljPAf2Bins5dgEiL5oA/Zhvl3vo7BZwvc10Kla8QDm2/d5gudJcB922P+/oZV4VsqWaeU+cq3K1diL6TAN+A74rEEOpmEtFsonl/cQ8Jbur8tSXoP1NpnDmgn0E395phblaQamJuz1U74hLlJ9dxaBi3Lb9TwZ+JnyT+hlhbqcjssrbP5EHLi2kxIVVy6tKSpd5PkMdtjvA15V3axCXU7HWSpfke124lzBbpVZ+ej/ZuQmLDo9gmUuZgG3qu35Ql1OxwuydYtsH5IvC+Rb7jnlYUbvxg+pbTbhMVet6JEtdzpcmuLX0iyCJmAZ1tte4B7iXXQCNjLDhCWrQzEe+Fu2XGq0JF965dsy/A+FqfiB8pFqBFxqdFOIUmivHPkFgXohmKcyd/dOIrQj7v24NENmPbAdeBSYC5yga67qthOnetIwX2XIuSUYLv+7K0PG97dbNeyiPO9bONqId/j1GXLO0ZXYAeuAri2qy+uIyzH3E/+fKQwlLM6KgI3ApAzZPEfz2ifJhkueF4prRLyf/Fir3o4gG+63xlWePnphtUiXe8gW0RGAJyXX5SHrjZ0i7fSQLaojnQSkYX2TCiOE7+bVuEMTfYfx+Pnpu49sDDS+IaMtLaOfhZ5A+TGMoUj8CyaTiB/WbnspAAAAAElFTkSuQmCC',
 
       // Optional: Link to documentation content for this extension.
       // If not present, offer no link.
-      docsURI: 'https://cocrea.world',
+      docsURI: 'https://ccw.site',
 
       // Required: the list of blocks implemented by this extension,
       // in the order intended for display.
@@ -132,39 +133,10 @@ class Circletetik {
           filter: ['someBlocks.wedo2', 'sprite', 'stage'],
         },
         {
-          opcode: 'calcPointXOnCircle',
-          blockType: Scratch.BlockType.REPORTER,
-          text: 'Calc point X on circle with radius [RADIUS], angle of [ANGLE] degree and center on x [X] and y[Y] ',
-          arguments: {
-            // Required: the ID of the argument, which will be the name in the
-            // args object passed to the implementation function.
-            RADIUS: {
-              // Required: type of the argument / shape of the block input
-              type: Scratch.ArgumentType.NUMBER,
-
-              // Optional: the default value of the argument
-              defaultValue: 100,
-            },
-
-            // Required: the ID of the argument, which will be the name in the
-            // args object passed to the implementation function.
-            ANGLE: {
-              // Required: type of the argument / shape of the block input
-              type: Scratch.ArgumentType.NUMBER,
-
-              // Optional: the default value of the argument
-              defaultValue: '45',
-            },
-            X: {
-              type: Scratch.ArgumentType.NUMBER,
-              defaultValue: '0',
-            },
-            Y: {
-              type: Scratch.ArgumentType.NUMBER,
-              defaultValue: '0',
-            },
-          },
-          func: 'calc_point_x_on_circle',
+          opcode: 'example-Boolean',
+          blockType: Scratch.BlockType.BOOLEAN,
+          text: 'return true',
+          func: 'returnTrue',
         },
         {
           opcode: 'example-hat',
@@ -223,8 +195,8 @@ class Circletetik {
     }
   }
   noop () {}
-  calc_point_x_on_circle () {
-    return X + RADIUS * cos(ANGLE)
+  returnTrue () {
+    return true
   }
   returnFalse  () {
     return false
@@ -232,4 +204,4 @@ class Circletetik {
 }
 
 /** dont forget register your extension to Scratch */
-Scratch.extensions.register(new Circletetik())
+Scratch.extensions.register(new ExampleExtension())
