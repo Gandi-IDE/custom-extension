@@ -20,9 +20,9 @@ class Circletetik {
       color1: '#75c975',
       // Optional: URI for an icon for this extension. Data URI OK.
       menuIconURI:
-        'https://replit.com/@FathiKamal/custom-extension-3#Fath/assets/circletetik-removebg-preview.png',
+        'https://replit.com/@FathiKamal/custom-extension#Fath/assets/circletetik-removebg-preview.png',
       
-      blockIconURI: 'https://replit.com/@FathiKamal/custom-extension-3#Fath/assets/circletetik-removebg-preview.png',
+      blockIconURI: 'https://replit.com/@FathiKamal/custom-extension#Fath/assets/circletetik-removebg-preview.png',
 
       // Optional: Link to documentation content for this extension.
       // If not present, offer no link.
@@ -224,7 +224,9 @@ class Circletetik {
   }
   noop () {}
   calc_point_x_on_circle () {
-    return X + RADIUS * cos(ANGLE)
+    var info = this.getInfo();
+    console.log(info);
+    return info.blocks.findIndex.arguments.X + info.blocks.findIndex.arguments.RADIUS * cos(info.blocks.findIndex.arguments.ANGLE)
   }
   returnFalse  () {
     return false
