@@ -225,7 +225,6 @@ class Circletetik {
   noop () {}
   calc_point_x_on_circle () {
     var info = this.getInfo();
-    console.log(info);
     return info.blocks[3].arguments.X + info.blocks[3].arguments.RADIUS * Math.cos(info.blocks[3].arguments.ANGLE)
   }
   returnFalse  () {
