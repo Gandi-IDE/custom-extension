@@ -228,7 +228,7 @@ class Circletetik {
     console.log(info.blocks[3].arguments.X);
     console.log(info.blocks[3].arguments.RADIUS);
     console.log(info.blocks[3].arguments.ANGLE);
-    return info.blocks[3].arguments.X.value + info.blocks[3].arguments.RADIUS.value * Math.cosinfo.blocks[3].arguments.ANGLE.value)
+    return info.blocks[3].arguments.X + info.blocks[3].arguments.RADIUS * Math.cosinfo.blocks[3].arguments.ANGLE)
   }
   returnFalse  () {
     return false
