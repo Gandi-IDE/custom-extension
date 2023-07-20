@@ -299,6 +299,7 @@ class WitCatBBcode {
                     opcode: "docss",
                     blockType: "reporter",
                     text: this.formatMessage("WitCatBBcode.docss"),
+                    disableMonitor: true,
                     arguments: {},
                 },
             ],
