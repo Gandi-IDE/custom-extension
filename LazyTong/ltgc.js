@@ -126,7 +126,7 @@ class LazyTongGestureControl {
   }
 
   openHelpDocs() {
-    window.open("https://www.ccw.site/post/93d8f103-4163-489e-b1a3-dc6a194cb0d6");
+    window.open("https://learn.ccw.site/post/93d8f103-4163-489e-b1a3-dc6a194cb0d6");
   }
 
   detectSwipe(args) {
