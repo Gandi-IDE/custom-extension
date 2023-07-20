@@ -424,7 +424,7 @@ class WitCatBBcode {
         sstyle.top = `${y}%`;
         sstyle.width = `${width}%`;
         sstyle.height = `${height}%`;
-        search.innerHTML = new bbcode.Parser().toHTML(args.text);
+        search.innerHTML = new bbcode.Parser().toHTML(String(args.text));
         search.setAttribute("name", args.text);
     }
 
@@ -485,7 +485,7 @@ class WitCatBBcode {
                     sstyle.height = `${Number(height)}%`;
                     break;
                 case "content":
-                    search.innerHTML = new bbcode.Parser().toHTML(args.text);
+                    search.innerHTML = new bbcode.Parser().toHTML(String(args.text));
                     search.setAttribute("name", args.text);
                     break;
                 default:
