@@ -154,8 +154,8 @@ class WitCatBBcode {
             name: this.formatMessage("WitCatBBcode.name"), // 拓展名
             blockIconURI: witcat_BBcode_icon,
             menuIconURI: witcat_BBcode_icon,
-            color1: "#122296",
-            color2: "#0e1b75",
+            color1: "#d32cfe",
+            color2: "#b92bdf",
             blocks: [
                 {
                     blockType: "button",
@@ -474,7 +474,7 @@ class WitCatBBcode {
             search = search_1;
         }
         if (search !== null) {
-            if (search.getElementsByTagName("img").length >= args.num - 1 && args.num > 0) {
+            if (search.getElementsByTagName("img").length > args.num - 1 && args.num > 0) {
                 search.getElementsByTagName("img")[args.num - 1].style.width = args.width == "" ? "" : args.width + "px";
                 search.getElementsByTagName("img")[args.num - 1].style.height = args.height == "" ? "" : args.height + "px";
             }
@@ -559,7 +559,7 @@ class WitCatBBcode {
             search = search_1;
         }
         if (search !== null) {
-            if (search.getElementsByTagName("code").length >= args.num - 1 && args.num > 0) {
+            if (search.getElementsByTagName("code").length > args.num - 1 && args.num > 0) {
                 search.getElementsByTagName("code")[args.num - 1].className = args.name;
                 prism();
             }
@@ -573,13 +573,20 @@ class WitCatBBcode {
      * @param {string} args.name 要获取的字体
      */
     loadfont(args) {
-        const xhr = new XMLHttpRequest(); // 定义一个异步对象
-        xhr.open("GET", String(args.text), true); // 异步GET方式加载字体
-        xhr.responseType = "arraybuffer"; // 把异步获取类型改为arraybuffer二进制类型
-        xhr.onload = function () {
-            document.fonts.add(new FontFace(String(args.name), this.response)); // 将字体对象添加到页面中
-        };
-        xhr.send();
+        if (
+            String(args.text).startsWith("https://m.ccw.site") ||
+            String(args.text).startsWith("https://m.xiguacity")) {
+            const xhr = new XMLHttpRequest(); // 定义一个异步对象
+            xhr.open("GET", String(args.text), true); // 异步GET方式加载字体
+            xhr.responseType = "arraybuffer"; // 把异步获取类型改为arraybuffer二进制类型
+            xhr.onload = function () {
+                document.fonts.add(new FontFace(String(args.name), this.response)); // 将字体对象添加到页面中
+            };
+            xhr.send();
+        }
+        else {
+            console.warn("不允许的链接\nDisallowed links")
+        }
     }
 
     /**
