@@ -637,7 +637,7 @@ Fontgenerationstring({ wordbank, position }) {
 window.tempExt = {
   Extension: SIPC_Encoding,
   info: {
-    name: 'fath.SIPC_Encoded',
+    name: 'fath.SIPC_Encoding',
     description: 'fath.description',
     extensionId: 'Encoding',
     // iconURL: icon,
