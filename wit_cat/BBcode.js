@@ -14,6 +14,8 @@ class WitCatBBcode {
     constructor(runtime) {
         this.runtime = runtime;
 
+        this.resize = null;
+
         /**
          * Scratch 所使用的 canvas，获取不到返回 null
          * @return {HTMLcanvasElement | null}
@@ -50,6 +52,7 @@ class WitCatBBcode {
         /**
          * 创建滚动条
          */
+        document.documentElement.style.setProperty('--witcat-bbcode-scale', '1');
         let ScrollStyle = document.createElement("style");
         ScrollStyle.innerText = `
         h1{
@@ -70,6 +73,10 @@ class WitCatBBcode {
         .WitCatBBcode{
             color:black;
         }
+        .WitCatBBcodes{
+            transform-origin: 0 0;
+            zoom:var(--witcat-bbcode-scale);
+        }
         .WitCatBBcode ul{
             padding-inline-start: 40px;
             list-style:none;
@@ -85,7 +92,7 @@ class WitCatBBcode {
             margin-inline-start: 40px;
             margin-inline-end: 40px;
         }
-        code[class*=language-],pre[class*=language-]{color:#ccc;background:0 0;font-family:Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;font-size:1em;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:1em;margin:.5em 0;overflow:auto}:not(pre)>code[class*=language-],pre[class*=language-]{background:#2d2d2d}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal}.token.block-comment,.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#999}.token.punctuation{color:#ccc}.token.attr-name,.token.deleted,.token.namespace,.token.tag{color:#e2777a}.token.function-name{color:#6196cc}.token.boolean,.token.function,.token.number{color:#f08d49}.token.class-name,.token.constant,.token.property,.token.symbol{color:#f8c555}.token.atrule,.token.builtin,.token.important,.token.keyword,.token.selector{color:#cc99cd}.token.attr-value,.token.char,.token.regex,.token.string,.token.variable{color:#7ec699}.token.entity,.token.operator,.token.url{color:#67cdcc}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}.token.inserted{color:green}
+        code[class*=language-],pre[class*=language-]{color:#ccc;background:0 0;font-family:Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;font-size:1em;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:0px;margin:0px;overflow:auto}:not(pre)>code[class*=language-],pre[class*=language-]{background:#2d2d2d}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal}.token.block-comment,.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#999}.token.punctuation{color:#ccc}.token.attr-name,.token.deleted,.token.namespace,.token.tag{color:#e2777a}.token.function-name{color:#6196cc}.token.boolean,.token.function,.token.number{color:#f08d49}.token.class-name,.token.constant,.token.property,.token.symbol{color:#f8c555}.token.atrule,.token.builtin,.token.important,.token.keyword,.token.selector{color:#cc99cd}.token.attr-value,.token.char,.token.regex,.token.string,.token.variable{color:#7ec699}.token.entity,.token.operator,.token.url{color:#67cdcc}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}.token.inserted{color:green}
         `;
         document.body.appendChild(ScrollStyle);
 
@@ -105,6 +112,7 @@ class WitCatBBcode {
                 "WitCatBBcode.setfontfamily": "设置 BBcode ID[id]的字体为[name]",
                 "WitCatBBcode.code": "设置 BBcode ID[id]第[num]个代码框的高亮为[name]",
                 "WitCatBBcode.ide": "设置 BBcode ID[id]为[name]",
+                "WitCatBBcode.size": "BBcode大小自适应[type]",
                 "WitCatBBcode.type.1": "X",
                 "WitCatBBcode.type.2": "Y",
                 "WitCatBBcode.type.3": "宽",
@@ -113,6 +121,8 @@ class WitCatBBcode {
                 "WitCatBBcode.type.6": "json",
                 "WitCatBBcode.ide.1": "可编辑",
                 "WitCatBBcode.ide.2": "不可编辑",
+                "WitCatBBcode.types.1": "启动",
+                "WitCatBBcode.types.2": "关闭",
             },
             en: {
                 "WitCatBBcode.name": "[beta]WitCat’s BBcode",
@@ -129,6 +139,7 @@ class WitCatBBcode {
                 "WitCatBBcode.setfontfamily": "set BBcode ID[id]`s font family[name]",
                 "WitCatBBcode.code": "Set the [num] code box highlighted by BBcode ID[id] to [name]",
                 "WitCatBBcode.ide": "Set BBcode ID[id] to [name]",
+                "WitCatBBcode.size": "BBcode size adaptive[type]",
                 "WitCatBBcode.type.1": "X",
                 "WitCatBBcode.type.2": "Y",
                 "WitCatBBcode.type.3": "width",
@@ -137,6 +148,8 @@ class WitCatBBcode {
                 "WitCatBBcode.type.6": "json",
                 "WitCatBBcode.ide.1": "editable",
                 "WitCatBBcode.ide.2": "uneditable",
+                "WitCatBBcode.types.1": "turn on",
+                "WitCatBBcode.types.2": "turn off",
             }
         })
     }
@@ -281,6 +294,17 @@ class WitCatBBcode {
                     },
                 },
                 {
+                    opcode: "size",
+                    blockType: "command",
+                    text: this.formatMessage("WitCatBBcode.size"),
+                    arguments: {
+                        type: {
+                            type: "boolean",
+                            menu: "typess",
+                        },
+                    },
+                },
+                {
                     opcode: "setfont",
                     blockType: "command",
                     text: this.formatMessage("WitCatBBcode.setfontfamily"),
@@ -399,6 +423,16 @@ class WitCatBBcode {
                         value: 'content'
                     },
                 ],
+                typess: [
+                    {
+                        text: this.formatMessage('WitCatBBcode.types.1'),
+                        value: 'true'
+                    },
+                    {
+                        text: this.formatMessage('WitCatBBcode.types.2'),
+                        value: 'false'
+                    }
+                ],
                 code: [
                     {
                         text: "javascript",
@@ -498,7 +532,7 @@ class WitCatBBcode {
         sstyle.top = `${y}%`;
         sstyle.width = `${width}%`;
         sstyle.height = `${height}%`;
-        search.innerHTML = new bbcode.Parser().toHTML(String(args.text));
+        search.innerHTML = `<div class='WitCatBBcodes'>${new bbcode.Parser().toHTML(String(args.text))}</div>`;
     }
 
     imgstyle(args) {
@@ -558,7 +592,7 @@ class WitCatBBcode {
                     sstyle.height = `${Number(height)}%`;
                     break;
                 case "content":
-                    search.innerHTML = new bbcode.Parser().toHTML(String(args.text));
+                    search.innerHTML = `<div class='WitCatBBcodes'>${new bbcode.Parser().toHTML(String(args.text))}</div>`;
                     break;
                 default:
                     break;
@@ -578,7 +612,9 @@ class WitCatBBcode {
         if (search_1 instanceof HTMLDivElement) {
             search = search_1;
         }
-        search.style.fontFamily = `"${args.name}"`;
+        if (search !== null) {
+            search.style.fontFamily = `"${args.name}"`;
+        }
     }
 
     /**
@@ -593,7 +629,10 @@ class WitCatBBcode {
         }
         if (search !== null) {
             if (search.getElementsByTagName("code").length > args.num - 1 && args.num > 0) {
-                search.getElementsByTagName("code")[args.num - 1].className = args.name;
+                let a = search.getElementsByTagName("code")[args.num - 1].children;
+                a.forEach((e) => {
+                    e.className = args.name;
+                })
                 Prism.highlightAll();
             }
         }
@@ -611,6 +650,24 @@ class WitCatBBcode {
         }
     }
 
+    size(args) {
+        if (this.canvas() === null) {
+            return;
+        }
+        if (Boolean(args.type)) {
+            if (this.resize === null) {
+                this.resize = new ResizeObserver(() => {
+                    document.documentElement.style.setProperty('--witcat-bbcode-scale', this.canvas().offsetHeight / 360)
+                })
+                this.resize.observe(this.canvas(), { attributes: true, attributeFilter: ['style'] });
+            }
+        }
+        else {
+            this.resize.disconnect();
+            this.resize = null;
+        }
+    }
+
     /**
      * 加载字体
      * @param {object} args 
@@ -620,7 +677,8 @@ class WitCatBBcode {
     loadfont(args) {
         if (
             String(args.text).startsWith("https://m.ccw.site") ||
-            String(args.text).startsWith("https://m.xiguacity")) {
+            String(args.text).startsWith("https://m.xiguacity") ||
+            String(args.text).startsWith("https://static.xiguacity")) {
             const xhr = new XMLHttpRequest(); // 定义一个异步对象
             xhr.open("GET", String(args.text), true); // 异步GET方式加载字体
             xhr.responseType = "arraybuffer"; // 把异步获取类型改为arraybuffer二进制类型
@@ -806,6 +864,9 @@ htmltobbcode = (htmlInput) => {
 
     // Replace <span style="color:X"> with BBCode color ([color=X])
     bbcodeText = bbcodeText.replace(/<color\s+style=(["'])color:(#[0-9A-Fa-f]+|[a-zA-Z]+)\1[^>]*>(.*?)<\/color>/gi, '[color=$2]$3[/color]');
+
+    // Replace <pre> tags with BBCode line breaks (换行)
+    bbcodeText = bbcodeText.replace(/<pre([\s\S]*?)>/gi, '\n');
 
     // Remove all other HTML tags
     bbcodeText = bbcodeText.replace(/<\/?[^>]+(>|$)/g, '');
@@ -1100,9 +1161,9 @@ htmltobbcode = (htmlInput) => {
             var lang;
             lang = this.params['lang'] || this.params[this.name];
             if (lang) {
-                return ["<pre class=\"prettyprint lang-" + lang + "\" style=\"background: none;\"><code>", this.getContent(true), '</code></pre>'];
+                return ["<code><pre class=\"prettyprint lang-" + lang + "\" style=\"background: none;\">", this.getContent(true), '</pre></code>'];
             } else {
-                return ['<pre style="background: none;"><code class="language-javascript">', this.getContent(true), '</code></pre>'];
+                return ['<code><pre style="background: none;">', this.getContent(true), '</pre></code>'];
             }
         };
 
@@ -1949,7 +2010,7 @@ var _self = "undefined" != typeof window ? window : "undefined" != typeof Worker
                     var r = {
                         callback: t,
                         container: e,
-                        selector: 'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'
+                        selector: 'pre[class*="language-"], [class*="language-"] pre, pre[class*="lang-"], [class*="lang-"] pre'
                     };
                     a.hooks.run("before-highlightall", r), r.elements = Array.prototype.slice.apply(r.container.querySelectorAll(r.selector)), a.hooks.run("before-all-elements-highlight", r);
                     for (var i, l = 0; i = r.elements[l++];) a.highlightElement(i, !0 === n, r.callback)
