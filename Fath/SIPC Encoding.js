@@ -403,6 +403,30 @@ const md5 = (function() {
 class SIPC_Encoding {
   constructor(runtime) {
     this.runtime = runtime
+    this._formatMessage = runtime.getFormatMessage({
+      'zh-cn': {
+        'ArkosExt.extensionName': 'Arkosの拓展',
+        'ArkosExt.stringEquality': '(区分大小写)[ONE]=[TWO]',
+        'ArkosExt.directionFromAtoB': '点x1:[X1]y1:[Y1]朝向点x2:[X2]y2:[Y2]的方向',
+        'ArkosExt.differenceBetweenDirections': '由方向1[a]到方向2[b]的角度差',
+        'ArkosExt.distance': '点x1:[X1]y1:[Y1]到点x2:[X2]y2:[Y2]的距离',
+        'ArkosExt.searchString': '在[str]中查找[substr]的位置(从位置[pos]开始找)',
+        'ArkosExt.insertString': '在[str]的第[pos]个字符前插入[substr]',
+        'ArkosExt.replaceString': '将[str]中的第[start]个到第[end]个字符,替换为[substr]',
+      },
+
+      en: {
+        'ArkosExt.extensionName': "Arkos' Extensions",
+        'ArkosExt.stringEquality': '(case sensitive)[ONE]=[TWO]',
+        'ArkosExt.directionFromAtoB': 'direction from x1:[X1]y1:[Y1]to x2:[X2]y2:[Y2]',
+        'ArkosExt.differenceBetweenDirections': 'direction[b] minus direction[a]',
+        'ArkosExt.distance': 'distance between x1:[X1]y1:[Y1]and x2:[X2]y2:[Y2]',
+        'ArkosExt.searchString': 'position of[substr]in[str],start from[pos]',
+        'ArkosExt.insertString': 'insert[substr]at[pos]of[str]',
+        'ArkosExt.replaceString': 'replace from[start]to[end]of[str],with[substr]',
+      },
+    })
+  }
   })
 }
 
@@ -644,7 +668,7 @@ window.tempExt = {
     // insetIconURL: cover,
     featured: true,
     disabled: false,
-    collaborator: 'only for hcn test',
+    collaborator: 'Fath11, SIPC',
   },
   l10n: {
     'zh-cn': {
