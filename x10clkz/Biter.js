@@ -27,26 +27,26 @@ class Biter {
 				"Biter.Rad2Rad": "[R]进制的[A]转化为[B]进制",
 				"Biter.Dec2Rad": "十进制[A]转化为[B]进制",
 				"Biter.Rad2Dec": "[R]进制的[A]转化为十进制"
-			}, en: {
+			}, 'en': {
 				"Biter.name": "Biter",
-				"Biter.BitOperator": "Bit Operator",
-				"Biter.and": "[A]&[B]",
-				"Biter.or" : "[A]|[B]",
+				"Biter.BitOperator": "Bitwise Operators",
+				"Biter.and": "[A]&[B]", 
+				"Biter.or": "[A]|[B]",
 				"Biter.xor": "[A]^[B]",
 				"Biter.not": "~[A]",
 				"Biter.shl": "[A]<<[B]",
 				"Biter.shr": "[A]>>[B]",
-
-				"Biter.NumberBase": "Number Base Convert",
-				"Biter.Dec2Bin": "Number [A] to Binary",
-				"Biter.Bin2Dec": "Binary number [A] to Decimal",
-				"Biter.Dec2Hex": "Number [A] Hexadecimal",
-				"Biter.Bin2Hex": "Binary number [A] to Hexadecimal",
-				"Biter.Hex2Dec": "Hexadecimal number [A] to Decimal",
-				"Biter.Hex2Bin": "Hexadecimal number [A] to Binary",
-				"Biter.Rad2Rad": "Radix [R] number [A] to Radix [B]",
-				"Biter.Dec2Rad": "Number [A] to Radix [B]",
-				"Biter.Rad2Dec": "Radix [R] number [A] to Decimal"
+				
+				"Biter.NumberBase": "Number Base Conversion",
+				"Biter.Dec2Bin": "Decimal [A] to Binary",
+				"Biter.Bin2Dec": "Binary [A] to Decimal",
+				"Biter.Dec2Hex": "Decimal [A] to Hexadecimal",
+				"Biter.Bin2Hex": "Binary [A] to Hexadecimal",
+				"Biter.Hex2Dec": "Hexadecimal [A] to Decimal",
+				"Biter.Hex2Bin": "Hexadecimal [A] to Binary",
+				"Biter.Rad2Rad": "[R] based [A] to [B] based",
+				"Biter.Dec2Rad": "Decimal [A] to [B] based",
+				"Biter.Rad2Dec": "[R] based [A] to Decimal"
 			},
 		});
 	}
