@@ -75,7 +75,7 @@ class Biter {
 			menuIconURI: _biter_icon,
 			blockIconURI: _biter_icon,
 			
-			docsURI: 'https://ccw.site',
+			docsURI: 'https://learn.ccw.site/post/2026b330-5d8f-4acd-b799-d5ee5622a84e',
 			
 			blocks: [
 				"---"+this.formatMessage("Biter.BitOperator"),
