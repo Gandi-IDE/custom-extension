@@ -9,16 +9,19 @@ import blockIcon from './assets/icon.png';
 
 interface ICatMenuObj {
   /** 适配 l10n 老配置逐渐下线 */
+  // TODO 下线老配置 进度 80%
   text?: string;
   value: string;
   type: string;
-  /** 处理 cocrea 使用的情况 */
+  /** 多语言 */
   // 也有部分老配置
   l10n?: {
     'zh-cn': string;
     en: string;
   };
 }
+
+type xigua_scratch_gui_lang = 'zh-cn' | 'en' | string;
 
 interface ICatObj {
   md5: string;
@@ -37,8 +40,8 @@ interface IOnlineConfigObj {
 
 /**
  * @description: 函数节流
- * @param {Function} func 传入的函数
- * @param {number} wait 时间单位
+ * @param {Function} func 要节流的函数
+ * @param {number} wait 间隔时长
  * @return {*}
  */
 const throttle = (func: Function, wait: number): Function => {
@@ -87,10 +90,11 @@ export default class BlockStyle extends GandiExtension {
   catEyeTrackingBtn: ReturnType<typeof BlockUtil.createButton>;
 
   currentCatName?: string;
+  lastCurrentCatInfo?: ICatObj;
   customCatURI?: string;
   currentCatInfo?: ICatObj;
-  userGandiConfig: any;
   isCocrea: boolean;
+  xigua_scratch_gui_lang: xigua_scratch_gui_lang;
 
   constructor(runtime: { ccwAPI: any; scratchBlocks: any }) {
     super(runtime);
@@ -102,16 +106,14 @@ export default class BlockStyle extends GandiExtension {
       cdnHost: 'https://m.ccw.site',
     };
     this.isEyeTracking = false;
-    this.extConfigHost = DEPLOY_ENV !== 'dev'
-      ? this.onlineConfig.cdnHost + '/gandi/extension/block_style_assets'
-      : 'https://yuensite.f3322.net:7001';
+    this.extConfigHost = this.onlineConfig.cdnHost + '/gandi/extension/block_style_assets';
     this.tagInfos = {};
     this.catInfos = {};
     this.menuList = [];
-    this.isCocrea =
-      this.runtime.ccwAPI
-        .getOnlineExtensionsConfig()
-        .fileSrc.indexOf('cocrea') > -1;
+    this.isCocrea = location?.host?.indexOf('cocrea.world') > -1;
+    this.xigua_scratch_gui_lang =
+      localStorage.getItem('xigua_scratch_gui_lang') || 'en';
+    this.setColor();
     this.initConfig(this.extConfigHost);
   }
 
@@ -159,6 +161,13 @@ export default class BlockStyle extends GandiExtension {
     return [];
   }
 
+  setColor() {
+    let extensionInfo: any = this.getInfo();
+    extensionInfo.color1 = '#2e3644';
+    extensionInfo.color3 = '#3e495b';
+    this.getInfo = () => extensionInfo;
+  }
+
   async getJSON(url: string | URL) {
     // 自动化 l10n 在 node 环境中不支持 fetch
     // 所以 catch 一下
@@ -178,27 +187,19 @@ export default class BlockStyle extends GandiExtension {
     const catInfos = this.getJSON(extConfigHost + '/config/cat-config.json');
     const tagInfos = this.getJSON(extConfigHost + '/config/tag-config.json');
     const menuInfos = this.getJSON(extConfigHost + '/config/menu-config.json');
-    const getUserInfo = this.ccwAPI.getUserInfo();
 
-    Promise.all([catInfos, tagInfos, menuInfos, getUserInfo]).then(
-      async (res) => {
-        this.catInfos = res[0] || {};
-        this.tagInfos = res[1] || {};
-        this.menuList = res[2] || [];
-        this.userGandiConfig = await this.getJSON(
-          this.isCocrea
-            ? 'https://prod-hub-international.s3-accelerate.amazonaws.com'
-            : this.onlineConfig.cdnHost +
-                '/gandi/use_config/' +
-                res[3][this.isCocrea ? 'userId' : 'uuid'] +
-                '.json'
-        );
-      }
-    );
+    Promise.all([catInfos, tagInfos, menuInfos]).then((res) => {
+      this.catInfos = res[0] || {};
+      this.tagInfos = res[1] || {};
+      this.menuList = res[2] || [];
+    });
   }
 
   refreshWorkspace() {
     if (!this.currentCatInfo) return;
+    if (this.currentCatInfo?.md5 === this.lastCurrentCatInfo?.md5)
+      this.console('warn', '当前猫头和上一次加载的相同\n已取消');
+    this.lastCurrentCatInfo = this.currentCatInfo;
     const shouldWatchMouseCursor = this.isEyeTracking;
     const catInfo = this.currentCatInfo;
 
@@ -749,8 +750,13 @@ export default class BlockStyle extends GandiExtension {
     };
 
     if (!this.catInfos[name]) {
-      this.runtime.logSystem.warn(
-        `[${extensionId}] 菜单中的猫头 ${name} 没有配置文件！！！`
+      this.console(
+        'warn',
+        `The cat ${name} in the menu has no configuration information`
+      );
+      this.console(
+        'warn',
+        `[${extensionId}] 菜单中的猫头 ${name} 没有配置文件`
       );
       return assetDefault;
     }
@@ -768,11 +774,12 @@ export default class BlockStyle extends GandiExtension {
   buildCatMenu() {
     /** 拼接作者数据 */
     const catMenuList = [{ text: 'scratch-cat', value: 'scratch-default' }];
-    this.menuList.forEach((sub, i) => {
+    this.menuList.forEach((sub) => {
       let tag: string | any = this.tagInfos[sub.type] ?? sub.type;
       let text = sub.text;
       if (sub.l10n) {
-        const language = this.userGandiConfig?.common?.common?.language || 'en';
+        const language =
+          localStorage?.getItem('xigua_scratch_gui_lang') || 'en';
         text = sub.l10n[language];
         tag = typeof tag !== 'string' ? tag[language] : tag;
       }
@@ -852,23 +859,17 @@ export default class BlockStyle extends GandiExtension {
   // block function
   closeAllCatBlock() {
     const result = confirm(
-      `[${extensionId}] ${
-        this.userGandiConfig?.common?.common?.language === 'en'
-          ? 'Closing the cute cat requires refreshing the page, do you agree?'
-          : '关闭可爱的猫需要刷新页面，你同意吗？'
-      }`
+      `[${extensionId}]
+      Closing the cute cat requires refreshing the page, do you agree?
+      关闭可爱的猫需要刷新页面，你同意吗？
+      `
     );
     if (result) {
       // TODO 可以将 svgPath_ 还原
       window.location.href = window.location.href;
     } else {
-      this.runtime.logSystem.warn(
-        `[${extensionId}] ${
-          this.userGandiConfig?.common?.common?.language === 'en'
-            ? 'The user canceled close all cat'
-            : '用户取消了关闭猫头'
-        }`
-      );
+      this.console('info', 'The user canceled close all cat');
+      this.console('info', '用户取消了关闭猫头');
     }
   }
 
@@ -894,7 +895,7 @@ export default class BlockStyle extends GandiExtension {
       this.runtime.glowBlock(util.thread.blockGlowInFrame, false);
       throttle(() => {
         this.refreshWorkspace();
-      },2000)();
+      }, 2000)();
     }, 1000);
 
     return !!this.currentCatName;
@@ -915,12 +916,16 @@ export default class BlockStyle extends GandiExtension {
       this.runtime.glowBlock(util.thread.blockGlowInFrame, false);
       throttle(() => {
         this.refreshWorkspace();
-      },2000)();
+      }, 2000)();
     }, 1000);
     return true;
   }
 
   styleMenu(): IExtensionMenuItem[] {
     return this.buildCatMenu();
+  }
+
+  console(type: 'log' | 'info' | 'warn' | 'error', ctx: any) {
+    console[type](`[${this.extensionId}] ${ctx}`);
   }
 }
