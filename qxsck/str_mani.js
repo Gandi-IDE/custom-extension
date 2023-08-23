@@ -437,6 +437,59 @@ class str_mani {
                         }
                     }
                 },
+                {
+                    opcode: 'fillStart',
+                    blockType: 'reporter',
+                    text: '在 [STR] 的开头填充 [NUM] 个 [STR2]',
+                    arguments: {
+                        STR: {
+                            type: 'string',
+                            defaultValue: 'str'
+                        },
+                        STR2: {
+                            type: 'string',
+                            defaultValue: 'ing'
+                        },
+                        NUM: {
+                            type: 'number',
+                            defaultValue: '2'
+                        }
+                    }
+                },
+                {
+                    opcode: 'fillEnd',
+                    blockType: 'reporter',
+                    text: '在 [STR] 的末尾填充 [NUM] 个 [STR2]',
+                    arguments: {
+                        STR: {
+                            type: 'string',
+                            defaultValue: 'str'
+                        },
+                        STR2: {
+                            type: 'string',
+                            defaultValue: 'ing'
+                        },
+                        NUM: {
+                            type: 'number',
+                            defaultValue: '2'
+                        }
+                    }
+                },
+                {
+                    opcode: 'repeatString',
+                    blockType: 'reporter',
+                    text: '重复 [STR] [NUM] 个',
+                    arguments: {
+                        STR: {
+                            type: 'string',
+                            defaultValue: 'str'
+                        },
+                        NUM: {
+                            type: 'number',
+                            defaultValue: '2'
+                        }
+                    }
+                },
             ],
             menus: {
                 strIsAvailable1: this.strIsAvailable1,
@@ -558,6 +611,25 @@ class str_mani {
             const urlRegex = /^([http,https]?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w.-]*)*\/?$/;
             return urlRegex.test(str);
         }
+    }
+    fillStart(args){
+        var str=args.STR;
+        for(var i=0;i<Number(args.NUM);i++){
+            str=args.STR2+str;
+        }
+        return str;
+    }
+    fillEnd(args){
+        var str=args.STR;
+        for(var i=0;i<Number(args.NUM);i++){
+            str+=args.STR2;
+        }
+        return str;
+    }
+    repeatString(args){
+        var str="";
+        for(var i=0;i<Number(args.NUM);i++) str+=args.STR;
+        return str;
     }
 }
 
