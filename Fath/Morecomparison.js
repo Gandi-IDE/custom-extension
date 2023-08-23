@@ -11,7 +11,7 @@
     getInfo() {
       return {
         id: "nonameawacomparisons",
-        name: "More Comparisons",
+        name: "NOname compr",
         color1: "#00a889",
         color2: "#1e8c76",
         color3: "#1e8c76",
