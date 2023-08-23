@@ -490,6 +490,59 @@ class str_mani {
                         }
                     }
                 },
+                {
+                    opcode: 'deleteSpace',
+                    blockType: 'reporter',
+                    text: '删除 [STR] 两边的空格',
+                    arguments: {
+                        STR: {
+                            type: 'string',
+                            defaultValue: '  str  '
+                        },
+                    }
+                },
+                {
+                    opcode: 'replaceIndex',
+                    blockType: 'reporter',
+                    text: '替换 [STR] 第 [NUM] 个字符为 [STR2]',
+                    arguments: {
+                        STR: {
+                            type: 'string',
+                            defaultValue: 'sar'
+                        },
+                        NUM:{
+                            type: 'string',
+                            defaultValue: '2',
+                        },
+                        STR2:{
+                            type: 'string',
+                            defaultValue: 't'
+                        }
+                    }
+                },
+                {
+                    opcode: 'replaceIndexs',
+                    blockType: 'reporter',
+                    text: '替换 [STR] 第 [NUM] 到 [NUM2] 个字符为 [STR2]',
+                    arguments: {
+                        STR: {
+                            type: 'string',
+                            defaultValue: 'sarkosr'
+                        },
+                        NUM:{
+                            type: 'string',
+                            defaultValue: '2',
+                        },
+                        NUM2:{
+                            type: 'string',
+                            defaultValue: '6',
+                        },
+                        STR2:{
+                            type: 'string',
+                            defaultValue: 't'
+                        }
+                    }
+                },
             ],
             menus: {
                 strIsAvailable1: this.strIsAvailable1,
@@ -629,6 +682,25 @@ class str_mani {
     repeatString(args){
         var str="";
         for(var i=0;i<Number(args.NUM);i++) str+=args.STR;
+        return str;
+    }
+    deleteSpace(args){
+        return args.STR.replace(/^\s+|\s+$/gm,'');
+    }
+    replaceIndex(args){
+        var str='';
+        for(var i=0;i<args.STR.length;i++){
+            if(i+1==Number(args.NUM)) str+=args.STR2;
+            else str+=args.STR[i];
+        }
+        return str;
+    }
+    replaceIndexs(args){
+        var str='';
+        for(var i=0;i<args.STR.length;i++){
+            if(i+1==Number(args.NUM)) str+=args.STR2;
+            else if(i+1<Number(args.NUM) || i+1>Number(args.NUM2)) str+=args.STR[i];
+        }
         return str;
     }
 }
