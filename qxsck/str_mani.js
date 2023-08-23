@@ -543,6 +543,59 @@ class str_mani {
                         }
                     }
                 },
+                {
+                    opcode: 'deleteIndex',
+                    blockType: 'reporter',
+                    text: '删除 [STR] 第 [NUM] 个字符',
+                    arguments: {
+                        STR: {
+                            type: 'string',
+                            defaultValue: 'satr'
+                        },
+                        NUM:{
+                            type: 'string',
+                            defaultValue: '2',
+                        },
+                    }
+                },
+                {
+                    opcode: 'deleteIndexs',
+                    blockType: 'reporter',
+                    text: '删除 [STR] 第 [NUM] 到 [NUM2] 个字符',
+                    arguments: {
+                        STR: {
+                            type: 'string',
+                            defaultValue: 'sarkostr'
+                        },
+                        NUM:{
+                            type: 'string',
+                            defaultValue: '2',
+                        },
+                        NUM2:{
+                            type: 'string',
+                            defaultValue: '6',
+                        },
+                    }
+                },
+                {
+                    opcode: 'insertIndex',
+                    blockType: 'reporter',
+                    text: '在 [STR] 第 [NUM] 个字符前插入 [STR2]',
+                    arguments: {
+                        STR: {
+                            type: 'string',
+                            defaultValue: 'sr'
+                        },
+                        NUM:{
+                            type: 'string',
+                            defaultValue: '2',
+                        },
+                        STR2:{
+                            type: 'string',
+                            defaultValue: 't'
+                        }
+                    }
+                },
             ],
             menus: {
                 strIsAvailable1: this.strIsAvailable1,
@@ -700,6 +753,28 @@ class str_mani {
         for(var i=0;i<args.STR.length;i++){
             if(i+1==Number(args.NUM)) str+=args.STR2;
             else if(i+1<Number(args.NUM) || i+1>Number(args.NUM2)) str+=args.STR[i];
+        }
+        return str;
+    }
+    deleteIndex(args){
+        var str='';
+        for(var i=0;i<args.STR.length;i++){
+            if(i+1!=Number(args.NUM)) str+=args.STR[i];
+        }
+        return str;
+    }
+    deleteIndexs(args){
+        var str='';
+        for(var i=0;i<args.STR.length;i++){
+            if(i+1<Number(args.NUM) || i+1>Number(args.NUM2)) str+=args.STR[i];
+        }
+        return str;
+    }
+    insertIndex(args){
+        var str='';
+        for(var i=0;i<args.STR.length;i++){
+            if(i+1==Number(args.NUM)) str+=args.STR2;
+            str+=args.STR[i];
         }
         return str;
     }
