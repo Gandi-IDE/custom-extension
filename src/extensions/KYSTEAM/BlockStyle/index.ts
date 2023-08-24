@@ -197,8 +197,8 @@ export default class BlockStyle extends GandiExtension {
 
   refreshWorkspace() {
     if (!this.currentCatInfo) return;
-    if (this.currentCatInfo?.md5 === this.lastCurrentCatInfo?.md5)
-      this.console('warn', '当前猫头和上一次加载的相同\n已取消');
+    // if (this.currentCatInfo?.md5 === this.lastCurrentCatInfo?.md5)
+    // this.console('warn', '当前猫头和上一次加载的相同\n已取消');
     this.lastCurrentCatInfo = this.currentCatInfo;
     const shouldWatchMouseCursor = this.isEyeTracking;
     const catInfo = this.currentCatInfo;
@@ -794,6 +794,7 @@ export default class BlockStyle extends GandiExtension {
   // init blocks
   init() {
     // create menus
+    // FIXME 如果确定好永远都不需要了就删掉
     const SwitchMenu = BlockUtil.createMenu(
       'SwitchMenu',
       [
@@ -812,7 +813,7 @@ export default class BlockStyle extends GandiExtension {
     const Style = BlockUtil.createArgument(ArgumentType.STRING, '', styleMenu);
     const URI = BlockUtil.createArgument(ArgumentType.STRING, 'Args.URI');
 
-    // 下个版本上
+    // TODO 寒假把这个处理了
     /**
      * const paddingSize = BlockUtil.createArgument(ArgumentType.NUMBER, 100);
      * const cornerSize = BlockUtil.createArgument(ArgumentType.NUMBER, 100);

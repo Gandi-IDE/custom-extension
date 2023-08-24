@@ -26,7 +26,7 @@ module.exports = {
     globalObject: 'this',
   },
   devServer: {
-    host: '0.0.0.0',
+    host: '127.0.0.1',
     port: 9999,
     static: 'static',
   },
