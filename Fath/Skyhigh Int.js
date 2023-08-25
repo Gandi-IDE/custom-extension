@@ -44,7 +44,7 @@
     getInfo() {
       return {
         id: "skyhigh173BigInt",
-        name: "Skyhigh Int",
+        name: "Skyhigh BigInt",
         color1: "#59C093",
         color2: "#59C093",
         color3: "#59C093",

@@ -421,6 +421,7 @@
         menuIconURI: icon2,
         blockIconURI: icon,
         blocks: [
+          "---" + "✨ Made by SIPC in Turbowarp",
           {
             opcode: "encode",
             blockType: Scratch.BlockType.REPORTER,
