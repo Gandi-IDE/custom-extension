@@ -1,10 +1,3 @@
-/*
- * @Author: YUEN
- * @Date: 2023-06-12 14:49:11
- * @LastEditors: YUEN
- * @LastEditTime: 2023-06-30 13:20:23
- * @Description:
- */
 import zhCn from './l10n/zh-cn.json';
 import en from './l10n/en.json';
 import cover from './assets/cover.png';
@@ -13,7 +6,9 @@ import ext from './index';
 
 export const extensionNS = 'KYSTEAM';
 
-export const extensionId = `${extensionNS}.BlockStyle`;
+export const extensionId = `${extensionNS}.BlockStyle${
+  DEPLOY_ENV === 'dev' ? 'dev' : ''
+}`;
 
 const buildInfoL10n = (l10n) => {
   const { name, desc, docURL } = l10n;
