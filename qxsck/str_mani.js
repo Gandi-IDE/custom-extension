@@ -869,7 +869,7 @@ window.tempExt = {
         insetIconURL: insetIcon,
         featured: true,
         disabled: false,
-        collaborator: 'CK七星松@ccw',
+        collaborator: 'CK七星松@CCW',
     },
     l10n: {
         'zh-cn': {
