@@ -22,7 +22,7 @@ class str_mani {
                 'qxsckstrmani.replacestrIndex': '把 [STR] 中的第 [INDEX] 个 [STR2] 替换成 [STR3]',
                 'qxsckstrmani.getStrNumInStr': '[STR2] 在 [STR] 里出现的次数',
                 'qxsckstrmani.toUpperCase': '将 [STR] 里的小写字母转为大写',
-                'qxsckstrmani.toLowerCase': '将 [STR] 里的小写字母转为小写',
+                'qxsckstrmani.toLowerCase': '将 [STR] 里的大写字母转为小写',
                 'qxsckstrmani.padStart': '在 [STR] 的开头填充 [STR2] 直到长度为 [NUM]',
                 'qxsckstrmani.padEnd': '在 [STR] 的结尾填充 [STR2] 直到长度为[NUM]',
                 'qxsckstrmani.titleCase': '将 [STR] 每个单词的首字母大写',
@@ -122,6 +122,7 @@ class str_mani {
                     opcode: 'length',
                     blockType: 'reporter',
                     text: this.formatMessage('qxsckstrmani.length'),
+                    hideFromPalette: true,
                     arguments: {
                         STR: {
                             type: 'string',
@@ -938,7 +939,7 @@ window.tempExt = {
     info: {
         name: 'qxsck.name',
         description: 'qxsck.description',
-        extensionId: 'strmani',
+        extensionId: 'strmani1',
         iconURL: icon,
         insetIconURL: insetIcon,
         featured: true,
