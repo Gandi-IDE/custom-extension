@@ -10,7 +10,7 @@ module.exports = {
       import: './src/index.ts',
       library: {
         name: 'ExtensionLib',
-        type: 'umd',
+        type: 'window',
       },
       
     },
@@ -29,6 +29,7 @@ module.exports = {
     host: '127.0.0.1',
     port: 9999,
     static: 'static',
+    header: {'Access-Control-Allow-Origin':'*'},
   },
   plugins: baseConfig.plugins.concat([
     new webpack.DefinePlugin({
