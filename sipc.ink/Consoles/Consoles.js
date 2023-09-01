@@ -19,27 +19,6 @@
             Timeroff: '结束名为 [string] 的计时器并以打印从开始到结束所用的时间'
         },
     });
-    const tempExt = {
-        Extension: Consoles,
-        info: {
-            name: 'Consoles.Name',
-            description: 'Consoles.Description',
-            extensionID: 'Consoles',
-            // iconURL: 'cover.svg',
-            // insetIconURL: 'cover.svg',
-            collaborator: 'sipc.ink@Gandi'
-        },
-        l10m: {
-            'zh': {
-                'Consoles.Name':'控制台',
-                'Consoles.Description':'用于控制和操作浏览器内置的JavaScript控制台'
-            },
-            'en': {
-                'Consoles.Name':'Consoles',
-                'Consoles.Description':'Control and manipulation browser for built-in JavaScript console'
-            }
-        },
-    }
     class Consoles {
         constructor() { }
         getInfo() {
@@ -218,4 +197,27 @@
     }
     Scratch.extensions.register(new Consoles());
 })(Scratch);
+
+// menuInfo
+const tempExt = {
+    Extension: Consoles,
+    info: {
+        name: 'Consoles.Name',
+        description: 'Consoles.Description',
+        extensionID: 'Consoles',
+        // iconURL: 'cover.svg',
+        // insetIconURL: 'cover.svg',
+        collaborator: 'sipc.ink@Gandi'
+    },
+    l10m: {
+        'zh': {
+            'Consoles.Name':'控制台',
+            'Consoles.Description':'用于控制和操作浏览器内置的JavaScript控制台'
+        },
+        'en': {
+            'Consoles.Name':'Consoles',
+            'Consoles.Description':'Control and manipulation browser for built-in JavaScript console'
+        }
+    },
+}
 //BY -SIPC- 502415953
