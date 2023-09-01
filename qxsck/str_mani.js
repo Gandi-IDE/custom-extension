@@ -7,22 +7,25 @@ class str_mani {
         this._formatMessage = runtime.getFormatMessage({
 			'zh-cn':{
 				'qxsckstrmani.name': '字符串处理',
+                'qxsckstrmani.getHelp': '打开帮助',
                 'qxsckstrmani.length': '[STR] 的长度',
                 'qxsckstrmani.reversal': '反转 [STR]',
                 'qxsckstrmani.strPalindrome': '[STR] 是回文字符串吗？',
                 'qxsckstrmani.indexOf': '从 [STR] 的第 [NUM] 个字符开始找到第一个 [STR2] 出现的位置',
                 'qxsckstrmani.lastIndexOf': '从 [STR] 的第 [NUM] 个字符开始找到最后一个 [STR2] 出现的位置',
+                'qxsckstrmani.charAt': '[STR] 的第 [NUM] 个字符',
                 'qxsckstrmani.slicetwo': '截取 [STR] 第 [NUM1] 到 [NUM2] 个字符',
                 'qxsckstrmani.sliceone': '截取 [STR] 从 [NUM] 开始的内容',
                 'qxsckstrmani.substr': '截取从 [STR] 的第 [NUM1] 个字符开始长度为 [NUM2] 的子字符串',
                 'qxsckstrmani.replace': '把 [STR] 中的第一个 [STR2] 替换成 [STR3]',
                 'qxsckstrmani.replaceAll': '把 [STR] 中的 [STR2] 都替换成 [STR3]',
+                'qxsckstrmani.replacestrIndex': '把 [STR] 中的第 [INDEX] 个 [STR2] 替换成 [STR3]',
+                'qxsckstrmani.getStrNumInStr': '[STR2] 在 [STR] 里出现的次数',
                 'qxsckstrmani.toUpperCase': '将 [STR] 里的小写字母转为大写',
-                'qxsckstrmani.toLowerCase': '将 [STR] 里的小写字母转为小写',
+                'qxsckstrmani.toLowerCase': '将 [STR] 里的大写字母转为小写',
                 'qxsckstrmani.padStart': '在 [STR] 的开头填充 [STR2] 直到长度为 [NUM]',
                 'qxsckstrmani.padEnd': '在 [STR] 的结尾填充 [STR2] 直到长度为[NUM]',
                 'qxsckstrmani.titleCase': '将 [STR] 每个单词的首字母大写',
-                'qxsckstrmani.charAt': '[STR] 的第 [NUM] 个字符',
                 'qxsckstrmani.includes': '[STR] 包括 [STR2] ？',
                 'qxsckstrmani.includesNum': '从 [STR] 的第 [NUM] 个字符开始包括 [STR2] ？',
                 'qxsckstrmani.startsWith': '[STR] 以 [STR2] 开头？',
@@ -31,7 +34,7 @@ class str_mani {
                 'qxsckstrmani.splittojson': '用 [STR2] 分割 [STR]，并返回json',
                 'qxsckstrmani.split': '用 [STR2] 分割 [STR]，并返回',
                 'qxsckstrmani.splitid': '用 [STR2] 分割 [STR]，并返回第 [ID] 项',
-                'qxsckstrmani.getStrNumInStr': '[STR2] 在 [STR] 里出现的次数',
+                'qxsckstrmani.splitlength': '返回用 [STR2] 分割 [STR]后的列表长度',
                 'qxsckstrmani.strIsAvailable': '[STR]是有效[CLASS]？',
                 'qxsckstrmani.fillStart': '在 [STR] 的开头填充 [NUM] 个 [STR2]',
                 'qxsckstrmani.fillEnd': '在 [STR] 的末尾填充 [NUM] 个 [STR2]',
@@ -46,22 +49,25 @@ class str_mani {
 
 			en:{
                 'qxsckstrmani.name': 'String proces',
+                'qxsckstrmani.getHelp': 'Open help',
                 'qxsckstrmani.length': 'Length of [STR]',
                 'qxsckstrmani.reversal': 'Reverse [STR]',
                 'qxsckstrmani.strPalindrome': 'Is [STR] a palindrome?',
                 'qxsckstrmani.indexOf': 'Find the first occurrence of [STR2] in [STR] starting from character [NUM]',
                 'qxsckstrmani.lastIndexOf': 'Find the last occurrence of [STR2] in [STR] starting from character [NUM]',
+                'qxsckstrmani.charAt': 'Character at position [NUM] in [STR]',
                 'qxsckstrmani.slicetwo': 'Slice [STR] from [NUM1] to [NUM2]',
                 'qxsckstrmani.sliceone': 'Slice [STR] starting from [NUM]',
                 'qxsckstrmani.substr': 'Take substring from [STR] starting at character [NUM1] with length [NUM2]',
                 'qxsckstrmani.replace': 'Replace the first [STR2] in [STR] with [STR3]',
                 'qxsckstrmani.replaceAll': 'Replace all occurrences of [STR2] in [STR] with [STR3]',
+                'qxsckstrmani.replacestrIndex': 'Replace the [STR2] of [INDEX] in [STR] with [STR3]',
+                'qxsckstrmani.getStrNumInStr': 'Number of occurrences of [STR2] in [STR]',
                 'qxsckstrmani.toUpperCase': 'Convert lowercase letters in [STR] to uppercase',
                 'qxsckstrmani.toLowerCase': 'Convert uppercase letters in [STR] to lowercase',
                 'qxsckstrmani.padStart': 'Pad [STR] with [STR2] at the beginning until length is [NUM]',
                 'qxsckstrmani.padEnd': 'Pad [STR] with [STR2] at the end until length is [NUM]',
                 'qxsckstrmani.titleCase': 'Capitalize the first letter of each word in [STR]',
-                'qxsckstrmani.charAt': 'Character at position [NUM] in [STR]',
                 'qxsckstrmani.includes': 'Does [STR] include [STR2]?',
                 'qxsckstrmani.includesNum': 'Starting from character [NUM] in [STR], does it include [STR2]?',
                 'qxsckstrmani.startsWith': 'Does [STR] start with [STR2]?',
@@ -70,7 +76,7 @@ class str_mani {
                 'qxsckstrmani.splittojson': 'Split [STR] by [STR2] and return as JSON',
                 'qxsckstrmani.split': 'Split [STR] by [STR2] and return',
                 'qxsckstrmani.splitid': 'Split [STR] by [STR2] and return item [ID]',
-                'qxsckstrmani.getStrNumInStr': 'Number of occurrences of [STR2] in [STR]',
+                'qxsckstrmani.splitlength': 'Split [STR] by [STR2] and return it length',
                 'qxsckstrmani.strIsAvailable': 'Is [STR] a valid [CLASS]?',
                 'qxsckstrmani.fillStart': 'Pad the beginning of [STR] with [NUM] instances of [STR2]',
                 'qxsckstrmani.fillEnd': 'Pad the end of [STR] with [NUM] instances of [STR2]',
@@ -108,9 +114,15 @@ class str_mani {
             menuIconURI: 'data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSI3OS44IiBoZWlnaHQ9Ijc5LjgiIHZpZXdCb3g9IjAsMCw3OS44LDc5LjgiPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMDAuMSwtMTQwLjEpIj48ZyBkYXRhLXBhcGVyLWRhdGE9InsmcXVvdDtpc1BhaW50aW5nTGF5ZXImcXVvdDs6dHJ1ZX0iIGZpbGwtcnVsZT0ibm9uemVybyIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2UtZGFzaGFycmF5PSIiIHN0cm9rZS1kYXNob2Zmc2V0PSIwIiBzdHlsZT0ibWl4LWJsZW5kLW1vZGU6IG5vcm1hbCI+PHBhdGggZD0iTTIwMS44NSwxODBjMCwtMjEuMDY5NjYgMTcuMDgwMzQsLTM4LjE1IDM4LjE1LC0zOC4xNWMyMS4wNjk2NiwwIDM4LjE1LDE3LjA4MDM0IDM4LjE1LDM4LjE1YzAsMjEuMDY5NjYgLTE3LjA4MDM0LDM4LjE1IC0zOC4xNSwzOC4xNWMtMjEuMDY5NjYsMCAtMzguMTUsLTE3LjA4MDM0IC0zOC4xNSwtMzguMTV6IiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNiMGQ1ZWUiIHN0cm9rZS13aWR0aD0iMy41IiBzdHJva2UtbGluZWNhcD0iYnV0dCIvPjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2IwZDVlZSIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0icm91bmQiPjxwYXRoIGQ9Ik0yMjUuOTUzNzksMTUyLjM5NDgxYzAsMCAtMTQuNTE3OTEsMy40Nzk4NiAtMTMuNTg3NjMsMTAuMzkwNTRjMC45MzAyOSw2LjkxMDY4IDE1LjQ0NDQxLDIuNTIzMTQgMTYuMzg1MDksMTAuMzkwNTRjMC45MTY3LDcuNjY2OTMgLTEzLjcxMjI1LDguMjUwNDYgLTEzLjcxMjI1LDguMjUwNDZjMCwwIC0wLjMxODM0LC0wLjE2NzE0IC0wLjQ3NDg0LC0wLjI1NzczIi8+PGc+PHBhdGggZD0iTTIyOS42NjU5MSwxNjcuNTg2MjljNS45Njc0MiwtNC4xMjk0NyAxNS4xODA3MSwtMy41ODEyMSAxOC4yOTQyNywzLjMzMDE0IiBkYXRhLXBhcGVyLWRhdGE9InsmcXVvdDtvcmlnUm90JnF1b3Q7OjB9Ii8+PHBhdGggZD0iTTI0NC45NzgzOCwxODUuNzM4NDVjMCwwIC02LjMwOTMxLDE2LjQ1MjU4IC02Ljg2MjksNC4xMDY2Yy0wLjU1MzU4LC0xMi4zNDU5OCA1LjcxMjA1LC0yOS43NzI3OSA1LjcxMjA1LC0yOS43NzI3OSIgZGF0YS1wYXBlci1kYXRhPSJ7JnF1b3Q7b3JpZ1JvdCZxdW90OzowfSIvPjwvZz48Zz48cGF0aCBkPSJNMjUxLjk0OTcxLDIwNy42MDUxOWMwLDAgLTIuOTE3NzIsLTE2LjEyODA3IC0xLjMzNTMxLC0yMS41MTMzNWMxLjU4MjQxLC01LjM4NTI4IDEwLjUzNDEyLC05Ljc5MjI4IDEwLjUzNDEyLC05Ljc5MjI4Ii8+PHBhdGggZD0iTTI2Ny42NzY3MSwxODYuODMzNjdjMCwwIC01LjEyMDc1LDQuNTk1OTggLTcuODY1NDEsNC41MjExMmMtMi42OTQ1OCwtMC4wNzM0OSAtOC44MTExNCwtNS4yMzMyOSAtOC44MTExNCwtNS4yMzMyOSIvPjwvZz48L2c+PGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNTNhYWU3IiBzdHJva2Utd2lkdGg9IjAuNzUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI+PHBhdGggZD0iTTIyNS45NTM3OSwxNTIuMzk0ODFjMCwwIC0xNC41MTc5MSwzLjQ3OTg2IC0xMy41ODc2MywxMC4zOTA1NGMwLjkzMDI5LDYuOTEwNjggMTUuNDQ0NDEsMi41MjMxNCAxNi4zODUwOSwxMC4zOTA1NGMwLjkxNjcsNy42NjY5MyAtMTMuNzEyMjUsOC4yNTA0NiAtMTMuNzEyMjUsOC4yNTA0NmMwLDAgLTAuMzE4MzQsLTAuMTY3MTQgLTAuNDc0ODQsLTAuMjU3NzMiLz48Zz48cGF0aCBkPSJNMjI5LjY2NTkxLDE2Ny41ODYyOWM1Ljk2NzQyLC00LjEyOTQ3IDE1LjE4MDcxLC0zLjU4MTIxIDE4LjI5NDI3LDMuMzMwMTQiIGRhdGEtcGFwZXItZGF0YT0ieyZxdW90O29yaWdSb3QmcXVvdDs6MH0iLz48cGF0aCBkPSJNMjQ0Ljk3ODM4LDE4NS43Mzg0NWMwLDAgLTYuMzA5MzEsMTYuNDUyNTggLTYuODYyOSw0LjEwNjZjLTAuNTUzNTgsLTEyLjM0NTk4IDUuNzEyMDUsLTI5Ljc3Mjc5IDUuNzEyMDUsLTI5Ljc3Mjc5IiBkYXRhLXBhcGVyLWRhdGE9InsmcXVvdDtvcmlnUm90JnF1b3Q7OjB9Ii8+PC9nPjxnPjxwYXRoIGQ9Ik0yNTEuOTQ5NzEsMjA3LjYwNTE5YzAsMCAtMi45MTc3MiwtMTYuMTI4MDcgLTEuMzM1MzEsLTIxLjUxMzM1YzEuNTgyNDEsLTUuMzg1MjggMTAuNTM0MTIsLTkuNzkyMjggMTAuNTM0MTIsLTkuNzkyMjgiLz48cGF0aCBkPSJNMjY3LjY3NjcxLDE4Ni44MzM2N2MwLDAgLTUuMTIwNzUsNC41OTU5OCAtNy44NjU0MSw0LjUyMTEyYy0yLjY5NDU4LC0wLjA3MzQ5IC04LjgxMTE0LC01LjIzMzI5IC04LjgxMTE0LC01LjIzMzI5Ii8+PC9nPjwvZz48L2c+PC9nPjwvc3ZnPjwhLS1yb3RhdGlvbkNlbnRlcjozOS45MDAwMDAwMDAwMDAxMjozOS44OTk5OTk5OTk5OTk5OC0tPg==',
             blocks: [
                 {
+                    blockType: 'button',
+                    text: this.formatMessage('qxsckstrmani.getHelp'),
+                    onClick: this.getHelp
+                },
+                {
                     opcode: 'length',
                     blockType: 'reporter',
                     text: this.formatMessage('qxsckstrmani.length'),
+                    hideFromPalette: true,
                     arguments: {
                         STR: {
                             type: 'string',
@@ -175,6 +187,21 @@ class str_mani {
                         NUM: {
                             type: 'number',
                             defaultValue: '3'
+                        }
+                    }
+                },
+                {
+                    opcode: 'charAt',
+                    blockType: 'reporter',
+                    text: this.formatMessage('qxsckstrmani.charAt'),
+                    arguments: {
+                        STR: {
+                            type: 'string',
+                            defaultValue: 'string'
+                        },
+                        NUM: {
+                            type: 'number',
+                            defaultValue: '1'
                         }
                     }
                 },
@@ -270,6 +297,44 @@ class str_mani {
                     }
                 },
                 {
+                    opcode: 'replacestrIndex',
+                    blockType: 'reporter',
+                    text: this.formatMessage('qxsckstrmani.replacestrIndex'),
+                    arguments: {
+                        STR: {
+                            type: 'string',
+                            defaultValue: 'str in string'
+                        },
+                        STR2: {
+                            type: 'string',
+                            defaultValue: 'str'
+                        },
+                        STR3: {
+                            type: 'string',
+                            defaultValue: 'num'
+                        },
+                        INDEX: {
+                            type: 'string',
+                            defaultValue: '2'
+                        }
+                    }
+                },
+                {
+                    opcode: 'getStrNumInStr',
+                    blockType: 'reporter',
+                    text: this.formatMessage('qxsckstrmani.getStrNumInStr'),
+                    arguments: {
+                        STR: {
+                            type: 'string',
+                            defaultValue: 'str in string'
+                        },
+                        STR2: {
+                            type: 'string',
+                            defaultValue: 'str'
+                        }
+                    }
+                },
+                {
                     opcode: 'toUpperCase',
                     blockType: 'reporter',
                     text: this.formatMessage('qxsckstrmani.toUpperCase'),
@@ -337,21 +402,6 @@ class str_mani {
                         STR: {
                             type: 'string',
                             defaultValue: 'string is good'
-                        }
-                    }
-                },
-                {
-                    opcode: 'charAt',
-                    blockType: 'reporter',
-                    text: this.formatMessage('qxsckstrmani.charAt'),
-                    arguments: {
-                        STR: {
-                            type: 'string',
-                            defaultValue: 'string'
-                        },
-                        NUM: {
-                            type: 'number',
-                            defaultValue: '1'
                         }
                     }
                 },
@@ -485,17 +535,21 @@ class str_mani {
                     }
                 },
                 {
-                    opcode: 'getStrNumInStr',
+                    opcode: 'splitlength',
                     blockType: 'reporter',
-                    text: this.formatMessage('qxsckstrmani.getStrNumInStr'),
+                    text: this.formatMessage('qxsckstrmani.splitlength'),
                     arguments: {
                         STR: {
                             type: 'string',
-                            defaultValue: 'str in string'
+                            defaultValue: 'str.ing'
                         },
                         STR2: {
                             type: 'string',
-                            defaultValue: 'str'
+                            defaultValue: '.'
+                        },
+                        ID: {
+                            type: 'string',
+                            defaultValue: '1'
                         }
                     }
                 },
@@ -682,6 +736,10 @@ class str_mani {
         };
     }
 
+    getHelp() {
+        window.open('https://learn.ccw.site/article/e6ba96d6-17a4-4f63-b5e1-126acbbb82d4');
+    }
+
     length(args){
         return args.STR.length;
     }
@@ -717,6 +775,19 @@ class str_mani {
     }
     replaceAll(args){
         return args.STR.replaceAll(args.STR2,args.STR3);
+    }
+    replacestrIndex(args){
+        var strs=args.STR.split(args.STR2);
+        var index=Number(args.INDEX);
+        var str_="";
+        for(var i=0;i<strs.length;i++){
+            str_=str_+strs[i];
+            if(i+1!=strs.length){
+                if(i+1===index) str_=str_+args.STR3;
+                else str_=str_+args.STR2;
+            }
+        }
+        return str_;
     }
     toUpperCase(args){
         return args.STR.toUpperCase();
@@ -761,12 +832,16 @@ class str_mani {
     }
     split(args) {
         var str_=args.STR.split(args.STR2);
-        return str_;
+        return '['+str_.map(value=>'"'+String(value)+'"').join(',')+']';
     }
     splitid(args) {
         var str_=args.STR.split(args.STR2);
         var id=Number(args.ID);
         if(id<=str_.length) return str_[id-1];
+    }
+    splitlength(args) {
+        var str_=args.STR.split(args.STR2);
+        return str_.length;
     }
     getStrNumInStr(args){
       if(typeof(args.STR)!=="string" || typeof(args.STR2)!=="string") return 0;
@@ -864,7 +939,7 @@ window.tempExt = {
     info: {
         name: 'qxsck.name',
         description: 'qxsck.description',
-        extensionId: 'strmani',
+        extensionId: 'strmani1',
         iconURL: icon,
         insetIconURL: insetIcon,
         featured: true,
