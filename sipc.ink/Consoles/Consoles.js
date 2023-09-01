@@ -196,9 +196,7 @@
         }
     }
     Scratch.extensions.register(new Consoles());
-})(Scratch);
-
-// menuInfo
+    // menuInfo
 const tempExt = {
     Extension: Consoles,
     info: {
@@ -220,4 +218,7 @@ const tempExt = {
         }
     },
 }
+})(Scratch);
+
+
 //BY -SIPC- 502415953
