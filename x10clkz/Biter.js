@@ -177,7 +177,7 @@ class Biter {
 							defaultValue: 3791,
 						},
 					}
-				}, ({A}) => (A + 0).toString(2)),
+				}, ({A}) => Number(A).toString(2)),
 				this.b({
 					opcode: "Bin2Dec",
 					blockType: "reporter",
@@ -199,7 +199,7 @@ class Biter {
 							defaultValue: 3758,
 						},
 					}
-				}, ({A}) => (A + 0).toString(16)),
+				}, ({A}) => Number(A).toString(16)),
 				this.b({
 					opcode: "Bin2Hex",
 					blockType: "reporter",
@@ -210,7 +210,7 @@ class Biter {
 							defaultValue: "100101"
 						},
 					}
-				}, ({A}) => parseInt(A, 2).toString(16)),
+				}, ({A}) => Number(A).toString(16)),
 				this.b({
 					opcode: "Hex2Dec",
 					blockType: "reporter",
@@ -251,7 +251,7 @@ class Biter {
 							defaultValue: 11,
 						},
 					}
-				}, ({R, A, B}) => parseInt(A, R + 0).toString(B + 0)),
+				}, ({R, A, B}) => parseInt(A, Number(R)).toString(Number(B))),
 				this.b({
 					opcode: "Dec2Rad",
 					blockType: "reporter",
@@ -266,7 +266,7 @@ class Biter {
 							defaultValue: 8
 						},
 					}
-				}, ({A, B}) => (A + 0).toString(B + 0)),
+				}, ({A, B}) => Number(A).toString(Number(B))),
 				this.b({
 					opcode: "Rad2Dec",
 					blockType: "reporter",
@@ -281,7 +281,7 @@ class Biter {
 							defaultValue: "380ab",
 						},
 					}
-				}, ({R, A}) => parseInt(A, R + 0)),
+				}, ({R, A}) => parseInt(A, Number(R))),
 			],
 		};
 	}
