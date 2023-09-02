@@ -4,7 +4,6 @@ class MusicExtension {
       this.audioElement = null;
       Scratch.translate.setup({
         zh: {
-          网易云音乐: '网易云音乐',
           搜索音乐: '搜索音乐 [name]',
           获取音乐: '获取音乐url [id]',
           获取歌词: '获取 [id] 的歌词',
