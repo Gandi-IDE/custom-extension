@@ -4,27 +4,27 @@ class MusicExtension {
       this.audioElement = null;
       Scratch.translate.setup({
         zh: {
-          搜索音乐: '搜索音乐 [name]',
-          获取音乐: '获取音乐url [id]',
-          获取歌词: '获取 [id] 的歌词',
-          获取翻译歌词: '获取 [id] 的翻译歌词',
-          获取封面: '获取 [id] 的封面',
-          播放音乐: '从 [url] 播放音乐',
-          获取电台曲目: '获取电台节目 [id]',
-          网页ID转音乐ID: '电台音乐ID转音乐ID [id]',
-          恢复音乐: '播放音乐',
-          暂停音乐: '暂停音乐',
-          停止音乐: '停止音乐',
-          跳转到时间: '跳转到时间 [time] 秒',
-          调整音量: '将音量调到 [volume]',
-          是否正在播放音乐: '是否正在播放音乐?',
-          获取播放时间: '音乐播放时间（秒）',
-          获取音乐总时长: '音乐总时长（秒）',
-          获取当前时间歌词: '[lyricsText] 在 [currentTime] 时显示',
-          获取当前时间歌词在第几行: '[lyricsText] 在 [currentTime] 时是第几行',
-          获取第几行的歌词时间: '[lyricsText] 在 [currentTime] 行时是第几秒',
-          歌词: '歌词',
-          时间: '时间'
+          SearchMusic: '搜索音乐 [name]',
+          Getmusic: '获取音乐url [id]',
+          Getlyrics: '获取 [id] 的歌词',
+          Gettranslatedlyrics: '获取 [id] 的翻译歌词',
+          getcover: '获取 [id] 的封面',
+          playmusic: '从 [url] 播放音乐',
+          Getradiotracks: '获取电台节目 [id]',
+          WebIDtomusicID: '电台音乐ID转音乐ID [id]',
+          resumemusic: '播放音乐',
+          pausemusic: '暂停音乐',
+          stopmusic: '停止音乐',
+          jumptotime: '跳转到时间 [time] 秒',
+          adjustthevolume: '将音量调到 [volume]',
+          Ismusicplaying: '是否正在播放音乐?',
+          Getplaytime: '音乐播放时间（秒）',
+          Getthetotaldurationofmusic: '音乐总时长（秒）',
+          Getcurrenttimelyrics: '[lyricsText] 在 [currentTime] 时显示',
+          Getthelineoflyricsatthecurrenttime: '[lyricsText] 在 [currentTime] 时是第几行',
+          Getthelyricstimeofthefirstfewlines: '[lyricsText] 在 [currentTime] 行时是第几秒',
+          lyrics: '歌词',
+          time: '时间'
         }
       })
     }
@@ -35,9 +35,9 @@ class MusicExtension {
         color1: "#4d4d4f",
         blocks: [
           {
-            opcode: '搜索音乐',
+            opcode: 'SearchMusic',
             blockType: Scratch.BlockType.REPORTER,
-            text: Scratch.translate({ id: "搜索音乐", default: "Search Music [name]" }),
+            text: Scratch.translate({ id: "SearchMusic", default: "Search Music [name]" }),
             arguments: {
               name: {
                 type: Scratch.ArgumentType.STRING,
@@ -46,9 +46,9 @@ class MusicExtension {
             }
           },
           {
-            opcode: '获取音乐',
+            opcode: 'Getmusic',
             blockType: Scratch.BlockType.REPORTER,
-            text: Scratch.translate({ id: "获取音乐", default: "Get music url [id]" }),
+            text: Scratch.translate({ id: "Getmusic", default: "Get music url [id]" }),
             arguments: {
               id: {
                 type: Scratch.ArgumentType.STRING,
@@ -57,9 +57,9 @@ class MusicExtension {
             }
           },
           {
-            opcode: '获取歌词',
+            opcode: 'Getlyrics',
             blockType: Scratch.BlockType.REPORTER,
-            text: Scratch.translate({ id: "获取歌词", default: "Get the lyrics of [id]" }),
+            text: Scratch.translate({ id: "Getlyrics", default: "Get the lyrics of [id]" }),
             arguments: {
               id: {
                 type: Scratch.ArgumentType.STRING,
@@ -68,9 +68,9 @@ class MusicExtension {
             }
           },
           {
-            opcode: '获取翻译歌词',
+            opcode: 'Gettranslatedlyrics',
             blockType: Scratch.BlockType.REPORTER,
-            text: Scratch.translate({ id: "获取翻译歌词", default: "Get [id]'s translated lyrics" }),
+            text: Scratch.translate({ id: "Gettranslatedlyrics", default: "Get [id]'s translated lyrics" }),
             arguments: {
               id: {
                 type: Scratch.ArgumentType.STRING,
@@ -79,9 +79,9 @@ class MusicExtension {
             }
           },
           {
-            opcode: '获取封面',
+            opcode: 'getcover',
             blockType: Scratch.BlockType.REPORTER,
-            text: Scratch.translate({ id: "获取封面", default: "Get the cover of [id]" }),
+            text: Scratch.translate({ id: "getcover", default: "Get the cover of [id]" }),
             arguments: {
               id: {
                 type: Scratch.ArgumentType.STRING,
@@ -90,9 +90,9 @@ class MusicExtension {
             }
           },
           {
-            opcode: '播放音乐',
+            opcode: 'playmusic',
             blockType: Scratch.BlockType.COMMAND,
-            text: Scratch.translate({ id: "播放音乐", default: "Play music from [url]" }),
+            text: Scratch.translate({ id: "playmusic", default: "Play music from [url]" }),
             arguments: {
               url: {
                 type: Scratch.ArgumentType.STRING,
@@ -101,14 +101,9 @@ class MusicExtension {
             }
           },
           {
-            blockType: Scratch.BlockType.LABEL,
-            text: '电台'
-          },
-          //电台部分
-          {
-            opcode: '获取电台曲目',
+            opcode: 'Getradiotracks',
             blockType: Scratch.BlockType.REPORTER,
-            text: Scratch.translate({ id: "获取电台曲目", default: "Get radio program [id]" }),
+            text: Scratch.translate({ id: "Getradiotracks", default: "Get radio program [id]" }),
             arguments: {
               id: {
                 type: Scratch.ArgumentType.STRING,
@@ -117,9 +112,9 @@ class MusicExtension {
             }
           },
           {
-            opcode: '网页ID转音乐ID',
+            opcode: 'WebIDtomusicID',
             blockType: Scratch.BlockType.REPORTER,
-            text: Scratch.translate({ id: "网页ID转音乐ID", default: "Radio Music ID to Music ID [id]" }),
+            text: Scratch.translate({ id: "WebIDtomusicID", default: "Radio Music ID to Music ID [id]" }),
             arguments: {
               id: {
                 type: Scratch.ArgumentType.STRING,
@@ -127,30 +122,25 @@ class MusicExtension {
               }
             }
           },
-          //控制部分
           {
-            blockType: Scratch.BlockType.LABEL,
-            text: '控制'
+            opcode: 'resumemusic',
+            blockType: Scratch.BlockType.COMMAND,
+            text: Scratch.translate({ id: "resumemusic", default: "Play Music" })
           },
           {
-            opcode: '恢复音乐',
+            opcode: 'pausemusic',
             blockType: Scratch.BlockType.COMMAND,
-            text: Scratch.translate({ id: "恢复音乐", default: "Play Music" })
+            text: Scratch.translate({ id: "pausemusic", default: "Pause Music" })
           },
           {
-            opcode: '暂停音乐',
+            opcode: 'stopmusic',
             blockType: Scratch.BlockType.COMMAND,
-            text: Scratch.translate({ id: "暂停音乐", default: "Pause Music" })
+            text: Scratch.translate({ id: "stopmusic", default: "Stop Music" })
           },
           {
-            opcode: '停止音乐',
+            opcode: 'jumptotime',
             blockType: Scratch.BlockType.COMMAND,
-            text: Scratch.translate({ id: "停止音乐", default: "Stop Music" })
-          },
-          {
-            opcode: '跳转到时间',
-            blockType: Scratch.BlockType.COMMAND,
-            text: Scratch.translate({ id: "跳转到时间", default: "Skip to time [time] seconds" }),
+            text: Scratch.translate({ id: "jumptotime", default: "Skip to time [time] seconds" }),
             arguments: {
               time: {
                 type: Scratch.ArgumentType.NUMBER,
@@ -159,9 +149,9 @@ class MusicExtension {
             }
           },
           {
-            opcode: '调整音量',
+            opcode: 'adjustthevolume',
             blockType: Scratch.BlockType.COMMAND,
-            text: Scratch.translate({ id: "调整音量", default: "Adjust the volume to [volume]" }),
+            text: Scratch.translate({ id: "adjustthevolume", default: "Adjust the volume to [volume]" }),
             arguments: {
               volume: {
                 type: Scratch.ArgumentType.NUMBER,
@@ -170,62 +160,62 @@ class MusicExtension {
             }
           },
           {
-            opcode: '是否正在播放音乐',
+            opcode: 'Ismusicplaying',
             blockType: Scratch.BlockType.BOOLEAN,
-            text: Scratch.translate({ id: "是否正在播放音乐", default: "Is music playing?" })
+            text: Scratch.translate({ id: "Ismusicplaying", default: "Is music playing?" })
           },
           {
-            opcode: '获取播放时间',
+            opcode: 'Getplaytime',
             blockType: Scratch.BlockType.REPORTER,
-            text: Scratch.translate({ id: "获取播放时间", default: "Music play time (sec)" })
+            text: Scratch.translate({ id: "Getplaytime", default: "Music play time (sec)" })
           },
           {
-            opcode: '获取音乐总时长',
+            opcode: 'Getthetotaldurationofmusic',
             blockType: Scratch.BlockType.REPORTER,
-            text: Scratch.translate({ id: "获取音乐总时长", default: "Current time lyrics (sec)" })
+            text: Scratch.translate({ id: "Getthetotaldurationofmusic", default: "Current time lyrics (sec)" })
           },
           {
-            opcode: '获取当前时间歌词',
+            opcode: 'Getcurrenttimelyrics',
             blockType: Scratch.BlockType.REPORTER,
-            text: Scratch.translate({ id: "获取当前时间歌词", default: "[lyricsText] is shown at [currentTime]" }),
+            text: Scratch.translate({ id: "Getcurrenttimelyrics", default: "[lyricsText] is shown at [currentTime]" }),
             arguments: {
               lyricsText: {
                 type: Scratch.ArgumentType.STRING,
-                defaultValue: Scratch.translate({ id: "歌词", default: "lyricsText" })
+                defaultValue: Scratch.translate({ id: "lyrics", default: "lyricsText" })
               },
               currentTime: {
                 type: Scratch.ArgumentType.NUMBER,
-                defaultValue: Scratch.translate({ id: "时间", default: "currentTime" })
+                defaultValue: Scratch.translate({ id: "time", default: "currentTime" })
               }
             }
           },
           {
-            opcode: '获取当前时间歌词在第几行',
+            opcode: 'Getthelineoflyricsatthecurrenttime',
             blockType: Scratch.BlockType.REPORTER,
-            text: Scratch.translate({ id: "获取当前时间歌词在第几行", default: "[lyricsText] is in line at [currentTime]" }),
+            text: Scratch.translate({ id: "Getthelineoflyricsatthecurrenttime", default: "[lyricsText] is in line at [currentTime]" }),
             arguments: {
                 lyricsText: {
                   type: Scratch.ArgumentType.STRING,
-                  defaultValue: Scratch.translate({ id: "歌词", default: "lyricsText" })
+                  defaultValue: Scratch.translate({ id: "lyrics", default: "lyricsText" })
                 },
                 currentTime: {
                   type: Scratch.ArgumentType.NUMBER,
-                  defaultValue: Scratch.translate({ id: "时间", default: "currentTime" })
+                  defaultValue: Scratch.translate({ id: "time", default: "currentTime" })
                 }
               }
           },
           {
-            opcode: '获取第几行的歌词时间',
+            opcode: 'Getthelyricstimeofthefirstfewlines',
             blockType: Scratch.BlockType.REPORTER,
-            text: Scratch.translate({ id: "获取第几行的歌词时间", default: "[lyricsText] in [currentTime] line is the first second" }),
+            text: Scratch.translate({ id: "Getthelyricstimeofthefirstfewlines", default: "[lyricsText] in [currentTime] line is the first second" }),
             arguments: {
                 lyricsText: {
                   type: Scratch.ArgumentType.STRING,
-                  defaultValue: Scratch.translate({ id: "歌词", default: "lyricsText" })
+                  defaultValue: Scratch.translate({ id: "lyrics", default: "lyricsText" })
                 },
                 currentTime: {
                   type: Scratch.ArgumentType.NUMBER,
-                  defaultValue: Scratch.translate({ id: "时间", default: "currentTime" })
+                  defaultValue: Scratch.translate({ id: "time", default: "currentTime" })
                 }
               }
           },
@@ -233,7 +223,7 @@ class MusicExtension {
       };
     }
     //音乐部分
-    搜索音乐(args) {
+    SearchMusic(args) {
       return new Promise((resolve, reject) => {
         const url = `https://163.sipc-api.top/search?keywords=${args.name}`;
         fetch(url)
@@ -257,7 +247,7 @@ class MusicExtension {
       });
     }
   
-    获取音乐(args) {
+    Getmusic(args) {
       return new Promise((resolve, reject) => {
         const url = `https://163.sipc-api.top/song/url?id=${args.id}`;
         fetch(url)
@@ -268,7 +258,7 @@ class MusicExtension {
                 if (data && data.code === 200 && data.data && data.data.length > 0) {
                   resolve(data.data[0].url.replace(/^http:/, 'https:'));
                 } else {
-                  reject(new Error('无法获取音乐下载链接'));
+                  reject(new Error('Unable to get music download link'));
                 }
               });
             }
@@ -280,7 +270,7 @@ class MusicExtension {
           });
       });
     }
-    获取封面(args) {
+    getcover(args) {
       return new Promise((resolve, reject) => {
         const url = `https://163.sipc-api.top/song/detail?ids=${args.id}`;
         fetch(url)
@@ -295,7 +285,7 @@ class MusicExtension {
       });
     }
   
-    播放音乐(args) {
+    playmusic(args) {
       const url = args.url;
       if (this.audioElement) {
         this.audioElement.pause();
@@ -304,7 +294,7 @@ class MusicExtension {
       this.audioElement = new Audio(url);
       this.audioElement.play();
     }
-    获取歌词(args) {
+    Getlyrics(args) {
       const cacheKey = `lyrics_${args.id}`;
       const cachedLyrics = localStorage.getItem(cacheKey);
       if (cachedLyrics) {
@@ -324,7 +314,7 @@ class MusicExtension {
           });
       });
     }
-    获取翻译歌词(args) {
+    Gettranslatedlyrics(args) {
       const cacheKey = `tranlates_lyrics_${args.id}`;
       const cachedLyrics = localStorage.getItem(cacheKey);
       if (cachedLyrics) {
@@ -346,7 +336,7 @@ class MusicExtension {
     }
   
     //电台部分
-    获取电台曲目(args) {
+    Getradiotracks(args) {
       return new Promise((resolve, reject) => {
         const url = `https://163.sipc-api.top/dj/program?rid=${args.id}`;
         fetch(url)
@@ -359,7 +349,7 @@ class MusicExtension {
               }));
               resolve(JSON.stringify(formattedData));
             } else {
-              reject(new Error('无法获取电台信息'));
+              reject(new Error('Unable to get station information'));
             }
           })
           .catch(error => {
@@ -367,7 +357,7 @@ class MusicExtension {
           });
       });
     }
-    网页ID转音乐ID(args) {
+    WebIDtomusicID(args) {
       return new Promise((resolve, reject) => {
         const url = `https://163.sipc-api.top/dj/program/detail?id=${args.id}`;
         fetch(url)
@@ -382,31 +372,31 @@ class MusicExtension {
       });
     }
     //控制部分
-    暂停音乐() {
+    pausemusic() {
       if (this.audioElement) {
         this.audioElement.pause();
       }
     }
   
-    恢复音乐() {
+    resumemusic() {
       if (this.audioElement) {
         this.audioElement.play();
       }
     }
   
-    停止音乐() {
+    stopmusic() {
       if (this.audioElement) {
         this.audioElement.pause();
         this.audioElement = null;
       }
     }
-    跳转到时间(args) {
+    jumptotime(args) {
       const time = args.time;
       if (this.audioElement) {
         this.audioElement.currentTime = time;
       }
     }
-    调整音量(args) {
+    adjustthevolume(args) {
       if (this.audioElement) {
         const volumePercent = args.volume;
         if (volumePercent >= 0 && volumePercent <= 100) {
@@ -416,7 +406,7 @@ class MusicExtension {
       }
     }
     //信息部分
-    是否正在播放音乐() {
+    Ismusicplaying() {
       if (this.audioElement) {
         if (!this.audioElement.paused && !this.audioElement.ended) {
           return true;
@@ -430,20 +420,20 @@ class MusicExtension {
       }
     }
   
-    获取播放时间() {
+    Getplaytime() {
       if (this.audioElement) {
         return this.audioElement.currentTime;
       }
       return 0;
     }
   
-    获取音乐总时长() {
+    Getthetotaldurationofmusic() {
       if (this.audioElement) {
         return this.audioElement.duration;
       }
       return 0;
     }
-    获取当前时间歌词(args) {
+    Getcurrenttimelyrics(args) {
       const lines = args.lyricsText.trim().split('\n');
       const lyrics = [];
   
@@ -465,7 +455,7 @@ class MusicExtension {
       return '';
     }
   
-    获取当前时间歌词在第几行(args) {
+    Getthelineoflyricsatthecurrenttime(args) {
       const lines = args.lyricsText.trim().split('\n');
       const currentTime = args.currentTime;
   
@@ -480,7 +470,7 @@ class MusicExtension {
       }
       return 0;
     }
-    获取第几行的歌词时间(args){
+    Getthelyricstimeofthefirstfewlines(args){
       const lines = args.lyricsText.trim().split('\n');
       if (!lines || lines.length === 0) {
         return '0';
@@ -506,7 +496,7 @@ class MusicExtension {
   }
   Scratch.extensions.register(new MusicExtension());
   const tempExt = {
-    Extension: sipc.ink.CloudMusic,
+    Extension: MusicExtension,
     info: {
         name: 'CloudMusic',
         description: 'CloudMusic.Description',
