@@ -177,7 +177,11 @@ class Biter {
 							defaultValue: 3791,
 						},
 					}
-				}, ({A}) => Number(A).toString(2)),
+				}, ({A}) => {
+					let result = Number(A).toString(2);
+					if (result == "NaN") return '';
+					return result;
+				}),
 				this.b({
 					opcode: "Bin2Dec",
 					blockType: "reporter",
@@ -188,7 +192,7 @@ class Biter {
 							defaultValue: "10010101",
 						},
 					}
-				}, ({A}) => parseInt(A, 2)),
+				}, ({A}) => parseInt(A, 2) || ''),
 				this.b({
 					opcode: "Dec2Hex",
 					blockType: "reporter",
@@ -199,7 +203,11 @@ class Biter {
 							defaultValue: 3758,
 						},
 					}
-				}, ({A}) => Number(A).toString(16)),
+				}, ({A}) => {
+					let result = Number(A).toString(16);
+					if (result == "NaN") return '';
+					return result;
+				}),
 				this.b({
 					opcode: "Bin2Hex",
 					blockType: "reporter",
@@ -210,7 +218,11 @@ class Biter {
 							defaultValue: "100101"
 						},
 					}
-				}, ({A}) => Number(A).toString(16)),
+				}, ({A}) => {
+					let result = Number(A).toString(16);
+					if (result == "NaN") return '';
+					return result;
+				}),
 				this.b({
 					opcode: "Hex2Dec",
 					blockType: "reporter",
@@ -221,7 +233,7 @@ class Biter {
 							defaultValue: "ab18",
 						},
 					}
-				}, ({A}) => parseInt(A, 16)),
+				}, ({A}) => parseInt(A, 16) || ''),
 				this.b({
 					opcode: "Hex2Bin",
 					blockType: "reporter",
@@ -232,7 +244,11 @@ class Biter {
 							defaultValue: "39abfc",
 						},
 					}
-				}, ({A}) => parseInt(A, 16).toString(2)),
+				}, ({A}) => {
+					let result = parseInt(A, 16).toString(2);
+					if (result == "NaN") return '';
+					return result;
+				}),
 				this.b({
 					opcode: "Rad2Rad",
 					blockType: "reporter",
@@ -251,7 +267,11 @@ class Biter {
 							defaultValue: 11,
 						},
 					}
-				}, ({R, A, B}) => parseInt(A, Number(R)).toString(Number(B))),
+				}, ({R, A, B}) => {
+					let result = parseInt(A, Number(R)).toString(Number(B));
+					if (result == "NaN") return '';
+					return result;
+				}),
 				this.b({
 					opcode: "Dec2Rad",
 					blockType: "reporter",
@@ -266,7 +286,11 @@ class Biter {
 							defaultValue: 8
 						},
 					}
-				}, ({A, B}) => Number(A).toString(Number(B))),
+				}, ({A, B}) => {
+					let result = Number(A).toString(Number(B));
+					if (result == "NaN") return '';
+					return result;
+				}),
 				this.b({
 					opcode: "Rad2Dec",
 					blockType: "reporter",
@@ -281,7 +305,7 @@ class Biter {
 							defaultValue: "380ab",
 						},
 					}
-				}, ({R, A}) => parseInt(A, Number(R))),
+				}, ({R, A}) => parseInt(A, Number(R)) || ''),
 			],
 		};
 	}
