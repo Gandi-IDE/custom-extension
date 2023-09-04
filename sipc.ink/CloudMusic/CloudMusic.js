@@ -505,7 +505,7 @@ class MusicExtension {
         // insetIconURL: 'cover.svg',
         collaborator: 'sipc.ink@Gandi'
     },
-    l10m: {
+    l10n: {
         'zh': {
             'CloudMusic.Description':'从网易云,URL获取并播放音乐'
         },
