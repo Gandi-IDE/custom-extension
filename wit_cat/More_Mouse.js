@@ -115,6 +115,7 @@ class WitCatMouse {
 				'WitCatTouch.istouch': '碰到手指[num]?',
 				'WitCatTouch.touchs': '碰到的手指',
 				'WitCatTouch.num': '第[num]个手指的[type]',
+				'WitCatTouch.info': '手指[num]的[type]',
 				'WitCatTouch.type.1': 'X',
 				'WitCatTouch.type.2': 'Y',
 				'WitCatTouch.type.3': 'ID',
@@ -151,6 +152,7 @@ class WitCatMouse {
 				'WitCatMouse.docs': '📖拓展教程',
 				'WitCatMouse.mousewheel': '鼠标滚轮速度',
 				'WitCatMouse.gyroscope': '当前[p]轴角度',
+				'WitCatMouse.title': '设置鼠标提示[text]',
 			},
 			en: {
 				'WitCatMouse.copythis': 'Copy the following text:',
@@ -177,6 +179,7 @@ class WitCatMouse {
 				'WitCatTouch.istouch': 'Touch finger[num]?',
 				'WitCatTouch.touchs': 'Touching fingers',
 				'WitCatTouch.num': '[type]of finger[num]',
+				'WitCatTouch.info': '[type] of finger [num]',
 				'WitCatTouch.type.1': 'X',
 				'WitCatTouch.type.2': 'Y',
 				'WitCatTouch.type.3': 'ID',
@@ -214,6 +217,7 @@ class WitCatMouse {
 				'WitCatMouse.docs': '📖Tutorials',
 				'WitCatInput.mousewheel': 'mouse wheel speed',
 				'WitCatMouse.gyroscope': 'Current [p] axis Angle',
+				'WitCatMouse.title': 'Set mouse prompts[text]',
 			},
 		});
 	}
@@ -277,6 +281,17 @@ class WitCatMouse {
 					arguments: {},
 				},
 				`---${this.formatMessage('WitCatMouse.name.1')}`,
+				{
+					opcode: 'title',
+					blockType: 'command',
+					text: this.formatMessage('WitCatMouse.title'),
+					arguments: {
+						text: {
+							type: 'string',
+							defaultValue: 'wit_cat!!!',
+						},
+					},
+				},
 				{
 					opcode: 'set',
 					blockType: 'command',
@@ -468,6 +483,21 @@ class WitCatMouse {
 						num: {
 							type: 'number',
 							defaultValue: '1',
+						},
+						type: {
+							type: 'string',
+							menu: 'type',
+						},
+					},
+				},
+				{
+					opcode: 'info',
+					blockType: 'reporter',
+					text: this.formatMessage('WitCatTouch.info'),
+					arguments: {
+						num: {
+							type: 'string',
+							defaultValue: '0',
 						},
 						type: {
 							type: 'string',
@@ -812,6 +842,34 @@ class WitCatMouse {
 	}
 
 	/**
+	 * 坐标
+	 * @param {object} args
+	 * @param {SCarg} args.num 手指ID
+	 * @param {SCarg} args.type 数据类型 "x"|"y"|"identifier"
+	 * @returns {number|string}
+	 */
+	info(args) {
+		const canvas = this.canvas();
+		if (canvas === null) {
+			return 0;
+		}
+		for (let i = 0; i < this.touch.length; i++) {
+			if (this.touch[i]["identifier"] === args.num) {
+				if (this.touch[i] !== undefined) {
+					if (args.type === 'x') {
+						return this.runtime.stageWidth * ((this.touch[i].clientX - canvas.getBoundingClientRect().left) / canvas.offsetWidth);
+					}
+					if (args.type === 'y') {
+						return this.runtime.stageHeight * ((this.touch[i].clientY - canvas.getBoundingClientRect().top) / canvas.offsetHeight);
+					}
+					return touch1.identifier;
+				}
+			}
+		}
+		return 0;
+	}
+
+	/**
 	 * 全屏
 	 * @deprecated
 	 */
@@ -916,11 +974,7 @@ class WitCatMouse {
 		const x = Number(args.x);
 		const y = Number(args.y);
 		const size = Number(args.size);
-
-		// 指定目标造型的索引，索引从0开始，例如第一个造型为0
 		const targetCostumeIndex = Number(args.shape - 1);
-
-		// 获取目标角色的信息
 		const targetSprite = this.runtime.targets.find((v) => { return v.sprite.name === targetRoleName });
 		if (targetSprite) {
 			try {
@@ -959,6 +1013,18 @@ class WitCatMouse {
 		} else {
 			console.error("Target role not found: " + targetRoleName);
 		}
+	}
+
+	/**
+	 * 鼠标提示文案
+	 * @param {Object} args 
+	 */
+	title(args) {
+		const canvasParent = this.canvas()?.parentNode?.parentNode?.parentNode;
+		if (canvasParent === null || canvasParent === undefined) {
+			return;
+		}
+		canvasParent.title = String(args.text);
 	}
 
 	/**
@@ -1250,6 +1316,12 @@ class WitCatMouse {
 		return false;
 	}
 
+	/**
+	 * 判断是否碰到某个手指
+	 * @param {*} args 
+	 * @param {*} util 
+	 * @returns 
+	 */
 	istouch(args, util) {
 		const canvas = this.canvas();
 		for (let i = 0; i < this.touch.length; i++) {
@@ -1265,6 +1337,12 @@ class WitCatMouse {
 	}
 
 
+	/**
+	 * 返回碰到的手指ID列表
+	 * @param {Object} args 
+	 * @param {Object} util 
+	 * @returns 
+	 */
 	touchs(args, util) {
 		const canvas = this.canvas();
 		let s = [];
