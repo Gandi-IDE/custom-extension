@@ -506,7 +506,7 @@ class WitCatMouse {
 					},
 				},
 				{
-					opcode: 'istouch',
+					opcode: 'IsTouch',
 					blockType: 'Boolean',
 					text: this.formatMessage('WitCatTouch.istouch'),
 					arguments: {
@@ -1322,7 +1322,7 @@ class WitCatMouse {
 	 * @param {*} util 
 	 * @returns 
 	 */
-	istouch(args, util) {
+	IsTouch(args, util) {
 		const canvas = this.canvas();
 		for (let i = 0; i < this.touch.length; i++) {
 			if (this.touch[i]["identifier"] === args.num) {
