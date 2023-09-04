@@ -1332,8 +1332,8 @@ class WitCatMouse {
 					return util.target.isTouchingPoint(x, y);
 				}
 			}
-			return false;
 		}
+		return false;
 	}
 
 
