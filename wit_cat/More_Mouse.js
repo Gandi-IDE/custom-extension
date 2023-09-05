@@ -420,7 +420,7 @@ class WitCatMouse {
 					},
 				},
 				{
-					opcode: 'cursorstyle',
+					opcode: 'cursorStyle',
 					blockType: 'command',
 					text: this.formatMessage('WitCatMouse.cursorstyle'),
 					arguments: {
@@ -506,7 +506,7 @@ class WitCatMouse {
 					},
 				},
 				{
-					opcode: 'IsTouch',
+					opcode: 'isTouch',
 					blockType: 'Boolean',
 					text: this.formatMessage('WitCatTouch.istouch'),
 					arguments: {
@@ -964,7 +964,7 @@ class WitCatMouse {
 	 * @param {SCarg} args.x x偏移
 	 * @param {SCarg} args.y y偏移
 	 */
-	cursorstyle(args) {
+	cursorStyle(args) {
 		const canvasParent = this.canvas()?.parentNode?.parentNode?.parentNode;
 		if (canvasParent === null || canvasParent === undefined) {
 			return;
@@ -1322,7 +1322,7 @@ class WitCatMouse {
 	 * @param {*} util 
 	 * @returns 
 	 */
-	IsTouch(args, util) {
+	isTouch(args, util) {
 		const canvas = this.canvas();
 		for (let i = 0; i < this.touch.length; i++) {
 			if (this.touch[i]["identifier"] === args.num) {
