@@ -79,7 +79,7 @@ class MusicExtension {
             }
           },
           {
-            opcode: 'getcover',
+            opcode: 'getCover',
             blockType: Scratch.BlockType.REPORTER,
             text: Scratch.translate({ id: "getcover", default: "Get the cover of [id]" }),
             arguments: {
@@ -90,7 +90,7 @@ class MusicExtension {
             }
           },
           {
-            opcode: 'playmusic',
+            opcode: 'playMusic',
             blockType: Scratch.BlockType.COMMAND,
             text: Scratch.translate({ id: "playmusic", default: "Play music from [url]" }),
             arguments: {
@@ -123,22 +123,22 @@ class MusicExtension {
             }
           },
           {
-            opcode: 'resumemusic',
+            opcode: 'resumeMusic',
             blockType: Scratch.BlockType.COMMAND,
             text: Scratch.translate({ id: "resumemusic", default: "Play Music" })
           },
           {
-            opcode: 'pausemusic',
+            opcode: 'pauseMusic',
             blockType: Scratch.BlockType.COMMAND,
             text: Scratch.translate({ id: "pausemusic", default: "Pause Music" })
           },
           {
-            opcode: 'stopmusic',
+            opcode: 'stopMusic',
             blockType: Scratch.BlockType.COMMAND,
             text: Scratch.translate({ id: "stopmusic", default: "Stop Music" })
           },
           {
-            opcode: 'jumptotime',
+            opcode: 'jumpTotime',
             blockType: Scratch.BlockType.COMMAND,
             text: Scratch.translate({ id: "jumptotime", default: "Skip to time [time] seconds" }),
             arguments: {
@@ -270,7 +270,7 @@ class MusicExtension {
           });
       });
     }
-    getcover(args) {
+    getCover(args) {
       return new Promise((resolve, reject) => {
         const url = `https://163.sipc-api.top/song/detail?ids=${args.id}`;
         fetch(url)
@@ -285,7 +285,7 @@ class MusicExtension {
       });
     }
   
-    playmusic(args) {
+    playMusic(args) {
       const url = args.url;
       if (this.audioElement) {
         this.audioElement.pause();
@@ -372,25 +372,25 @@ class MusicExtension {
       });
     }
     //控制部分
-    pausemusic() {
+    pauseMusic() {
       if (this.audioElement) {
         this.audioElement.pause();
       }
     }
   
-    resumemusic() {
+    resumeMusic() {
       if (this.audioElement) {
         this.audioElement.play();
       }
     }
   
-    stopmusic() {
+    stopMusic() {
       if (this.audioElement) {
         this.audioElement.pause();
         this.audioElement = null;
       }
     }
-    jumptotime(args) {
+    jumpTotime(args) {
       const time = args.time;
       if (this.audioElement) {
         this.audioElement.currentTime = time;
