@@ -4,27 +4,27 @@ class MusicExtension {
       this.audioElement = null;
       Scratch.translate.setup({
         zh: {
-          SearchMusic: '搜索音乐 [name]',
-          Getmusic: '获取音乐url [id]',
-          Getlyrics: '获取 [id] 的歌词',
-          Gettranslatedlyrics: '获取 [id] 的翻译歌词',
-          getcover: '获取 [id] 的封面',
-          playmusic: '从 [url] 播放音乐',
-          Getradiotracks: '获取电台节目 [id]',
-          WebIDtomusicID: '电台音乐ID转音乐ID [id]',
-          resumemusic: '播放音乐',
-          pausemusic: '暂停音乐',
-          stopmusic: '停止音乐',
-          jumptotime: '跳转到时间 [time] 秒',
-          adjustthevolume: '将音量调到 [volume]',
-          Ismusicplaying: '是否正在播放音乐?',
-          Getplaytime: '音乐播放时间（秒）',
-          Getthetotaldurationofmusic: '音乐总时长（秒）',
-          Getcurrenttimelyrics: '[lyricsText] 在 [currentTime] 时显示',
-          Getthelineoflyricsatthecurrenttime: '[lyricsText] 在 [currentTime] 时是第几行',
-          Getthelyricstimeofthefirstfewlines: '[lyricsText] 在 [currentTime] 行时是第几秒',
-          lyrics: '歌词',
-          time: '时间'
+          CloudMusic_SearchMusic: '搜索音乐 [name]',
+          CloudMusic_Getmusic: '获取音乐url [id]',
+          CloudMusic_Getlyrics: '获取 [id] 的歌词',
+          CloudMusic_Gettranslatedlyrics: '获取 [id] 的翻译歌词',
+          CloudMusic_getcover: '获取 [id] 的封面',
+          CloudMusic_playmusic: '从 [url] 播放音乐',
+          CloudMusic_Getradiotracks: '获取电台节目 [id]',
+          CloudMusic_WebIDtomusicID: '电台音乐ID转音乐ID [id]',
+          CloudMusic_resumemusic: '播放音乐',
+          CloudMusic_pausemusic: '暂停音乐',
+          CloudMusic_stopmusic: '停止音乐',
+          CloudMusic_jumptotime: '跳转到时间 [time] 秒',
+          CloudMusic_adjustthevolume: '将音量调到 [volume]',
+          CloudMusic_Ismusicplaying: '是否正在播放音乐?',
+          CloudMusic_Getplaytime: '音乐播放时间（秒）',
+          CloudMusic_Getthetotaldurationofmusic: '音乐总时长（秒）',
+          CloudMusic_Getcurrenttimelyrics: '[lyricsText] 在 [currentTime] 时显示',
+          CloudMusic_Getthelineoflyricsatthecurrenttime: '[lyricsText] 在 [currentTime] 时是第几行',
+          CloudMusic_Getthelyricstimeofthefirstfewlines: '[lyricsText] 在 [currentTime] 行时是第几秒',
+          CloudMusic_lyrics: '歌词',
+          CloudMusic_time: '时间'
         }
       })
     }
@@ -37,7 +37,7 @@ class MusicExtension {
           {
             opcode: 'SearchMusic',
             blockType: Scratch.BlockType.REPORTER,
-            text: Scratch.translate({ id: "SearchMusic", default: "Search Music [name]" }),
+            text: Scratch.translate({ id: "CloudMusic_SearchMusic", default: "Search Music [name]" }),
             arguments: {
               name: {
                 type: Scratch.ArgumentType.STRING,
@@ -48,7 +48,7 @@ class MusicExtension {
           {
             opcode: 'Getmusic',
             blockType: Scratch.BlockType.REPORTER,
-            text: Scratch.translate({ id: "Getmusic", default: "Get music url [id]" }),
+            text: Scratch.translate({ id: "CloudMusic_Getmusic", default: "Get music url [id]" }),
             arguments: {
               id: {
                 type: Scratch.ArgumentType.STRING,
@@ -59,7 +59,7 @@ class MusicExtension {
           {
             opcode: 'Getlyrics',
             blockType: Scratch.BlockType.REPORTER,
-            text: Scratch.translate({ id: "Getlyrics", default: "Get the lyrics of [id]" }),
+            text: Scratch.translate({ id: "CloudMusic_Getlyrics", default: "Get the lyrics of [id]" }),
             arguments: {
               id: {
                 type: Scratch.ArgumentType.STRING,
@@ -70,7 +70,7 @@ class MusicExtension {
           {
             opcode: 'Gettranslatedlyrics',
             blockType: Scratch.BlockType.REPORTER,
-            text: Scratch.translate({ id: "Gettranslatedlyrics", default: "Get [id]'s translated lyrics" }),
+            text: Scratch.translate({ id: "CloudMusic_Gettranslatedlyrics", default: "Get [id]'s translated lyrics" }),
             arguments: {
               id: {
                 type: Scratch.ArgumentType.STRING,
@@ -81,7 +81,7 @@ class MusicExtension {
           {
             opcode: 'getCover',
             blockType: Scratch.BlockType.REPORTER,
-            text: Scratch.translate({ id: "getcover", default: "Get the cover of [id]" }),
+            text: Scratch.translate({ id: "CloudMusic_getcover", default: "Get the cover of [id]" }),
             arguments: {
               id: {
                 type: Scratch.ArgumentType.STRING,
@@ -92,7 +92,7 @@ class MusicExtension {
           {
             opcode: 'playMusic',
             blockType: Scratch.BlockType.COMMAND,
-            text: Scratch.translate({ id: "playmusic", default: "Play music from [url]" }),
+            text: Scratch.translate({ id: "CloudMusic_playmusic", default: "Play music from [url]" }),
             arguments: {
               url: {
                 type: Scratch.ArgumentType.STRING,
@@ -103,7 +103,7 @@ class MusicExtension {
           {
             opcode: 'Getradiotracks',
             blockType: Scratch.BlockType.REPORTER,
-            text: Scratch.translate({ id: "Getradiotracks", default: "Get radio program [id]" }),
+            text: Scratch.translate({ id: "CloudMusic_Getradiotracks", default: "Get radio program [id]" }),
             arguments: {
               id: {
                 type: Scratch.ArgumentType.STRING,
@@ -114,7 +114,7 @@ class MusicExtension {
           {
             opcode: 'WebIDtomusicID',
             blockType: Scratch.BlockType.REPORTER,
-            text: Scratch.translate({ id: "WebIDtomusicID", default: "Radio Music ID to Music ID [id]" }),
+            text: Scratch.translate({ id: "CloudMusic_WebIDtomusicID", default: "Radio Music ID to Music ID [id]" }),
             arguments: {
               id: {
                 type: Scratch.ArgumentType.STRING,
@@ -125,22 +125,22 @@ class MusicExtension {
           {
             opcode: 'resumeMusic',
             blockType: Scratch.BlockType.COMMAND,
-            text: Scratch.translate({ id: "resumemusic", default: "Play Music" })
+            text: Scratch.translate({ id: "CloudMusic_resumemusic", default: "Play Music" })
           },
           {
             opcode: 'pauseMusic',
             blockType: Scratch.BlockType.COMMAND,
-            text: Scratch.translate({ id: "pausemusic", default: "Pause Music" })
+            text: Scratch.translate({ id: "CloudMusic_pausemusic", default: "Pause Music" })
           },
           {
             opcode: 'stopMusic',
             blockType: Scratch.BlockType.COMMAND,
-            text: Scratch.translate({ id: "stopmusic", default: "Stop Music" })
+            text: Scratch.translate({ id: "CloudMusic_stopmusic", default: "Stop Music" })
           },
           {
             opcode: 'jumpTotime',
             blockType: Scratch.BlockType.COMMAND,
-            text: Scratch.translate({ id: "jumptotime", default: "Skip to time [time] seconds" }),
+            text: Scratch.translate({ id: "CloudMusic_jumptotime", default: "Skip to time [time] seconds" }),
             arguments: {
               time: {
                 type: Scratch.ArgumentType.NUMBER,
@@ -151,7 +151,7 @@ class MusicExtension {
           {
             opcode: 'adjustthevolume',
             blockType: Scratch.BlockType.COMMAND,
-            text: Scratch.translate({ id: "adjustthevolume", default: "Adjust the volume to [volume]" }),
+            text: Scratch.translate({ id: "CloudMusic_adjustthevolume", default: "Adjust the volume to [volume]" }),
             arguments: {
               volume: {
                 type: Scratch.ArgumentType.NUMBER,
@@ -162,60 +162,60 @@ class MusicExtension {
           {
             opcode: 'Ismusicplaying',
             blockType: Scratch.BlockType.BOOLEAN,
-            text: Scratch.translate({ id: "Ismusicplaying", default: "Is music playing?" })
+            text: Scratch.translate({ id: "CloudMusic_Ismusicplaying", default: "Is music playing?" })
           },
           {
             opcode: 'Getplaytime',
             blockType: Scratch.BlockType.REPORTER,
-            text: Scratch.translate({ id: "Getplaytime", default: "Music play time (sec)" })
+            text: Scratch.translate({ id: "CloudMusic_Getplaytime", default: "Music play time (sec)" })
           },
           {
             opcode: 'Getthetotaldurationofmusic',
             blockType: Scratch.BlockType.REPORTER,
-            text: Scratch.translate({ id: "Getthetotaldurationofmusic", default: "Current time lyrics (sec)" })
+            text: Scratch.translate({ id: "CloudMusic_Getthetotaldurationofmusic", default: "Current time lyrics (sec)" })
           },
           {
             opcode: 'Getcurrenttimelyrics',
             blockType: Scratch.BlockType.REPORTER,
-            text: Scratch.translate({ id: "Getcurrenttimelyrics", default: "[lyricsText] is shown at [currentTime]" }),
+            text: Scratch.translate({ id: "CloudMusic_Getcurrenttimelyrics", default: "[lyricsText] is shown at [currentTime]" }),
             arguments: {
               lyricsText: {
                 type: Scratch.ArgumentType.STRING,
-                defaultValue: Scratch.translate({ id: "lyrics", default: "lyricsText" })
+                defaultValue: Scratch.translate({ id: "CloudMusic_lyrics", default: "lyricsText" })
               },
               currentTime: {
                 type: Scratch.ArgumentType.NUMBER,
-                defaultValue: Scratch.translate({ id: "time", default: "currentTime" })
+                defaultValue: Scratch.translate({ id: "CloudMusic_time", default: "currentTime" })
               }
             }
           },
           {
             opcode: 'Getthelineoflyricsatthecurrenttime',
             blockType: Scratch.BlockType.REPORTER,
-            text: Scratch.translate({ id: "Getthelineoflyricsatthecurrenttime", default: "[lyricsText] is in line at [currentTime]" }),
+            text: Scratch.translate({ id: "CloudMusic_Getthelineoflyricsatthecurrenttime", default: "[lyricsText] is in line at [currentTime]" }),
             arguments: {
                 lyricsText: {
                   type: Scratch.ArgumentType.STRING,
-                  defaultValue: Scratch.translate({ id: "lyrics", default: "lyricsText" })
+                  defaultValue: Scratch.translate({ id: "CloudMusic_lyrics", default: "lyricsText" })
                 },
                 currentTime: {
                   type: Scratch.ArgumentType.NUMBER,
-                  defaultValue: Scratch.translate({ id: "time", default: "currentTime" })
+                  defaultValue: Scratch.translate({ id: "CloudMusic_time", default: "currentTime" })
                 }
               }
           },
           {
             opcode: 'Getthelyricstimeofthefirstfewlines',
             blockType: Scratch.BlockType.REPORTER,
-            text: Scratch.translate({ id: "Getthelyricstimeofthefirstfewlines", default: "[lyricsText] in [currentTime] line is the first second" }),
+            text: Scratch.translate({ id: "CloudMusic_Getthelyricstimeofthefirstfewlines", default: "[lyricsText] in [currentTime] line is the first second" }),
             arguments: {
                 lyricsText: {
                   type: Scratch.ArgumentType.STRING,
-                  defaultValue: Scratch.translate({ id: "lyrics", default: "lyricsText" })
+                  defaultValue: Scratch.translate({ id: "CloudMusic_lyrics", default: "lyricsText" })
                 },
                 currentTime: {
                   type: Scratch.ArgumentType.NUMBER,
-                  defaultValue: Scratch.translate({ id: "time", default: "currentTime" })
+                  defaultValue: Scratch.translate({ id: "CloudMusic_time", default: "currentTime" })
                 }
               }
           },
