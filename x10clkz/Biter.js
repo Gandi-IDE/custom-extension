@@ -5,6 +5,7 @@ const extensionId = 'Biter';
 // 真是令人费解~
 class Biter {
 	constructor (runtime) {
+		BigInt.prototype.toJSON = function () { return '' + this; }
 		this.runtime = runtime;
 		this._formatMessage = runtime.getFormatMessage({
 			'zh-cn': {
