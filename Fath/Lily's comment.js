@@ -2,10 +2,59 @@
   "use strict";
 
   class LilyComment {
+    constructor(runtime) {
+    this.runtime = runtime
+    this._formatMessage = runtime.getFormatMessage({
+      'zh-cn': {
+        'CmntExt.extensionName': "Lily's 注解",
+        'CmntExt.descriptionProjectName': '👑 项目名称：[NAME]',
+        'CmntExt.descriptionDescription': '👉项目描述：[DESCRIPTION]',
+        'CmntExt.descriptionCredit': '👉 👉 致谢：[NAME]',
+        'CmntExt.commentHat': '[COMMENT]',
+        'CmntExt.commentCommand': '[COMMENT]',
+        'CmntExt.commentCap': '[COMMENT]',
+        'CmntExt.commentReporter': '[INPUT] [COMMENT]',
+        'CmntExt.commentReporter2': '[COMMENT] [INPUT]',
+        'CmntExt.commentReporter3': '[COMMENT]',
+        'CmntExt.commentBoolean': '[INPUT] [COMMENT]',
+        'CmntExt.commentBoolean2': '[COMMENT] [INPUT]',
+        'CmntExt.commentBoolean3': '[COMMENT]',
+        'CmntExt.commentConditional': '[COMMENT]',
+        'CmntExt.commentLoop': '[COMMENT]',
+      },
+
+      en: {
+        'CmntExt.extensionName': "Lily's comment",
+        'CmntExt.descriptionProjectName': '👑 Project name: [NAME]',
+        'CmntExt.descriptionDescription': '👉 Project description: [DESCRIPTION]',
+        'CmntExt.descriptionCredit': '👉 👉 Credits to: [NAME]',
+        'CmntExt.commentHat': '[COMMENT]',
+        'CmntExt.commentCommand': '[COMMENT]',
+        'CmntExt.commentCap': '[COMMENT]',
+        'CmntExt.commentReporter': '[INPUT] [COMMENT]',
+        'CmntExt.commentReporter2': '[COMMENT] [INPUT]',
+        'CmntExt.commentReporter3': '[COMMENT]',
+        'CmntExt.commentBoolean': '[INPUT] [COMMENT]',
+        'CmntExt.commentBoolean2': '[COMMENT] [INPUT]',
+        'CmntExt.commentBoolean3': '[COMMENT]',
+        'CmntExt.commentConditional': '[COMMENT]',
+        'CmntExt.commentLoop': '[COMMENT]',
+      },
+    })
+  }
+
+  formatMessage(id) {
+    return this._formatMessage({
+      id,
+      default: id,
+      description: id,
+    })
+  }
+
     getInfo() {
       return {
         id: "lilycomment",
-        name: "Lily's comment",
+        name: this.formatMessage('CmntExt.extensionName'),
         color1: "#191e25",
         color2: "#191e25",
         color3: "#191919",
@@ -17,7 +66,7 @@
           {
             opcode: "descriptionProjectName",
             blockType: Scratch.BlockType.HAT,
-            text: "👑 Project name: [NAME]",
+            text: this.formatMessage('CmntExt.extensionName'),
             isEdgeActivated: false,
             arguments: {
               NAME: {
@@ -29,7 +78,7 @@
           {
             opcode: "descriptionDescription",
             blockType: Scratch.BlockType.COMMAND,
-            text: "👉 Project description: [DESCRIPTION]",
+            text: this.formatMessage('CmntExt.descriptionDescription'),
             isEdgeActivated: false,
             arguments: {
               DESCRIPTION: {
@@ -41,7 +90,7 @@
           {
             opcode: "descriptionCredit",
             blockType: Scratch.BlockType.COMMAND,
-            text: "👉 👉 Credits to: [NAME]",
+            text: this.formatMessage('CmntExt.descriptionCredit'),
             isEdgeActivated: false,
             arguments: {
               NAME: {
@@ -54,7 +103,7 @@
           {
             opcode: "commentHat",
             blockType: Scratch.BlockType.HAT,
-            text: "[COMMENT]",
+            text: this.formatMessage('CmntExt.commentHat'),
             isEdgeActivated: false,
             arguments: {
               COMMENT: {
@@ -67,7 +116,7 @@
           {
             opcode: "commentCommand",
             blockType: Scratch.BlockType.COMMAND,
-            text: "[COMMENT]",
+            text: this.formatMessage('CmntExt.commentCommand'),
             arguments: {
               COMMENT: {
                 type: Scratch.ArgumentType.STRING,
@@ -78,7 +127,7 @@
           {
             opcode: "commentCap",
             blockType: Scratch.BlockType.COMMAND,
-            text: "[COMMENT]",
+            text: this.formatMessage('CmntExt.commentCap'),
             isTerminal: true,
             arguments: {
               COMMENT: {
@@ -91,7 +140,7 @@
           {
             opcode: "commentReporter",
             blockType: Scratch.BlockType.REPORTER,
-            text: "[INPUT] [COMMENT]",
+            text: this.formatMessage('CmntExt.commentReporter'),
             arguments: {
               COMMENT: {
                 type: Scratch.ArgumentType.STRING,
@@ -106,7 +155,7 @@
           {
             opcode: "commentReporter2",
             blockType: Scratch.BlockType.REPORTER,
-            text: "[COMMENT] [INPUT]",
+            text: this.formatMessage('CmntExt.commentReporter2'),
             arguments: {
               COMMENT: {
                 type: Scratch.ArgumentType.STRING,
@@ -121,7 +170,7 @@
           {
             opcode: "commentReporter3",
             blockType: Scratch.BlockType.REPORTER,
-            text: "[COMMENT]",
+            text: this.formatMessage('CmntExt.commentReporter3'),
             arguments: {
               COMMENT: {
                 type: Scratch.ArgumentType.STRING,
@@ -133,7 +182,7 @@
           {
             opcode: "commentBoolean",
             blockType: Scratch.BlockType.BOOLEAN,
-            text: "[INPUT] [COMMENT]",
+            text: this.formatMessage('CmntExt.commentBoolean'),
             arguments: {
               COMMENT: {
                 type: Scratch.ArgumentType.STRING,
@@ -147,7 +196,7 @@
           {
             opcode: "commentBoolean2",
             blockType: Scratch.BlockType.BOOLEAN,
-            text: "[COMMENT] [INPUT]",
+            text: this.formatMessage('CmntExt.commentBoolean2'),
             arguments: {
               COMMENT: {
                 type: Scratch.ArgumentType.STRING,
@@ -161,7 +210,7 @@
           {
             opcode: "commentBoolean3",
             blockType: Scratch.BlockType.BOOLEAN,
-            text: "[COMMENT]",
+            text: this.formatMessage('CmntExt.commentBoolean3'),
             arguments: {
               COMMENT: {
                 type: Scratch.ArgumentType.STRING,
@@ -179,7 +228,7 @@
           branchCount: 1,
           isTerminal: false,
           blockAllThreads: true,
-          text: '[COMMENT]',
+          text: this.formatMessage('CmntExt.commentConditional'),
           arguments: {
             COMMENT: {
               type: Scratch.ArgumentType.STRING,
@@ -191,7 +240,7 @@
           {
             opcode: "commentLoop",
             blockType: Scratch.BlockType.LOOP,
-            text: "[COMMENT]",
+            text: this.formatMessage('CmntExt.Loop'),
             isTerminal: true,
             arguments: {
               COMMENT: {
@@ -237,5 +286,28 @@
     
     }
   }
-  Scratch.extensions.register(new LilyComment());
-})(Scratch);
+  
+  window.tempExt = {
+    Extension: LilysComment,
+    info: {
+      name: "Lily's Comment",
+      description: 'Annotate your scripts',
+      extensionId: 'lilycomment',
+      iconURL: 'Fath/assets/lilyComment.png',
+      insetIconURL: 'Fath/banners/CommentBlocks.png',
+      featured: true,
+      disabled: false,
+      collaborator: 'Fath11, Lily',
+    },
+    l10n: {
+      'zh-cn': {
+        'CmntExt.extensionName': "Lily's 注解",
+        'hcn.description': '注释你的脚本
+',
+      },
+      en: {
+        'CmntExt.extensionName': "Lily's Comment",
+        'CmntExt.description': 'Annotate your scripts',
+      },
+    },
+  }

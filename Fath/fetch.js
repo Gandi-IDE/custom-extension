@@ -23,13 +23,13 @@
             },
           },
           {
-            opcode: "define",
-            blockType: Scratch.BlockType.REPORTER,
-            text: "definition for word [WORD]",
+            opcode: "redirect",
+            blockType: Scratch.BlockType.COMMAND,
+            text: "Redirect to [LINK]",
             arguments: {
-              WORD: {
+              LINK: {
                 type: Scratch.ArgumentType.STRING,
-                defaultValue: "cat",
+                defaultValue: "https://fathdev.fath11.repl.co/",
               },
             },
           },
@@ -42,11 +42,8 @@
         .then((r) => r.text())
         .catch(() => "");
     }
-    define(args) {
-      var url = "https://api.dictionaryapi.dev/api/v2/entries/en/"
-      return fetch(url + args.WORD)
-        .then((r) => r.text())
-        .catch(() => "");
+    redirect(args) {
+      Scratch.redirect("http://www.w3schools.com");
     }
   }
   Scratch.extensions.register(new Fetch());
