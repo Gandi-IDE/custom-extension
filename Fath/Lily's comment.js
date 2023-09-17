@@ -284,7 +284,7 @@ formatMessage(id) {
   }
 }
 
-window.Ext = {
+window.tempExt = {
   Extension: "LilysComment",
   info: {
     name: "Lily's Comment",
