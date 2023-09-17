@@ -294,7 +294,7 @@ window.tempExt = {
     insetIconURL: 'https://fath11.github.io/custom-extension/Fath/banners/CommentBlocks.png',
     featured: true,
     disabled: false,
-    collaborator: 'Fath11 Lily',
+    collaborator: 'Fath11@Gandi',
   },
   l10n: {
     'zh-cn': {
