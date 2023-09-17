@@ -299,7 +299,7 @@ window.tempExt = {
   l10n: {
     'zh-cn': {
       'CmntExt.extensionName': "Lily's 注解",
-      'hcn.description': '注释你的脚本
+      'CCmntExt.description': '注释你的脚本'
 ',
     },
     en: {
