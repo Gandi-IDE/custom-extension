@@ -280,7 +280,7 @@ formatMessage(id) {
     return false;
   }
   commentConditional(args) {
-  
+    return 1
   }
 }
 
@@ -294,7 +294,7 @@ window.tempExt = {
     insetIconURL: 'https://fath11.github.io/custom-extension/Fath/banners/CommentBlocks.png',
     featured: true,
     disabled: false,
-    collaborator: 'Fath11@Gandi',
+    collaborator: 'Fath11@Gandi Lily@TW',
   },
   l10n: {
     'zh-cn': {
