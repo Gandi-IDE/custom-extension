@@ -284,8 +284,8 @@ formatMessage(id) {
   }
 }
 
-window.tempExt = {
-  Extension: LilysComment,
+window.Ext = {
+  Extension: "LilysComment",
   info: {
     name: "Lily's Comment",
     description: 'Annotate your scripts',
