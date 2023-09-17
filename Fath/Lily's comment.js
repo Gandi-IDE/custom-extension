@@ -285,16 +285,16 @@ formatMessage(id) {
 }
 
 window.tempExt = {
-  Extension: "LilysComment",
+  Extension: "LilyComment",
   info: {
     name: "Lily's Comment",
     description: 'Annotate your scripts',
     extensionId: 'lilycomment',
-    iconURL: 'Fath/assets/lilyComment.png',
-    insetIconURL: 'Fath/banners/CommentBlocks.png',
+    iconURL: 'https://fath11.github.io/custom-extension/Fath/assets/lilyComment.png',
+    insetIconURL: 'https://fath11.github.io/custom-extension/Fath/banners/CommentBlocks.png',
     featured: true,
     disabled: false,
-    collaborator: 'Fath11, Lily',
+    collaborator: 'Fath11 Lily',
   },
   l10n: {
     'zh-cn': {
