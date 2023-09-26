@@ -567,5 +567,13 @@ const formatMessage = Scratch.translate;
       return area;
     }
   }
+
+  getAuthor() { 
+    return [
+      {name:'NOname-awa', link:'https://github.com/NOname-awa'},
+      {name:'Fath11', link:'https://cocrea.world/@Fath11'}
+    ] 
+  }
+  
   Scratch.extensions.register(new MoreComparisons());
 })(Scratch);

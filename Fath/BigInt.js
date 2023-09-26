@@ -463,7 +463,7 @@
 
   getAuthor() { 
     return [
-      {name:'Skyhigh173.', link:'https://scratch.mit.edu/users/skyhigh173/'},
+      {name:'Skyhigh173', link:'https://scratch.mit.edu/users/skyhigh173/'},
       {name:'Fath11', link:'https://cocrea.world/@Fath11'}
     ] 
   }
