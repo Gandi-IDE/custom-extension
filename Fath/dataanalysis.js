@@ -146,5 +146,12 @@
     }
   }
 
+  getAuthor() { 
+    return [
+      {name:'qxsck', link:'https://github.com/qxsck'},
+      {name:'Fath11', link:'https://cocrea.world/@Fath11'}
+    ] 
+  }
+
   Scratch.extensions.register(new dataAnalysis());
 })(Scratch);
