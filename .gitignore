@@ -29,3 +29,4 @@ yarn-error.log*
 .cache
 !.gitkeep
 replit.nix
+example
