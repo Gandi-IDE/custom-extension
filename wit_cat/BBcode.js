@@ -4,12 +4,7 @@ const witcat_BBcode_picture = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDo
 
 const witcat_BBcode_extensionId = "WitCatBBcode";
 
-if(window.location.href.startsWith("https://www.ccw.site/gandi"))
-alert("使用bbcode会在用户使用时触发安全提示，谨慎使用\nUsing bbcode will trigger a security prompt when the user uses it, so use it with caution");
-else
-alert("此作品使用了bbcode，由于潜藏漏洞，请信任该作者后继续游戏！\nThis work uses bbcode, due to hidden vulnerabilities, please trust the author to continue the game!")
-
-let bbcode;
+let bbcode, bbcodemousedown = {};
 
 /**
  * 获取到的返回值
@@ -131,6 +126,10 @@ class WitCatBBcode {
                 "WitCatBBcode.types.1": "启动",
                 "WitCatBBcode.types.2": "关闭",
                 "WitCatBBcode.getwidth": "获取内容[content]的渲染[type]",
+                "WitCatBBcode.click": "上次点击的元素的[clickmenu]",
+                "WitCatBBcode.clickmenu.1": "bbcode来源",
+                "WitCatBBcode.clickmenu.2": "类型",
+                "WitCatBBcode.clickmenu.3": "序号",
             },
             en: {
                 "WitCatBBcode.name": "[beta]WitCat’s BBcode",
@@ -159,6 +158,10 @@ class WitCatBBcode {
                 "WitCatBBcode.types.1": "turn on",
                 "WitCatBBcode.types.2": "turn off",
                 "WitCatBBcode.getwidth": "get[content]`s render[type]",
+                "WitCatBBcode.click": "Last clicked element`s[clickmenu]",
+                "WitCatBBcode.clickmenu.1": "bbcode Source",
+                "WitCatBBcode.clickmenu.2": "type",
+                "WitCatBBcode.clickmenu.3": "Serial number",
             }
         })
     }
@@ -391,6 +394,17 @@ class WitCatBBcode {
                     },
                 },
                 {
+                    opcode: "click",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatBBcode.click"),
+                    arguments: {
+                        clickmenu: {
+                            type: "string",
+                            menu: 'clickmenu',
+                        },
+                    },
+                },
+                {
                     opcode: "docss",
                     blockType: "reporter",
                     text: this.formatMessage("WitCatBBcode.docss"),
@@ -493,6 +507,20 @@ class WitCatBBcode {
                     {
                         text: this.formatMessage('WitCatBBcode.type.4'),
                         value: 'height'
+                    },
+                ],
+                clickmenu: [
+                    {
+                        text: this.formatMessage('WitCatBBcode.clickmenu.1'),
+                        value: 'bbcode'
+                    },
+                    {
+                        text: this.formatMessage('WitCatBBcode.clickmenu.2'),
+                        value: 'type'
+                    },
+                    {
+                        text: this.formatMessage('WitCatBBcode.clickmenu.3'),
+                        value: 'number'
                     },
                 ],
             },
@@ -753,6 +781,37 @@ class WitCatBBcode {
         else {
             console.warn("不允许的链接\nDisallowed links")
         }
+    }
+
+    click(args) {
+        let out = "";
+        if (JSON.stringify(bbcodemousedown) !== "{}") {
+            let s = document.getElementsByClassName("WitCatBBcodes");
+            s.forEach((e) => {
+                if (e.contains(bbcodemousedown.target)) {
+                    switch (args.clickmenu) {
+                        case "bbcode":
+                            out = e.parentElement.id.split("WitCatBBcode")[1];
+                            break;
+                        case "type":
+                            out = bbcodemousedown.target.tagName.toLowerCase();
+                            break;
+                        case "number":
+                            let ss = e.getElementsByTagName(bbcodemousedown.target.tagName.toLowerCase());
+                            for (let i = 0; i < ss.length; i++) {
+                                if (ss[i] === bbcodemousedown.target) {
+                                    out = i + 1;
+                                    return;
+                                }
+                            };
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            })
+        }
+        return out;
     }
 
     /**
@@ -2740,3 +2799,7 @@ Prism.languages.python = {
         return e.length + t
     }
 }();
+
+window.addEventListener("mousedown", (e) => {
+    bbcodemousedown = e;
+})
