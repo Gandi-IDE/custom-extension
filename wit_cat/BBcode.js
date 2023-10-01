@@ -4,7 +4,7 @@ const witcat_BBcode_picture = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDo
 
 const witcat_BBcode_extensionId = "WitCatBBcode";
 
-let bbcode, bbcodemousedown = {};
+let bbcode, bbcodemousedown = {}, touchEvent = {};
 
 /**
  * 获取到的返回值
@@ -109,6 +109,7 @@ class WitCatBBcode {
                 "WitCatBBcode.deleteall": "删除所有 BBcode ",
                 "WitCatBBcode.get": " BBcode ID[id]的[type]",
                 "WitCatBBcode.set": "设置 BBcode ID[id]的[type]为[text]",
+                "WitCatBBcode.settextalign": "设置 BBcode ID[id]第[num]个[type]为[text]",
                 "WitCatBBcode.imgstyle": " BBcode ID[id]的第[num]张图片的宽[width]高[height]",
                 "WitCatBBcode.loadfontfamily": "从[text]加载字体名[name]",
                 "WitCatBBcode.setfontfamily": "设置 BBcode ID[id]的字体为[name]",
@@ -121,15 +122,31 @@ class WitCatBBcode {
                 "WitCatBBcode.type.4": "高",
                 "WitCatBBcode.type.5": "内容",
                 "WitCatBBcode.type.6": "json",
+                "WitCatBBcode.type.7": "透视",
                 "WitCatBBcode.ide.1": "可编辑",
                 "WitCatBBcode.ide.2": "不可编辑",
                 "WitCatBBcode.types.1": "启动",
                 "WitCatBBcode.types.2": "关闭",
                 "WitCatBBcode.getwidth": "获取内容[content]的渲染[type]",
                 "WitCatBBcode.click": "上次点击的元素的[clickmenu]",
+                "WitCatBBcode.touchs": "碰到的元素的[clickmenu]",
                 "WitCatBBcode.clickmenu.1": "bbcode来源",
                 "WitCatBBcode.clickmenu.2": "类型",
                 "WitCatBBcode.clickmenu.3": "序号",
+                "WitCatBBcode.touch": "碰到BBcode[id]第[number]个[type]元素?",
+                "WitCatBBcode.move": "BBcode[id]第[number]个[type]元素偏移X[x]Y[y]",
+                "WitCatBBcode.scale": "BBcode[id]第[number]个[type]元素缩放X[x]Y[y]",
+                "WitCatBBcode.rot": "BBcode[id]第[number]个[type]元素旋转[y]",
+                "WitCatBBcode.3dmove": "BBcode[id]第[number]个[type]元素3D偏移X[x]Y[y]Z[z]",
+                "WitCatBBcode.3drot": "BBcode[id]第[number]个[type]元素3D旋转X[x]Y[y]Z[z]",
+                "WitCatBBcode.transition": "为BBcode[id]设置过渡为[s]秒的[timing]",
+                "WitCatBBcode.timing.1": "线性",
+                "WitCatBBcode.timing.2": "缓出",
+                "WitCatBBcode.timing.3": "缓入",
+                "WitCatBBcode.timing.4": "缓出入",
+                "WitCatBBcode.timing.5": "缓动",
+                "WitCatBBcode.textalign.1": "左对齐",
+                "WitCatBBcode.textalign.2": "右对齐",
             },
             en: {
                 "WitCatBBcode.name": "[beta]WitCat’s BBcode",
@@ -141,6 +158,7 @@ class WitCatBBcode {
                 "WitCatBBcode.deleteall": "Delete all BBcode",
                 "WitCatBBcode.get": "ID[id]BBcode`s[type]",
                 "WitCatBBcode.set": "set BBcode ID[id]`s[type] to [text]",
+                "WitCatBBcode.settextalign": "set BBcode ID[id] num [num]`s[type] to [text]",
                 "WitCatBBcode.imgstyle": "BBcode ID[id] width of [num] picture [width] height [height]",
                 "WitCatBBcode.loadfontfamily": "load[name]from url[text]",
                 "WitCatBBcode.setfontfamily": "set BBcode ID[id]`s font family[name]",
@@ -159,9 +177,24 @@ class WitCatBBcode {
                 "WitCatBBcode.types.2": "turn off",
                 "WitCatBBcode.getwidth": "get[content]`s render[type]",
                 "WitCatBBcode.click": "Last clicked element`s[clickmenu]",
+                "WitCatBBcode.touchs": "Touch element`s[clickmenu]",
                 "WitCatBBcode.clickmenu.1": "bbcode Source",
                 "WitCatBBcode.clickmenu.2": "type",
                 "WitCatBBcode.clickmenu.3": "Serial number",
+                "WitCatBBcode.touch": "BBcode[id]num[number]`s[type]element is encountered?",
+                "WitCatBBcode.move": "BBcode[id]num[number]`s[type] element offset X[x]Y[y]",
+                "WitCatBBcode.scale": "BBcode[id]num[number]`s[type] element scale X[x]Y[y]",
+                "WitCatBBcode.rot": "BBcode[id]num[number]`s[type] element rotat [y]",
+                "WitCatBBcode.3dmove": "BBcode[id]num[number]`s[type] element 3Doffset X[x]Y[y]Z[z]",
+                "WitCatBBcode.3drot": "BBcode[id]num[number]`s[type] element 3Drotat X[x]Y[y]Z[z]",
+                "WitCatBBcode.transition": "Set [timing] for BBcode[id] to transition to [s] seconds",
+                "WitCatBBcode.timing.1": "linear",
+                "WitCatBBcode.timing.2": "ease-out",
+                "WitCatBBcode.timing.3": "ease-in",
+                "WitCatBBcode.timing.4": "ease-in-out",
+                "WitCatBBcode.timing.5": "ease",
+                "WitCatBBcode.textalign.1": "Align left",
+                "WitCatBBcode.textalign.2": "Align right",
             }
         })
     }
@@ -405,6 +438,217 @@ class WitCatBBcode {
                     },
                 },
                 {
+                    opcode: "touchs",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatBBcode.touchs"),
+                    arguments: {
+                        clickmenu: {
+                            type: "string",
+                            menu: 'clickmenu',
+                        },
+                    },
+                },
+                {
+                    opcode: "touch",
+                    blockType: "Boolean",
+                    text: this.formatMessage("WitCatBBcode.touch"),
+                    arguments: {
+                        id: {
+                            type: "string",
+                            defaultValue: 'i',
+                        },
+                        number: {
+                            type: "number",
+                            defaultValue: '1',
+                        },
+                        type: {
+                            type: "string",
+                            defaultValue: 'img',
+                        },
+                    },
+                },
+                {
+                    opcode: "settextalign",
+                    blockType: "command",
+                    text: this.formatMessage("WitCatBBcode.settextalign"),
+                    arguments: {
+                        id: {
+                            type: "string",
+                            defaultValue: 'i',
+                        },
+                        num: {
+                            type: "number",
+                            defaultValue: '1',
+                        },
+                        type: {
+                            type: "string",
+                            defaultValue: 'all',
+                        },
+                        text: {
+                            type: "number",
+                            menu: 'textalign',
+                        },
+                    },
+                },
+                {
+                    opcode: "move",
+                    blockType: "command",
+                    text: this.formatMessage("WitCatBBcode.move"),
+                    arguments: {
+                        id: {
+                            type: "string",
+                            defaultValue: 'i',
+                        },
+                        number: {
+                            type: "number",
+                            defaultValue: '1',
+                        },
+                        type: {
+                            type: "string",
+                            defaultValue: 'img',
+                        },
+                        x: {
+                            type: "number",
+                            defaultValue: '0',
+                        },
+                        y: {
+                            type: "number",
+                            defaultValue: '0',
+                        },
+                    },
+                },
+                {
+                    opcode: "scale",
+                    blockType: "command",
+                    text: this.formatMessage("WitCatBBcode.scale"),
+                    arguments: {
+                        id: {
+                            type: "string",
+                            defaultValue: 'i',
+                        },
+                        number: {
+                            type: "number",
+                            defaultValue: '1',
+                        },
+                        type: {
+                            type: "string",
+                            defaultValue: 'img',
+                        },
+                        x: {
+                            type: "number",
+                            defaultValue: '0',
+                        },
+                        y: {
+                            type: "number",
+                            defaultValue: '0',
+                        },
+                    },
+                },
+                {
+                    opcode: "rot",
+                    blockType: "command",
+                    text: this.formatMessage("WitCatBBcode.rot"),
+                    arguments: {
+                        id: {
+                            type: "string",
+                            defaultValue: 'i',
+                        },
+                        number: {
+                            type: "number",
+                            defaultValue: '1',
+                        },
+                        type: {
+                            type: "string",
+                            defaultValue: 'img',
+                        },
+                        y: {
+                            type: "number",
+                            defaultValue: '0',
+                        },
+                    },
+                },
+                {
+                    opcode: "dmove",
+                    blockType: "command",
+                    text: this.formatMessage("WitCatBBcode.3dmove"),
+                    arguments: {
+                        id: {
+                            type: "string",
+                            defaultValue: 'i',
+                        },
+                        number: {
+                            type: "number",
+                            defaultValue: '1',
+                        },
+                        type: {
+                            type: "string",
+                            defaultValue: 'img',
+                        },
+                        x: {
+                            type: "number",
+                            defaultValue: '0',
+                        },
+                        y: {
+                            type: "number",
+                            defaultValue: '0',
+                        },
+                        z: {
+                            type: "number",
+                            defaultValue: '0',
+                        },
+                    },
+                },
+                {
+                    opcode: "drot",
+                    blockType: "command",
+                    text: this.formatMessage("WitCatBBcode.3drot"),
+                    arguments: {
+                        id: {
+                            type: "string",
+                            defaultValue: 'i',
+                        },
+                        number: {
+                            type: "number",
+                            defaultValue: '1',
+                        },
+                        type: {
+                            type: "string",
+                            defaultValue: 'img',
+                        },
+                        x: {
+                            type: "number",
+                            defaultValue: '0',
+                        },
+                        y: {
+                            type: "number",
+                            defaultValue: '0',
+                        },
+                        z: {
+                            type: "number",
+                            defaultValue: '0',
+                        },
+                    },
+                },
+                {
+                    opcode: "transition",
+                    blockType: "command",
+                    text: this.formatMessage("WitCatBBcode.transition"),
+                    arguments: {
+                        id: {
+                            type: "string",
+                            defaultValue: 'i',
+                        },
+                        s: {
+                            type: "number",
+                            defaultValue: '1',
+                        },
+                        timing: {
+                            type: "string",
+                            menu: 'timing',
+                        },
+                    },
+                },
+                {
                     opcode: "docss",
                     blockType: "reporter",
                     text: this.formatMessage("WitCatBBcode.docss"),
@@ -459,6 +703,10 @@ class WitCatBBcode {
                     {
                         text: this.formatMessage('WitCatBBcode.type.5'),
                         value: 'content'
+                    },
+                    {
+                        text: this.formatMessage('WitCatBBcode.type.7'),
+                        value: 'perspective'
                     },
                 ],
                 typess: [
@@ -521,6 +769,38 @@ class WitCatBBcode {
                     {
                         text: this.formatMessage('WitCatBBcode.clickmenu.3'),
                         value: 'number'
+                    },
+                ],
+                timing: [
+                    {
+                        text: this.formatMessage('WitCatBBcode.timing.1'),
+                        value: 'linear'
+                    },
+                    {
+                        text: this.formatMessage('WitCatBBcode.timing.2'),
+                        value: 'ease-out'
+                    },
+                    {
+                        text: this.formatMessage('WitCatBBcode.timing.3'),
+                        value: 'ease-in'
+                    },
+                    {
+                        text: this.formatMessage('WitCatBBcode.timing.4'),
+                        value: 'ease-in-out'
+                    },
+                    {
+                        text: this.formatMessage('WitCatBBcode.timing.5'),
+                        value: 'ease'
+                    },
+                ],
+                textalign: [
+                    {
+                        text: this.formatMessage("WitCatBBcode.textalign.1"),
+                        value: "left",
+                    },
+                    {
+                        text: this.formatMessage("WitCatBBcode.textalign.2"),
+                        value: "right",
                     },
                 ],
             },
@@ -594,7 +874,7 @@ class WitCatBBcode {
         sstyle.top = `${y}%`;
         sstyle.width = `${width}%`;
         sstyle.height = `${height}%`;
-        search.innerHTML = `<div class='WitCatBBcodes'>${new bbcode.Parser().toHTML(String(args.text))}</div>`;
+        search.innerHTML = `<div class='WitCatBBcodes'>${new bbcode.Parser().toHTML(sanitizeHTML(String(args.text)))}</div>`;
     }
 
     imgstyle(args) {
@@ -654,8 +934,10 @@ class WitCatBBcode {
                     sstyle.height = `${Number(height)}%`;
                     break;
                 case "content":
-                    search.innerHTML = `<div class='WitCatBBcodes'>${new bbcode.Parser().toHTML(String(args.text))}</div>`;
+                    search.innerHTML = `<div class='WitCatBBcodes'>${new bbcode.Parser().toHTML(sanitizeHTML(String(args.text)))}</div>`;
                     break;
+                case "perspective":
+                    search.firstChild.style.perspective = `${Number(args.text)}px`;
                 default:
                     break;
             }
@@ -721,7 +1003,7 @@ class WitCatBBcode {
         let search = document.createElement("span");
         search.style.position = "fixed";
         search.className = "WitCatBBcode";
-        search.innerHTML = `<div class='WitCatBBcodes'>${new bbcode.Parser().toHTML(String(args.content))}</div>`;
+        search.innerHTML = `<div class='WitCatBBcodes'>${new bbcode.Parser().toHTML(sanitizeHTML(String(args.content)))}</div>`;
         document.body.appendChild(search);
         let cvsw = this.canvas().offsetWidth;
         let cvsh = this.canvas().offsetHeight;
@@ -812,6 +1094,157 @@ class WitCatBBcode {
             })
         }
         return out;
+    }
+
+    touchs(args) {
+        let out = "";
+        if (JSON.stringify(touchEvent) !== "{}") {
+            let s = document.getElementsByClassName("WitCatBBcodes");
+            s.forEach((e) => {
+                if (e.contains(touchEvent.target)) {
+                    switch (args.clickmenu) {
+                        case "bbcode":
+                            out = e.parentElement.id.split("WitCatBBcode")[1];
+                            break;
+                        case "type":
+                            out = touchEvent.target.tagName.toLowerCase();
+                            break;
+                        case "number":
+                            let ss = e.getElementsByTagName(touchEvent.target.tagName.toLowerCase());
+                            for (let i = 0; i < ss.length; i++) {
+                                if (ss[i] === touchEvent.target) {
+                                    out = i + 1;
+                                    return;
+                                }
+                            };
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            })
+        }
+        return out;
+    }
+
+    touch(args) {
+        let search = null;
+        let search_1 = document.getElementById("WitCatBBcode" + args.id);
+        if (search_1 instanceof HTMLDivElement) {
+            search = search_1;
+            if (Number(args.number) > 0) {
+                let ele = search.getElementsByTagName(String(args.type))[Number(args.number) - 1];
+                if (ele !== undefined) {
+                    return JSON.stringify(touchEvent) !== "{}" && touchEvent.target === ele;
+                }
+            }
+            else {
+                let ele = search.getElementsByTagName(String(args.type))
+                return JSON.stringify(touchEvent) !== "{}" && ele.some(e => e === touchEvent.target);
+            }
+        }
+        return false;
+    }
+
+    move(args) {
+        let search = null;
+        let search_1 = document.getElementById("WitCatBBcode" + args.id);
+        if (search_1 instanceof HTMLDivElement) {
+            search = search_1;
+            let ele = search.getElementsByTagName(String(args.type))[Number(args.number) - 1];
+            if (ele !== undefined) {
+                ele.style.transition = search.style.transition;
+                ele.style.display = "inline-block";
+                const regex = /translate\([^,]+px, [^,]+px\)/g;
+                ele.style.transform = `${ele.style.transform.replace(regex, '')} translate(${args.x}px,${args.y}px)`;
+            }
+        }
+    }
+
+    scale(args) {
+        let search = null;
+        let search_1 = document.getElementById("WitCatBBcode" + args.id);
+        if (search_1 instanceof HTMLDivElement) {
+            search = search_1;
+            let ele = search.getElementsByTagName(String(args.type))[Number(args.number) - 1];
+            if (ele !== undefined) {
+                ele.style.transition = search.style.transition;
+                ele.style.display = "inline-block";
+                const regex = /scale\([^,], [^,]\)/g;
+                ele.style.transform = `${ele.style.transform.replace(regex, '')} scale(${args.x},${args.y})`;
+            }
+        }
+    }
+
+    rot(args) {
+        let search = null;
+        let search_1 = document.getElementById("WitCatBBcode" + args.id);
+        if (search_1 instanceof HTMLDivElement) {
+            search = search_1;
+            let ele = search.getElementsByTagName(String(args.type))[Number(args.number) - 1];
+            if (ele !== undefined) {
+                ele.style.transition = search.style.transition;
+                ele.style.display = "inline-block";
+                const regex = /rotate\([^)]+deg\)/g;
+                ele.style.transform = `${ele.style.transform.replace(regex, '')} rotate(${args.y}deg)`;
+            }
+        }
+    }
+
+    dmove(args) {
+        let search = null;
+        let search_1 = document.getElementById("WitCatBBcode" + args.id);
+        if (search_1 instanceof HTMLDivElement) {
+            search = search_1;
+            let ele = search.getElementsByTagName(String(args.type))[Number(args.number) - 1];
+            if (ele !== undefined) {
+                ele.style.transition = search.style.transition;
+                ele.style.display = "inline-block";
+                const regex = /translate3d\([^,]+px, [^,]+px, [^,]+px\)/g;
+                ele.style.transform = `${ele.style.transform.replace(regex, '')} translate3d(${args.x}px,${args.y}px,${args.z}px)`;
+            }
+        }
+    }
+
+    drot(args) {
+        let search = null;
+        let search_1 = document.getElementById("WitCatBBcode" + args.id);
+        if (search_1 instanceof HTMLDivElement) {
+            search = search_1;
+            let ele = search.getElementsByTagName(String(args.type))[Number(args.number) - 1];
+            if (ele !== undefined) {
+                ele.style.display = "inline-block";
+                ele.style.transform = `${ele.style.transform.replace(/rotateX\([^,]+deg\)/g, '')} rotateX(${args.x}deg)`;
+                ele.style.transform = `${ele.style.transform.replace(/rotateY\([^,]+deg\)/g, '')} rotateY(${args.y}deg)`;
+                ele.style.transform = `${ele.style.transform.replace(/rotateZ\([^,]+deg\)/g, '')} rotateZ(${args.z}deg)`;
+            }
+        }
+    }
+
+    transition(args) {
+        let search = null;
+        let search_1 = document.getElementById("WitCatBBcode" + args.id);
+        if (search_1 instanceof HTMLDivElement) {
+            search = search_1;
+            search.style.transition = `all ${args.s}s ${args.timing}`
+        }
+    }
+
+    settextalign(args) {
+        let search = null;
+        let search_1 = document.getElementById("WitCatBBcode" + args.id);
+        if (search_1 instanceof HTMLDivElement) {
+            search = search_1;
+            if (String(args.type) === "all") {
+                search.firstChild.style.float = String(args.text);
+            }
+            else {
+                let ele = search.getElementsByTagName(String(args.type))[Number(args.num) - 1];
+                if (ele !== undefined) {
+                    ele.style.float = String(args.text);
+                }
+            }
+        }
     }
 
     /**
@@ -2803,3 +3236,15 @@ Prism.languages.python = {
 window.addEventListener("mousedown", (e) => {
     bbcodemousedown = e;
 })
+
+window.addEventListener("mousemove", (e) => {
+    touchEvent = e;
+})
+
+function sanitizeHTML(input) {
+    const regex = /<[^>]*>/g;
+    const sanitized = input.replace(regex, function (match) {
+        return match.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    });
+    return sanitized;
+}
