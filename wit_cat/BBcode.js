@@ -874,7 +874,7 @@ class WitCatBBcode {
         sstyle.top = `${y}%`;
         sstyle.width = `${width}%`;
         sstyle.height = `${height}%`;
-        search.innerHTML = `<div class='WitCatBBcodes'>${new bbcode.Parser().toHTML(sanitizeHTML(String(args.text)))}</div>`;
+        search.innerHTML = `<div class='WitCatBBcodes'>${new bbcode.Parser().toHTML(String(args.text))}</div>`;
     }
 
     imgstyle(args) {
@@ -934,7 +934,7 @@ class WitCatBBcode {
                     sstyle.height = `${Number(height)}%`;
                     break;
                 case "content":
-                    search.innerHTML = `<div class='WitCatBBcodes'>${new bbcode.Parser().toHTML(sanitizeHTML(String(args.text)))}</div>`;
+                    search.innerHTML = `<div class='WitCatBBcodes'>${new bbcode.Parser().toHTML(String(args.text))}</div>`;
                     break;
                 case "perspective":
                     search.firstChild.style.perspective = `${Number(args.text)}px`;
@@ -1003,7 +1003,7 @@ class WitCatBBcode {
         let search = document.createElement("span");
         search.style.position = "fixed";
         search.className = "WitCatBBcode";
-        search.innerHTML = `<div class='WitCatBBcodes'>${new bbcode.Parser().toHTML(sanitizeHTML(String(args.content)))}</div>`;
+        search.innerHTML = `<div class='WitCatBBcodes'>${new bbcode.Parser().toHTML(String(args.content))}</div>`;
         document.body.appendChild(search);
         let cvsw = this.canvas().offsetWidth;
         let cvsh = this.canvas().offsetHeight;
@@ -3240,11 +3240,3 @@ window.addEventListener("mousedown", (e) => {
 window.addEventListener("mousemove", (e) => {
     touchEvent = e;
 })
-
-function sanitizeHTML(input) {
-    const regex = /<[^>]*>/g;
-    const sanitized = input.replace(regex, function (match) {
-        return match.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    });
-    return sanitized;
-}
