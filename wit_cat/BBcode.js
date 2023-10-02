@@ -1711,7 +1711,7 @@ function htmltobbcode(htmlInput) {
             var lang;
             lang = this.params['lang'] || this.params[this.name];
             if (lang) {
-                return ["<code><pre class=\"prettyprint lang-" + lang + "\" style=\"background: none;\">", this.getContent(true), '</pre></code>'];
+                return ["<code><pre class=\"prettyprint lang-" + this.renderer.escape(lang) + "\" style=\"background: none;\">", this.getContent(true), '</pre></code>'];
             } else {
                 return ['<code><pre style="background: none;">', this.getContent(true), '</pre></code>'];
             }
@@ -1778,7 +1778,7 @@ function htmltobbcode(htmlInput) {
             var color;
             color = this.params['color'];
             if (color != null) {
-                return ["<color style=\"color:" + color + "\">", this.getContent(), '</color>'];
+                return ["<color style=\"color:" + this.renderer.escape(color) + "\">", this.getContent(), '</color>'];
             } else {
                 return this.getContent();
             }
@@ -1923,7 +1923,7 @@ function htmltobbcode(htmlInput) {
                     'linkify': false
                 }, (function (_this) {
                     return function () {
-                        return ["<a href=\"" + url + "\" target=\"_blank\">", _this.getContent(), '</a>'];
+                        return ["<a href=\"" + _this.renderer.escape(url) + "\" target=\"_blank\">", _this.getContent(), '</a>'];
                     };
                 })(this));
             } else {
@@ -1951,12 +1951,7 @@ function htmltobbcode(htmlInput) {
                 }
 
                 SimpleTag.prototype._toHTML = function () {
-                    var htmlAttributes;
-                    htmlAttributes = this.renderer.htmlAttributes(this.params);
-                    if (htmlAttributes) {
-                        htmlAttributes = ' ' + htmlAttributes;
-                    }
-                    return ["<" + name + htmlAttributes + ">", this.getContent(), "</" + name + ">"];
+                    return ["<" + name + ">", this.getContent(), "</" + name + ">"];
                 };
 
                 return SimpleTag;
