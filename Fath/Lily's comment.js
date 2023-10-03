@@ -237,7 +237,7 @@ formatMessage(id) {
         {
           opcode: "commentLoop",
           blockType: Scratch.BlockType.LOOP,
-          text: this.formatMessage('CmntExt.Loop'),
+          text: this.formatMessage('CmntExt.commentLoop'),
           isTerminal: true,
           arguments: {
             COMMENT: {
