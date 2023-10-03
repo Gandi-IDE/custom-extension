@@ -63,7 +63,7 @@ formatMessage(id) {
         {
           opcode: "descriptionProjectName",
           blockType: Scratch.BlockType.HAT,
-          text: this.formatMessage('CmntExt.extensionName'),
+          text: this.formatMessage('CmntExt.descriptionProjectName'),
           isEdgeActivated: false,
           arguments: {
             NAME: {
@@ -254,11 +254,14 @@ formatMessage(id) {
   }
 
   commentHat() {
-    no-op
+    //no-op
   }
 
   commentCommand() {
-    no-op
+    //no-op
+  }
+  commentLoop() {
+    //no-op
   }
 
   commentReporter(args) {
@@ -294,16 +297,16 @@ window.tempExt = {
     insetIconURL: 'https://fath11.github.io/custom-extension/Fath/banners/CommentBlocks.png',
     featured: true,
     disabled: false,
-    collaborator: 'Fath11@Gandi Lily@TW',
+    collaborator: [{'Fath11@Gandi'}, {'Lily@TW'}],
   },
   l10n: {
     'zh-cn': {
       'CmntExt.extensionName': "Lily's 注解",
       'CCmntExt.description': '注释你的脚本',
     },
-    en: {
+    'en': {
       'CmntExt.extensionName': "Lily's Comment",
       'CmntExt.description': 'Annotate your scripts',
     },
   },
-}
+};
