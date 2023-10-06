@@ -434,7 +434,7 @@ class dataAnalysis {
 		}
     return -1;
   }
-  countNumebrsInList(args){
+  countNumebrsInList(args,util){
     var type_=String(args.TYPE);
     const list = util.target.lookupVariableById(args.NUMBERS);
     const numbers = list.value;
