@@ -3,33 +3,34 @@
     const vm = Scratch.vm;
     Scratch.translate.setup({
         zh: {
-            '项目': '项目',
-            '获取当前项目': '获取当前项目',
-            '获取内含信息': '获取内含信息',
-            '内含信息': '内含信息',
-            '获取角色': '获取[角色]',
-            '使用的块总数': '使用的块总数',
-            '块种类数': '块种类数',
-            '段数': '段数',
-            '造型数': '造型数',
-            '声音数': '声音数',
-            '一个项目中只能有一个': '一个项目中只能有一个'
+            'Project': '项目',
+            'GetCurrentProject': '获取当前项目',
+            'GetInformationInside': '获取内含信息',
+            'InsideInformation': '内含信息',
+            'GetSprite': '获取[Sprite]',
+            'TotalUsedBlocks': '使用的块总数',
+            'NumberOfBlockTypes': '块种类数',
+            'NumberOfSegments': '段数',
+            'NumberOfCostumes': '造型数',
+            'NumberOfSounds': '声音数',
+            'Onlyoneperproject': '一个项目中只能有一个'
         }
     });
-    function 计算() {
-        const 信息 = vm.toJSON();
-        const jsonData = JSON.parse(信息);
-        const blocksUsed = {}; // 记录块类型的数量
-        let segmentCount = 0; // 记录段数的数量
-        let costumeCount = 0; // 记录造型数
-        let soundCount = 0;   // 记录声音数
+    
+    function calculate() {
+        const information = vm.toJSON();
+        const jsonData = JSON.parse(information);
+        const blocksUsed = {}; // Record the number of block types
+        let segmentCount = 0; // Record the number of segments
+        let costumeCount = 0; // Record the number of costumes
+        let soundCount = 0;   // Record the number of sounds
 
         for (let i = 0; i < jsonData.targets.length; i++) {
             const target = jsonData.targets[i];
             if (target.blocks) {
                 for (const blockId in target.blocks) {
                     const block = target.blocks[blockId];
-                    const blockType = block.opcode.split('_')[0]; // 获取块的类型
+                    const blockType = block.opcode.split('_')[0]; // Get the block type
 
                     if (!blocksUsed[blockType]) {
                         blocksUsed[blockType] = 1;
@@ -37,110 +38,109 @@
                         blocksUsed[blockType]++;
                     }
 
-                    // 统计段数的数量
+                    // Count the number of segments
                     if (block.topLevel && block.parent === null) {
                         segmentCount++;
                     }
                 }
             }
 
-            // 统计造型数
+            // Count the number of costumes
             if (target.costumes) {
                 costumeCount += target.costumes.length;
             }
 
-            // 统计声音数
+            // Count the number of sounds
             if (target.sounds) {
                 soundCount += target.sounds.length;
             }
         }
 
-        使用的块总数 = jsonData.targets.reduce((acc, target) => acc + Object.keys(target.blocks || {}).length, 0);
-        块种类数 = Object.keys(blocksUsed).length;
-        段数 = segmentCount;
-        造型数 = costumeCount;
-        声音数 = soundCount;
+        totalUsedBlocks = jsonData.targets.reduce((acc, target) => acc + Object.keys(target.blocks || {}).length, 0);
+        numberOfBlockTypes = Object.keys(blocksUsed).length;
+        numberOfSegments = segmentCount;
+        numberOfCostumes = costumeCount;
+        numberOfSounds = soundCount;
     }
 
-    function 解析角色(角色名) {
-        const 信息 = vm.toJSON();
-        const jsonData = JSON.parse(信息);
-        let 目标角色 = null;
+    function parseSprite(spriteName) {
+        const information = vm.toJSON();
+        const jsonData = JSON.parse(information);
+        let targetSprite = null;
 
         for (const target of jsonData.targets) {
-            if (target.name === 角色名) {
-                目标角色 = target;
+            if (target.name === spriteName) {
+                targetSprite = target;
                 break;
             }
         }
 
-        return 目标角色;
+        return targetSprite;
     }
 
-    let 使用的块总数, 块种类数, 段数, 造型数, 声音数;
-    class 项目 {
+    let totalUsedBlocks, numberOfBlockTypes, numberOfSegments, numberOfCostumes, numberOfSounds;
+    class Project {
         getInfo() {
             return {
-                //感谢 半岛的蒟蒻
                 id: 'Project',
-                name: Scratch.translate({ id: '项目', default: 'Project' }),
+                name: Scratch.translate({ id: 'Project', default: 'Project' }),
                 blocks: [
                     {
-                        opcode: '获取当前项目',
+                        opcode: 'GetCurrentProject',
                         blockType: Scratch.BlockType.REPORTER,
-                        text: Scratch.translate({ id: '获取当前项目', default: 'Get Current Project' })
+                        text: Scratch.translate({ id: 'GetCurrentProject', default: 'Get Current Project' })
                     },
                     {
-                        opcode: '获取角色',
+                        opcode: 'GetSprite',
                         blockType: Scratch.BlockType.REPORTER,
-                        text: Scratch.translate({ id: '获取角色', default: 'Get [角色]' }),
+                        text: Scratch.translate({ id: 'GetSprite', default: 'Get [Sprite]' }),
                         arguments: {
-                            角色: {
+                            Sprite: {
                                 type: Scratch.ArgumentType.STRING,
-                                menu: "角色列表"
+                                menu: "SpriteList"
                             }
                         }
                     },
                     '---',
                     {
-                        opcode: '使用的块总数',
+                        opcode: 'TotalUsedBlocks',
                         blockType: Scratch.BlockType.REPORTER,
-                        text: Scratch.translate({ id: '使用的块总数', default: 'Total Used Blocks' })
+                        text: Scratch.translate({ id: 'TotalUsedBlocks', default: 'Total Used Blocks' })
                     },
                     {
-                        opcode: '块种类数',
+                        opcode: 'NumberOfBlockTypes',
                         blockType: Scratch.BlockType.REPORTER,
-                        text: Scratch.translate({ id: '块种类数', default: 'Number of Block Types' })
+                        text: Scratch.translate({ id: 'NumberOfBlockTypes', default: 'Number of Block Types' })
                     },
                     {
-                        opcode: '段数',
+                        opcode: 'NumberOfSegments',
                         blockType: Scratch.BlockType.REPORTER,
-                        text: Scratch.translate({ id: '段数', default: 'Number of Segments' })
+                        text: Scratch.translate({ id: 'NumberOfSegments', default: 'Number of Segments' })
                     },
                     {
-                        opcode: '造型数',
+                        opcode: 'NumberOfCostumes',
                         blockType: Scratch.BlockType.REPORTER,
-                        text: Scratch.translate({ id: '造型数', default: 'Number of Costumes' })
+                        text: Scratch.translate({ id: 'NumberOfCostumes', default: 'Number of Costumes' })
                     },
                     {
-                        opcode: '声音数',
+                        opcode: 'NumberOfSounds',
                         blockType: Scratch.BlockType.REPORTER,
-                        text: Scratch.translate({ id: '声音数', default: 'Number of Sounds' })
+                        text: Scratch.translate({ id: 'NumberOfSounds', default: 'Number of Sounds' })
                     },
                 ],
                 menus: {
-                    角色列表: {
+                    SpriteList: {
                         acceptReporters: true,
-                        items: "_获取角色列表"
+                        items: "_GetSpriteList"
                     },
-                    变量列表: {
+                    VariableList: {
                         acceptReporters: true,
-                        items: "_获取变量列表"
+                        items: "_GetVariableList"
                     },
                 }
             };
         }
-        _获取角色列表() {
+        _GetSpriteList() {
             const sprites = [];
             for (const target of vm.runtime.targets) {
                 if (target.isOriginal && !target.isStage) {
@@ -150,50 +150,50 @@
             if (sprites.length === 0) {
                 return [
                     {
-                        text: "不存在角色~",
+                        text: "No sprites found.",
                         value: " ",
                     },
                 ];
             }
             return sprites;
         }
-        _获取变量列表() {
+        _GetVariableList() {
             const vars = vm.runtime.getAllVarNamesOfType('')
             return vars.length == 0 ? [" "] : vars
         }
-        获取当前项目() {
+        GetCurrentProject() {
             return vm.toJSON();
         }
 
-        获取角色({ 角色 }) {
-            return JSON.stringify(解析角色(角色));
+        GetSprite({ Sprite }) {
+            return JSON.stringify(parseSprite(Sprite));
         }
 
-        使用的块总数() {
-            计算();
-            return 使用的块总数;
+        TotalUsedBlocks() {
+            calculate();
+            return totalUsedBlocks;
         }
 
-        块种类数() {
-            计算();
-            return 块种类数;
+        NumberOfBlockTypes() {
+            calculate();
+            return numberOfBlockTypes;
         }
 
-        段数() {
-            计算();
-            return 段数;
+        NumberOfSegments() {
+            calculate();
+            return numberOfSegments;
         }
 
-        造型数() {
-            计算();
-            return 造型数;
+        NumberOfCostumes() {
+            calculate();
+            return numberOfCostumes;
         }
 
-        声音数() {
-            计算();
-            return 声音数;
+        NumberOfSounds() {
+            calculate();
+            return numberOfSounds;
         }
     }
 
-    Scratch.extensions.register(new 项目());
+    Scratch.extensions.register(new Project());
 })(Scratch);
