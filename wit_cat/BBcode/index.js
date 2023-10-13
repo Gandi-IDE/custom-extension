@@ -5,7 +5,7 @@ import { witcat_BBcode_icon, witcat_BBcode_picture } from './assets/index.js';
 import htmltobbcode from './htmlToBBCode.js';
 import bbcode from './bbcode.js';
 
-const witcat_BBcode_extensionId = 'WitCatBBcodes';
+const witcat_BBcode_extensionId = 'WitCatBBcode';
 let bbcodemousedown = {};
 let touchEvent = {};
 /**
