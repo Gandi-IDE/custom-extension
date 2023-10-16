@@ -282,8 +282,8 @@ formatMessage(id) {
   commentBoolean3(args) {
     return false;
   }
-  commentConditional(util) {
-    util.startBranch(1);
+  commentConditional(_, util) {
+    util.startBranch(1, false);
   }
 }
 
