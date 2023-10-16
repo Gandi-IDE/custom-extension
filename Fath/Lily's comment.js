@@ -254,7 +254,7 @@ formatMessage(id) {
   }
 
   commentHat() {
-    //no-op
+    Scratch.vm.runtime.startHats('lilycomment_commentHat');
   }
 
   commentCommand() {
@@ -270,7 +270,7 @@ formatMessage(id) {
   }
 
   commentReporter3(args) {
-    return "";
+    return args.INPUT;
   }
 
   commentBoolean(args) {
@@ -288,7 +288,7 @@ formatMessage(id) {
   commentConditional(_, util) {
     util.startBranch(1, false);
   }
-  
+
   commentLoop(_, util) {
     util.startBranch(1, false);
   }
