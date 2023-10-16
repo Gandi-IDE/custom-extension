@@ -673,7 +673,7 @@
       insetIconURL: icon,
       featured: true,
       disabled: false,
-      collaborator: 'Lily@TW',
+      collaborator: '-SIPC-@TW',
     },
     l10n: {
       'zh-cn': {
