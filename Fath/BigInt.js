@@ -523,8 +523,8 @@
   window.tempExt = {
     Extension: BigIntExtension,
     info: {
-      name: "BigInt",
-      description: 'Math blocks that work on infinitely large integers (no decimals).',
+      name: 'BigInt.extensionName',
+      description: 'BigInt.description',
       extensionId: 'bigint',
       iconURL: 'https://fath11.github.io/custom-extension/Fath/banners/bigint.svg',
       insetIconURL: 'https://fath11.github.io/custom-extension/Fath/assets/bigint.png',

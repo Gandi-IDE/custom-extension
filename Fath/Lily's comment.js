@@ -297,8 +297,8 @@ formatMessage(id) {
 window.tempExt = {
   Extension: LilyComment,
   info: {
-    name: "Lily's Comment",
-    description: 'Annotate your scripts',
+    name: 'CmntExt.extensionName',
+    description: 'CmntExt.description',
     extensionId: 'lilycomment',
     iconURL: 'https://fath11.github.io/custom-extension/Fath/banners/CommentBlocks.png',
     insetIconURL: 'https://fath11.github.io/custom-extension/Fath/assets/lilyComment.png ',
