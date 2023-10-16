@@ -3,8 +3,6 @@
 // Description: Encode and decode strings into their unicode numbers, base 64, or URLs.
 // By: -SIPC-
 
-(function (Scratch) {
-  "use strict";
   const icon =
     "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIxMzcuNzk1MDYiIGhlaWdodD0iMTM0LjIzNzA3IiB2aWV3Qm94PSIwLDAsMTM3Ljc5NTA2LDEzNC4yMzcwNyI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTE1Mi44OTU4NiwtMTMwLjM3OTg5KSI+PGcgZGF0YS1wYXBlci1kYXRhPSJ7JnF1b3Q7aXNQYWludGluZ0xheWVyJnF1b3Q7OnRydWV9IiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9Im5vbnplcm8iIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIyMCIgc3Ryb2tlLWxpbmVjYXA9ImJ1dHQiIHN0cm9rZS1saW5lam9pbj0ibWl0ZXIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgc3Ryb2tlLWRhc2hhcnJheT0iIiBzdHJva2UtZGFzaG9mZnNldD0iMCIgc3R5bGU9Im1peC1ibGVuZC1tb2RlOiBub3JtYWwiPjxwYXRoIGQ9Ik0xOTkuMzA5MDgsMjE5LjYyMDExdi03OS4yNDAyMmg4MS4zODE4NHY3OS4yNDAyMnoiLz48cGF0aCBkPSJNMTYyLjg5NTg2LDI1NC42MTY5NnYtNzkuMjQwMjJoODEuMzgxODR2NzkuMjQwMjJ6Ii8+PC9nPjwvZz48L3N2Zz48IS0tcm90YXRpb25DZW50ZXI6ODcuMTA0MTQwMTg0NTE2NDQ6NDkuNjIwMTA4MzQwNzA3OTYtLT4=";
   const icon2 =
@@ -411,9 +409,42 @@
   /* eslint-enable */
 
   class Encoding {
+    constructor(runtime) {
+      this.runtime = runtime
+      this._formatMessage = runtime.getFormatMessage({
+        'zh-cn': {
+          'encoding.extensionName': "Encoding",
+          'encoding.encode': '将[string]编码为[code]',
+          'encoding.decode': '用 [code] 解码 [string]',
+          'encoding.hash': '哈希 [string] 与 [hash]',
+          'encoding.Conversioncodes': '将字符[string]转换为[CodeList]',
+          'encoding.Restorecode': '[codelist]字符对应的[string]',
+          'encoding.Randomstrings': '随机生成的[position]字符串',
+          'encoding.Fontgenerationstring': '使用[wordbank]生成随机的[position]字符串',
+        },
+        en: {
+          'encoding.extensionName': "Encoding",
+          'encoding.encode': 'Encode [string] in [code]',
+          'encoding.decode': 'Decode [string] with [code]',
+          'encoding.hash': 'Hash [string] with [hash]',
+          'encoding.Conversioncodes': 'Convert the character [string] to [CodeList]',
+          'encoding.Restorecode': '[string] corresponding to the [CodeList] character',
+          'encoding.Randomstrings': 'Randomly generated [position] character string',
+          'encoding.Fontgenerationstring': 'Use [wordbank] to generate a random [position] character string',
+        },
+      })
+    }
+    
+    formatMessage(id) {
+      return this._formatMessage({
+        id,
+        default: id,
+        description: id,
+      })
+    }
     getInfo() {
       return {
-        id: "Encoding",
+        id: "encoding",
         name: "Encoding",
         color1: "#6495ed",
         color2: "#739fee",
@@ -425,7 +456,7 @@
           {
             opcode: "encode",
             blockType: Scratch.BlockType.REPORTER,
-            text: "Encode [string] in [code]",
+            text: this.formatMessage('encoding.encode'),
             arguments: {
               string: {
                 type: Scratch.ArgumentType.STRING,
@@ -441,7 +472,7 @@
           {
             opcode: "decode",
             blockType: Scratch.BlockType.REPORTER,
-            text: "Decode [string] with [code]",
+            text: this.formatMessage('encoding.decode'),
             arguments: {
               string: {
                 type: Scratch.ArgumentType.STRING,
@@ -457,7 +488,7 @@
           {
             opcode: "hash",
             blockType: Scratch.BlockType.REPORTER,
-            text: "Hash [string] with [hash]",
+            text: this.formatMessage('encoding.hash'),
             arguments: {
               string: {
                 type: Scratch.ArgumentType.STRING,
@@ -476,7 +507,7 @@
           {
             opcode: "Conversioncodes",
             blockType: Scratch.BlockType.REPORTER,
-            text: "Convert the character [string] to [CodeList]",
+            text: this.formatMessage('encoding.Conversioncodes'),
             arguments: {
               string: {
                 type: Scratch.ArgumentType.STRING,
@@ -492,7 +523,7 @@
           {
             opcode: "Restorecode",
             blockType: Scratch.BlockType.REPORTER,
-            text: "[string] corresponding to the [CodeList] character",
+            text: this.formatMessage('encoding.Restorecode'),
             arguments: {
               string: {
                 type: Scratch.ArgumentType.STRING,
@@ -511,7 +542,7 @@
           {
             opcode: "Randomstrings",
             blockType: Scratch.BlockType.REPORTER,
-            text: "Randomly generated [position] character string",
+            text: this.formatMessage('encoding.Randomstrings'),
             arguments: {
               position: {
                 type: Scratch.ArgumentType.NUMBER,
@@ -522,7 +553,7 @@
           {
             opcode: "Fontgenerationstring",
             blockType: Scratch.BlockType.REPORTER,
-            text: "Use [wordbank] to generate a random [position] character string",
+            text: this.formatMessage('encoding.Fontgenerationstring'),
             arguments: {
               wordbank: {
                 type: Scratch.ArgumentType.STRING,
@@ -632,4 +663,27 @@
     }
   }
   Scratch.extensions.register(new Encoding());
-})(Scratch);
+
+  window.tempExt = {
+    Extension: Encoding,
+    info: {
+      name: 'encoding.extensionName',
+      description: 'encoding.description',
+      extensionId: 'encoding',
+      iconURL: 'https://fath11.github.io/custom-extension/Fath/banners/encoding.svg',
+      insetIconURL: icon,
+      featured: true,
+      disabled: false,
+      collaborator: 'Lily@TW',
+    },
+    l10n: {
+      'zh-cn': {
+        'encoding.extensionName': "Encoding",
+        'encoding.description': '将字符串编码和解码为 unicode 数字、base 64 或 URL',
+      },
+      'en': {
+        'encoding.extensionName': "Encoding",
+        'encoding.description': 'Encode and decode strings into their unicode numbers, base 64, or URLs',
+      },
+    },
+  };
