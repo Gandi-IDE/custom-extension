@@ -1,6 +1,3 @@
-(function (Scratch) {
-  "use strict";
-
   /**
    * @param {unknown} x
    * @returns {bigint}
@@ -41,9 +38,71 @@
   });
 
   class BigIntExtension {
+    constructor(runtime) {
+      this.runtime = runtime
+      this._formatMessage = runtime.getFormatMessage({
+        'zh-cn': {
+          'BigInt.extensionName': "Big Int",
+          'BigInt.from': '至 BigInt [text]',
+          'BigInt.to': '至号码 [text]',
+          'BigInt.add': '[a] + [b]',
+          'BigInt.sub': '[a] - [b]',
+          'BigInt.mul': '[a] * [b]',
+          'BigInt.div': '[a] / [b]',
+          'BigInt.pow': '[a] ** [b]',
+          'BigInt.mod': '[a] mod [b]',
+          'BigInt.sel': '[a] [sel] [b]',
+          'BigInt.lt': '[a] < [b]',
+          'BigInt.le': '[a] ≤ [b]',
+          'BigInt.eq': '[a] = [b]',
+          'BigInt.neq': '[a] ≠ [b]',
+          'BigInt.ge': '[a] ≥ [b]',
+          'BigInt.gt': '[a] > [b]',
+          'BigInt.and': '[a] & [b]',
+          'BigInt.or': '[a] | [b]',
+          'BigInt.xor': '[a] ^ [b]',
+          'BigInt.ls': '[a] << [b]',
+          'BigInt.rs': '[a] >> [b]',
+          'BigInt.not': '~ [a]',
+        },
+    
+        en: {
+          'BigInt.extensionName': "Big Int",
+          'BigInt.from': 'To BigInt [text]',
+          'BigInt.to': 'To Number [text]',
+          'BigInt.add': '[a] + [b]',
+          'BigInt.sub': '[a] - [b]',
+          'BigInt.mul': '[a] * [b]',
+          'BigInt.div': '[a] / [b]',
+          'BigInt.pow': '[a] ** [b]',
+          'BigInt.mod': '[a] mod [b]',
+          'BigInt.sel': '[a] [sel] [b]',
+          'BigInt.lt': '[a] < [b]',
+          'BigInt.le': '[a] ≤ [b]',
+          'BigInt.eq': '[a] = [b]',
+          'BigInt.neq': '[a] ≠ [b]',
+          'BigInt.ge': '[a] ≥ [b]',
+          'BigInt.gt': '[a] > [b]',
+          'BigInt.and': '[a] & [b]',
+          'BigInt.or': '[a] | [b]',
+          'BigInt.xor': '[a] ^ [b]',
+          'BigInt.ls': '[a] << [b]',
+          'BigInt.rs': '[a] >> [b]',
+          'BigInt.not': '~ [a]',
+        },
+      })
+    }
+    
+    formatMessage(id) {
+      return this._formatMessage({
+        id,
+        default: id,
+        description: id,
+      })
+    }
     getInfo() {
       return {
-        id: "skyhigh173BigInt",
+        id: "bigint",
         name: "BigInt",
         color1: "#59C093",
         color2: "#59C093",
@@ -54,7 +113,7 @@
           {
             opcode: "from",
             blockType: Scratch.BlockType.REPORTER,
-            text: "To BigInt [text]",
+            text: this.formatMessage('BigInt.from'),
             arguments: {
               text: {
                 type: Scratch.ArgumentType.STRING,
@@ -65,7 +124,7 @@
           {
             opcode: "to",
             blockType: Scratch.BlockType.REPORTER,
-            text: "To Number [text]",
+            text: this.formatMessage('BigInt.to'),
             arguments: {
               text: {
                 type: Scratch.ArgumentType.STRING,
@@ -77,7 +136,7 @@
           {
             opcode: "add",
             blockType: Scratch.BlockType.REPORTER,
-            text: "[a] + [b]",
+            text: this.formatMessage('BigInt.add'),
             arguments: {
               a: {
                 type: Scratch.ArgumentType.STRING,
@@ -92,7 +151,7 @@
           {
             opcode: "sub",
             blockType: Scratch.BlockType.REPORTER,
-            text: "[a] - [b]",
+            text: this.formatMessage('BigInt.sub'),
             arguments: {
               a: {
                 type: Scratch.ArgumentType.STRING,
@@ -107,7 +166,7 @@
           {
             opcode: "mul",
             blockType: Scratch.BlockType.REPORTER,
-            text: "[a] * [b]",
+            text: this.formatMessage('BigInt.mul'),
             arguments: {
               a: {
                 type: Scratch.ArgumentType.STRING,
@@ -122,7 +181,7 @@
           {
             opcode: "div",
             blockType: Scratch.BlockType.REPORTER,
-            text: "[a] / [b]",
+            text: this.formatMessage('BigInt.div'),
             arguments: {
               a: {
                 type: Scratch.ArgumentType.STRING,
@@ -137,7 +196,7 @@
           {
             opcode: "pow",
             blockType: Scratch.BlockType.REPORTER,
-            text: "[a] ** [b]",
+            text: this.formatMessage('BigInt.pow'),
             arguments: {
               a: {
                 type: Scratch.ArgumentType.STRING,
@@ -152,7 +211,7 @@
           {
             opcode: "mod",
             blockType: Scratch.BlockType.REPORTER,
-            text: "[a] mod [b]",
+            text: this.formatMessage('BigInt.mod'),
             arguments: {
               a: {
                 type: Scratch.ArgumentType.STRING,
@@ -167,7 +226,7 @@
           {
             opcode: "select",
             blockType: Scratch.BlockType.REPORTER,
-            text: "[a] [sel] [b]",
+            text: this.formatMessage('BigInt.sel'),
             arguments: {
               a: {
                 type: Scratch.ArgumentType.STRING,
@@ -188,7 +247,7 @@
           {
             opcode: "lt",
             blockType: Scratch.BlockType.BOOLEAN,
-            text: "[a] < [b]",
+            text: this.formatMessage('BigInt.lt'),
             arguments: {
               a: {
                 type: Scratch.ArgumentType.STRING,
@@ -203,7 +262,7 @@
           {
             opcode: "le",
             blockType: Scratch.BlockType.BOOLEAN,
-            text: "[a] ≤ [b]",
+            text: this.formatMessage('BigInt.le'),
             arguments: {
               a: {
                 type: Scratch.ArgumentType.STRING,
@@ -218,7 +277,7 @@
           {
             opcode: "eq",
             blockType: Scratch.BlockType.BOOLEAN,
-            text: "[a] = [b]",
+            text: this.formatMessage('BigInt.eq'),
             arguments: {
               a: {
                 type: Scratch.ArgumentType.STRING,
@@ -233,7 +292,7 @@
           {
             opcode: "neq",
             blockType: Scratch.BlockType.BOOLEAN,
-            text: "[a] ≠ [b]",
+            text: this.formatMessage('BigInt.neq'),
             arguments: {
               a: {
                 type: Scratch.ArgumentType.STRING,
@@ -248,7 +307,7 @@
           {
             opcode: "ge",
             blockType: Scratch.BlockType.BOOLEAN,
-            text: "[a] ≥ [b]",
+            text: this.formatMessage('BigInt.ge'),
             arguments: {
               a: {
                 type: Scratch.ArgumentType.STRING,
@@ -263,7 +322,7 @@
           {
             opcode: "gt",
             blockType: Scratch.BlockType.BOOLEAN,
-            text: "[a] > [b]",
+            text: this.formatMessage('BigInt.gt'),
             arguments: {
               a: {
                 type: Scratch.ArgumentType.STRING,
@@ -279,7 +338,7 @@
           {
             opcode: "and",
             blockType: Scratch.BlockType.REPORTER,
-            text: "[a] & [b]",
+            text: this.formatMessage('BigInt.and'),
             arguments: {
               a: {
                 type: Scratch.ArgumentType.STRING,
@@ -294,7 +353,7 @@
           {
             opcode: "or",
             blockType: Scratch.BlockType.REPORTER,
-            text: "[a] | [b]",
+            text: this.formatMessage('BigInt.or'),
             arguments: {
               a: {
                 type: Scratch.ArgumentType.STRING,
@@ -309,7 +368,7 @@
           {
             opcode: "xor",
             blockType: Scratch.BlockType.REPORTER,
-            text: "[a] ^ [b]",
+            text: this.formatMessage('BigInt.xor'),
             arguments: {
               a: {
                 type: Scratch.ArgumentType.STRING,
@@ -324,7 +383,7 @@
           {
             opcode: "ls",
             blockType: Scratch.BlockType.REPORTER,
-            text: "[a] << [b]",
+            text: this.formatMessage('BigInt.ls'),
             arguments: {
               a: {
                 type: Scratch.ArgumentType.STRING,
@@ -339,7 +398,7 @@
           {
             opcode: "rs",
             blockType: Scratch.BlockType.REPORTER,
-            text: "[a] >> [b]",
+            text: this.formatMessage('BigInt.rs'),
             arguments: {
               a: {
                 type: Scratch.ArgumentType.STRING,
@@ -354,7 +413,7 @@
           {
             opcode: "not",
             blockType: Scratch.BlockType.REPORTER,
-            text: "~ [a]",
+            text: this.formatMessage('BigInt.not'),
             arguments: {
               a: {
                 type: Scratch.ArgumentType.STRING,
@@ -461,12 +520,26 @@
     }
   }
 
-  getAuthor() { 
-    return [
-      {name:'Skyhigh173', link:'https://scratch.mit.edu/users/skyhigh173/'},
-      {name:'Fath11', link:'https://cocrea.world/@Fath11'}
-    ] 
-  }
-
-  Scratch.extensions.register(new BigIntExtension());
-})(Scratch);
+  window.tempExt = {
+    Extension: BigIntExtension,
+    info: {
+      name: "BigInt",
+      description: 'Math blocks that work on infinitely large integers (no decimals).',
+      extensionId: 'bigint',
+      iconURL: 'Fath\assets\bigint.png',
+      insetIconURL: 'Fath\banners\bigint.svg',
+      featured: true,
+      disabled: false,
+      collaborator: 'skyhigh173@TW',
+    },
+    l10n: {
+      'zh-cn': {
+        'BigInt.extensionName': "BigInt",
+        'BigInt.description': '适用于无限大整数（无小数）的数学模块。',
+      },
+      'en': {
+        'BigInt.extensionName': "BigInt",
+        'BigInt.description': 'Math blocks that work on infinitely large integers (no decimals).',
+      },
+    },
+  };

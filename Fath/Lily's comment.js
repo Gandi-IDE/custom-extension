@@ -304,12 +304,12 @@ window.tempExt = {
     insetIconURL: 'https://fath11.github.io/custom-extension/Fath/banners/CommentBlocks.png',
     featured: true,
     disabled: false,
-    collaborator: 'Lily@TW x Fath@Gandi',
+    collaborator: 'Lily@TW',
   },
   l10n: {
     'zh-cn': {
       'CmntExt.extensionName': "Lily's 注解",
-      'CCmntExt.description': '注释你的脚本',
+      'CmntExt.description': '注释你的脚本',
     },
     'en': {
       'CmntExt.extensionName': "Lily's Comment",
