@@ -254,7 +254,7 @@ formatMessage(id) {
   }
 
   commentHat() {
-    Scratch.vm.runtime.startHats('lilycomment_commentHat');
+    //no-op
   }
 
   commentCommand() {
