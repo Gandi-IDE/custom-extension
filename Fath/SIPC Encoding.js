@@ -662,7 +662,6 @@
       return string;
     }
   }
-  Scratch.extensions.register(new Encoding());
 
   window.tempExt = {
     Extension: Encoding,
