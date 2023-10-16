@@ -4,6 +4,8 @@ const witcat_BBcode_picture = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDo
 
 const witcat_BBcode_extensionId = "WitCatBBcode";
 
+let bbcode, bbcodemousedown = {}, touchEvent = {};
+
 /**
  * 获取到的返回值
  */
@@ -107,6 +109,7 @@ class WitCatBBcode {
                 "WitCatBBcode.deleteall": "删除所有 BBcode ",
                 "WitCatBBcode.get": " BBcode ID[id]的[type]",
                 "WitCatBBcode.set": "设置 BBcode ID[id]的[type]为[text]",
+                "WitCatBBcode.settextalign": "设置 BBcode ID[id]第[num]个[type]为[text]",
                 "WitCatBBcode.imgstyle": " BBcode ID[id]的第[num]张图片的宽[width]高[height]",
                 "WitCatBBcode.loadfontfamily": "从[text]加载字体名[name]",
                 "WitCatBBcode.setfontfamily": "设置 BBcode ID[id]的字体为[name]",
@@ -119,10 +122,31 @@ class WitCatBBcode {
                 "WitCatBBcode.type.4": "高",
                 "WitCatBBcode.type.5": "内容",
                 "WitCatBBcode.type.6": "json",
+                "WitCatBBcode.type.7": "透视",
                 "WitCatBBcode.ide.1": "可编辑",
                 "WitCatBBcode.ide.2": "不可编辑",
                 "WitCatBBcode.types.1": "启动",
                 "WitCatBBcode.types.2": "关闭",
+                "WitCatBBcode.getwidth": "获取内容[content]的渲染[type]",
+                "WitCatBBcode.click": "上次点击的元素的[clickmenu]",
+                "WitCatBBcode.touchs": "碰到的元素的[clickmenu]",
+                "WitCatBBcode.clickmenu.1": "bbcode来源",
+                "WitCatBBcode.clickmenu.2": "类型",
+                "WitCatBBcode.clickmenu.3": "序号",
+                "WitCatBBcode.touch": "碰到BBcode[id]第[number]个[type]元素?",
+                "WitCatBBcode.move": "BBcode[id]第[number]个[type]元素偏移X[x]Y[y]",
+                "WitCatBBcode.scale": "BBcode[id]第[number]个[type]元素缩放X[x]Y[y]",
+                "WitCatBBcode.rot": "BBcode[id]第[number]个[type]元素旋转[y]",
+                "WitCatBBcode.3dmove": "BBcode[id]第[number]个[type]元素3D偏移X[x]Y[y]Z[z]",
+                "WitCatBBcode.3drot": "BBcode[id]第[number]个[type]元素3D旋转X[x]Y[y]Z[z]",
+                "WitCatBBcode.transition": "为BBcode[id]设置过渡为[s]秒的[timing]",
+                "WitCatBBcode.timing.1": "线性",
+                "WitCatBBcode.timing.2": "缓出",
+                "WitCatBBcode.timing.3": "缓入",
+                "WitCatBBcode.timing.4": "缓出入",
+                "WitCatBBcode.timing.5": "缓动",
+                "WitCatBBcode.textalign.1": "左对齐",
+                "WitCatBBcode.textalign.2": "右对齐",
             },
             en: {
                 "WitCatBBcode.name": "[beta]WitCat’s BBcode",
@@ -134,6 +158,7 @@ class WitCatBBcode {
                 "WitCatBBcode.deleteall": "Delete all BBcode",
                 "WitCatBBcode.get": "ID[id]BBcode`s[type]",
                 "WitCatBBcode.set": "set BBcode ID[id]`s[type] to [text]",
+                "WitCatBBcode.settextalign": "set BBcode ID[id] num [num]`s[type] to [text]",
                 "WitCatBBcode.imgstyle": "BBcode ID[id] width of [num] picture [width] height [height]",
                 "WitCatBBcode.loadfontfamily": "load[name]from url[text]",
                 "WitCatBBcode.setfontfamily": "set BBcode ID[id]`s font family[name]",
@@ -150,6 +175,26 @@ class WitCatBBcode {
                 "WitCatBBcode.ide.2": "uneditable",
                 "WitCatBBcode.types.1": "turn on",
                 "WitCatBBcode.types.2": "turn off",
+                "WitCatBBcode.getwidth": "get[content]`s render[type]",
+                "WitCatBBcode.click": "Last clicked element`s[clickmenu]",
+                "WitCatBBcode.touchs": "Touch element`s[clickmenu]",
+                "WitCatBBcode.clickmenu.1": "bbcode Source",
+                "WitCatBBcode.clickmenu.2": "type",
+                "WitCatBBcode.clickmenu.3": "Serial number",
+                "WitCatBBcode.touch": "BBcode[id]num[number]`s[type]element is encountered?",
+                "WitCatBBcode.move": "BBcode[id]num[number]`s[type] element offset X[x]Y[y]",
+                "WitCatBBcode.scale": "BBcode[id]num[number]`s[type] element scale X[x]Y[y]",
+                "WitCatBBcode.rot": "BBcode[id]num[number]`s[type] element rotat [y]",
+                "WitCatBBcode.3dmove": "BBcode[id]num[number]`s[type] element 3Doffset X[x]Y[y]Z[z]",
+                "WitCatBBcode.3drot": "BBcode[id]num[number]`s[type] element 3Drotat X[x]Y[y]Z[z]",
+                "WitCatBBcode.transition": "Set [timing] for BBcode[id] to transition to [s] seconds",
+                "WitCatBBcode.timing.1": "linear",
+                "WitCatBBcode.timing.2": "ease-out",
+                "WitCatBBcode.timing.3": "ease-in",
+                "WitCatBBcode.timing.4": "ease-in-out",
+                "WitCatBBcode.timing.5": "ease",
+                "WitCatBBcode.textalign.1": "Align left",
+                "WitCatBBcode.textalign.2": "Align right",
             }
         })
     }
@@ -367,6 +412,243 @@ class WitCatBBcode {
                     },
                 },
                 {
+                    opcode: "getwidth",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatBBcode.getwidth"),
+                    arguments: {
+                        content: {
+                            type: "string",
+                            defaultValue: 'witcat',
+                        },
+                        type: {
+                            type: "string",
+                            menu: 'width',
+                        },
+                    },
+                },
+                {
+                    opcode: "click",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatBBcode.click"),
+                    arguments: {
+                        clickmenu: {
+                            type: "string",
+                            menu: 'clickmenu',
+                        },
+                    },
+                },
+                {
+                    opcode: "touchs",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatBBcode.touchs"),
+                    arguments: {
+                        clickmenu: {
+                            type: "string",
+                            menu: 'clickmenu',
+                        },
+                    },
+                },
+                {
+                    opcode: "touch",
+                    blockType: "Boolean",
+                    text: this.formatMessage("WitCatBBcode.touch"),
+                    arguments: {
+                        id: {
+                            type: "string",
+                            defaultValue: 'i',
+                        },
+                        number: {
+                            type: "number",
+                            defaultValue: '1',
+                        },
+                        type: {
+                            type: "string",
+                            defaultValue: 'img',
+                        },
+                    },
+                },
+                {
+                    opcode: "settextalign",
+                    blockType: "command",
+                    text: this.formatMessage("WitCatBBcode.settextalign"),
+                    arguments: {
+                        id: {
+                            type: "string",
+                            defaultValue: 'i',
+                        },
+                        num: {
+                            type: "number",
+                            defaultValue: '1',
+                        },
+                        type: {
+                            type: "string",
+                            defaultValue: 'all',
+                        },
+                        text: {
+                            type: "number",
+                            menu: 'textalign',
+                        },
+                    },
+                },
+                {
+                    opcode: "move",
+                    blockType: "command",
+                    text: this.formatMessage("WitCatBBcode.move"),
+                    arguments: {
+                        id: {
+                            type: "string",
+                            defaultValue: 'i',
+                        },
+                        number: {
+                            type: "number",
+                            defaultValue: '1',
+                        },
+                        type: {
+                            type: "string",
+                            defaultValue: 'img',
+                        },
+                        x: {
+                            type: "number",
+                            defaultValue: '0',
+                        },
+                        y: {
+                            type: "number",
+                            defaultValue: '0',
+                        },
+                    },
+                },
+                {
+                    opcode: "scale",
+                    blockType: "command",
+                    text: this.formatMessage("WitCatBBcode.scale"),
+                    arguments: {
+                        id: {
+                            type: "string",
+                            defaultValue: 'i',
+                        },
+                        number: {
+                            type: "number",
+                            defaultValue: '1',
+                        },
+                        type: {
+                            type: "string",
+                            defaultValue: 'img',
+                        },
+                        x: {
+                            type: "number",
+                            defaultValue: '0',
+                        },
+                        y: {
+                            type: "number",
+                            defaultValue: '0',
+                        },
+                    },
+                },
+                {
+                    opcode: "rot",
+                    blockType: "command",
+                    text: this.formatMessage("WitCatBBcode.rot"),
+                    arguments: {
+                        id: {
+                            type: "string",
+                            defaultValue: 'i',
+                        },
+                        number: {
+                            type: "number",
+                            defaultValue: '1',
+                        },
+                        type: {
+                            type: "string",
+                            defaultValue: 'img',
+                        },
+                        y: {
+                            type: "number",
+                            defaultValue: '0',
+                        },
+                    },
+                },
+                {
+                    opcode: "dmove",
+                    blockType: "command",
+                    text: this.formatMessage("WitCatBBcode.3dmove"),
+                    arguments: {
+                        id: {
+                            type: "string",
+                            defaultValue: 'i',
+                        },
+                        number: {
+                            type: "number",
+                            defaultValue: '1',
+                        },
+                        type: {
+                            type: "string",
+                            defaultValue: 'img',
+                        },
+                        x: {
+                            type: "number",
+                            defaultValue: '0',
+                        },
+                        y: {
+                            type: "number",
+                            defaultValue: '0',
+                        },
+                        z: {
+                            type: "number",
+                            defaultValue: '0',
+                        },
+                    },
+                },
+                {
+                    opcode: "drot",
+                    blockType: "command",
+                    text: this.formatMessage("WitCatBBcode.3drot"),
+                    arguments: {
+                        id: {
+                            type: "string",
+                            defaultValue: 'i',
+                        },
+                        number: {
+                            type: "number",
+                            defaultValue: '1',
+                        },
+                        type: {
+                            type: "string",
+                            defaultValue: 'img',
+                        },
+                        x: {
+                            type: "number",
+                            defaultValue: '0',
+                        },
+                        y: {
+                            type: "number",
+                            defaultValue: '0',
+                        },
+                        z: {
+                            type: "number",
+                            defaultValue: '0',
+                        },
+                    },
+                },
+                {
+                    opcode: "transition",
+                    blockType: "command",
+                    text: this.formatMessage("WitCatBBcode.transition"),
+                    arguments: {
+                        id: {
+                            type: "string",
+                            defaultValue: 'i',
+                        },
+                        s: {
+                            type: "number",
+                            defaultValue: '1',
+                        },
+                        timing: {
+                            type: "string",
+                            menu: 'timing',
+                        },
+                    },
+                },
+                {
                     opcode: "docss",
                     blockType: "reporter",
                     text: this.formatMessage("WitCatBBcode.docss"),
@@ -422,6 +704,10 @@ class WitCatBBcode {
                         text: this.formatMessage('WitCatBBcode.type.5'),
                         value: 'content'
                     },
+                    {
+                        text: this.formatMessage('WitCatBBcode.type.7'),
+                        value: 'perspective'
+                    },
                 ],
                 typess: [
                     {
@@ -459,6 +745,62 @@ class WitCatBBcode {
                     {
                         text: this.formatMessage('WitCatBBcode.ide.2'),
                         value: 'false'
+                    },
+                ],
+                width: [
+                    {
+                        text: this.formatMessage('WitCatBBcode.type.3'),
+                        value: 'width'
+                    },
+                    {
+                        text: this.formatMessage('WitCatBBcode.type.4'),
+                        value: 'height'
+                    },
+                ],
+                clickmenu: [
+                    {
+                        text: this.formatMessage('WitCatBBcode.clickmenu.1'),
+                        value: 'bbcode'
+                    },
+                    {
+                        text: this.formatMessage('WitCatBBcode.clickmenu.2'),
+                        value: 'type'
+                    },
+                    {
+                        text: this.formatMessage('WitCatBBcode.clickmenu.3'),
+                        value: 'number'
+                    },
+                ],
+                timing: [
+                    {
+                        text: this.formatMessage('WitCatBBcode.timing.1'),
+                        value: 'linear'
+                    },
+                    {
+                        text: this.formatMessage('WitCatBBcode.timing.2'),
+                        value: 'ease-out'
+                    },
+                    {
+                        text: this.formatMessage('WitCatBBcode.timing.3'),
+                        value: 'ease-in'
+                    },
+                    {
+                        text: this.formatMessage('WitCatBBcode.timing.4'),
+                        value: 'ease-in-out'
+                    },
+                    {
+                        text: this.formatMessage('WitCatBBcode.timing.5'),
+                        value: 'ease'
+                    },
+                ],
+                textalign: [
+                    {
+                        text: this.formatMessage("WitCatBBcode.textalign.1"),
+                        value: "left",
+                    },
+                    {
+                        text: this.formatMessage("WitCatBBcode.textalign.2"),
+                        value: "right",
                     },
                 ],
             },
@@ -594,6 +936,8 @@ class WitCatBBcode {
                 case "content":
                     search.innerHTML = `<div class='WitCatBBcodes'>${new bbcode.Parser().toHTML(String(args.text))}</div>`;
                     break;
+                case "perspective":
+                    search.firstChild.style.perspective = `${Number(args.text)}px`;
                 default:
                     break;
             }
@@ -650,6 +994,35 @@ class WitCatBBcode {
         }
     }
 
+
+    getwidth(args) {
+        if (this.canvas() === null || this.inputParent() === null) {
+            console.error(this.canvas(), this.inputParent())
+            return;
+        }
+        let search = document.createElement("span");
+        search.style.position = "fixed";
+        search.className = "WitCatBBcode";
+        search.innerHTML = `<div class='WitCatBBcodes'>${new bbcode.Parser().toHTML(String(args.content))}</div>`;
+        document.body.appendChild(search);
+        let cvsw = this.canvas().offsetWidth;
+        let cvsh = this.canvas().offsetHeight;
+        let outw, out;
+        switch (args.type) {
+            case "width":
+                outw = search.offsetWidth;
+                search.remove();
+                out = outw * (this.runtime.stageWidth / (cvsw * 0.748));
+                return out;
+            case "height":
+                outw = search.offsetHeight;
+                search.remove();
+                out = outw * (this.runtime.stageHeight / (cvsh * 0.777));
+                return out;
+        }
+        return "";
+    }
+
     size(args) {
         if (this.canvas() === null) {
             return;
@@ -689,6 +1062,188 @@ class WitCatBBcode {
         }
         else {
             console.warn("不允许的链接\nDisallowed links")
+        }
+    }
+
+    click(args) {
+        let out = "";
+        if (JSON.stringify(bbcodemousedown) !== "{}") {
+            let s = document.getElementsByClassName("WitCatBBcodes");
+            s.forEach((e) => {
+                if (e.contains(bbcodemousedown.target)) {
+                    switch (args.clickmenu) {
+                        case "bbcode":
+                            out = e.parentElement.id.split("WitCatBBcode")[1];
+                            break;
+                        case "type":
+                            out = bbcodemousedown.target.tagName.toLowerCase();
+                            break;
+                        case "number":
+                            let ss = e.getElementsByTagName(bbcodemousedown.target.tagName.toLowerCase());
+                            for (let i = 0; i < ss.length; i++) {
+                                if (ss[i] === bbcodemousedown.target) {
+                                    out = i + 1;
+                                    return;
+                                }
+                            };
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            })
+        }
+        return out;
+    }
+
+    touchs(args) {
+        let out = "";
+        if (JSON.stringify(touchEvent) !== "{}") {
+            let s = document.getElementsByClassName("WitCatBBcodes");
+            s.forEach((e) => {
+                if (e.contains(touchEvent.target)) {
+                    switch (args.clickmenu) {
+                        case "bbcode":
+                            out = e.parentElement.id.split("WitCatBBcode")[1];
+                            break;
+                        case "type":
+                            out = touchEvent.target.tagName.toLowerCase();
+                            break;
+                        case "number":
+                            let ss = e.getElementsByTagName(touchEvent.target.tagName.toLowerCase());
+                            for (let i = 0; i < ss.length; i++) {
+                                if (ss[i] === touchEvent.target) {
+                                    out = i + 1;
+                                    return;
+                                }
+                            };
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            })
+        }
+        return out;
+    }
+
+    touch(args) {
+        let search = null;
+        let search_1 = document.getElementById("WitCatBBcode" + args.id);
+        if (search_1 instanceof HTMLDivElement) {
+            search = search_1;
+            if (Number(args.number) > 0) {
+                let ele = search.getElementsByTagName(String(args.type))[Number(args.number) - 1];
+                if (ele !== undefined) {
+                    return JSON.stringify(touchEvent) !== "{}" && touchEvent.target === ele;
+                }
+            }
+            else {
+                let ele = search.getElementsByTagName(String(args.type))
+                return JSON.stringify(touchEvent) !== "{}" && ele.some(e => e === touchEvent.target);
+            }
+        }
+        return false;
+    }
+
+    move(args) {
+        let search = null;
+        let search_1 = document.getElementById("WitCatBBcode" + args.id);
+        if (search_1 instanceof HTMLDivElement) {
+            search = search_1;
+            let ele = search.getElementsByTagName(String(args.type))[Number(args.number) - 1];
+            if (ele !== undefined) {
+                ele.style.transition = search.style.transition;
+                ele.style.display = "inline-block";
+                const regex = /translate\([^,]+px, [^,]+px\)/g;
+                ele.style.transform = `${ele.style.transform.replace(regex, '')} translate(${args.x}px,${args.y}px)`;
+            }
+        }
+    }
+
+    scale(args) {
+        let search = null;
+        let search_1 = document.getElementById("WitCatBBcode" + args.id);
+        if (search_1 instanceof HTMLDivElement) {
+            search = search_1;
+            let ele = search.getElementsByTagName(String(args.type))[Number(args.number) - 1];
+            if (ele !== undefined) {
+                ele.style.transition = search.style.transition;
+                ele.style.display = "inline-block";
+                const regex = /scale\([^,], [^,]\)/g;
+                ele.style.transform = `${ele.style.transform.replace(regex, '')} scale(${args.x},${args.y})`;
+            }
+        }
+    }
+
+    rot(args) {
+        let search = null;
+        let search_1 = document.getElementById("WitCatBBcode" + args.id);
+        if (search_1 instanceof HTMLDivElement) {
+            search = search_1;
+            let ele = search.getElementsByTagName(String(args.type))[Number(args.number) - 1];
+            if (ele !== undefined) {
+                ele.style.transition = search.style.transition;
+                ele.style.display = "inline-block";
+                const regex = /rotate\([^)]+deg\)/g;
+                ele.style.transform = `${ele.style.transform.replace(regex, '')} rotate(${args.y}deg)`;
+            }
+        }
+    }
+
+    dmove(args) {
+        let search = null;
+        let search_1 = document.getElementById("WitCatBBcode" + args.id);
+        if (search_1 instanceof HTMLDivElement) {
+            search = search_1;
+            let ele = search.getElementsByTagName(String(args.type))[Number(args.number) - 1];
+            if (ele !== undefined) {
+                ele.style.transition = search.style.transition;
+                ele.style.display = "inline-block";
+                const regex = /translate3d\([^,]+px, [^,]+px, [^,]+px\)/g;
+                ele.style.transform = `${ele.style.transform.replace(regex, '')} translate3d(${args.x}px,${args.y}px,${args.z}px)`;
+            }
+        }
+    }
+
+    drot(args) {
+        let search = null;
+        let search_1 = document.getElementById("WitCatBBcode" + args.id);
+        if (search_1 instanceof HTMLDivElement) {
+            search = search_1;
+            let ele = search.getElementsByTagName(String(args.type))[Number(args.number) - 1];
+            if (ele !== undefined) {
+                ele.style.display = "inline-block";
+                ele.style.transform = `${ele.style.transform.replace(/rotateX\([^,]+deg\)/g, '')} rotateX(${args.x}deg)`;
+                ele.style.transform = `${ele.style.transform.replace(/rotateY\([^,]+deg\)/g, '')} rotateY(${args.y}deg)`;
+                ele.style.transform = `${ele.style.transform.replace(/rotateZ\([^,]+deg\)/g, '')} rotateZ(${args.z}deg)`;
+            }
+        }
+    }
+
+    transition(args) {
+        let search = null;
+        let search_1 = document.getElementById("WitCatBBcode" + args.id);
+        if (search_1 instanceof HTMLDivElement) {
+            search = search_1;
+            search.style.transition = `all ${args.s}s ${args.timing}`
+        }
+    }
+
+    settextalign(args) {
+        let search = null;
+        let search_1 = document.getElementById("WitCatBBcode" + args.id);
+        if (search_1 instanceof HTMLDivElement) {
+            search = search_1;
+            if (String(args.type) === "all") {
+                search.firstChild.style.float = String(args.text);
+            }
+            else {
+                let ele = search.getElementsByTagName(String(args.type))[Number(args.num) - 1];
+                if (ele !== undefined) {
+                    ele.style.float = String(args.text);
+                }
+            }
         }
     }
 
@@ -812,7 +1367,7 @@ window.tempExt = {
     }
 };
 
-htmltobbcode = (htmlInput) => {
+function htmltobbcode(htmlInput) {
     // Replace <br> tags with BBCode line breaks (换行)
     let bbcodeText = htmlInput.replace(/<br\s*\/?>/gi, '\n');
 
@@ -873,20 +1428,19 @@ htmltobbcode = (htmlInput) => {
 
     return bbcodeText;
 }
-
 //以下代码来自github
 // Generated by CoffeeScript 1.9.1
 (function () {
-    this.bbcode = {};
+    bbcode = {};
 
     if ("undefined" !== typeof module) {
-        module.exports = this.bbcode;
+        module.exports = bbcode;
     }
 
 }).call(this);
 // Generated by CoffeeScript 1.9.1
 (function () {
-    var _COSMETIC_DICT, _COSMETIC_RE, _ESCAPE_DICT, _ESCAPE_RE, _URL_RE, bbcode, key,
+    var _COSMETIC_DICT, _COSMETIC_RE, _ESCAPE_DICT, _ESCAPE_RE, _URL_RE, key,
         slice = [].slice;
 
     _ESCAPE_RE = /[&<>"]/g;
@@ -918,9 +1472,7 @@ htmltobbcode = (htmlInput) => {
         return results;
     })()).join('|'));
 
-    bbcode = this.bbcode;
-
-    this.bbcode.Renderer = (function () {
+    bbcode.Renderer = (function () {
         function Renderer(options) {
             options = options || {};
 
@@ -1008,7 +1560,7 @@ htmltobbcode = (htmlInput) => {
 }).call(this);
 // Generated by CoffeeScript 1.9.1
 (function () {
-    var CenterTag, CodeTag, ColorTag, HorizontalRuleTag, ImageTag, LinkTag, ListItemTag, ListTag, QuoteTag, RightTag, SizeTag, _LINE_BREAK, _NEWLINE_RE, bbcode,
+    var CenterTag, CodeTag, ColorTag, HorizontalRuleTag, ImageTag, LinkTag, ListItemTag, ListTag, QuoteTag, RightTag, SizeTag, _LINE_BREAK, _NEWLINE_RE,
         indexOf = [].indexOf || function (item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; },
         extend = function (child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
         hasProp = {}.hasOwnProperty;
@@ -1017,9 +1569,7 @@ htmltobbcode = (htmlInput) => {
 
     _LINE_BREAK = '<br />';
 
-    bbcode = this.bbcode;
-
-    this.bbcode.Tag = (function () {
+    bbcode.Tag = (function () {
         function Tag(renderer, settings) {
             var i, key, len, ref, ref1, value;
             this.renderer = renderer;
@@ -1161,7 +1711,7 @@ htmltobbcode = (htmlInput) => {
             var lang;
             lang = this.params['lang'] || this.params[this.name];
             if (lang) {
-                return ["<code><pre class=\"prettyprint lang-" + lang + "\" style=\"background: none;\">", this.getContent(true), '</pre></code>'];
+                return ["<code><pre class=\"prettyprint lang-" + this.renderer.escape(lang) + "\" style=\"background: none;\">", this.getContent(true), '</pre></code>'];
             } else {
                 return ['<code><pre style="background: none;">', this.getContent(true), '</pre></code>'];
             }
@@ -1169,7 +1719,7 @@ htmltobbcode = (htmlInput) => {
 
         return CodeTag;
 
-    })(this.bbcode.Tag);
+    })(bbcode.Tag);
 
     ImageTag = (function (superClass) {
         extend(ImageTag, superClass);
@@ -1194,7 +1744,7 @@ htmltobbcode = (htmlInput) => {
 
         return ImageTag;
 
-    })(this.bbcode.Tag);
+    })(bbcode.Tag);
 
     SizeTag = (function (superClass) {
         extend(SizeTag, superClass);
@@ -1215,7 +1765,7 @@ htmltobbcode = (htmlInput) => {
 
         return SizeTag;
 
-    })(this.bbcode.Tag);
+    })(bbcode.Tag);
 
     ColorTag = (function (superClass) {
         extend(ColorTag, superClass);
@@ -1228,7 +1778,7 @@ htmltobbcode = (htmlInput) => {
             var color;
             color = this.params['color'];
             if (color != null) {
-                return ["<color style=\"color:" + color + "\">", this.getContent(), '</color>'];
+                return ["<color style=\"color:" + this.renderer.escape(color) + "\">", this.getContent(), '</color>'];
             } else {
                 return this.getContent();
             }
@@ -1236,7 +1786,7 @@ htmltobbcode = (htmlInput) => {
 
         return ColorTag;
 
-    })(this.bbcode.Tag);
+    })(bbcode.Tag);
 
     CenterTag = (function (superClass) {
         extend(CenterTag, superClass);
@@ -1251,7 +1801,7 @@ htmltobbcode = (htmlInput) => {
 
         return CenterTag;
 
-    })(this.bbcode.Tag);
+    })(bbcode.Tag);
 
     RightTag = (function (superClass) {
         extend(RightTag, superClass);
@@ -1266,7 +1816,7 @@ htmltobbcode = (htmlInput) => {
 
         return RightTag;
 
-    })(this.bbcode.Tag);
+    })(bbcode.Tag);
 
     HorizontalRuleTag = (function (superClass) {
         extend(HorizontalRuleTag, superClass);
@@ -1283,7 +1833,7 @@ htmltobbcode = (htmlInput) => {
 
         return HorizontalRuleTag;
 
-    })(this.bbcode.Tag);
+    })(bbcode.Tag);
 
     ListTag = (function (superClass) {
         extend(ListTag, superClass);
@@ -1310,7 +1860,7 @@ htmltobbcode = (htmlInput) => {
 
         return ListTag;
 
-    })(this.bbcode.Tag);
+    })(bbcode.Tag);
 
     ListItemTag = (function (superClass) {
         extend(ListItemTag, superClass);
@@ -1327,7 +1877,7 @@ htmltobbcode = (htmlInput) => {
 
         return ListItemTag;
 
-    })(this.bbcode.Tag);
+    })(bbcode.Tag);
 
     QuoteTag = (function (superClass) {
         extend(QuoteTag, superClass);
@@ -1353,7 +1903,7 @@ htmltobbcode = (htmlInput) => {
 
         return QuoteTag;
 
-    })(this.bbcode.Tag);
+    })(bbcode.Tag);
 
     LinkTag = (function (superClass) {
         extend(LinkTag, superClass);
@@ -1373,7 +1923,7 @@ htmltobbcode = (htmlInput) => {
                     'linkify': false
                 }, (function (_this) {
                     return function () {
-                        return ["<a href=\"" + url + "\" target=\"_blank\">", _this.getContent(), '</a>'];
+                        return ["<a href=\"" + _this.renderer.escape(url) + "\" target=\"_blank\">", _this.getContent(), '</a>'];
                     };
                 })(this));
             } else {
@@ -1383,9 +1933,9 @@ htmltobbcode = (htmlInput) => {
 
         return LinkTag;
 
-    })(this.bbcode.Tag);
+    })(bbcode.Tag);
 
-    this.bbcode.createSimpleTag = (function (_this) {
+    bbcode.createSimpleTag = (function (_this) {
         return function (name, attributes) {
             var SimpleTag;
             return SimpleTag = (function (superClass) {
@@ -1401,58 +1951,53 @@ htmltobbcode = (htmlInput) => {
                 }
 
                 SimpleTag.prototype._toHTML = function () {
-                    var htmlAttributes;
-                    htmlAttributes = this.renderer.htmlAttributes(this.params);
-                    if (htmlAttributes) {
-                        htmlAttributes = ' ' + htmlAttributes;
-                    }
-                    return ["<" + name + htmlAttributes + ">", this.getContent(), "</" + name + ">"];
+                    return ["<" + name + ">", this.getContent(), "</" + name + ">"];
                 };
 
                 return SimpleTag;
 
-            })(_this.bbcode.Tag);
+            })(bbcode.Tag);
         };
     })(this);
 
-    this.bbcode.BUILTIN = {
-        b: this.bbcode.createSimpleTag('strong'),
-        i: this.bbcode.createSimpleTag('em'),
-        u: this.bbcode.createSimpleTag('u'),
-        s: this.bbcode.createSimpleTag('strike'),
-        h1: this.bbcode.createSimpleTag('h1', {
+    bbcode.BUILTIN = {
+        b: bbcode.createSimpleTag('strong'),
+        i: bbcode.createSimpleTag('em'),
+        u: bbcode.createSimpleTag('u'),
+        s: bbcode.createSimpleTag('strike'),
+        h1: bbcode.createSimpleTag('h1', {
             STRIP_OUTER: true
         }),
-        h2: this.bbcode.createSimpleTag('h2', {
+        h2: bbcode.createSimpleTag('h2', {
             STRIP_OUTER: true
         }),
-        h3: this.bbcode.createSimpleTag('h3', {
+        h3: bbcode.createSimpleTag('h3', {
             STRIP_OUTER: true
         }),
-        h4: this.bbcode.createSimpleTag('h4', {
+        h4: bbcode.createSimpleTag('h4', {
             STRIP_OUTER: true
         }),
-        h5: this.bbcode.createSimpleTag('h5', {
+        h5: bbcode.createSimpleTag('h5', {
             STRIP_OUTER: true
         }),
-        h6: this.bbcode.createSimpleTag('h6', {
+        h6: bbcode.createSimpleTag('h6', {
             STRIP_OUTER: true
         }),
-        pre: this.bbcode.createSimpleTag('pre'),
-        table: this.bbcode.createSimpleTag('table', {
+        pre: bbcode.createSimpleTag('pre'),
+        table: bbcode.createSimpleTag('table', {
             DISCARD_TEXT: true
         }),
-        thead: this.bbcode.createSimpleTag('thead', {
+        thead: bbcode.createSimpleTag('thead', {
             DISCARD_TEXT: true
         }),
-        tbody: this.bbcode.createSimpleTag('tbody', {
+        tbody: bbcode.createSimpleTag('tbody', {
             DISCARD_TEXT: true
         }),
-        tr: this.bbcode.createSimpleTag('tr', {
+        tr: bbcode.createSimpleTag('tr', {
             DISCARD_TEXT: true
         }),
-        th: this.bbcode.createSimpleTag('th'),
-        td: this.bbcode.createSimpleTag('td'),
+        th: bbcode.createSimpleTag('th'),
+        td: bbcode.createSimpleTag('td'),
         code: CodeTag,
         img: ImageTag,
         hr: HorizontalRuleTag,
@@ -1470,7 +2015,7 @@ htmltobbcode = (htmlInput) => {
 }).call(this);
 // Generated by CoffeeScript 1.9.1
 (function () {
-    var _SPACE_RE, _START_NEWLINE_RE, _TOKEN_RE, bbcode,
+    var _SPACE_RE, _START_NEWLINE_RE, _TOKEN_RE,
         indexOf = [].indexOf || function (item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
     _SPACE_RE = /^\s*$/;
@@ -1479,9 +2024,7 @@ htmltobbcode = (htmlInput) => {
 
     _START_NEWLINE_RE = /^\r?\n/;
 
-    bbcode = this.bbcode;
-
-    this.bbcode.Parser = (function () {
+    bbcode.Parser = (function () {
         function Parser(allowedTags) {
             var i, len, name, ref, tag;
             if (allowedTags == null) {
@@ -1612,9 +2155,7 @@ htmltobbcode = (htmlInput) => {
 }).call(this);
 // Generated by CoffeeScript 1.9.1
 (function () {
-    var MARKUP, bbcode;
-
-    bbcode = this.bbcode;
+    var MARKUP;
 
     MARKUP = {
         bold: {
@@ -1731,7 +2272,7 @@ htmltobbcode = (htmlInput) => {
         }
     };
 
-    this.bbcode.Editor = (function () {
+    bbcode.Editor = (function () {
         function Editor(textarea, markup) {
             this.markup = markup != null ? markup : MARKUP;
             this.$ = $(textarea);
@@ -2686,3 +3227,11 @@ Prism.languages.python = {
         return e.length + t
     }
 }();
+
+window.addEventListener("mousedown", (e) => {
+    bbcodemousedown = e;
+})
+
+window.addEventListener("mousemove", (e) => {
+    touchEvent = e;
+})

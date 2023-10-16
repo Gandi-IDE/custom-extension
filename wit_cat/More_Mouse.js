@@ -60,6 +60,11 @@ class WitCatMouse {
 		 */
 		this.mousetdlist = ['', '', '', '', ''];
 
+		/**
+		 * 获取的手机角度信息
+		 */
+		this.Gyroscope = {};
+
 		this.runtime = runtime;
 
 		/**
@@ -89,7 +94,7 @@ class WitCatMouse {
 				'WitCatMouse.copythis': '复制以下内容：',
 				'WitCatMouse.name': '[beta]白猫的高级鼠标',
 				'WitCatMouse.name.1': '高级鼠标',
-				'WitCatMouse.name.2': '多指触控',
+				'WitCatMouse.name.2': '手机端',
 				'WitCatMouse.set': '[set]右键菜单',
 				'WitCatMouse.set.1': '启用',
 				'WitCatMouse.set.2': '禁用',
@@ -105,8 +110,12 @@ class WitCatMouse {
 				'WitCatMouse.acceleration': '鼠标[way]速度', // 速度和加速度的区别
 				'WitCatMouse.way.1': 'X',
 				'WitCatMouse.way.2': 'Y',
+				'WitCatMouse.way.3': 'Z',
 				'WitCatTouch.down': '按下的手指数量',
+				'WitCatTouch.istouch': '碰到手指[num]?',
+				'WitCatTouch.touchs': '碰到的手指',
 				'WitCatTouch.num': '第[num]个手指的[type]',
+				'WitCatTouch.info': '手指[num]的[type]',
 				'WitCatTouch.type.1': 'X',
 				'WitCatTouch.type.2': 'Y',
 				'WitCatTouch.type.3': 'ID',
@@ -133,6 +142,7 @@ class WitCatMouse {
 				'WitCatMouse.cursor.11': '竖向文本',
 				'WitCatMouse.cursor.12': '十字准星',
 				'WitCatMouse.cursorurl': '更改鼠标的样式为X[x]Y[y]data url[text]',
+				'WitCatMouse.cursorstyle': '更改鼠标的样式为X[x]Y[y]大小[size]角色[s]的第[shape]造型',
 				'WitCatMouse.url': '上传ico并获得data url',
 				'WitCatMouse.click': '点击',
 				'WitCatMouse.dclick': '双击',
@@ -141,12 +151,14 @@ class WitCatMouse {
 				'WitCatMouse.mouset': '鼠标[key]按下时长(秒)',
 				'WitCatMouse.docs': '📖拓展教程',
 				'WitCatMouse.mousewheel': '鼠标滚轮速度',
+				'WitCatMouse.gyroscope': '当前[p]轴角度',
+				'WitCatMouse.title': '设置鼠标提示[text]',
 			},
 			en: {
 				'WitCatMouse.copythis': 'Copy the following text:',
 				'WitCatMouse.name': '[beta]WitCat’s Mouse',
 				'WitCatMouse.name.1': 'more mouse',
-				'WitCatMouse.name.2': 'more touch',
+				'WitCatMouse.name.2': 'Mobile terminal',
 				'WitCatMouse.set': '[set]right-click menu',
 				'WitCatMouse.set.1': 'Enable',
 				'WitCatMouse.set.2': 'Disable',
@@ -164,7 +176,10 @@ class WitCatMouse {
 				'WitCatMouse.way.2': 'Y',
 				'WitCatTouch.name': 'Touch',
 				'WitCatTouch.down': 'Finger count',
+				'WitCatTouch.istouch': 'Touch finger[num]?',
+				'WitCatTouch.touchs': 'Touching fingers',
 				'WitCatTouch.num': '[type]of finger[num]',
+				'WitCatTouch.info': '[type] of finger [num]',
 				'WitCatTouch.type.1': 'X',
 				'WitCatTouch.type.2': 'Y',
 				'WitCatTouch.type.3': 'ID',
@@ -192,6 +207,7 @@ class WitCatMouse {
 				'WitCatMouse.cursor.11': 'vertical text',
 				'WitCatMouse.cursor.12': 'crosshair',
 				'WitCatMouse.cursorurl': 'Change the style of the mouse to X[x]Y[y]base64[text]',
+				'WitCatMouse.cursorstyle': 'Change the mouse style to X[x]Y[y] size [size] character [s] shape[shape]',
 				'WitCatMouse.url': 'upload ico and get base64',
 				'WitCatMouse.click': 'click',
 				'WitCatMouse.dclick': 'double-click',
@@ -200,6 +216,8 @@ class WitCatMouse {
 				'WitCatMouse.mouset': 'mouse[key]hold time(sec)',
 				'WitCatMouse.docs': '📖Tutorials',
 				'WitCatInput.mousewheel': 'mouse wheel speed',
+				'WitCatMouse.gyroscope': 'Current [p] axis Angle',
+				'WitCatMouse.title': 'Set mouse prompts[text]',
 			},
 		});
 	}
@@ -259,9 +277,21 @@ class WitCatMouse {
 					opcode: 'resolution',
 					blockType: 'reporter',
 					text: this.formatMessage('WitCatMouse.resolution'),
+					hideFromPalette: true,
 					arguments: {},
 				},
 				`---${this.formatMessage('WitCatMouse.name.1')}`,
+				{
+					opcode: 'title',
+					blockType: 'command',
+					text: this.formatMessage('WitCatMouse.title'),
+					arguments: {
+						text: {
+							type: 'string',
+							defaultValue: 'wit_cat!!!',
+						},
+					},
+				},
 				{
 					opcode: 'set',
 					blockType: 'command',
@@ -376,16 +406,43 @@ class WitCatMouse {
 					text: this.formatMessage('WitCatMouse.cursorurl'),
 					arguments: {
 						x: {
-							type: 'string',
+							type: 'number',
 							defaultValue: '0',
 						},
 						y: {
-							type: 'string',
+							type: 'number',
 							defaultValue: '0',
 						},
 						text: {
 							type: 'string',
 							defaultValue: 'base64:ico',
+						},
+					},
+				},
+				{
+					opcode: 'cursorStyle',
+					blockType: 'command',
+					text: this.formatMessage('WitCatMouse.cursorstyle'),
+					arguments: {
+						x: {
+							type: 'number',
+							defaultValue: '0',
+						},
+						y: {
+							type: 'number',
+							defaultValue: '0',
+						},
+						size: {
+							type: 'number',
+							defaultValue: '64',
+						},
+						s: {
+							type: 'string',
+							menu: 'targetListMenu',
+						},
+						shape: {
+							type: 'number',
+							defaultValue: '1',
 						},
 					},
 				},
@@ -434,6 +491,38 @@ class WitCatMouse {
 					},
 				},
 				{
+					opcode: 'info',
+					blockType: 'reporter',
+					text: this.formatMessage('WitCatTouch.info'),
+					arguments: {
+						num: {
+							type: 'string',
+							defaultValue: '0',
+						},
+						type: {
+							type: 'string',
+							menu: 'type',
+						},
+					},
+				},
+				{
+					opcode: 'isTouch',
+					blockType: 'Boolean',
+					text: this.formatMessage('WitCatTouch.istouch'),
+					arguments: {
+						num: {
+							type: 'string',
+							defaultValue: '0',
+						},
+					},
+				},
+				{
+					opcode: 'touchs',
+					blockType: 'reporter',
+					text: this.formatMessage('WitCatTouch.touchs'),
+					arguments: {},
+				},
+				{
 					opcode: 'cantouch',
 					blockType: 'Boolean',
 					text: this.formatMessage('WitCatMouse.cantouch'),
@@ -449,6 +538,18 @@ class WitCatMouse {
 					blockType: 'Boolean',
 					text: this.formatMessage('WitCatMouse.IsMobile'),
 					arguments: {},
+				},
+				{
+					opcode: 'gyroscope',
+					blockType: 'reporter',
+					text: this.formatMessage('WitCatMouse.gyroscope'),
+					hideFromPalette: true,
+					arguments: {
+						p: {
+							type: 'string',
+							menu: 'rot',
+						},
+					},
 				},
 			],
 			menus: {
@@ -547,6 +648,20 @@ class WitCatMouse {
 						value: 'y',
 					},
 				],
+				rot: [
+					{
+						text: this.formatMessage('WitCatMouse.way.1'),
+						value: 'x',
+					},
+					{
+						text: this.formatMessage('WitCatMouse.way.2'),
+						value: 'y',
+					},
+					{
+						text: this.formatMessage('WitCatMouse.way.3'),
+						value: 'z',
+					},
+				],
 				ways: [
 					{
 						text: this.formatMessage('WitCatMouse.click'),
@@ -591,8 +706,39 @@ class WitCatMouse {
 						value: 'release',
 					},
 				],
+				targetListMenu: {
+					items: "buildTargetListMenu"
+				}
 			},
 		};
+	}
+
+	/**
+	 * buildTargetListMenu菜单
+	 * @returns 菜单
+	 */
+	buildTargetListMenu() {
+		return this._spriteMenu();
+	}
+
+	/**
+	 * 从runtime获取菜单
+	 * @returns 菜单
+	 */
+	_spriteMenu() {
+		var e = [];
+		return this.runtime.targets.forEach((function (t) {
+			t.isOriginal && !t.isStage && e.push({
+				text: t.sprite.name,
+				value: t.sprite.name
+			})
+		})), 0 === e.length && e.push({
+			text: this.formatMessage({
+				id: "GandiAsyncAssetManager.noneSprite",
+				default: "none sprite"
+			}),
+			value: ""
+		}), e
 	}
 
 	/**
@@ -696,6 +842,34 @@ class WitCatMouse {
 	}
 
 	/**
+	 * 坐标
+	 * @param {object} args
+	 * @param {SCarg} args.num 手指ID
+	 * @param {SCarg} args.type 数据类型 "x"|"y"|"identifier"
+	 * @returns {number|string}
+	 */
+	info(args) {
+		const canvas = this.canvas();
+		if (canvas === null) {
+			return 0;
+		}
+		for (let i = 0; i < this.touch.length; i++) {
+			if (this.touch[i]["identifier"] === args.num) {
+				if (this.touch[i] !== undefined) {
+					if (args.type === 'x') {
+						return this.runtime.stageWidth * ((this.touch[i].clientX - canvas.getBoundingClientRect().left) / canvas.offsetWidth);
+					}
+					if (args.type === 'y') {
+						return this.runtime.stageHeight * ((this.touch[i].clientY - canvas.getBoundingClientRect().top) / canvas.offsetHeight);
+					}
+					return touch1.identifier;
+				}
+			}
+		}
+		return 0;
+	}
+
+	/**
 	 * 全屏
 	 * @deprecated
 	 */
@@ -783,6 +957,90 @@ class WitCatMouse {
 	}
 
 	/**
+	 * 设置光标为造型
+	 * @param {object} args
+	 * @param {SCarg} args.s 目标角色
+	 * @param {SCarg} args.size 大小
+	 * @param {SCarg} args.x x偏移
+	 * @param {SCarg} args.y y偏移
+	 */
+	cursorStyle(args) {
+		const canvasParent = this.canvas()?.parentNode?.parentNode?.parentNode;
+		if (canvasParent === null || canvasParent === undefined) {
+			return;
+		}
+		const targetRoleName = String(args.s);
+
+		const x = Number(args.x);
+		const y = Number(args.y);
+		const size = Number(args.size);
+		const targetCostumeIndex = Number(args.shape - 1);
+		const targetSprite = this.runtime.targets.find((v) => { return v.sprite.name === targetRoleName });
+		if (targetSprite) {
+			try {
+				const targetCostume = targetSprite.sprite.costumes_[targetCostumeIndex];
+
+				const costumeURL = this.Uint8ArrayToString(targetCostume.asset.data);
+				const width = targetCostume.size[0];
+				const height = targetCostume.size[1];
+
+				let sizes = 0;
+				if (width < height) {
+					sizes = size / height;
+				}
+				else {
+					sizes = size / width;
+				}
+
+				const svgDataUri = 'data:image/svg+xml;base64,' + btoa(costumeURL);
+				const canvas = document.createElement('canvas');
+				canvas.width = size;
+				canvas.height = size;
+				const ctx = canvas.getContext('2d');
+
+				const svgImage = new Image();
+				svgImage.src = svgDataUri;
+				svgImage.onload = function () {
+					ctx.drawImage(svgImage, 0, 0, width * sizes, height * sizes);
+					const icoDataUri = canvas.toDataURL('image/x-icon');
+
+					canvasParent.style.cursor = `url("data:image/x-icon;${icoDataUri.split(";")[1]}") ${x} ${y}, auto`;
+				};
+			}
+			catch (e) {
+				console.error("Target modeling does not exist: " + targetCostumeIndex + "\nmore info：" + "\n" + e);
+			}
+		} else {
+			console.error("Target role not found: " + targetRoleName);
+		}
+	}
+
+	/**
+	 * 鼠标提示文案
+	 * @param {Object} args 
+	 */
+	title(args) {
+		const canvasParent = this.canvas()?.parentNode?.parentNode?.parentNode;
+		if (canvasParent === null || canvasParent === undefined) {
+			return;
+		}
+		canvasParent.title = String(args.text);
+	}
+
+	/**
+	 * 将Uint8Array编码的文本转换为string
+	 * @param {Uint8Array} fileData 需要转换的文件
+	 * @returns {string} 转换后的文本
+	 */
+	Uint8ArrayToString(fileData) {
+		var dataString = "";
+		for (var i = 0; i < fileData.length; i++) {
+			dataString += String.fromCharCode(fileData[i]);
+		}
+		return dataString
+	}
+
+	/**
 	 * 打开文件选择框
 	 * @param {string} accept 接受的文件扩展名
 	 * @param {boolean} multiple 接受多个文件
@@ -858,6 +1116,28 @@ class WitCatMouse {
 					reject(new Error('mode 错误: 应该是 arraybuffer, dataurl 或者 text'));
 			}
 		});
+	}
+
+	/**
+	 * 获取移动端设备角度
+	 * @param {JSON} args 
+	 */
+	gyroscope(args) {
+		try {
+			switch (args.p) {
+				case 'x':
+					return this.Gyroscope.beta;
+				case 'y':
+					return this.Gyroscope.gamma;
+				case 'z':
+					return this.Gyroscope.alpha;
+			}
+			return "";
+		}
+		catch (e) {
+			//设备可能是电脑
+			return "";
+		}
 	}
 
 	/**
@@ -1037,6 +1317,46 @@ class WitCatMouse {
 	}
 
 	/**
+	 * 判断是否碰到某个手指
+	 * @param {*} args 
+	 * @param {*} util 
+	 * @returns 
+	 */
+	isTouch(args, util) {
+		const canvas = this.canvas();
+		for (let i = 0; i < this.touch.length; i++) {
+			if (this.touch[i]["identifier"] === args.num) {
+				if (this.touch[i] !== undefined) {
+					let x = (this.touch[i].clientX - canvas.getBoundingClientRect().left);
+					let y = (this.touch[i].clientY - canvas.getBoundingClientRect().top);
+					return util.target.isTouchingPoint(x, y);
+				}
+			}
+		}
+		return false;
+	}
+
+
+	/**
+	 * 返回碰到的手指ID列表
+	 * @param {Object} args 
+	 * @param {Object} util 
+	 * @returns 
+	 */
+	touchs(args, util) {
+		const canvas = this.canvas();
+		let s = [];
+		for (let i = 0; i < this.touch.length; i++) {
+			let x = (this.touch[i].clientX - canvas.getBoundingClientRect().left);
+			let y = (this.touch[i].clientY - canvas.getBoundingClientRect().top);
+			if (util.target.isTouchingPoint(x, y)) {
+				s.push(this.touch[i]["identifier"]);
+			}
+		}
+		return JSON.stringify(s);
+	}
+
+	/**
 	 * 判断鼠标键按下时长(帽子积木)
 	 * @param {object} args
 	 * @param {SCarg} args.key 按键编号
@@ -1180,6 +1500,9 @@ class WitCatMouse {
 			},
 			{ capture: true }
 		);
+		window.addEventListener('deviceorientation', (e) => {
+			this.Gyroscope = e;
+		});
 	}
 }
 
