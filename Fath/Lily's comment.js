@@ -260,29 +260,36 @@ formatMessage(id) {
   commentCommand() {
     //no-op
   }
-  commentLoop() {
-    //no-op
-  }
 
   commentReporter(args) {
     return args.INPUT;
   }
+
   commentReporter2(args) {
     return args.INPUT;
   }
+
   commentReporter3(args) {
     return "";
   }
+
   commentBoolean(args) {
     return args.INPUT || false;
   }
+
   commentBoolean2(args) {
     return args.INPUT || false;
   }
+
   commentBoolean3(args) {
     return false;
   }
+
   commentConditional(_, util) {
+    util.startBranch(1, false);
+  }
+  
+  commentLoop(_, util) {
     util.startBranch(1, false);
   }
 }
