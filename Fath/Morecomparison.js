@@ -9,7 +9,7 @@ const formatMessage = Scratch.translate;
     getInfo() {
       return {
         id: "nonameawacomparisons",
-        name: "NOname compr",
+        name: "More comparisons",
         color1: "#00a889",
         color2: "#1e8c76",
         color3: "#1e8c76",
