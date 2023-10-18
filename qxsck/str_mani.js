@@ -741,118 +741,118 @@ class str_mani {
     }
 
     length(args){
-        return args.STR.length;
+        return String(args.STR).length;
     }
     reversal(args){
-        var arr=args.STR.split('');
+        var arr=String(args.STR).split('');
         arr=arr.reverse().join("");
         return arr;
     }
     strPalindrome(args){
-        var arr=args.STR.split('');
+        var arr=String(args.STR).split('');
         arr=arr.reverse().join("");
-        return arr===args.STR;
+        return arr===String(args.STR);
     }
     indexOf(args){
-        if(args.STR.indexOf(args.STR2,Number(args.NUM)-1)!=-1) return args.STR.indexOf(args.STR2,Number(args.NUM)-1)+1;
+        if(String(args.STR).indexOf(String(args.STR2),Number(args.NUM)-1)!=-1) return String(args.STR).indexOf(String(args.STR2),Number(args.NUM)-1)+1;
         else return -1;
     }
     lastIndexOf(args) {
-        if(args.STR.lastIndexOf(args.STR2,Number(args.NUM)-1)!=-1) return args.STR.lastIndexOf(args.STR2,Number(args.NUM)-1)+1;
+        if(String(args.STR).lastIndexOf(String(args.STR2),Number(args.NUM)-1)!=-1) return String(args.STR).lastIndexOf(String(args.STR2),Number(args.NUM)-1)+1;
         else return -1;
     }
     slicetwo(args){
-        return args.STR.slice(Number(args.NUM1)-1,Number(args.NUM2));
+        return String(args.STR).slice(Number(args.NUM1)-1,Number(args.NUM2));
     }
     sliceone(args){
-        return args.STR.slice(Number(args.NUM)-1);
+        return String(args.STR).slice(Number(args.NUM)-1);
     }
     substr(args){
-        return args.STR.substr(Number(args.NUM1)-1,Number(args.NUM2));
+        return String(args.STR).substr(Number(args.NUM1)-1,Number(args.NUM2));
     }
     replace(args){
-        return args.STR.replace(args.STR2,args.STR3);
+        return String(args.STR).replace(String(args.STR2),String(args.STR3));
     }
     replaceAll(args){
-        return args.STR.replaceAll(args.STR2,args.STR3);
+        return String(args.STR).replaceAll(String(args.STR2),String(args.STR3));
     }
     replacestrIndex(args){
-        var strs=args.STR.split(args.STR2);
+        var strs=String(args.STR).split(String(args.STR2));
         var index=Number(args.INDEX);
         var str_="";
         for(var i=0;i<strs.length;i++){
             str_=str_+strs[i];
             if(i+1!=strs.length){
-                if(i+1===index) str_=str_+args.STR3;
-                else str_=str_+args.STR2;
+                if(i+1===index) str_=str_+String(args.STR3);
+                else str_=str_+String(args.STR2);
             }
         }
         return str_;
     }
     toUpperCase(args){
-        return args.STR.toUpperCase();
+        return String(args.STR).toUpperCase();
     }
     toLowerCase(args){
-        return args.STR.toLowerCase();
+        return String(args.STR).toLowerCase();
     }
     padStart(args){
-        return args.STR.padStart(Number(args.NUM),args.STR2);
+        return String(args.STR).padStart(Number(args.NUM),String(args.STR2));
     }
     padEnd(args){
-        return args.STR.padEnd(Number(args.NUM),args.STR2);
+        return String(args.STR).padEnd(Number(args.NUM),String(args.STR2));
     }
     titleCase(args){
-        var newStr=args.STR.split(" ");
+        var newStr=String(args.STR).split(" ");
         for(var i=0;i<newStr.length;i++){
             newStr[i]=newStr[i].slice(0,1).toUpperCase() + newStr[i].slice(1).toLowerCase();
         }
         return newStr.join(" ");
     }
     charAt(args){
-        return args.STR.charAt(Number(args.NUM)-1);
+        return String(args.STR).charAt(Number(args.NUM)-1);
     }
     includes(args){
-        return args.STR.includes(args.STR2);
+        return String(args.STR).includes(String(args.STR2));
     }
     includesNum(args) {
-        return args.STR.includes(args.STR2,Number(args.NUM));
+        return String(args.STR).includes(String(args.STR2),Number(args.NUM));
     }
     startsWith(args) {
-        return args.STR.startsWith(args.STR2);
+        return String(args.STR).startsWith(String(args.STR2));
     }
     endsWith(args) {
-        return args.STR.endsWith(args.STR2);
+        return String(args.STR).endsWith(String(args.STR2));
     }
     strictlyequal(args) {
-        return args.STR===args.STR2;
+        return String(args.STR)===String(args.STR2);
     }
     splittojson(args) {
-        var str_=args.STR.split(args.STR2);
+        var str_=String(args.STR).split(String(args.STR2));
         return JSON.stringify(str_);
     }
     split(args) {
-        var str_=args.STR.split(args.STR2);
+        var str_=String(args.STR).split(String(args.STR2));
         return '['+str_.map(value=>'"'+String(value)+'"').join(',')+']';
     }
     splitid(args) {
-        var str_=args.STR.split(args.STR2);
+        var str_=String(args.STR).split(String(args.STR2));
         var id=Number(args.ID);
         if(id<=str_.length) return str_[id-1];
     }
     splitlength(args) {
-        var str_=args.STR.split(args.STR2);
+        var str_=String(args.STR).split(String(args.STR2));
         return str_.length;
     }
     getStrNumInStr(args){
-      if(typeof(args.STR)!=="string" || typeof(args.STR2)!=="string") return 0;
-      if(args.STR.length<args.STR2.length) return 0;
+      if(typeof(String(args.STR))!=="string" || typeof(String(args.STR2))!=="string") return 0;
+      if(String(args.STR).length<String(args.STR2).length) return 0;
       let Nums=0;
-      for(let i=0;i<args.STR.length;i++){
+      for(let i=0;i<String(args.STR).length;i++){
          let flag=true;
          let k=i;
-         for(let n=0;n<args.STR2.length;k++,n++){
+         for(let n=0;n<String(args.STR2).length;k++,n++){
             i++;
-            if(args.STR[k]!==args.STR2[n]) {
+            if(String(args.STR)[k]!==String(args.STR2)[n]) {
                flag=false;
                break;
             }
@@ -863,7 +863,7 @@ class str_mani {
       return Nums;
     }
     strIsAvailable(args) {
-        var str=args.STR;
+        var str=String(args.STR);
         if(args.CLASS='1'){
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return emailRegex.test(str); 
@@ -873,62 +873,62 @@ class str_mani {
         }
     }
     fillStart(args){
-        var str=args.STR;
+        var str=String(args.STR);
         for(var i=0;i<Number(args.NUM);i++){
-            str=args.STR2+str;
+            str=String(args.STR2)+str;
         }
         return str;
     }
     fillEnd(args){
-        var str=args.STR;
+        var str=String(args.STR);
         for(var i=0;i<Number(args.NUM);i++){
-            str+=args.STR2;
+            str+=String(args.STR2);
         }
         return str;
     }
     repeatString(args){
         var str="";
-        for(var i=0;i<Number(args.NUM);i++) str+=args.STR;
+        for(var i=0;i<Number(args.NUM);i++) str+=String(args.STR);
         return str;
     }
     deleteSpace(args){
-        return args.STR.replace(/^\s+|\s+$/gm,'');
+        return String(args.STR).replace(/^\s+|\s+$/gm,'');
     }
     replaceIndex(args){
         var str='';
-        for(var i=0;i<args.STR.length;i++){
-            if(i+1==Number(args.NUM)) str+=args.STR2;
-            else str+=args.STR[i];
+        for(var i=0;i<String(args.STR).length;i++){
+            if(i+1==Number(args.NUM)) str+=String(args.STR2);
+            else str+=String(args.STR)[i];
         }
         return str;
     }
     replaceIndexs(args){
         var str='';
-        for(var i=0;i<args.STR.length;i++){
-            if(i+1==Number(args.NUM)) str+=args.STR2;
-            else if(i+1<Number(args.NUM) || i+1>Number(args.NUM2)) str+=args.STR[i];
+        for(var i=0;i<String(args.STR).length;i++){
+            if(i+1==Number(args.NUM)) str+=String(args.STR2);
+            else if(i+1<Number(args.NUM) || i+1>Number(args.NUM2)) str+=String(args.STR)[i];
         }
         return str;
     }
     deleteIndex(args){
         var str='';
-        for(var i=0;i<args.STR.length;i++){
-            if(i+1!=Number(args.NUM)) str+=args.STR[i];
+        for(var i=0;i<String(args.STR).length;i++){
+            if(i+1!=Number(args.NUM)) str+=String(args.STR)[i];
         }
         return str;
     }
     deleteIndexs(args){
         var str='';
-        for(var i=0;i<args.STR.length;i++){
-            if(i+1<Number(args.NUM) || i+1>Number(args.NUM2)) str+=args.STR[i];
+        for(var i=0;i<String(args.STR).length;i++){
+            if(i+1<Number(args.NUM) || i+1>Number(args.NUM2)) str+=String(args.STR)[i];
         }
         return str;
     }
     insertIndex(args){
         var str='';
-        for(var i=0;i<args.STR.length;i++){
-            if(i+1==Number(args.NUM)) str+=args.STR2;
-            str+=args.STR[i];
+        for(var i=0;i<String(args.STR).length;i++){
+            if(i+1==Number(args.NUM)) str+=String(args.STR2);
+            str+=String(args.STR)[i];
         }
         return str;
     }
@@ -939,7 +939,7 @@ window.tempExt = {
     info: {
         name: 'qxsck.name',
         description: 'qxsck.description',
-        extensionId: 'strmani1',
+        extensionId: 'strmani',
         iconURL: icon,
         insetIconURL: insetIcon,
         featured: true,
