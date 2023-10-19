@@ -3,8 +3,8 @@ const ani_icon = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGlu
 
 //This message is to inform developers about the version of this extension (used in dubuggings).
 //note that after release, the console.clear() command should be deleted.
-//console.clear();
-console.log("Debug notes\nExt name: Animator\nExt version: v1.0.0\nExt developer: @官方小傲娇 (@DilemmaGX)");
+console.clear();
+console.log("Debug notes\nExt name: Animator\nExt version: v0.0.4\nExt developer: @官方小傲娇 (@DilemmaGX)");
 
 //Animation Functions
 
@@ -407,7 +407,7 @@ class Animator {
                 'Ani.brightness': '亮度',
                 'Ani.ghost': '虚像',
 
-                'Ani.docs': '📖文档(暂缺)',
+                'Ani.docs': '📖文档',
 
                 'Ani.Fac_ani': '🌟缓动运算',
                 'Ani.Fac_dat': '🪄特效参数',
@@ -457,7 +457,7 @@ class Animator {
                 'Ani.brightness': 'brightness',
                 'Ani.ghost': 'ghost',
 
-                'Ani.docs': '📖Docs(TBD)',
+                'Ani.docs': '📖Docs(English missing)',
 
                 'Ani.Fac_ani': '🌟Easing functions',
                 'Ani.Fac_dat': '🪄Effect parameters',
@@ -712,11 +712,8 @@ class Animator {
     //Defines start here
 
     docs() {
-        let a = document.createElement('a');
-        a.herf = ""//TODO: Add docs URL here
-        a.rel = "noopener norefferrer";
-        a.target = "_blank";
-        a.click();
+        console.log("Opening Animator.js documentation in new window...");
+        window.open("https://gandi.rth1.app/Docs/Animator.js.html");
     }
 
     //value return
@@ -767,3 +764,10 @@ window.tempExt = {
         },
     },
 }
+
+
+/*
+Reference(s):
+https://easings.net/
+https://spicyyoghurt.com/tools/easing-functions
+*/
