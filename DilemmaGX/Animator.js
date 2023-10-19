@@ -3,8 +3,8 @@ const ani_icon = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGlu
 
 //This message is to inform developers about the version of this extension (used in dubuggings).
 //note that after release, the console.clear() command should be deleted.
-console.clear();
-console.log("Debug notes\nExt name: Animator\nExt version: v0.0.4\nExt developer: @官方小傲娇 (@DilemmaGX)");
+//console.clear();
+console.log("Debug notes\nExt name: Animator\nExt version: v1.0.2\nExt developer: @官方小傲娇 (@DilemmaGX)");
 
 //Animation Functions
 
