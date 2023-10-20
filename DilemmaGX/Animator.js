@@ -743,7 +743,7 @@ class Animator {
 
     docs() {
         console.log("Opening Animator.js documentation in new window...");
-        window.open("https://gandi.rth1.app/Animator.js.html");
+        window.open("https://gandi.rth1.app/Docs/Animator.js.html");
     }
 
     //value return
