@@ -736,7 +736,35 @@ window.tempExt = {
         insetIconURL: ani_icon,
         featured: true,
         disabled: false,
-        collaborator: '官方小傲娇@CCW'
+        collaborator: '官方小傲娇 @ CCW',
+        collaboratorURL: 'https://www.ccw.site/student/62f76ddb49c5dc44ac0c03c0',
+        collaboratorList: [
+            {
+                collaborator: '官方小傲娇 @ CCW',
+                collaboratorURL:
+                    'https://www.ccw.site/student/62f76ddb49c5dc44ac0c03c0',
+            },
+            {
+                collaborator: '酷可mc @ CCW',
+                collaboratorURL:
+                    'https://www.ccw.site/student/610b508176415b2f27e0f851',
+            },
+            {
+                collaborator: 'YUEN @ CCW',
+                collaboratorURL:
+                    'https://www.ccw.site/student/628979aa804a3a2bc801b097',
+            },
+            {
+                collaborator: '白猫 @ CCW',
+                collaboratorURL:
+                    'https://www.ccw.site/student/6173f57f48cf8f4796fc860e',
+            },
+            {
+                collaborator: '凌 @ CCW',
+                collaboratorURL:
+                    'https://www.ccw.site/student/63ddff9293ebb01fb90efa79',
+            },
+        ],
     },
     l10n: {
         'zh-cn': {
