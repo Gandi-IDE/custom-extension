@@ -289,6 +289,7 @@ class Animator {
                 'Ani.Animate':
                     '[type](初始值=[start], 尾值=[end], 长度=[length]) 于[time]秒时的值', //block
                 'Ani.Move': '在[time]秒内以[type]方式移到[endx][endy]', //block
+                //'Ani.Effects': '在[time]秒内以[type]方式将[Effect]修改为[end]',
                 'Ani.easeInQuad': '二次缓入',
                 'Ani.easeOutQuad': '二次缓出',
                 'Ani.easeInOutQuad': '二次缓动',
@@ -316,11 +317,11 @@ class Animator {
                 'Ani.easeInBack': '回弹缓入',
                 'Ani.easeOutBack': '回弹缓出',
                 'Ani.easeInOutBack': '回弹缓动',
-                'Ani.easeInBounce': '弹跳缓入',
-                'Ani.easeOutBounce': '弹跳缓出',
-                'Ani.easeInOutBounce': '弹跳缓动',
+                'Ani.easeInBounce': '⚠弹跳缓入',
+                'Ani.easeOutBounce': '⚠弹跳缓出',
+                'Ani.easeInOutBounce': '⚠弹跳缓动',
 
-                'Ani.getEffect': '获取特效[Effect]的值', //block
+                'Ani.getEffect': '获取外观属性[Effect]的值', //block
                 'Ani.color': '颜色',
                 'Ani.fisheye': '鱼眼',
                 'Ani.whirl': '旋涡',
@@ -328,18 +329,20 @@ class Animator {
                 'Ani.mosaic': '马赛克',
                 'Ani.brightness': '亮度',
                 'Ani.ghost': '虚像',
+                'Ani.size': '大小',
 
                 'Ani.docs': '📖文档(编写中)',
 
                 'Ani.Fac_ani': '🌟缓动运算',
-                'Ani.Fac_dat': '🪄特效参数'
+                'Ani.Fac_dat': '🪄特效参数',
             },
 
             en: {
                 'Ani.extensionName': 'Animator',
                 'Ani.Animate':
                     '[type](start=[start], end=[end], duration=[length]) at[time]second(s)', //block
-                'Ani.Move': 'Move to[endx][endy]within[time]second(s) use[type]', //block
+                'Ani.Move': 'Move to[endx][endy]within[time]second(s) using[type]', //block
+                //'Ani.Effects': 'Change[Effect]to[end]within[time]second(s) using[type]',
                 'Ani.easeInQuad': 'Quadratic ease-in',
                 'Ani.easeOutQuad': 'Quadratic ease-out',
                 'Ani.easeInOutQuad': 'Quadratic ease-in-out',
@@ -367,9 +370,9 @@ class Animator {
                 'Ani.easeInBack': 'Back ease-in',
                 'Ani.easeOutBack': 'Back ease-out',
                 'Ani.easeInOutBack': 'Back ease-in-out',
-                'Ani.easeInBounce': 'Bounce ease-in',
-                'Ani.easeOutBounce': 'Bounce ease-out',
-                'Ani.easeInOutBounce': 'Bounce ease-in-out',
+                'Ani.easeInBounce': '⚠Bounce ease-in',
+                'Ani.easeOutBounce': '⚠Bounce ease-out',
+                'Ani.easeInOutBounce': '⚠Bounce ease-in-out',
 
                 'Ani.getEffect': 'Get[Effect]value', //block
                 'Ani.color': 'color',
@@ -379,11 +382,12 @@ class Animator {
                 'Ani.mosaic': 'mosaic',
                 'Ani.brightness': 'brightness',
                 'Ani.ghost': 'ghost',
+                'Ani.size': 'size',
 
                 'Ani.docs': '📖Docs(WIP)',
 
                 'Ani.Fac_ani': '🌟Easing functions',
-                'Ani.Fac_dat': '🪄Effect parameters'
+                'Ani.Fac_dat': '🪄Effect parameters',
             }
         })
     }
@@ -628,6 +632,10 @@ class Animator {
                     {
                         text: this.formatMessage('Ani.ghost'),
                         value: 'ghost'
+                    },
+                    {
+                        text: this.formatMessage('Ani.size'),
+                        value: 'size'
                     }
                 ]
             }
@@ -721,7 +729,11 @@ class Animator {
      * @returns {any} 效果内容。
      */
     getEffect(args, util) {
-        return util.target.effects[args.Effect]
+        if (args.Effect != "size"){
+            return util.target.effects[args.Effect]
+        } else {
+            return util.target.size
+        }
     }
 }
 
@@ -730,7 +742,7 @@ window.tempExt = {
     Extension: Animator,
     info: {
         name: 'Ani.extensionName',
-        description: 'Ani.description',
+        description: 'Ani.description', 
         extensionId: ani_id,
         iconURL: ani_cover,
         insetIconURL: ani_icon,
