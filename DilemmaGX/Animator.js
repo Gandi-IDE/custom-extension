@@ -305,7 +305,8 @@ class Animator {
                 'Ani.Animate':
                     '[type](初始值=[start], 尾值=[end], 长度=[length]) 于[time]秒时的值', //block
                 'Ani.Move': '在[time]秒内以[type]方式移到[endx][endy]', //block
-                
+                'Ani.Effect': '在[time]秒内以[type]方式将[Effect]更改为[endv]', //block
+
                 'Ani.easeInQuad': '二次缓入',
                 'Ani.easeOutQuad': '二次缓出',
                 'Ani.easeInOutQuad': '二次缓动',
@@ -357,7 +358,8 @@ class Animator {
                 'Ani.extensionName': 'Animator',
                 'Ani.Animate':
                     '[type](start=[start], end=[end], duration=[length]) at[time]second(s)', //block
-                'Ani.Move': 'Move to[endx][endy]within[time]second(s) use[type]', //block
+                'Ani.Move': 'Move to[endx][endy]within[time]second(s) using[type]', //block
+                'Ani.Effect': 'Change[Effect]to[endv]within[time]second(s) using[type]', //block
 
                 'Ani.easeInQuad': 'Quadratic ease-in',
                 'Ani.easeOutQuad': 'Quadratic ease-out',
@@ -477,6 +479,30 @@ class Animator {
                         },
                         endy: {
                             type: 'number'
+                        },
+                        length: {
+                            type: 'number'
+                        }
+                    }
+                },
+                {
+                    opcode: 'Effect',
+                    blockType: 'command',
+                    text: this.formatMessage('Ani.Effect'),
+                    arguments: {
+                        type: {
+                            type: 'string',
+                            menu: 'Ani'
+                        },
+                        time: {
+                            type: 'number'
+                        },
+                        endv: {
+                            type: 'number'
+                        },
+                        Effect: {
+                            type: 'string',
+                            menu: 'Effect'
                         },
                         length: {
                             type: 'number'
@@ -694,7 +720,6 @@ class Animator {
      */
     Move({ type, endx, endy, time }, util) {
         if (util.stackFrame.startTime !== undefined) {
-            // 函数被重入
             const timeElapsed = Date.now() - util.stackFrame.startTime
             if (timeElapsed < util.stackFrame.length) {
                 const method = getMethod(util.stackFrame.type)
@@ -734,7 +759,6 @@ class Animator {
                     parseFloat(endy)
                 ]
             if (util.stackFrame.length <= 0) {
-                // 时长过短，直接设置到 endX
                 util.target.setXY(util.stackFrame.endX, util.stackFrame.endY)
                 return
             }
@@ -743,13 +767,87 @@ class Animator {
     }
 
     /**
+     * 以指定方式改变角色特效或大小。
+     * @param {{type: string, endv: string, Effect: string, time: string}} param0 积木参数。
+     * @param {any} util 上下文。
+     */
+    Effect({ type, endv, Effect, time }, util) {
+        if (util.stackFrame.startTime !== undefined) {
+            const timeElapsed = Date.now() - util.stackFrame.startTime
+            if (timeElapsed < util.stackFrame.length) {
+                const method = getMethod(util.stackFrame.type)
+                if (method) {
+                    const animV = new Animate(method, {
+                        start: util.stackFrame.startV,
+                        end: util.stackFrame.endV,
+                        length: util.stackFrame.length
+                    })
+
+                    if (Effect !== "size") {
+                        util.target.setEffect(Effect, animV.at(timeElapsed))
+                    } else {
+                        util.target.setSize(animV.at(timeElapsed))
+                    }
+                }
+                util.yield()
+            } else {
+
+                if (Effect !== "size") {
+                    util.target.setEffect(Effect, util.stackFrame.endV)
+                } else {
+                    util.target.setSize(util.stackFrame.endV)
+                }
+            }
+        } else if (Effect !== "size") {
+            ;[
+                util.stackFrame.type,
+                util.stackFrame.startTime,
+                util.stackFrame.length,
+                util.stackFrame.startV,
+                util.stackFrame.endV
+            ] = [
+                    type,
+                    Date.now(),
+                    parseFloat(time) * 1000,
+                    util.target.effects[Effect],
+                    parseFloat(endv)
+                ]
+            if (util.stackFrame.length <= 0) {
+                util.target.setEffect(Effect, util.stackFrame.endV)
+                return
+            }
+            util.yield()
+        } else {
+            ;[
+                util.stackFrame.type,
+                util.stackFrame.startTime,
+                util.stackFrame.length,
+                util.stackFrame.startV,
+                util.stackFrame.endV
+            ] = [
+                    type,
+                    Date.now(),
+                    parseFloat(time) * 1000,
+                    util.target.size,
+                    parseFloat(endv)
+                ]
+            if (util.stackFrame.length <= 0) {
+                util.target.setSize(util.stackFrame.endV)
+                return
+            }
+            util.yield()
+        }
+    }
+
+
+    /**
      * 获取效果。
      * @param {{Effect: string}} args 效果名称。
      * @param {any} util 上下文。
      * @returns {any} 效果内容。
      */
     getEffect(args, util) {
-        if (args.Effect != "size"){
+        if (args.Effect != "size") {
             return util.target.effects[args.Effect]
         } else {
             return util.target.size
