@@ -305,6 +305,7 @@ class Animator {
                 'Ani.Animate':
                     '[type](初始值=[start], 尾值=[end], 长度=[length]) 于[time]秒时的值', //block
                 'Ani.Move': '在[time]秒内以[type]方式移到[endx][endy]', //block
+                
                 'Ani.easeInQuad': '二次缓入',
                 'Ani.easeOutQuad': '二次缓出',
                 'Ani.easeInOutQuad': '二次缓动',
@@ -344,6 +345,7 @@ class Animator {
                 'Ani.mosaic': '马赛克',
                 'Ani.brightness': '亮度',
                 'Ani.ghost': '虚像',
+                'Ani.size': '大小',
 
                 'Ani.docs': '📖文档(编写中)',
 
@@ -356,6 +358,7 @@ class Animator {
                 'Ani.Animate':
                     '[type](start=[start], end=[end], duration=[length]) at[time]second(s)', //block
                 'Ani.Move': 'Move to[endx][endy]within[time]second(s) use[type]', //block
+
                 'Ani.easeInQuad': 'Quadratic ease-in',
                 'Ani.easeOutQuad': 'Quadratic ease-out',
                 'Ani.easeInOutQuad': 'Quadratic ease-in-out',
@@ -395,6 +398,7 @@ class Animator {
                 'Ani.mosaic': 'mosaic',
                 'Ani.brightness': 'brightness',
                 'Ani.ghost': 'ghost',
+                'Ani.size': 'size',
 
                 'Ani.docs': '📖Docs(WIP)',
 
@@ -644,6 +648,10 @@ class Animator {
                     {
                         text: this.formatMessage('Ani.ghost'),
                         value: 'ghost'
+                    },
+                    {
+                        text: this.formatMessage('Ani.size'),
+                        value: 'size'
                     }
                 ]
             }
@@ -651,7 +659,11 @@ class Animator {
     }
 
     docs() {
+        /*
+        docs missing (in progress)
+
         window.open('https://gandi.rth1.app/Docs/Animator.js.html')
+        */
     }
     /**
      * 获取动画效果。
@@ -737,7 +749,11 @@ class Animator {
      * @returns {any} 效果内容。
      */
     getEffect(args, util) {
-        return util.target.effects[args.Effect]
+        if (args.Effect != "size"){
+            return util.target.effects[args.Effect]
+        } else {
+            return util.target.size
+        }
     }
 }
 
