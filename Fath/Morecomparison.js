@@ -584,7 +584,7 @@ const formatMessage = Scratch.translate;
             },
             {
                 collaborator: 'Fath11@Cocrea',
-                collaboratorURL: 'https://github.com/fath11'
+                collaboratorURL: 'https://cocrea.world/@Fath11'
             },
         ]
     },
