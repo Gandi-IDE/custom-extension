@@ -305,6 +305,17 @@ window.tempExt = {
     featured: true,
     disabled: false,
     collaborator: 'Lily@TW',
+    collaboratorURL: 'https://scratch.mit.edu/users/lilymakesthings/',
+    collaboratorList: [
+            {
+                collaborator: 'Lily@TW',
+                collaboratorURL: 'https://scratch.mit.edu/users/lilymakesthings/'
+            },
+            {
+                collaborator: 'Fath11@Cocrea',
+                collaboratorURL: 'https://cocrea.world/@Fath11'
+            },
+        ]
   },
   l10n: {
     'zh-cn': {
