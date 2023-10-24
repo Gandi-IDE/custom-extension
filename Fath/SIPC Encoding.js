@@ -673,12 +673,12 @@
       insetIconURL: icon,
       featured: true,
       disabled: false,
-      collaborator: '-SIPC-@TW',
-      collaboratorURL: 'https://github.com/SIPC',
+      collaborator: 'sipc.ink@CCW',
+      collaboratorURL: 'https://www.ccw.site/student/61592e1f48cf8f4796fbd3c4',
       collaboratorList: [
             {
-                collaborator: '-SIPC-@TW',
-                collaboratorURL: 'https://github.com/SIPC'
+                collaborator: 'sipc.ink@CCW',
+                collaboratorURL: 'https://www.ccw.site/student/61592e1f48cf8f4796fbd3c4'
             },
             {
                 collaborator: 'Fath11@Cocrea',
