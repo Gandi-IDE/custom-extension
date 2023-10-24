@@ -576,6 +576,17 @@ const formatMessage = Scratch.translate;
       featured: true,
       disabled: false,
       collaborator: 'NOname-awa@TW',
+      collaboratorURL: 'https://github.com/NOname-awa',
+      collaboratorList: [
+            {
+                collaborator: 'NOname-awa@TW',
+                collaboratorURL: 'https://github.com/NOname-awa'
+            },
+            {
+                collaborator: 'Fath11@Cocrea',
+                collaboratorURL: 'https://cocrea.world/@Fath11'
+            },
+        ]
     },
     l10n: {
       'zh-cn': {
