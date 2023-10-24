@@ -531,6 +531,17 @@
       featured: true,
       disabled: false,
       collaborator: 'skyhigh173@TW',
+      collaboratorURL: 'https://github.com/Skyhigh173',
+      collaboratorList: [
+            {
+                collaborator: 'skyhigh173@TW',
+                collaboratorURL: 'https://github.com/Skyhigh173'
+            },
+            {
+                collaborator: 'Fath11@Cocrea',
+                collaboratorURL: 'https://github.com/fath11'
+            },
+        ]
     },
     l10n: {
       'zh-cn': {
