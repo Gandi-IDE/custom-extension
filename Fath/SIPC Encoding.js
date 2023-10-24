@@ -674,6 +674,17 @@
       featured: true,
       disabled: false,
       collaborator: '-SIPC-@TW',
+      collaboratorURL: 'https://github.com/SIPC',
+      collaboratorList: [
+            {
+                collaborator: '-SIPC-@TW',
+                collaboratorURL: 'https://github.com/SIPC'
+            },
+            {
+                collaborator: 'Fath11@Cocrea',
+                collaboratorURL: 'https://github.com/fath11'
+            },
+        ]
     },
     l10n: {
       'zh-cn': {
