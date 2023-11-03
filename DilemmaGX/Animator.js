@@ -306,6 +306,7 @@ class Animator {
                     '[type](初始值=[start], 尾值=[end], 长度=[length]) 于[time]秒时的值', //block
                 'Ani.Move': '在[time]秒内以[type]方式移到[endx][endy]', //block
                 'Ani.Effect': '在[time]秒内以[type]方式将[Effect]更改为[endv]', //block
+                'Ani.Dir': '在[time]秒内以[type]方式转到[endv]度', //block
 
                 'Ani.easeInQuad': '二次缓入',
                 'Ani.easeOutQuad': '二次缓出',
@@ -360,6 +361,7 @@ class Animator {
                     '[type](start=[start], end=[end], duration=[length]) at[time]second(s)', //block
                 'Ani.Move': 'Move to[endx][endy]within[time]second(s) using[type]', //block
                 'Ani.Effect': 'Change[Effect]to[endv]within[time]second(s) using[type]', //block
+                'Ani.Dir': 'Turn to[endv]degrees within[time]second(s) using[type]', //block
 
                 'Ani.easeInQuad': 'Quadratic ease-in',
                 'Ani.easeOutQuad': 'Quadratic ease-out',
@@ -509,6 +511,23 @@ class Animator {
                         length: {
                             type: 'number'
                         }
+                    }
+                },
+                {
+                    opcode: 'Dir',
+                    blockType: 'command',
+                    text: this.formatMessage('Ani.Dir'),
+                    arguments: {
+                        type: {
+                            type: 'string',
+                            menu: 'Ani'
+                        },
+                        time: {
+                            type: 'number'
+                        },
+                        endv: {
+                            type: 'number'
+                        },
                     }
                 },
                 '---' + this.formatMessage('Ani.Fac_dat'),
@@ -841,6 +860,49 @@ class Animator {
         }
     }
 
+    /**
+     * 以指定方式转向指定角度。
+     * @param {{type: string, endv: string, time: string}} param0 积木参数。
+     * @param {any} util 上下文。
+     */
+    Dir({ type, endv, time }, util) {
+        if (util.stackFrame.startTime !== undefined) {
+            const timeElapsed = Date.now() - util.stackFrame.startTime
+            if (timeElapsed < util.stackFrame.length) {
+                const method = getMethod(util.stackFrame.type)
+                if (method) {
+                    const animV = new Animate(method, {
+                        start: util.stackFrame.startV,
+                        end: util.stackFrame.endV,
+                        length: util.stackFrame.length
+                    })
+                    util.target.setDirection(animV.at(timeElapsed))
+                }
+                util.yield()
+            } else {
+                    util.target.setDirection(util.stackFrame.endV)
+                }
+        } else {
+            ;[
+                util.stackFrame.type,
+                util.stackFrame.startTime,
+                util.stackFrame.length,
+                util.stackFrame.startV,
+                util.stackFrame.endV
+            ] = [
+                    type,
+                    Date.now(),
+                    parseFloat(time) * 1000,
+                    util.target.direction,
+                    parseFloat(endv)
+                ]
+            if (util.stackFrame.length <= 0) {
+                util.target.setDirection(util.stackFrame.endV)
+                return
+            }
+            util.yield()
+        }
+    }
 
     /**
      * 获取效果。
