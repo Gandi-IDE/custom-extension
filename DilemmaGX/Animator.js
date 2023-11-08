@@ -1,7 +1,7 @@
 /**  
- * @fileoverview 实现简单的缓动动画以及数据运算
+ * @file 实现简单的缓动动画以及数据运算
  *  
- * @author 官方小傲娇、酷可mc、YUEN、白猫、凌
+ * @author 官方小傲娇 <gfxaj@qq.com>
  * @version 1.0.0  
  */
 
