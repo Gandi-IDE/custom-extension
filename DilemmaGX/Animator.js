@@ -861,7 +861,7 @@ class Animator {
     }
 
     /**
-     * 以指定方式转向指定角度。
+     * 以指定方式改变角色方向。
      * @param {{type: string, endv: string, time: string}} param0 积木参数。
      * @param {any} util 上下文。
      */
@@ -966,9 +966,3 @@ window.tempExt = {
         }
     }
 }
-
-/*
-Reference(s):
-https://easings.net/
-https://spicyyoghurt.com/tools/easing-functions
-*/
