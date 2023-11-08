@@ -1,3 +1,10 @@
+/**  
+ * @fileoverview 实现简单的缓动动画以及数据运算
+ *  
+ * @author 官方小傲娇、酷可mc、YUEN、白猫、凌
+ * @version 1.0.0  
+ */
+
 // @ts-nocheck
 const ani_id = 'Animator'
 const ani_cover =
