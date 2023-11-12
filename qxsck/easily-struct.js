@@ -641,7 +641,7 @@ window.tempExt = {
   info: {
     name: 'qxsck.name',
     description: 'qxsck.description',
-    extensionId: 'qxsckstruct',
+    extensionId: 'qxsckeasilystruct',
     iconURL: insetIcon,
     insetIconURL: insetIcon,
     featured: true,
