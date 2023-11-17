@@ -46,6 +46,7 @@ class str_mani {
                 'qxsckstrmani.deleteIndexs': '删除 [STR] 第 [NUM] 到 [NUM2] 个字符',
                 'qxsckstrmani.insertIndex': '在 [STR] 第 [NUM] 个字符前插入 [STR2]',
                 'qxsckstrmani.splitStringWidth': '把字体是 [FONT] 的字符串 [STR] 按每 [WIDTH] 宽度分割',
+                'qxsckstrmani.splitStringLength': '把字符串 [STR] 按每 [LENGTH] 个字符分割',
       },
 
       en:{
@@ -89,6 +90,7 @@ class str_mani {
                 'qxsckstrmani.deleteIndexs': 'Delete characters from position [NUM] to [NUM2] in [STR]',
                 'qxsckstrmani.insertIndex': 'Insert [STR2] before character at position [NUM] in [STR]',
                 'qxsckstrmani.splitStringWidth': 'split [STR] by width per [WIDTH] in font [FONT]',
+                'qxsckstrmani.splitStringLength': 'split [STR] by every [LENGTH] character',
             },
     })
     }
@@ -750,6 +752,21 @@ class str_mani {
                         },
                     }
                 },
+                {
+                    opcode: 'splitStringLength',
+                    blockType: 'reporter',
+                    text: this.formatMessage('qxsckstrmani.splitStringLength'),
+                    arguments: {
+                        STR: {
+                            type: 'string',
+                            defaultValue: 'strstrstr'
+                        },
+                        LENGTH:{
+                            type: 'string',
+                            defaultValue: '5'
+                        },
+                    }
+                },
             ],
             menus: {
                 strIsAvailable1: this.strIsAvailable1,
@@ -973,6 +990,17 @@ class str_mani {
         return JSON.stringify(strs);
 
         //return ctx.measureText(str).width;
+    }
+    splitStringLength(args){
+        let str=String(args.STR),length_=Number(args.LENGTH);
+        let strs=[];
+        let str_="";
+        for(var i=0;i<str.length;i++){
+            if(str_.length===length_) strs.push(str_),str_=str[i];
+            else str_=str_+str[i];
+        }
+        if(str_.length>0) strs.push(str_);
+        return JSON.stringify(strs);
     }
 }
 
