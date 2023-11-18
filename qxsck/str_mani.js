@@ -1117,7 +1117,7 @@ window.tempExt = {
     info: {
         name: 'qxsck.name',
         description: 'qxsck.description',
-        extensionId: 'strmani1',
+        extensionId: 'strmani',
         iconURL: icon,
         insetIconURL: insetIcon,
         featured: true,
