@@ -5,14 +5,18 @@ class str_mani {
     constructor(runtime) {
         this.runtime = runtime;
         this._formatMessage = runtime.getFormatMessage({
-      'zh-cn':{
-        'qxsckstrmani.name': '字符串处理',
+            'zh-cn':{
+                'qxsckstrmani.name': '字符串处理',
                 'qxsckstrmani.getHelp': '打开帮助',
                 'qxsckstrmani.length': '[STR] 的长度',
                 'qxsckstrmani.reversal': '反转 [STR]',
                 'qxsckstrmani.strPalindrome': '[STR] 是回文字符串吗？',
                 'qxsckstrmani.indexOf': '从 [STR] 的第 [NUM] 个字符开始找到第一个 [STR2] 出现的位置',
+                'qxsckstrmani.indexOfCount': '从 [STR] 的第 [NUM] 个字符开始找到第 [NUM2] 个 [STR2] 出现的位置',
                 'qxsckstrmani.lastIndexOf': '从 [STR] 的第 [NUM] 个字符开始往前找到最后一个 [STR2] 出现的位置',
+                'qxsckstrmani.indexOfDefault': '从 [STR] 找到第一个 [STR2] 出现的位置',
+                'qxsckstrmani.indexOfCountDefault': '从 [STR] 找到第 [NUM2] 个 [STR2] 出现的位置',
+                'qxsckstrmani.lastIndexOfDefault': '从 [STR] 的末尾开始往前找到最后一个 [STR2] 出现的位置',
                 'qxsckstrmani.charAt': '[STR] 的第 [NUM] 个字符',
                 'qxsckstrmani.slicetwo': '截取 [STR] 第 [NUM1] 到 [NUM2] 个字符',
                 'qxsckstrmani.sliceone': '截取 [STR] 从 [NUM] 开始的内容',
@@ -56,7 +60,11 @@ class str_mani {
                 'qxsckstrmani.reversal': 'Reverse [STR]',
                 'qxsckstrmani.strPalindrome': 'Is [STR] a palindrome?',
                 'qxsckstrmani.indexOf': 'Find the first occurrence of [STR2] in [STR] starting from character [NUM]',
+                'qxsckstrmani.indexOfCount': 'Find the [NUM2] occurrence of [STR2] in [STR] starting from character [NUM]',
                 'qxsckstrmani.lastIndexOf': 'Find the last occurrence of [STR2] in [STR] starting from character [NUM]',
+                'qxsckstrmani.indexOfDefault': 'Find the first occurrence of [STR2] in [STR] starting from first character',
+                'qxsckstrmani.indexOfCountDefault': 'Find the [NUM2] occurrence of [STR2] in [STR] starting from first character',
+                'qxsckstrmani.lastIndexOfDefault': 'Find the last occurrence of [STR2] in [STR] starting from last character',
                 'qxsckstrmani.charAt': 'Character at position [NUM] in [STR]',
                 'qxsckstrmani.slicetwo': 'Slice [STR] from [NUM1] to [NUM2]',
                 'qxsckstrmani.sliceone': 'Slice [STR] starting from [NUM]',
@@ -176,9 +184,51 @@ class str_mani {
                     }
                 },
                 {
+                    opcode: 'indexOfCount',
+                    blockType: 'reporter',
+                    text: this.formatMessage('qxsckstrmani.indexOfCount'),
+                    arguments: {
+                        STR: {
+                            type: 'string',
+                            defaultValue: 'str str'
+                        },
+                        STR2: {
+                            type: 'string',
+                            defaultValue: 'str'
+                        },
+                        NUM: {
+                            type: 'number',
+                            defaultValue: '1'
+                        },
+                        NUM2: {
+                            type: 'number',
+                            defaultValue: '2'
+                        }
+                    }
+                },
+                {
                     opcode: 'lastIndexOf',
                     blockType: 'reporter',
                     text: this.formatMessage('qxsckstrmani.lastIndexOf'),
+                    arguments: {
+                        STR: {
+                            type: 'string',
+                            defaultValue: 'str str'
+                        },
+                        STR2: {
+                            type: 'string',
+                            defaultValue: 'str'
+                        },
+                        NUM: {
+                            type: 'number',
+                            defaultValue: '5'
+                        }
+                    }
+                },
+                {
+                    opcode: 'indexOfDefault',
+                    blockType: 'reporter',
+                    text: this.formatMessage('qxsckstrmani.indexOfDefault'),
                     arguments: {
                         STR: {
                             type: 'string',
@@ -188,10 +238,40 @@ class str_mani {
                             type: 'string',
                             defaultValue: 'str'
                         },
-                        NUM: {
+                    }
+                },
+                {
+                    opcode: 'indexOfCountDefault',
+                    blockType: 'reporter',
+                    text: this.formatMessage('qxsckstrmani.indexOfCountDefault'),
+                    arguments: {
+                        STR: {
+                            type: 'string',
+                            defaultValue: 'str str'
+                        },
+                        STR2: {
+                            type: 'string',
+                            defaultValue: 'str'
+                        },
+                        NUM2: {
                             type: 'number',
-                            defaultValue: '3'
-                        }
+                            defaultValue: '1'
+                        },
+                    }
+                },
+                {
+                    opcode: 'lastIndexOfDefault',
+                    blockType: 'reporter',
+                    text: this.formatMessage('qxsckstrmani.lastIndexOfDefault'),
+                    arguments: {
+                        STR: {
+                            type: 'string',
+                            defaultValue: 'str str'
+                        },
+                        STR2: {
+                            type: 'string',
+                            defaultValue: 'str'
+                        },
                     }
                 },
                 {
@@ -782,21 +862,58 @@ class str_mani {
         return String(args.STR).length;
     }
     reversal(args){
-        var arr=String(args.STR).split('');
+        let arr=String(args.STR).split('');
         arr=arr.reverse().join("");
         return arr;
     }
     strPalindrome(args){
-        var arr=String(args.STR).split('');
+        let arr=String(args.STR).split('');
         arr=arr.reverse().join("");
         return arr===String(args.STR);
     }
     indexOf(args){
-        if(String(args.STR).indexOf(String(args.STR2),Number(args.NUM)-1)!=-1) return String(args.STR).indexOf(String(args.STR2),Number(args.NUM)-1)+1;
+        let str=String(args.STR),str2=String(args.STR2),num=Number(args.NUM);
+        if(str.indexOf(str2,num-1)!=-1) return str.indexOf(str2,num-1)+1;
+        else return -1;
+    }
+    indexOfCount(args){
+        let str=String(args.STR),str2=String(args.STR2),
+        num=Number(args.NUM),num2=Number(args.NUM2);
+        let oldlength=str.slice(0,num-1).length;
+        let str_=str.slice(num-1),strindexs=[str_.indexOf(str2)];
+        let index_=strindexs[strindexs.length-1]+1;
+        while(str_.indexOf(str2,index_)!=-1){
+            strindexs.push(str_.indexOf(str2,index_));
+            index_=strindexs[strindexs.length-1]+1;
+        }
+        if(strindexs.length>=num2) return strindexs[num2-1]+1+oldlength;
         else return -1;
     }
     lastIndexOf(args) {
-        if(String(args.STR).lastIndexOf(String(args.STR2),Number(args.NUM)-1)!=-1) return String(args.STR).lastIndexOf(String(args.STR2),Number(args.NUM)-1)+1;
+        let str=String(args.STR),str2=String(args.STR2),num=Number(args.NUM);
+        if(str.lastIndexOf(str2,num-1)!=-1) return str.lastIndexOf(str2,num-1)+1;
+        else return -1;
+    }
+    indexOfDefault(args){
+        let str=String(args.STR),str2=String(args.STR2);
+        if(str.indexOf(str2,0)!=-1) return str.indexOf(str2,0)+1;
+        else return -1;
+    }
+    indexOfCountDefault(args){
+        let str=String(args.STR),str2=String(args.STR2),
+        num2=Number(args.NUM2);
+        let str_=str,strindexs=[str_.indexOf(str2)];
+        let index_=strindexs[strindexs.length-1]+1;
+        while(str_.indexOf(str2,index_)!=-1){
+            strindexs.push(str_.indexOf(str2,index_));
+            index_=strindexs[strindexs.length-1]+1;
+        }
+        if(strindexs.length>=num2) return strindexs[num2-1]+1;
+        else return -1;
+    }
+    lastIndexOfDefault(args) {
+        let str=String(args.STR),str2=String(args.STR2);
+        if(str.lastIndexOf(str2,str.length-1)!=-1) return str.lastIndexOf(str2,str.length-1)+1;
         else return -1;
     }
     slicetwo(args){
@@ -815,10 +932,10 @@ class str_mani {
         return String(args.STR).replaceAll(String(args.STR2),String(args.STR3));
     }
     replacestrIndex(args){
-        var strs=String(args.STR).split(String(args.STR2));
-        var index=Number(args.INDEX);
-        var str_="";
-        for(var i=0;i<strs.length;i++){
+        let strs=String(args.STR).split(String(args.STR2));
+        let index=Number(args.INDEX);
+        let str_="";
+        for(let i=0;i<strs.length;i++){
             str_=str_+strs[i];
             if(i+1!=strs.length){
                 if(i+1===index) str_=str_+String(args.STR3);
@@ -840,8 +957,8 @@ class str_mani {
         return String(args.STR).padEnd(Number(args.NUM),String(args.STR2));
     }
     titleCase(args){
-        var newStr=String(args.STR).split(" ");
-        for(var i=0;i<newStr.length;i++){
+        let newStr=String(args.STR).split(" ");
+        for(let i=0;i<newStr.length;i++){
             newStr[i]=newStr[i].slice(0,1).toUpperCase() + newStr[i].slice(1).toLowerCase();
         }
         return newStr.join(" ");
@@ -865,43 +982,34 @@ class str_mani {
         return String(args.STR)===String(args.STR2);
     }
     splittojson(args) {
-        var str_=String(args.STR).split(String(args.STR2));
+        let str_=String(args.STR).split(String(args.STR2));
         return JSON.stringify(str_);
     }
     split(args) {
-        var str_=String(args.STR).split(String(args.STR2));
+        let str_=String(args.STR).split(String(args.STR2));
         return '['+str_.map(value=>'"'+String(value)+'"').join(',')+']';
     }
     splitid(args) {
-        var str_=String(args.STR).split(String(args.STR2));
-        var id=Number(args.ID);
+        let str_=String(args.STR).split(String(args.STR2));
+        let id=Number(args.ID);
         if(id<=str_.length) return str_[id-1];
     }
     splitlength(args) {
-        var str_=String(args.STR).split(String(args.STR2));
+        let str_=String(args.STR).split(String(args.STR2));
         return str_.length;
     }
     getStrNumInStr(args){
-      if(typeof(String(args.STR))!=="string" || typeof(String(args.STR2))!=="string") return 0;
-      if(String(args.STR).length<String(args.STR2).length) return 0;
-      let Nums=0;
-      for(let i=0;i<String(args.STR).length;i++){
-         let flag=true;
-         let k=i;
-         for(let n=0;n<String(args.STR2).length;k++,n++){
-            i++;
-            if(String(args.STR)[k]!==String(args.STR2)[n]) {
-               flag=false;
-               break;
-            }
-         }
-         if(flag) Nums++;
-         i--;
-      }
-      return Nums;
+        let str=String(args.STR),str2=String(args.STR2);
+        let str_=str,strindexs=[str_.indexOf(str2)];
+        let index_=strindexs[strindexs.length-1]+1;
+        while(str_.indexOf(str2,index_)!=-1){
+            strindexs.push(str_.indexOf(str2,index_));
+            index_=strindexs[strindexs.length-1]+1;
+        }
+        return strindexs.length;
     }
     strIsAvailable(args) {
-        var str=String(args.STR);
+        let str=String(args.STR);
         if(args.CLASS='1'){
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return emailRegex.test(str);
@@ -911,60 +1019,60 @@ class str_mani {
         }
     }
     fillStart(args){
-        var str=String(args.STR);
-        for(var i=0;i<Number(args.NUM);i++){
+        let str=String(args.STR);
+        for(let i=0;i<Number(args.NUM);i++){
             str=String(args.STR2)+str;
         }
         return str;
     }
     fillEnd(args){
-        var str=String(args.STR);
-        for(var i=0;i<Number(args.NUM);i++){
+        let str=String(args.STR);
+        for(let i=0;i<Number(args.NUM);i++){
             str+=String(args.STR2);
         }
         return str;
     }
     repeatString(args){
-        var str="";
-        for(var i=0;i<Number(args.NUM);i++) str+=String(args.STR);
+        let str="";
+        for(let i=0;i<Number(args.NUM);i++) str+=String(args.STR);
         return str;
     }
     deleteSpace(args){
         return String(args.STR).replace(/^\s+|\s+$/gm,'');
     }
     replaceIndex(args){
-        var str='';
-        for(var i=0;i<String(args.STR).length;i++){
+        let str='';
+        for(let i=0;i<String(args.STR).length;i++){
             if(i+1==Number(args.NUM)) str+=String(args.STR2);
             else str+=String(args.STR)[i];
         }
         return str;
     }
     replaceIndexs(args){
-        var str='';
-        for(var i=0;i<String(args.STR).length;i++){
+        let str='';
+        for(let i=0;i<String(args.STR).length;i++){
             if(i+1==Number(args.NUM)) str+=String(args.STR2);
             else if(i+1<Number(args.NUM) || i+1>Number(args.NUM2)) str+=String(args.STR)[i];
         }
         return str;
     }
     deleteIndex(args){
-        var str='';
-        for(var i=0;i<String(args.STR).length;i++){
+        let str='';
+        for(let i=0;i<String(args.STR).length;i++){
             if(i+1!=Number(args.NUM)) str+=String(args.STR)[i];
         }
         return str;
     }
     deleteIndexs(args){
-        var str='';
-        for(var i=0;i<String(args.STR).length;i++){
+        let str='';
+        for(let i=0;i<String(args.STR).length;i++){
             if(i+1<Number(args.NUM) || i+1>Number(args.NUM2)) str+=String(args.STR)[i];
         }
         return str;
     }
     insertIndex(args){
-        var str='';
-        for(var i=0;i<String(args.STR).length;i++){
+        let str='';
+        for(let i=0;i<String(args.STR).length;i++){
             if(i+1==Number(args.NUM)) str+=String(args.STR2);
             str+=String(args.STR)[i];
         }
@@ -980,7 +1088,7 @@ class str_mani {
         ctx.font=font_;
         let strs=[];
         let str_="";
-        for(var i=0;i<str.length;i++){
+        for(let i=0;i<str.length;i++){
             if(ctx.measureText(str_+str[i]).width>width_){
                 if(str_.length>0) strs.push(str_),str_=str[i];
                 else return '[]';
@@ -995,7 +1103,7 @@ class str_mani {
         let str=String(args.STR),length_=Number(args.LENGTH);
         let strs=[];
         let str_="";
-        for(var i=0;i<str.length;i++){
+        for(let i=0;i<str.length;i++){
             if(str_.length===length_) strs.push(str_),str_=str[i];
             else str_=str_+str[i];
         }
@@ -1009,7 +1117,7 @@ window.tempExt = {
     info: {
         name: 'qxsck.name',
         description: 'qxsck.description',
-        extensionId: 'strmani',
+        extensionId: 'strmani1',
         iconURL: icon,
         insetIconURL: insetIcon,
         featured: true,
