@@ -1,4 +1,4 @@
-class LilyComment {
+class CommentBlocks {
   constructor(runtime) {
   this.runtime = runtime
   this._formatMessage = runtime.getFormatMessage({
@@ -50,7 +50,7 @@ formatMessage(id) {
 
   getInfo() {
     return {
-      id: "lilycomment",
+      id: "commentblocks",
       name: this.formatMessage('CmntExt.extensionName'),
       color1: "#191e25",
       color2: "#191e25",
@@ -295,11 +295,11 @@ formatMessage(id) {
 }
 
 window.tempExt = {
-  Extension: LilyComment,
+  Extension: CommentBlocks,
   info: {
     name: 'CmntExt.extensionName',
     description: 'CmntExt.description',
-    extensionId: 'lilycomment',
+    extensionId: 'commentblocks',
     iconURL: 'https://fath11.github.io/custom-extension/Fath/banners/CommentBlocks.png',
     insetIconURL: 'https://fath11.github.io/custom-extension/Fath/assets/lilyComment.png ',
     featured: true,
@@ -319,11 +319,11 @@ window.tempExt = {
   },
   l10n: {
     'zh-cn': {
-      'CmntExt.extensionName': "Lily's 注解",
+      'CmntExt.extensionName': "评论区",
       'CmntExt.description': '注释你的脚本',
     },
     'en': {
-      'CmntExt.extensionName': "Lily's Comment",
+      'CmntExt.extensionName': "Comment blocks",
       'CmntExt.description': 'Annotate your scripts',
     },
   },
