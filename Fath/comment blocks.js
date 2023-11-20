@@ -3,7 +3,7 @@ class CommentBlocks {
   this.runtime = runtime
   this._formatMessage = runtime.getFormatMessage({
     'zh-cn': {
-      'CmntExt.extensionName': "Lily's 注解",
+      'CmntExt.extensionName': "评论区",
       'CmntExt.descriptionProjectName': '👑 项目名称：[NAME]',
       'CmntExt.descriptionDescription': '👉项目描述：[DESCRIPTION]',
       'CmntExt.descriptionCredit': '👉 👉 致谢：[NAME]',
@@ -21,7 +21,7 @@ class CommentBlocks {
     },
 
     en: {
-      'CmntExt.extensionName': "Lily's comment",
+      'CmntExt.extensionName': "Comment blocks",
       'CmntExt.descriptionProjectName': '👑 Project name: [NAME]',
       'CmntExt.descriptionDescription': '👉 Project description: [DESCRIPTION]',
       'CmntExt.descriptionCredit': '👉 👉 Credits to: [NAME]',
