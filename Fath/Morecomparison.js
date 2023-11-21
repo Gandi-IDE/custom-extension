@@ -590,8 +590,8 @@ const formatMessage = Scratch.translate;
     },
     l10n: {
       'zh-cn': {
-        'comparison.extensionName': "More Comparisons",
-        'comparison.description': '更多比较块。',
+        'comparison.extensionName': "跟多比较",
+        'comparison.description': '跟多比较块',
       },
       'en': {
         'comparison.extensionName': "More Comparisons",
