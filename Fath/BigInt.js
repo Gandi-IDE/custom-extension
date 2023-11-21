@@ -42,9 +42,9 @@
       this.runtime = runtime
       this._formatMessage = runtime.getFormatMessage({
         'zh-cn': {
-          'BigInt.extensionName': "Big Int",
-          'BigInt.from': '至 BigInt [text]',
-          'BigInt.to': '至号码 [text]',
+          'BigInt.extensionName': "大数字",
+          'BigInt.from': '到大数字 [text]',
+          'BigInt.to': '到[text]',
           'BigInt.add': '[a] + [b]',
           'BigInt.sub': '[a] - [b]',
           'BigInt.mul': '[a] * [b]',
@@ -545,8 +545,8 @@
     },
     l10n: {
       'zh-cn': {
-        'BigInt.extensionName': "BigInt",
-        'BigInt.description': '适用于无限大整数（无小数）的数学模块。',
+        'BigInt.extensionName': "大数字",
+        'BigInt.description': '无限大的整数(无小数)',
       },
       'en': {
         'BigInt.extensionName': "BigInt",
