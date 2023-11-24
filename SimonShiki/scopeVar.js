@@ -32,7 +32,7 @@ class ScopeVar {
         "block.get": "局部变量 [VAR]",
 
         // ↓遍历积木，灵感来自 YUEN
-        "block.repeatWithVar": "以 [VAR] 为计数器，从 [N1] 到 [N2]",
+        "block.repeatWithVar": "重复执行[N]次，以[VAR]为计数器",
         "block.forEachWithList": "遍历列表 [LIST] 每项，编号[I]内容[VAR]",
       },
 
@@ -50,7 +50,7 @@ class ScopeVar {
         "block.change": "change scoped [VAR] by [INCREMENT]",
         "block.get": "get scoped [VAR]",
 
-        "block.repeatWithVar": "counter [VAR] from [N1] to [N2]",
+        "block.repeatWithVar": "repeat[N]times with[VAR]as counter",
         "block.forEachWithList": "for each [I], [VAR] of [LIST]",
       },
     });
@@ -168,11 +168,7 @@ class ScopeVar {
           text: [this.formatMessage('block.repeatWithVar')],
           branchCount: 1,
           arguments: {
-            N1: {
-              type: "number",
-              defaultValue: 1,
-            },
-            N2: {
+            N: {
               type: "number",
               defaultValue: 10,
             },
@@ -403,34 +399,28 @@ class ScopeVar {
   }
 
   /**
-   * 从 N1 到 N2 ,将计数存在 VAR
-   * @param {N1} 开始值
-   * @param {N2} 结束值
+   * 重复 N 次，将计数存在 VAR
+   * @param {N} 开始值
    * @param {VAR} 局部变量名  
    */
-  repeatWithVar({N1, N2, VAR}, util) {
+  repeatWithVar({N, VAR}, util) {
     const stackFrame = util.stackFrame;
 
     if (typeof stackFrame.loopCounter === 'undefined') {
-      // N1，N2存入stackFrame，防止后面发生变化
-      stackFrame.n1 = Math.round(Cast.toNumber(N1));
-      stackFrame.n2 = Math.round(Cast.toNumber(N2));
-      stackFrame.step = Math.sign (stackFrame.n2 - stackFrame.n1);
-      if(stackFrame.step === 0) return;
-      stackFrame.loopCounter = stackFrame.n1;
+      // N存入stackFrame，防止后面发生变化
+      stackFrame.n = Math.round(Cast.toNumber(N));
+      stackFrame.loopCounter = 1;
     } else {
-      // 每次增加步长
-      stackFrame.loopCounter += stackFrame.step;
+      stackFrame.loopCounter += 1;
     }
-    const {n1, n2, step, loopCounter} = stackFrame;
+    if (stackFrame.loopCounter > stackFrame.n) {
+      return;
+    }
     
     const varName = Cast.toString(VAR);
     const vars = this._getOrInitScopeVars(util.thread, 0);
-    vars[varName] = loopCounter;
-
-    if (step > 0 ? loopCounter > n2: loopCounter < n2) {
-      return;
-    }
+    vars[varName] = stackFrame.loopCounter;
+    
     util.startBranch(1, true);
   }
 
