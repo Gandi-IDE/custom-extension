@@ -125,7 +125,18 @@ class feishuex {
     //开始写积木
     //往webhook地址发送消息
     msg(msg) {
-       
+       //想msg.webhook发送post请求
+        
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", msg.webhook);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        
+        xhr.send({"msg_type":"msg.msg","content":{"text":"request example"}});
+        //控制台输出返回结果
+        xhr.onload = function() {
+            console.log(xhr.responseText);
+         }
+
 
    
 }
