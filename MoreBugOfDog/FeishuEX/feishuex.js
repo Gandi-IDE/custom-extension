@@ -129,9 +129,10 @@ class feishuex {
         
         let xhr = new XMLHttpRequest();
         xhr.open("POST", msg.webhook);
+        //设置请求头
         xhr.setRequestHeader("Content-Type", "application/json");
-        
-        xhr.send({"msg_type":"msg.msg","content":{"text":"request example"}});
+        //设置请求体 
+        xhr.send({"msg_type":msg.msg,"content":{"text":"request example"}});
         //控制台输出返回结果
         xhr.onload = function() {
             console.log(xhr.responseText);
