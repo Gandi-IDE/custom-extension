@@ -135,6 +135,7 @@ class feishuex {
         xhr.send({"msg_type":msg.msg,"content":{"text":"request example"}});
         //控制台输出返回结果
         xhr.onload = function() {
+            //返回状态详细见飞书webhook机器人文档
             console.log(xhr.responseText);
          }
 
