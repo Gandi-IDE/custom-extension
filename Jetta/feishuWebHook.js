@@ -25,6 +25,9 @@ class FeishuWebHookExtension {
     })({
       en: {
         Name: 'Feishu WebHook',
+        openDocs: '📖 open Doc',
+        docsUrl:
+          'https://learn.ccw.site/article/7795eb4b-170b-435b-bca3-8b7d4e0c24f8',
         //Message
         'tag.message ': '📰  Message',
         'block.triggerWebhook':
@@ -49,6 +52,9 @@ class FeishuWebHookExtension {
       },
       'zh-cn': {
         name: '飞书WebHook',
+        openDocs: '📖 打开文档',
+        docsUrl:
+          'https://learn.ccw.site/article/e895cb95-cc0c-47a0-9bbb-a5aabf82750d',
         //消息
         'tag.message': '📰 消息',
         'block.triggerWebhook':
@@ -105,6 +111,15 @@ class FeishuWebHookExtension {
       default: id,
       description: id,
     });
+  }
+
+  openDocs() {
+    // merged witCat
+    let a = document.createElement('a');
+    a.href = this.fm('docsUrl');
+    a.rel = 'noopener noreferrer';
+    a.target = '_blank';
+    a.click();
   }
 
   getHats() {
@@ -255,6 +270,12 @@ class FeishuWebHookExtension {
         },
       },
     };
+
+    const openDocs = {
+      blockType: 'button',
+      text: this.fm('openDocs'),
+      onClick: this.docs,
+    };
     return {
       id: extensionId,
       name: this.fm('name'),
@@ -263,6 +284,7 @@ class FeishuWebHookExtension {
       color1: '#8eace1',
       color2: '#86a2d4',
       blocks: [
+        openDocs,
         '---' + this.fm('tag.message'),
         triggerWebhook,
         triggerWebhookWithAtUser,
