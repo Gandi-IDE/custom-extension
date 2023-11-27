@@ -460,7 +460,7 @@ class FeishuWebHookExtension {
   }
 }
 
-export default {
+window.tempExt = {
   Extension: FeishuWebHookExtension,
   info: {
     name: 'Jetta.feishuWebHook.extensionName',
