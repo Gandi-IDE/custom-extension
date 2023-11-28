@@ -595,7 +595,7 @@ class FeishuExtension {
     return fetch(`https://www.feishu.cn/flow/api/trigger-webhook/${ID}`, {
       method:'POST',
       cors: true,
-      data: JSON.stringify(DATA),
+      body: JSON.stringify(DATA),
     }).then((res) => {
       return JSON.stringify(res.json()) === 'undefined';
     });
