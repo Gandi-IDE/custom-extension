@@ -594,6 +594,9 @@ class FeishuExtension {
 
     return fetch(`https://www.feishu.cn/flow/api/trigger-webhook/${ID}`, {
       method:'POST',
+      headers: {
+        Accept: 'application/json',
+      },
       cors: true,
       body: JSON.stringify(DATA),
     }).then((res) => {
