@@ -259,21 +259,6 @@ class Animate {
      */
     at(time) {
         if (time > this.length) return this.end
-        // if (this.start < this.end) {
-        //   return this.method(
-        //     this.length - time,
-        //     this.start,
-        //     this.end - this.start,
-        //     this.length
-        //   )
-        // } else {
-        //   return this.method(
-        //     time,
-        //     this.start,
-        //     this.end - this.start,
-        //     this.length
-        //   )
-        // }
         return this.method(time, this.start, this.end - this.start, this.length)
     }
 }
