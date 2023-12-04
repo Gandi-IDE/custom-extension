@@ -1,11 +1,31 @@
 // import Cast from "cast.js";
 
+/** @typedef {string|number|boolean} SCarg 来自Scratch圆形框的参数，虽然这个框可能只能输入数字，但是可以放入变量，因此有可能获得数字和文本，需要同时处理 */
+
+/** @typedef {any} Util 暂时定义为 any */
+
 class RegExpVI {
   constructor(runtime) {
+    /**
+     * 当前正则表达式
+     * @type {RegExp}
+     */
     this.regexp = new RegExp("", "g");
+
+    /**
+     * 当前文本
+     * @type {string}
+     */
     this.text = "";
+
+    /**
+     * 当前匹配结果
+     * @type {null|string[]}
+     */
     this.result = null;
+
     this.runtime = runtime;
+
     this._formatMessage = runtime.getFormatMessage({
       "zh-cn": {
         "RegExpVI.name": "正则表达式vi",
@@ -126,6 +146,11 @@ class RegExpVI {
     })
   }
 
+  /**
+   * 翻译
+   * @param {string} id
+   * @returns {string}
+   */
   formatMessage(id) {
     return this._formatMessage({
       id,
@@ -552,16 +577,32 @@ class RegExpVI {
     };
   }
 
+  /**
+   * 正则表达式范围
+   * @param {object} args
+   * @param {SCarg} args.TEXT 要匹配的字符
+   * @param {SCarg} args.INCLUDE 包含(-)还是排除(-^)
+   * @param {SCarg} args.RANGE 是否使用 A-B 表示范围
+   * @returns {string}
+   */
   range(args) {
-    const re = /[\\\]\^]/g;
-    let text = args.TEXT;
+    const re = /[\\\]^]/g;
+    let text = String(args.TEXT);
     if (args.RANGE === "true") {
-      text = text.replace(/.-./g, function(x) {
-        let a = x.codePointAt(0);
-        let b = x.codePointAt(2);
+      text = text.replace(/.-./g, (x) => {
+        const a = x.codePointAt(0);
+        const b = x.codePointAt(2);
+        const ac = x[0];
+        const bc = x[2];
+        if (a === undefined || b === undefined ||
+          ac === undefined || bc === undefined) {
+          throw new Error("不可能发生此情况");
+        }
         if (a < b) return x;
-        else if (a === b) return x[0];
-        else return x[2] + "-" + x[0];
+        // 如果范围表达左右相等，就输出单字
+        else if (a === b) return ac;
+        // 如果范围表达左大于右，就反转
+        else return bc + "-" + ac;
       });
     } else {
       if (text.includes("-")) {
@@ -571,57 +612,129 @@ class RegExpVI {
     return "[" + String(args.INCLUDE).slice(1) + String(text).replace(re, "\\$&") + "]";
   }
 
+  /**
+   * 匹配文本
+   * @param {object} args
+   * @param {SCarg} args.TEXT 要匹配的字符
+   * @returns {string}
+   */
   str(args) {
-    const re = /[\\\[\].*?+(){}^$|]/g;
+    const re = /[\\[\].*?+(){}^$|]/g;
     return String(args.TEXT).replace(re, "\\$&");
   }
 
+  /**
+   * 用分隔符连接两个正则表达式
+   * @param {object} args
+   * @param {SCarg} args.REGEXP1
+   * @param {SCarg} args.TEXT 分隔符
+   * @param {SCarg} args.REGEXP2
+   * @returns {string}
+   */
   concatwithseparator(args) {
     return "(?:" + String(args.REGEXP1) + ")(?:" + this.str(args) + ")(?:" + String(args.REGEXP2) + ")";
   }
 
+  /**
+   * 直接连接两个正则表达式
+   * @param {object} args
+   * @param {SCarg} args.REGEXP1
+   * @param {SCarg} args.REGEXP2
+   * @returns {string}
+   */
   concat(args) {
     return "(?:" + String(args.REGEXP1) + ")(?:" + String(args.REGEXP2) + ")";
   }
 
+  /**
+   * 或者
+   * @param {object} args
+   * @param {SCarg} args.REGEXP1
+   * @param {SCarg} args.REGEXP2
+   * @returns {string}
+   */
   or(args) {
     return "(?:" + String(args.REGEXP1) + ")|(?:" + String(args.REGEXP2) + ")";
   }
 
+  /**
+   * 数量词
+   * @param {object} args
+   * @param {SCarg} args.REGEXP
+   * @param {SCarg} args.COUNT (* ? *? ?? + +?)
+   * @returns {string}
+   */
   quantifier(args) {
     return "(?:" + String(args.REGEXP) + ")" + String(args.COUNT);
   }
 
+  /**
+   * 数量(1)
+   * @param {object} args
+   * @param {SCarg} args.REGEXP
+   * @param {SCarg} args.MODE (} }?)
+   * @param {SCarg} args.N 数量
+   * @returns {string}
+   */
   countn(args) {
     let n = Math.floor(Number(args.N));
     if (n < 0) n = 0;
     return "(?:" + String(args.REGEXP) + "){" + n + String(args.MODE);
   }
 
+  /**
+   * 数量(2)
+   * @param {object} args
+   * @param {SCarg} args.REGEXP
+   * @param {SCarg} args.MODE (} }?)
+   * @param {SCarg} args.X 数量
+   * @param {SCarg} args.Y 数量
+   * @returns {string}
+   */
   countrange(args) {
     let x = Math.floor(Number(args.X));
     let y = Math.floor(Number(args.Y));
     if (x < 0) x = 0;
     if (y < 0) y = 0;
+    // 大小顺序乱的话，就反转。
     if (x > y) {
-      let t = x;
+      const t = x;
       x = y;
-      y = t
-    };
+      y = t;
+    }
     return "(?:" + String(args.REGEXP) + "){" +
       (x === y ? x : x + "," + y) +
       String(args.MODE);
   }
 
+  /**
+   * 新的捕获组
+   * @param {object} args
+   * @param {SCarg} args.REGEXP
+   * @returns {string}
+   */
   group(args) {
     return "(" + String(args.REGEXP) + ")";
   }
 
+  /**
+   * 捕获组引用
+   * @param {object} args
+   * @param {SCarg} args.N
+   * @returns {string}
+   */
   groupreference(args) {
-    let N = Math.floor(Number(args.N));
+    const N = Math.floor(Number(args.N));
     return N > 0 ? "\\" + N : "";
   }
 
+  /**
+   * 查找文本
+   * @param {object} args
+   * @param {SCarg} args.REGEXP 表达式
+   * @param {SCarg} args.TEXT 文本
+   * @returns {void}
+   */
   findtext(args) {
     try {
       this.regexp = new RegExp(String(args.REGEXP), "g");
@@ -636,59 +749,100 @@ class RegExpVI {
     this.result = this.regexp.exec(this.text);
   }
 
-  findnext(args) {
+  /**
+   * 查找下一个
+   * @returns {void}
+   */
+  findnext() {
     if (this.result !== null) {
-      if (this.result[0].length === 0)
+      if (this.result[0] !== undefined && this.result[0].length === 0)
         this.regexp.lastIndex++;
       this.result = this.regexp.exec(this.text);
     }
   }
 
-  isfound(args) {
+  /**
+   * 找到了？
+   * @returns {boolean}
+   */
+  isfound() {
     return this.result !== null;
   }
 
-  foundtext(args) {
-    return this.result === null ? "" : this.result[0];
+  /**
+   * 找到的文本
+   * @returns {string}
+   */
+  foundtext() {
+    return this.result === null ? "" : this.result[0] === undefined ? "" : this.result[0];
   }
 
-  foundtextbegin(args) {
+  /**
+   * 找到的文本的开始位置
+   * @returns {number}
+   */
+  foundtextbegin() {
     return this.regexp.lastIndex - this.foundtext().length + 1;
   }
 
-  foundtextend(args) {
+  /**
+   * 找到的文本的结束位置
+   * @returns {number}
+   */
+  foundtextend() {
     return this.regexp.lastIndex;
   }
 
+  /**
+   * 找到的捕获组
+   * @param {object} args
+   * @param {SCarg} args.N
+   * @returns {string}
+   */
   foundtextgroups(args) {
     if (this.result === null) return "";
-    let N = Math.floor(Number(args.N));
-    if (N >= this.result.length) {
-      return "";
-    } else {
-      return this.result[N] === null ? "" : this.result[N];
-    };
+    const N = Math.floor(Number(args.N));
+    const result = this.result[N];
+    return result === undefined ? "" : result;
   }
 
+  /**
+   * 找到全部并填进列表
+   * @param {object} args
+   * @param {SCarg} args.REGEXP
+   * @param {SCarg} args.TEXT
+   * @param {SCarg} args.LISTID
+   * @param {Util} util
+   * @returns {void}
+   */
   findall(args, util) {
     let regexp;
-    let result = [];
+    const result = [];
     try {
       regexp = new RegExp(String(args.REGEXP), "g");
     } catch (e) {
       // 这里应该提示用户表达式出错了
       return;
     }
-    let text = String(args.TEXT);
+    const text = String(args.TEXT);
     let res;
     while (res = regexp.exec(text), res !== null) {
       result.push(res[0]);
     }
-    let vari = util.target.lookupVariableById(args.LISTID);
+    const vari = util.target.lookupVariableById(args.LISTID);
     if (vari !== null)
       vari.value = result;
   }
 
+  /**
+   * 按照正则表达式分割
+   * @param {object} args
+   * @param {SCarg} args.REGEXP
+   * @param {SCarg} args.TEXT
+   * @param {SCarg} args.LISTID
+   * @param {Util} util
+   * @returns {void}
+   */
   split(args, util) {
     let regexp;
     let result = [];
@@ -698,23 +852,31 @@ class RegExpVI {
       // 这里应该提示用户表达式出错了
       return;
     }
-    let text = String(args.TEXT);
+    const text = String(args.TEXT);
     result = text.split(regexp);
-    let vari = util.target.lookupVariableById(args.LISTID);
+    const vari = util.target.lookupVariableById(args.LISTID);
     if (vari !== null)
       vari.value = result;
   }
 
+  /**
+   * 按照正则表达式替换
+   * @param {object} args
+   * @param {SCarg} args.TEXT
+   * @param {SCarg} args.REGEXP 替换前
+   * @param {SCarg} args.DEST 替换后
+   * @param {SCarg} args.GROUP 是否使用替换标记
+   * @returns {string}
+   */
   replace(args) {
     let regexp;
-    let result = [];
     try {
       regexp = new RegExp(String(args.REGEXP), "g");
     } catch (e) {
       // 这里应该提示用户表达式出错了
       return "";
     }
-    let text = String(args.TEXT);
+    const text = String(args.TEXT);
     let dest = String(args.DEST);
     if (String(args.GROUP) === "false") {
       dest = dest.replace(/\$/g, "$$$$");
@@ -722,14 +884,18 @@ class RegExpVI {
     return text.replace(regexp, dest);
   }
 
+  /**
+   * 获取‘列表的列表’
+   * @returns {{text: string, value: string}[]}
+   */
   _getListOfList() {
     if (this.runtime === undefined) {
       return [];
     }
-    let list = [];
+    const list = [];
     let varis = this.runtime._stageTarget.variables;
     Object.keys(varis).forEach(i => {
-      let v = varis[i];
+      const v = varis[i];
       if (v.type === "list") {
         list.push({
           text: v.name,
@@ -741,7 +907,7 @@ class RegExpVI {
       !this.runtime._editingTarget.isStage) {
       varis = this.runtime._editingTarget.variables;
       Object.keys(varis).forEach(i => {
-        let v = varis[i];
+        const v = varis[i];
         if (v.type === "list") {
           list.push({
             text: v.name,
