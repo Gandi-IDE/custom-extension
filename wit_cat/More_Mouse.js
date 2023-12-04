@@ -77,13 +77,13 @@ class WitCatMouse {
 		/**
 		 * 鼠标提示的循环处理
 		 */
-		let MouseTitle = null;
+		this.MouseTitle = null;
 
 		/**
 		 * 鼠标提示的div
 		 * @type {HTMLDivElement}
 		 */
-		let title = null;
+		this.title = null;
 
 		this.runtime = runtime;
 
@@ -308,7 +308,7 @@ class WitCatMouse {
 				},
 				`---${this.formatMessage('WitCatMouse.name.1')}`,
 				{
-					opcode: 'titles',
+					opcode: 'title',
 					blockType: 'command',
 					text: this.formatMessage('WitCatMouse.title'),
 					arguments: {
@@ -1070,7 +1070,7 @@ class WitCatMouse {
 	 * 鼠标提示文案
 	 * @param {Object} args 
 	 */
-	titles(args) {
+	title(args) {
 		const canvasParent = this.canvas()?.parentNode?.parentNode?.parentNode;
 		if (canvasParent === null || canvasParent === undefined) {
 			return;
@@ -1080,36 +1080,36 @@ class WitCatMouse {
 
 	titlenow(args) {
 		if (args.show === 'true') {
-			if (this.title == null) {
-				this.title = document.createElement("div");
-				this.title.innerText = String(args.text);
-				this.title.style = `transition: transform 0.2s ease-in-out;transform: scale(0, 0);border:1px solid #000000 ;transform-origin:0px 0px;border-radius:10px;background-color:#ffffff;padding:5px;position:fixed;top:${this.MouseY + 10}px;left:${this.MouseX + 10}px`;
+			if (this.titleDiv == null) {
+				this.titleDiv = document.createElement("div");
+				this.titleDiv.innerText = String(args.text);
+				this.titleDiv.style = `transition: transform 0.2s ease-in-out;transform: scale(0, 0);border:1px solid #000000 ;transform-origin:0px 0px;border-radius:10px;background-color:#ffffff;padding:5px;position:fixed;top:${this.MouseY + 10}px;left:${this.MouseX + 10}px`;
 				this.MouseTitle = setInterval(() => {
-					this.title.style.top = (this.MouseY + 10) + 'px';
-					this.title.style.left = (this.MouseX + 10) + 'px';
+					this.titleDiv.style.top = (this.MouseY + 10) + 'px';
+					this.titleDiv.style.left = (this.MouseX + 10) + 'px';
 				}, 1);
-				document.body.appendChild(this.title);
+				document.body.appendChild(this.titleDiv);
 				setTimeout(() => {
-					this.title.style.transform = 'scale(1, 1)';
+					this.titleDiv.style.transform = 'scale(1, 1)';
 				}, 10);
 			}
-			else if (String(args.text) !== this.title.innerText) {
+			else if (String(args.text) !== this.titleDiv.innerText) {
 				setTimeout(() => {
-					this.title.style.transform = 'scale(0, 0)';
+					this.titleDiv.style.transform = 'scale(0, 0)';
 					setTimeout(() => {
-						this.title.innerText = String(args.text);
-						this.title.style.transform = 'scale(1, 1)';
+						this.titleDiv.innerText = String(args.text);
+						this.titleDiv.style.transform = 'scale(1, 1)';
 					}, 200);
 				}, 200);
 			}
 		}
 		else {
-			if (this.title !== null) {
+			if (this.titleDiv !== null) {
 				clearInterval(this.MouseTitle);
-				this.title.style.transform = 'scale(0, 0)';
+				this.titleDiv.style.transform = 'scale(0, 0)';
 				setTimeout(() => {
-					document.body.removeChild(this.title);
-					this.title = null;
+					document.body.removeChild(this.titleDiv);
+					this.titleDiv = null;
 				}, 200);
 			}
 		}
