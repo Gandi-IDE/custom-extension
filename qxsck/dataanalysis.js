@@ -470,7 +470,7 @@ window.tempExt = {
   info: {
     name: 'qxsck.name',
     description: 'qxsck.description',
-    extensionId: 'qxsckdataanalysis1',
+    extensionId: 'qxsckdataanalysis',
     iconURL: icon,
     insetIconURL: insetIcon,
     featured: true,
