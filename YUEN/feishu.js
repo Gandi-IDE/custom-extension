@@ -6,659 +6,660 @@ const extensionCover =
 const extensionIcon =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACtWK6eAAAAAXNSR0IArs4c6QAAEYRJREFUeF7tndtvVMcdx39z1jYQY7MBTAJKg2mTKjGtYhMaqWkqbFWN01ZqzD/Q4IcQ5YnlvVLMQyq1qsT6KcpFxbQPVaVWMaoqQlQpG0F6STFZF3FRrjaXQrDXrLEN2N7dqWYvZrF3fc6ZPXvOnJnvkXhhZ875zfc3H//mNzPnDCNcUAAKVFWAQRsoAAWqKwBA0DugwCoKABB0DygAQNAHoICcAoggcrqhliEKABBDHI1myikAQOR0Qy1DFAAghjgazZRTAIDI6YZahigAQAxxNJoppwAAkdMNtQxRAIAY4mg0U04BACKnG2oZogAAMcTRaKacAgBETjfUMkQBAGKIo9FMOQUAiJxuqGWIAgDEEEejmXIKABA53VDLEAUAiCGORjPlFAAgcrqhliEKABBDHI1myikAQOR0Qy1DFAAghjgazZRTAIDI6YZahigAQAxxNJoppwAAkdMNtQxRAIAY4mg0U04BACKnG2oZogAAMcTRaKacAgBETjfUMkQBAGKIo9FMOQUAiJxuqGWIAgDEEEejmXIKABA53VDLEAUAiCGORjPlFAgHIOfe7ySLvyjXRFNr5Y7Skz8ZM7X1XrVbfUAEHIx/4lWDDbtPmjgfJosLWBKGtd2T5gIQT2QMxU2Gab6pn7p60qGwVhEj1QdECHXuxAAxek0RzcJsRpLmm3oAiXMXhgMQ0Z7zJ/qIWJyIb3fePJRcqQBLUMfzPVDGmQLhAUS055MPorRmYYiIkLA782+VUnyQOl6I1XQLQyqHC5CSUzDkqr17slwPEnd7GcMJiGjXhePdxK1hItpg30yUqKBAmjjroZ3PJ6FOdQXCC0gBknYia5g4PQUnSymApN1GtnADUmrc+RMiL3lJqouYXonTIdrZO2C6DNXarwcg+Vmu92JE7DAcLaEA8pGqoukDCPISCTKWqozRfFMX1kdWSqgXIKJ9hX1bQ8hLXPNylDp697mupXkF/QBBXiLfZTHUWqGdvoDk8xIk7+5owSr7cr30BgTJuzs+RGnMat2nmf6A5JP39/cR53EsKjriJU0s14V3SQpamQFIKXlnXLwTgZV3e06QsBc1MgcQQGKPRXkJzrqwDcWkCFJyvtgRvHYhgWlgO16QsJs1xCrvD4DEjo7iABw7fs0aYgESZ2AslUIUMRcQ0QkQSeyBMXzx0GxAsOpuDwjRGHX07nBSUMcyAGQJkvfiROyAjk6uuU0GRxEAUt57sDWlCkvm5iIABIm7swBjaBQBIMu7R+HLKWJbCt5QvE8bM6MIAKn29xPDrZXKsNwO0/ZoAZDVBhiAZLk6xu3RAiB2I3BAUq5Qmjp6H7STTKffAYgTb144kcTerSWh9lJHr/gemREXAHHiZqy4l6t0jDp6+5zIpkMZAOLUi4XZLXEgDd4nmW960JQvoAAQp4CIcoXDfPDSFWP99OTz4mN92l8AxK2LceKVeBHVmCMUAIhbQET5wjvuR2SqalPHkDcOAYhsjzV9+teQYRYAkQVE1Dt/QuQje2q5RYjrJqmjtyvE9jsyHYA4kqlKIdOnf2uYzYp2H4k2ZBdXHFuRiWTH04lXlTm+GoDUAoioa/L07yrDrBIAnFiUcryPGLWXpOZEUUbUaSP90rHVjPFkjrMxi1GSZWl64h/7fTv0RwqQXTGeP3E2RzSYjDMcK2zs9O+9sw6j3W+0RxatPcyiTs6Z6Pzdtf7tWaW+6HMJTiwZyfFj9QTGNSC7YjzGiErncCRG4gwnphbyEbG6/G4dO4Vyt7ZuZK5u+NX1P7Db2RccRIR62p8mTsNEPJFtbDqWTvR79kfbNSC7Y3yA031nlg+NxFl/PVsfmnsbcIiPNbk40/yX9OWm/97dSIu5hxX1zTBxPpz66JWjtdrnBSDCBkBS8oSmM1tr/37r4trE7O3IjcVdtXY6H+unGeNDmUhuUDbx9woQQFLyej5pX0wS8e0+doS6PIrdydH636fOKx4tnLWd05DFadBtvuIlIICk5KqQJ+1LYJyZe4Q4a3XWAxUvxWna4tQdNCB5SLJEB42f3QrhdhQBxroTt86uO57erg0YRW6tHHW5hUNU9TqClP6MJLNEPcZDEqLtKE2jt0ebf5dqtu7kHlM8Frg3j1F/6uR+qd3H9QJENAKQCBUUfxtRRI3W3359seHywhPue14IatQARz0jCCLJfUm7mi9arf1g5nLzn6ailKOWEHR1GRMHU6f2x2QqlurUM4IAkntTv8otIrYevvF544U7+g2nSppzOpb6aH/Nrwb7AQiGW0KB82p8+1cs9G14/fqkNZfT94PUnKazjY3tXqyo+wWI6CJpi6jnP3Hm20azWkKr53UVWB9p/HLh09bfXNuq8ZAq7zbZGatKPvcTEEBy4Xg3cesDz+FzcMN8vvHHqW84KBrqIoz4oclTrwx41Qi/AclDwokOnokzqWk3rxoe2H0CGGqZAgcnGp06td9uG70r1wcBSMFARrGRw2zQlbU6FPZ5qGUKHIUuxXomT7289B6JF90lOEAK1pu56u7Tl1Ee+HP6+rr3p1XdcetF/y2/R81TuirkIJVsMHNB8dyJAWL3vTbgaYdpPppKrv1o1tPhhqcGenuz8WxDY6cXs1bLzQo6gpTsGbOI9ho3w1WnVXbt1zhW9mLprSR2nKoCiJnJex2GWhtev/Zxw/jCM3aO1+j3ukWPQl7j8qrwRqHLO9gUNy159+gtRLGnKjpw7aJ1M6Pnnqpq3abGvVZ2nVc9QAoWJ7JEe43YDezBp4PycPzy6iVrJveoncM1+308dWr/0tdS6tE2VQERbU1aRP1G5CU1DLUMhkOMf+qWe5RgUxkQs/ISiXdHjIaDqO7RQ80cpHKc1P+jEC4/QGc4HL5EjzABkh9yFfMSZT5L6fmY12HCbjwcPkWPsAGSH3IRUf9InOl7Rp7NZ4MAh5h75XtTJ1/xpQ+onoNU+yM9nCXq13KWa5Udv4Aj3x18yT3CkqSvNooZY0T9p+PM081png+bZG5YIWEHHEUhfZi5KndZWCPIUhsYUfx0nB2U6YfK1rlwvJ24JV4syx8YCjgKnqrHdna7PhB6QIoNTFhEB7VaMykm7ICjrAv7HD3CmKSvDrxm21SsxN+ubPj1tayBK+SV/Oxr7qFDDlINFrFNRSTwoZ4Obnv2rc4co3fLD56xGw5o/XsA0UO/CFLWQzjRwJk4OxTGTrP5ube7OXFx1kg0jPbXweZAoofWgBSdlGREB8M007Xph2/2EWdGHcRjC1RA0cMEQErah+LV3o3Pvf0aI+7ZFzlsO144CgQWPUwCRLRV2a+piAMvI4uLh4nRvnD0WR+tDDB6mAZIyatKJfEiGc9adCTgM/587PGuHhVo9DAVkLyHRBIf9Cm9xXzjCJLxKtAEHD2MBqTokjFiNDBymNV82KOrv4tEhHzDVrHAowcAuecj32a78vlGZlHMUtXzHHHb3qd8AR937K6mhS5bTbzyd123rGz6wZsvEWNxDKls3fVh6tR+Jf6AAJDKvhLTwoe8Wo1H1LAF4r4CXn6d3d2TV5YGINUVTDOioUwBFPGiltS18bm3DjAisbaBVXEnCjJ2NHXyZWWmuwGIvdPE+knc7YxXtPuN9kgmImaolBgq2DdTjRLZhuyOdOJVZfbRARDn/aIUUQZXG3qJ4ZSVyRxgxMXZeIgazvUlztnBqY9eFjmaMhcAkXNFxRwln4QTEx+lruvHzORMVrtWEC9DOVEEgDhRqXqZPChXTr/Tzjk/AjDkxLQia8baHv/xL86/s+2k3B3qVwuAeKDtbOqzr6Yu/6shl7mr/RFnHsi14hYPP/7Tv5478sjP63HvWu8JQGpVsKz+3ekr1yfGT81mF2b0PV7ZQ73ErbY98eKnkfVber2aUvfYPAW/7u51CwO4X2bh1q2bl/75xVz6UlcAjw/NIzduf/ZSS9vOw2fi+cVTJS9EkDq6JZddoOlro2fnUp81ZhbnzDqWwEbXIhxfnYkzpafBAUgdASm/tRh+TV35d3rhzpTxoAg4Wtt2bsgSdao6tCr5DoD4BEjpMZmFGRFVLs6lPtuUy2XafH58wI9jM5t37Jlcv+nxHcWjwJUdWgGQgLuKePzc1Bc3pq8lp0yIKizS9MXWb/9sS1Pz5hYiOjYSZ30KuMDWBEQQW4nqX0DkKre+Pnd1duLCjI65ypqWh5IPPfZCpxVpEmJOZ4naa9nfVn+P3HsCAPFTbQfPWridormpL8/OTJzblssubnJQReEibGbj9u/fbG3buXQ0nEXUFaYvYAIQhbtXfrr48sdX7kxfbgtbvtIcffSTTTt6uopRI68yJ+o/E2dDCku+wjQAEhJvLcxNzsxMXrw6d/OrZpVX7BvWtI5t+eaPNhVzjXJ1j47EmTLb2J26HYA4VUqhcmImbObGxbO3b365uDh/a5cKpok848Ftux9b27JtfQV7RkfirFMFO93aAEDcKqZgebHGMn19dGp+7oavQzHLapho2fKd6y1bnvhuQ5OYnKp4hSopX94CAKJgh6/FpHySf3Ps8zu3Lk8tzE08U8u9KtWNNLV8/kDr1tmWtp3fqjCMWl5l2iLqDlNSDkC87jGK3+/uzP9mF26nrszfnmicn52IZOdnt3DKPWBnNmPWnNXYfG3d+ocmI2taN69r3fpww5qW9atECu3gEA1CBLHrKRr/LqKNWIMpvxrWrCcXEFRVJ4wzVpUaA0A0BiCopukCByJIUD1I4+fqBAcA0bijBtE03eAAIEH0Ik2fqSMcAETTzup3s3SFA4D43ZM0fJ7OcAAQDTusj02a5kSxsG0+dKsPpnndKobyQoHQr5A7dSMAcaoUypUUGLeI+sK8fcSNK10DsivGY4zosJuHoKweCnCiD3NEfWF5G9AL1V0DIh76dIxzLx6Oe4RKgcGROBMf5DbqkgUkSURPGaWUuY2dJqJ9I3E2bKIEUoDsivF9jEicfYFLbwVGs4UhlTLndfgttxQgwshdMZ5gRHv8NhjP80cBRnTodJyJk7GMvqQB6Yzx9giRGGptMFpB/Rpv9JBquTulARE3+l6Md+aIxFcqkI/oAcrRLFHMpFkqO7fVBEjp5rtjfIATvWb3MPyurAKIGlVc4wkgiCbKdnxbw0SukSGKI2pUlsozQJZFEzFfjtzEtnsGWmDUItpnyoq4rNKeAyIM6YzxaKRwNvgBWcNQr24KjHOiAd03GXqlXl0AKRlXnOkSoLzklcG4j7QC04wojqlbd/rVFZCyYVd3jmgA6ybunONh6cEs0QDyDPeK+gLIsogiDk150b2pqOFWASTgbhVbWd5XQDD0qt1hDu6QH0pliIZM3iLiQCdHRQIBpByUBqJ94s00zHo58tdqhUY5URzJd8063neDQAEpt6T4nokAZbu3TdT+bseKyXdC+5YG0EBlAFk2/BKgiDPsAEvlTiGixZDY5oPEu77UKAdIeXOfjnEBiTh0RZylbfrCYx6KCFECi3v1haL87koDsmwIJt5BEaCIf0ZEFvGKKxENI1L4B8TyJ4UGkHLDxS5iTtSXI+rWbG1llIgSnCiZIxrG8Ck4MEpPDiUgy2XbHePdnCgqZsMYUXuIIsw4IxoSQFhEYxg6BQ+EFhHETkaxxaWhAIoAR0SbKCMSZ+QFlceIyDDGiJKAwc57av2uRQRxKmkJnBxRp1WIOO3in6jPiKKSL36JLwyKNyvJIlqaahX/lyVKYrHOqXfULGcUIGq6AFaprAAAUdk7sC1wBQBI4C6AASorAEBU9g5sC1wBABK4C2CAygoAEJW9A9sCVwCABO4CGKCyAgBEZe/AtsAVACCBuwAGqKwAAFHZO7AtcAUASOAugAEqKwBAVPYObAtcAQASuAtggMoKABCVvQPbAlcAgATuAhigsgIARGXvwLbAFQAggbsABqisAABR2TuwLXAFAEjgLoABKisAQFT2DmwLXAEAErgLYIDKCgAQlb0D2wJXAIAE7gIYoLICAERl78C2wBUAIIG7AAaorMD/Af2w0iOEcw9UAAAAAElFTkSuQmCC';
 
-const extensionNS = 'Jetta';
+const extensionNS = 'YUEN';
 const extensionId = `${extensionNS}.feishu`;
 
 class FeishuExtension {
-  constructor(runtime) {
-    this.runtime = runtime;
-    this._formatMessage = ((l10n) => {
-      Object.keys(l10n).forEach((lang) => {
-        let _temp = l10n[lang];
-        l10n[lang] = {};
-        Object.keys(_temp).forEach((key) => {
-          l10n[lang][`${extensionId}.${key}`] = _temp[key];
-        });
-      });
+	constructor(runtime) {
+		this.runtime = runtime;
+		this._formatMessage = ((l10n) => {
+			Object.keys(l10n).forEach((lang) => {
+				let _temp = l10n[lang];
+				l10n[lang] = {};
+				Object.keys(_temp).forEach((key) => {
+					l10n[lang][`${extensionId}.${key}`] = _temp[key];
+				});
+			});
 
-      return this.runtime.getFormatMessage(l10n);
-    })({
-      en: {
-        name: 'Feishu',
-        openDocs: '📖 Open Docs',
-        docsUrl:
+			return this.runtime.getFormatMessage(l10n);
+		})({
+			en: {
+				name: 'Feishu',
+				openDocs: '📖 Open Docs',
+				docsUrl:
           'https://learn.ccw.site/article/e895cb95-cc0c-47a0-9bbb-a5aabf82750d',
-        // Message
-        'tag.message': '📰 Message',
-        'block.triggerWebhook.message':
+				// Message
+				'tag.message': '📰 Message',
+				'block.triggerWebhook.message':
           'Trigger Group Custom Bot WebHook [ID] With Send Text [TEXT]',
-        'block.triggerWebhook.atUser':
+				'block.triggerWebhook.atUser':
           'Trigger Group Custom Bot WebHook [ID] With @[USER_NAME]([USER_ID]) And Send Text [TEXT]',
-        'block.triggerWebhook.image':
+				'block.triggerWebhook.image':
           'Trigger Group Custom Bot WebHook [ID] With Send Image [IMAGE_KEY]',
-        'block.triggerWebhook.card':
+				'block.triggerWebhook.card':
           'Trigger Group Custom Bot WebHook [ID] With Send Card [CARD_ID]',
-        // Card
-        'tag.card': '🔖 Card',
-        'block.card.set': 'Set Card [ID] `s [TYPE] To [DATA]',
-        'block.card.create': 'Create Card [ID]',
-        'block.card.join': 'Add Commponent [TYPE] Params [DATA] To Card [ID]',
-        'block.card.remove': 'Remove Card [ID] `S [TYPE] Commponent(s)',
+				// Card
+				'tag.card': '🔖 Card',
+				'block.card.set': 'Set Card [ID] `s [TYPE] To [DATA]',
+				'block.card.create': 'Create Card [ID]',
+				'block.card.join': 'Add Commponent [TYPE] Params [DATA] To Card [ID]',
+				'block.card.remove': 'Remove Card [ID] `S [TYPE] Commponent(s)',
 
-        // Set Cart Config Menu
-        'menu.card.set.template': 'HeaderTemplate',
-        'menu.card.set.title': 'HeaderTitle',
-        'menu.card.set.config': 'CardConfig',
-        // Remove Card Component Menu
-        'menu.card.remove.last': 'Last',
-        'menu.card.remove.all': 'All',
-        // Add Card Component Menu
-        'menu.card.commponent.div': 'Container',
-        'menu.card.commponent.markdown': 'MarkDown',
-        'menu.card.commponent.plain_text': 'Text',
-        'menu.card.commponent.img': 'Image',
-        'menu.card.commponent.hr': 'Divider',
-        'menu.card.commponent.action': 'Button',
-        'menu.card.commponent.lark_md': 'Rich Text',
-        'menu.card.commponent.note': 'Note',
+				// Set Cart Config Menu
+				'menu.card.set.template': 'HeaderTemplate',
+				'menu.card.set.title': 'HeaderTitle',
+				'menu.card.set.config': 'CardConfig',
+				// Remove Card Component Menu
+				'menu.card.remove.last': 'Last',
+				'menu.card.remove.all': 'All',
+				// Add Card Component Menu
+				'menu.card.commponent.div': 'Container',
+				'menu.card.commponent.markdown': 'MarkDown',
+				'menu.card.commponent.plain_text': 'Text',
+				'menu.card.commponent.img': 'Image',
+				'menu.card.commponent.hr': 'Divider',
+				'menu.card.commponent.action': 'Button',
+				'menu.card.commponent.lark_md': 'Rich Text',
+				'menu.card.commponent.note': 'Note',
 
-        // Shortcut
-        'tag.shortcut': '✈ Shortcut',
-        'block.triggerWebhook.json':
+				// Shortcut
+				'tag.shortcut': '✈ Shortcut',
+				'block.triggerWebhook.json':
           'Trigger Shortcut Bot webhook [ID] With Params [DATA]',
-        // Some Constant Variable
-        'defaultValue.text': 'Hello!',
-        'resultMessage.emptyValue': 'Value cannot be empty',
-        'resultMessage.emptyMenu': 'Has no content',
-      },
-      'zh-cn': {
-        name: '飞书',
-        openDocs: '📖 打开文档',
-        docsUrl:
+				// Some Constant Variable
+				'defaultValue.text': 'Hello!',
+				'resultMessage.emptyValue': 'Value cannot be empty',
+				'resultMessage.emptyMenu': 'Has no content',
+			},
+			'zh-cn': {
+				name: '飞书',
+				openDocs: '📖 打开文档',
+				docsUrl:
           'https://learn.ccw.site/article/7795eb4b-170b-435b-bca3-8b7d4e0c24f8',
-        // 消息
-        'tag.message': '📰 消息',
-        'block.triggerWebhook.message':
+				// 消息
+				'tag.message': '📰 消息',
+				'block.triggerWebhook.message':
           '触发群机器人webhook [ID] 并发送文本 [TEXT]',
-        'block.triggerWebhook.atUser':
+				'block.triggerWebhook.atUser':
           '触发webhook [ID] 并@[USER_NAME]([USER_ID]) 发送文本 [TEXT]',
-        'block.triggerWebhook.image': '触发webhook [ID] 并发送图像 [IMAGE_KEY]',
-        'block.triggerWebhook.card': '触发webhook [ID] 并发送卡片 [CARD_ID]',
-        // 卡片
-        'tag.card': '🔖 卡片',
-        'block.card.set': '设置卡片 [ID] 的 [TYPE] 为 [DATA]',
-        'block.card.create': '创建卡片 [ID]',
-        'block.card.join': '将组件 [TYPE] 参数 [DATA] 添加到卡片 [ID]',
-        'block.card.remove': '移除卡片 [ID] 的 [TYPE] 组件',
+				'block.triggerWebhook.image': '触发webhook [ID] 并发送图像 [IMAGE_KEY]',
+				'block.triggerWebhook.card': '触发webhook [ID] 并发送卡片 [CARD_ID]',
+				// 卡片
+				'tag.card': '🔖 卡片',
+				'block.card.set': '设置卡片 [ID] 的 [TYPE] 为 [DATA]',
+				'block.card.create': '创建卡片 [ID]',
+				'block.card.join': '将组件 [TYPE] 参数 [DATA] 添加到卡片 [ID]',
+				'block.card.remove': '移除卡片 [ID] 的 [TYPE] 组件',
 
-        // 设置卡片参数菜单
-        'menu.card.set.template': '头部模板',
-        'menu.card.set.title': '头部标题',
-        'menu.card.set.config': '卡片配置',
-        // 移除卡片组件菜单
-        'menu.card.remove.last': '最后一个',
-        'menu.card.remove.all': '所有',
-        // 新增卡片组件菜单
-        'menu.card.commponent.div': '容器',
-        'menu.card.commponent.markdown': 'MarkDown',
-        'menu.card.commponent.plain_text': '文本',
-        'menu.card.commponent.img': '图片',
-        'menu.card.commponent.hr': '分割线',
-        'menu.card.commponent.action': '按钮',
-        'menu.card.commponent.lark_md': '富文本',
-        'menu.card.commponent.note': '备注',
+				// 设置卡片参数菜单
+				'menu.card.set.template': '头部模板',
+				'menu.card.set.title': '头部标题',
+				'menu.card.set.config': '卡片配置',
+				// 移除卡片组件菜单
+				'menu.card.remove.last': '最后一个',
+				'menu.card.remove.all': '所有',
+				// 新增卡片组件菜单
+				'menu.card.commponent.div': '容器',
+				'menu.card.commponent.markdown': 'MarkDown',
+				'menu.card.commponent.plain_text': '文本',
+				'menu.card.commponent.img': '图片',
+				'menu.card.commponent.hr': '分割线',
+				'menu.card.commponent.action': '按钮',
+				'menu.card.commponent.lark_md': '富文本',
+				'menu.card.commponent.note': '备注',
 
-        // 捷径
-        'tag.shortcut': '✈ 捷径',
-        'block.triggerWebhook.json': '触发捷径webhook [ID] 并传参 [DATA]',
-        // 一些常量
-        'defaultValue.text': '你好！',
-        'resultMessage.emptyValue': '参数不能为空值',
-        'resultMessage.emptyMenu': '没有内容',
-      },
-    });
+				// 捷径
+				'tag.shortcut': '✈ 捷径',
+				'block.triggerWebhook.json': '触发捷径webhook [ID] 并传参 [DATA]',
+				// 一些常量
+				'defaultValue.text': '你好！',
+				'resultMessage.emptyValue': '参数不能为空值',
+				'resultMessage.emptyMenu': '没有内容',
+			},
+		});
 
-    this.app = axios.create();
+		this.app = axios.create();
 
-    // card
-    this.customCards = {
-      myCard: {
-        config: {},
-        elements: [
-          {
-            tag: 'div',
-            text: {
-              content: '**内容**',
-              tag: 'lark_md',
-            },
-          },
-        ],
-        header: {
-          template: 'blue',
-          title: {
-            content: '我的卡片',
-            tag: 'plain_text',
-          },
-        },
-      },
-    };
-  }
+		// card
+		this.customCards = {
+			myCard: {
+				config: {},
+				elements: [
+					{
+						tag: 'div',
+						text: {
+							content: '**内容**',
+							tag: 'lark_md',
+						},
+					},
+				],
+				header: {
+					template: 'blue',
+					title: {
+						content: '我的卡片',
+						tag: 'plain_text',
+					},
+				},
+			},
+		};
+	}
 
-  fm(id) {
-    id = `${extensionId}.${id}`;
-    return this._formatMessage({
-      id,
-      default: id,
-      description: id,
-    });
-  }
+	fm(id) {
+		id = `${extensionId}.${id}`;
+		return this._formatMessage({
+			id,
+			default: id,
+			description: id,
+		});
+	}
 
-  openDocs() {
-    window.open(this.fm('docsUrl'));
-  }
+	openDocs() {
+		window.open(this.fm('docsUrl'));
+	}
 
-  getHats() {
-    return [];
-  }
+	getHats() {
+		return [];
+	}
 
-  getInfo() {
-    const triggerWebhookMessage = {
-      opcode: 'triggerWebhookMessage',
-      blockType: 'reporter',
-      text: this.fm('block.triggerWebhook.message'),
-      arguments: {
-        ID: {
-          type: 'string',
-          defaultValue: '',
-        },
-        TEXT: {
-          type: 'string',
-          defaultValue: this.fm('defaultValue.text'),
-        },
-      },
-    };
+	getInfo() {
+		const triggerWebhookMessage = {
+			opcode: 'triggerWebhookMessage',
+			blockType: 'reporter',
+			text: this.fm('block.triggerWebhook.message'),
+			arguments: {
+				ID: {
+					type: 'string',
+					defaultValue: '',
+				},
+				TEXT: {
+					type: 'string',
+					defaultValue: this.fm('defaultValue.text'),
+				},
+			},
+		};
 
-    const triggerWebhookAtUser = {
-      opcode: 'triggerWebhookAtUser',
-      blockType: 'reporter',
-      text: this.fm('block.triggerWebhook.atUser'),
-      arguments: {
-        ID: {
-          type: 'string',
-          defaultValue: '',
-        },
-        USER_ID: {
-          type: 'string',
-          defaultValue: 'all',
-        },
-        USER_NAME: {
-          type: 'string',
-          defaultValue: '所有人',
-        },
-        TEXT: {
-          type: 'string',
-          defaultValue: this.fm('defaultValue.text'),
-        },
-      },
-    };
+		const triggerWebhookAtUser = {
+			opcode: 'triggerWebhookAtUser',
+			blockType: 'reporter',
+			text: this.fm('block.triggerWebhook.atUser'),
+			arguments: {
+				ID: {
+					type: 'string',
+					defaultValue: '',
+				},
+				USER_ID: {
+					type: 'string',
+					defaultValue: 'all',
+				},
+				USER_NAME: {
+					type: 'string',
+					defaultValue: '所有人',
+				},
+				TEXT: {
+					type: 'string',
+					defaultValue: this.fm('defaultValue.text'),
+				},
+			},
+		};
 
-    const triggerWebhookImage = {
-      opcode: 'triggerWebhookImage',
-      blockType: 'reporter',
-      text: this.fm('block.triggerWebhook.image'),
-      arguments: {
-        ID: {
-          type: 'string',
-          defaultValue: '',
-        },
-        IMAGE_KEY: {
-          type: 'string',
-          defaultValue: 'img_v3_025j_16d1594a-f4d1-455f-a339-a1c5cfb24deg',
-        },
-      },
-    };
+		const triggerWebhookImage = {
+			opcode: 'triggerWebhookImage',
+			blockType: 'reporter',
+			text: this.fm('block.triggerWebhook.image'),
+			arguments: {
+				ID: {
+					type: 'string',
+					defaultValue: '',
+				},
+				IMAGE_KEY: {
+					type: 'string',
+					defaultValue: 'img_v3_025j_16d1594a-f4d1-455f-a339-a1c5cfb24deg',
+				},
+			},
+		};
 
-    const triggerWebhookCard = {
-      opcode: 'triggerWebhookCard',
-      blockType: 'reporter',
-      text: this.fm('block.triggerWebhook.card'),
-      arguments: {
-        ID: {
-          type: 'string',
-          defaultValue: '',
-        },
-        CARD_ID: {
-          type: 'string',
-          menu: 'CARD_ID',
-        },
-      },
-    };
+		const triggerWebhookCard = {
+			opcode: 'triggerWebhookCard',
+			blockType: 'reporter',
+			text: this.fm('block.triggerWebhook.card'),
+			arguments: {
+				ID: {
+					type: 'string',
+					defaultValue: '',
+				},
+				CARD_ID: {
+					type: 'string',
+					menu: 'CARD_ID',
+				},
+			},
+		};
 
-    const cardCreate = {
-      opcode: 'cardCreate',
-      blockType: 'command',
-      text: this.fm('block.card.create'),
-      arguments: {
-        ID: {
-          type: 'string',
-          defaultValue: 'myCard1',
-        },
-      },
-    };
+		const cardCreate = {
+			opcode: 'cardCreate',
+			blockType: 'command',
+			text: this.fm('block.card.create'),
+			arguments: {
+				ID: {
+					type: 'string',
+					defaultValue: 'myCard1',
+				},
+			},
+		};
 
-    const cardSet = {
-      opcode: 'cardSet',
-      blockType: 'command',
-      text: this.fm('block.card.set'),
-      arguments: {
-        ID: {
-          type: 'string',
-          menu: 'CARD_ID',
-        },
-        TYPE: {
-          type: 'string',
-          menu: 'CARD_CONFIG_TYPE',
-        },
-        DATA: {
-          type: 'string',
-          defaultValue: '{"wide_screen_mode":true}',
-        },
-      },
-    };
+		const cardSet = {
+			opcode: 'cardSet',
+			blockType: 'command',
+			text: this.fm('block.card.set'),
+			arguments: {
+				ID: {
+					type: 'string',
+					menu: 'CARD_ID',
+				},
+				TYPE: {
+					type: 'string',
+					menu: 'CARD_CONFIG_TYPE',
+				},
+				DATA: {
+					type: 'string',
+					defaultValue: '{"wide_screen_mode":true}',
+				},
+			},
+		};
 
-    const cardJoin = {
-      opcode: 'cardJoin',
-      blockType: 'command',
-      text: this.fm('block.card.join'),
-      arguments: {
-        TYPE: {
-          type: 'string',
-          menu: 'CARD_COMMPONENT_TYPE',
-        },
-        DATA: {
-          type: 'string',
-          defaultValue: '{"content":"我的卡片"}',
-        },
-        ID: {
-          type: 'string',
-          menu: 'CARD_ID',
-        },
-      },
-    };
+		const cardJoin = {
+			opcode: 'cardJoin',
+			blockType: 'command',
+			text: this.fm('block.card.join'),
+			arguments: {
+				TYPE: {
+					type: 'string',
+					menu: 'CARD_COMMPONENT_TYPE',
+				},
+				DATA: {
+					type: 'string',
+					defaultValue: '{"content":"我的卡片"}',
+				},
+				ID: {
+					type: 'string',
+					menu: 'CARD_ID',
+				},
+			},
+		};
 
-    const cardRemove = {
-      opcode: 'cardRemove',
-      blockType: 'command',
-      text: this.fm('block.card.remove'),
-      arguments: {
-        ID: {
-          type: 'string',
-          menu: 'CARD_ID',
-        },
-        TYPE: {
-          type: 'string',
-          menu: 'CARD_REMOVE_TYPE',
-        },
-      },
-    };
+		const cardRemove = {
+			opcode: 'cardRemove',
+			blockType: 'command',
+			text: this.fm('block.card.remove'),
+			arguments: {
+				ID: {
+					type: 'string',
+					menu: 'CARD_ID',
+				},
+				TYPE: {
+					type: 'string',
+					menu: 'CARD_REMOVE_TYPE',
+				},
+			},
+		};
 
-    const openDocs = {
-      blockType: 'button',
-      text: this.fm('openDocs'),
-      onClick: this.docs,
-    };
+		const openDocs = {
+			blockType: 'button',
+			text: this.fm('openDocs'),
+			onClick: this.docs,
+		};
 
-    const triggerWebhookJson = {
-      opcode: 'triggerWebhookJson',
-      blockType: 'reporter',
-      text: this.fm('block.triggerWebhook.json'),
-      arguments: {
-        ID: {
-          type: 'string',
-          defaultValue: '',
-        },
-        DATA: {
-          type: 'string',
-          defaultValue: '{}',
-        },
-      },
-    };
+		const triggerWebhookJson = {
+			opcode: 'triggerWebhookJson',
+			blockType: 'reporter',
+			text: this.fm('block.triggerWebhook.json'),
+			arguments: {
+				ID: {
+					type: 'string',
+					defaultValue: '',
+				},
+				DATA: {
+					type: 'string',
+					defaultValue: '{}',
+				},
+			},
+		};
 
-    return {
-      id: extensionId,
-      name: this.fm('name'),
-      blockIconURI: extensionIcon,
-      menuIconURI: extensionIcon,
-      color1: '#8eace1',
-      color2: '#86a2d4',
-      blocks: [
-        openDocs,
-        '---' + this.fm('tag.message'),
-        triggerWebhookMessage,
-        triggerWebhookAtUser,
-        triggerWebhookImage,
-        triggerWebhookCard,
-        '---' + this.fm('tag.card'),
-        cardCreate,
-        cardSet,
-        cardJoin,
-        cardRemove,
-        '---' + this.fm('tag.shortcut'),
-        triggerWebhookJson,
-      ],
-      menus: {
-        CARD_ID: {
-          items: '__cardIdMenu',
-        },
-        CARD_CONFIG_TYPE: [
-          {
-            text: this.fm('menu.card.set.template'),
-            value: 'template',
-          },
-          {
-            text: this.fm('menu.card.set.title'),
-            value: 'title',
-          },
-          {
-            text: this.fm('menu.card.set.config'),
-            value: 'config',
-          },
-        ],
-        CARD_COMMPONENT_TYPE: [
-          {
-            text: this.fm('menu.card.commponent.div'),
-            value: 'div',
-          },
-          {
-            text: this.fm('menu.card.commponent.markdown'),
-            value: 'markdown',
-          },
-          {
-            text: this.fm('menu.card.commponent.plain_text'),
-            value: 'plain_text',
-          },
-          {
-            text: this.fm('menu.card.commponent.img'),
-            value: 'img',
-          },
-          {
-            text: this.fm('menu.card.commponent.hr'),
-            value: 'hr',
-          },
-          {
-            text: this.fm('menu.card.commponent.action'),
-            value: 'action',
-          },
-          {
-            text: this.fm('menu.card.commponent.lark_md'),
-            value: 'lark_md',
-          },
-          {
-            text: this.fm('menu.card.commponent.note'),
-            value: 'note',
-          },
-        ],
-        CARD_REMOVE_TYPE: [
-          {
-            text: this.fm('menu.card.remove.last'),
-            value: 'last',
-          },
-          {
-            text: this.fm('menu.card.remove.all'),
-            value: 'all',
-          },
-        ],
-      },
-    };
-  }
+		return {
+			id: extensionId,
+			name: this.fm('name'),
+			blockIconURI: extensionIcon,
+			menuIconURI: extensionIcon,
+			color1: '#8eace1',
+			color2: '#86a2d4',
+			blocks: [
+				openDocs,
+				'---' + this.fm('tag.message'),
+				triggerWebhookMessage,
+				triggerWebhookAtUser,
+				triggerWebhookImage,
+				triggerWebhookCard,
+				'---' + this.fm('tag.card'),
+				cardCreate,
+				cardSet,
+				cardJoin,
+				cardRemove,
+				'---' + this.fm('tag.shortcut'),
+				triggerWebhookJson,
+			],
+			menus: {
+				CARD_ID: {
+					items: '__cardIdMenu',
+				},
+				CARD_CONFIG_TYPE: [
+					{
+						text: this.fm('menu.card.set.template'),
+						value: 'template',
+					},
+					{
+						text: this.fm('menu.card.set.title'),
+						value: 'title',
+					},
+					{
+						text: this.fm('menu.card.set.config'),
+						value: 'config',
+					},
+				],
+				CARD_COMMPONENT_TYPE: [
+					{
+						text: this.fm('menu.card.commponent.div'),
+						value: 'div',
+					},
+					{
+						text: this.fm('menu.card.commponent.markdown'),
+						value: 'markdown',
+					},
+					{
+						text: this.fm('menu.card.commponent.plain_text'),
+						value: 'plain_text',
+					},
+					{
+						text: this.fm('menu.card.commponent.img'),
+						value: 'img',
+					},
+					{
+						text: this.fm('menu.card.commponent.hr'),
+						value: 'hr',
+					},
+					{
+						text: this.fm('menu.card.commponent.action'),
+						value: 'action',
+					},
+					{
+						text: this.fm('menu.card.commponent.lark_md'),
+						value: 'lark_md',
+					},
+					{
+						text: this.fm('menu.card.commponent.note'),
+						value: 'note',
+					},
+				],
+				CARD_REMOVE_TYPE: [
+					{
+						text: this.fm('menu.card.remove.last'),
+						value: 'last',
+					},
+					{
+						text: this.fm('menu.card.remove.all'),
+						value: 'all',
+					},
+				],
+			},
+		};
+	}
 
-  triggerWebhookMessage({ ID, TEXT }) {
-    ID = Cast.toString(ID);
-    TEXT = Cast.toString(TEXT);
+	triggerWebhookMessage({ ID, TEXT }) {
+		ID = Cast.toString(ID);
+		TEXT = Cast.toString(TEXT);
 
-    if (ID == '' || TEXT == '') {
-      return this.fm('resultMessage.emptyValue');
-    }
+		if (ID == '' || TEXT == '') {
+			return this.fm('resultMessage.emptyValue');
+		}
 
-    return this.app
-      .post(`https://open.feishu.cn/open-apis/bot/v2/hook/${ID}`, {
-        msg_type: 'text',
-        content: {
-          text: TEXT,
-        },
-      })
-      .then((res) => {
-        return JSON.stringify(res.data);
-      });
-  }
+		return this.app
+			.post(`https://open.feishu.cn/open-apis/bot/v2/hook/${ID}`, {
+				msg_type: 'text',
+				content: {
+					text: TEXT,
+				},
+			})
+			.then((res) => {
+				return JSON.stringify(res.data);
+			});
+	}
 
-  triggerWebhookAtUser({ ID, USER_ID, USER_NAME, TEXT }) {
-    ID = Cast.toString(ID);
-    USER_ID = Cast.toString(USER_ID);
-    USER_NAME = Cast.toString(USER_NAME);
-    TEXT = Cast.toString(TEXT);
+	triggerWebhookAtUser({ ID, USER_ID, USER_NAME, TEXT }) {
+		ID = Cast.toString(ID);
+		USER_ID = Cast.toString(USER_ID);
+		USER_NAME = Cast.toString(USER_NAME);
+		TEXT = Cast.toString(TEXT);
 
-    if (ID == '' || USER_ID == '' || USER_NAME == '' || TEXT == '') {
-      return this.fm('resultMessage.emptyValue');
-    }
+		if (ID == '' || USER_ID == '' || USER_NAME == '' || TEXT == '') {
+			return this.fm('resultMessage.emptyValue');
+		}
 
-    return this.app
-      .post(`https://open.feishu.cn/open-apis/bot/v2/hook/${ID}`, {
-        msg_type: 'text',
-        content: {
-          text: `<at user_id="${USER_ID}">${
-            USER_ID === 'all' ? '所有人' : USER_NAME
-          }</at> ${TEXT}`,
-        },
-      })
-      .then((res) => {
-        return JSON.stringify(res.data);
-      });
-  }
+		return this.app
+			.post(`https://open.feishu.cn/open-apis/bot/v2/hook/${ID}`, {
+				msg_type: 'text',
+				content: {
+					text: `<at user_id="${USER_ID}">${
+						USER_ID === 'all' ? '所有人' : USER_NAME
+					}</at> ${TEXT}`,
+				},
+			})
+			.then((res) => {
+				return JSON.stringify(res.data);
+			});
+	}
 
-  triggerWebhookImage({ ID, IMAGE_KEY }) {
-    ID = Cast.toString(ID);
-    IMAGE_KEY = Cast.toString(IMAGE_KEY);
+	triggerWebhookImage({ ID, IMAGE_KEY }) {
+		ID = Cast.toString(ID);
+		IMAGE_KEY = Cast.toString(IMAGE_KEY);
 
-    if (ID == '' || IMAGE_KEY == '') {
-      return this.fm('resultMessage.emptyValue');
-    }
+		if (ID == '' || IMAGE_KEY == '') {
+			return this.fm('resultMessage.emptyValue');
+		}
 
-    return this.app
-      .post(`https://open.feishu.cn/open-apis/bot/v2/hook/${ID}`, {
-        msg_type: 'image',
-        content: {
-          image_key: IMAGE_KEY,
-        },
-      })
-      .then((res) => {
-        return JSON.stringify(res.data);
-      });
-  }
+		return this.app
+			.post(`https://open.feishu.cn/open-apis/bot/v2/hook/${ID}`, {
+				msg_type: 'image',
+				content: {
+					image_key: IMAGE_KEY,
+				},
+			})
+			.then((res) => {
+				return JSON.stringify(res.data);
+			});
+	}
 
-  triggerWebhookCard({ ID, CARD_ID }) {
-    ID = Cast.toString(ID);
-    CARD_ID = Cast.toString(CARD_ID);
+	triggerWebhookCard({ ID, CARD_ID }) {
+		ID = Cast.toString(ID);
+		CARD_ID = Cast.toString(CARD_ID);
 
-    if (ID == '' || CARD_ID == '' || !(CARD_ID in this.customCards)) {
-      return this.fm('resultMessage.emptyValue');
-    }
+		if (ID == '' || CARD_ID == '' || !(CARD_ID in this.customCards)) {
+			return this.fm('resultMessage.emptyValue');
+		}
 
-    return this.app
-      .post(`https://open.feishu.cn/open-apis/bot/v2/hook/${ID}`, {
-        msg_type: 'interactive',
-        card: this.customCards[CARD_ID],
-      })
-      .then((res) => {
-        return JSON.stringify(res.data);
-      });
-  }
+		return this.app
+			.post(`https://open.feishu.cn/open-apis/bot/v2/hook/${ID}`, {
+				msg_type: 'interactive',
+				card: this.customCards[CARD_ID],
+			})
+			.then((res) => {
+				return JSON.stringify(res.data);
+			});
+	}
 
-  cardCreate({ ID }) {
-    ID = Cast.toString(ID);
+	cardCreate({ ID }) {
+		ID = Cast.toString(ID);
 
-    if (ID === '') {
-      return this.fm('resultMessage.emptyValue');
-    }
+		if (ID === '') {
+			return this.fm('resultMessage.emptyValue');
+		}
 
-    this.customCards[ID] = {
-      config: {},
-      elements: [],
-      header: {
-        template: 'blue',
-        title: {
-          content: '未命名卡片',
-          tag: 'plain_text',
-        },
-      },
-    };
-  }
+		this.customCards[ID] = {
+			config: {},
+			elements: [],
+			header: {
+				template: 'blue',
+				title: {
+					content: '未命名卡片',
+					tag: 'plain_text',
+				},
+			},
+		};
+	}
 
-  cardSet({ ID, TYPE, DATA }) {
-    ID = Cast.toString(ID);
-    TYPE = Cast.toString(TYPE);
-    DATA = Cast.toString(DATA);
+	cardSet({ ID, TYPE, DATA }) {
+		ID = Cast.toString(ID);
+		TYPE = Cast.toString(TYPE);
+		DATA = Cast.toString(DATA);
 
-    if (ID === '' || !(ID in this.customCards) || TYPE === '' || DATA === '') {
-      return this.fm('resultMessage.emptyValue');
-    }
+		if (ID === '' || !(ID in this.customCards) || TYPE === '' || DATA === '') {
+			return this.fm('resultMessage.emptyValue');
+		}
 
-    try {
-      switch (TYPE) {
-        case 'template':
-          this.customCards[ID].header.template = DATA;
-          break;
-        case 'title':
-          this.customCards[ID].header.title.content = DATA;
-          break;
-        case 'config':
-          const data = JSON.parse(DATA) || {};
-          this.customCards[ID].config = data;
-          break;
-        default:
-          return this.fm('resultMessage.emptyValue');
-      }
-    } catch (e) {
-      return this.fm('resultMessage.emptyValue');
-    }
-  }
+		try {
+			switch (TYPE) {
+			case 'template':
+				this.customCards[ID].header.template = DATA;
+				break;
+			case 'title':
+				this.customCards[ID].header.title.content = DATA;
+				break;
+			case 'config':
+				// eslint-disable-next-line no-case-declarations
+				const data = JSON.parse(DATA) || {};
+				this.customCards[ID].config = data;
+				break;
+			default:
+				return this.fm('resultMessage.emptyValue');
+			}
+		} catch (e) {
+			return this.fm('resultMessage.emptyValue');
+		}
+	}
 
-  cardJoin({ TYPE, DATA, ID }) {
-    TYPE = Cast.toString(TYPE);
-    DATA = Cast.toString(DATA);
-    ID = Cast.toString(ID);
+	cardJoin({ TYPE, DATA, ID }) {
+		TYPE = Cast.toString(TYPE);
+		DATA = Cast.toString(DATA);
+		ID = Cast.toString(ID);
 
-    if (TYPE === '' || DATA === '' || ID === '' || !(ID in this.customCards)) {
-      return this.fm('resultMessage.emptyValue');
-    }
+		if (TYPE === '' || DATA === '' || ID === '' || !(ID in this.customCards)) {
+			return this.fm('resultMessage.emptyValue');
+		}
 
-    try {
-      const data = JSON.parse(DATA) || {};
-      this.customCards[ID].elements.push({
-        tag: TYPE,
-        ...data,
-      });
-    } catch (e) {
-      return this.fm('resultMessage.emptyValue');
-    }
-  }
+		try {
+			const data = JSON.parse(DATA) || {};
+			this.customCards[ID].elements.push({
+				tag: TYPE,
+				...data,
+			});
+		} catch (e) {
+			return this.fm('resultMessage.emptyValue');
+		}
+	}
 
-  cardRemove({ ID, TYPE }) {
-    ID = Cast.toString(ID);
+	cardRemove({ ID, TYPE }) {
+		ID = Cast.toString(ID);
 
-    if (ID === '' || !(ID in this.customCards) || TYPE === '') {
-      return this.fm('resultMessage.emptyValue');
-    }
+		if (ID === '' || !(ID in this.customCards) || TYPE === '') {
+			return this.fm('resultMessage.emptyValue');
+		}
 
-    if (TYPE === 'last')
-      this.customCards[ID].elements = this.customCards[ID].elements.slice(
-        0,
-        -1,
-      );
-    if (TYPE === 'all') this.customCards[ID].elements = [];
-  }
+		if (TYPE === 'last')
+			this.customCards[ID].elements = this.customCards[ID].elements.slice(
+				0,
+				-1
+			);
+		if (TYPE === 'all') this.customCards[ID].elements = [];
+	}
 
-  triggerWebhookJson({ ID, DATA }) {
-    ID = Cast.toString(ID);
-    DATA = Cast.toString(DATA);
+	triggerWebhookJson({ ID, DATA }) {
+		ID = Cast.toString(ID);
+		DATA = Cast.toString(DATA);
 
-    if (ID == '' || DATA == '') {
-      return this.fm('resultMessage.emptyValue');
-    }
+		if (ID == '' || DATA == '') {
+			return this.fm('resultMessage.emptyValue');
+		}
 
-    try {
-      DATA = JSON.parse(DATA) || {};
-    } catch (e) {
-      return this.fm('resultMessage.emptyValue');
-    }
+		try {
+			DATA = JSON.parse(DATA) || {};
+		} catch (e) {
+			return this.fm('resultMessage.emptyValue');
+		}
 
-    return fetch(`https://www.feishu.cn/flow/api/trigger-webhook/${ID}`, {
-      method:'POST',
-      headers: {
-        Accept: 'application/json',
-      },
-      cors: true,
-      body: JSON.stringify(DATA),
-    }).then((res) => {
-      return JSON.stringify(res.json()) === 'undefined';
-    });
-  }
+		return fetch(`https://www.feishu.cn/flow/api/trigger-webhook/${ID}`, {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+			},
+			cors: true,
+			body: JSON.stringify(DATA),
+		}).then((res) => {
+			return JSON.stringify(res.json()) === 'undefined';
+		});
+	}
 
-  __cardIdMenu() {
-    return Object.keys(this.customCards).length > 0
-      ? Object.keys(this.customCards).map((v) => {
-          return {
-            text: v,
-            value: v,
-          };
-        })
-      : [
-          {
-            text: this.fm('resultMessage.emptyMenu'),
-            value: '',
-          },
-        ];
-  }
+	__cardIdMenu() {
+		return Object.keys(this.customCards).length > 0
+			? Object.keys(this.customCards).map((v) => {
+				return {
+					text: v,
+					value: v,
+				};
+			})
+			: [
+				{
+					text: this.fm('resultMessage.emptyMenu'),
+					value: '',
+				},
+			];
+	}
 }
 
 window.tempExt = {
-  Extension: FeishuExtension,
-  info: {
-    name: 'Jetta.feishu.extensionName',
-    description: 'Jetta.feishu.description',
-    doc: 'Jetta.feishuWebfeishuHook.doc',
-    extensionId,
-    iconURL: extensionCover,
-    insetIconURL: extensionIcon,
-    featured: true,
-    disabled: false,
-    collaborator: 'Jetta Team',
-    collaboratorURL: 'https://www.ccw.site/student/628979aa804a3a2bc801b097',
-    collaboratorList: [
-      {
-        collaborator: 'YUEN @ CCW',
-        collaboratorURL:
+	Extension: FeishuExtension,
+	info: {
+		name: 'YUEN.feishu.extensionName',
+		description: 'YUEN.feishu.description',
+		doc: 'YUEN.feishuWebfeishuHook.doc',
+		extensionId,
+		iconURL: extensionCover,
+		insetIconURL: extensionIcon,
+		featured: true,
+		disabled: false,
+		collaborator: 'YUEN Team',
+		collaboratorURL: 'https://www.ccw.site/student/628979aa804a3a2bc801b097',
+		collaboratorList: [
+			{
+				collaborator: 'YUEN @ CCW',
+				collaboratorURL:
           'https://www.ccw.site/student/628979aa804a3a2bc801b097',
-      },
-      {
-        collaborator: '酷可 @ CCW',
-        collaboratorURL:
+			},
+			{
+				collaborator: '酷可 @ CCW',
+				collaboratorURL:
           'https://www.ccw.site/student/610b508176415b2f27e0f851',
-      },
-    ],
-  },
-  l10n: {
-    'zh-cn': {
-      'Jetta.feishu.extensionName': '飞书',
-      'Jetta.feishu.description': '✨ 更好的WebHook',
-      'Jetta.feishu.doc':
+			},
+		],
+	},
+	l10n: {
+		'zh-cn': {
+			'YUEN.feishu.extensionName': '飞书',
+			'YUEN.feishu.description': '✨ 更好的WebHook',
+			'YUEN.feishu.doc':
         'https://learn.ccw.site/article/7795eb4b-170b-435b-bca3-8b7d4e0c24f8',
-    },
-    en: {
-      'Jetta.feishu.extensionName': 'Feishu',
-      'Jetta.feishu.description': '✨ Enhanced WebHook',
-      'Jetta.feishu.doc':
+		},
+		en: {
+			'YUEN.feishu.extensionName': 'Feishu',
+			'YUEN.feishu.description': '✨ Enhanced WebHook',
+			'YUEN.feishu.doc':
         'https://learn.ccw.site/article/e895cb95-cc0c-47a0-9bbb-a5aabf82750d',
-    },
-  },
+		},
+	},
 };
