@@ -103,68 +103,9 @@ export default class WitCatBBcode {
           margin-inline-start: 40px;
           margin-inline-end: 40px;
       }
-      .WitCatBBcodeSpolier{
-        display: inline-block;
-        white-space: nowrap;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        position: relative;
-      }
-      .WitCatBBcodeSpolier button{
-        background-color: #00000000;
-        color: #1A96E2;
-        position: absolute;
-        right: 0px;
-        bottom: 0px;
-        border-radius: 0.5em;
-      }
-      .WitCatBBcodeHide{
-        background-color: #252525;
-        color: #252525;
-        text-shadow: none;
-        border-radius: 0.5em;
-      }
-      .WitCatBBcodeHide:hover{
-        color: white !important;
-      }
-      .WitCatBBcodeg-container {
-        width: 240px;
-        height: 10px;
-        border-radius: 0.5em;
-        background: #eee;
-      }
-      .WitCatBBcodeg-progress {
-        width: 50%;
-        height: inherit;
-        border-radius: 0.5em;
-        background: #0f0;
-      }
-      .WitCatBBcodeTable{
-        border: 1px solid black;
-        border-collapse: separate;
-      }
-      .WitCatBBcodeTable td{
-        border: 1px solid black;
-        padding: 8px;
-      }
       code[class*=language-],pre[class*=language-]{color:#ccc;background:0 0;font-family:Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;font-size:1em;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:0px;margin:0px;overflow:auto}:not(pre)>code[class*=language-],pre[class*=language-]{background:#2d2d2d}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal}.token.block-comment,.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#999}.token.punctuation{color:#ccc}.token.attr-name,.token.deleted,.token.namespace,.token.tag{color:#e2777a}.token.function-name{color:#6196cc}.token.boolean,.token.function,.token.number{color:#f08d49}.token.class-name,.token.constant,.token.property,.token.symbol{color:#f8c555}.token.atrule,.token.builtin,.token.important,.token.keyword,.token.selector{color:#cc99cd}.token.attr-value,.token.char,.token.regex,.token.string,.token.variable{color:#7ec699}.token.entity,.token.operator,.token.url{color:#67cdcc}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}.token.inserted{color:green}
       `;
     document.body.appendChild(ScrollStyle);
-    const script = document.createElement("script");
-    script.type = "text/javascript";
-    script.innerText = `
-    function showText(a) {
-      if (a.innerText === '展开' || a.innerText === 'more') {
-        a.parentElement.style.height = '100%';
-      }
-      else if (a.innerText === '收起' || a.innerText === 'fold') {
-        a.parentElement.style.height = (a.parentElement.getAttribute('height')) + 'px';
-      }
-      a.innerText = a.innerText === 'more' ? 'fold' : a.innerText === 'fold' ? 'more' : a.innerText === '展开' ? '收起' : '展开';
-    }
-    `
-    document.body.appendChild(script)
 
     this._formatMessage = runtime.getFormatMessage({
       'zh-cn': {
@@ -210,10 +151,6 @@ export default class WitCatBBcode {
         'WitCatBBcode.3drot': 'BBcode[id]第[number]个[type]元素3D旋转X[x]Y[y]Z[z]',
         'WitCatBBcode.setinsite': 'BBcode[id]第[number]个[type]元素的[input]设为[text]',
         'WitCatBBcode.transition': '为BBcode[id]设置过渡为[s]秒的[timing]',
-        'WitCatBBcode.morecontent': '设置展开消息ID[id]为[show]',
-        'WitCatBBcode.meter': '设置进度条ID[id]的百分比为[text]',
-        'WitCatBBcode.show.1': '展开',
-        'WitCatBBcode.show.2': '收起',
         'WitCatBBcode.timing.1': '线性',
         'WitCatBBcode.timing.2': '缓出',
         'WitCatBBcode.timing.3': '缓入',
@@ -248,7 +185,6 @@ export default class WitCatBBcode {
         'WitCatBBcode.type.4': 'height',
         'WitCatBBcode.type.5': 'content',
         'WitCatBBcode.type.6': 'json',
-        'WitCatBBcode.type.7': 'perspective',
         'WitCatBBcode.ide.1': 'editable',
         'WitCatBBcode.ide.2': 'uneditable',
         'WitCatBBcode.types.1': 'turn on',
@@ -267,10 +203,6 @@ export default class WitCatBBcode {
         'WitCatBBcode.3drot': 'BBcode[id]num[number]`s[type] element 3Drotat X[x]Y[y]Z[z]',
         'WitCatBBcode.setinsite': 'Set BBcode[id]num[number]`s[type] element [input] to [text]',
         'WitCatBBcode.transition': 'Set [timing] for BBcode[id] to transition to [s] seconds',
-        'WitCatBBcode.morecontent': 'Set the expanded message ID[id] to [show]',
-        'WitCatBBcode.meter': 'Set the percentage of progress bar ID[id] to [text]',
-        'WitCatBBcode.show.1': 'show',
-        'WitCatBBcode.show.2': 'hide',
         'WitCatBBcode.timing.1': 'linear',
         'WitCatBBcode.timing.2': 'ease-out',
         'WitCatBBcode.timing.3': 'ease-in',
@@ -278,8 +210,8 @@ export default class WitCatBBcode {
         'WitCatBBcode.timing.5': 'ease',
         'WitCatBBcode.textalign.1': 'Align left',
         'WitCatBBcode.textalign.2': 'Align right',
-        'WitCatBBcode.setinsite.1': 'shadow',
-        'WitCatBBcode.setinsite.2': 'text shadow',
+        'WitCatBBcode.setinsite.1': '阴影',
+        'WitCatBBcode.setinsite.2': '文字阴影',
       },
     });
   }
@@ -461,36 +393,6 @@ export default class WitCatBBcode {
             name: {
               type: 'string',
               defaultValue: 'arial',
-            },
-          },
-        },
-        {
-          opcode: 'morecontent',
-          blockType: 'command',
-          text: this.formatMessage('WitCatBBcode.morecontent'),
-          arguments: {
-            id: {
-              type: 'string',
-              defaultValue: 'i',
-            },
-            show: {
-              type: 'string',
-              menu: 'show',
-            },
-          },
-        },
-        {
-          opcode: 'meter',
-          blockType: 'command',
-          text: this.formatMessage('WitCatBBcode.meter'),
-          arguments: {
-            id: {
-              type: 'string',
-              defaultValue: 'i',
-            },
-            text: {
-              type: 'number',
-              defaultValue: '0',
             },
           },
         },
@@ -955,16 +857,6 @@ export default class WitCatBBcode {
             value: 'textShadow',
           },
         ],
-        show: [
-          {
-            text: this.formatMessage('WitCatBBcode.show.1'),
-            value: 'more',
-          },
-          {
-            text: this.formatMessage('WitCatBBcode.show.2'),
-            value: 'fold',
-          },
-        ],
       },
     };
   }
@@ -1038,7 +930,7 @@ export default class WitCatBBcode {
     sstyle.top = `${y}%`;
     sstyle.width = `${width}%`;
     sstyle.height = `${height}%`;
-    search.innerHTML = `<div class='WitCatBBcodes'>${new bbcode.Parser().toHTML(String(args.text), this.runtime)}</div>`;
+    search.innerHTML = `<div class='WitCatBBcodes'>${new bbcode.Parser().toHTML(String(args.text))}</div>`;
   }
 
   imgstyle(args) {
@@ -1098,45 +990,13 @@ export default class WitCatBBcode {
           sstyle.height = `${Number(height)}%`;
           break;
         case 'content':
-          search.innerHTML = `<div class='WitCatBBcodes'>${new bbcode.Parser().toHTML(String(args.text), this.runtime)}</div>`;
+          search.innerHTML = `<div class='WitCatBBcodes'>${new bbcode.Parser().toHTML(String(args.text))}</div>`;
           break;
         case 'perspective':
           search.firstChild.style.perspective = `${Number(args.text)}px`;
         default:
           break;
       }
-    }
-  }
-
-  morecontent(args) {
-    let search = null;
-    const search_1 = document.getElementById(`WitCatBBcodeSpolier${args.id}`);
-    if (search_1 instanceof HTMLSpanElement) {
-      search = search_1;
-    }
-    if (search !== null) {
-      let a = search.getElementsByTagName("button")[0];
-      if (args.show === "more") {
-        search.style.height = `100%`;
-        if (a)
-          a.innerText = a.innerText === 'more' || a.innerText === 'fold' ? 'fold' : '收起';
-      }
-      else {
-        search.style.height = `${search.getAttribute("height")}px`;
-        if (a)
-          a.innerText = a.innerText === 'fold' || a.innerText === 'more' ? 'more' : '展开';
-      }
-    }
-  }
-
-  meter(args) {
-    let search = null;
-    const search_1 = document.getElementById(`WitCatBBcodeMeter${args.id}`);
-    if (search_1 instanceof HTMLDivElement) {
-      search = search_1;
-    }
-    if (search !== null) {
-      search.style.width = `${Number(args.text)}%`;
     }
   }
 
@@ -1198,7 +1058,7 @@ export default class WitCatBBcode {
     const search = document.createElement('span');
     search.style.position = 'fixed';
     search.className = 'WitCatBBcode';
-    search.innerHTML = `<div class='WitCatBBcodes'>${new bbcode.Parser().toHTML(String(args.content), this.runtime)}</div>`;
+    search.innerHTML = `<div class='WitCatBBcodes'>${new bbcode.Parser().toHTML(String(args.content))}</div>`;
     document.body.appendChild(search);
     const cvsw = this.canvas().offsetWidth;
     const cvsh = this.canvas().offsetHeight;
@@ -1223,7 +1083,7 @@ export default class WitCatBBcode {
     if (this.canvas() === null) {
       return;
     }
-    if (args.type === 'true') {
+    if (args.type) {
       if (this.resize === null) {
         this.resize = new ResizeObserver(() => {
           document.documentElement.style.setProperty('--witcat-bbcode-scale', this.canvas().offsetHeight / 360);
@@ -1231,10 +1091,8 @@ export default class WitCatBBcode {
         this.resize.observe(this.canvas(), { attributes: true, attributeFilter: ['style'] });
       }
     } else {
-      if (this.resize !== null) {
-        this.resize.disconnect();
-        this.resize = null;
-      }
+      this.resize.disconnect();
+      this.resize = null;
     }
   }
 
