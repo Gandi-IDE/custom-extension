@@ -24,6 +24,15 @@ class WitCatMouse {
 		 * 鼠标y移动速度
 		 */
 		this.yMouse = 0;
+		/**
+		* 鼠标x
+		*/
+		this.MouseX = 0;
+
+		/**
+		 * 鼠标y
+		 */
+		this.MouseY = 0;
 
 		/**
 		 * 鼠标滚轮速度
@@ -64,6 +73,17 @@ class WitCatMouse {
 		 * 获取的手机角度信息
 		 */
 		this.Gyroscope = {};
+
+		/**
+		 * 鼠标提示的循环处理
+		 */
+		this.MouseTitle = null;
+
+		/**
+		 * 鼠标提示的div
+		 * @type {HTMLDivElement}
+		 */
+		this.title = null;
 
 		this.runtime = runtime;
 
@@ -153,6 +173,9 @@ class WitCatMouse {
 				'WitCatMouse.mousewheel': '鼠标滚轮速度',
 				'WitCatMouse.gyroscope': '当前[p]轴角度',
 				'WitCatMouse.title': '设置鼠标提示[text]',
+				'WitCatMouse.titlenow': '[show]鼠标提示[text]',
+				'WitCatMouse.show.1': '显示',
+				'WitCatMouse.show.2': '隐藏',
 			},
 			en: {
 				'WitCatMouse.copythis': 'Copy the following text:',
@@ -218,6 +241,9 @@ class WitCatMouse {
 				'WitCatInput.mousewheel': 'mouse wheel speed',
 				'WitCatMouse.gyroscope': 'Current [p] axis Angle',
 				'WitCatMouse.title': 'Set mouse prompts[text]',
+				'WitCatMouse.titlenow': 'Let mouse prompts[text][show]',
+				'WitCatMouse.show.1': 'show',
+				'WitCatMouse.show.2': 'hide',
 			},
 		});
 	}
@@ -289,6 +315,21 @@ class WitCatMouse {
 						text: {
 							type: 'string',
 							defaultValue: 'wit_cat!!!',
+						},
+					},
+				},
+				{
+					opcode: 'titlenow',
+					blockType: 'command',
+					text: this.formatMessage('WitCatMouse.titlenow'),
+					arguments: {
+						text: {
+							type: 'string',
+							defaultValue: 'wit_cat!!!',
+						},
+						show: {
+							type: 'string',
+							menu: 'show',
 						},
 					},
 				},
@@ -706,6 +747,16 @@ class WitCatMouse {
 						value: 'release',
 					},
 				],
+				show: [
+					{
+						text: this.formatMessage('WitCatMouse.show.1'),
+						value: 'true',
+					},
+					{
+						text: this.formatMessage('WitCatMouse.show.2'),
+						value: 'false',
+					},
+				],
 				targetListMenu: {
 					items: "buildTargetListMenu"
 				}
@@ -992,7 +1043,7 @@ class WitCatMouse {
 					sizes = size / width;
 				}
 
-				const svgDataUri = 'data:image/svg+xml;base64,' + btoa(costumeURL);
+				const svgDataUri = (targetCostume.asset.assetType.contentType === 'image/png' ? 'data:image/png;base64,' : 'data:image/svg+xml;base64,') + btoa(costumeURL);
 				const canvas = document.createElement('canvas');
 				canvas.width = size;
 				canvas.height = size;
@@ -1025,6 +1076,43 @@ class WitCatMouse {
 			return;
 		}
 		canvasParent.title = String(args.text);
+	}
+
+	titlenow(args) {
+		if (args.show === 'true') {
+			if (this.titleDiv == null) {
+				this.titleDiv = document.createElement("div");
+				this.titleDiv.innerText = String(args.text);
+				this.titleDiv.style = `transition: transform 0.2s ease-in-out;transform: scale(0, 0);border:1px solid #000000 ;transform-origin:0px 0px;border-radius:10px;background-color:#ffffff;padding:5px;position:fixed;top:${this.MouseY + 10}px;left:${this.MouseX + 10}px`;
+				this.MouseTitle = setInterval(() => {
+					this.titleDiv.style.top = (this.MouseY + 10) + 'px';
+					this.titleDiv.style.left = (this.MouseX + 10) + 'px';
+				}, 1);
+				document.body.appendChild(this.titleDiv);
+				setTimeout(() => {
+					this.titleDiv.style.transform = 'scale(1, 1)';
+				}, 10);
+			}
+			else if (String(args.text) !== this.titleDiv.innerText) {
+				setTimeout(() => {
+					this.titleDiv.style.transform = 'scale(0, 0)';
+					setTimeout(() => {
+						this.titleDiv.innerText = String(args.text);
+						this.titleDiv.style.transform = 'scale(1, 1)';
+					}, 200);
+				}, 200);
+			}
+		}
+		else {
+			if (this.titleDiv !== null) {
+				clearInterval(this.MouseTitle);
+				this.titleDiv.style.transform = 'scale(0, 0)';
+				setTimeout(() => {
+					document.body.removeChild(this.titleDiv);
+					this.titleDiv = null;
+				}, 200);
+			}
+		}
 	}
 
 	/**
@@ -1432,6 +1520,8 @@ class WitCatMouse {
 			} else {
 				this.touch = [];
 			}
+			this.MouseX = ev.clientX;
+			this.MouseY = ev.clientY;
 			this.xMouse = ev.movementX; // 获得鼠标指针的x移动量
 			this.yMouse = ev.movementY; // 获得鼠标指针的y移动量
 			if (this.timer !== null) {
