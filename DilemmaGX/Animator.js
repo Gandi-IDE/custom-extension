@@ -2,7 +2,7 @@
  * @file 实现简单的缓动动画以及数据运算
  *  
  * @author 官方小傲娇 <gfxaj@qq.com>
- * @version 1.0.0  
+ * @version 1.0.1
  */
 
 // @ts-nocheck
@@ -698,11 +698,7 @@ class Animator {
     }
 
     docs() {
-        /*
-        docs missing (in progress)
-
-        window.open('https://gandi.rth1.app/Docs/Animator.js.html')
-        */
+        window.open('https://learn.ccw.site/article/63a876b1-ccd4-4e74-a298-04e94109ab95')
     }
     /**
      * 获取动画效果。
