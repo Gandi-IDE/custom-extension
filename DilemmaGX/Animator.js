@@ -427,13 +427,11 @@ class Animator {
             menuIconURI: ani_icon,
             blockIconURI: ani_icon,
             blocks: [
-                /*
                 {
                     blockType: 'button',
                     text: this.formatMessage('Ani.docs'),
                     onClick: this.docs
                 },
-                */
                 '---' + this.formatMessage('Ani.Fac_ani'),
                 {
                     opcode: 'Animate',
@@ -938,7 +936,7 @@ window.tempExt = {
                 collaboratorURL: 'https://www.ccw.site/student/6173f57f48cf8f4796fc860e'
             },
             {
-                collaborator: '凌 @ CCW',
+                collaborator: 'FurryR @ Simplicity Studio',
                 collaboratorURL: 'https://www.ccw.site/student/63ddff9293ebb01fb90efa79'
             }
         ]
