@@ -341,7 +341,7 @@ class Animator {
                 'Ani.ghost': '虚像',
                 'Ani.size': '大小',
 
-                'Ani.docs': '📖文档(编写中)',
+                'Ani.docs': '📖文档',
 
                 'Ani.Fac_ani': '🌟缓动运算',
                 'Ani.Fac_dat': '🪄特效参数'
@@ -396,7 +396,7 @@ class Animator {
                 'Ani.ghost': 'ghost',
                 'Ani.size': 'size',
 
-                'Ani.docs': '📖Docs(WIP)',
+                'Ani.docs': '📖Docs',
 
                 'Ani.Fac_ani': '🌟Easing functions',
                 'Ani.Fac_dat': '🪄Effect parameters'
