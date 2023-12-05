@@ -296,9 +296,9 @@ class Animator {
                 'Ani.extensionName': 'Animator',
                 'Ani.Animate':
                     '[type](初始值=[start], 尾值=[end], 长度=[length]) 于[time]秒时的值', //block
-                'Ani.Move': '在[time]秒内以[type]方式移到[endx][endy]', //block
-                'Ani.Effect': '在[time]秒内以[type]方式将[Effect]更改为[endv]', //block
-                'Ani.Dir': '在[time]秒内以[type]方式转到[endv]度', //block
+                'Ani.Move': '🏃在[time]秒内以[type]方式移到[endx][endy]', //block
+                'Ani.Effect': '✨在[time]秒内以[type]方式将[Effect]更改为[endv]', //block
+                'Ani.Dir': '🔄️在[time]秒内以[type]方式转到[endv]度', //block
 
                 'Ani.easeInQuad': '二次缓入',
                 'Ani.easeOutQuad': '二次缓出',
@@ -331,7 +331,7 @@ class Animator {
                 'Ani.easeOutBounce': '弹跳缓出',
                 'Ani.easeInOutBounce': '弹跳缓动',
 
-                'Ani.getEffect': '获取特效[Effect]的值', //block
+                'Ani.getEffect': '🛠️获取特效[Effect]的值', //block
                 'Ani.color': '颜色',
                 'Ani.fisheye': '鱼眼',
                 'Ani.whirl': '旋涡',
@@ -351,9 +351,9 @@ class Animator {
                 'Ani.extensionName': 'Animator',
                 'Ani.Animate':
                     '[type](start=[start], end=[end], duration=[length]) at[time]second(s)', //block
-                'Ani.Move': 'Move to[endx][endy]within[time]second(s) using[type]', //block
-                'Ani.Effect': 'Change[Effect]to[endv]within[time]second(s) using[type]', //block
-                'Ani.Dir': 'Turn to[endv]degrees within[time]second(s) using[type]', //block
+                'Ani.Move': '🏃Move to[endx][endy]within[time]second(s) using[type]', //block
+                'Ani.Effect': '✨Change[Effect]to[endv]within[time]second(s) using[type]', //block
+                'Ani.Dir': '🔄️Turn to[endv]degrees within[time]second(s) using[type]', //block
 
                 'Ani.easeInQuad': 'Quadratic ease-in',
                 'Ani.easeOutQuad': 'Quadratic ease-out',
@@ -386,7 +386,7 @@ class Animator {
                 'Ani.easeOutBounce': 'Bounce ease-out',
                 'Ani.easeInOutBounce': 'Bounce ease-in-out',
 
-                'Ani.getEffect': 'Get[Effect]value', //block
+                'Ani.getEffect': '🛠️Get[Effect]value', //block
                 'Ani.color': 'color',
                 'Ani.fisheye': 'fisheye',
                 'Ani.whirl': 'whirl',
@@ -944,11 +944,11 @@ window.tempExt = {
     l10n: {
         'zh-cn': {
             'Ani.extensionName': 'Animator',
-            'Ani.description': '让你的角色动起来🏃‍♂️'
+            'Ani.description': '让你的角色动起来🏃'
         },
         en: {
             'Ani.extensionName': 'Animator',
-            'Ani.description': 'Make your characters move 🏃‍♂️'
+            'Ani.description': 'Make your characters move 🏃'
         }
     }
 }
