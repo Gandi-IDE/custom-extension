@@ -916,6 +916,7 @@ window.tempExt = {
         insetIconURL: ani_icon,
         featured: true,
         disabled: false,
+        doc: "https://learn.ccw.site/article/63a876b1-ccd4-4e74-a298-04e94109ab95",
         collaborator: '官方小傲娇 @ CCW',
         collaboratorURL: 'https://www.ccw.site/student/62f76ddb49c5dc44ac0c03c0',
         collaboratorList: [
