@@ -2114,9 +2114,11 @@ class dollyProExtension {
     });
   }
 
-  // receiveMyBroadcast() {
-  //   return true;
-  // }
+
+  receiveMyBroadcast() {
+    return true;
+  }
+
 
   test(args) {
     console.log('IDmap:', this._IDtoTargets);
