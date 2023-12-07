@@ -13,7 +13,7 @@ getInfo() {
     color1: "#00a889",
     color2: "#1e8c76",
     color3: "#1e8c76",
-    blockIconURI: "https://fath11.github.io/custom-extension/Fath/assets/morecomparisons.png",
+    blockIconURI: "/assets/morecomparisons.png",
     blocks: [
       "---" + "🌟Made by NOname-awa from Turbowarp",
       {
