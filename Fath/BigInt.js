@@ -132,7 +132,7 @@
               },
             },
           },
-          makeLabel("Arithmetic"),
+          "---" + "Arithmetic",
           {
             opcode: "add",
             blockType: Scratch.BlockType.REPORTER,
@@ -243,7 +243,7 @@
               },
             },
           },
-          makeLabel("Logic"),
+          "---" + "Logic",
           {
             opcode: "lt",
             blockType: Scratch.BlockType.BOOLEAN,
@@ -334,7 +334,7 @@
               },
             },
           },
-          makeLabel("Bitwise"),
+          "---" + "Bitwise",
           {
             opcode: "and",
             blockType: Scratch.BlockType.REPORTER,
