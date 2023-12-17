@@ -322,7 +322,7 @@ class ReMotion {
           {
             opcode: "betterGlide",
             blockType: Scratch.BlockType.COMMAND,
-            text: "(NOT WORKING)glide [NAME] [SECS] secs to x: [X] y: [Y]",
+            text: "Glide [NAME] [SECS] secs to x: [X] y: [Y]",
             filter: ['sprite'],
             arguments: {
               X: {
@@ -346,7 +346,7 @@ class ReMotion {
           {
             opcode: "whileGlide",
             blockType: Scratch.BlockType.LOOP,
-            text: "(NOT WORKING)while gliding [NAME] [SECS] secs to x: [X] y: [Y] run",
+            text: "While gliding [NAME] [SECS] secs to x: [X] y: [Y] run",
             filter: ['sprite'],
             arguments: {
               X: {
@@ -575,7 +575,6 @@ class ReMotion {
       return find_distance_to(X1, Y1, X2, Y2)
     }
 
-    /*
     betterGlide(args, util, loop) {
       const target = args.NAME === "_myself_" ? util.target : this.runtime.getSpriteTargetByName(args.NAME);
       if (!util.stackFrame.startTime) {
@@ -617,7 +616,6 @@ class ReMotion {
     }
 
     whileGlide(args, util) { this.betterGlide(args, util, "on") }
-    */
   
     _getTargets() {
       const spriteNames = [];
