@@ -576,14 +576,14 @@ class ReMotion {
     }
 
     betterGlide(args, util, loop) {
-      const target = args.NAME === "_myself_" ? util.target : runtime.getSpriteTargetByName(args.NAME);
+      const target = args.NAME === "_myself_" ? util.target : this.runtime.getSpriteTargetByName(args.NAME);
       if (!util.stackFrame.startTime) {
         util.stackFrame.startTime = new Date().getTime();
-        util.stackFrame.duration = Scratch.Cast.toNumber(args.SECS);
+        util.stackFrame.duration = Cast.toNumber(args.SECS);
         util.stackFrame.startX = target.x;
         util.stackFrame.startY = target.y;
-        util.stackFrame.endX = Scratch.Cast.toNumber(args.X);
-        util.stackFrame.endY = Scratch.Cast.toNumber(args.Y);
+        util.stackFrame.endX = Cast.toNumber(args.X);
+        util.stackFrame.endY = Cast.toNumber(args.Y);
         if (util.stackFrame.duration <= 0) {
           target.setXY(util.stackFrame.endX, util.stackFrame.endY);
           return;
