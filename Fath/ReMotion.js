@@ -319,7 +319,6 @@ class ReMotion {
             },
           },
           "---",
-          /*
           {
             opcode: "betterGlide",
             blockType: Scratch.BlockType.COMMAND,
@@ -368,12 +367,11 @@ class ReMotion {
               }
             }
           },
-          */
         ],
         menus: {
           sprites: {
             acceptReporters: true,
-            items: '_getTargets()'
+            items: '_getTargets'
           },
           ROTATE_DIRECTION: {
             acceptReporters: true,
