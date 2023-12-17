@@ -181,7 +181,7 @@ class ReMotion {
           {
             opcode: 'direction_to',
             blockType: Scratch.BlockType.REPORTER,
-            text: 'Direction [SPRITE] to x: [X] y: [Y]',
+            text: 'Direction [SPRITE] [DIRECTION] x: [X] y: [Y]',
             arguments: {
               X: {
                 type: Scratch.ArgumentType.NUMBER,
@@ -195,12 +195,16 @@ class ReMotion {
                 type: Scratch.ArgumentType.STRING,
                 menu: 'sprites',
               },
+              DIRECTION: {
+                type: Scratch.ArgumentType.STRING,
+                menu: 'towards_away',
+              },
             },
           },
           {
             opcode: 'direction_from_to',
             blockType: Scratch.BlockType.REPORTER,
-            text: 'Direction from x: [X1] y: [Y1] to x: [X2] y: [Y2]',
+            text: 'Direction from x: [X1] y: [Y1] [DIRECTION] x: [X2] y: [Y2]',
             arguments: {
               X1: {
                 type: Scratch.ArgumentType.NUMBER,
@@ -218,12 +222,16 @@ class ReMotion {
                 type: Scratch.ArgumentType.NUMBER,
                 defaultValue: '100'
               },
+              DIRECTION: {
+                type: Scratch.ArgumentType.STRING,
+                menu: 'towards_away',
+              },
             },
           },
           {
             opcode: 'direction_to_sprite',
             blockType: Scratch.BlockType.REPORTER,
-            text: 'Direction [THIS_SPRITE]to [SPRITE]',
+            text: 'Direction [THIS_SPRITE] [DIRECTION] [SPRITE]',
             arguments: {
               THIS_SPRITE: {
                 type: Scratch.ArgumentType.STRING,
@@ -232,6 +240,10 @@ class ReMotion {
               SPRITE: {
                 type: Scratch.ArgumentType.STRING,
                 menu: 'sprites',
+              },
+              DIRECTION: {
+                type: Scratch.ArgumentType.STRING,
+                menu: 'towards_away',
               },
             },
           }, 
@@ -435,11 +447,11 @@ class ReMotion {
             items: [
               {
                 text: 'towards',
-                value: '1'
+                value: '-1'
               },
               {
                 text: 'away',
-                value: '-1'
+                value: '1'
               }
             ]
           },
@@ -511,7 +523,7 @@ class ReMotion {
       // This one DOESN'T use rotate_around() block because rotate around have a radians for circles
       let newPos = rotatePoint(SPRITE.x, SPRITE.y, X, Y, radians);
   
-      util.target.setXY(newPos[0], newPos[1]);
+      SPRITE.setXY(newPos[0], newPos[1]);
     }
   
     rotate_around_sprite_in_shapes({THIS_SPRITE, SPRITE, ROTATE_DIRECTION, SHAPE}, util) {
@@ -527,25 +539,25 @@ class ReMotion {
     point_towards_pos({X, Y, SPRITE, DIRECTION}, util) {
       SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
       //Set the sprite's direction using the find_direction_to() function
-      SPRITE.setDirection(find_direction_to(X, Y, SPRITE.x * (0 - DIRECTION), SPRITE.y * (0 - DIRECTION)));
+      SPRITE.setDirection(find_direction_to(X, Y, SPRITE.x * DIRECTION, SPRITE.y * DIRECTION));
     }
   
-    direction_to({X, Y, SPRITE}, util) {
+    direction_to({X, Y, SPRITE, DIRECTION}, util) {
       SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
-      return find_direction_to(X, Y, SPRITE.x, SPRITE.y)
+      return find_direction_to(X, Y, SPRITE.x * DIRECTION, SPRITE.y * DIRECTION)
     }
   
-    direction_from_to({X1, Y1, X2, Y2}) {
-      return find_direction_to(X1, Y1, X2, Y2)
+    direction_from_to({X1, Y1, X2, Y2, DIRECTION}) {
+      return find_direction_to(X1, Y1, X2 * DIRECTION, Y2 * DIRECTION)
     }
   
-    direction_to_sprite({THIS_SPRITE, SPRITE}, util) {
+    direction_to_sprite({THIS_SPRITE, SPRITE, DIRECTION}, util) {
       SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
       let X = SPRITE.x
       let Y = SPRITE.y
 
       THIS_SPRITE = this.runtime.getSpriteTargetByName(THIS_SPRITE)
-      return find_direction_to(X, Y, THIS_SPRITE.x, THIS_SPRITE.y)
+      return find_direction_to(X, Y, THIS_SPRITE.x * DIRECTION, THIS_SPRITE.y * DIRECTION)
     }
 
     turn_degrees_towards_or_away_dir({DEGREE, DIR, SPRITE, DIRECTION}, util) {
@@ -662,7 +674,6 @@ class ReMotion {
   
     _getTargets() {
       const spriteNames = [];
-      spriteNames.push({ text: "myself", value: "_myself_" });
       const targets = this.runtime.targets;
       for (let index = 1; index < targets.length; index++) {
           const target = targets[index];
