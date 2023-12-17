@@ -505,12 +505,12 @@ class ReMotion {
     point_towards_pos({X, Y, SPRITE, DIRECTION}, util) {
       SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
       //Set the sprite's direction using the find_direction_to() function
-      util.target.setDirection(find_direction_to(X, Y, SPRITE.target.x * DIRECTION, SPRITE.target.y * DIRECTION));
+      util.target.setDirection(find_direction_to(X, Y, SPRITE.x * DIRECTION, SPRITE.y * DIRECTION));
     }
   
     direction_to({X, Y, SPRITE}, util) {
       SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
-      return find_direction_to(X, Y, SPRITE.target.x, SPRITE.target.y)
+      return find_direction_to(X, Y, SPRITE.x, SPRITE.y)
     }
   
     direction_from_to({X1, Y1, X2, Y2}) {
@@ -529,20 +529,20 @@ class ReMotion {
       SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
       const degree = Cast.toNumber(DEGREE);
       const dir = Cast.toNumber(DIR) + DIRECTION;
-      const dif = differenceBetweenDirections({A: SPRITE.target.direction, B: dir});
+      const dif = differenceBetweenDirections({A: SPRITE.direction, B: dir});
       if(Math.abs(dif) < degree) 
         SPRITE.target.setDirection(dir);
       else if(dif < 0)
-        SPRITE.target.setDirection(util.target.direction - degree);
+        SPRITE.setDirection(util.target.direction - degree);
       else
-        SPRITE.target.setDirection(util.target.direction + degree);
+        SPRITE.setDirection(util.target.direction + degree);
     }
   
     move_towards_or_away({STEPS, DIRECTION, X, Y, SPRITE}, util) {
       // Calculate the difference between the target and destination points
       SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
-      let dx = X - SPRITE.target.x;
-      let dy = Y - SPRITE.target.y;
+      let dx = X - SPRITE.x;
+      let dy = Y - SPRITE.y;
   
       // Calculate the distance between the two points
       let distance = Math.sqrt(dx * dx + dy * dy);
@@ -554,7 +554,7 @@ class ReMotion {
       // Move the target point towards or away from the destination point by the specified amount
       let x = util.target.x + DIRECTION * dx * STEPS;
       let y = util.target.y + DIRECTION * dy * STEPS;
-      SPRITE.target.setXY(x, y)
+      SPRITE.setXY(x, y)
     }
   
     move_towards_or_away_from_sprite({STEPS, DIRECTION, SPRITE, THIS_SPRITE}, util) {
@@ -565,8 +565,8 @@ class ReMotion {
     
         // Calculate the difference between the target and destination points
         THIS_SPRITE = this.runtime.getSpriteTargetByName(THIS_SPRITE)
-        let dx = X - THIS_SPRITE.target.x;
-        let dy = Y - THIS_SPRITE.target.y;
+        let dx = X - THIS_SPRITE.x;
+        let dy = Y - THIS_SPRITE.y;
     
         // Calculate the distance between the two points
         let distance = Math.sqrt(dx * dx + dy * dy);
@@ -578,7 +578,7 @@ class ReMotion {
         // Move the target point towards or away from the destination point by the specified amount
         let x = util.target.x + DIRECTION * dx * STEPS;
         let y = util.target.y + DIRECTION * dy * STEPS;
-        THIS_SPRITE.target.setXY(x, y)
+        THIS_SPRITE.setXY(x, y)
       } else {
         console.error("Sprite cannot move towards/away fron itself");
       }
@@ -586,7 +586,7 @@ class ReMotion {
   
     distance_to({X, Y, SPRITE}, util) {
       SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
-      return find_distance_to(X, Y, SPRITE.target.x, SPRITE.target.y)
+      return find_distance_to(X, Y, SPRITE.x, SPRITE.y)
     }
   
     distance_from_to({X1, Y1, X2, Y2}) {
