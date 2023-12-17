@@ -505,6 +505,7 @@ class ReMotion {
     rotate_around_sprite({THIS_SPRITE, SPRITE, STEPS, ROTATE_DIRECTION}, util) {
       // get target sprite's target
       SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
+      console.log(SPRITE)
   
       // Get target sprite's X and Y
       let X = SPRITE.x
@@ -514,7 +515,6 @@ class ReMotion {
 
       //Use the rotate_around block
       this.rotate_around({X, Y, STEPS, ROTATE_DIRECTION, THIS_SPRITE}, util)
-      console.log(SPRITE)
     }
   
     rotate_in_shapes({SPRITE, X, Y, ROTATE_DIRECTION, SHAPE}, util) {
