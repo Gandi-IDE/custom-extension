@@ -205,25 +205,9 @@ class ReMotion {
           }, 
           "---",
           {
-            opcode: 'turn_degrees_to_dir',
-            blockType: 'command',
-            text: "Turn [DEGREE] degrees towards direction [DIR]",
-            arguments: {
-              DEGREE: {
-                type: Scratch.ArgumentType.STRING,
-                defaultValue: 45,
-              },
-              DIR: {
-                type: Scratch.ArgumentType.ANGLE,
-                defaultValue: 10,
-              },
-            },
-            filter: ['sprite']
-          },
-          {
             opcode: 'turn_degrees_away_dir',
             blockType: 'command',
-            text: "Turn [DEGREE] degrees away from direction [DIR]",
+            text: "Turn [SPRITE] [DEGREE] degrees [DIRECTION] from direction [DIR]",
             arguments: {
               DEGREE: {
                 type: Scratch.ArgumentType.STRING,
@@ -233,14 +217,22 @@ class ReMotion {
                 type: Scratch.ArgumentType.ANGLE,
                 defaultValue: 10,
               },
+              SPRITE: {
+                type: Scratch.ArgumentType.STRING,
+                menu: 'sprites',
+              },
+              DIRECTION: {
+                type: Scratch.ArgumentType.STRING,
+                menu: 'towards_away',
+              },
             },
             filter: ['sprite']
           },
-          "---",
+          "---" + "🏃 Move",
           {
             opcode: 'move_towards_or_away',
             blockType: Scratch.BlockType.COMMAND,
-            text: 'Move [STEPS] steps [DIRECTION] x: [X] y: [Y]',
+            text: 'Move [SPRITE] [STEPS] steps [DIRECTION] x: [X] y: [Y]',
             arguments: {
               STEPS: {
                 type: Scratch.ArgumentType.NUMBER,
@@ -258,12 +250,16 @@ class ReMotion {
                 type: Scratch.ArgumentType.NUMBER,
                 defaultValue: '0'
               },
+              SPRITE: {
+                type: Scratch.ArgumentType.STRING,
+                menu: 'sprites',
+              },
             },
           },
           {
             opcode: 'move_towards_or_away_from_sprite',
             blockType: Scratch.BlockType.COMMAND,
-            text: 'Move [STEPS] steps [DIRECTION] [SPRITE]',
+            text: 'Move [THIS_SPRITE] [STEPS] steps [DIRECTION] [SPRITE]',
             arguments: {
               STEPS: {
                 type: Scratch.ArgumentType.NUMBER,
@@ -277,13 +273,17 @@ class ReMotion {
                 type: Scratch.ArgumentType.STRING,
                 menu: 'sprites',
               },
+              THIS_SPRITE: {
+                type: Scratch.ArgumentType.STRING,
+                menu: 'sprites',
+              },
             },
           },
-          "---",
+          "---" + "📏 Distance",
           {
             opcode: 'distance_to',
             blockType: Scratch.BlockType.REPORTER,
-            text: 'Distance to x: [X] y: [Y]',
+            text: 'Distance [SPRITE] to x: [X] y: [Y]',
             arguments: {
               X: {
                 type: Scratch.ArgumentType.NUMBER,
@@ -292,6 +292,10 @@ class ReMotion {
               Y: {
                 type: Scratch.ArgumentType.NUMBER,
                 defaultValue: '0'
+              },
+              SPRITE: {
+                type: Scratch.ArgumentType.STRING,
+                menu: 'sprites',
               },
             },
           },
@@ -318,11 +322,11 @@ class ReMotion {
               },
             },
           },
-          "---",
+          "---" + "⛷️ Glide",
           {
             opcode: "betterGlide",
             blockType: Scratch.BlockType.COMMAND,
-            text: "Glide [NAME] [SECS] secs to x: [X] y: [Y]",
+            text: "Glide [NAME] [SECS] secs [DIRECTION] x: [X] y: [Y]",
             filter: ['sprite'],
             arguments: {
               X: {
@@ -340,13 +344,17 @@ class ReMotion {
               NAME: {
                 type: Scratch.ArgumentType.STRING,
                 menu: "sprites",
-              }
+              },
+              DIRECTION: {
+                type: Scratch.ArgumentType.STRING,
+                menu: 'towards_away',
+              },
             }
           },
           {
             opcode: "whileGlide",
             blockType: Scratch.BlockType.LOOP,
-            text: "While gliding [NAME] [SECS] secs to x: [X] y: [Y] run",
+            text: "While gliding [NAME] [SECS] secs [DIRECTION] x: [X] y: [Y] run",
             filter: ['sprite'],
             arguments: {
               X: {
@@ -364,7 +372,11 @@ class ReMotion {
               NAME: {
                 type: Scratch.ArgumentType.STRING,
                 menu: "sprites",
-              }
+              },
+              DIRECTION: {
+                type: Scratch.ArgumentType.STRING,
+                menu: 'towards_away',
+              },
             }
           },
         ],
@@ -499,34 +511,22 @@ class ReMotion {
       return find_direction_to(X, Y, util.target.x, util.target.y)
     }
 
-    turn_degrees_to_dir({DEGREE, DIR}, util) {
+    turn_degrees_away_dir({DEGREE, DIR, SPRITE, DIRECTION}, util) {
       const degree = Cast.toNumber(DEGREE);
-      const dir = Cast.toNumber(DIR);
-      const dif = differenceBetweenDirections({A: util.target.direction, B: dir});
+      const dir = Cast.toNumber(DIR) + DIRECTION;
+      const dif = differenceBetweenDirections({A: SPRITE.target.direction, B: dir});
       if(Math.abs(dif) < degree) 
-        util.target.setDirection(dir);
+        SPRITE.target.setDirection(dir);
       else if(dif < 0)
-        util.target.setDirection(util.target.direction - degree);
+        SPRITE.target.setDirection(util.target.direction - degree);
       else
-        util.target.setDirection(util.target.direction + degree);
-    }
-
-    turn_degrees_away_dir({DEGREE, DIR}, util) {
-      const degree = Cast.toNumber(DEGREE);
-      const dir = Cast.toNumber(DIR) + 180;
-      const dif = differenceBetweenDirections({A: util.target.direction, B: dir});
-      if(Math.abs(dif) < degree) 
-        util.target.setDirection(dir);
-      else if(dif < 0)
-        util.target.setDirection(util.target.direction - degree);
-      else
-        util.target.setDirection(util.target.direction + degree);
+        SPRITE.target.setDirection(util.target.direction + degree);
     }
   
-    move_towards_or_away({STEPS, DIRECTION, X, Y}, util) {
+    move_towards_or_away({STEPS, DIRECTION, X, Y, SPRITE}, util) {
       // Calculate the difference between the target and destination points
-      let dx = X - util.target.x;
-      let dy = Y - util.target.y;
+      let dx = X - SPRITE.target.x;
+      let dy = Y - SPRITE.target.y;
   
       // Calculate the distance between the two points
       let distance = Math.sqrt(dx * dx + dy * dy);
@@ -538,18 +538,18 @@ class ReMotion {
       // Move the target point towards or away from the destination point by the specified amount
       let x = util.target.x + DIRECTION * dx * STEPS;
       let y = util.target.y + DIRECTION * dy * STEPS;
-      util.target.setXY(x, y)
+      SPRITE.target.setXY(x, y)
     }
   
-    move_towards_or_away_from_sprite({STEPS, DIRECTION, SPRITE}, util) {
+    move_towards_or_away_from_sprite({STEPS, DIRECTION, SPRITE, THIS_SPRITE}, util) {
       if (SPRITE != util.target.getName()) {
         SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
         let X = SPRITE.x
         let Y = SPRITE.y
     
         // Calculate the difference between the target and destination points
-        let dx = X - util.target.x;
-        let dy = Y - util.target.y;
+        let dx = X - THIS_SPRITE.target.x;
+        let dy = Y - THIS_SPRITE.target.y;
     
         // Calculate the distance between the two points
         let distance = Math.sqrt(dx * dx + dy * dy);
@@ -561,14 +561,14 @@ class ReMotion {
         // Move the target point towards or away from the destination point by the specified amount
         let x = util.target.x + DIRECTION * dx * STEPS;
         let y = util.target.y + DIRECTION * dy * STEPS;
-        util.target.setXY(x, y)
+        THIS_SPRITE.target.setXY(x, y)
       } else {
         console.error("Sprite cannot move towards/away fron itself");
       }
     }
   
-    distance_to({X, Y}, util) {
-      return find_distance_to(X, Y, util.target.x, util.target.y)
+    distance_to({X, Y, SPRITE}, util) {
+      return find_distance_to(X, Y, SPRITE.target.x, SPRITE.target.y)
     }
   
     distance_from_to({X1, Y1, X2, Y2}) {
@@ -580,8 +580,8 @@ class ReMotion {
       if (!util.stackFrame.startTime) {
         util.stackFrame.startTime = new Date().getTime();
         util.stackFrame.duration = Cast.toNumber(args.SECS);
-        util.stackFrame.startX = target.x;
-        util.stackFrame.startY = target.y;
+        util.stackFrame.startX = target.x + args.DIRECTION;
+        util.stackFrame.startY = target.y + args.DIRECTION;
         util.stackFrame.endX = Cast.toNumber(args.X);
         util.stackFrame.endY = Cast.toNumber(args.Y);
         if (util.stackFrame.duration <= 0) {
@@ -615,10 +615,13 @@ class ReMotion {
       }
     }
 
-    whileGlide(args, util) { this.betterGlide(args, util, "on") }
+    whileGlide(args, util) { 
+      this.betterGlide(args, util, "on") 
+    }
   
     _getTargets() {
       const spriteNames = [];
+      spriteNames.push({ text: "myself", value: "_myself_" });
       const targets = this.runtime.targets;
       for (let index = 1; index < targets.length; index++) {
           const target = targets[index];
