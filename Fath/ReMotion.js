@@ -56,7 +56,7 @@ class ReMotion {
           {
             opcode: 'rotate_around',
             blockType: Scratch.BlockType.COMMAND,
-            text: 'Rotate around x: [X] y: [Y] by [STEPS] steps [ROTATE_DIRECTION]',
+            text: 'Rotate [SPRITE] around x: [X] y: [Y] by [STEPS] steps [ROTATE_DIRECTION]',
             arguments: {
               X: {
                 type: Scratch.ArgumentType.NUMBER,
@@ -74,13 +74,21 @@ class ReMotion {
                 type: Scratch.ArgumentType.NUMBER,
                 menu: 'ROTATE_DIRECTION',
               },
+              SPRITE: {
+                type: Scratch.ArgumentType.STRING,
+                menu: 'sprites',
+              },
             },
           },
           {
             opcode: 'rotate_around_sprite',
             blockType: Scratch.BlockType.COMMAND,
-            text: 'Rotate around [SPRITE] by [STEPS] steps [ROTATE_DIRECTION]',
+            text: 'Rotate [THIS_SPRITE] around [SPRITE] by [STEPS] steps [ROTATE_DIRECTION]',
             arguments: {
+              THIS_SPRITE: {
+                type: Scratch.ArgumentType.STRING,
+                menu: 'sprites',
+              },
               SPRITE: {
                 type: Scratch.ArgumentType.STRING,
                 menu: 'sprites',
@@ -99,8 +107,12 @@ class ReMotion {
           {
             opcode: 'rotate_in_shapes',
             blockType: Scratch.BlockType.COMMAND,
-            text: 'Rotate in [SHAPE] formation around x: [X] y: [Y] [ROTATE_DIRECTION]',
+            text: 'Rotate [SPRITE] in [SHAPE] formation around x: [X] y: [Y] [ROTATE_DIRECTION]',
             arguments: {
+              SPRITE: {
+                type: Scratch.ArgumentType.STRING,
+                menu: 'sprites',
+              },
               X: {
                 type: Scratch.ArgumentType.NUMBER,
                 defaultValue: '0'
@@ -122,8 +134,12 @@ class ReMotion {
           {
             opcode: 'rotate_around_sprite_in_shapes',
             blockType: Scratch.BlockType.COMMAND,
-            text: 'Rotate around [SPRITE] in [SHAPE] formation [ROTATE_DIRECTION]',
+            text: 'Rotate [THIS_SPRITE] around [SPRITE] in [SHAPE] formation [ROTATE_DIRECTION]',
             arguments: {
+              THIS_SPRITE: {
+                type: Scratch.ArgumentType.STRING,
+                menu: 'sprites',
+              },
               SPRITE: {
                 type: Scratch.ArgumentType.STRING,
                 menu: 'sprites',
@@ -207,8 +223,12 @@ class ReMotion {
           {
             opcode: 'direction_to_sprite',
             blockType: Scratch.BlockType.REPORTER,
-            text: 'Direction to [SPRITE]',
+            text: 'Direction [THIS_SPRITE]to [SPRITE]',
             arguments: {
+              THIS_SPRITE: {
+                type: Scratch.ArgumentType.STRING,
+                menu: 'sprites',
+              },
               SPRITE: {
                 type: Scratch.ArgumentType.STRING,
                 menu: 'sprites',
@@ -217,7 +237,7 @@ class ReMotion {
           }, 
           "---",
           {
-            opcode: 'turn_degrees_away_dir',
+            opcode: 'turn_degrees_towards_or_away_dir',
             blockType: 'command',
             text: "Turn [SPRITE] [DEGREE] degrees [DIRECTION] from direction [DIR]",
             arguments: {
@@ -456,50 +476,52 @@ class ReMotion {
       };
     }
   
-    rotate_around({X, Y, STEPS, ROTATE_DIRECTION}, util) {
+    rotate_around({X, Y, STEPS, ROTATE_DIRECTION, SPRITE}, util) {
+      SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
       //Convert the angle to radians so sprite will rotate in circle
       let radians = STEPS * (Math.PI / 180)
       //Set the rotation direction to either CLOCKWISE: -1 or COUNTER-CLOCKWISE: 1
       radians = radians * ROTATE_DIRECTION
   
       // Use the rotatePoint(x1, y1, x2, y2, theta) function
-      let newPos = rotatePoint(util.target.x, util.target.y, X, Y, radians);
+      let newPos = rotatePoint(SPRITE.x, SPRITE.y, X, Y, radians);
   
       //Set the sprite's position to the new positions
       util.target.setXY(newPos[0], newPos[1]);
     }
   
-    rotate_around_sprite({SPRITE, STEPS, ROTATE_DIRECTION}, util) {
+    rotate_around_sprite({THIS_SPRITE, SPRITE, STEPS, ROTATE_DIRECTION}, util) {
       // get target sprite's target
       SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
   
       // Get target sprite's X and Y
       let X = SPRITE.x
       let Y = SPRITE.y
-  
+
       //Use the rotate_around block
-      this.rotate_around({X, Y, STEPS, ROTATE_DIRECTION}, util)
+      this.rotate_around({X, Y, STEPS, ROTATE_DIRECTION, THIS_SPRITE}, util)
     }
   
-    rotate_in_shapes({X, Y, ROTATE_DIRECTION, SHAPE}, util) {
+    rotate_in_shapes({SPRITE, X, Y, ROTATE_DIRECTION, SHAPE}, util) {
+      SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
       // Set the rotation direction
       let radians = SHAPE * ROTATE_DIRECTION
   
       // Use the rotatePoint(x1, y1, x2, y2, theta) function
       // This one DOESN'T use rotate_around() block because rotate around have a radians for circles
-      let newPos = rotatePoint(util.target.x, util.target.y, X, Y, radians);
+      let newPos = rotatePoint(SPRITE.x, SPRITE.y, X, Y, radians);
   
       util.target.setXY(newPos[0], newPos[1]);
     }
   
-    rotate_around_sprite_in_shapes({SPRITE, ROTATE_DIRECTION, SHAPE}, util) {
+    rotate_around_sprite_in_shapes({THIS_SPRITE, SPRITE, ROTATE_DIRECTION, SHAPE}, util) {
       SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
   
       let X = SPRITE.x
       let Y = SPRITE.y
       
       // use the rotate_in_shapes() block
-      this.rotate_in_shapes({X, Y, ROTATE_DIRECTION, SHAPE}, util)
+      this.rotate_in_shapes({THIS_SPRITE, X, Y, ROTATE_DIRECTION, SHAPE}, util)
     }
   
     point_towards_pos({X, Y, SPRITE, DIRECTION}, util) {
@@ -517,18 +539,19 @@ class ReMotion {
       return find_direction_to(X1, Y1, X2, Y2)
     }
   
-    direction_to_sprite({SPRITE}, util) {
+    direction_to_sprite({THIS_SPRITE, SPRITE}, util) {
       SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
       let X = SPRITE.x
       let Y = SPRITE.y
-  
-      return find_direction_to(X, Y, util.target.x, util.target.y)
+
+      THIS_SPRITE = this.runtime.getSpriteTargetByName(THIS_SPRITE)
+      return find_direction_to(X, Y, THIS_SPRITE.x, THIS_SPRITE.y)
     }
 
-    turn_degrees_away_dir({DEGREE, DIR, SPRITE, DIRECTION}, util) {
+    turn_degrees_towards_or_away_dir({DEGREE, DIR, SPRITE, DIRECTION}, util) {
       SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
       const degree = Cast.toNumber(DEGREE);
-      const dir = Cast.toNumber(DIR) + DIRECTION;
+      const dir = Cast.toNumber(DIR) * DIRECTION;
       const dif = differenceBetweenDirections({A: SPRITE.direction, B: dir});
       if(Math.abs(dif) < degree) 
         SPRITE.setDirection(dir);
@@ -558,7 +581,7 @@ class ReMotion {
     }
   
     move_towards_or_away_from_sprite({STEPS, DIRECTION, SPRITE, THIS_SPRITE}, util) {
-      if (SPRITE != util.target.getName()) {
+      if (SPRITE != THIS_SPRITE.getName()) {
         SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
         let X = SPRITE.x
         let Y = SPRITE.y
