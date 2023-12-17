@@ -30,6 +30,15 @@ function rotatePoint(px, py, cx, cy, theta) {
   return [newX, newY];
 }
 
+function differenceBetweenDirections({A,B}) {
+  const a = Cast.toNumber(A)
+  const b = Cast.toNumber(B)
+  let dif = b - a
+  dif -= Math.round(dif / 360) * 360
+  if (dif === -180) dif = 180
+  return dif
+}
+
 
 class ReMotion {
   constructor(runtime){
@@ -444,7 +453,7 @@ class ReMotion {
     turn_degrees_to_dir({DEGREE, DIR}, util) {
       const degree = Cast.toNumber(DEGREE);
       const dir = Cast.toNumber(DIR);
-      const dif = this.differenceBetweenDirections({a: util.target.direction, b: dir});
+      const dif = differenceBetweenDirections({A: util.target.direction, B: dir});
       if(Math.abs(dif) < degree) 
         util.target.setDirection(dir);
       else if(dif < 0)
@@ -456,7 +465,7 @@ class ReMotion {
     turn_degrees_away_dir({DEGREE, DIR}, util) {
       const degree = Cast.toNumber(DEGREE);
       const dir = Cast.toNumber(DIR);
-      const dif = this.differenceBetweenDirections({a: util.target.direction, b: dir});
+      const dif = differenceBetweenDirections({A: util.target.direction, B: dir});
       if(Math.abs(dif) < degree) 
         util.target.setDirection(dir);
       else if(dif < 0)
