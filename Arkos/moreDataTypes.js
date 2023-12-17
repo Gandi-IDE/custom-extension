@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-param-reassign */
 const { Scratch } = window;
@@ -77,7 +78,7 @@ class moreDataTypes {
         'Nested Object Feature: Enabled',
       ],
       'confirm.enableNesting?': [
-        '确定要开启对象嵌套？\n开启后，将允许对象里嵌套对象，同时将允许圆形积木返回复杂数据类型(如列表、对象)。\n🚨警告：带有“⚠️”标识的积木表示有可能返回复杂数据类型（如列表、对象），这些类型切记不能存入原版Scratch变量、列表里，否则将作品无法打开！！\n',
+        '确定要开启对象嵌套？\n\n开启后，将允许对象里嵌套对象，同时将允许圆形积木返回复杂数据类型(如列表、对象)。\n\n🚨警告：带有“⚠️”标识的积木表示有可能返回复杂数据类型（如列表、对象），这些类型切记不能存入原版Scratch变量、列表里，否则将作品无法打开！！\n',
         'Are you sure you want to enable nested objects?\n\nEnabling this option will allow nesting objects within other objects, and it will also permit reporter blocks to return complex data types (such as lists and objects).\n\n🚨Warning: Blocks marked with "⚠️" may potentially return complex data types (e.g., lists, objects). Remember not to store these types in original Scratch variables or lists, as it may render the project unopenable!!',
       ],
 
@@ -994,7 +995,7 @@ class moreDataTypes {
     // SC里这两个值返回空内容
     if (value === null || value === undefined) return '';
     // 开启嵌套时直接返回
-    if (this.enableNesting) return '';
+    if (this.enableNesting) return value;
 
     if (typeof value === 'object') {
       return JSON.stringify(value);
