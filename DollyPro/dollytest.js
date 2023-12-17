@@ -1962,7 +1962,7 @@ class dollyProExtension {
    * （如果之前没有劫持）劫持obj对象的方法
    * @param {*} obj
    * @param {string} funName 方法名
-   * @param {Function} newFun 注入的方法
+   * @param {Function} newFun 注入的方法(形如(origFun, 其他参数)=>{...})
    */
   tryHackedFunction(obj, funName, newFun) {
     if (!obj.dollyProOrigFun) {
@@ -1971,6 +1971,7 @@ class dollyProExtension {
     }
     if (!obj.dollyProOrigFun[funName]) {
       // 记录原函数
+      // eslint-disable-next-line no-param-reassign
       obj.dollyProOrigFun[funName] = obj[funName];
     }
     const origFun = obj.dollyProOrigFun[funName];
@@ -2805,10 +2806,10 @@ class dollyProExtension {
   importArrayIntoScratchList(array, OP, LIST, util) {
     if (LIST === 'empty') return;
     let list = util.target.lookupVariableById(LIST);
-    if (!list) return;
-    list = util.target.lookupVariableByNameAndType(LIST, 'list');
-    if (!list) return;
-
+    if (!list) {
+      list = util.target.lookupVariableByNameAndType(LIST, 'list');
+      if (!list) return;
+    }
     if (OP === 'replace') {
       if (array) {
         list.value = [...array];
