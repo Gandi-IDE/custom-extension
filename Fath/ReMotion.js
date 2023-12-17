@@ -319,10 +319,11 @@ class ReMotion {
             },
           },
           "---",
+          /*
           {
             opcode: "betterGlide",
             blockType: Scratch.BlockType.COMMAND,
-            text: "[NOT WORKING]glide [NAME] [SECS] secs to x: [X] y: [Y]",
+            text: "(NOT WORKING)glide [NAME] [SECS] secs to x: [X] y: [Y]",
             filter: ['sprite'],
             arguments: {
               X: {
@@ -346,7 +347,7 @@ class ReMotion {
           {
             opcode: "whileGlide",
             blockType: Scratch.BlockType.LOOP,
-            text: "[NOT WORKING]while gliding [NAME] [SECS] secs to x: [X] y: [Y] run",
+            text: "(NOT WORKING)while gliding [NAME] [SECS] secs to x: [X] y: [Y] run",
             filter: ['sprite'],
             arguments: {
               X: {
@@ -367,6 +368,7 @@ class ReMotion {
               }
             }
           },
+          */
         ],
         menus: {
           sprites: {
