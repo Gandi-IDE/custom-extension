@@ -620,7 +620,7 @@ class ReMotion {
     _getTargets(enable) {
       const spriteNames = [];
       if (enable) spriteNames.push({ text: "myself", value: "_myself_" });
-      const targets = Scratch.vm.runtime.targets;
+      const targets = this.runtime.targets;
       for (let index = 1; index < targets.length; index++) {
         const target = targets[index];
         if (target.isOriginal) {
