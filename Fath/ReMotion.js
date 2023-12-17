@@ -371,7 +371,7 @@ class ReMotion {
         menus: {
           sprites: {
             acceptReporters: true,
-            items: '_getTargets(false)'
+            items: '_getTargets()'
           },
           ROTATE_DIRECTION: {
             acceptReporters: true,
