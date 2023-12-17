@@ -496,7 +496,7 @@ class ReMotion {
       radians = radians * ROTATE_DIRECTION
   
       // Use the rotatePoint(x1, y1, x2, y2, theta) function
-      let newPos = rotatePoint(SPRITE.x, SPRITE.y, X, Y, radians);
+      let newPos = rotatePoint(SPRITE._x, SPRITE._y, X, Y, radians);
   
       //Set the sprite's position to the new positions
       SPRITE.setXY(newPos[0], newPos[1]);
