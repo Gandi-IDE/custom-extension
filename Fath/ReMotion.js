@@ -500,7 +500,6 @@ class ReMotion {
   
       //Set the sprite's position to the new positions
       SPRITE.setXY(newPos[0], newPos[1]);
-      console.log(newPos)
     }
   
     rotate_around_sprite({THIS_SPRITE, SPRITE, STEPS, ROTATE_DIRECTION}, util) {
@@ -515,6 +514,7 @@ class ReMotion {
 
       //Use the rotate_around block
       this.rotate_around({X, Y, STEPS, ROTATE_DIRECTION, THIS_SPRITE}, util)
+      console.log(SPRITE)
     }
   
     rotate_in_shapes({SPRITE, X, Y, ROTATE_DIRECTION, SHAPE}, util) {
