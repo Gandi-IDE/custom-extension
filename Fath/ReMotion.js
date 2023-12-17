@@ -619,20 +619,21 @@ class ReMotion {
     whileGlide(args, util) { this.betterGlide(args, util, "on") }
     */
   
-    _getTargets(enable) {
+    _getTargets() {
       const spriteNames = [];
-      if (enable) spriteNames.push({ text: "myself", value: "_myself_" });
       const targets = this.runtime.targets;
       for (let index = 1; index < targets.length; index++) {
-        const target = targets[index];
-        if (target.isOriginal) {
-          const targetName = target.getName();
-          spriteNames.push({ text: targetName, value: targetName });
-        }
+          const target = targets[index];
+          if (target.isOriginal) {
+              const targetName = target.getName();
+              spriteNames.push({
+                  text: targetName,
+                  value: targetName,
+              });
+          }
       }
       return spriteNames.length > 0 ? spriteNames : [""];
     }
-
 }
 
 window.tempExt = {
