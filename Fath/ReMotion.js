@@ -505,7 +505,7 @@ class ReMotion {
     point_towards_pos({X, Y, SPRITE, DIRECTION}, util) {
       SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
       //Set the sprite's direction using the find_direction_to() function
-      SPRITE.setDirection(find_direction_to(X, Y, SPRITE.x * DIRECTION, SPRITE.y * DIRECTION));
+      SPRITE.setDirection(find_direction_to(X, Y, SPRITE.x * (0 - DIRECTION), SPRITE.y * (0 - DIRECTION)));
     }
   
     direction_to({X, Y, SPRITE}, util) {
