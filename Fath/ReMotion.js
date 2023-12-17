@@ -505,7 +505,7 @@ class ReMotion {
     point_towards_pos({X, Y, SPRITE, DIRECTION}, util) {
       SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
       //Set the sprite's direction using the find_direction_to() function
-      util.target.setDirection(find_direction_to(X, Y, SPRITE.x * DIRECTION, SPRITE.y * DIRECTION));
+      SPRITE.setDirection(find_direction_to(X, Y, SPRITE.x * DIRECTION, SPRITE.y * DIRECTION));
     }
   
     direction_to({X, Y, SPRITE}, util) {
@@ -531,11 +531,11 @@ class ReMotion {
       const dir = Cast.toNumber(DIR) + DIRECTION;
       const dif = differenceBetweenDirections({A: SPRITE.direction, B: dir});
       if(Math.abs(dif) < degree) 
-        SPRITE.target.setDirection(dir);
+        SPRITE.setDirection(dir);
       else if(dif < 0)
-        SPRITE.setDirection(util.target.direction - degree);
+        SPRITE.setDirection(SPRITE.direction - degree);
       else
-        SPRITE.setDirection(util.target.direction + degree);
+        SPRITE.setDirection(SPRITE.direction + degree);
     }
   
     move_towards_or_away({STEPS, DIRECTION, X, Y, SPRITE}, util) {
