@@ -323,7 +323,7 @@ class ReMotion {
             opcode: "betterGlide",
             blockType: Scratch.BlockType.COMMAND,
             text: "glide [NAME] [SECS] secs to x: [X] y: [Y]",
-            filter: [Scratch.TargetType.SPRITE],
+            filter: ['sprite'],
             arguments: {
               X: {
                 type: Scratch.ArgumentType.NUMBER,
@@ -347,7 +347,7 @@ class ReMotion {
             opcode: "whileGlide",
             blockType: Scratch.BlockType.LOOP,
             text: "while gliding [NAME] [SECS] secs to x: [X] y: [Y] run",
-            filter: [Scratch.TargetType.SPRITE],
+            filter: ['sprite'],
             arguments: {
               X: {
                 type: Scratch.ArgumentType.NUMBER,
