@@ -142,7 +142,7 @@ class ReMotion {
           {
             opcode: 'point_towards_pos',
             blockType: Scratch.BlockType.COMMAND,
-            text: 'Point towards x: [X] y: [Y]',
+            text: 'Point [SPRITE] [DIRECTION] x: [X] y: [Y]',
             arguments: {
               X: {
                 type: Scratch.ArgumentType.NUMBER,
@@ -151,13 +151,21 @@ class ReMotion {
               Y: {
                 type: Scratch.ArgumentType.NUMBER,
                 defaultValue: '0'
+              },
+              SPRITE: {
+                type: Scratch.ArgumentType.STRING,
+                menu: 'sprites',
+              },
+              DIRECTION: {
+                type: Scratch.ArgumentType.STRING,
+                menu: 'towards_away',
               },
             },
           },
           {
             opcode: 'direction_to',
             blockType: Scratch.BlockType.REPORTER,
-            text: 'Direction to x: [X] y: [Y]',
+            text: 'Direction [SPRITE] to x: [X] y: [Y]',
             arguments: {
               X: {
                 type: Scratch.ArgumentType.NUMBER,
@@ -166,6 +174,10 @@ class ReMotion {
               Y: {
                 type: Scratch.ArgumentType.NUMBER,
                 defaultValue: '0'
+              },
+              SPRITE: {
+                type: Scratch.ArgumentType.STRING,
+                menu: 'sprites',
               },
             },
           },
@@ -490,13 +502,15 @@ class ReMotion {
       this.rotate_in_shapes({X, Y, ROTATE_DIRECTION, SHAPE}, util)
     }
   
-    point_towards_pos({X, Y}, util) {
+    point_towards_pos({X, Y, SPRITE, DIRECTION}, util) {
+      SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
       //Set the sprite's direction using the find_direction_to() function
-      util.target.setDirection(find_direction_to(X, Y, util.target.x, util.target.y));
+      util.target.setDirection(find_direction_to(X, Y, SPRITE.target.x * DIRECTION, SPRITE.target.y * DIRECTION));
     }
   
-    direction_to({X, Y}, util) {
-      return find_direction_to(X, Y, util.target.x, util.target.y)
+    direction_to({X, Y, SPRITE}, util) {
+      SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
+      return find_direction_to(X, Y, SPRITE.target.x, SPRITE.target.y)
     }
   
     direction_from_to({X1, Y1, X2, Y2}) {
@@ -512,6 +526,7 @@ class ReMotion {
     }
 
     turn_degrees_away_dir({DEGREE, DIR, SPRITE, DIRECTION}, util) {
+      SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
       const degree = Cast.toNumber(DEGREE);
       const dir = Cast.toNumber(DIR) + DIRECTION;
       const dif = differenceBetweenDirections({A: SPRITE.target.direction, B: dir});
@@ -525,6 +540,7 @@ class ReMotion {
   
     move_towards_or_away({STEPS, DIRECTION, X, Y, SPRITE}, util) {
       // Calculate the difference between the target and destination points
+      SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
       let dx = X - SPRITE.target.x;
       let dy = Y - SPRITE.target.y;
   
@@ -548,6 +564,7 @@ class ReMotion {
         let Y = SPRITE.y
     
         // Calculate the difference between the target and destination points
+        THIS_SPRITE = this.runtime.getSpriteTargetByName(THIS_SPRITE)
         let dx = X - THIS_SPRITE.target.x;
         let dy = Y - THIS_SPRITE.target.y;
     
@@ -568,6 +585,7 @@ class ReMotion {
     }
   
     distance_to({X, Y, SPRITE}, util) {
+      SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
       return find_distance_to(X, Y, SPRITE.target.x, SPRITE.target.y)
     }
   
