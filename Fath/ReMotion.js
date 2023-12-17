@@ -67,7 +67,7 @@ class ReMotion {
                 defaultValue: '0'
               },
               STEPS: {
-                type: Scratch.ArgumentType.STRING,
+                type: Scratch.ArgumentType.NUMBER,
                 defaultValue: '10'
               },
               ROTATE_DIRECTION: {
@@ -94,7 +94,7 @@ class ReMotion {
                 menu: 'sprites',
               },
               STEPS: {
-                type: Scratch.ArgumentType.STRING,
+                type: Scratch.ArgumentType.NUMBER,
                 defaultValue: '10'
               },
               ROTATE_DIRECTION: {
@@ -126,7 +126,7 @@ class ReMotion {
                 menu: 'ROTATE_DIRECTION',
               },
               SHAPE: {
-                type: Scratch.ArgumentType.STRING,
+                type: Scratch.ArgumentType.NUMBER,
                 menu: 'SHAPES',
               },
             },
@@ -173,7 +173,7 @@ class ReMotion {
                 menu: 'sprites',
               },
               DIRECTION: {
-                type: Scratch.ArgumentType.STRING,
+                type: Scratch.ArgumentType.NUMBER,
                 menu: 'towards_away',
               },
             },
@@ -196,7 +196,7 @@ class ReMotion {
                 menu: 'sprites',
               },
               DIRECTION: {
-                type: Scratch.ArgumentType.STRING,
+                type: Scratch.ArgumentType.NUMBER,
                 menu: 'towards_away',
               },
             },
@@ -223,7 +223,7 @@ class ReMotion {
                 defaultValue: '100'
               },
               DIRECTION: {
-                type: Scratch.ArgumentType.STRING,
+                type: Scratch.ArgumentType.NUMBER,
                 menu: 'towards_away',
               },
             },
@@ -242,7 +242,7 @@ class ReMotion {
                 menu: 'sprites',
               },
               DIRECTION: {
-                type: Scratch.ArgumentType.STRING,
+                type: Scratch.ArgumentType.NUMBER,
                 menu: 'towards_away',
               },
             },
@@ -254,7 +254,7 @@ class ReMotion {
             text: "Turn [SPRITE] [DEGREE] degrees [DIRECTION] from direction [DIR]",
             arguments: {
               DEGREE: {
-                type: Scratch.ArgumentType.STRING,
+                type: Scratch.ArgumentType.NUMBER,
                 defaultValue: 45,
               },
               DIR: {
@@ -266,7 +266,7 @@ class ReMotion {
                 menu: 'sprites',
               },
               DIRECTION: {
-                type: Scratch.ArgumentType.STRING,
+                type: Scratch.ArgumentType.NUMBER,
                 menu: 'towards_away',
               },
             },
@@ -283,7 +283,7 @@ class ReMotion {
                 defaultValue: '10'
               },
               DIRECTION: {
-                type: Scratch.ArgumentType.STRING,
+                type: Scratch.ArgumentType.NUMBER,
                 menu: 'towards_away',
               },
               X: {
@@ -310,7 +310,7 @@ class ReMotion {
                 defaultValue: '10'
               },
               DIRECTION: {
-                type: Scratch.ArgumentType.STRING,
+                type: Scratch.ArgumentType.NUMBER,
                 menu: 'towards_away',
               },
               SPRITE: {
@@ -390,7 +390,7 @@ class ReMotion {
                 menu: "sprites",
               },
               DIRECTION: {
-                type: Scratch.ArgumentType.STRING,
+                type: Scratch.ArgumentType.NUMBER,
                 menu: 'towards_away',
               },
             }
@@ -418,7 +418,7 @@ class ReMotion {
                 menu: "sprites",
               },
               DIRECTION: {
-                type: Scratch.ArgumentType.STRING,
+                type: Scratch.ArgumentType.NUMBER,
                 menu: 'towards_away',
               },
             }
@@ -499,7 +499,7 @@ class ReMotion {
       let newPos = rotatePoint(SPRITE.x, SPRITE.y, X, Y, radians);
   
       //Set the sprite's position to the new positions
-      util.target.setXY(newPos[0], newPos[1]);
+      SPRITE.setXY(newPos[0], newPos[1]);
     }
   
     rotate_around_sprite({THIS_SPRITE, SPRITE, STEPS, ROTATE_DIRECTION}, util) {
@@ -509,6 +509,8 @@ class ReMotion {
       // Get target sprite's X and Y
       let X = SPRITE.x
       let Y = SPRITE.y
+
+      THIS_SPRITE = this.runtime.getSpriteTargetByName(THIS_SPRITE)
 
       //Use the rotate_around block
       this.rotate_around({X, Y, STEPS, ROTATE_DIRECTION, THIS_SPRITE}, util)
@@ -563,7 +565,7 @@ class ReMotion {
     turn_degrees_towards_or_away_dir({DEGREE, DIR, SPRITE, DIRECTION}, util) {
       SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
       const degree = Cast.toNumber(DEGREE);
-      const dir = Cast.toNumber(DIR) * DIRECTION;
+      const dir = Cast.toNumber(DIR) + DIRECTION == -1 ? 0 : 180;
       const dif = differenceBetweenDirections({A: SPRITE.direction, B: dir});
       if(Math.abs(dif) < degree) 
         SPRITE.setDirection(dir);
@@ -587,19 +589,19 @@ class ReMotion {
       dy /= distance;
   
       // Move the target point towards or away from the destination point by the specified amount
-      let x = util.target.x + DIRECTION * dx * STEPS;
-      let y = util.target.y + DIRECTION * dy * STEPS;
-      SPRITE.setXY(x, y)
+      let x = util.target.x + DIRECTION * -1 * dx * STEPS;
+      let y = util.target.y + DIRECTION * -1 * dy * STEPS;
+      SPRITE.setXY(x%X, y%Y)
     }
   
     move_towards_or_away_from_sprite({STEPS, DIRECTION, SPRITE, THIS_SPRITE}, util) {
+      THIS_SPRITE = this.runtime.getSpriteTargetByName(THIS_SPRITE)
       if (SPRITE != THIS_SPRITE.getName()) {
         SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
         let X = SPRITE.x
         let Y = SPRITE.y
     
         // Calculate the difference between the target and destination points
-        THIS_SPRITE = this.runtime.getSpriteTargetByName(THIS_SPRITE)
         let dx = X - THIS_SPRITE.x;
         let dy = Y - THIS_SPRITE.y;
     
@@ -629,7 +631,7 @@ class ReMotion {
     }
 
     betterGlide(args, util, loop) {
-      const target = args.NAME === "_myself_" ? util.target : this.runtime.getSpriteTargetByName(args.NAME);
+      const target = this.runtime.getSpriteTargetByName(args.NAME);
       if (!util.stackFrame.startTime) {
         util.stackFrame.startTime = new Date().getTime();
         util.stackFrame.duration = Cast.toNumber(args.SECS);
