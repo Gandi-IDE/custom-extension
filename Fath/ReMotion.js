@@ -322,7 +322,7 @@ class ReMotion {
           {
             opcode: "betterGlide",
             blockType: Scratch.BlockType.COMMAND,
-            text: "glide [NAME] [SECS] secs to x: [X] y: [Y]",
+            text: "[NOT WORKING]glide [NAME] [SECS] secs to x: [X] y: [Y]",
             filter: ['sprite'],
             arguments: {
               X: {
@@ -346,7 +346,7 @@ class ReMotion {
           {
             opcode: "whileGlide",
             blockType: Scratch.BlockType.LOOP,
-            text: "while gliding [NAME] [SECS] secs to x: [X] y: [Y] run",
+            text: "[NOT WORKING]while gliding [NAME] [SECS] secs to x: [X] y: [Y] run",
             filter: ['sprite'],
             arguments: {
               X: {
@@ -575,6 +575,7 @@ class ReMotion {
       return find_distance_to(X1, Y1, X2, Y2)
     }
 
+    /*
     betterGlide(args, util, loop) {
       const target = args.NAME === "_myself_" ? util.target : this.runtime.getSpriteTargetByName(args.NAME);
       if (!util.stackFrame.startTime) {
@@ -616,6 +617,7 @@ class ReMotion {
     }
 
     whileGlide(args, util) { this.betterGlide(args, util, "on") }
+    */
   
     _getTargets(enable) {
       const spriteNames = [];
@@ -641,7 +643,21 @@ window.tempExt = {
       extensionId: 'remotion',
       iconURL: 'https://fath11.github.io/custom-extension/Fath/banners/Motion.png',
       // insetIconURL: 'cover.svg',
-      collaborator: 'Fath11@Cocrea'
+      collaborator: 'Fath11@Cocrea',
+      collaboratorList: [
+        {
+          collaborator: "Fath11@Cocrea",
+          collaboratorURL: "https://cocrea.world/@Fath11",
+        },
+        {
+          collaborator: "SharkPool-SP@TW",
+          collaboratorURL: "https://github.com/SharkPool-SP",
+        },
+        {
+          collaborator: "Arkos(搬运者) @ CCW",
+          collaboratorURL:"https://www.ccw.site/student/6107c5323e593a0c25f850f8",
+        },
+      ],
   },
   l10n: {
       'zh-cn': {
