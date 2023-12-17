@@ -318,11 +318,60 @@ class ReMotion {
               },
             },
           },
+          "---",
+          {
+            opcode: "betterGlide",
+            blockType: Scratch.BlockType.COMMAND,
+            text: "glide [NAME] [SECS] secs to x: [X] y: [Y]",
+            filter: [Scratch.TargetType.SPRITE],
+            arguments: {
+              X: {
+                type: Scratch.ArgumentType.NUMBER,
+                defaultValue: 100,
+              },
+              Y: {
+                type: Scratch.ArgumentType.NUMBER,
+                defaultValue: 0,
+              },
+              SECS: {
+                type: Scratch.ArgumentType.NUMBER,
+                defaultValue: 1,
+              },
+              NAME: {
+                type: Scratch.ArgumentType.STRING,
+                menu: "sprites",
+              }
+            }
+          },
+          {
+            opcode: "whileGlide",
+            blockType: Scratch.BlockType.LOOP,
+            text: "while gliding [NAME] [SECS] secs to x: [X] y: [Y] run",
+            filter: [Scratch.TargetType.SPRITE],
+            arguments: {
+              X: {
+                type: Scratch.ArgumentType.NUMBER,
+                defaultValue: 100,
+              },
+              Y: {
+                type: Scratch.ArgumentType.NUMBER,
+                defaultValue: 0,
+              },
+              SECS: {
+                type: Scratch.ArgumentType.NUMBER,
+                defaultValue: 1,
+              },
+              NAME: {
+                type: Scratch.ArgumentType.STRING,
+                menu: "sprites",
+              }
+            }
+          },
         ],
         menus: {
           sprites: {
             acceptReporters: true,
-            items: '_getTargets'
+            items: '_getTargets(false)'
           },
           ROTATE_DIRECTION: {
             acceptReporters: true,
@@ -464,14 +513,14 @@ class ReMotion {
 
     turn_degrees_away_dir({DEGREE, DIR}, util) {
       const degree = Cast.toNumber(DEGREE);
-      const dir = Cast.toNumber(DIR);
+      const dir = Cast.toNumber(DIR) + 180;
       const dif = differenceBetweenDirections({A: util.target.direction, B: dir});
       if(Math.abs(dif) < degree) 
         util.target.setDirection(dir);
       else if(dif < 0)
-        util.target.setDirection(util.target.direction + degree);
-      else
         util.target.setDirection(util.target.direction - degree);
+      else
+        util.target.setDirection(util.target.direction + degree);
     }
   
     move_towards_or_away({STEPS, DIRECTION, X, Y}, util) {
@@ -525,34 +574,62 @@ class ReMotion {
     distance_from_to({X1, Y1, X2, Y2}) {
       return find_distance_to(X1, Y1, X2, Y2)
     }
-  
-    _getTargets() {
-      const spriteNames = [];
-      const targets = this.runtime.targets;
-      for (let index = 1; index < targets.length; index++) {
-          const target = targets[index];
-          if (target.isOriginal) {
-              const targetName = target.getName();
-              spriteNames.push({
-                  text: targetName,
-                  value: targetName,
-              });
+
+    betterGlide(args, util, loop) {
+      const target = args.NAME === "_myself_" ? util.target : runtime.getSpriteTargetByName(args.NAME);
+      if (!util.stackFrame.startTime) {
+        util.stackFrame.startTime = new Date().getTime();
+        util.stackFrame.duration = Scratch.Cast.toNumber(args.SECS);
+        util.stackFrame.startX = target.x;
+        util.stackFrame.startY = target.y;
+        util.stackFrame.endX = Scratch.Cast.toNumber(args.X);
+        util.stackFrame.endY = Scratch.Cast.toNumber(args.Y);
+        if (util.stackFrame.duration <= 0) {
+          target.setXY(util.stackFrame.endX, util.stackFrame.endY);
+          return;
+        }
+        if (loop === "on") {
+          util.startBranch(1, true);
+        } else {
+          util.yield();
+        }
+      } else {
+        const currentTime = new Date().getTime();
+        const timeElapsed = currentTime - util.stackFrame.startTime;
+        if (timeElapsed < util.stackFrame.duration * 1000) {
+          const frac = timeElapsed / (util.stackFrame.duration * 1000);
+          const dx = frac * (util.stackFrame.endX - util.stackFrame.startX);
+          const dy = frac * (util.stackFrame.endY - util.stackFrame.startY);
+          target.setXY(
+            util.stackFrame.startX + dx,
+            util.stackFrame.startY + dy
+          );
+          if (loop === "on") {
+            util.startBranch(1, true);
+          } else {
+            util.yield();
           }
+        } else {
+          target.setXY(util.stackFrame.endX, util.stackFrame.endY);
+        }
       }
-      // Remove the first element
-      const result = spriteNames;
-      
-      // Check if the array is empty
-      if (result.length === 0) {
-          // Add a placeholder
-          result.push({
-              text: 'Make another sprite',
-              value: console.error("There is no other sprites"),
-          });
+    }
+
+    whileGlide(args, util) { this.betterGlide(args, util, "on") }
+  
+    _getTargets(enable) {
+      const spriteNames = [];
+      if (enable) spriteNames.push({ text: "myself", value: "_myself_" });
+      const targets = Scratch.vm.runtime.targets;
+      for (let index = 1; index < targets.length; index++) {
+        const target = targets[index];
+        if (target.isOriginal) {
+          const targetName = target.getName();
+          spriteNames.push({ text: targetName, value: targetName });
+        }
       }
-      
-      return result;
-  }
+      return spriteNames.length > 0 ? spriteNames : [""];
+    }
 
 }
 
