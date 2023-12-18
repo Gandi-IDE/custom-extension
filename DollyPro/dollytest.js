@@ -2034,8 +2034,8 @@ class dollyProExtension {
     // 狠狠注入多莉数据（doge）
     target.DollyPro = {
       ID: this.generateTargetID(target, ID), // 克隆体多莉ID (不指定则默认为原版target.id)
-      extraData: {}, // 克隆体的 KV 数据
-      isInGroup: {}, // 记录是否在某个组，例如 isInGroup["敌人"] == true
+      extraData: Object.create(null), // 克隆体的 KV 数据
+      isInGroup: Object.create(null), // 记录是否在某个组，例如 isInGroup["敌人"] == true
     };
     // 加入ID映射表
     this.IDtoTargets[target.DollyPro.ID] = target;
@@ -2076,6 +2076,8 @@ class dollyProExtension {
   processCloneBeforeCreation(target) {
     // 读取预设KV数据
     target.DollyPro.extraData = { ...this.clonePresetData };
+    // 原型设为 null
+    Object.setPrototypeOf(target.DollyPro.extraData, null);
     // 加入预设分组
     const ID = this.getIDOfTarget(target);
 
