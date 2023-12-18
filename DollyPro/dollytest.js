@@ -286,7 +286,7 @@ class dollyProExtension {
         'witCat.dollyPro.defaultValue.HP': '生命值',
         'witCat.dollyPro.defaultValue.direction': '方向',
         'witCat.dollyPro.defaultValue.enemy': '敌人',
-        'witCat.dollyPro.defaultValue.player': '玩家',
+        'witCat.dollyPro.defaultValue.player': 'ID',
         'witCat.dollyPro.defaultValue.presetJSON':
           '\'{"名称":"普通士兵","生命值":100,"阵营":"红色"}\'',
         'witCat.dollyPro.menu.addOrRemove.add': '加入',
@@ -466,7 +466,7 @@ class dollyProExtension {
         'witCat.dollyPro.defaultValue.HP': 'health point',
         'witCat.dollyPro.defaultValue.direction': 'direction',
         'witCat.dollyPro.defaultValue.enemy': 'enemy',
-        'witCat.dollyPro.defaultValue.player': 'player',
+        'witCat.dollyPro.defaultValue.player': 'ID',
         'witCat.dollyPro.defaultValue.presetJSON':
           '\'{"name":"common soldier ","HP":100,"team":"red"}\'',
         'witCat.dollyPro.menu.cloneProperty.IDList': 'lists',
@@ -531,7 +531,7 @@ class dollyProExtension {
       name: this.formatMessage('name'),
       menuIconURI: icon,
       blockIconURI: icon,
-      color1: '#FA8D0D',
+      color1: '#FF9922',
       docsURI: this.formatMessage('url'),
       blocks: [
         // 按钮：显示不常用积木
@@ -714,7 +714,7 @@ class dollyProExtension {
             },
             VALUE: {
               type: ArgumentType.STRING,
-              defaultValue: this.formatMessage('defaultValue.enemy'),
+              defaultValue: 'ID', // this.formatMessage('defaultValue.enemy'),
             },
             MSG: {
               type: ArgumentType.STRING,
@@ -828,6 +828,7 @@ class dollyProExtension {
         {
           opcode: 'getJustCreatedCloneID',
           blockType: BlockType.REPORTER,
+          disableMonitor: true,
           text: this.formatMessage('block.getJustCreatedCloneID'),
         },
         {
@@ -1154,7 +1155,7 @@ class dollyProExtension {
             },
             VALUE: {
               type: ArgumentType.STRING,
-              defaultValue: this.formatMessage('defaultValue.enemy'),
+              defaultValue: 'ID', // this.formatMessage('defaultValue.enemy'),
             },
           },
         },
@@ -1175,7 +1176,7 @@ class dollyProExtension {
             },
             VALUE: {
               type: ArgumentType.STRING,
-              defaultValue: this.formatMessage('defaultValue.enemy'),
+              defaultValue: 'ID2', // this.formatMessage('defaultValue.enemy'),
             },
           },
         },
@@ -1246,7 +1247,7 @@ class dollyProExtension {
             },
             VALUE: {
               type: ArgumentType.STRING,
-              defaultValue: this.formatMessage('defaultValue.enemy'),
+              defaultValue: 'ID', // this.formatMessage('defaultValue.enemy'),
             },
           },
         },
@@ -1293,11 +1294,11 @@ class dollyProExtension {
           arguments: {
             ID1: {
               type: ArgumentType.STRING,
-              defaultValue: this.formatMessage('defaultValue.player'),
+              defaultValue: 'ID', // this.formatMessage('defaultValue.player'),
             },
             ID2: {
               type: ArgumentType.STRING,
-              defaultValue: this.formatMessage('defaultValue.enemy'),
+              defaultValue: 'ID2', // this.formatMessage('defaultValue.enemy'),
             },
             MENU: {
               type: ArgumentType.STRING,
