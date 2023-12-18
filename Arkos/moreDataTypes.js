@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-param-reassign */
@@ -20,14 +21,108 @@ const cover = 'https://m.ccw.site/user_projects_assets/40d3aa39d5101bd5df854cf3a
 
 /** @typedef {any} Util util 参数，暂时定为 any */
 
+let LIST_NAME;
+let OBJ_NAME;
+
+/**
+ * 更适合Scratch体质的Object
+ * - 继承String，避免object保存在作品中时出错（Inspired by Nights）
+ * - 对于object，原型设为 null，避免原型污染
+ */
+class SafeObject extends String {
+  /**
+   * 以 obj 作为值初始化 SafeObject
+   * @param {object} obj 对象或数组
+   */
+  constructor(obj = {}) {
+    super('<SafeObject>');
+    this.assign(typeof obj === 'object' ? obj : {});
+  }
+
+  /**
+   * 以 value 作为值赋给 SafeObject
+   * @param {any} value 值
+   */
+  assign(value) {
+    if (typeof value !== 'object') {
+      throw new Error('Invalid object to assign for SafeObject');
+    }
+    this.value = SafeObject.getActualObject(value);
+    if (!Array.isArray(this.value)) {
+      // 以 null 为原型，避免原型污染
+      Object.setPrototypeOf(this.value, null);
+    }
+  }
+
+  /**
+   * 将字符串解析为 SafeObject
+   * @param {string} string 字符串
+   * @returns {SafeObject} SafeObject
+   */
+  static parse(string) {
+    return JSON.parse(string, (key, value) => SafeObject.toSafeObject(value));
+  }
+
+  /**
+   * 将 SafeObject 转换为字符串
+   * @param {SafeObject} obj SafeObject
+   * @returns {string} 字符串
+   */
+  static stringify(obj) {
+    return JSON.stringify(obj, (key, value) => SafeObject.getActualObject(value));
+  }
+
+  /**
+   * 如果是 SafeObject，取出其实际对象。否则返回原值
+   * @param {object} obj The object to check.
+   * @returns {object} The actual object.
+   */
+  static getActualObject(obj) {
+    if (obj instanceof SafeObject) {
+      return obj.value;
+    }
+    return obj;
+  }
+
+  /**
+   * 如果是对象，套一层 SafeObject
+   * @param {any} value 值
+   * @returns {SafeObject} SafeObject
+   */
+  static toSafeObject(obj) {
+    if (
+      typeof obj === 'object'
+      && obj !== null
+      && !(obj instanceof SafeObject)
+    ) {
+      return new SafeObject(obj);
+    }
+    return obj;
+  }
+
+  /**
+   * 返回 SafeObject 字符串表示(例如："（列表）[1,2,3]")
+   * @returns {string} 字符串表示
+   */
+  toString() {
+    return `${
+      Array.isArray(this.value) ? LIST_NAME : OBJ_NAME
+    }${SafeObject.stringify(this.value)}`;
+  }
+
+  // toJSON() {
+  //   return '<SafeObject>';
+  // }
+}
+
 class moreDataTypes {
   constructor(runtime) {
     this.runtime = runtime;
 
     /** 数据
-     * @type {{[name: string]: SCarg | SCarg[] | {[key: string]: SCarg}}}
+     * @type {SafeObject}
      */
-    this.tempData = {};
+    this.tempData = new SafeObject();
 
     /** 是否启用嵌套功能 */
     this.enableNesting = false;
@@ -43,8 +138,11 @@ class moreDataTypes {
         'https://learn.ccw.site/article/3b5fb890-b480-4157-b104-dacd53449549',
         'https://learn.ccw.site/article/3b5fb890-b480-4157-b104-dacd53449549',
       ],
+      'name.list': ['（列表）', '(list) '],
+      'name.object': ['（对象）', '(object) '],
       'tag.tempData': ['数据', 'Data'],
-      'tag.tempVar': ['变量操作', 'Temp Data'],
+      'tag.tools': ['常用工具', 'Common Tools'],
+      'tag.tempVar': ['临时变量', 'Temp Data'],
       'tag.complexData': [' 复杂数据类型', 'Complex Data'],
       'tag.list': ['列表操作', 'List Operation'],
       'tag.object': ['对象操作', 'Object Operation'],
@@ -70,39 +168,33 @@ class moreDataTypes {
         'name (or input object)',
       ],
       'button.showNestingSupportedBlock': [
-        '对象嵌套功能：已关闭',
-        'Nested Object Feature: Disabled',
+        '显示高级积木',
+        'Show Advanced Block',
       ],
       'button.hideNestingSupportedBlock': [
-        '对象嵌套功能：已启用',
-        'Nested Object Feature: Enabled',
+        '隐藏高级积木',
+        'Hide Advanced Block',
       ],
       'confirm.enableNesting?': [
-        '确定要开启对象嵌套？\n\n开启后，将允许对象里嵌套对象，同时将允许圆形积木返回复杂数据类型(如列表、对象)。\n\n🚨警告：带有“⚠️”标识的积木表示有可能返回复杂数据类型（如列表、对象），这些类型切记不能存入原版Scratch变量、列表里，否则将作品无法打开！！\n',
-        'Are you sure you want to enable nested objects?\n\nEnabling this option will allow nesting objects within other objects, and it will also permit reporter blocks to return complex data types (such as lists and objects).\n\n🚨Warning: Blocks marked with "⚠️" may potentially return complex data types (e.g., lists, objects). Remember not to store these types in original Scratch variables or lists, as it may render the project unopenable!!',
+        '确定要开启对象嵌套？\n\n开启后，将允许对象里嵌套对象，同时将允许圆形积木返回复杂数据类型(如列表、对象)。\n\n🚨警告：带有“”标识的积木表示有可能返回复杂数据类型（如列表、对象），这些类型切记不能存入原版Scratch变量、列表里，否则将作品无法打开！！\n',
+        'Are you sure you want to enable nested objects?\n\nEnabling this option will allow nesting objects within other objects, and it will also permit reporter blocks to return complex data types (such as lists and objects).\n\n🚨Warning: Blocks marked with "" may potentially return complex data types (e.g., lists, objects). Remember not to store these types in original Scratch variables or lists, as it may render the project unopenable!!',
       ],
 
-      'block.setTempData': [
-        '将名为[NAME]的数据[OP][VALUE]',
-        'data[NAME][OP][VALUE]',
-      ],
+      'block.setTempData': ['将数据[NAME][OP][VALUE]', 'data[NAME][OP][VALUE]'],
       'menu.op.set': ['设为', 'set to'],
       'menu.op.add': ['增加', 'change by'],
       'menu.op.parse': ['从JSON解析', 'parse from JSON'],
-      'menu.op.parse_warning': ['⚠️从JSON解析', '⚠️parse from JSON'],
-      'menu.op.shallowCopy': ['⚠️单层拷贝对象', '⚠️shallow copy from'],
-      'menu.op.deepCopy': ['⚠️完全拷贝对象', '⚠️deep copy from'],
-      'block.getTempData': ['名为[NAME]的数据[OPTION]', 'data[NAME][OPTION]'],
-      'menu.getOption.objectAllowed': ['⚠️值', '⚠️value'],
+      'menu.op.parse_warning': ['从JSON解析', 'parse from JSON'],
+      'menu.op.shallowCopy': ['单层拷贝对象', 'shallow copy from'],
+      'menu.op.deepCopy': ['深度拷贝对象', 'deep copy from'],
+      'block.getTempData': ['数据[NAME]', 'data[NAME]'],
+      'menu.getOption.objectAllowed': ['值', 'value'],
       'menu.getOption.json': ['JSON', 'JSON'],
       'block.getObjFromJson': [
-        '⚠️将JSON[VALUE]解析为对象',
-        '⚠️parse JSON [VALUE] to object',
+        '将JSON[VALUE]解析为对象',
+        'parse JSON [VALUE] to object',
       ],
-      'block.newEmptyObjOrArray': [
-        '⚠️返回一个[OPTION]',
-        '⚠️create an [OPTION]',
-      ],
+      'block.newEmptyObjOrArray': ['返回一个[OPTION]', 'create an [OPTION]'],
       'menu.emptyList': ['空列表', 'empty list'],
       'menu.emptyObj': ['空对象', 'empty object'],
       'block.typeOf': ['[VALUE]的类型', 'type of [VALUE]'],
@@ -130,8 +222,8 @@ class moreDataTypes {
         'delete item [IDX] of list [NAME_OR_OBJ]',
       ],
       'block.getItemOfList': [
-        '列表[NAME_OR_OBJ]第[IDX]项[OPTION]',
-        'item [IDX][OPTION] of list [NAME_OR_OBJ]',
+        '列表[NAME_OR_OBJ]第[IDX]项',
+        'item [IDX] of list [NAME_OR_OBJ]',
       ],
       'block.lengthOfList': [
         '列表[NAME_OR_OBJ]长度',
@@ -150,7 +242,7 @@ class moreDataTypes {
         'set [NAME] to an empty object',
       ],
       'block.setPropOfObject': [
-        '对象[NAME_OR_OBJ]中的[PROP][OP][VALUE]',
+        '对象[NAME_OR_OBJ]的[PROP][OP][VALUE]',
         '[PROP] of object [NAME_OR_OBJ][OP][VALUE]',
       ],
       'defaultValue.prop': ['属性', 'property'],
@@ -159,8 +251,8 @@ class moreDataTypes {
         'delete [PROP] of object [NAME_OR_OBJ]',
       ],
       'block.getPropOfObject': [
-        '对象[NAME_OR_OBJ]中的[PROP][OPTION]',
-        '[PROP][OPTION] of object [NAME_OR_OBJ]',
+        '对象[NAME_OR_OBJ]的[PROP]',
+        '[PROP] of object [NAME_OR_OBJ]',
       ],
       'block.getPropOfObjectByIdx': [
         '对象[NAME_OR_OBJ]第[IDX]项的[OPTION]',
@@ -168,11 +260,8 @@ class moreDataTypes {
       ],
       'menu.conInfo.name': ['名称', 'name'],
       'menu.conInfo.value': ['内容', 'content'],
-      'menu.conInfo.objValue': ['⚠️值', '⚠️value'],
-      'menu.conInfo.json': [
-        '内容(若为对象则转JSON）',
-        'content (if an object, convert to JSON)',
-      ],
+      'menu.conInfo.objValue': ['内容', 'content'],
+      'menu.conInfo.json': ['JSON', 'JSON'],
       'block.sizeOfObject': [
         '对象[NAME_OR_OBJ]中内容数',
         'size of object [NAME_OR_OBJ]',
@@ -182,6 +271,9 @@ class moreDataTypes {
         'object [NAME_OR_OBJ] has [PROP]?',
       ],
     });
+
+    LIST_NAME = this.formatMessage('name.list');
+    OBJ_NAME = this.formatMessage('name.object');
   }
 
   /**
@@ -270,11 +362,11 @@ class moreDataTypes {
           hideFromPalette: this.enableNesting,
           text: this.formatMessage('button.showNestingSupportedBlock'),
           onClick: () => {
-            if (confirm(this.formatMessage('confirm.enableNesting?'))) {
-              this.enableNesting = true;
-              this.storeExtConfig();
-              this.runtime.emit('TOOLBOX_EXTENSIONS_NEED_UPDATE');
-            }
+            // if (confirm(this.formatMessage('confirm.enableNesting?'))) {
+            this.enableNesting = true;
+            this.storeExtConfig();
+            this.runtime.emit('TOOLBOX_EXTENSIONS_NEED_UPDATE');
+            // }
           },
         },
         // 按钮：隐藏嵌套功能
@@ -288,6 +380,7 @@ class moreDataTypes {
             this.runtime.emit('TOOLBOX_EXTENSIONS_NEED_UPDATE');
           },
         },
+        // `---${this.formatMessage('tag.tools')}`, // 工具
         // 获取某内容类型
         {
           opcode: 'typeOf',
@@ -306,7 +399,7 @@ class moreDataTypes {
           opcode: 'JSONOf',
           blockType: Scratch.BlockType.REPORTER,
           text: this.formatMessage('block.JSONOf'),
-          hideFromPalette: !this.enableNesting,
+          // hideFromPalette: !this.enableNesting,
           arguments: {
             VALUE: {
               type: null,
@@ -314,7 +407,6 @@ class moreDataTypes {
             },
           },
         },
-        `---${this.formatMessage('tag.tempVar')}`, // 变量
         // 由JSON返回对象
         {
           opcode: 'getObjFromJson',
@@ -345,6 +437,7 @@ class moreDataTypes {
             },
           },
         },
+        `---${this.formatMessage('tag.tempVar')}`, // 变量
         // 设置数据
         {
           opcode: 'setTempData',
@@ -376,10 +469,10 @@ class moreDataTypes {
               type: Scratch.ArgumentType.STRING,
               defaultValue: this.formatMessage('defaultValue.dataName'),
             },
-            OPTION: {
-              type: Scratch.ArgumentType.STRING,
-              menu: 'DATA_GET_OPTION',
-            },
+            // OPTION: {
+            //   type: Scratch.ArgumentType.STRING,
+            //   menu: 'DATA_GET_OPTION',
+            // },
           },
         },
         // "---" + this.formatMessage("tag.complexData"),
@@ -501,10 +594,10 @@ class moreDataTypes {
               type: Scratch.ArgumentType.NUMBER,
               defaultValue: 1,
             },
-            OPTION: {
-              type: Scratch.ArgumentType.STRING,
-              menu: 'GET_OPTION',
-            },
+            // OPTION: {
+            //   type: Scratch.ArgumentType.STRING,
+            //   menu: 'GET_OPTION',
+            // },
           },
         },
         // 列表长度
@@ -628,10 +721,10 @@ class moreDataTypes {
               type: Scratch.ArgumentType.STRING,
               defaultValue: this.formatMessage('defaultValue.prop'),
             },
-            OPTION: {
-              type: Scratch.ArgumentType.STRING,
-              menu: 'GET_OPTION',
-            },
+            // OPTION: {
+            //   type: Scratch.ArgumentType.STRING,
+            //   menu: 'GET_OPTION',
+            // },
           },
         },
         // 获取对象第n项的xx
@@ -992,22 +1085,25 @@ class moreDataTypes {
    * @returns {string|number|object}
    */
   anythingToSCArg(value) {
-    // SC里这两个值返回空内容
-    if (value === null || value === undefined) return '';
-    // 开启嵌套时直接返回
-    if (this.enableNesting) return value;
+    return SafeObject.toSafeObject(value) ?? '';
+    // // SC里这两个值返回空内容
+    // if (value === null || value === undefined) return '';
+    // // 开启嵌套时直接返回
+    // if (this.enableNesting) {
+    //   return SafeObject.toSafeObject(value);
+    // }
 
-    if (typeof value === 'object') {
-      return JSON.stringify(value);
-    }
-    return value;
+    // if (typeof value === 'object') {
+    //   return SafeObject.stringify(value);
+    // }
+    // return value;
   }
 
   /**
    * 清空所有数据
    */
   deleteAllTempData() {
-    this.tempData = {};
+    this.tempData = new SafeObject();
   }
 
   /**
@@ -1015,7 +1111,7 @@ class moreDataTypes {
    * @returns {number}
    */
   getCountOfTempData() {
-    return Object.keys(this.tempData).length;
+    return Object.keys(this.tempData.value).length;
   }
 
   /**
@@ -1023,7 +1119,7 @@ class moreDataTypes {
    * @param {SCarg} NAME
    */
   delTempData({ NAME }) {
-    delete this.tempData[Cast.toString(NAME)];
+    delete this.tempData.value[Cast.toString(NAME)];
   }
 
   /**
@@ -1033,13 +1129,13 @@ class moreDataTypes {
    */
   ifTempDataExist({ NAME }) {
     return Object.prototype.hasOwnProperty.call(
-      this.tempData,
+      this.tempData.value,
       Cast.toString(NAME),
     );
   }
 
   /**
-   * 根据OP，修改对象/数组
+   * 根据OP，修改传入的对象/数组
    * @param {Array | object} data 要修改的对象/数组
    * @param {number | string} prop 要修改的项目索引
    * @param {string} OP 操作：set/ add/ parse/ shallowCopy/ deepCopy
@@ -1047,6 +1143,7 @@ class moreDataTypes {
    * @returns {boolean} 操作是否成功
    */
   __setDataByOption(data, prop, OP, VALUE) {
+    data = SafeObject.getActualObject(data);
     switch (OP) {
       case 'set':
         data[prop] = VALUE;
@@ -1057,7 +1154,7 @@ class moreDataTypes {
       case 'parse':
         try {
           if (typeof VALUE !== 'string') return false;
-          const obj = JSON.parse(VALUE);
+          const obj = SafeObject.parse(VALUE);
           if (typeof obj !== 'object' || obj === null) return false;
           data[prop] = obj;
         } catch (e) {
@@ -1076,7 +1173,7 @@ class moreDataTypes {
       case 'deepCopy':
         if (typeof VALUE !== 'object' || VALUE === null) return false;
         try {
-          data[prop] = JSON.parse(JSON.stringify(VALUE));
+          data[prop] = SafeObject.parse(SafeObject.stringify(VALUE));
         } catch (e) {
           return false;
         }
@@ -1094,7 +1191,7 @@ class moreDataTypes {
    */
   setTempData({ NAME, OP, VALUE }) {
     const name = Cast.toString(NAME);
-    this.__setDataByOption(this.tempData, name, OP, VALUE);
+    this.__setDataByOption(this.tempData.value, name, OP, VALUE);
   }
 
   /**
@@ -1105,7 +1202,7 @@ class moreDataTypes {
   getObjFromJson({ VALUE }) {
     try {
       if (typeof VALUE !== 'string') return '';
-      const obj = JSON.parse(VALUE);
+      const obj = SafeObject.parse(VALUE);
       // if (typeof obj !== "object" || obj === null) return '';
       return obj;
     } catch (e) {
@@ -1119,7 +1216,7 @@ class moreDataTypes {
    * @return {[] | {}}
    */
   newEmptyObjOrArray({ OPTION }) {
-    return OPTION === '[]' ? [] : {};
+    return OPTION === '[]' ? new SafeObject([]) : new SafeObject();
   }
 
   /**
@@ -1128,8 +1225,9 @@ class moreDataTypes {
    * @return {string} 类别
    */
   typeOf({ VALUE }) {
-    if (Array.isArray(VALUE)) return 'list';
-    return typeof VALUE;
+    const value = SafeObject.getActualObject(VALUE);
+    if (Array.isArray(value)) return 'list';
+    return typeof value;
   }
 
   /**
@@ -1138,7 +1236,7 @@ class moreDataTypes {
    * @return {string} JSON
    */
   JSONOf({ VALUE }) {
-    return JSON.stringify(VALUE);
+    return SafeObject.stringify(VALUE);
   }
 
   /**
@@ -1148,7 +1246,7 @@ class moreDataTypes {
    */
   __getDataByOption(data, OPTION) {
     if (OPTION === 'json') {
-      if (typeof data === 'object') data = JSON.stringify(data);
+      if (typeof data === 'object') data = SafeObject.stringify(data);
       return this.anythingToSCArg(data);
     }
     return this.anythingToSCArg(data);
@@ -1161,7 +1259,7 @@ class moreDataTypes {
    * @returns {*}
    */
   getTempData({ NAME, OPTION }) {
-    const data = this.tempData[Cast.toString(NAME)];
+    const data = this.tempData.value[Cast.toString(NAME)];
     return this.__getDataByOption(data, OPTION);
   }
 
@@ -1171,7 +1269,7 @@ class moreDataTypes {
   //  * @param {string} OPTION []/{}
   //  */
   // createOrClearListOrObject({ NAME, OPTION }) {
-  //   this.tempData[Cast.toString(NAME)] = OPTION === "[]" ? [] : {};
+  //   this.tempData.value[Cast.toString(NAME)] = OPTION === "[]" ? [] : {};
   // }
 
   /**
@@ -1180,13 +1278,14 @@ class moreDataTypes {
    */
   createOrClearList({ NAME }) {
     if (typeof NAME === 'object') {
-      if (Array.isArray(NAME)) {
+      const value = SafeObject.getActualObject(NAME);
+      if (Array.isArray(value)) {
         // 清空传入的列表
-        NAME.length = 0;
+        value.length = 0;
       }
       return;
     }
-    this.tempData[Cast.toString(NAME)] = [];
+    this.tempData.value[Cast.toString(NAME)] = [];
   }
 
   /**
@@ -1195,15 +1294,16 @@ class moreDataTypes {
    */
   createOrClearObject({ NAME }) {
     if (typeof NAME === 'object') {
-      if (NAME !== null && !Array.isArray(NAME)) {
+      const value = SafeObject.getActualObject(NAME);
+      if (value !== null && !Array.isArray(value)) {
         // 清空传入的对象
-        Object.keys(NAME).forEach((key) => {
-          delete NAME[key];
+        Object.keys(value).forEach((key) => {
+          delete value[key];
         });
       }
       return;
     }
-    this.tempData[Cast.toString(NAME)] = {};
+    this.tempData.value[Cast.toString(NAME)] = new SafeObject();
   }
 
   /**
@@ -1216,8 +1316,9 @@ class moreDataTypes {
     if (typeof NAME_OR_OBJ === 'object') {
       list = NAME_OR_OBJ;
     } else {
-      list = this.tempData[Cast.toString(NAME_OR_OBJ)];
+      list = this.tempData.value[Cast.toString(NAME_OR_OBJ)];
     }
+    list = SafeObject.getActualObject(list);
     if (Array.isArray(list)) return list;
     return false;
   }
@@ -1374,8 +1475,9 @@ class moreDataTypes {
     if (typeof NAME_OR_OBJ === 'object') {
       obj = NAME_OR_OBJ;
     } else {
-      obj = this.tempData[Cast.toString(NAME_OR_OBJ)];
+      obj = this.tempData.value[Cast.toString(NAME_OR_OBJ)];
     }
+    obj = SafeObject.getActualObject(obj);
     if (typeof obj === 'object' && obj !== null && !Array.isArray(obj)) {
       return obj;
     }
