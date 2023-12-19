@@ -21,8 +21,8 @@ const cover = 'https://m.ccw.site/user_projects_assets/40d3aa39d5101bd5df854cf3a
 
 /** @typedef {any} Util util 参数，暂时定为 any */
 
-let LIST_NAME;
-let OBJ_NAME;
+// let LIST_NAME;
+// let OBJ_NAME;
 
 /**
  * 更适合Scratch体质的Object
@@ -101,13 +101,68 @@ class SafeObject extends String {
   }
 
   /**
-   * 返回 SafeObject 字符串表示(例如："（列表）[1,2,3]")
+   * 返回 SafeObject 字符串表示(例如："<SafeObject [1,2,3]>")
    * @returns {string} 字符串表示
    */
   toString() {
-    return `${
-      Array.isArray(this.value) ? LIST_NAME : OBJ_NAME
-    }${SafeObject.stringify(this.value)}`;
+    // return `${
+    //   Array.isArray(this.value) ? LIST_NAME : OBJ_NAME
+    // }${SafeObject.stringify(this.value)}`;
+    return `<SafeObject ${SafeObject.stringify(this.value)}>`;
+  }
+
+  /**
+   * 尝试匹配形如 <SafeObject {"a": 1, "b": 2}> 的字符串，转为SafeObject对象
+   * @param {string} string 要转换的字符串
+   * @returns {string | SafeObject} 转换结果（如果失败，返回原内容）
+   */
+  static tryParseSafeObjectString(string) {
+    // 使用正则表达式匹配 <SafeObject {...}>
+    const match = string.match(/<SafeObject\s+(.*?)>/);
+
+    if (match) {
+      // 提取匹配到的 JSON 字符串
+      const jsonString = match[1];
+
+      try {
+        // 尝试解析 JSON 字符串为对象
+        const obj = SafeObject.parse(jsonString);
+        if (typeof obj !== 'object' || obj === null) return string;
+        return obj;
+      } catch (error) {
+        console.error('Error parsing SafeObject:', error);
+        return string;
+      }
+    } else {
+      return string;
+    }
+  }
+
+  /**
+   * 将作品里的存放形如<SafeObject {...}>字符串的变量、列表转为SafeObject
+   * @param {*} runtime runtime 对象
+   */
+  static parseAllVarInProject(runtime) {
+    runtime.targets.forEach(({ variables }) => {
+      Object.values(variables).forEach((variable) => {
+        if (variable.type === '') {
+          // 变量
+          if (typeof variable.value === 'string') {
+            variable.value = SafeObject.tryParseSafeObjectString(
+              variable.value,
+            );
+          }
+        } else if (variable.type === 'list') {
+          // 列表
+          const list = variable.value;
+          for (let i = 0; i < list.length; i += 1) {
+            if (typeof list[i] === 'string') {
+              list[i] = SafeObject.tryParseSafeObjectString(list[i]);
+            }
+          }
+        }
+      });
+    });
   }
 
   // toJSON() {
@@ -130,6 +185,9 @@ class moreDataTypes {
     runtime.on('PROJECT_LOADED', () => {
       // 从作品注释读取扩展配置
       this.parseExtConfig();
+      // 作品保存时，SafeObject对象会转换为形如 '<SafeObject {...}>' 的字符串
+      // 因此当作品加载时，尝试将作品的变量、列表中，形如 '<SafeObject {...}>' 的字符串重新转换为SafeObject对象
+      SafeObject.parseAllVarInProject(runtime);
     });
 
     this.initFormatMessage({
@@ -272,8 +330,8 @@ class moreDataTypes {
       ],
     });
 
-    LIST_NAME = this.formatMessage('name.list');
-    OBJ_NAME = this.formatMessage('name.object');
+    // LIST_NAME = this.formatMessage('name.list');
+    // OBJ_NAME = this.formatMessage('name.object');
   }
 
   /**
@@ -1085,7 +1143,7 @@ class moreDataTypes {
    * @returns {string|number|object}
    */
   anythingToSCArg(value) {
-    return SafeObject.toSafeObject(value) ?? '';
+    return value ?? '';
     // // SC里这两个值返回空内容
     // if (value === null || value === undefined) return '';
     // // 开启嵌套时直接返回
@@ -1285,7 +1343,7 @@ class moreDataTypes {
       }
       return;
     }
-    this.tempData.value[Cast.toString(NAME)] = [];
+    this.tempData.value[Cast.toString(NAME)] = new SafeObject([]);
   }
 
   /**
