@@ -128,6 +128,10 @@ class AdvancedControls {
       'advControls.tag.event': ['🔔 更多事件', '🔔 More Events'],
       'advControls.tag.control': ['🎚️ 更多控制', '🎚️ More Controls'],
       'advControls.tag.vars': ['💾 线程变量', '💾 Thread Variables'],
+      'advControls.docsURI': [
+        'https://learn.ccw.site/article/baa85bdd-038b-4a3c-894d-86a972b42178',
+        'https://learn.ccw.site/article/baa85bdd-038b-4a3c-894d-86a972b42178',
+      ],
       'advControls.tag.compileBreaker': [
         '⚠️ 以下积木会破坏脚本编译',
         '⚠️ blocks below will break the compilation',
@@ -248,6 +252,7 @@ class AdvancedControls {
     return {
       id: extensionId, // 拓展id
       name: this.formatMessage('advControls.extensionName'),
+      docsURI: this.formatMessage('advControls.docsURI'),
 
       color1: '#FFB403',
       menuIconURI: icon,
@@ -858,6 +863,7 @@ window.tempExt = {
     featured: true,
     disabled: false,
     collaborator: 'only for AdvancedControls test',
+    docsURI: 'https://learn.ccw.site/article/baa85bdd-038b-4a3c-894d-86a972b42178',
     collaboratorList: [
       {
         collaborator: 'Arkos @ CCW',
