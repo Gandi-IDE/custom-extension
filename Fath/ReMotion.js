@@ -1,6 +1,9 @@
 import Cast from '../utils/cast.js'
+import Clone from '../utils/clone.js'
 
-const Icon = "data:image/png;base64,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";
+const Icon = "data:image/png;base64,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";
+
+const home_icon = "data:image/png;base64,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"
 
 function find_distance_to(x1, y1, x2, y2) {
   return Math.hypot((x2 - x1), (y2 - y1)).toFixed(2)
@@ -11,26 +14,26 @@ function find_direction_to(x1, y1, x2, y2) {
   let dy = y2 - y1;
   let theta = Math.atan2(dy, dx);
   let direction = 90 - theta * (180 / Math.PI);
-  return direction.toFixed(2);
+  return Math.round(direction);
 }
 
 function rotatePoint(px, py, cx, cy, theta) {
   // Translate point back to origin
   px -= cx;
   py -= cy;
-  
+
   // Rotate point
   var newX = px * Math.cos(theta) - py * Math.sin(theta);
   var newY = px * Math.sin(theta) + py * Math.cos(theta);
-  
+
   // Translate point back
   newX += cx;
   newY += cy;
-  
+
   return [newX, newY];
 }
 
-function differenceBetweenDirections({A,B}) {
+function differenceBetweenDirections({ A, B }) {
   const a = Cast.toNumber(A)
   const b = Cast.toNumber(B)
   let dif = b - a
@@ -41,689 +44,802 @@ function differenceBetweenDirections({A,B}) {
 
 
 class ReMotion {
-  constructor(runtime){
+  constructor(runtime) {
     this.runtime = runtime
+
+    this.spriteHomes = {};
+    this.cloneHomes = {};
   }
-    getInfo() {
-      return {
-        id: 'remotion',
-        name: 'ReMotion',
-        color1: '#4c97ff',
-        color2: '#2a528a',
-        color3: '#4280d7',
-        blockIconURI: Icon,
-        blocks: [
-          {
-            opcode: 'rotate_around',
-            blockType: Scratch.BlockType.COMMAND,
-            text: 'Rotate [SPRITE] around x: [X] y: [Y] by [STEPS] steps [ROTATE_DIRECTION]',
-            arguments: {
-              X: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: '0'
-              },
-              Y: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: '0'
-              },
-              STEPS: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: '10'
-              },
-              ROTATE_DIRECTION: {
-                type: Scratch.ArgumentType.NUMBER,
-                menu: 'ROTATE_DIRECTION',
-              },
-              SPRITE: {
-                type: Scratch.ArgumentType.STRING,
-                menu: 'sprites',
-              },
-            },
-          },
-          {
-            opcode: 'rotate_around_sprite',
-            blockType: Scratch.BlockType.COMMAND,
-            text: 'Rotate [THIS_SPRITE] around [SPRITE] by [STEPS] steps [ROTATE_DIRECTION]',
-            arguments: {
-              THIS_SPRITE: {
-                type: Scratch.ArgumentType.STRING,
-                menu: 'sprites',
-              },
-              SPRITE: {
-                type: Scratch.ArgumentType.STRING,
-                menu: 'sprites',
-              },
-              STEPS: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: '10'
-              },
-              ROTATE_DIRECTION: {
-                type: Scratch.ArgumentType.NUMBER,
-                menu: 'ROTATE_DIRECTION',
-              },
-            },
-          },
-          "---",
-          {
-            opcode: 'rotate_in_shapes',
-            blockType: Scratch.BlockType.COMMAND,
-            text: 'Rotate [SPRITE] in [SHAPE] formation around x: [X] y: [Y] [ROTATE_DIRECTION]',
-            arguments: {
-              SPRITE: {
-                type: Scratch.ArgumentType.STRING,
-                menu: 'sprites',
-              },
-              X: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: '0'
-              },
-              Y: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: '0'
-              },
-              ROTATE_DIRECTION: {
-                type: Scratch.ArgumentType.NUMBER,
-                menu: 'ROTATE_DIRECTION',
-              },
-              SHAPE: {
-                type: Scratch.ArgumentType.NUMBER,
-                menu: 'SHAPES',
-              },
-            },
-          },
-          {
-            opcode: 'rotate_around_sprite_in_shapes',
-            blockType: Scratch.BlockType.COMMAND,
-            text: 'Rotate [THIS_SPRITE] around [SPRITE] in [SHAPE] formation [ROTATE_DIRECTION]',
-            arguments: {
-              THIS_SPRITE: {
-                type: Scratch.ArgumentType.STRING,
-                menu: 'sprites',
-              },
-              SPRITE: {
-                type: Scratch.ArgumentType.STRING,
-                menu: 'sprites',
-              },
-              ROTATE_DIRECTION: {
-                type: Scratch.ArgumentType.NUMBER,
-                menu: 'ROTATE_DIRECTION',
-              },
-              SHAPE: {
-                type: Scratch.ArgumentType.NUMBER,
-                menu: 'SHAPES',
-              },
-            },
-          },
-          "---",
-          {
-            opcode: 'point_towards_pos',
-            blockType: Scratch.BlockType.COMMAND,
-            text: 'Point [SPRITE] [DIRECTION] x: [X] y: [Y]',
-            arguments: {
-              X: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: '0'
-              },
-              Y: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: '0'
-              },
-              SPRITE: {
-                type: Scratch.ArgumentType.STRING,
-                menu: 'sprites',
-              },
-              DIRECTION: {
-                type: Scratch.ArgumentType.NUMBER,
-                menu: 'towards_away',
-              },
-            },
-          },
-          {
-            opcode: 'direction_to',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'Direction [SPRITE] [DIRECTION] x: [X] y: [Y]',
-            arguments: {
-              X: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: '0'
-              },
-              Y: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: '0'
-              },
-              SPRITE: {
-                type: Scratch.ArgumentType.STRING,
-                menu: 'sprites',
-              },
-              DIRECTION: {
-                type: Scratch.ArgumentType.NUMBER,
-                menu: 'towards_away',
-              },
-            },
-          },
-          {
-            opcode: 'direction_from_to',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'Direction from x: [X1] y: [Y1] [DIRECTION] x: [X2] y: [Y2]',
-            arguments: {
-              X1: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: '0'
-              },
-              Y1: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: '0'
-              },
-              X2: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: '100'
-              },
-              Y2: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: '100'
-              },
-              DIRECTION: {
-                type: Scratch.ArgumentType.NUMBER,
-                menu: 'towards_away',
-              },
-            },
-          },
-          {
-            opcode: 'direction_to_sprite',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'Direction [THIS_SPRITE] [DIRECTION] [SPRITE]',
-            arguments: {
-              THIS_SPRITE: {
-                type: Scratch.ArgumentType.STRING,
-                menu: 'sprites',
-              },
-              SPRITE: {
-                type: Scratch.ArgumentType.STRING,
-                menu: 'sprites',
-              },
-              DIRECTION: {
-                type: Scratch.ArgumentType.NUMBER,
-                menu: 'towards_away',
-              },
-            },
-          }, 
-          "---",
-          {
-            opcode: 'turn_degrees_towards_or_away_dir',
-            blockType: 'command',
-            text: "Turn [SPRITE] [DEGREE] degrees [DIRECTION] from direction [DIR]",
-            arguments: {
-              DEGREE: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: 45,
-              },
-              DIR: {
-                type: Scratch.ArgumentType.ANGLE,
-                defaultValue: 10,
-              },
-              SPRITE: {
-                type: Scratch.ArgumentType.STRING,
-                menu: 'sprites',
-              },
-              DIRECTION: {
-                type: Scratch.ArgumentType.NUMBER,
-                menu: 'towards_away',
-              },
-            },
-            filter: ['sprite']
-          },
-          "---" + "🏃 Move",
-          {
-            opcode: 'move_towards_or_away',
-            blockType: Scratch.BlockType.COMMAND,
-            text: 'Move [SPRITE] [STEPS] steps [DIRECTION] x: [X] y: [Y]',
-            arguments: {
-              STEPS: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: '10'
-              },
-              DIRECTION: {
-                type: Scratch.ArgumentType.NUMBER,
-                menu: 'towards_away',
-              },
-              X: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: '0'
-              },
-              Y: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: '0'
-              },
-              SPRITE: {
-                type: Scratch.ArgumentType.STRING,
-                menu: 'sprites',
-              },
-            },
-          },
-          {
-            opcode: 'move_towards_or_away_from_sprite',
-            blockType: Scratch.BlockType.COMMAND,
-            text: 'Move [THIS_SPRITE] [STEPS] steps [DIRECTION] [SPRITE]',
-            arguments: {
-              STEPS: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: '10'
-              },
-              DIRECTION: {
-                type: Scratch.ArgumentType.NUMBER,
-                menu: 'towards_away',
-              },
-              SPRITE: {
-                type: Scratch.ArgumentType.STRING,
-                menu: 'sprites',
-              },
-              THIS_SPRITE: {
-                type: Scratch.ArgumentType.STRING,
-                menu: 'sprites',
-              },
-            },
-          },
-          "---" + "📏 Distance",
-          {
-            opcode: 'distance_to',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'Distance [SPRITE] to x: [X] y: [Y]',
-            arguments: {
-              X: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: '0'
-              },
-              Y: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: '0'
-              },
-              SPRITE: {
-                type: Scratch.ArgumentType.STRING,
-                menu: 'sprites',
-              },
-            },
-          },
-          {
-            opcode: 'distance_from_to',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'Distance from x: [X1] y: [Y1] to x: [X2] y: [Y2]',
-            arguments: {
-              X1: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: '0'
-              },
-              Y1: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: '0'
-              },
-              X2: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: '100'
-              },
-              Y2: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: '100'
-              },
-            },
-          },
-          "---" + "⛷️ Glide",
-          {
-            opcode: "betterGlide",
-            blockType: Scratch.BlockType.COMMAND,
-            text: "Glide [NAME] [SECS] secs [DIRECTION] x: [X] y: [Y]",
-            filter: ['sprite'],
-            arguments: {
-              X: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: 100,
-              },
-              Y: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: 0,
-              },
-              SECS: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: 1,
-              },
-              NAME: {
-                type: Scratch.ArgumentType.STRING,
-                menu: "sprites",
-              },
-              DIRECTION: {
-                type: Scratch.ArgumentType.NUMBER,
-                menu: 'towards_away',
-              },
-            }
-          },
-          {
-            opcode: "whileGlide",
-            blockType: Scratch.BlockType.LOOP,
-            text: "While gliding [NAME] [SECS] secs [DIRECTION] x: [X] y: [Y] run",
-            filter: ['sprite'],
-            arguments: {
-              X: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: 100,
-              },
-              Y: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: 0,
-              },
-              SECS: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: 1,
-              },
-              NAME: {
-                type: Scratch.ArgumentType.STRING,
-                menu: "sprites",
-              },
-              DIRECTION: {
-                type: Scratch.ArgumentType.NUMBER,
-                menu: 'towards_away',
-              },
-            }
-          },
-        ],
-        menus: {
-          sprites: {
-            acceptReporters: true,
-            items: '_getTargets'
-          },
-          ROTATE_DIRECTION: {
-            acceptReporters: true,
-            items: [
-              {
-                text: 'Clockwise',
-                value: '-1'
-              },
-              {
-                text: 'Counter-clockwise',
-                value: '1'
-              }
-            ]
-          },
-          towards_away: {
-            acceptReporters: true,
-            items: [
-              {
-                text: 'towards',
-                value: '-1'
-              },
-              {
-                text: 'away',
-                value: '1'
-              }
-            ]
-          },
-          SHAPES: {
-            acceptReporters: true,
-            items: [
-              {
-                text: 'Triangle',
-                value: '2.09'
-              },
-              {
-                text: 'Square',
-                value: '1.57'
-              },
-              {
-                text: 'Pentagon',
-                value: '1.26'
-              },
-              {
-                text: 'Hexagon',
-                value: '1.05'
-              },
-              {
-                text: 'Heptagon',
-                value: '0.897'
-              },
-              {
-                text: 'Octagon',
-                value: '0.785'
-              },
-            ]
-          }
+
+  // cloneHomes contains targetId's which do not save, so dont serialize them
+  // clones in general dont save anyways so theres no point if we did
+  deserialize(data) {
+    this.spriteHomes = data;
+  }
+  serialize() {
+    return this.filterHomes("sprite", this.spriteHomes);
+  }
+
+  /**
+   * filter out the homes to only contain existing targets
+   * @param {string} type clone or sprite
+   * @param {object} homes sprite or clone homes
+   * @returns the homes with only the existing targets
+   */
+  filterHomes(type, homes) {
+    const newHomes = {};
+    for (const targetNameOrId in homes) {
+      let canCopy = true;
+      if (type === 'clone') {
+        if (!this.runtime.getTargetById(targetNameOrId)) {
+          canCopy = false;
         }
-      };
-    }
-  
-    rotate_around({X, Y, STEPS, ROTATE_DIRECTION, SPRITE}, util) {
-      SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
-      //Convert the angle to radians so sprite will rotate in circle
-      let radians = STEPS * (Math.PI / 180)
-      //Set the rotation direction to either CLOCKWISE: -1 or COUNTER-CLOCKWISE: 1
-      radians = radians * ROTATE_DIRECTION
-  
-      // Use the rotatePoint(x1, y1, x2, y2, theta) function
-      let newPos = rotatePoint(SPRITE._x, SPRITE._y, X, Y, radians);
-  
-      //Set the sprite's position to the new positions
-      SPRITE.setXY(newPos[0], newPos[1]);
-    }
-  
-    rotate_around_sprite({THIS_SPRITE, SPRITE, STEPS, ROTATE_DIRECTION}, util) {
-      // get target sprite's target
-      SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
-      console.log(SPRITE)
-  
-      // Get target sprite's X and Y
-      let X = SPRITE.x
-      let Y = SPRITE.y
-
-      THIS_SPRITE = this.runtime.getSpriteTargetByName(THIS_SPRITE)
-
-      //Use the rotate_around block
-      this.rotate_around({X, Y, STEPS, ROTATE_DIRECTION, THIS_SPRITE}, util)
-    }
-  
-    rotate_in_shapes({SPRITE, X, Y, ROTATE_DIRECTION, SHAPE}, util) {
-      SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
-      // Set the rotation direction
-      let radians = SHAPE * ROTATE_DIRECTION
-  
-      // Use the rotatePoint(x1, y1, x2, y2, theta) function
-      // This one DOESN'T use rotate_around() block because rotate around have a radians for circles
-      let newPos = rotatePoint(SPRITE.x, SPRITE.y, X, Y, radians);
-  
-      SPRITE.setXY(newPos[0], newPos[1]);
-    }
-  
-    rotate_around_sprite_in_shapes({THIS_SPRITE, SPRITE, ROTATE_DIRECTION, SHAPE}, util) {
-      SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
-  
-      let X = SPRITE.x
-      let Y = SPRITE.y
-      
-      // use the rotate_in_shapes() block
-      this.rotate_in_shapes({THIS_SPRITE, X, Y, ROTATE_DIRECTION, SHAPE}, util)
-    }
-  
-    point_towards_pos({X, Y, SPRITE, DIRECTION}, util) {
-      SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
-      //Set the sprite's direction using the find_direction_to() function
-      SPRITE.setDirection(find_direction_to(X, Y, SPRITE.x * DIRECTION, SPRITE.y * DIRECTION));
-    }
-  
-    direction_to({X, Y, SPRITE, DIRECTION}, util) {
-      SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
-      return find_direction_to(X, Y, SPRITE.x * DIRECTION, SPRITE.y * DIRECTION)
-    }
-  
-    direction_from_to({X1, Y1, X2, Y2, DIRECTION}) {
-      return find_direction_to(X1, Y1, X2 * DIRECTION, Y2 * DIRECTION)
-    }
-  
-    direction_to_sprite({THIS_SPRITE, SPRITE, DIRECTION}, util) {
-      SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
-      let X = SPRITE.x
-      let Y = SPRITE.y
-
-      THIS_SPRITE = this.runtime.getSpriteTargetByName(THIS_SPRITE)
-      return find_direction_to(X, Y, THIS_SPRITE.x * DIRECTION, THIS_SPRITE.y * DIRECTION)
-    }
-
-    turn_degrees_towards_or_away_dir({DEGREE, DIR, SPRITE, DIRECTION}, util) {
-      SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
-      const degree = Cast.toNumber(DEGREE);
-      const dir = Cast.toNumber(DIR) + DIRECTION == -1 ? 0 : 180;
-      const dif = differenceBetweenDirections({A: SPRITE.direction, B: dir});
-      if(Math.abs(dif) < degree) 
-        SPRITE.setDirection(dir);
-      else if(dif < 0)
-        SPRITE.setDirection(SPRITE.direction - degree);
-      else
-        SPRITE.setDirection(SPRITE.direction + degree);
-    }
-  
-    move_towards_or_away({STEPS, DIRECTION, X, Y, SPRITE}, util) {
-      // Calculate the difference between the target and destination points
-      SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
-      let dx = X - SPRITE.x;
-      let dy = Y - SPRITE.y;
-  
-      // Calculate the distance between the two points
-      let distance = Math.sqrt(dx * dx + dy * dy);
-  
-      // Normalize the difference
-      dx /= distance;
-      dy /= distance;
-  
-      // Move the target point towards or away from the destination point by the specified amount
-      let x = util.target.x + DIRECTION * -1 * dx * STEPS;
-      let y = util.target.y + DIRECTION * -1 * dy * STEPS;
-      SPRITE.setXY(x%X, y%Y)
-    }
-  
-    move_towards_or_away_from_sprite({STEPS, DIRECTION, SPRITE, THIS_SPRITE}, util) {
-      THIS_SPRITE = this.runtime.getSpriteTargetByName(THIS_SPRITE)
-      if (SPRITE != THIS_SPRITE.getName()) {
-        SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
-        let X = SPRITE.x
-        let Y = SPRITE.y
-    
-        // Calculate the difference between the target and destination points
-        let dx = X - THIS_SPRITE.x;
-        let dy = Y - THIS_SPRITE.y;
-    
-        // Calculate the distance between the two points
-        let distance = Math.sqrt(dx * dx + dy * dy);
-    
-        // Normalize the difference
-        dx /= distance;
-        dy /= distance;
-    
-        // Move the target point towards or away from the destination point by the specified amount
-        let x = util.target.x + DIRECTION * dx * STEPS;
-        let y = util.target.y + DIRECTION * dy * STEPS;
-        THIS_SPRITE.setXY(x, y)
       } else {
-        console.error("Sprite cannot move towards/away fron itself");
+        if (!this.runtime.getSpriteTargetByName(targetNameOrId)) {
+          canCopy = false;
+        }
+      }
+      if (canCopy) {
+        newHomes[targetNameOrId] = homes[targetNameOrId];
       }
     }
-  
-    distance_to({X, Y, SPRITE}, util) {
-      SPRITE = this.runtime.getSpriteTargetByName(SPRITE)
-      return find_distance_to(X, Y, SPRITE.x, SPRITE.y)
+    return newHomes;
+  }
+
+  getHomeState(util) {
+    const target = util.target;
+    if (target.isStage) return;
+    const identifier = target.isOriginal ? target.getName() : target.id;
+    const homeTable = target.isOriginal ? this.spriteHomes : this.cloneHomes;
+    // dont do anything if theres no name in here
+    if (!(identifier in homeTable)) {
+      return;
     }
-  
-    distance_from_to({X1, Y1, X2, Y2}) {
-      return find_distance_to(X1, Y1, X2, Y2)
+    const homeState = homeTable[identifier];
+    if (!homeState) {
+      return;
+    }
+    return homeState;
+  }
+
+  getInfo() {
+    return {
+      id: 'remotion',
+      name: 'ReMotion',
+      color1: '#4c97ff',
+      color2: '#2a528a',
+      color3: '#4280d7',
+      blockIconURI: Icon,
+      blocks: [
+        "---" + "🛞 Rotation",
+        {
+          opcode: 'rotate_around',
+          blockType: Scratch.BlockType.COMMAND,
+          text: 'Rotate around x: [X] y: [Y] by [STEPS] steps [ROTATE_DIRECTION]',
+          arguments: {
+            X: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: '0'
+            },
+            Y: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: '0'
+            },
+            STEPS: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: '10'
+            },
+            ROTATE_DIRECTION: {
+              type: Scratch.ArgumentType.NUMBER,
+              menu: 'ROTATE_DIRECTION',
+            },
+          },
+        },
+        {
+          opcode: 'rotate_around_sprite',
+          blockType: Scratch.BlockType.COMMAND,
+          text: 'Rotate around [SPRITE] by [STEPS] steps [ROTATE_DIRECTION]',
+          arguments: {
+            SPRITE: {
+              type: Scratch.ArgumentType.STRING,
+              menu: 'sprites',
+            },
+            STEPS: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: '10'
+            },
+            ROTATE_DIRECTION: {
+              type: Scratch.ArgumentType.NUMBER,
+              menu: 'ROTATE_DIRECTION',
+            },
+          },
+        },
+        "---",
+        {
+          opcode: 'rotate_in_shapes',
+          blockType: Scratch.BlockType.COMMAND,
+          text: 'Rotate in [SHAPE] formation around x: [X] y: [Y] [ROTATE_DIRECTION]',
+          arguments: {
+            X: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: '0'
+            },
+            Y: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: '0'
+            },
+            ROTATE_DIRECTION: {
+              type: Scratch.ArgumentType.NUMBER,
+              menu: 'ROTATE_DIRECTION',
+            },
+            SHAPE: {
+              type: Scratch.ArgumentType.NUMBER,
+              menu: 'SHAPES',
+            },
+          },
+        },
+        {
+          opcode: 'rotate_around_sprite_in_shapes',
+          blockType: Scratch.BlockType.COMMAND,
+          text: 'Rotate around [SPRITE] in [SHAPE] formation [ROTATE_DIRECTION]',
+          arguments: {
+            SPRITE: {
+              type: Scratch.ArgumentType.STRING,
+              menu: 'sprites',
+            },
+            ROTATE_DIRECTION: {
+              type: Scratch.ArgumentType.NUMBER,
+              menu: 'ROTATE_DIRECTION',
+            },
+            SHAPE: {
+              type: Scratch.ArgumentType.NUMBER,
+              menu: 'SHAPES',
+            },
+          },
+        },
+        "---" + "🔄️ Direction",
+        {
+          opcode: 'point_towards_pos',
+          blockType: Scratch.BlockType.COMMAND,
+          text: 'Point [DIRECTION] x: [X] y: [Y]',
+          arguments: {
+            X: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: '0'
+            },
+            Y: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: '0'
+            },
+            DIRECTION: {
+              type: Scratch.ArgumentType.NUMBER,
+              menu: 'towards_away',
+            },
+          },
+        },
+        "---",
+        {
+          opcode: 'direction_to',
+          blockType: Scratch.BlockType.REPORTER,
+          text: 'Direction [DIRECTION] x: [X] y: [Y]',
+          arguments: {
+            X: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: '0'
+            },
+            Y: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: '0'
+            },
+            SPRITE: {
+              type: Scratch.ArgumentType.STRING,
+              menu: 'sprites',
+            },
+            DIRECTION: {
+              type: Scratch.ArgumentType.NUMBER,
+              menu: 'towards_away',
+            },
+          },
+        },
+        {
+          opcode: 'direction_from_to',
+          blockType: Scratch.BlockType.REPORTER,
+          text: 'Direction from x: [X1] y: [Y1] [DIRECTION] x: [X2] y: [Y2]',
+          arguments: {
+            X1: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: '0'
+            },
+            Y1: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: '0'
+            },
+            X2: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: '100'
+            },
+            Y2: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: '100'
+            },
+            DIRECTION: {
+              type: Scratch.ArgumentType.NUMBER,
+              menu: 'towards_away',
+            },
+          },
+        },
+        {
+          opcode: 'direction_to_sprite',
+          blockType: Scratch.BlockType.REPORTER,
+          text: 'Direction [DIRECTION] [SPRITE]',
+          arguments: {
+            SPRITE: {
+              type: Scratch.ArgumentType.STRING,
+              menu: 'sprites',
+            },
+            DIRECTION: {
+              type: Scratch.ArgumentType.NUMBER,
+              menu: 'towards_away',
+            },
+          },
+        },
+        "---",
+        {
+          opcode: 'turn_degrees_towards_or_away_dir',
+          blockType: 'command',
+          text: "Turn [DEGREE] degrees [DIRECTION] direction [DIR]",
+          arguments: {
+            DEGREE: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: 45,
+            },
+            DIR: {
+              type: Scratch.ArgumentType.ANGLE,
+              defaultValue: 10,
+            },
+            DIRECTION: {
+              type: Scratch.ArgumentType.NUMBER,
+              menu: 'towards_away',
+            },
+          },
+          filter: ['sprite']
+        },
+        "---" + "📐 Position",
+        {
+          opcode: 'move_towards_or_away',
+          blockType: Scratch.BlockType.COMMAND,
+          text: 'Move [STEPS] steps [DIRECTION] x: [X] y: [Y]',
+          arguments: {
+            STEPS: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: '10'
+            },
+            DIRECTION: {
+              type: Scratch.ArgumentType.NUMBER,
+              menu: 'towards_away',
+            },
+            X: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: '0'
+            },
+            Y: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: '0'
+            },
+          },
+        },
+        {
+          opcode: 'move_towards_or_away_from_sprite',
+          blockType: Scratch.BlockType.COMMAND,
+          text: 'Move [STEPS] steps [DIRECTION] [SPRITE]',
+          arguments: {
+            STEPS: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: '10'
+            },
+            DIRECTION: {
+              type: Scratch.ArgumentType.NUMBER,
+              menu: 'towards_away',
+            },
+            SPRITE: {
+              type: Scratch.ArgumentType.STRING,
+              menu: 'sprites',
+            },
+          },
+        },
+        {
+          opcode: 'set_home',
+          blockType: Scratch.BlockType.COMMAND,
+          text: 'Set [HOME_ICON] home',
+          arguments: {
+            HOME_ICON: {
+              type: Scratch.ArgumentType.IMAGE,
+              dataURI: home_icon,
+            },
+          },
+        },
+        {
+          opcode: 'go_to_home',
+          blockType: Scratch.BlockType.COMMAND,
+          text: 'Go to [HOME_ICON] home',
+          arguments: {
+            HOME_ICON: {
+              type: Scratch.ArgumentType.IMAGE,
+              dataURI: home_icon,
+            },
+          },
+        },
+        "---" + "📏 Distance",
+        {
+          opcode: 'distance_to',
+          blockType: Scratch.BlockType.REPORTER,
+          text: 'Distance to x: [X] y: [Y]',
+          arguments: {
+            X: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: '0'
+            },
+            Y: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: '0'
+            },
+          },
+        },
+        {
+          opcode: 'distance_from_to',
+          blockType: Scratch.BlockType.REPORTER,
+          text: 'Distance from x: [X1] y: [Y1] to x: [X2] y: [Y2]',
+          arguments: {
+            X1: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: '0'
+            },
+            Y1: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: '0'
+            },
+            X2: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: '100'
+            },
+            Y2: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: '100'
+            },
+          },
+        },
+        "---" + "⛷️ Glide",
+        {
+          opcode: "betterGlide",
+          blockType: Scratch.BlockType.COMMAND,
+          text: "Glide [NAME] [SECS] secs x: [X] y: [Y]",
+          filter: ['sprite'],
+          arguments: {
+            X: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: 100,
+            },
+            Y: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: 0,
+            },
+            SECS: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: 1,
+            },
+            NAME: {
+              type: Scratch.ArgumentType.STRING,
+              menu: "sprites",
+            },
+          }
+        },
+        {
+          opcode: "whileGlide",
+          blockType: Scratch.BlockType.LOOP,
+          text: "While gliding [NAME] [SECS] secs x: [X] y: [Y] run",
+          filter: ['sprite'],
+          arguments: {
+            X: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: 100,
+            },
+            Y: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: 0,
+            },
+            SECS: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: 1,
+            },
+            NAME: {
+              type: Scratch.ArgumentType.STRING,
+              menu: "sprites",
+            },
+          }
+        },
+      ],
+      menus: {
+        sprites: {
+          acceptReporters: true,
+          items: '_getTargets'
+        },
+        sprites_withoutHome: {
+          acceptReporters: true,
+          items: this._getTargets(false)
+        },
+        ROTATE_DIRECTION: {
+          acceptReporters: true,
+          items: [
+            {
+              text: 'Clockwise',
+              value: '-1'
+            },
+            {
+              text: 'Counter-clockwise',
+              value: '1'
+            }
+          ]
+        },
+        towards_away: {
+          acceptReporters: true,
+          items: [
+            {
+              text: 'towards',
+              value: '1'
+            },
+            {
+              text: 'away from',
+              value: '-1'
+            }
+          ]
+        },
+        SHAPES: {
+          acceptReporters: true,
+          items: [
+            {
+              text: 'Triangle',
+              value: '2.09'
+            },
+            {
+              text: 'Square',
+              value: '1.57'
+            },
+            {
+              text: 'Pentagon',
+              value: '1.26'
+            },
+            {
+              text: 'Hexagon',
+              value: '1.05'
+            },
+            {
+              text: 'Heptagon',
+              value: '0.897'
+            },
+            {
+              text: 'Octagon',
+              value: '0.785'
+            },
+          ]
+        }
+      }
+    };
+  }
+  rotate_around({ X, Y, STEPS, ROTATE_DIRECTION }, util) {
+    //Convert the angle to radians so sprite will rotate in circle
+    let radians = STEPS * (Math.PI / 180)
+    //Set the rotation direction to either CLOCKWISE: -1 or COUNTER-CLOCKWISE: 1
+    radians = radians * ROTATE_DIRECTION
+
+    // Use the rotatePoint(x1, y1, x2, y2, theta) function
+    let newPos = rotatePoint(util.target.x, util.target.y, X, Y, radians);
+
+    //Set the sprite's position to the new positions
+    util.target.setXY(newPos[0], newPos[1]);
+  }
+
+  rotate_around_sprite({ SPRITE, STEPS, ROTATE_DIRECTION }, util) {
+    // get target sprite's target
+    SPRITE = SPRITE !== "_home_" ? this.runtime.getSpriteTargetByName(SPRITE) : this.getHomeState(util)
+
+    // Get target sprite's X and Y
+    let X = SPRITE.x
+    let Y = SPRITE.y
+
+    //Use the rotate_around block
+    this.rotate_around({ X, Y, STEPS, ROTATE_DIRECTION }, util)
+  }
+
+  rotate_in_shapes({ X, Y, ROTATE_DIRECTION, SHAPE }, util) {
+    // Set the rotation direction
+    let radians = SHAPE * ROTATE_DIRECTION
+
+    // Use the rotatePoint(x1, y1, x2, y2, theta) function
+    // This one DOESN'T use rotate_around() block because rotate around have a radians for circles
+    let newPos = rotatePoint(util.target.x, util.target.y, X, Y, radians);
+
+    util.target.setXY(newPos[0], newPos[1]);
+  }
+
+  rotate_around_sprite_in_shapes({ SPRITE, ROTATE_DIRECTION, SHAPE }, util) {
+    SPRITE = SPRITE !== "_home_" ? this.runtime.getSpriteTargetByName(SPRITE) : this.getHomeState(util)
+
+    let X = SPRITE.x
+    let Y = SPRITE.y
+
+    // use the rotate_in_shapes() block
+    this.rotate_in_shapes({ SPRITE, X, Y, ROTATE_DIRECTION, SHAPE }, util)
+  }
+
+  point_towards_pos({ X, Y, DIRECTION }, util) {
+    //Set the sprite's direction using the find_direction_to() function
+    util.target.setDirection(find_direction_to(X, Y, util.target.x * (0 - DIRECTION), util.target.y * (0 - DIRECTION)));
+  }
+
+  direction_to({ X, Y, DIRECTION }, util) {
+    return find_direction_to(X, Y, util.target.x * (0 - DIRECTION), util.target.y * (0 - DIRECTION))
+  }
+
+  direction_from_to({ X1, Y1, X2, Y2, DIRECTION }) {
+    return find_direction_to(X1, Y1, X2 * DIRECTION, Y2 * DIRECTION)
+  }
+
+  direction_to_sprite({ SPRITE, DIRECTION }, util) {
+    SPRITE = SPRITE !== "_home_" ? this.runtime.getSpriteTargetByName(SPRITE) : this.getHomeState(util)
+    let X = SPRITE.x
+    let Y = SPRITE.y
+
+    return find_direction_to(X, Y, util.target.x * (0 - DIRECTION), util.target.y * (0 - DIRECTION))
+  }
+
+  turn_degrees_towards_or_away_dir({ DEGREE, DIR, DIRECTION }, util) {
+    let SPRITE = util.target
+    const degree = Cast.toNumber(DEGREE);
+    let dir = Cast.toNumber(DIR);
+    if (DIRECTION == -1) {
+      dir += 180;
+      if (dir > 360) {
+        dir -= 360;
+      }
+    }
+    const dif = differenceBetweenDirections({ A: SPRITE.direction, B: dir });
+    if (Math.abs(dif) < degree)
+      SPRITE.setDirection(dir);
+    else if (dif < 0)
+      SPRITE.setDirection(SPRITE.direction - degree);
+    else
+      SPRITE.setDirection(SPRITE.direction + degree);
+    console.log(Cast.toNumber(DEGREE))
+  }
+
+  move_towards_or_away({ STEPS, DIRECTION, X, Y }, util) {
+    // Calculate the difference between the target and destination points
+    let SPRITE = util.target
+    let dx = X - SPRITE.x;
+    let dy = Y - SPRITE.y;
+
+    // If the sprite is at the target, add a small offset
+    if (dx == 0 && dy == 0) {
+      dx = Math.random() - 0.5;
+      dy = Math.random() - 0.5;
     }
 
-    betterGlide(args, util, loop) {
-      const target = this.runtime.getSpriteTargetByName(args.NAME);
-      if (!util.stackFrame.startTime) {
-        util.stackFrame.startTime = new Date().getTime();
-        util.stackFrame.duration = Cast.toNumber(args.SECS);
-        util.stackFrame.startX = target.x + args.DIRECTION;
-        util.stackFrame.startY = target.y + args.DIRECTION;
-        util.stackFrame.endX = Cast.toNumber(args.X);
-        util.stackFrame.endY = Cast.toNumber(args.Y);
-        if (util.stackFrame.duration <= 0) {
-          target.setXY(util.stackFrame.endX, util.stackFrame.endY);
-          return;
-        }
+    // Calculate the distance between the two points
+    let distance = Math.sqrt(dx * dx + dy * dy);
+
+    // Normalize the difference if distance is not 0
+    if (distance != 0) {
+      dx /= distance;
+      dy /= distance;
+    }
+
+    // Limit STEPS to distance
+    if (STEPS > distance) {
+      STEPS = distance;
+    }
+
+    // Move the target point towards or away from the destination point by the specified amount
+    let x = util.target.x + DIRECTION * dx * STEPS;
+    let y = util.target.y + DIRECTION * dy * STEPS;
+    SPRITE.setXY(x, y)
+  }
+
+  move_towards_or_away_from_sprite({ STEPS, DIRECTION, SPRITE }, util) {
+    if (SPRITE != util.target.getName()) {
+      SPRITE = SPRITE !== "_home_" ? this.runtime.getSpriteTargetByName(SPRITE) : this.getHomeState(util)
+      let X = SPRITE.x
+      let Y = SPRITE.y
+
+      // Calculate the difference between the target and destination points
+      let dx = X - util.target.x;
+      let dy = Y - util.target.y;
+
+      // If the sprite is at the target, add a small offset in the direction the sprite is facing
+      if (dx == 0 && dy == 0 && DIRECTION == -1) {
+        let directionRad = SPRITE.direction * Math.PI / 180; // Convert direction to radians
+        dx = Math.cos(directionRad);
+        dy = Math.sin(directionRad);
+      }
+
+      // Calculate the distance between the two points
+      let distance = Math.sqrt(dx * dx + dy * dy);
+
+      // Normalize the difference if distance is not 0
+      if (distance != 0) {
+        dx /= distance;
+        dy /= distance;
+      }
+
+      // Limit STEPS to distance
+      if (STEPS > distance) {
+        STEPS = distance;
+      }
+
+      // Move the target point towards or away from the destination point by the specified amount
+      let x = util.target.x + DIRECTION * dx * STEPS;
+      let y = util.target.y + DIRECTION * dy * STEPS;
+      util.target.setXY(x, y)
+    } else {
+      console.error("Sprite cannot move towards/away from itself");
+    }
+  }
+
+  distance_to({ X, Y }, util) {
+    return find_distance_to(X, Y, util.target.x, util.target.y)
+  }
+
+  distance_from_to({ X1, Y1, X2, Y2 }) {
+    return find_distance_to(X1, Y1, X2, Y2)
+  }
+
+  betterGlide(args, util, loop,) {
+    const target = args.NAME !== "_home_" ? this.runtime.getSpriteTargetByName(args.NAME) : this.getHomeState(util);
+    if (!util.stackFrame.startTime) {
+      util.stackFrame.startTime = new Date().getTime();
+      util.stackFrame.duration = Cast.toNumber(args.SECS);
+      util.stackFrame.startX = target.x;
+      util.stackFrame.startY = target.y;
+      util.stackFrame.endX = Cast.toNumber(args.X);
+      util.stackFrame.endY = Cast.toNumber(args.Y);
+      if (util.stackFrame.duration <= 0) {
+        target.setXY(util.stackFrame.endX, util.stackFrame.endY);
+        return;
+      }
+      if (loop === "on") {
+        util.startBranch(1, true);
+      } else {
+        util.yield();
+      }
+    } else {
+      const currentTime = new Date().getTime();
+      const timeElapsed = currentTime - util.stackFrame.startTime;
+      if (timeElapsed < util.stackFrame.duration * 1000) {
+        const frac = timeElapsed / (util.stackFrame.duration * 1000);
+        const dx = frac * (util.stackFrame.endX - util.stackFrame.startX);
+        const dy = frac * (util.stackFrame.endY - util.stackFrame.startY);
+        target.setXY(
+          util.stackFrame.startX + dx,
+          util.stackFrame.startY + dy
+        );
         if (loop === "on") {
           util.startBranch(1, true);
         } else {
           util.yield();
         }
       } else {
-        const currentTime = new Date().getTime();
-        const timeElapsed = currentTime - util.stackFrame.startTime;
-        if (timeElapsed < util.stackFrame.duration * 1000) {
-          const frac = timeElapsed / (util.stackFrame.duration * 1000);
-          const dx = frac * (util.stackFrame.endX - util.stackFrame.startX);
-          const dy = frac * (util.stackFrame.endY - util.stackFrame.startY);
-          target.setXY(
-            util.stackFrame.startX + dx,
-            util.stackFrame.startY + dy
-          );
-          if (loop === "on") {
-            util.startBranch(1, true);
-          } else {
-            util.yield();
-          }
-        } else {
-          target.setXY(util.stackFrame.endX, util.stackFrame.endY);
-        }
+        target.setXY(util.stackFrame.endX, util.stackFrame.endY);
       }
     }
+  }
 
-    whileGlide(args, util) { 
-      this.betterGlide(args, util, "on") 
+  whileGlide(args, util) {
+    this.betterGlide(args, util, "on")
+  }
+
+  set_home(_, util) {
+    const target = util.target;
+    if (target.isStage) return;
+    // this is all of the sprite specific data we will save
+    // variables are a bit too far, and most other data is stage only or shouldnt be overwritten
+    const savedState = {
+      x: target.x,
+      y: target.y,
+      size: target.size,
+      direction: target.direction,
+      rotationStyle: target.rotationStyle,
+      visible: target.visible,
+      effects: Clone.simple(target.effects), // object
+      draggable: target.draggable,
+      currentCostume: target.currentCostume,
+      tintColor: target.tintColor,
+      volume: target.volume
+    };
+    if (target.isOriginal) {
+      const name = target.getName();
+      this.spriteHomes[name] = savedState;
+      this.spriteHomes = this.filterHomes("sprite", this.spriteHomes);
+      return;
     }
-  
-    _getTargets() {
-      const spriteNames = [];
-      const targets = this.runtime.targets;
-      for (let index = 1; index < targets.length; index++) {
-          const target = targets[index];
-          if (target.isOriginal) {
-              const targetName = target.getName();
-              spriteNames.push({
-                  text: targetName,
-                  value: targetName,
-              });
-          }
+    this.cloneHomes[target.id] = savedState;
+    this.cloneHomes = this.filterHomes("clone", this.cloneHomes);
+  }
+
+  go_to_home(_, util) {
+    const target = util.target;
+    let homeState = this.getHomeState(util)
+    // set state
+    target.setXY(homeState.x, homeState.y);
+    target.setSize(homeState.size);
+    target.setDirection(homeState.direction);
+    target.setRotationStyle(homeState.rotationStyle);
+    target.setVisible(homeState.visible);
+    if (homeState.effects) {
+      for (const effectName in homeState.effects) {
+        const value = homeState.effects[effectName];
+        target.setEffect(effectName, value);
       }
-      return spriteNames.length > 0 ? spriteNames : [""];
     }
+    target.setDraggable(homeState.draggable);
+    target.setCostume(homeState.currentCostume);
+    target.tintColor = homeState.tintColor; // tintColor isnt fully implemented yet so just do this
+    target.volume = homeState.volume;
+    this.runtime.requestRedraw();
+  }
+
+  _getTargets(withHome) {
+    const spriteNames = [];
+    if (withHome == true) { spriteNames.push({ text: "My home", value: "_home_" }); }
+    const targets = this.runtime.targets;
+    for (let index = 1; index < targets.length; index++) {
+      const target = targets[index];
+      if (target.isOriginal) {
+        const targetName = target.getName();
+        spriteNames.push({
+          text: targetName,
+          value: targetName,
+        });
+      }
+    }
+    return spriteNames.length > 0 ? spriteNames : [""];
+  }
 }
 
 window.tempExt = {
   Extension: ReMotion,
   info: {
-      name: 'remotion.Name',
-      description: 'remotion.Description',
-      extensionId: 'remotion',
-      iconURL: 'https://fath11.github.io/custom-extension/Fath/banners/Motion.png',
-      // insetIconURL: 'cover.svg',
-      collaborator: 'Fath11@Cocrea',
-      collaboratorList: [
-        {
-          collaborator: "Fath11@Cocrea",
-          collaboratorURL: "https://cocrea.world/@Fath11",
-        },
-        {
-          collaborator: "SharkPool-SP@TW",
-          collaboratorURL: "https://github.com/SharkPool-SP",
-        },
-        {
-          collaborator: "Arkos(搬运者) @ CCW",
-          collaboratorURL:"https://www.ccw.site/student/6107c5323e593a0c25f850f8",
-        },
-      ],
+    name: 'remotion.Name',
+    description: 'remotion.Description',
+    extensionId: 'remotion',
+    iconURL: 'https://fath11.github.io/custom-extension/Fath/banners/Motion.png',
+    insetIconURL: Icon,
+    collaborator: 'Fath11@Cocrea',
+    collaboratorList: [
+      {
+        collaborator: "Fath11@Cocrea",
+        collaboratorURL: "https://cocrea.world/@Fath11",
+      },
+      {
+        collaborator: "SharkPool-SP@TW",
+        collaboratorURL: "https://github.com/SharkPool-SP",
+      },
+      {
+        collaborator: "Arkos(搬运者) @ CCW",
+        collaboratorURL: "https://www.ccw.site/student/6107c5323e593a0c25f850f8",
+      },
+      {
+        collaborator: "NamelessCat@TW",
+        collaboratorURL: "https://github.com/NexusKitten",
+      },
+    ],
   },
   l10n: {
-      'zh-cn': {
-          'remotion.Name':'ReMotion',
-          'remotion.Description':'用于控制和操作浏览器内置的JavaScript控制台'
-      },
-      en: {
-          'remotion.Name':'ReMotion',
-          'remotion.Description': "More blocks for controlling sprite's motion!"
-      }
+    'zh-cn': {
+      'remotion.Name': 'ReMotion',
+      'remotion.Description': '用于控制和操作浏览器内置的JavaScript控制台'
+    },
+    en: {
+      'remotion.Name': 'ReMotion',
+      'remotion.Description': "More blocks for controlling sprite's motion!"
+    }
   },
 }
