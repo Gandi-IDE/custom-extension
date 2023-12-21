@@ -56,12 +56,14 @@ class AdvancedControls {
         // 其他扩展直接返回结果
         if (categoryInfo.id !== extensionId) return res;
         if (blockInfo.blockType === BlockType.LOOP) {
-          res.json.args2 = [{
-            type: 'field_image',
-            src: repeatIcon, // 替换循环图标为正确图标
-            width: 24,
-            height: 24,
-          }];
+          res.json.args2 = [
+            {
+              type: 'field_image',
+              src: repeatIcon, // 替换循环图标为正确图标
+              width: 24,
+              height: 24,
+            },
+          ];
         }
         return res;
       },
@@ -114,11 +116,16 @@ class AdvancedControls {
         }
       }
       // 如果上个积木是“瞬间执行”
-      if (block && block.opcode === `${extensionId}_allAtOnce`) {
+      if (block) {
         const stackFrame = this.stackFrames[this.stackFrames.length - 1];
-        // 恢复之前的warpMode
-        if (stackFrame.__warpMode !== undefined) {
-          stackFrame.warpMode = stackFrame.__warpMode;
+        if (block.opcode === `${extensionId}_allAtOnce`) {
+          // 恢复之前的warpMode
+          if (stackFrame.__warpMode !== undefined) {
+            stackFrame.warpMode = stackFrame.__warpMode;
+          }
+        } else if (block.opcode === `${extensionId}_letSpriteDo`) {
+          // 恢复执行角色
+          this.target = this.__lastTarget;
         }
       }
     };
@@ -140,6 +147,7 @@ class AdvancedControls {
         '⚠️ 以下积木编译模式下无法使用',
         '⚠️ blocks below can\'t work in compile mode',
       ],
+      'advControls.stage': ['舞台', 'stage'],
       'advControls.set': ['设为', 'set to'],
       'advControls.change': ['增加', 'change by'],
       'advControls.setThreadVar': [
@@ -216,6 +224,7 @@ class AdvancedControls {
         '重复执行[TIMES]次或直到[CONDITION]',
         'repeat [TIMES] times or util[CONDITION]',
       ],
+      'advControls.letSpriteDo': ['让[SPRITE]执行', 'let[SPRITE]do'],
 
       'advControls.waitUtilChanged': [
         '等待直到[VAR]发生变化',
@@ -459,6 +468,18 @@ class AdvancedControls {
           branchCount: 1,
         },
         {
+          opcode: 'letSpriteDo',
+          blockType: BlockType.CONDITIONAL,
+          text: this.formatMessage('advControls.letSpriteDo'),
+          branchCount: 1,
+          arguments: {
+            SPRITE: {
+              type: ArgumentType.STRING,
+              menu: 'SPRITE_MENU',
+            },
+          },
+        },
+        {
           opcode: 'ifChanged',
           blockType: BlockType.CONDITIONAL,
           text: this.formatMessage('advControls.ifChanged'),
@@ -520,6 +541,10 @@ class AdvancedControls {
         },
       ],
       menus: {
+        SPRITE_MENU: {
+          acceptReporters: true,
+          items: 'spriteMenuWithoutMyself',
+        },
         STOP_THREAD_TYPES: [
           {
             text: this.formatMessage('advControls.myThread'),
@@ -556,6 +581,31 @@ class AdvancedControls {
         ],
       },
     };
+  }
+
+  // **************************** 动态菜单 ****************************
+  /**
+   * 角色菜单,但没有自己
+   * @returns {text: "角色名", value: "角色名"}[];
+   */
+  spriteMenuWithoutMyself() {
+    const { targets } = this.runtime;
+    const editingTarget = this.runtime._editingTarget;
+    const menu = targets
+      .filter(
+        (target) => target.isOriginal && target !== editingTarget,
+      )
+      .map((target) => ({
+        text: target.isStage ? this.formatMessage('advControls.stage') : target.sprite.name,
+        value: target.isStage ? '_stage_' : target.sprite.name,
+      }));
+    if (menu.length === 0) {
+      menu.push({
+        text: '-',
+        value: 'empty',
+      });
+    }
+    return menu;
   }
 
   // ------------------------------↓一些工具函数----------------------------------
@@ -658,17 +708,17 @@ class AdvancedControls {
     return null;
   }
 
+  _hackGoToNextBlock(thread) {
+    this.tryHackedFunction(thread, 'goToNextBlock', this.__hackedGoToNextBlock);
+  }
+
   breakLoop(args, util) {
     const { thread } = util;
     const frame = this.getNearestLoop(thread);
     if (frame) {
       thread.__breakLoop = true;
       thread.__breakLoopId = frame.op.id;
-      this.tryHackedFunction(
-        thread,
-        'goToNextBlock',
-        this.__hackedGoToNextBlock,
-      );
+      this._hackGoToNextBlock(thread);
       this.tryHackedFunction(util, 'startBranch', this.__hackedStartBranch);
     }
   }
@@ -678,11 +728,7 @@ class AdvancedControls {
     const frame = this.getNearestLoop(thread);
     if (frame) {
       thread.__continueLoop = true;
-      this.tryHackedFunction(
-        thread,
-        'goToNextBlock',
-        this.__hackedGoToNextBlock,
-      );
+      this._hackGoToNextBlock(thread);
     }
   }
 
@@ -696,7 +742,34 @@ class AdvancedControls {
     util.startBranch(1, false);
 
     // 劫持goToNextBlock，恢复warpMode
-    this.tryHackedFunction(thread, 'goToNextBlock', this.__hackedGoToNextBlock);
+    this._hackGoToNextBlock(thread);
+  }
+
+  letSpriteDo({ SPRITE }, util) {
+    const origTarget = util.target;
+    const name = Cast.toString(SPRITE);
+    let target;
+    if (name === '_stage_') {
+      target = this.runtime.getTargetForStage();
+    } else {
+      target = this.runtime.getSpriteTargetByName(name);
+      if (!target) {
+        target = this.runtime.getTargetById(name);
+        if (!target) return;
+      }
+    }
+    const { thread } = util;
+    // 切换执行对象
+    thread.target = target;
+    // 借用全局积木逻辑，设置 globalTarget 为原角色
+    const stackFrame = thread.peekStackFrame();
+    if (!stackFrame.executionContext) stackFrame.executionContext = {};
+    const { executionContext } = stackFrame;
+    if (!executionContext.globalTarget) { executionContext.globalTarget = origTarget; }
+    thread.__lastTarget = origTarget;
+    util.startBranch(1, false);
+    // 劫持 goToNextBlock，恢复执行对象为原角色
+    this._hackGoToNextBlock(thread);
   }
 
   doWhile({ CONDITION }, util) {
