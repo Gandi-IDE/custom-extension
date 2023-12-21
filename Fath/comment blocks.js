@@ -71,7 +71,7 @@ class CommentBlocks {
                 defaultValue: "comment",
               },
             },
-            func: 'noop',
+            func: 'returnTrue',
           },
           "---" + "📚 Stacks",
           {
@@ -91,6 +91,7 @@ class CommentBlocks {
             opcode: "commentReporter",
             blockType: Scratch.BlockType.REPORTER,
             text: this.formatMessage('CmntExt.commentReporter'),
+            allowDropAnywhere: true,
             arguments: {
               COMMENT: {
                 type: Scratch.ArgumentType.STRING,
@@ -107,6 +108,7 @@ class CommentBlocks {
             opcode: "commentReporter2",
             blockType: Scratch.BlockType.REPORTER,
             text: this.formatMessage('CmntExt.commentReporter2'),
+            allowDropAnywhere: true,
             arguments: {
               COMMENT: {
                 type: Scratch.ArgumentType.STRING,
@@ -123,6 +125,7 @@ class CommentBlocks {
             opcode: "commentReporter3",
             blockType: Scratch.BlockType.REPORTER,
             text: this.formatMessage('CmntExt.commentReporter3'),
+            allowDropAnywhere: true,
             arguments: {
               COMMENT: {
                 type: Scratch.ArgumentType.STRING,
@@ -207,8 +210,8 @@ class CommentBlocks {
       };
     }
   
-    noop() {
-      //no-op
+    returnTrue() {
+      return true
     }
   
     return(args) {
