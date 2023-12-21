@@ -535,7 +535,7 @@ class ReMotion {
     let newPos = rotatePoint(util.target.x, util.target.y, X, Y, radians);
 
     //Set the sprite's position to the new positions
-    util.target.setXY(newPos[0], newPos[1]);
+    util.target.setXY(Cast.toNumber(newPos[0]), Cast.toNumber(newPos[1]));
   }
 
   rotate_around_sprite({ SPRITE, STEPS, ROTATE_DIRECTION }, util) {
@@ -558,7 +558,7 @@ class ReMotion {
     // This one DOESN'T use rotate_around() block because rotate around have a radians for circles
     let newPos = rotatePoint(util.target.x, util.target.y, X, Y, radians);
 
-    util.target.setXY(newPos[0], newPos[1]);
+    util.target.setXY(Cast.toNumber(newPos[0]), Cast.toNumber(newPos[1]));
   }
 
   rotate_around_sprite_in_shapes({ SPRITE, ROTATE_DIRECTION, SHAPE }, util) {
@@ -573,15 +573,15 @@ class ReMotion {
 
   point_towards_pos({ X, Y, DIRECTION }, util) {
     //Set the sprite's direction using the find_direction_to() function
-    util.target.setDirection(find_direction_to(X, Y, util.target.x * (0 - DIRECTION), util.target.y * (0 - DIRECTION)));
+    util.target.setDirection(Cast.toNumber(find_direction_to(X, Y, util.target.x * (0 - DIRECTION), util.target.y * (0 - DIRECTION))));
   }
 
   direction_to({ X, Y, DIRECTION }, util) {
-    return find_direction_to(X, Y, util.target.x * (0 - DIRECTION), util.target.y * (0 - DIRECTION))
+    return Cast.toNumber(find_direction_to(X, Y, util.target.x * (0 - DIRECTION), util.target.y * (0 - DIRECTION)))
   }
 
   direction_from_to({ X1, Y1, X2, Y2, DIRECTION }) {
-    return find_direction_to(X1, Y1, X2 * DIRECTION, Y2 * DIRECTION)
+    return Cast.toNumber(find_direction_to(X1, Y1, X2 * DIRECTION, Y2 * DIRECTION))
   }
 
   direction_to_sprite({ SPRITE, DIRECTION }, util) {
@@ -589,7 +589,7 @@ class ReMotion {
     let X = SPRITE.x
     let Y = SPRITE.y
 
-    return find_direction_to(X, Y, util.target.x * (0 - DIRECTION), util.target.y * (0 - DIRECTION))
+    return Cast.toNumber(find_direction_to(X, Y, util.target.x * (0 - DIRECTION), util.target.y * (0 - DIRECTION)))
   }
 
   turn_degrees_towards_or_away_dir({ DEGREE, DIR, DIRECTION }, util) {
@@ -606,9 +606,9 @@ class ReMotion {
     if (Math.abs(dif) < degree)
       SPRITE.setDirection(dir);
     else if (dif < 0)
-      SPRITE.setDirection(SPRITE.direction - degree);
+      SPRITE.setDirection(Cast.toNumber(SPRITE.direction - degree));
     else
-      SPRITE.setDirection(SPRITE.direction + degree);
+      SPRITE.setDirection(Cast.toNumber(SPRITE.direction + degree));
     console.log(Cast.toNumber(DEGREE))
   }
 
@@ -641,7 +641,7 @@ class ReMotion {
     // Move the target point towards or away from the destination point by the specified amount
     let x = util.target.x + DIRECTION * dx * STEPS;
     let y = util.target.y + DIRECTION * dy * STEPS;
-    SPRITE.setXY(x, y)
+    SPRITE.setXY(Cast.toNumber(x), Cast.toNumber(y))
   }
 
   move_towards_or_away_from_sprite({ STEPS, DIRECTION, SPRITE }, util) {
@@ -678,18 +678,18 @@ class ReMotion {
       // Move the target point towards or away from the destination point by the specified amount
       let x = util.target.x + DIRECTION * dx * STEPS;
       let y = util.target.y + DIRECTION * dy * STEPS;
-      util.target.setXY(x, y)
+      util.target.setXY(Cast.toNumber(x), Cast.toNumber(y))
     } else {
       console.error("Sprite cannot move towards/away from itself");
     }
   }
 
   distance_to({ X, Y }, util) {
-    return find_distance_to(X, Y, util.target.x, util.target.y)
+    return Cast.toNumber(find_distance_to(X, Y, util.target.x, util.target.y))
   }
 
   distance_from_to({ X1, Y1, X2, Y2 }) {
-    return find_distance_to(X1, Y1, X2, Y2)
+    return Cast.toNumber(find_distance_to(X1, Y1, X2, Y2))
   }
 
   betterGlide(args, util, loop,) {
@@ -768,7 +768,7 @@ class ReMotion {
     const target = util.target;
     let homeState = this.getHomeState(util)
     // set state
-    target.setXY(homeState.x, homeState.y);
+    target.setXY(Cast.toNumber(homeState.x), Cast.toNumber(homeState.y));
     target.setSize(homeState.size);
     target.setDirection(homeState.direction);
     target.setRotationStyle(homeState.rotationStyle);
