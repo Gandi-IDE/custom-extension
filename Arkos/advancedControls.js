@@ -7,6 +7,7 @@ const extensionId = 'advancedControls';
 
 const flagIcon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAABFFBMVEUAAACAgABVqlVJkklAn0BNmTNLljxGlzpDmzdFmjpGmzxHmz9Fmj1FmT5Emj1GmT1GmD1EmDxGmTxEmT1GmjxGmT1FmDxEmT5EmTxGmT5FmD1GmT5FmT1Gmj1EmT5FmT1FmT1FmDxGmT1FmjxLs09LtE9Jr0xJsk1Js05JtVBKtU5KtVBKtlBJrkpJsE1KtlFIrEpIsExLt1FLuFJKuVNIqkhLulNIp0VJqkhKtlJLvVRMvFNFmT5GpUVFmT1HpEVHokNMvlVFmT1Ho0NFmTxLvlVGoUFMvlVLvlVGn0BFmT1Nv1ZEmz5FmTxFmTxFmT1NvlZFmz9FmT5FnT9FnD5GnT9Mv1ZMv1ZMv1ZFmT1Mv1b////70P2GAAAAWXRSTlMAAgMHCAoRFhcwMz0/RkdQVGFmaWpxcnh7gIGEhZKZo6eprLq/v8DAwMDAwMDBwcHCwsPDxcbIysrLzM3Pz9DQ1NTV1dfZ29vg4uXm5+jp6ens7fDx9Pv8/nPb5aAAAAABYktHRFt0vJU0AAAAsUlEQVQoz2NgwA3YhNiwS4hHykoou9goCrKiSUhGhqhZe7gbm3rxQwQ4BJihEupRYODooMDFyMAu6uMsgyoRFW5kHxjkqeuhL4cmAQM4JXRwSWjjktDEJaGFS0IVIeFtZuIaAZdQgUmY2/oqyTu5WcEkNGAS/kJMQJrbySAAJBxmGSoIlYAoYGCR8rPVM7QItuNlQJVgYGDlE5MU5kSErhz2+KCihEikNHYJJh5mBhIAADBcR/r5OJzCAAAAAElFTkSuQmCC';
 const repeatIcon = 'https://m.xiguacity.cn/scratch-base-static/blocks-media/repeat.svg';
+const closeIcon = 'data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIyNS41IiBoZWlnaHQ9IjI1LjUiIHZpZXdCb3g9IjAsMCwyNS41LDI1LjUiPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0zMDcuMjUsLTE2Ny4yNSkiPjxnIGRhdGEtcGFwZXItZGF0YT0ieyZxdW90O2lzUGFpbnRpbmdMYXllciZxdW90Ozp0cnVlfSIgZmlsbC1ydWxlPSJub256ZXJvIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHN0cm9rZS1kYXNoYXJyYXk9IiIgc3Ryb2tlLWRhc2hvZmZzZXQ9IjAiIHN0eWxlPSJtaXgtYmxlbmQtbW9kZTogbm9ybWFsIj48cGF0aCBkPSJNMzEyLjM1LDE2Ny4yNWgxNS4zYzIuODE2NjYsMCA1LjEsMi4yODMzNCA1LjEsNS4xdjE1LjNjMCwyLjgxNjY1IC0yLjI4MzM0LDUuMSAtNS4xLDUuMWgtMTUuM2MtMi44MTY2NiwwIC01LjEsLTIuMjgzMzQgLTUuMSwtNS4xdi0xNS4zYzAsLTIuODE2NjUgMi4yODMzNCwtNS4xIDUuMSwtNS4xeiIgZmlsbD0iI2YzNjY2NiIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1saW5lY2FwPSJidXR0Ii8+PHBhdGggZD0iTTMxNC45OTEwNywxNzQuOTkxMDdsMTAuMDE3ODYsMTAuMDE3ODYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIyLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0zMjUuMDA4OTMsMTc0Ljk5MTA3bC0xMC4wMTc4NiwxMC4wMTc4NiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9nPjwvZz48L3N2Zz4=';
 
 // import cover from './assets/cover1.png'
 // import icon from './assets/icon1.svg'
@@ -39,6 +40,16 @@ class AdvancedControls {
     // runtime.on('PROJECT_LOADED', () => {
     //   this.runtime.startHats(`${extensionId}_whenProjectLoaded`);
     // });
+    // 监听页面关闭
+    window.addEventListener('beforeunload', () => {
+      const threads = this.runtime.startHats(`${extensionId}_beforeWindowClosed`);
+      // 立即执行
+      if (threads) {
+        threads.forEach((thread) => {
+          this.runtime.sequencer.stepThread(thread);
+        });
+      }
+    });
 
     const outerThis = this;
     // 劫持绿旗点击
@@ -172,6 +183,10 @@ class AdvancedControls {
         '当项目加载完成',
         'when the project is loaded',
       ],
+      'advControls.beforeWindowClosed': [
+        '当试图关闭页面[CLOSE_ICON]',
+        'when trying to close the window[CLOSE_ICON]',
+      ],
       'advControls.beforeFlagClicked': [
         '当[FLAG]被点击(比原版先执行)',
         'when[FLAG]is clicked (executed before the original block)',
@@ -301,6 +316,18 @@ class AdvancedControls {
             FLAG: {
               type: ArgumentType.IMAGE,
               dataURI: flagIcon,
+            },
+          },
+        },
+        {
+          opcode: 'beforeWindowClosed',
+          blockType: BlockType.EVENT,
+          text: this.formatMessage('advControls.beforeWindowClosed'),
+          isEdgeActivated: false,
+          arguments: {
+            CLOSE_ICON: {
+              type: ArgumentType.IMAGE,
+              dataURI: closeIcon,
             },
           },
         },
@@ -936,7 +963,8 @@ window.tempExt = {
     featured: true,
     disabled: false,
     collaborator: 'only for AdvancedControls test',
-    docsURI: 'https://learn.ccw.site/article/baa85bdd-038b-4a3c-894d-86a972b42178',
+    docsURI:
+      'https://learn.ccw.site/article/baa85bdd-038b-4a3c-894d-86a972b42178',
     collaboratorList: [
       {
         collaborator: 'Arkos @ CCW',
