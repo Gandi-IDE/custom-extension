@@ -794,7 +794,7 @@ class AdvancedControls {
     if (!stackFrame.executionContext) stackFrame.executionContext = {};
     const { executionContext } = stackFrame;
     if (!executionContext.globalTarget) { executionContext.globalTarget = origTarget; }
-    thread.__lastTarget = origTarget;
+    stackFrame.__lastTarget = origTarget;
 
     // 劫持 popStack，用于恢复执行对象为原角色
     this.tryHackedFunction(thread, 'popStack', function popStack(orig) {
@@ -802,7 +802,7 @@ class AdvancedControls {
       if (block) {
         if (block.opcode === `${extensionId}_letSpriteDo`) {
           // 恢复执行角色
-          this.target = this.__lastTarget;
+          this.target = this.peekStackFrame().__lastTarget;
         }
       }
       return orig.call(this);
