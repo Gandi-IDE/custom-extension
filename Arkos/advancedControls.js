@@ -18,6 +18,18 @@ const cover = 'https://m.ccw.site/user_projects_assets/c48647806cadf20680f05c665
 
 /** @typedef {any} Util util 参数，暂时定为 any */
 
+function getPeekStackBlock(thread) {
+  let block;
+  const blockID = thread.peekStack();
+  const globalTarget = thread.getCurrentGlobalTarget();
+  if (globalTarget) {
+    block = globalTarget.blocks.getBlock(blockID);
+  } else {
+    block = thread.target.blocks.getBlock(blockID);
+  }
+  return block;
+}
+
 class AdvancedControls {
   constructor(runtime) {
     this.runtime = runtime;
@@ -94,14 +106,7 @@ class AdvancedControls {
     // 劫持 goToNextBlock
     this.__hackedGoToNextBlock = function goToNextBlock(orig) {
       // 获取当前 block，用于之后读取当前C型积木的opcode
-      let block;
-      const blockID = this.peekStack();
-      const globalTarget = this.getCurrentGlobalTarget();
-      if (globalTarget) {
-        block = globalTarget.blocks.getBlock(blockID);
-      } else {
-        block = this.target.blocks.getBlock(blockID);
-      }
+      const block = getPeekStackBlock(this);
       // 跳转下一个积木
       orig.call(this);
       // 如果循环里执行了continueLoop，将当前stack设为null（不执行下一个积木）
@@ -134,9 +139,6 @@ class AdvancedControls {
           if (stackFrame.__warpMode !== undefined) {
             stackFrame.warpMode = stackFrame.__warpMode;
           }
-        } else if (block.opcode === `${extensionId}_letSpriteDo`) {
-          // 恢复执行角色
-          this.target = this.__lastTarget;
         }
       }
     };
@@ -766,10 +768,9 @@ class AdvancedControls {
 
     // 开启warpMode
     thread.peekStackFrame().warpMode = true;
-    util.startBranch(1, false);
-
-    // 劫持goToNextBlock，恢复warpMode
+    // 劫持goToNextBlock，用于恢复warpMode
     this._hackGoToNextBlock(thread);
+    util.startBranch(1, false);
   }
 
   letSpriteDo({ SPRITE }, util) {
@@ -794,9 +795,19 @@ class AdvancedControls {
     const { executionContext } = stackFrame;
     if (!executionContext.globalTarget) { executionContext.globalTarget = origTarget; }
     thread.__lastTarget = origTarget;
+
+    // 劫持 popStack，用于恢复执行对象为原角色
+    this.tryHackedFunction(thread, 'popStack', function popStack(orig) {
+      const block = getPeekStackBlock(this);
+      if (block) {
+        if (block.opcode === `${extensionId}_letSpriteDo`) {
+          // 恢复执行角色
+          this.target = this.__lastTarget;
+        }
+      }
+      return orig.call(this);
+    });
     util.startBranch(1, false);
-    // 劫持 goToNextBlock，恢复执行对象为原角色
-    this._hackGoToNextBlock(thread);
   }
 
   doWhile({ CONDITION }, util) {
