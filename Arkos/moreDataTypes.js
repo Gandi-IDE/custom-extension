@@ -1287,7 +1287,7 @@ class moreDataTypes {
   /**
    * 设置数据
    * @param {SCarg} NAME
-   * @param {SCarg} OP 操作：set/ add/ parse/ shallowCopy/ deepCopy
+   * @param {SCarg} OP 操作：set/ add
    * @param {*} VALUE
    */
   setTempData({ NAME, OP, VALUE }) {
@@ -1457,12 +1457,11 @@ class moreDataTypes {
    * 向列表加入
    * @param {*} NAME_OR_OBJ 数据名或传入对象
    * @param {*} VALUE
-   * @param {SCarg} OP 操作：set/ parse/ shallowCopy/ deepCopy
    */
-  addItemToList({ NAME_OR_OBJ, VALUE, OP }) {
+  addItemToList({ NAME_OR_OBJ, VALUE }) {
     const list = this.__getListByNameOrObj(NAME_OR_OBJ);
     if (!list) return;
-    this.__setDataByOption(list, list.length, OP, VALUE);
+    this.__setDataByOption(list, list.length, 'set', VALUE);
   }
 
   /**
@@ -1483,26 +1482,26 @@ class moreDataTypes {
     this.__setDataByOption(list, idx, OP, VALUE);
   }
 
-  /**
-   * 插入到列表第x项前
-   * @param {*} NAME_OR_OBJ 数据名或传入对象
-   * @param {number} IDX 第x项
-   * @param {*} VALUE
-   * @param {string} OP 操作：set/ parse/ shallowCopy/ deepCopy
-   */
-  insertItemIntoList({
-    NAME_OR_OBJ, IDX, VALUE, OP,
-  }) {
-    const list = this.__getListByNameOrObj(NAME_OR_OBJ);
-    if (!list) return;
-    const idx = Cast.toNumber(IDX) - 1;
-    if (idx < 0 || idx > list.length) return;
-    list.splice(idx, 0, null);
-    const success = this.__setDataByOption(list, idx, OP, VALUE);
-    if (!success) {
-      list.splice(idx, 1);
-    }
-  }
+  // /**
+  //  * 插入到列表第x项前
+  //  * @param {*} NAME_OR_OBJ 数据名或传入对象
+  //  * @param {number} IDX 第x项
+  //  * @param {*} VALUE
+  //  * @param {string} OP 操作：set/ parse/ shallowCopy/ deepCopy
+  //  */
+  // insertItemIntoList({
+  //   NAME_OR_OBJ, IDX, VALUE, OP,
+  // }) {
+  //   const list = this.__getListByNameOrObj(NAME_OR_OBJ);
+  //   if (!list) return;
+  //   const idx = Cast.toNumber(IDX) - 1;
+  //   if (idx < 0 || idx > list.length) return;
+  //   list.splice(idx, 0, null);
+  //   const success = this.__setDataByOption(list, idx, OP, VALUE);
+  //   if (!success) {
+  //     list.splice(idx, 1);
+  //   }
+  // }
 
   /**
    * 删除列表XX项
@@ -1618,7 +1617,7 @@ class moreDataTypes {
    * 设置对象
    * @param {*} NAME_OR_OBJ 数据名或传入对象
    * @param {*} PROP 属性名
-   * @param {string} OP 操作：set/ add/ parse/ shallowCopy/ deepCopy
+   * @param {string} OP 操作：set/ add
    * @param {*} VALUE
    */
   setPropOfObject({
