@@ -93,75 +93,8 @@ const matchProduct = (id) => {
 class GamepadExtension {
   constructor(runtime) {
     this.runtime = runtime
-    //Generated translation table by Chat GPT cus i am lazy
-    this._formatMessage = runtime.getFormatMessage({
-      'zh-cn': {
-        'Gamepad.Gamepad': "游戏手柄",
-        'gamepad [pad] connected?': "游戏手柄 [pad] 已连接？",
-        'button [b] on pad [i] pressed?': "手柄 [i] 上的按钮 [b] 被按下？",
-        'value of button [b] on pad [i]': "手柄 [i] 上的按钮 [b] 的值",
-        'value of axis [b] on pad [i]': "手柄 [i] 上的轴 [b] 的值",
-        'direction of axes [axis] on pad [pad]': "手柄 [pad] 上的轴 [axis] 的方向",
-        'magnitude of axes [axis] on pad [pad]': "手柄 [pad] 上的轴 [axis] 的大小",
-        'rumble strong [s] and weak [w] for [t] sec. on pad [i]': "在手柄 [i] 上震动强 [s] 和弱 [w] [t] 秒",
-        'any': "任意",
-        'Left bumper (5)': "左肩键 (5)",
-        'Right bumper (6)': "右肩键 (6)",
-        'Left trigger (7)': "左扳机 (7)",
-        'Right trigger (8)': "右扳机 (8)",
-        'Select/View (9)': "选择/视图 (9)",
-        'Start/Menu (10)': "开始/菜单 (10)",
-        'Left stick (11)': "左摇杆 (11)",
-        'Right stick (12)': "右摇杆 (12)",
-        'D-pad up (13)': "十字键上 (13)",
-        'D-pad down (14)': "十字键下 (14)",
-        'D-pad left (15)': "十字键左 (15)",
-        'D-pad right (16)': "十字键右 (16)",
-        'Left stick horizontal (1)': "左摇杆水平 (1)",
-        'Left stick vertical (2)': "左摇杆垂直 (2)",
-        'Right stick horizontal (3)': "右摇杆水平 (3)",
-        'Right stick vertical (4)': "右摇杆垂直 (4)",
-        'Left stick (1 & 2)': "左摇杆 (1 & 2)",
-        'Right stick (3 & 4)': "右摇杆 (3 & 4)",
-        "set axis deadzone to [i]": "将轴死区设置为 [i]",
-        "set button deadzone to [i]": "将按钮死区设置为 [i]",
-        "get axis deadzone":"获取轴死区",
-        "get button deadzone": "获取按钮死区",
-      },
-      en: {
-        'Gamepad.Gamepad': "Gamepad",
-        'gamepad [pad] connected?': "Gamepad [pad] connected?",
-        'button [b] on pad [i] pressed?': "Button [b] on pad [i] pressed?",
-        'value of button [b] on pad [i]': "Value of button [b] on pad [i]",
-        'value of axis [b] on pad [i]': "Value of axis [b] on pad [i]",
-        'direction of axes [axis] on pad [pad]': "Direction of axes [axis] on pad [pad]",
-        'magnitude of axes [axis] on pad [pad]': "Magnitude of axes [axis] on pad [pad]",
-        'rumble strong [s] and weak [w] for [t] sec. on pad [i]': "Rumble strong [s] and weak [w] for [t] sec. on pad [i]",
-        'any': "any",
-        'Left bumper (5)': "Left bumper (5)",
-        'Right bumper (6)': "Right bumper (6)",
-        'Left trigger (7)': "Left trigger (7)",
-        'Right trigger (8)': "Right trigger (8)",
-        'Select/View (9)': "Select/View (9)",
-        'Start/Menu (10)': "Start/Menu (10)",
-        'Left stick (11)': "Left stick (11)",
-        'Right stick (12)': "Right stick (12)",
-        'D-pad up (13)': "D-pad up (13)",
-        'D-pad down (14)': "D-pad down (14)",
-        'D-pad left (15)': "D-pad left (15)",
-        'D-pad right (16)': "D-pad right (16)",
-        'Left stick horizontal (1)': "Left stick horizontal (1)",
-        'Left stick vertical (2)': "Left stick vertical (2)",
-        'Right stick horizontal (3)': "Right stick horizontal (3)",
-        'Right stick vertical (4)': "Right stick vertical (4)",
-        'Left stick (1 & 2)': "Left stick (1 & 2)",
-        'Right stick (3 & 4)': "Right stick (3 & 4)",
-        "set axis deadzone to [i]": "set axis deadzone to [i]",
-        "set button deadzone to [i]": "set button deadzone to [i]",
-        "get axis deadzone":"Get axis deadzone",
-        "get button deadzone": "Get button deadzone",
-      },
-    });
+    //Generated translation table by Bing Chat cus i am lazy
+    this._formatMessage = runtime.getFormatMessage({ 'zh-cn': { 'Gamepad.Gamepad': "游戏手柄", 'get [d] of pad [i]': "获取手柄 [i] 的 [d]", 'button [b] on pad [i] pressed?': "手柄 [i] 上的按钮 [b] 是否按下？", 'value of button [b] on pad [i]': "手柄 [i] 上的按钮 [b] 的值", 'value of axis [b] on pad [i]': "手柄 [i] 上的轴 [b] 的值", 'direction of axes [axis] on pad [pad]': "手柄 [pad] 上的轴 [axis] 的方向", 'magnitude of axes [axis] on pad [pad]': "手柄 [pad] 上的轴 [axis] 的大小", 'rumble strong [s] and weak [w] for [t] sec. on pad [i]': "在手柄 [i] 上震动强度为 [s] 和 [w] 的 [t] 秒", 'set axis deadzone to [i]': "设置轴的死区为 [i]", 'set button deadzone to [i]': "设置按钮的死区为 [i]", 'get axis deadzone': "获取轴的死区", 'get button deadzone': "获取按钮的死区", 'any': "任意", 'Left bumper (5)': "左肩键 (5)", 'Right bumper (6)': "右肩键 (6)", 'Left trigger (7)': "左扳机 (7)", 'Right trigger (8)': "右扳机 (8)", 'Select/View (9)': "选择/视图 (9)", 'Start/Menu (10)': "开始/菜单 (10)", 'Left stick (11)': "左摇杆 (11)", 'Right stick (12)': "右摇杆 (12)", 'D-pad up (13)': "十字键上 (13)", 'D-pad down (14)': "十字键下 (14)", 'D-pad left (15)': "十字键左 (15)", 'D-pad right (16)': "十字键右 (16)", 'Left stick horizontal (1)': "左摇杆水平 (1)", 'Left stick vertical (2)': "左摇杆垂直 (2)", 'Right stick horizontal (3)': "右摇杆水平 (3)", 'Right stick vertical (4)': "右摇杆垂直 (4)", 'Left stick (1 & 2)': "左摇杆 (1 & 2)", 'Right stick (3 & 4)': "右摇杆 (3 & 4)", 'id': "标识", 'vendor': "厂商", 'product': "产品", 'mapping': "映射" }, en: { 'Gamepad.Gamepad': "Gamepad", 'get [d] of pad [i]': "get [d] of pad [i]", 'button [b] on pad [i] pressed?': "button [b] on pad [i] pressed?", 'value of button [b] on pad [i]': "value of button [b] on pad [i]", 'value of axis [b] on pad [i]': "value of axis [b] on pad [i]", 'direction of axes [axis] on pad [pad]': "direction of axes [axis] on pad [pad]", 'magnitude of axes [axis] on pad [pad]': "magnitude of axes [axis] on pad [pad]", 'rumble strong [s] and weak [w] for [t] sec. on pad [i]': "rumble strong [s] and weak [w] for [t] sec. on pad [i]", 'set axis deadzone to [i]': "set axis deadzone to [i]", 'set button deadzone to [i]': "set button deadzone to [i]", 'get axis deadzone': "get axis deadzone", 'get button deadzone': "get button deadzone", 'any': "any", 'Left bumper (5)': "Left bumper (5)", 'Right bumper (6)': "Right bumper (6)", 'Left trigger (7)': "Left trigger (7)", 'Right trigger (8)': "Right trigger (8)", 'Select/View (9)': "Select/View (9)", 'Start/Menu (10)': "Start/Menu (10)", 'Left stick (11)': "Left stick (11)", 'Right stick (12)': "Right stick (12)", 'D-pad up (13)': "D-pad up (13)", 'D-pad down (14)': "D-pad down (14)", 'D-pad left (15)': "D-pad left (15)", 'D-pad right (16)': "D-pad right (16)", 'Left stick horizontal (1)': "Left stick horizontal (1)", 'Left stick vertical (2)': "Left stick vertical (2)", 'Right stick horizontal (3)': "Right stick horizontal (3)", 'Right stick vertical (4)': "Right stick vertical (4)", 'Left stick (1 & 2)': "Left stick (1 & 2)", 'Right stick (3 & 4)': "Right stick (3 & 4)", 'id': "id", 'vendor': "vendor", 'product': "product", 'mapping': "mapping" }, });
   }
 
   formatMessage(id) {
@@ -196,7 +129,7 @@ class GamepadExtension {
         {
           opcode: 'gamepadDetail',
           blockType: Scratch.BlockType.REPORTER,
-          text: 'get [d] of pad [i]',
+          text: this.formatMessage('get [d] of pad [i]'),
           arguments: {
             d: {
               type: Scratch.ArgumentType.STRING,
@@ -216,7 +149,7 @@ class GamepadExtension {
         {
           opcode: "buttonDown",
           blockType: Scratch.BlockType.BOOLEAN,
-          text: "button [b] on pad [i] pressed?",
+          text: this.formatMessage("button [b] on pad [i] pressed?"),
           arguments: {
             b: {
               type: Scratch.ArgumentType.NUMBER,
@@ -233,7 +166,7 @@ class GamepadExtension {
         {
           opcode: "buttonValue",
           blockType: Scratch.BlockType.REPORTER,
-          text: "value of button [b] on pad [i]",
+          text: this.formatMessage("value of button [b] on pad [i]"),
           arguments: {
             b: {
               type: Scratch.ArgumentType.NUMBER,
@@ -250,7 +183,7 @@ class GamepadExtension {
         {
           opcode: "axisValue",
           blockType: Scratch.BlockType.REPORTER,
-          text: "value of axis [b] on pad [i]",
+          text: this.formatMessage("value of axis [b] on pad [i]"),
           arguments: {
             b: {
               type: Scratch.ArgumentType.NUMBER,
@@ -270,7 +203,7 @@ class GamepadExtension {
         {
           opcode: "axisDirection",
           blockType: Scratch.BlockType.REPORTER,
-          text: "direction of axes [axis] on pad [pad]",
+          text: this.formatMessage("direction of axes [axis] on pad [pad]"),
           arguments: {
             axis: {
               type: Scratch.ArgumentType.NUMBER,
@@ -287,7 +220,7 @@ class GamepadExtension {
         {
           opcode: "axisMagnitude",
           blockType: Scratch.BlockType.REPORTER,
-          text: "magnitude of axes [axis] on pad [pad]",
+          text: this.formatMessage("magnitude of axes [axis] on pad [pad]"),
           arguments: {
             axis: {
               type: Scratch.ArgumentType.NUMBER,
@@ -348,7 +281,7 @@ class GamepadExtension {
         {
           opcode: "rumble",
           blockType: Scratch.BlockType.COMMAND,
-          text: "rumble strong [s] and weak [w] for [t] sec. on pad [i]",
+          text: this.formatMessage("rumble strong [s] and weak [w] for [t] sec. on pad [i]"),
           arguments: {
             s: {
               type: Scratch.ArgumentType.NUMBER,
@@ -373,45 +306,45 @@ class GamepadExtension {
         "---",
 
         {
-        opcode: "deadzone",
-        blockType: Scratch.BlockType.COMMAND,
-        text: "set axis deadzone to [i]",
-        arguments: {
-          i: {
-            type: Scratch.ArgumentType.NUMBER,
-            defaultValue: "0.1",
+          opcode: "deadzone",
+          blockType: Scratch.BlockType.COMMAND,
+          text: this.formatMessage("set axis deadzone to [i]"),
+          arguments: {
+            i: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: "0.1",
+            },
           },
-        },
         },
 
         {
-        opcode: "deadzoneButton",
-        blockType: Scratch.BlockType.COMMAND,
-        text: "set button deadzone to [i]",
-        arguments: {
-          i: {
-            type: Scratch.ArgumentType.NUMBER,
-            defaultValue: "0.05",
+          opcode: "deadzoneButton",
+          blockType: Scratch.BlockType.COMMAND,
+          text: this.formatMessage("set button deadzone to [i]"),
+          arguments: {
+            i: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: "0.05",
+            },
           },
-        },
         },
         {
           opcode: "getdeadzone",
           blockType: Scratch.BlockType.REPORTER,
-          text: "get axis deadzone", 
+          text: this.formatMessage("get axis deadzone"),
         },
         {
           opcode: "getdeadzoneButton",
           blockType: Scratch.BlockType.REPORTER,
-          text: "get button deadzone",
+          text: this.formatMessage("get button deadzone"),
         },
       ],
-  menus: {
+      menus: {
         padMenu: {
           acceptReporters: true,
           items: [
             {
-              text: "any",
+              text: this.formatMessage("any"),
               value: "any",
             },
             {
@@ -434,14 +367,14 @@ class GamepadExtension {
         },
         detailMenu: {
           acceptReporters: true,
-          items: ['id', 'vendor', 'product', 'mapping']
+          items: [this.formatMessage('id'), this.formatMessage('vendor'), this.formatMessage('product'), this.formatMessage('mapping')]
         },
         buttonMenu: {
           acceptReporters: true,
           items: [
             // Based on an Xbox controller
             {
-              text: "any",
+              text: this.formatMessage("any"),
               value: "any",
             },
             {
@@ -461,51 +394,51 @@ class GamepadExtension {
               value: "4",
             },
             {
-              text: "Left bumper (5)",
+              text: this.formatMessage("Left bumper (5)"),
               value: "5",
             },
             {
-              text: "Right bumper (6)",
+              text: this.formatMessage("Right bumper (6)"),
               value: "6",
             },
             {
-              text: "Left trigger (7)",
+              text: this.formatMessage("Left trigger (7)"),
               value: "7",
             },
             {
-              text: "Right trigger (8)",
+              text: this.formatMessage("Right trigger (8)"),
               value: "8",
             },
             {
-              text: "Select/View (9)",
+              text: this.formatMessage("Select/View (9)"),
               value: "9",
             },
             {
-              text: "Start/Menu (10)",
+              text: this.formatMessage("Start/Menu (10)"),
               value: "10",
             },
             {
-              text: "Left stick (11)",
+              text: this.formatMessage("Left stick (11)"),
               value: "11",
             },
             {
-              text: "Right stick (12)",
+              text: this.formatMessage("Right stick (12)"),
               value: "12",
             },
             {
-              text: "D-pad up (13)",
+              text: this.formatMessage("D-pad up (13)"),
               value: "13",
             },
             {
-              text: "D-pad down (14)",
+              text: this.formatMessage("D-pad down (14)"),
               value: "14",
             },
             {
-              text: "D-pad left (15)",
+              text: this.formatMessage("D-pad left (15)"),
               value: "15",
             },
             {
-              text: "D-pad right (16)",
+              text: this.formatMessage("D-pad right (16)"),
               value: "16",
             },
           ],
@@ -515,19 +448,19 @@ class GamepadExtension {
           items: [
             // Based on an Xbox controller
             {
-              text: "Left stick horizontal (1)",
+              text: this.formatMessage("Left stick horizontal (1)"),
               value: "1",
             },
             {
-              text: "Left stick vertical (2)",
+              text: this.formatMessage("Left stick vertical (2)"),
               value: "2",
             },
             {
-              text: "Right stick horizontal (3)",
+              text: this.formatMessage("Right stick horizontal (3)"),
               value: "3",
             },
             {
-              text: "Right stick vertical (4)",
+              text: this.formatMessage("Right stick vertical (4)"),
               value: "4",
             },
           ],
@@ -537,11 +470,11 @@ class GamepadExtension {
           items: [
             // Based on an Xbox controller
             {
-              text: "Left stick (1 & 2)",
+              text: this.formatMessage("Left stick (1 & 2)"),
               value: "1",
             },
             {
-              text: "Right stick (3 & 4)",
+              text: this.formatMessage("Right stick (3 & 4)"),
               value: "3",
             },
           ],
@@ -566,7 +499,7 @@ class GamepadExtension {
     return getGamepads(pad).length > 0;
   }
 
-  gamepadDetail ({d, i}) {
+  gamepadDetail({ d, i }) {
     for (const gamepad of getGamepads(i)) {
       switch (d) {
         case 'mapping': return gamepad.mapping;
@@ -655,7 +588,7 @@ class GamepadExtension {
         });
       }
     }
-  } 
+  }
 
   deadzone({ i }) {
     AXIS_DEADZONE = i;
@@ -709,8 +642,8 @@ window.tempExt = {
   },
   l10n: {
     'zh-cn': {
-      'Gamepad.extensionName': 'Gamepad 的测试',
-      'Gamepad.description': 'Gamepad 的测试',
+      'Gamepad.extensionName': '直接访问游戏手柄，而不仅仅是将按钮映射到按键。',
+      'Gamepad.description': 'Directly access gamepads instead of just mapping buttons to keys.',
     },
     en: {
       'Gamepad.extensionName': 'Gamepad',
