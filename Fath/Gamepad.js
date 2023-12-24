@@ -110,9 +110,9 @@ class GamepadExtension {
       id: "Gamepad",
       name: this.formatMessage("Gamepad"),
       blockIconURI: Icon,
-      color1: '#23a89e',
-      color2: '#30D5C8',
-      color3: '#2abfb3',
+      color1: '#2abfb3',
+      color2: '#23a89e ',
+      color3: '#30D5C8',
       blocks: [
         {
           opcode: "gamepadConnected",
