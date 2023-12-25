@@ -6,7 +6,6 @@ const { Scratch } = window;
 const { Cast } = Scratch;
 
 const extensionId = 'moreDataTypes';
-// const extensionId = 'test';
 
 /** 保存扩展配置的舞台注释的Id */
 const EXT_CONFIG_COMMENT_ID = '_ArkosExtensionConfig_';
@@ -224,6 +223,10 @@ class moreDataTypes {
       'defaultValue.dataName': ['我的数据', 'my data'],
       'defaultValue.listName': ['我的列表', 'my list'],
       'defaultValue.objName': ['我的对象', 'my object'],
+      'defaultValue.JSON': [
+        '"姓名":"小明","年龄":"12","朋友":["埃米","泰拉"]',
+        '"name":"Tera","age":"12","friends":["Amy","XiaoMing"]',
+      ],
       'defaultValue.dataNameOrObj': [
         '名称(或传入对象)',
         'name (or input object)',
@@ -258,17 +261,19 @@ class moreDataTypes {
       'menu.getOption.objectAllowed': ['值', 'value'],
       'menu.getOption.json': ['JSON', 'JSON'],
       'block.getObjFromJson': [
-        '🗄️将JSON[VALUE]解析为对象',
+        '🗄️JSON[VALUE]解析为对象',
         '🗄️parse JSON [VALUE] to object',
       ],
       'block.newEmptyObjOrArray': ['🗄️返回一个[OPTION]', '🗄️create an [OPTION]'],
       'menu.emptyList': ['空列表', 'empty list'],
       'menu.emptyObj': ['空对象', 'empty object'],
+      'block.getNewList': ['🗄️创建一个空列表', '🗄️create an empty list'],
+      'block.getNewObject': ['🗄️创建一个空对象', '🗄️create an empty object'],
       'block.typeOf': ['[VALUE]的类型', 'type of [VALUE]'],
-      'block.JSONOf': ['[VALUE]对应JSON', 'JSON of [VALUE]'],
+      'block.JSONOf': ['[VALUE]对应JSON', 'JSON of object[VALUE]'],
       'block.createOrClearList': [
-        '将名为[NAME]的数据设为空列表',
-        'set [NAME] to an empty list',
+        '将数据[NAME](填数据名称)设为空列表',
+        'set [NAME](enter data name) to an empty list',
       ],
       'block.addItemToList': [
         '向列表[NAME_OR_OBJ]加入[VALUE]',
@@ -329,6 +334,13 @@ class moreDataTypes {
       'menu.conInfo.value': ['内容', 'content'],
       'menu.conInfo.objValue': ['内容', 'content'],
       'menu.conInfo.json': ['JSON', 'JSON'],
+      'block.getAllProperties': [
+        '对象[NAME_OR_OBJ]的所有[OPTION]',
+        'get all[OPTION] of object [NAME_OR_OBJ]',
+      ],
+      'menu.keys': ['属性名', 'keys'],
+      'menu.values': ['属性值', 'values'],
+      'menu.entries': [' [键, 值] 对', 'entries'],
       'block.sizeOfObject': [
         '对象[NAME_OR_OBJ]中内容数',
         'size of object [NAME_OR_OBJ]',
@@ -454,7 +466,7 @@ class moreDataTypes {
           opcode: 'typeOf',
           blockType: Scratch.BlockType.REPORTER,
           text: this.formatMessage('block.typeOf'),
-          hideFromPalette: !this.enableNesting,
+          // hideFromPalette: !this.enableNesting,
           arguments: {
             VALUE: {
               type: null,
@@ -467,7 +479,7 @@ class moreDataTypes {
           opcode: 'JSONOf',
           blockType: Scratch.BlockType.REPORTER,
           text: this.formatMessage('block.JSONOf'),
-          // hideFromPalette: !this.enableNesting,
+          hideFromPalette: !this.enableNesting,
           arguments: {
             VALUE: {
               type: null,
@@ -484,9 +496,8 @@ class moreDataTypes {
           arguments: {
             VALUE: {
               type: Scratch.ArgumentType.STRING,
-              // defaultValue: this.formatMessage("defaultValue.JSON"),
               defaultValue:
-                '[{"姓名":"小明","成绩":100},{"姓名":"小红","成绩":98}]',
+                `{${this.formatMessage('defaultValue.JSON')}}`,
             },
           },
         },
@@ -512,7 +523,7 @@ class moreDataTypes {
           blockType: Scratch.BlockType.REPORTER,
           text: this.formatMessage('block.newEmptyObjOrArray'),
           disableMonitor: true,
-          hideFromPalette: !this.enableNesting,
+          hideFromPalette: true, // !this.enableNesting,
           arguments: {
             OPTION: {
               type: Scratch.ArgumentType.STRING,
@@ -565,6 +576,7 @@ class moreDataTypes {
         {
           opcode: 'createOrClearList',
           blockType: Scratch.BlockType.COMMAND,
+          hideFromPalette: true, // 积木隐藏（这个积木的用法容易让人误会）
           text: this.formatMessage('block.createOrClearList'),
           arguments: {
             NAME: {
@@ -572,6 +584,13 @@ class moreDataTypes {
               defaultValue: this.__dataNameOrObjMsg('list'),
             },
           },
+        },
+        // 返回一个空列表
+        {
+          opcode: 'getNewList',
+          blockType: Scratch.BlockType.REPORTER,
+          disableMonitor: true,
+          text: this.formatMessage('block.getNewList'),
         },
         // 向列表加入
         {
@@ -713,6 +732,7 @@ class moreDataTypes {
         {
           opcode: 'createOrClearObject',
           blockType: Scratch.BlockType.COMMAND,
+          hideFromPalette: true, // 积木隐藏（这个积木的用法容易让人误会）
           text: this.formatMessage('block.createOrClearObject'),
           arguments: {
             NAME: {
@@ -720,6 +740,13 @@ class moreDataTypes {
               defaultValue: this.__dataNameOrObjMsg('obj'),
             },
           },
+        },
+        // 返回一个空列表
+        {
+          opcode: 'getNewObject',
+          disableMonitor: true,
+          blockType: Scratch.BlockType.REPORTER,
+          text: this.formatMessage('block.getNewObject'),
         },
         // 设置对象
         {
@@ -786,28 +813,6 @@ class moreDataTypes {
             // },
           },
         },
-        // 获取对象第n项的xx
-        {
-          opcode: 'getPropOfObjectByIdx',
-          blockType: Scratch.BlockType.REPORTER,
-          disableMonitor: true,
-          text: this.formatMessage('block.getPropOfObjectByIdx'),
-          // isDynamic: true,
-          arguments: {
-            NAME_OR_OBJ: {
-              type: Scratch.ArgumentType.STRING,
-              defaultValue: this.__dataNameOrObjMsg('obj'),
-            },
-            IDX: {
-              type: Scratch.ArgumentType.NUMBER,
-              defaultValue: 1,
-            },
-            OPTION: {
-              type: Scratch.ArgumentType.STRING,
-              menu: 'OBJECT_GET_OPTION',
-            },
-          },
-        },
         // 对象长度
         {
           opcode: 'sizeOfObject',
@@ -839,6 +844,45 @@ class moreDataTypes {
             },
           },
         },
+        // 获取对象第n项的xx
+        {
+          opcode: 'getPropOfObjectByIdx',
+          blockType: Scratch.BlockType.REPORTER,
+          disableMonitor: true,
+          text: this.formatMessage('block.getPropOfObjectByIdx'),
+          // isDynamic: true,
+          arguments: {
+            NAME_OR_OBJ: {
+              type: Scratch.ArgumentType.STRING,
+              defaultValue: this.__dataNameOrObjMsg('obj'),
+            },
+            IDX: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: 1,
+            },
+            OPTION: {
+              type: Scratch.ArgumentType.STRING,
+              menu: 'OBJECT_GET_OPTION',
+            },
+          },
+        },
+        // 获取对象所有键
+        {
+          opcode: 'getAllProperties',
+          blockType: Scratch.BlockType.REPORTER,
+          disableMonitor: true,
+          text: this.formatMessage('block.getAllProperties'),
+          arguments: {
+            NAME_OR_OBJ: {
+              type: Scratch.ArgumentType.STRING,
+              defaultValue: this.__dataNameOrObjMsg('obj'),
+            },
+            OPTION: {
+              type: Scratch.ArgumentType.STRING,
+              menu: 'KEYS_OR_VALUES_OR_ENTRIES',
+            },
+          },
+        },
       ],
       menus: {
         DATA_SET_OPTION: {
@@ -862,6 +906,20 @@ class moreDataTypes {
         OBJECT_GET_OPTION: {
           items: '__objectGetOptionMenu',
         },
+        KEYS_OR_VALUES_OR_ENTRIES: [
+          {
+            text: this.formatMessage('menu.keys'),
+            value: 'keys',
+          },
+          {
+            text: this.formatMessage('menu.values'),
+            value: 'values',
+          },
+          {
+            text: this.formatMessage('menu.entries'),
+            value: 'entries',
+          },
+        ],
         COPY_MENU: [
           {
             text: this.formatMessage('menu.shallow'), // 空列表
@@ -1245,11 +1303,12 @@ class moreDataTypes {
       case 'add':
         data[prop] = Cast.toNumber(data[prop]) + Cast.toNumber(VALUE);
         return true;
-      case 'insert':
+      case 'insert': {
         const list = data;
         const idx = prop;
         list.splice(idx, 0, VALUE);
         return true;
+      }
       case 'parse': {
         try {
           if (typeof VALUE !== 'string') return false;
@@ -1320,13 +1379,20 @@ class moreDataTypes {
     return OPTION === '[]' ? new SafeObject([]) : new SafeObject();
   }
 
+  getNewObject() {
+    return new SafeObject();
+  }
+
+  getNewList() {
+    return new SafeObject([]);
+  }
+
   /**
    * 获取xx的类型
    * @param {SCarg} VALUE
    * @return {string} 类别
    */
   typeOf({ VALUE }) {
-    if (VALUE === null || VALUE === undefined) return '';
     const value = SafeObject.getActualObject(VALUE);
     if (Array.isArray(value)) return 'list';
     return typeof value;
@@ -1671,6 +1737,33 @@ class moreDataTypes {
     if (OPTION === 'name') return key;
 
     return this.__getDataByOption(obj[key], OPTION);
+  }
+
+  /**
+   * 获取对象keys
+   * @param {*} NAME_OR_OBJ 数据名或传入对象
+   * @param {'keys'|'values'|'entries'} OPTION
+   * @returns {*}
+   */
+  getAllProperties({ NAME_OR_OBJ, OPTION }) {
+    const obj = this.__getObjByNameOrObj(NAME_OR_OBJ);
+    if (!obj) return SafeObject.toSafeObject([]);
+
+    let res;
+    switch (Cast.toString(OPTION)) {
+      case 'keys':
+        res = Object.keys(obj);
+        break;
+      case 'values':
+        res = Object.values(obj);
+        break;
+      case 'entries':
+        res = Object.entries(obj).map((item) => SafeObject.toSafeObject(item));
+        break;
+      default:
+        res = [];
+    }
+    return SafeObject.toSafeObject(res);
   }
 
   /**
