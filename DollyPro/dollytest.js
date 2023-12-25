@@ -193,11 +193,11 @@ class dollyProExtension {
         'witCat.dollyPro.tag.test': '🚧 实验积木',
 
         'witCat.dollyPro.warn.newIDIsOldID':
-          '多莉pro：修改的角色ID已经是 "%s"!',
+          '修改的角色ID已经是 "%s"!',
         'witCat.dollyPro.warn.repetitveID':
-          '多莉pro：已存在ID为 "%s"的克隆体或角色，请不要设置相同 ID！',
+          '已存在ID为 "%s"的克隆体或角色，请不要设置相同 ID！',
         'witCat.dollyPro.error.repetitiveID':
-          '多莉pro: 已经存在ID为 "%s" 的克隆体，克隆时请勿使用相同ID！',
+          '已经存在ID为 "%s" 的克隆体，克隆时请勿使用相同ID！',
         'witCat.dollyPro.config.tip':
           '该注释用于保存多莉Pro扩展信息\n你可以拖动/缩放这个注释。不建议直接编辑注释文字。可以删除这个注释来清除扩展配置信息',
 
@@ -220,9 +220,9 @@ class dollyProExtension {
           '克隆 [TARGET] 并设置ID为 [ID]',
         'witCat.dollyPro.block.deleteCloneByID': '删除ID为[ID]的克隆体',
         'witCat.dollyPro.block.dispatchWhenCloneDeleted':
-          '当 [TARGET] 的克隆体被删除，删除的克隆体ID = [ID]',
+          '当侦测到有 [TARGET] 的克隆体被删除。删除的克隆体ID = [ID]',
         'witCat.dollyPro.block.dispatchWhenCloned':
-          '当 [TARGET] 被克隆，产生的克隆体ID = [ID]',
+          '当侦测到有 [TARGET] 的克隆体产生。产生的克隆体ID = [ID]',
         'witCat.dollyPro.block.forEachWithGroup':
           '⚠️遍历[GROUP]分组的每个克隆体',
         'witCat.dollyPro.block.getClonePropertyInGroup':
@@ -355,11 +355,11 @@ class dollyProExtension {
         'witCat.dollyPro.button.hideBlock': 'hide other blocks',
 
         'witCat.dollyPro.warn.newIDIsOldID':
-          'Dolly pro: The modified sprite ID is already "%s"!',
+          'The modified sprite ID is already "%s"!',
         'witCat.dollyPro.warn.repetitveID':
-          'Dolly pro: There is already a clone or sprite with ID "%s", please do not set the same ID!',
+          'There is already a clone or sprite with ID "%s", please do not set the same ID!',
         'witCat.dollyPro.error.repetitiveID':
-          'Dolly pro: There is already a clone with the ID "%s". Please do not use the same ID when cloning!',
+          'There is already a clone with the ID "%s". Please do not use the same ID when cloning!',
         'witCat.dollyPro.config.tip':
           'Configuration for Arkos Extension(Inspired by TurboWarp)\nYou can move, resize, and minimize this comment, but better not edit it by hand. This comment can be deleted to remove the stored settings.',
 
@@ -388,9 +388,9 @@ class dollyProExtension {
           'create clone of [TARGET] and set ID to[ID]',
         'witCat.dollyPro.block.deleteCloneByID': 'delete clone[ID]',
         'witCat.dollyPro.block.dispatchWhenCloneDeleted':
-          'when clone of [TARGET] is deleted, deletedID = [ID]',
+          'when clone of [TARGET] is deteted to be deleted. deletedID = [ID]',
         'witCat.dollyPro.block.dispatchWhenCloned':
-          'when [TARGET] is cloned, cloneID = [ID]',
+          'when [TARGET] is deteted to be cloned. cloneID = [ID]',
         'witCat.dollyPro.block.forEachWithGroup':
           '⚠️for each clone in group[GROUP]',
         'witCat.dollyPro.block.getClonePropertyInGroup':
@@ -673,6 +673,7 @@ class dollyProExtension {
           opcode: 'dispatchWhenCloned',
           blockType: BlockType.HAT,
           isEdgeActivated: false,
+          hideFromPalette: this.hideExtraBlocks,
           text: this.formatMessage('block.dispatchWhenCloned'),
           arguments: {
             TARGET: {
@@ -689,6 +690,7 @@ class dollyProExtension {
           opcode: 'dispatchWhenCloneDeleted',
           blockType: BlockType.HAT,
           isEdgeActivated: false,
+          hideFromPalette: this.hideExtraBlocks,
           text: this.formatMessage('block.dispatchWhenCloneDeleted'),
           arguments: {
             TARGET: {
@@ -700,7 +702,6 @@ class dollyProExtension {
             },
           },
         },
-        '---',
         // 朝特定克隆体广播
         {
           opcode: 'broadcastToClone',
@@ -1835,6 +1836,22 @@ class dollyProExtension {
     this.runtime.emitProjectChanged();
   }
 
+  logWarn(...args) {
+    (this.runtime.logSystem?.warn ?? console.warn)(` [${this.formatMessage('name')}] `, ...args);
+  }
+
+  logError(...args) {
+    // 详情页不弹出警告（转Warn）
+    if (this.runtime.isPlayerOnly) this.logWarn(...args);
+    if (this.runtime.logSystem) {
+      // error的红字看不清，还是使用warn
+      this.runtime.logSystem.warn(`[${this.formatMessage('name')}]`, ...args);
+      // 红底白字报错
+      // this.runtime.logSystem.log(`\x1b[41;37m[${this.formatMessage('name')}]`, ...args, '\x1b[0m');
+      this.runtime.logSystem.show();
+    } else console.error(`${this.formatMessage('name')}: `, ...args);
+  }
+
   // **************************** 动态菜单 ****************************
   /**
    * 获取角色菜单
@@ -2381,15 +2398,14 @@ class dollyProExtension {
     const oldID = this.getIDOfTarget(util.target);
     // 旧ID和新ID一样，直接返回
     if (oldID === newID) {
-      // TODO: l10n
-      console.warn(
+      this.logWarn(
         this.formatMessage('warn.newIDIsOldID').replace('%s', oldID),
       );
       return;
     }
     // ID重复
     if (this.getTargetByID(newID)) {
-      alert(this.formatMessage('warn.repetitveID').replace('%s', newID));
+      this.logError(this.formatMessage('warn.repetitveID').replace('%s', newID));
       return;
     }
     // eslint-disable-next-line no-param-reassign
@@ -2872,10 +2888,10 @@ class dollyProExtension {
       if (typeof obj === 'object' && obj !== null && !Array.isArray(obj)) {
         this.clonePresetData = obj;
       } else {
-        console.warn('Dolly pro: Preseting clone JSON data fails.');
+        this.logWarn('Dolly pro: Preseting clone JSON data fails.');
       }
     } catch (e) {
-      console.warn('Dolly pro: Preseting clone JSON data fails.', e);
+      this.logWarn('Dolly pro: Preseting clone JSON data fails.', e);
     }
   }
 
@@ -2977,7 +2993,7 @@ class dollyProExtension {
         Object.prototype.hasOwnProperty.call(this.IDtoTargets, specifyingID)
       ) {
         // 如果已经存在相同 ID
-        alert(
+        this.logError(
           this.formatMessage('error.repetitiveID').replace('%s', specifyingID),
         );
         specifyingID = undefined;
