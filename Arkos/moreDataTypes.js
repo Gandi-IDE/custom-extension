@@ -202,7 +202,7 @@ class moreDataTypes {
       'name.object': ['（对象）', '(object) '],
       'tag.tempData': ['数据', 'Data'],
       'tag.tools': ['常用工具', 'Common Tools'],
-      'tag.tempVar': ['临时变量', 'Temp Data'],
+      'tag.tempVar': ['临时数据', 'Temporary Data'],
       'tag.complexData': [' 复杂数据类型', 'Complex Data'],
       'tag.list': ['列表操作', 'List Operation'],
       'tag.object': ['对象操作', 'Object Operation'],
@@ -220,7 +220,7 @@ class moreDataTypes {
         '存在名为[NAME]的数据？',
         'data with name[NAME]exists?',
       ],
-      'defaultValue.dataName': ['我的数据', 'my data'],
+      'defaultValue.dataName': ['数据', 'data'],
       'defaultValue.listName': ['我的列表', 'my list'],
       'defaultValue.objName': ['我的对象', 'my object'],
       'defaultValue.JSON': [
@@ -272,8 +272,8 @@ class moreDataTypes {
       'block.typeOf': ['[VALUE]的类型', 'type of [VALUE]'],
       'block.JSONOf': ['[VALUE]对应JSON', 'JSON of object[VALUE]'],
       'block.createOrClearList': [
-        '将数据[NAME](填数据名称)设为空列表',
-        'set [NAME](enter data name) to an empty list',
+        '将「名称」为[NAME]的数据设为空列表',
+        'set data with NAME:[NAME] to an empty list',
       ],
       'block.addItemToList': [
         '向列表[NAME_OR_OBJ]加入[VALUE]',
@@ -310,8 +310,8 @@ class moreDataTypes {
         'item # of [VALUE] in list [NAME_OR_OBJ]',
       ],
       'block.createOrClearObject': [
-        '将名为[NAME]的数据设为空对象',
-        'set [NAME] to an empty object',
+        '将「名称」为[NAME]的数据设为空对象',
+        'set data with NAME:[NAME]to an empty object',
       ],
       'block.setPropOfObject': [
         '对象[NAME_OR_OBJ]的[PROP][OP][VALUE]',
@@ -362,8 +362,9 @@ class moreDataTypes {
    */
   __dataNameOrObjMsg(type) {
     return this.formatMessage(
-      // `defaultValue.${this.enableNesting ? 'dataNameOrObj' : 'dataName'}`,
-      `defaultValue.${type}Name`,
+    //   // `defaultValue.${this.enableNesting ? 'dataNameOrObj' : 'dataName'}`,
+      // `defaultValue.${type}Name`,
+      'defaultValue.dataName',
     );
   }
 
@@ -492,7 +493,7 @@ class moreDataTypes {
           opcode: 'getObjFromJson',
           blockType: Scratch.BlockType.REPORTER,
           text: this.formatMessage('block.getObjFromJson'),
-          hideFromPalette: !this.enableNesting,
+          // hideFromPalette: !this.enableNesting,
           arguments: {
             VALUE: {
               type: Scratch.ArgumentType.STRING,
@@ -741,7 +742,7 @@ class moreDataTypes {
             },
           },
         },
-        // 返回一个空列表
+        // 返回一个空对象
         {
           opcode: 'getNewObject',
           disableMonitor: true,
@@ -797,7 +798,6 @@ class moreDataTypes {
           blockType: Scratch.BlockType.REPORTER,
           disableMonitor: true,
           text: this.formatMessage('block.getPropOfObject'),
-          // isDynamic: true,
           arguments: {
             NAME_OR_OBJ: {
               type: Scratch.ArgumentType.STRING,
