@@ -21,7 +21,7 @@ export default (formatMessage) => {
                 text: formatMessage('Stats.setStyle'),
                 arguments: {
                     STYLE: {
-                        type: "number",
+                        type: "string",
                         menu: 'STYLE',
                         defaultValue:  STYLEENUM.ONE
                     },
@@ -33,11 +33,11 @@ export default (formatMessage) => {
                 items: [
                     {
                         text: formatMessage('Stats.showOne'),
-                        value: STYLEENUM.ONE
+                        value: STYLEENUM.ONE.toString()
                     },
                     {
                         text: formatMessage('Stats.showAll'),
-                        value: STYLEENUM.ALL
+                        value: STYLEENUM.ALL.toString()
                     }
                 ]
             },

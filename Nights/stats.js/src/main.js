@@ -56,7 +56,7 @@ class StatsExt {
         this.stats.domElement.style.display = 'none'
     }
     setStyle(arg) {
-        this.stats.setStyle(arg.STYLE)
+        this.stats.setStyle(parseInt(arg.STYLE))
     }
 }
 
