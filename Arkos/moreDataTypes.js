@@ -150,24 +150,25 @@ class SafeObject extends String {
   }
 
   /**
-   * 返回 SafeObject 字符串表示(例如："<SafeObject [1,2,3]>")
+   * 返回 SafeObject 字符串表示(例如："<SafeObject> [1,2,3]")
    * @returns {string} 字符串表示
    */
   toString() {
     // return `${
     //   Array.isArray(this.value) ? LIST_NAME : OBJ_NAME
     // }${SafeObject.stringify(this.value)}`;
-    return `<SafeObject ${SafeObject.stringify(this.value)}>`;
+    return `<SafeObject> ${SafeObject.stringify(this.value)}`;
   }
 
   /**
-   * 尝试匹配形如 <SafeObject {"a": 1, "b": 2}> 的字符串，转为SafeObject对象
+   * 尝试匹配形如 <SafeObject> {"a": 1, "b": 2} 的字符串，转为SafeObject对象
    * @param {string} string 要转换的字符串
    * @returns {string | SafeObject} 转换结果（如果失败，返回原内容）
    */
   static tryParseSafeObjectString(string) {
-    // 使用正则表达式匹配 <SafeObject {...}>
-    const match = string.match(/<SafeObject\s+(.*?)>$/);
+    // 使用正则表达式匹配 <SafeObject> {...}
+    let match = string.match(/<SafeObject>\s+(.*?)/);
+    if (!match) match = string.match(/<SafeObject\s+(.*?)>$/);// 匹配 <SafeObject {...}>
 
     if (match) {
       // 提取匹配到的 JSON 字符串
@@ -188,7 +189,7 @@ class SafeObject extends String {
   }
 
   /**
-   * 将作品里的存放形如<SafeObject {...}>字符串的变量、列表转为SafeObject
+   * 将作品里的存放形如<SafeObject> {...}字符串的变量、列表转为SafeObject
    * @param {*} runtime runtime 对象
    */
   static parseAllVarInProject(runtime) {
@@ -237,8 +238,8 @@ class moreDataTypes {
     runtime.on('PROJECT_LOADED', () => {
       // 从作品注释读取扩展配置
       this.parseExtConfig();
-      // 在作品保存时，SafeObject对象会转换为形如 '<SafeObject {...}>' 的字符串
-      // 因此当作品加载时，尝试将作品的变量、列表中，形如 '<SafeObject {...}>' 的字符串重新转换为SafeObject对象
+      // 在作品保存时，SafeObject对象会转换为形如 '<SafeObject> {...}' 的字符串
+      // 因此当作品加载时，尝试将作品的变量、列表中，形如 '<SafeObject> {...}' 的字符串重新转换为SafeObject对象
       SafeObject.parseAllVarInProject(runtime);
     });
 
@@ -343,7 +344,7 @@ class moreDataTypes {
       'menu.difference': ['列表1有而列表2没有', 'elements in list1 but not in list2'],
 
       'block.mergeObject': [
-        '将🗄️对象[OBJ]属性复制给对象[NAME_OR_OBJ](已有属性则覆盖)',
+        '给对象[NAME_OR_OBJ]追加🗄️对象[OBJ]里的属性(已有属性则覆盖)',
         'copy 🗄️object[OBJ] properties to object[NAME_OR_OBJ] (overwrite existing properties)',
       ],
       'block.opList': [
@@ -356,8 +357,8 @@ class moreDataTypes {
       'menu.descSort': ['降序排序', 'sort (descending)'],
       'menu.removeDuplicates': ['去重', 'remove duplicates from'],
       'block.sortListByProp': [
-        '将含对象的列表[NAME_OR_OBJ]以每个对象的属性[PROP][OP]',
-        '[OP]list containing objects[NAME_OR_OBJ] by property[PROP]',
+        '将列表[NAME_OR_OBJ]里的每个对象以属性[PROP][OP]',
+        '[OP]list[NAME_OR_OBJ]containing objects by property[PROP]',
       ],
 
       'block.addItemToList2': [
@@ -371,6 +372,10 @@ class moreDataTypes {
       'block.addItemToListAndReturn': [
         '🗄️向列表[OBJ][OP][VALUE]',
         '🗄️[VALUE][OP]list[OBJ]',
+      ],
+      'block.createListWithLength': [
+        '🗄️创建包含[N]个[VALUE]的列表',
+        '🗄️create a list with [N]x[VALUE]',
       ],
       'defaultValue.thing': ['东西', 'thing'],
       'block.setItemOfList': [
@@ -432,8 +437,8 @@ class moreDataTypes {
       'menu.conInfo.objValue': ['内容', 'content'],
       'menu.conInfo.json': ['JSON', 'JSON'],
       'block.getAllProperties': [
-        '🗄️对象[NAME_OR_OBJ]的所有[OPTION]',
-        '🗄️get all[OPTION] of object [NAME_OR_OBJ]',
+        '对象[NAME_OR_OBJ]的所有[OPTION]',
+        'get all[OPTION] of object [NAME_OR_OBJ]',
       ],
       'menu.keys': ['属性名', 'keys'],
       'menu.values': ['属性值', 'values'],
@@ -677,6 +682,23 @@ class moreDataTypes {
           blockType: Scratch.BlockType.REPORTER,
           disableMonitor: true,
           text: this.formatMessage('block.getNewList'),
+        },
+        // 返回一个N个NUM的列表
+        {
+          opcode: 'createListWithLength',
+          blockType: Scratch.BlockType.REPORTER,
+          disableMonitor: true,
+          text: this.formatMessage('block.createListWithLength'),
+          arguments: {
+            N: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: 10,
+            },
+            VALUE: {
+              type: Scratch.ArgumentType.STRING,
+              defaultValue: '0',
+            },
+          },
         },
         // 向列表加入(返回值版)
         {
@@ -1741,18 +1763,45 @@ class moreDataTypes {
   /**
    * 创建或清空列表/对象
    * @param {string} OPTION []/{}
-   * @return {[] | {}}
+   * @return {SafeObject}
    */
   newEmptyObjOrArray({ OPTION }) {
     return OPTION === '[]' ? new SafeObject([]) : new SafeObject();
   }
 
+  /**
+   * 创建空对象
+   * @return {SafeObject}
+   */
   getNewObject() {
     return new SafeObject();
   }
 
+  /**
+   * 创建空列表
+   * @return {SafeObject}
+   */
   getNewList() {
     return new SafeObject([]);
+  }
+
+  /**
+   * 创建包含 N 个 VALUE 的列表
+   * @param {*} N 数量
+   * @param {*} VALUE 内容
+   * @return {SafeObject}
+   */
+  createListWithLength({ N, VALUE }) {
+    const n = Cast.toNumber(N);
+    let res;
+    // 对于复杂类型，深拷贝复制
+    if (typeof VALUE === 'object' && VALUE !== null) {
+      res = Array.from({ length: n }, () => SafeObject.deepCopy(VALUE));
+    } else {
+    // 普通类型
+      res = Array.from({ length: n }, () => VALUE);
+    }
+    return new SafeObject(res);
   }
 
   /**
