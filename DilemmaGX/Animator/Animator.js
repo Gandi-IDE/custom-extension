@@ -2,7 +2,7 @@
  * @file 实现简单的缓动动画以及数据运算
  *  
  * @author 官方小傲娇 <gfxaj@qq.com>
- * @version 1.0.1
+ * @version 1.0.2
  */
 
 // @ts-nocheck
@@ -52,6 +52,10 @@ class Animate {
             end,
             length
         ]
+    }
+    /** @type {AnimationMethod} 线性 */
+    static Linear(t, b, c, d) {
+        return c * t / d + b
     }
     /** @type {AnimationMethod} 平方缓入。 */
     static EaseInQuad(t, b, c, d) {
@@ -300,6 +304,7 @@ class Animator {
                 'Ani.Effect': '✨在[time]秒内以[type]方式将[Effect]更改为[endv]', //block
                 'Ani.Dir': '🔄️在[time]秒内以[type]方式转到[endv]度', //block
 
+                'Ani.linear': '线性',
                 'Ani.easeInQuad': '二次缓入',
                 'Ani.easeOutQuad': '二次缓出',
                 'Ani.easeInOutQuad': '二次缓动',
@@ -355,6 +360,7 @@ class Animator {
                 'Ani.Effect': '✨Change[Effect]to[endv]within[time]second(s) using[type]', //block
                 'Ani.Dir': '🔄️Turn to[endv]degrees within[time]second(s) using[type]', //block
 
+                'Ani.linear': 'Linear',
                 'Ani.easeInQuad': 'Quadratic ease-in',
                 'Ani.easeOutQuad': 'Quadratic ease-out',
                 'Ani.easeInOutQuad': 'Quadratic ease-in-out',
@@ -536,6 +542,10 @@ class Animator {
             ],
             menus: {
                 Ani: [
+                    {
+                        text: this.formatMessage('Ani.linear'),
+                        value: 'Linear'
+                    },
                     {
                         text: this.formatMessage('Ani.easeInQuad'),
                         value: 'EaseInQuad'
