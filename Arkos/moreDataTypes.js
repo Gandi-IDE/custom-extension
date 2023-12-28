@@ -20,9 +20,6 @@ const cover = 'https://m.ccw.site/user_projects_assets/40d3aa39d5101bd5df854cf3a
 
 /** @typedef {any} Util util 参数，暂时定为 any */
 
-// let LIST_NAME;
-// let OBJ_NAME;
-
 /**
  * 更适合Scratch体质的Object
  * - 继承String，避免object保存在作品中时出错（Inspired by Nights）
@@ -68,7 +65,20 @@ class SafeObject extends String {
    * @returns {string} 字符串
    */
   static stringify(obj) {
-    return JSON.stringify(obj, (key, value) => SafeObject.getActualObject(value));
+    // 记录已出现对象，避免循环引用
+    const seen = [];
+    const res = JSON.stringify(obj, (key, value) => {
+      const actualObj = SafeObject.getActualObject(value);
+      if (typeof actualObj === 'object' && actualObj !== null) {
+        // 检测到循环引用，替换为提示字符串
+        if (seen.includes(actualObj)) {
+          return '<Circular Reference>';
+        }
+        seen.push(actualObj);
+      }
+      return actualObj;
+    });
+    return res;
   }
 
   /**
@@ -100,6 +110,46 @@ class SafeObject extends String {
   }
 
   /**
+   * 深拷贝，支持处理循环引用
+   * @param {*} obj
+   * @param {*} cache
+   * @returns
+   */
+  static deepCopy(OBJ, cache = new Map()) {
+    // 检测循环引用
+    if (cache.has(OBJ)) {
+      return cache.get(OBJ);
+    }
+    const obj = SafeObject.getActualObject(OBJ);
+    // 处理基本数据类型
+    if (obj === null || typeof obj !== 'object') {
+      return obj;
+    }
+    const safeObj = new SafeObject();
+    // 在缓存中记录
+    cache.set(OBJ, safeObj);
+    let copyObj;
+    // 处理数组
+    if (Array.isArray(obj)) {
+      copyObj = [];
+      safeObj.assign(copyObj);
+      // 递归复制数组元素
+      obj.forEach((item, index) => {
+        copyObj[index] = SafeObject.deepCopy(item, cache);
+      });
+      return safeObj;
+    }
+    // 处理对象
+    copyObj = {};
+    safeObj.assign(copyObj);
+    // 递归复制对象属性
+    Object.keys(obj).forEach((key) => {
+      copyObj[key] = SafeObject.deepCopy(obj[key], cache);
+    });
+    return safeObj;
+  }
+
+  /**
    * 返回 SafeObject 字符串表示(例如："<SafeObject [1,2,3]>")
    * @returns {string} 字符串表示
    */
@@ -117,7 +167,7 @@ class SafeObject extends String {
    */
   static tryParseSafeObjectString(string) {
     // 使用正则表达式匹配 <SafeObject {...}>
-    const match = string.match(/<SafeObject\s+(.*?)>/);
+    const match = string.match(/<SafeObject\s+(.*?)>$/);
 
     if (match) {
       // 提取匹配到的 JSON 字符串
@@ -282,9 +332,45 @@ class moreDataTypes {
         '向列表[NAME_OR_OBJ]加入[VALUE]',
         'add [VALUE] to list [NAME_OR_OBJ]',
       ],
+
+      'block.mergeList': [
+        '🗄️[OP][LIST1][LIST2]',
+        '🗄️[OP][LIST1][LIST2]',
+      ],
+      'menu.merge': ['合并列表', 'merge lists'],
+      'menu.union': ['合并列表并去重', 'merge lists and remove duplicates'],
+      'menu.intersection': ['列表交集', 'common elements between lists'],
+      'menu.difference': ['列表1有而列表2没有', 'elements in list1 but not in list2'],
+
+      'block.mergeObject': [
+        '将🗄️对象[OBJ]属性复制给对象[NAME_OR_OBJ](已有属性则覆盖)',
+        'copy 🗄️object[OBJ] properties to object[NAME_OR_OBJ] (overwrite existing properties)',
+      ],
+      'block.opList': [
+        '将列表[NAME_OR_OBJ][OP]',
+        '[OP]list[NAME_OR_OBJ]',
+      ],
+      'menu.shuffle': ['打乱', 'shuffle'],
+      'menu.reverse': ['反转', 'reverse'],
+      'menu.ascSort': ['升序排序', 'sort (ascending)'],
+      'menu.descSort': ['降序排序', 'sort (descending)'],
+      'menu.removeDuplicates': ['去重', 'remove duplicates from'],
+      'block.sortListByProp': [
+        '将含对象的列表[NAME_OR_OBJ]以每个对象的属性[PROP][OP]',
+        '[OP]list containing objects[NAME_OR_OBJ] by property[PROP]',
+      ],
+
+      'block.addItemToList2': [
+        '向列表[NAME_OR_OBJ][OP][VALUE]',
+        '[VALUE][OP]list[NAME_OR_OBJ]',
+      ],
+      'menu.addTo': ['加入', 'add to'],
+      'menu.removeFrom': ['移除', 'remove from'],
+      'menu.ifNotExistsaddTo': ['(如果不存在)加入', '(if not exists) add to'],
+
       'block.addItemToListAndReturn': [
-        '🗄️向列表[OBJ]加入[VALUE]',
-        '🗄️add [VALUE] to list [OBJ]',
+        '🗄️向列表[OBJ][OP][VALUE]',
+        '🗄️[VALUE][OP]list[OBJ]',
       ],
       'defaultValue.thing': ['东西', 'thing'],
       'block.setItemOfList': [
@@ -601,6 +687,10 @@ class moreDataTypes {
             OBJ: {
               type: null,
             },
+            OP: {
+              type: Scratch.ArgumentType.STRING,
+              menu: 'LIST_ADD_OR_REMOVE',
+            },
             VALUE: {
               type: Scratch.ArgumentType.STRING,
               defaultValue: this.formatMessage('defaultValue.thing'),
@@ -621,15 +711,36 @@ class moreDataTypes {
             },
           },
         },
-        // 向列表加入
+        // 向列表加入(旧版，隐藏)
         {
           opcode: 'addItemToList',
           blockType: Scratch.BlockType.COMMAND,
+          hideFromPalette: true,
           text: this.formatMessage('block.addItemToList'),
           arguments: {
             NAME_OR_OBJ: {
               type: Scratch.ArgumentType.STRING,
               defaultValue: this.__dataNameOrObjMsg('list'),
+            },
+            VALUE: {
+              type: Scratch.ArgumentType.STRING,
+              defaultValue: this.formatMessage('defaultValue.thing'),
+            },
+          },
+        },
+        // 向列表加入
+        {
+          opcode: 'addItemToList2',
+          blockType: Scratch.BlockType.COMMAND,
+          text: this.formatMessage('block.addItemToList2'),
+          arguments: {
+            NAME_OR_OBJ: {
+              type: Scratch.ArgumentType.STRING,
+              defaultValue: this.__dataNameOrObjMsg('list'),
+            },
+            OP: {
+              type: Scratch.ArgumentType.STRING,
+              menu: 'LIST_ADD_OR_REMOVE',
             },
             VALUE: {
               type: Scratch.ArgumentType.STRING,
@@ -748,6 +859,61 @@ class moreDataTypes {
             VALUE: {
               type: Scratch.ArgumentType.STRING,
               defaultValue: this.formatMessage('defaultValue.thing'),
+            },
+          },
+        },
+        '---',
+        // 合并列表
+        {
+          opcode: 'mergeList',
+          blockType: Scratch.BlockType.REPORTER,
+          text: this.formatMessage('block.mergeList'),
+          arguments: {
+            OP: {
+              type: Scratch.ArgumentType.STRING,
+              menu: 'OP_LISTS',
+            },
+            LIST1: {
+              type: null,
+            },
+            LIST2: {
+              type: null,
+            },
+          },
+        },
+        // 列表反转、排序等操作
+        {
+          opcode: 'opList',
+          blockType: Scratch.BlockType.COMMAND,
+          text: this.formatMessage('block.opList'),
+          arguments: {
+            NAME_OR_OBJ: {
+              type: Scratch.ArgumentType.STRING,
+              defaultValue: this.__dataNameOrObjMsg('list'),
+            },
+            OP: {
+              type: Scratch.ArgumentType.STRING,
+              menu: 'LIST_OP',
+            },
+          },
+        },
+        // 含对象的列表排序
+        {
+          opcode: 'sortListByProp',
+          blockType: Scratch.BlockType.COMMAND,
+          text: this.formatMessage('block.sortListByProp'),
+          arguments: {
+            NAME_OR_OBJ: {
+              type: Scratch.ArgumentType.STRING,
+              defaultValue: this.__dataNameOrObjMsg('list'),
+            },
+            PROP: {
+              type: Scratch.ArgumentType.STRING,
+              defaultValue: this.formatMessage('defaultValue.prop'),
+            },
+            OP: {
+              type: Scratch.ArgumentType.STRING,
+              menu: 'SORT_ORDER',
             },
           },
         },
@@ -930,6 +1096,22 @@ class moreDataTypes {
             },
           },
         },
+        '---',
+        // 合并对象
+        {
+          opcode: 'mergeObject',
+          blockType: Scratch.BlockType.COMMAND,
+          text: this.formatMessage('block.mergeObject'),
+          arguments: {
+            NAME_OR_OBJ: {
+              type: Scratch.ArgumentType.STRING,
+              defaultValue: this.__dataNameOrObjMsg('obj'),
+            },
+            OBJ: {
+              type: null,
+            },
+          },
+        },
         `---${this.formatMessage('tag.ScratchList')}`, // 原版列表操作
         // 获取原版列表
         {
@@ -961,6 +1143,20 @@ class moreDataTypes {
         },
       ],
       menus: {
+        LIST_ADD_OR_REMOVE: [
+          {
+            text: this.formatMessage('menu.addTo'),
+            value: 'add',
+          },
+          {
+            text: this.formatMessage('menu.removeFrom'),
+            value: 'remove',
+          },
+          {
+            text: this.formatMessage('menu.ifNotExistsaddTo'),
+            value: 'addIfNotExists',
+          },
+        ],
         LIST_MENU: {
           acceptReporters: true,
           items: 'listMenu',
@@ -986,6 +1182,56 @@ class moreDataTypes {
         OBJECT_GET_OPTION: {
           items: '__objectGetOptionMenu',
         },
+        LIST_OP: [
+          {
+            text: this.formatMessage('menu.shuffle'),
+            value: 'shuf',
+          },
+          {
+            text: this.formatMessage('menu.reverse'),
+            value: 'rev',
+          },
+          {
+            text: this.formatMessage('menu.ascSort'),
+            value: 'asc',
+          },
+          {
+            text: this.formatMessage('menu.descSort'),
+            value: 'desc',
+          },
+          {
+            text: this.formatMessage('menu.removeDuplicates'),
+            value: 'dedup',
+          },
+        ],
+        OP_LISTS: [
+          {
+            text: this.formatMessage('menu.merge'),
+            value: 'merge',
+          },
+          {
+            text: this.formatMessage('menu.union'),
+            value: 'union',
+          },
+          {
+            text: this.formatMessage('menu.intersection'),
+            value: 'intersec',
+          },
+          {
+            text: this.formatMessage('menu.difference'),
+            value: 'diff',
+          },
+        ],
+        SORT_ORDER: [
+          {
+            text: this.formatMessage('menu.ascSort'),
+            value: 'asc',
+          },
+          {
+            text: this.formatMessage('menu.descSort'),
+            value: 'desc',
+          },
+        ],
         KEYS_OR_VALUES_OR_ENTRIES: [
           {
             text: this.formatMessage('menu.keys'),
@@ -1455,7 +1701,7 @@ class moreDataTypes {
       case 'deepCopy':
         if (typeof VALUE !== 'object' || VALUE === null) return false;
         try {
-          data[prop] = SafeObject.parse(SafeObject.stringify(VALUE));
+          data[prop] = SafeObject.deepCopy(VALUE);
         } catch (e) {
           return false;
         }
@@ -1543,7 +1789,7 @@ class moreDataTypes {
     // 深拷贝
     if (OP === 'deep') {
       try {
-        return SafeObject.parse(SafeObject.stringify(OBJ));
+        return SafeObject.deepCopy(OBJ);
       } catch (e) {
         return `error: ${e.message}`;
       }
@@ -1642,7 +1888,7 @@ class moreDataTypes {
   }
 
   /**
-   * 向列表加入
+   * (旧版)向列表加入
    * @param {*} NAME_OR_OBJ 数据名或传入对象
    * @param {*} VALUE
    */
@@ -1653,15 +1899,56 @@ class moreDataTypes {
   }
 
   /**
-   * 向列表加入，并返回列表
-   * @param {*} OBJ 传入对象
+   * 向列表加入/移出
+   * @param {*} NAME_OR_OBJ 数据名或传入对象
+   * @param {'add'|'remove'|'addIfNotExists'} OP 操作
    * @param {*} VALUE
    */
-  addItemToListAndReturn({ OBJ, VALUE }) {
-    if (OBJ === null || typeof OBJ !== 'object') return '';
-    const list = SafeObject.getActualObject(OBJ);
-    if (Array.isArray(list)) this.__setDataByOption(list, list.length, 'set', VALUE);
+  addItemToList2({ NAME_OR_OBJ, OP, VALUE }) {
+    const list = this.__getListByNameOrObj(NAME_OR_OBJ);
+    if (!list) return;
+    this.__addOrRemoveFromList(list, OP, VALUE);
+  }
+
+  /**
+   * 向列表加入/移出，并返回列表
+   * @param {*} OBJ 传入对象
+   * @param {'add'|'remove'|'addIfNotExists'} OP 操作
+   * @param {*} VALUE
+   */
+  addItemToListAndReturn({ OBJ, OP, VALUE }) {
+    const list = this.__getArray(OBJ);
+    if (!list) return OBJ;
+    this.__addOrRemoveFromList(list, OP, VALUE);
     return OBJ;
+  }
+
+  /**
+   * 向列表加入/移出，并返回列表
+   * @param {Array} list 传入列表
+   * @param {'add'|'remove'|'addIfNotExists'} OP 操作
+   * @param {*} VALUE 内容
+   */
+  __addOrRemoveFromList(list, OP, VALUE) {
+    switch (OP) {
+      case 'add':
+        list.push(VALUE);
+        break;
+      case 'remove': {
+        const index = this.getListItemIdxByItem({ NAME_OR_OBJ: list, VALUE });
+        if (index > 0) {
+          list.splice(index - 1, 1);
+        }
+        break;
+      }
+      case 'addIfNotExists':
+        if (!this.ifListItemExist({ NAME_OR_OBJ: list, VALUE })) {
+          list.push(VALUE);
+        }
+        break;
+      default:
+        break;
+    }
   }
 
   /**
@@ -1795,6 +2082,122 @@ class moreDataTypes {
   }
 
   /**
+   * 合并两个LIST
+   * @param {'merge'|'union'|'intersec'|'diff'} OP 操作
+   * @param {*} LIST1 列表1
+   * @param {*} LIST2 列表2
+   */
+  mergeList({ OP, LIST1, LIST2 }) {
+    const list1 = this.__getArray(LIST1);
+    const list2 = this.__getArray(LIST2);
+    let res = [];
+    if (list1 && list2) {
+      switch (OP) {
+        case 'merge':
+          res = list1.concat(list2);
+          break;
+          // 并集
+        case 'union':
+          res = [...new Set(list1.concat(list2))];
+          break;
+        // 交集
+        case 'intersec':
+          res = list1.filter((element) => list2.includes(element));
+          break;
+        // 差集(list1有list2没有)
+        case 'diff':
+          res = list1.filter((element) => !list2.includes(element));
+          break;
+        default:
+          break;
+      }
+    }
+    return new SafeObject(res);
+  }
+
+  /**
+   * 对象assign
+   * @param {*} NAME_OR_OBJ 数据名或传入对象
+   * @param {*} OBJ 对象
+   */
+  mergeObject({ NAME_OR_OBJ, OBJ }) {
+    const obj2 = this.__getObj(OBJ);
+    if (!obj2) return;
+    const obj = this.__getObjByNameOrObj(NAME_OR_OBJ);
+    if (!obj) return;
+    Object.assign(obj, obj2);
+  }
+
+  /**
+   * 操作列表
+   * @param {*} NAME_OR_OBJ 数据名或传入对象
+   * @param {'shuf'|'rev'|'asc'|'desc'|'dedup'} OP 操作
+   */
+  opList({ NAME_OR_OBJ, OP }) {
+    const list = this.__getListByNameOrObj(NAME_OR_OBJ);
+    if (!list) return;
+    switch (OP) {
+      case 'shuf':
+        list.sort(() => Math.random() - 0.5);
+        break;
+      case 'rev':
+        list.reverse();
+        break;
+      case 'asc':
+        list.sort((a, b) => Cast.compare(a, b));
+        break;
+      case 'desc':
+        list.sort((a, b) => Cast.compare(b, a));
+        break;
+      case 'dedup': {
+        // 去重列表（在原列表上操作）
+        const origList = [...list];
+        list.length = 0;
+        origList.forEach((item) => {
+          if (!list.includes(item)) list.push(item);
+        });
+        break;
+      }
+      default:
+        break;
+    }
+  }
+
+  /**
+   * 根据对象属性排序数组
+   * @param {*} NAME_OR_OBJ 数据名或传入对象
+   * @param {*} PROP 属性名
+   * @param {'asc'|'desc'} OP 排序方式
+   */
+  sortListByProp({ NAME_OR_OBJ, PROP, OP }) {
+    const list = this.__getListByNameOrObj(NAME_OR_OBJ);
+    if (!list) return;
+    const prop = Cast.toString(PROP);
+    const asc = (OP === 'asc' ? 1 : -1);
+    try {
+      list.sort((a, b) => {
+        const a1 = SafeObject.getActualObject(a);
+        const b1 = SafeObject.getActualObject(b);
+        return Cast.compare(a1[prop], b1[prop]) * asc;
+      });
+    } catch (e) {
+      this.logError(e);
+    }
+  }
+
+  /**
+   * 使用 Gandi 控制台弹出报错信息
+   * @param  {...any} args 报错信息
+   */
+  logError(...args) {
+    if (this.runtime.logSystem) {
+      // error的红字看不清，还是使用warn
+      this.runtime.logSystem.warn(`[${this.formatMessage('name')}]`, ...args);
+      if (!this.runtime.isPlayerOnly) this.runtime.logSystem.show();
+    } else console.error(`${this.formatMessage('extensionName')}: `, ...args);
+  }
+
+  /**
    * 根据数据名or对象，获取对象
    * @param {*} NAME_OR_OBJ 数据名或传入对象
    * @returns {object | false} 返回对象或false(读取失败)
@@ -1830,6 +2233,30 @@ class moreDataTypes {
   }
 
   /**
+   * 从传入内容获取对象(列表返回null)
+   * @param {*} OBJ 传入内容
+   * @returns {object | null} 对象
+   */
+  __getObj(OBJ) {
+    if (OBJ === null || typeof OBJ !== 'object') return null;
+    const obj = SafeObject.getActualObject(OBJ);
+    if (Array.isArray(obj)) return null;
+    return obj;
+  }
+
+  /**
+   * 从传入内容获取列表
+   * @param {*} OBJ 传入内容
+   * @returns {Array | null} 列表
+   */
+  __getArray(OBJ) {
+    if (OBJ === null || typeof OBJ !== 'object') return null;
+    const obj = SafeObject.getActualObject(OBJ);
+    if (!Array.isArray(obj)) return null;
+    return obj;
+  }
+
+  /**
    * 设置对象
    * @param {*} OBJ 传入对象
    * @param {*} PROP 属性名
@@ -1839,9 +2266,8 @@ class moreDataTypes {
   setPropOfObjectAndReturn({
     OBJ, PROP, OP, VALUE,
   }) {
-    if (OBJ === null || typeof OBJ !== 'object') return '';
-    const obj = SafeObject.getActualObject(OBJ);
-    if (Array.isArray(obj)) return OBJ;
+    const obj = this.__getObj(OBJ);
+    if (!obj) return OBJ;
     this.__setDataByOption(obj, Cast.toString(PROP), OP, VALUE);
     return OBJ;
   }
