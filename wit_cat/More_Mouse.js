@@ -83,7 +83,17 @@ class WitCatMouse {
 		 * 鼠标提示的div
 		 * @type {HTMLDivElement}
 		 */
-		this.title = null;
+		this.titleDiv = null;
+
+		/**
+		 * 拒绝全屏次数
+		 */
+		this.fillNum = 0;
+
+		/**
+		 * 全屏监听事件缓存
+		 */
+		this.fillEvent = null;
 
 		this.runtime = runtime;
 
@@ -112,7 +122,7 @@ class WitCatMouse {
 		this._formatMessage = runtime.getFormatMessage({
 			'zh-cn': {
 				'WitCatMouse.copythis': '复制以下内容：',
-				'WitCatMouse.name': '[beta]白猫的高级鼠标',
+				'WitCatMouse.name': '白猫的高级鼠标',
 				'WitCatMouse.name.1': '高级鼠标',
 				'WitCatMouse.name.2': '手机端',
 				'WitCatMouse.set': '[set]右键菜单',
@@ -141,7 +151,7 @@ class WitCatMouse {
 				'WitCatTouch.type.3': 'ID',
 				'WitCatMouse.fill': '[set]沉浸式全屏',
 				'WitCatMouse.fillask.1': '作品请求沉浸式全屏，是否同意？\n',
-				'WitCatMouse.fillask.2': '/3次连续拒绝后将不再提示\n您仍可以使用 ctrl+shift+alt 切换沉浸式全屏状态',
+				'WitCatMouse.fillask.2': '/3次连续拒绝后将不再提示\n您仍可以使用 esc 切换沉浸式全屏状态',
 				'WitCatMouse.setfill': '⚠️(危)设置分辨率高设为[num]',
 				'WitCatMouse.resolution': '当前分辨率高',
 				'WitCatMouse.cantouch': '设备支持[type]?',
@@ -179,7 +189,7 @@ class WitCatMouse {
 			},
 			en: {
 				'WitCatMouse.copythis': 'Copy the following text:',
-				'WitCatMouse.name': '[beta]WitCat’s Mouse',
+				'WitCatMouse.name': 'WitCat’s Mouse',
 				'WitCatMouse.name.1': 'more mouse',
 				'WitCatMouse.name.2': 'Mobile terminal',
 				'WitCatMouse.set': '[set]right-click menu',
@@ -209,7 +219,7 @@ class WitCatMouse {
 				'WitCatMouse.fill': '[set]immersive full-screen',
 				'WitCatMouse.fillask.1':
 					'The project requests to turn on immersive full-screen, agree or not?\nWill stop asking if you keep on to reject for ',
-				'WitCatMouse.fillask.2': '/3 times\nYou can also use Ctrl+Shift+Alt to toggle immersive full-screen later.',
+				'WitCatMouse.fillask.2': '/3 times\nYou can also use esc to toggle immersive full-screen later.',
 				'WitCatMouse.setfill': '⚠️(danger)Set resolution height to[num]',
 				'WitCatMouse.resolution': 'Current high resolution',
 				'WitCatMouse.cantouch': 'Device support[type]?',
@@ -279,7 +289,6 @@ class WitCatMouse {
 					opcode: 'setfill',
 					blockType: 'command',
 					text: this.formatMessage('WitCatMouse.setfill'),
-					hideFromPalette: true,
 					arguments: {
 						num: {
 							type: 'number',
@@ -291,7 +300,6 @@ class WitCatMouse {
 					opcode: 'fill',
 					blockType: 'command',
 					text: this.formatMessage('WitCatMouse.fill'),
-					hideFromPalette: true,
 					arguments: {
 						set: {
 							type: 'bool',
@@ -303,7 +311,6 @@ class WitCatMouse {
 					opcode: 'resolution',
 					blockType: 'reporter',
 					text: this.formatMessage('WitCatMouse.resolution'),
-					hideFromPalette: true,
 					arguments: {},
 				},
 				`---${this.formatMessage('WitCatMouse.name.1')}`,
@@ -924,20 +931,61 @@ class WitCatMouse {
 	 * 全屏
 	 * @deprecated
 	 */
-	fill() {
-		console.warn(
-			'全屏因浏览器兼容问题已下线，在未来修复后将会重新上线\nFull screen has been taken offline due to browser compatibility issues. It will be back online after a future fix'
-		);
+	fill(args) {
+		const canvas = this.canvas();
+		console.log(canvas);
+		if (canvas === null) {
+			return 0;
+		}
+		if (this.fillNum < 3) {
+			if (args.set == 'true') {
+				this.fillNum = 0;
+				let fills = confirm(this.formatMessage('WitCatMouse.fillask.1') + this.fillNum + this.formatMessage('WitCatMouse.fillask.2'))
+				if (fills) {
+					resizeElementInParent(this.canvas().firstChild, false);
+					launchFullscreen(canvas);
+					canvas.firstChild.style.margin = '0 auto';
+					setTimeout(() => {
+						resizeElementInParent(this.canvas().firstChild, false);
+						document.addEventListener("fullscreenchange", () => {
+							setTimeout(() => {
+								if (!document.fullscreenElement) {
+									resizeElementInParent(this.canvas().firstChild, true);
+								}
+							}, 100);
+						}, { once: true });
+						this.fillEvent = window.addEventListener("resize", () => {
+							if (document.fullscreenElement) {
+								resizeElementInParent(this.canvas().firstChild, false);
+							}
+						});
+					}, 100);
+				}
+				else {
+					this.fillNum++;
+				}
+			} else {
+				exitFullscreen();
+				window.removeEventListener(this.fillEvent);
+				setTimeout(() => {
+					resizeElementInParent(canvas.firstChild, true);
+				}, 1000);
+			}
+		}
 	}
 
 	/**
 	 * 设置分辨率
 	 * @deprecated
 	 */
-	setfill() {
-		console.warn(
-			'全屏因浏览器兼容问题已下线，在未来修复后将会重新上线\nFull screen has been taken offline due to browser compatibility issues. It will be back online after a future fix'
-		);
+	setfill(args) {
+		const canvas = this.canvas();
+		console.log(canvas);
+		if (canvas === null) {
+			return 0;
+		}
+		canvas.firstChild.height = Number(args.num);
+		canvas.firstChild.width = (Number(args.num) * this.runtime.stageWidth) / this.runtime.stageHeight;
 	}
 
 	/**
@@ -949,7 +997,7 @@ class WitCatMouse {
 		if (canvas === null) {
 			return 0;
 		}
-		return canvas.height;
+		return canvas.firstChild.height;
 	}
 
 	/**
@@ -1079,16 +1127,20 @@ class WitCatMouse {
 	}
 
 	titlenow(args) {
+		const canvas = this.canvas();
+		if (canvas === null) {
+			return;
+		}
 		if (args.show === 'true') {
 			if (this.titleDiv == null) {
 				this.titleDiv = document.createElement("div");
 				this.titleDiv.innerText = String(args.text);
-				this.titleDiv.style = `transition: transform 0.2s ease-in-out;transform: scale(0, 0);border:1px solid #000000 ;transform-origin:0px 0px;border-radius:10px;background-color:#ffffff;padding:5px;position:fixed;top:${this.MouseY + 10}px;left:${this.MouseX + 10}px`;
+				this.titleDiv.style = `transition: transform 0.2s ease-in-out;transform: scale(0, 0);z-index: 10000;border:1px solid #000000 ;transform-origin:0px 0px;border-radius:10px;background-color:#ffffff;padding:5px;position:fixed;top:${this.MouseY + 10}px;left:${this.MouseX + 10}px`;
 				this.MouseTitle = setInterval(() => {
 					this.titleDiv.style.top = (this.MouseY + 10) + 'px';
 					this.titleDiv.style.left = (this.MouseX + 10) + 'px';
 				}, 1);
-				document.body.appendChild(this.titleDiv);
+				canvas.append(this.titleDiv);
 				setTimeout(() => {
 					this.titleDiv.style.transform = 'scale(1, 1)';
 				}, 10);
@@ -1104,8 +1156,9 @@ class WitCatMouse {
 			}
 		}
 		else {
-			if (this.titleDiv !== null) {
+			if (this.MouseTitle !== null) {
 				clearInterval(this.MouseTitle);
+				this.MouseTitle = null;
 				this.titleDiv.style.transform = 'scale(0, 0)';
 				setTimeout(() => {
 					document.body.removeChild(this.titleDiv);
@@ -1610,12 +1663,74 @@ window.tempExt = {
 	},
 	l10n: {
 		"zh-cn": {
-			"WitCatMouse.name": "[beta]白猫的高级鼠标",
+			"WitCatMouse.name": "白猫的高级鼠标 V3.2",
 			"WitCatMouse.descp": "更精准的控制鼠标/触屏/全屏！"
 		},
 		en: {
-			"WitCatMouse.name": "[beta]WitCat’s Mouse",
+			"WitCatMouse.name": "WitCat’s Mouse V3.2",
 			"WitCatMouse.descp": "More precise mouse/touch/full screen control!"
 		}
 	}
 };
+
+/**
+ * 将元素全屏
+ * @param {Element} element 需要全屏的元素
+ */
+function launchFullscreen(element) {
+	if (element.requestFullscreen) {
+		element.requestFullscreen();
+	} else if (element.mozRequestFullScreen) {
+		element.mozRequestFullScreen();
+	} else if (element.msRequestFullscreen) {
+		element.msRequestFullscreen();
+	} else if (element.webkitRequestFullscreen) {
+		element.webkitRequestFullScreen();
+	}
+}
+
+/**
+ * 退出全屏模式
+ */
+function exitFullscreen() {
+	if (document.exitFullscreen) {
+		document.exitFullscreen();
+	} else if (document.msExitFullscreen) {
+		document.msExitFullscreen();
+	} else if (document.mozCancelFullScreen) {
+		document.mozCancelFullScreen();
+	} else if (document.webkitExitFullscreen) {
+		document.webkitExitFullscreen();
+	}
+}
+
+/**
+ * 计算舞台在全屏/非全屏的大小
+ * @param {Element} element 需要被计算中心点的角色
+ * @param {Boolean} type 模式（true：最小化，false：全屏）
+ */
+function resizeElementInParent(element, type) {
+	if (type) {
+		var parent = element.parentElement;
+		var parentWidth = parent.clientWidth;
+		var parentHeight = parent.clientHeight;
+	}
+	else {
+		var parentWidth = screen.width;
+		var parentHeight = screen.height;
+	}
+
+	var elementWidth = element.offsetWidth;
+	var elementHeight = element.offsetHeight;
+
+	var widthRatio = parentWidth / elementWidth;
+	var heightRatio = parentHeight / elementHeight;
+
+	var scale = Math.min(widthRatio, heightRatio);
+
+	var newWidth = elementWidth * scale;
+	var newHeight = elementHeight * scale;
+
+	element.style.width = newWidth + "px";
+	element.style.height = newHeight + "px";
+}
