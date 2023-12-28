@@ -167,7 +167,7 @@ class SafeObject extends String {
    */
   static tryParseSafeObjectString(string) {
     // 使用正则表达式匹配 <SafeObject> {...}
-    let match = string.match(/<SafeObject>\s+(.*?)/);
+    let match = string.match(/<SafeObject>\s*(.+)$/);
     if (!match) match = string.match(/<SafeObject\s+(.*?)>$/);// 匹配 <SafeObject {...}>
 
     if (match) {
