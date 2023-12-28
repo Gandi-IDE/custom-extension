@@ -323,6 +323,7 @@ class dollyProExtension {
         'witCat.dollyPro.menu.spriteProperty.id': 'ID',
         'witCat.dollyPro.menu.spriteProperty.name': '角色名',
         'witCat.dollyPro.menu.spriteProperty.dataJSON': '附带数据JSON',
+        'witCat.dollyPro.menu.spriteProperty.extraDataObj': '🗄️数据对象',
         'witCat.dollyPro.menu.targetType.ID': 'ID为',
         'witCat.dollyPro.menu.targetType.group': '分组',
         'witCat.dollyPro.menu.targetType.sprite': '角色',
@@ -486,6 +487,7 @@ class dollyProExtension {
         'witCat.dollyPro.menu.spriteProperty.id': 'ID',
         'witCat.dollyPro.menu.spriteProperty.name': 'sprite name',
         'witCat.dollyPro.menu.spriteProperty.dataJSON': 'data in JSON format',
+        'witCat.dollyPro.menu.spriteProperty.extraDataObj': '🗄️data object',
         'witCat.dollyPro.menu.color': 'color effect',
         'witCat.dollyPro.menu.fisheye': 'fisheye effect',
         'witCat.dollyPro.menu.whirl': 'whirl effect',
@@ -1646,78 +1648,7 @@ class dollyProExtension {
           ],
         },
         SPRITE_PROPERTY: {
-          items: [
-            {
-              text: this.formatMessage('menu.spriteProperty.id'),
-              value: 'id',
-            },
-            {
-              text: this.formatMessage('menu.spriteProperty._x'),
-              value: '_x',
-            },
-            {
-              text: this.formatMessage('menu.spriteProperty._y'),
-              value: '_y',
-            },
-            {
-              text: this.formatMessage('menu.spriteProperty.name'),
-              value: 'name',
-            },
-            {
-              text: this.formatMessage('menu.spriteProperty._size'),
-              value: '_size',
-            },
-            {
-              text: this.formatMessage('menu.spriteProperty._visible'),
-              value: '_visible',
-            },
-            {
-              text: this.formatMessage('menu.spriteProperty.direction'),
-              value: 'direction',
-            },
-            {
-              text: this.formatMessage('menu.spriteProperty.currentCostume'),
-              value: 'currentCostume',
-            },
-            {
-              text: this.formatMessage(
-                'menu.spriteProperty.currentCostumeName',
-              ),
-              value: 'currentCostumeName',
-            },
-            {
-              text: this.formatMessage('menu.spriteProperty.dataJSON'),
-              value: 'dataJSON',
-            },
-            {
-              text: this.formatMessage('menu.color'),
-              value: 'color',
-            },
-            {
-              text: this.formatMessage('menu.fisheye'),
-              value: 'fisheye',
-            },
-            {
-              text: this.formatMessage('menu.whirl'),
-              value: 'whirl',
-            },
-            {
-              text: this.formatMessage('menu.pixelate'),
-              value: 'pixelate',
-            },
-            {
-              text: this.formatMessage('menu.mosaic'),
-              value: 'mosaic',
-            },
-            {
-              text: this.formatMessage('menu.brightness'),
-              value: 'brightness',
-            },
-            {
-              text: this.formatMessage('menu.ghost'),
-              value: 'ghost',
-            },
-          ],
+          items: 'spritePropertiesMenu',
         },
         CLONE_PROPERTY: {
           items: [
@@ -1853,6 +1784,90 @@ class dollyProExtension {
   }
 
   // **************************** 动态菜单 ****************************
+
+  spritePropertiesMenu() {
+    const menu = [
+      {
+        text: this.formatMessage('menu.spriteProperty.id'),
+        value: 'id',
+      },
+      {
+        text: this.formatMessage('menu.spriteProperty._x'),
+        value: '_x',
+      },
+      {
+        text: this.formatMessage('menu.spriteProperty._y'),
+        value: '_y',
+      },
+      {
+        text: this.formatMessage('menu.spriteProperty.name'),
+        value: 'name',
+      },
+      {
+        text: this.formatMessage('menu.spriteProperty._size'),
+        value: '_size',
+      },
+      {
+        text: this.formatMessage('menu.spriteProperty._visible'),
+        value: '_visible',
+      },
+      {
+        text: this.formatMessage('menu.spriteProperty.direction'),
+        value: 'direction',
+      },
+      {
+        text: this.formatMessage('menu.spriteProperty.currentCostume'),
+        value: 'currentCostume',
+      },
+      {
+        text: this.formatMessage(
+          'menu.spriteProperty.currentCostumeName',
+        ),
+        value: 'currentCostumeName',
+      },
+      {
+        text: this.formatMessage('menu.spriteProperty.dataJSON'),
+        value: 'dataJSON',
+      },
+      {
+        text: this.formatMessage('menu.color'),
+        value: 'color',
+      },
+      {
+        text: this.formatMessage('menu.fisheye'),
+        value: 'fisheye',
+      },
+      {
+        text: this.formatMessage('menu.whirl'),
+        value: 'whirl',
+      },
+      {
+        text: this.formatMessage('menu.pixelate'),
+        value: 'pixelate',
+      },
+      {
+        text: this.formatMessage('menu.mosaic'),
+        value: 'mosaic',
+      },
+      {
+        text: this.formatMessage('menu.brightness'),
+        value: 'brightness',
+      },
+      {
+        text: this.formatMessage('menu.ghost'),
+        value: 'ghost',
+      },
+    ];
+    // 和高级数据结构联动（获取存放克隆体KV数据的对象）
+    if (this.runtime.SafeObject) {
+      menu.push({
+        text: this.formatMessage('menu.spriteProperty.extraDataObj'),
+        value: 'dataObj',
+      });
+    }
+    return menu;
+  }
+
   /**
    * 获取角色菜单
    * @returns {[{text: "角色名", value: "角色名"}]};
@@ -3115,6 +3130,11 @@ class dollyProExtension {
       case 'dataJSON':
         // 获取KV数据JSON
         return JSON.stringify(this.getExtraDataOfTarget(target));
+      case 'dataObj':
+        if (this.runtime.SafeObject) {
+          return new this.runtime.SafeObject(this.getExtraDataOfTarget(target));
+        }
+        return 'Error: Need to install Advanecd Data Structure Extension first!';
       case 'color':
       case 'fisheye':
       case 'whirl':
