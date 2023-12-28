@@ -346,7 +346,7 @@ class Animator {
                 'Ani.ghost': '虚像',
                 'Ani.size': '大小',
 
-                'Ani.docs': '📖文档',
+                'Ani.docs': '📖文档',//Not included
 
                 'Ani.Fac_ani': '🌟缓动运算',
                 'Ani.Fac_dat': '🪄特效参数'
@@ -402,7 +402,7 @@ class Animator {
                 'Ani.ghost': 'ghost',
                 'Ani.size': 'size',
 
-                'Ani.docs': '📖Docs',
+                'Ani.docs': '📖Docs',//Not included
 
                 'Ani.Fac_ani': '🌟Easing functions',
                 'Ani.Fac_dat': '🪄Effect parameters'
@@ -433,11 +433,6 @@ class Animator {
             menuIconURI: ani_icon,
             blockIconURI: ani_icon,
             blocks: [
-                {
-                    blockType: 'button',
-                    text: this.formatMessage('Ani.docs'),
-                    onClick: this.docs
-                },
                 '---' + this.formatMessage('Ani.Fac_ani'),
                 {
                     opcode: 'Animate',
@@ -537,7 +532,7 @@ class Animator {
                             menu: 'Effect'
                         }
                     },
-                    disableMonitor: true //disable the tick before this block (bugs may accure when monitoring)
+                    disableMonitor: true
                 }
             ],
             menus: {
@@ -704,10 +699,7 @@ class Animator {
             }
         }
     }
-
-    docs() {
-        window.open('https://learn.ccw.site/article/63a876b1-ccd4-4e74-a298-04e94109ab95')
-    }
+    
     /**
      * 获取动画效果。
      * @param {{type: string, start: string, end: string, length: string, time: string}} param0
