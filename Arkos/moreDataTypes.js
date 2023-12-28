@@ -315,8 +315,8 @@ class moreDataTypes {
       'menu.getOption.objectAllowed': ['值', 'value'],
       'menu.getOption.json': ['JSON', 'JSON'],
       'block.getObjFromJson': [
-        '🗄️JSON[VALUE]解析为对象',
-        '🗄️parse JSON [VALUE] to object',
+        '🗄️字符串[VALUE]解析为对象',
+        '🗄️parse string [VALUE] to object',
       ],
       'block.newEmptyObjOrArray': ['🗄️返回一个[OPTION]', '🗄️create an [OPTION]'],
       'menu.emptyList': ['空列表', 'empty list'],
@@ -324,7 +324,7 @@ class moreDataTypes {
       'block.getNewList': ['🗄️空列表', '🗄️ empty list'],
       'block.getNewObject': ['🗄️空对象', '🗄️ empty object'],
       'block.typeOf': ['[VALUE]的类型', 'type of [VALUE]'],
-      'block.JSONOf': ['[VALUE]对应JSON', 'JSON of object[VALUE]'],
+      'block.JSONOf': ['[VALUE]转换为字符串', 'convert object[VALUE] to string'],
       'block.createOrClearList': [
         '将数据(填名称)[NAME]设为空列表',
         'set data with NAME[NAME] to an empty list',
