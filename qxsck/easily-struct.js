@@ -10,84 +10,84 @@ class struct {
     this.runtime = runtime,
     this._formatMessage = runtime.getFormatMessage({
       'en':{
-        //qxsckeasilystruct.
-        'qxsckeasilystruct.name':'Easily struct',
+        //qxsckeasystruct.
+        'qxsckeasystruct.name':'Easy struct',
 
-        'qxsckeasilystruct.type':"type",
-        'qxsckeasilystruct.length':"length",
-        'qxsckeasilystruct.memberLength':"number of members",
-        'qxsckeasilystruct.members':"members",
+        'qxsckeasystruct.type':"type",
+        'qxsckeasystruct.length':"length",
+        'qxsckeasystruct.memberLength':"number of members",
+        'qxsckeasystruct.members':"members",
 
-        'qxsckeasilystruct.structTypes':"struct types",
-        'qxsckeasilystruct.structs':"structs",
-        'qxsckeasilystruct.structLists':"struct lists",
+        'qxsckeasystruct.structTypes':"struct types",
+        'qxsckeasystruct.structs':"structs",
+        'qxsckeasystruct.structLists':"struct lists",
 
-        'qxsckeasilystruct.clearAll':"clear all",
-        'qxsckeasilystruct.clearData':'clear all [TYPE]',
+        'qxsckeasystruct.clearAll':"clear all",
+        'qxsckeasystruct.clearData':'clear all [TYPE]',
 
-        'qxsckeasilystruct.setStructType':'set struct type,name = [NAME] , members = [MEMBERS]',
-        'qxsckeasilystruct.setStruct':'set struct,name = [NAME] , type = [TYPE]',
-        'qxsckeasilystruct.setStructList':'set struct list,name = [NAME] , type = [TYPE]',
-        'qxsckeasilystruct.getStructTypeData':'[TYPE] in struct type [NAME]',
-        'qxsckeasilystruct.getData':'all [TYPE]',
-        'qxsckeasilystruct.deleteData':'delete [TYPE] [NAME]',
+        'qxsckeasystruct.setStructType':'set struct type,name = [NAME] , members = [MEMBERS]',
+        'qxsckeasystruct.setStruct':'set struct,name = [NAME] , type = [TYPE]',
+        'qxsckeasystruct.setStructList':'set struct list,name = [NAME] , type = [TYPE]',
+        'qxsckeasystruct.getStructTypeData':'[TYPE] in struct type [NAME]',
+        'qxsckeasystruct.getData':'all [TYPE]',
+        'qxsckeasystruct.deleteData':'delete [TYPE] [NAME]',
 
-        'qxsckeasilystruct.checkData':'have [TYPE] [NAME] ?',
-        'qxsckeasilystruct.checkDataMember':'[TYPE] [NAME] have member [MEMBER] ?',
+        'qxsckeasystruct.checkData':'have [TYPE] [NAME] ?',
+        'qxsckeasystruct.checkDataMember':'[TYPE] [NAME] have member [MEMBER] ?',
 
-        'qxsckeasilystruct.getStructType':'type in struct [NAME]',
-        'qxsckeasilystruct.setStructMemberData':'set member [MEMBER] in struct [NAME] to [DATA]',
-        'qxsckeasilystruct.getStructMember':'member [MEMBER] in struct [NAME]',
-        'qxsckeasilystruct.getStructMemberIndex':'item [INDEX] of members in struct [NAME]',
+        'qxsckeasystruct.getStructType':'type in struct [NAME]',
+        'qxsckeasystruct.setStructMemberData':'set member [MEMBER] in struct [NAME] to [DATA]',
+        'qxsckeasystruct.getStructMember':'member [MEMBER] in struct [NAME]',
+        'qxsckeasystruct.getStructMemberIndex':'item [INDEX] of members in struct [NAME]',
 
-        'qxsckeasilystruct.getStructListData':'[TYPE] in struct list [NAME]',
-        'qxsckeasilystruct.structListPushData':'push [NUM] none datas to struct list [NAME]',
+        'qxsckeasystruct.getStructListData':'[TYPE] in struct list [NAME]',
+        'qxsckeasystruct.structListPushData':'push [NUM] none datas to struct list [NAME]',
 
-        'qxsckeasilystruct.setStructListMemberData':'set item [INDEX] of member [MEMBER] in struct list [NAME] to [DATA]',
-        'qxsckeasilystruct.getStructListMember':'item [INDEX] of member [MEMBER] in struct list [NAME]',
-        'qxsckeasilystruct.getStructListMemberIndex':'item [INDEX2] of the [INDEX] member in the struct list [NAME]',
-        'qxsckeasilystruct.deleteStructListMember':'delete item [INDEX] in struct list [NAME]',
-        'qxsckeasilystruct.structListSort':'sort struct list [NAME] with rule [RULE]',
+        'qxsckeasystruct.setStructListMemberData':'set item [INDEX] of member [MEMBER] in struct list [NAME] to [DATA]',
+        'qxsckeasystruct.getStructListMember':'item [INDEX] of member [MEMBER] in struct list [NAME]',
+        'qxsckeasystruct.getStructListMemberIndex':'item [INDEX2] of the [INDEX] member in the struct list [NAME]',
+        'qxsckeasystruct.deleteStructListMember':'delete item [INDEX] in struct list [NAME]',
+        'qxsckeasystruct.structListSort':'sort struct list [NAME] with rule [RULE]',
       },
       'zh-cn': {
-        //qxsckeasilystruct.
-        'qxsckeasilystruct.name':'简易结构体',
+        //qxsckeasystruct.
+        'qxsckeasystruct.name':'简易结构体',
 
-        'qxsckeasilystruct.type':"类型",
-        'qxsckeasilystruct.length':"长度",
-        'qxsckeasilystruct.memberLength':"成员数量",
-        'qxsckeasilystruct.members':"成员",
+        'qxsckeasystruct.type':"类型",
+        'qxsckeasystruct.length':"长度",
+        'qxsckeasystruct.memberLength':"成员数量",
+        'qxsckeasystruct.members':"成员",
 
-        'qxsckeasilystruct.structTypes':"结构体定义",
-        'qxsckeasilystruct.structs':"结构体",
-        'qxsckeasilystruct.structLists':"结构体列表",
+        'qxsckeasystruct.structTypes':"结构体定义",
+        'qxsckeasystruct.structs':"结构体",
+        'qxsckeasystruct.structLists':"结构体列表",
 
-        'qxsckeasilystruct.clearAll':"清空所有数据",
-        'qxsckeasilystruct.clearData':'清空所有 [TYPE]',
+        'qxsckeasystruct.clearAll':"清空所有数据",
+        'qxsckeasystruct.clearData':'清空所有 [TYPE]',
 
-        'qxsckeasilystruct.setStructType':'设置结构体类型，类型名称 = [NAME] ，成员 = [MEMBERS]',
-        'qxsckeasilystruct.setStruct':'设置结构体，结构体名称 = [NAME] ，结构体类型名称 = [TYPE]',
-        'qxsckeasilystruct.setStructList':'设置结构体列表，结构体列表名称 = [NAME] ，结构体类型名称 = [TYPE]',
-        'qxsckeasilystruct.getStructTypeData':'结构体类型 [NAME] 的 [TYPE]',
-        'qxsckeasilystruct.getData':'所有 [TYPE]',
-        'qxsckeasilystruct.deleteData':'删除 [TYPE] [NAME]',
+        'qxsckeasystruct.setStructType':'设置结构体类型，类型名称 = [NAME] ，成员 = [MEMBERS]',
+        'qxsckeasystruct.setStruct':'设置结构体，结构体名称 = [NAME] ，结构体类型名称 = [TYPE]',
+        'qxsckeasystruct.setStructList':'设置结构体列表，结构体列表名称 = [NAME] ，结构体类型名称 = [TYPE]',
+        'qxsckeasystruct.getStructTypeData':'结构体类型 [NAME] 的 [TYPE]',
+        'qxsckeasystruct.getData':'所有 [TYPE]',
+        'qxsckeasystruct.deleteData':'删除 [TYPE] [NAME]',
 
-        'qxsckeasilystruct.checkData':'存在 [TYPE] [NAME] ？',
-        'qxsckeasilystruct.checkDataMember':'[TYPE] [NAME] 存在成员 [MEMBER] ？',
+        'qxsckeasystruct.checkData':'存在 [TYPE] [NAME] ？',
+        'qxsckeasystruct.checkDataMember':'[TYPE] [NAME] 存在成员 [MEMBER] ？',
 
-        'qxsckeasilystruct.getStructType':'结构体 [NAME] 的类型',
-        'qxsckeasilystruct.setStructMemberData':'设置结构体 [NAME] 的成员 [MEMBER] 的数据为 [DATA]',
-        'qxsckeasilystruct.getStructMember':'结构体 [NAME] 的成员 [MEMBER]',
-        'qxsckeasilystruct.getStructMemberIndex':'结构体 [NAME] 的第 [INDEX] 个成员',
+        'qxsckeasystruct.getStructType':'结构体 [NAME] 的类型',
+        'qxsckeasystruct.setStructMemberData':'设置结构体 [NAME] 的成员 [MEMBER] 的数据为 [DATA]',
+        'qxsckeasystruct.getStructMember':'结构体 [NAME] 的成员 [MEMBER]',
+        'qxsckeasystruct.getStructMemberIndex':'结构体 [NAME] 的第 [INDEX] 个成员',
 
-        'qxsckeasilystruct.getStructListData':'结构体列表 [NAME] 的 [TYPE]',
-        'qxsckeasilystruct.structListPushData':'结构体列表 [NAME] 增加 [NUM] 项空白项',
+        'qxsckeasystruct.getStructListData':'结构体列表 [NAME] 的 [TYPE]',
+        'qxsckeasystruct.structListPushData':'结构体列表 [NAME] 增加 [NUM] 项空白项',
 
-        'qxsckeasilystruct.setStructListMemberData':'设置结构体列表 [NAME] 的第 [INDEX] 项的成员 [MEMBER] 的数据为 [DATA]',
-        'qxsckeasilystruct.getStructListMember':'结构体列表 [NAME] 的第 [INDEX] 项的成员 [MEMBER]',
-        'qxsckeasilystruct.getStructListMemberIndex':'结构体列表 [NAME] 的第 [INDEX] 项的第 [INDEX2] 个成员',
-        'qxsckeasilystruct.deleteStructListMember':'删除结构体列表 [NAME] 的第 [INDEX] 项',
-        'qxsckeasilystruct.structListSort':'使用规则 [RULE] 排序结构体列表 [NAME]',
+        'qxsckeasystruct.setStructListMemberData':'设置结构体列表 [NAME] 的第 [INDEX] 项的成员 [MEMBER] 的数据为 [DATA]',
+        'qxsckeasystruct.getStructListMember':'结构体列表 [NAME] 的第 [INDEX] 项的成员 [MEMBER]',
+        'qxsckeasystruct.getStructListMemberIndex':'结构体列表 [NAME] 的第 [INDEX] 项的第 [INDEX2] 个成员',
+        'qxsckeasystruct.deleteStructListMember':'删除结构体列表 [NAME] 的第 [INDEX] 项',
+        'qxsckeasystruct.structListSort':'使用规则 [RULE] 排序结构体列表 [NAME]',
       },
     })
   }
@@ -102,8 +102,8 @@ class struct {
 
   getInfo() {
     return {
-      id: "qxsckeasilystruct",
-      name: this.formatMessage("qxsckeasilystruct.name"),
+      id: "qxsckeasystruct",
+      name: this.formatMessage("qxsckeasystruct.name"),
       color1: '#0e7bed',
       color2: '#0e7bed',
       blockIconURI: Icon,
@@ -113,17 +113,17 @@ class struct {
         {
           opcode: "clearAll",
           blockType: 'command',
-          text: this.formatMessage("qxsckeasilystruct.clearAll"),
+          text: this.formatMessage("qxsckeasystruct.clearAll"),
           arguments: {},
         },
         {
           opcode: "clearData",
           blockType: 'command',
-          text: this.formatMessage("qxsckeasilystruct.clearData"),
+          text: this.formatMessage("qxsckeasystruct.clearData"),
           arguments: {
             TYPE:{
               type: 'string',
-              defaultValue: this.formatMessage("qxsckeasilystruct.structTypes"),
+              defaultValue: this.formatMessage("qxsckeasystruct.structTypes"),
               menu: 'structData.List',
             },
           },
@@ -134,7 +134,7 @@ class struct {
         {
           opcode: "setStructType",
           blockType: 'command',
-          text: this.formatMessage("qxsckeasilystruct.setStructType"),
+          text: this.formatMessage("qxsckeasystruct.setStructType"),
           arguments: {
             NAME: {
               type: 'string',
@@ -149,7 +149,7 @@ class struct {
         {
           opcode: "setStruct",
           blockType: 'command',
-          text: this.formatMessage("qxsckeasilystruct.setStruct"),
+          text: this.formatMessage("qxsckeasystruct.setStruct"),
           arguments: {
             NAME: {
               type: 'string',
@@ -164,7 +164,7 @@ class struct {
         {
           opcode: "setStructList",
           blockType: 'command',
-          text: this.formatMessage("qxsckeasilystruct.setStructList"),
+          text: this.formatMessage("qxsckeasystruct.setStructList"),
           arguments: {
             NAME: {
               type: 'string',
@@ -179,7 +179,7 @@ class struct {
         {
           opcode: "getStructTypeData",
           blockType: 'reporter',
-          text: this.formatMessage("qxsckeasilystruct.getStructTypeData"),
+          text: this.formatMessage("qxsckeasystruct.getStructTypeData"),
           arguments: {
             NAME: {
               type: 'string',
@@ -187,7 +187,7 @@ class struct {
             },
             TYPE:{
               type: 'string',
-              defaultValue: this.formatMessage("qxsckeasilystruct.memberLength"),
+              defaultValue: this.formatMessage("qxsckeasystruct.memberLength"),
               menu: 'getStructTypeData.List',
             },
           },
@@ -195,11 +195,11 @@ class struct {
         {
           opcode: "getData",
           blockType: 'reporter',
-          text: this.formatMessage("qxsckeasilystruct.getData"),
+          text: this.formatMessage("qxsckeasystruct.getData"),
           arguments: {
             TYPE:{
               type: 'string',
-              defaultValue: Scratch.translate({id: "qxsckeasilystruct.structTypes",default: "struct types"}),
+              defaultValue: Scratch.translate({id: "qxsckeasystruct.structTypes",default: "struct types"}),
               menu: 'structData.List',
             },
           },
@@ -207,7 +207,7 @@ class struct {
         {
           opcode: "deleteData",
           blockType: 'command',
-          text: this.formatMessage("qxsckeasilystruct.deleteData"),
+          text: this.formatMessage("qxsckeasystruct.deleteData"),
           arguments: {
             NAME: {
               type: 'string',
@@ -215,7 +215,7 @@ class struct {
             },
             TYPE:{
               type: 'string',
-              defaultValue: this.formatMessage("qxsckeasilystruct.structTypes"),
+              defaultValue: this.formatMessage("qxsckeasystruct.structTypes"),
               menu: 'structData.List',
             },
           },
@@ -226,7 +226,7 @@ class struct {
         {
           opcode: "checkData",
           blockType: 'Boolean',
-          text: this.formatMessage("qxsckeasilystruct.checkData"),
+          text: this.formatMessage("qxsckeasystruct.checkData"),
           arguments: {
             NAME: {
               type: 'string',
@@ -234,7 +234,7 @@ class struct {
             },
             TYPE:{
               type: 'string',
-              defaultValue: this.formatMessage("qxsckeasilystruct.structTypes"),
+              defaultValue: this.formatMessage("qxsckeasystruct.structTypes"),
               menu: 'structData.List',
             },
           },
@@ -242,7 +242,7 @@ class struct {
         {
           opcode: "checkDataMember",
           blockType: 'Boolean',
-          text: this.formatMessage("qxsckeasilystruct.checkDataMember"),
+          text: this.formatMessage("qxsckeasystruct.checkDataMember"),
           arguments: {
             NAME: {
               type: 'string',
@@ -254,7 +254,7 @@ class struct {
             },
             TYPE:{
               type: 'string',
-              defaultValue: this.formatMessage("qxsckeasilystruct.structTypes"),
+              defaultValue: this.formatMessage("qxsckeasystruct.structTypes"),
               menu: 'structData.List',
             },
           },
@@ -265,7 +265,7 @@ class struct {
         {
           opcode: "getStructType",
           blockType: 'reporter',
-          text: this.formatMessage("qxsckeasilystruct.getStructType"),
+          text: this.formatMessage("qxsckeasystruct.getStructType"),
           arguments: {
             NAME: {
               type: 'string',
@@ -276,7 +276,7 @@ class struct {
         {
           opcode: "setStructMemberData",
           blockType: 'command',
-          text: this.formatMessage("qxsckeasilystruct.setStructMemberData"),
+          text: this.formatMessage("qxsckeasystruct.setStructMemberData"),
           arguments: {
             NAME: {
               type: 'string',
@@ -295,7 +295,7 @@ class struct {
         {
           opcode: "getStructMember",
           blockType: 'reporter',
-          text: this.formatMessage("qxsckeasilystruct.getStructMember"),
+          text: this.formatMessage("qxsckeasystruct.getStructMember"),
           arguments: {
             NAME: {
               type: 'string',
@@ -310,7 +310,7 @@ class struct {
         {
           opcode: "getStructMemberIndex",
           blockType: 'reporter',
-          text: this.formatMessage("qxsckeasilystruct.getStructMemberIndex"),
+          text: this.formatMessage("qxsckeasystruct.getStructMemberIndex"),
           arguments: {
             NAME: {
               type: 'string',
@@ -328,7 +328,7 @@ class struct {
         {
           opcode: "getStructListData",
           blockType: 'reporter',
-          text: this.formatMessage("qxsckeasilystruct.getStructListData"),
+          text: this.formatMessage("qxsckeasystruct.getStructListData"),
           arguments: {
             NAME: {
               type: 'string',
@@ -336,7 +336,7 @@ class struct {
             },
             TYPE:{
               type: 'string',
-              defaultValue: this.formatMessage("qxsckeasilystruct.type"),
+              defaultValue: this.formatMessage("qxsckeasystruct.type"),
               menu: 'getStructListData.List',
             }
           },
@@ -344,7 +344,7 @@ class struct {
         {
           opcode: "structListPushData",
           blockType: 'command',
-          text: this.formatMessage("qxsckeasilystruct.structListPushData"),
+          text: this.formatMessage("qxsckeasystruct.structListPushData"),
           arguments: {
             NAME: {
               type: 'string',
@@ -359,7 +359,7 @@ class struct {
         {
           opcode: "setStructListMemberData",
           blockType: 'command',
-          text: this.formatMessage("qxsckeasilystruct.setStructListMemberData"),
+          text: this.formatMessage("qxsckeasystruct.setStructListMemberData"),
           arguments: {
             NAME: {
               type: 'string',
@@ -382,7 +382,7 @@ class struct {
         {
           opcode: "getStructListMember",
           blockType: 'reporter',
-          text: this.formatMessage("qxsckeasilystruct.getStructListMember"),
+          text: this.formatMessage("qxsckeasystruct.getStructListMember"),
           arguments: {
             NAME: {
               type: 'string',
@@ -401,7 +401,7 @@ class struct {
         {
           opcode: "getStructListMemberIndex",
           blockType: 'reporter',
-          text: this.formatMessage("qxsckeasilystruct.getStructListMemberIndex"),
+          text: this.formatMessage("qxsckeasystruct.getStructListMemberIndex"),
           arguments: {
             NAME: {
               type: 'string',
@@ -420,7 +420,7 @@ class struct {
         {
           opcode: "deleteStructListMember",
           blockType: 'command',
-          text: this.formatMessage("qxsckeasilystruct.deleteStructListMember"),
+          text: this.formatMessage("qxsckeasystruct.deleteStructListMember"),
           arguments: {
             NAME: {
               type: 'string',
@@ -435,7 +435,7 @@ class struct {
         {
           opcode: "structListSort",
           blockType: 'command',
-          text: this.formatMessage("qxsckeasilystruct.structListSort"),
+          text: this.formatMessage("qxsckeasystruct.structListSort"),
           arguments: {
             NAME: {
               type: 'string',
@@ -451,35 +451,35 @@ class struct {
       menus: {
         'getStructListData.List':[
           {
-            text: this.formatMessage("qxsckeasilystruct.type"),
+            text: this.formatMessage("qxsckeasystruct.type"),
             value: 'type'
           },
           {
-            text: this.formatMessage("qxsckeasilystruct.length"),
+            text: this.formatMessage("qxsckeasystruct.length"),
             value: 'length'
           },
         ],
         'structData.List':[
           {
-            text: this.formatMessage("qxsckeasilystruct.structTypes"),
+            text: this.formatMessage("qxsckeasystruct.structTypes"),
             value: 'structTypes'
           },
           {
-            text: this.formatMessage("qxsckeasilystruct.structs"),
+            text: this.formatMessage("qxsckeasystruct.structs"),
             value: 'structs'
           },
           {
-            text: this.formatMessage("qxsckeasilystruct.structLists"),
+            text: this.formatMessage("qxsckeasystruct.structLists"),
             value: 'structLists'
           },
         ],
         'getStructTypeData.List':[
           {
-            text: this.formatMessage("qxsckeasilystruct.memberLength"),
+            text: this.formatMessage("qxsckeasystruct.memberLength"),
             value: 'length'
           },
           {
-            text: this.formatMessage("qxsckeasilystruct.members"),
+            text: this.formatMessage("qxsckeasystruct.members"),
             value: 'members'
           },
         ],
@@ -702,9 +702,9 @@ class struct {
 window.tempExt = {
   Extension: struct,
   info: {
-    name: 'qxsckeasilystruct.name',
-    description: 'qxsckeasilystruct.description',
-    extensionId: 'qxsckeasilystruct',
+    name: 'qxsckeasystruct.name',
+    description: 'qxsckeasystruct.description',
+    extensionId: 'qxsckeasystruct',
     iconURL: insetIcon,
     insetIconURL: insetIcon,
     featured: true,
@@ -713,12 +713,12 @@ window.tempExt = {
   },
   l10n: {
     'zh-cn': {
-      'qxsckeasilystruct.name': '简易结构体',
-      'qxsckeasilystruct.description': '一些关于简易结构体的积木',
+      'qxsckeasystruct.name': '简易结构体',
+      'qxsckeasystruct.description': '一些关于简易结构体的积木',
     },
     'en': {
-      'qxsckeasilystruct.name': 'Easily struct',
-      'qxsckeasilystruct.description': 'Some blocks of use easily struct.',
+      'qxsckeasystruct.name': 'Easy struct',
+      'qxsckeasystruct.description': 'Some blocks of use easy struct.',
     },
   },
 }
