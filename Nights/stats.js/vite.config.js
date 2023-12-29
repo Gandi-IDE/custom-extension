@@ -6,7 +6,7 @@ export default {
             entry: 'src/main.js',
             name: 'stats',
             fileName: format => `stats.js`,
-            formats: ['iife'],
+            formats: ['esm'],
         },
         minify: false,
     },

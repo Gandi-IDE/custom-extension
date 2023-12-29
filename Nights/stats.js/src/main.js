@@ -83,3 +83,5 @@ window.tempExt = {
         }
     }
 };
+
+export default StatsExt
