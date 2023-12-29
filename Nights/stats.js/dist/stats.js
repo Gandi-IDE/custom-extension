@@ -115,20 +115,20 @@ Stats.Panel = function(name, fg, bg) {
 };
 const lang = {
   "zh-cn": {
-    "Stats.extensionName": "性能监控",
-    "Stats.openStats": "打开性能监控",
-    "Stats.closeStats": "关闭性能监控",
-    "Stats.showAll": "全部显示",
-    "Stats.showOne": "单个显示",
-    "Stats.setStyle": "设置样式为[STYLE]"
+    "nights.stats.extensionName": "性能监控",
+    "nights.stats.openStats": "打开性能监控",
+    "nights.stats.closeStats": "关闭性能监控",
+    "nights.stats.showAll": "全部显示",
+    "nights.stats.showOne": "单个显示",
+    "nights.stats.setStyle": "设置样式为[STYLE]"
   },
   en: {
-    "Stats.extensionName": "state",
-    "Stats.openStats": "open state",
-    "Stats.closeStats": "close state",
-    "Stats.showAll": "show all",
-    "Stats.showOne": "show one",
-    "Stats.setStyle": "set style [STYLE]"
+    "nights.stats.extensionName": "state",
+    "nights.stats.openStats": "open state",
+    "nights.stats.closeStats": "close state",
+    "nights.stats.showAll": "show all",
+    "nights.stats.showOne": "show one",
+    "nights.stats.setStyle": "set style [STYLE]"
   }
 };
 const getInfo = (formatMessage) => {
@@ -227,23 +227,23 @@ class StatsExt {
 window.tempExt = {
   Extension: StatsExt,
   info: {
-    name: "Stats.name",
-    description: "Stats.descp",
-    extensionId: "Stats",
+    name: "nights.stats.name",
+    description: "nights.stats.descp",
+    extensionId: "nights.stats.",
     //iconURL: _picture,
     //insetIconURL: _icon,
     featured: true,
     disabled: false,
     collaborator: "nights"
   },
-  l10n: {
+  "l10n": {
     "zh-cn": {
-      "Stats.name": "性能监控",
-      "Stats.descp": "监控性能"
+      "nights.stats.name": "性能监控",
+      "nights.stats.descp": "监视性能包括FPS，内存占用等"
     },
-    en: {
-      "Stats.name": "性能监控",
-      "Stats.descp": "监控性能"
+    "en": {
+      "nights.stats.name": "performance monitor",
+      "nights.stats.descp": "Monitoring performance including FPS, memory usage, etc"
     }
   }
 };

@@ -63,23 +63,23 @@ class StatsExt {
 window.tempExt = {
     Extension: StatsExt,
     info: {
-        name: "Stats.name",
-        description: "Stats.descp",
-        extensionId: "Stats",
+        name: "nights.stats.name",
+        description: "nights.stats.descp",
+        extensionId: "nights.stats.",
         //iconURL: _picture,
         //insetIconURL: _icon,
         featured: true,
         disabled: false,
         collaborator: "nights"
     },
-    l10n: {
+    "l10n": {
         "zh-cn": {
-            "Stats.name": "性能监控",
-            "Stats.descp": "监控性能"
+            "nights.stats.name": "性能监控",
+            "nights.stats.descp": "监视性能包括FPS，内存占用等"
         },
-        en: {
-            "Stats.name": "性能监控",
-            "Stats.descp": "监控性能"
+        "en": {
+            "nights.stats.name": "performance monitor",
+            "nights.stats.descp": "Monitoring performance including FPS, memory usage, etc"
         }
     }
 };
