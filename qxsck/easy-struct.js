@@ -199,7 +199,7 @@ class struct {
           arguments: {
             TYPE:{
               type: 'string',
-              defaultValue: Scratch.translate({id: "qxsckeasystruct.structTypes",default: "struct types"}),
+              defaultValue: this.formatMessage("qxsckeasystruct.structTypes"),
               menu: 'structData.List',
             },
           },
