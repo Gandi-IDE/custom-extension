@@ -153,7 +153,7 @@ class AdvancedControls {
         'https://learn.ccw.site/article/baa85bdd-038b-4a3c-894d-86a972b42178',
       ],
       'advControls.tag.compileBreaker': [
-        '⚠️ 以下积木会破坏脚本编译',
+        '⚠️(慎用)以下积木会破坏脚本编译',
         '⚠️ blocks below will break the compilation',
       ],
       'advControls.tag.compileNotSupported': [
@@ -431,106 +431,106 @@ class AdvancedControls {
             },
           },
         },
-        // `---${this.formatMessage('advControls.tag.compileBreaker')}`, //
-        // {
-        //   opcode: 'doWhile',
-        //   blockType: BlockType.CONDITIONAL,
-        //   text: [
-        //     this.formatMessage('advControls.doWhile1'),
-        //     this.formatMessage('advControls.doWhile2'),
-        //   ],
-        //   arguments: {
-        //     CONDITION: {
-        //       type: ArgumentType.BOOLEAN,
-        //     },
-        //     REPEAT_ICON: {
-        //       type: ArgumentType.IMAGE,
-        //       dataURI: repeatIcon,
-        //     },
-        //   },
-        // },
-        // {
-        //   opcode: 'repeatSeconds',
-        //   blockType: BlockType.LOOP,
-        //   text: this.formatMessage('advControls.repeatSeconds'),
-        //   arguments: {
-        //     SECS: {
-        //       type: ArgumentType.NUMBER,
-        //       defaultValue: 2,
-        //     },
-        //   },
-        // },
-        // {
-        //   opcode: 'repeatSecondsOrUntil',
-        //   blockType: BlockType.LOOP,
-        //   text: this.formatMessage('advControls.repeatSecondsOrUntil'),
-        //   arguments: {
-        //     SECS: {
-        //       type: ArgumentType.NUMBER,
-        //       defaultValue: 2,
-        //     },
-        //     CONDITION: {
-        //       type: ArgumentType.BOOLEAN,
-        //     },
-        //   },
-        // },
-        // {
-        //   opcode: 'repeatTimesOrUntil',
-        //   blockType: BlockType.LOOP,
-        //   text: this.formatMessage('advControls.repeatTimesOrUntil'),
-        //   branchCount: 1,
-        //   arguments: {
-        //     TIMES: {
-        //       type: ArgumentType.NUMBER,
-        //       defaultValue: 10,
-        //     },
-        //     CONDITION: {
-        //       type: ArgumentType.BOOLEAN,
-        //     },
-        //   },
-        // },
-        // '---',
-        // {
-        //   opcode: 'allAtOnce',
-        //   blockType: BlockType.CONDITIONAL,
-        //   text: this.formatMessage('advControls.allAtOnce'),
-        //   branchCount: 1,
-        // },
-        // {
-        //   opcode: 'letSpriteDo',
-        //   blockType: BlockType.CONDITIONAL,
-        //   text: this.formatMessage('advControls.letSpriteDo'),
-        //   branchCount: 1,
-        //   arguments: {
-        //     SPRITE: {
-        //       type: ArgumentType.STRING,
-        //       menu: 'SPRITE_MENU',
-        //     },
-        //   },
-        // },
-        // {
-        //   opcode: 'ifChanged',
-        //   blockType: BlockType.CONDITIONAL,
-        //   text: this.formatMessage('advControls.ifChanged'),
-        //   branchCount: 1,
-        //   arguments: {
-        //     VAR: {
-        //       type: null,
-        //     },
-        //   },
-        // },
-        // {
-        //   opcode: 'everyNSeconds',
-        //   blockType: BlockType.CONDITIONAL,
-        //   text: this.formatMessage('advControls.everyNSeconds'),
-        //   branchCount: 1,
-        //   arguments: {
-        //     N: {
-        //       type: ArgumentType.NUMBER,
-        //       defaultValue: 2,
-        //     },
-        //   },
-        // },
+        `---${this.formatMessage('advControls.tag.compileBreaker')}`, //
+        {
+          opcode: 'doWhile',
+          blockType: BlockType.CONDITIONAL,
+          text: [
+            this.formatMessage('advControls.doWhile1'),
+            this.formatMessage('advControls.doWhile2'),
+          ],
+          arguments: {
+            CONDITION: {
+              type: ArgumentType.BOOLEAN,
+            },
+            REPEAT_ICON: {
+              type: ArgumentType.IMAGE,
+              dataURI: repeatIcon,
+            },
+          },
+        },
+        {
+          opcode: 'repeatSeconds',
+          blockType: BlockType.LOOP,
+          text: this.formatMessage('advControls.repeatSeconds'),
+          arguments: {
+            SECS: {
+              type: ArgumentType.NUMBER,
+              defaultValue: 2,
+            },
+          },
+        },
+        {
+          opcode: 'repeatSecondsOrUntil',
+          blockType: BlockType.LOOP,
+          text: this.formatMessage('advControls.repeatSecondsOrUntil'),
+          arguments: {
+            SECS: {
+              type: ArgumentType.NUMBER,
+              defaultValue: 2,
+            },
+            CONDITION: {
+              type: ArgumentType.BOOLEAN,
+            },
+          },
+        },
+        {
+          opcode: 'repeatTimesOrUntil',
+          blockType: BlockType.LOOP,
+          text: this.formatMessage('advControls.repeatTimesOrUntil'),
+          branchCount: 1,
+          arguments: {
+            TIMES: {
+              type: ArgumentType.NUMBER,
+              defaultValue: 10,
+            },
+            CONDITION: {
+              type: ArgumentType.BOOLEAN,
+            },
+          },
+        },
+        '---',
+        {
+          opcode: 'allAtOnce',
+          blockType: BlockType.CONDITIONAL,
+          text: this.formatMessage('advControls.allAtOnce'),
+          branchCount: 1,
+        },
+        {
+          opcode: 'letSpriteDo',
+          blockType: BlockType.CONDITIONAL,
+          text: this.formatMessage('advControls.letSpriteDo'),
+          branchCount: 1,
+          arguments: {
+            SPRITE: {
+              type: ArgumentType.STRING,
+              menu: 'SPRITE_MENU',
+            },
+          },
+        },
+        {
+          opcode: 'ifChanged',
+          blockType: BlockType.CONDITIONAL,
+          text: this.formatMessage('advControls.ifChanged'),
+          branchCount: 1,
+          arguments: {
+            VAR: {
+              type: null,
+            },
+          },
+        },
+        {
+          opcode: 'everyNSeconds',
+          blockType: BlockType.CONDITIONAL,
+          text: this.formatMessage('advControls.everyNSeconds'),
+          branchCount: 1,
+          arguments: {
+            N: {
+              type: ArgumentType.NUMBER,
+              defaultValue: 2,
+            },
+          },
+        },
         // `---${this.formatMessage('advControls.tag.compileNotSupported')}`, //
         // {
         //   opcode: 'waitOrUntil',
