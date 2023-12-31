@@ -40,52 +40,59 @@ class Three {
                 "Three.block.newV3": "创建一个3维向量[x][y][z]",
                 "Three.block.newV3fromValue": "根据给定的[value]创建一个3维向量",
                 "Three.block.getAxisOfV3": "获取[vector]的[axis]轴",
-                "Three.block.addV3": "三维向量：[a] + [b]",
-                "Three.block.subV3": "三维向量：[a] - [b]",
-                "Three.block.mulV3": "三维向量：[a] * [b]",
-                "Three.block.divV3": "三维向量：[a] / [b]",
-                "Three.block.dotProductOfV3": "三维向量：[a]与[b]的点积",
-                "Three.block.crossProductOfV3": "三维向量：[a]与[b]的叉积",
-                "Three.block.magnitudeV3": "三维向量：[a]的模长",
-                "Three.block.distanceV3": "三维向量：[a]与[b]的距离",
-                "Three.block.rotateAroundPointV3": "三维向量：绕[b]旋转(x[yaw]y[pitch]z[roll]旋转[a])",
-                "Three.block.rotateAroundCenterV3": "三维向量：绕中心旋转(x[yaw]y[pitch]z[roll]旋转[a])",
+                "Three.block.addV3": "3D向量：[a] + [b]",
+                "Three.block.subV3": "3D向量：[a] - [b]",
+                "Three.block.mulV3": "3D向量：[a] * [b]",
+                "Three.block.divV3": "3D向量：[a] / [b]",
+                "Three.block.dotProductOfV3": "3D向量：[a]与[b]的点积",
+                "Three.block.crossProductOfV3": "3D向量：[a]与[b]的叉积",
+                "Three.block.magnitudeV3": "3D向量：[a]的模长",
+                "Three.block.distanceV3": "3D向量：[a]与[b]的距离",
+                "Three.block.rotateAroundPointV3": "3D向量：绕[b]旋转(x[yaw]y[pitch]z[roll]旋转[a])",
+                "Three.block.rotateAroundCenterV3": "3D向量：绕中心旋转(x[yaw]y[pitch]z[roll]旋转[a])",
                 "Three.block.newV2": "创建一个2维向量[x][y]",
                 "Three.block.newV2fromValue": "根据给定的[value]创建一个2维向量",
-                "Three.block.getAxisOfV2": "二维向量：获取[vector]的[axis]轴",
+                "Three.block.getAxisOfV2": "获取[vector]的[axis]轴",
                 "Three.block.project2DFromCam": "从相机获取投影后的[a]到2D",
                 "Three.block.project2DFromPos": "从位置[b]和偏航角[yaw]、俯仰角[pitch]、翻滚角[roll]获取投影后的[a]到2D",
-                "Three.block.addV2": "二维向量：[a] + [b]",
-                "Three.block.subV2": "二维向量：[a] - [b]",
-                "Three.block.mulV2": "二维向量：[a] * [b]",
-                "Three.block.divV2": "二维向量：[a] / [b]",
-                "Three.block.dotProductOfV2": "二维向量：[a]与[b]的点积",
-                "Three.block.crossProductOfV2": "二维向量：[a]与[b]的叉积",
-                "Three.block.magnitudeV2": "二维向量：[a]的模长",
-                "Three.block.distanceV2": "二维向量：[a]与[b]之间的距离",
-                "Three.block.rotateAroundPointV2": "二维向量：以[b]为中心，旋转[a] [yaw]度",
-                "Three.block.rotateAroundCenterV2": "二维向量：以中心为中心，旋转[a] [yaw]度",
-                "Three.block.cam3DsetPosition": "将相机位置设置为[a]",
-                "Three.block.cam3DchangePosition": "将相机位置改变[a]",
-                "Three.block.cam3DchangePositionOnAxis": "改变相机[axis]轴上的位置[a]",
+                "Three.block.addV2": "2D向量：[a] + [b]",
+                "Three.block.subV2": "2D向量：[a] - [b]",
+                "Three.block.mulV2": "2D向量：[a] * [b]",
+                "Three.block.divV2": "2D向量：[a] / [b]",
+                "Three.block.dotProductOfV2": "2D向量：[a]与[b]的点积",
+                "Three.block.crossProductOfV2": "2D向量：[a]与[b]的叉积",
+                "Three.block.magnitudeV2": "2D向量：[a]的模长",
+                "Three.block.distanceV2": "2D向量：[a]与[b]之间的距离",
+                "Three.block.rotateAroundPointV2": "2D向量：以[b]为中心，旋转[a] [yaw]度",
+                "Three.block.rotateAroundCenterV2": "2D向量：以中心为中心，旋转[a] [yaw]度",
+                "Three.block.cam3DsetPosition": "将相机位置设置为[a]并[cam]",
+                "Three.block.cam3DchangePosition": "将相机位置改变[a]并[cam]",
+                "Three.block.cam3DchangePositionOnAxis": "改变相机[axis]轴上的位置[a]并[cam]",
                 "Three.block.cam3DgetPosition": "获取相机位置",
-                "Three.block.cam3DsetRotation": "将相机旋转设置为[a]",
-                "Three.block.cam3DchangeRotation": "将相机旋转改变[a]",
-                "Three.block.cam3DchangeRotationOnAxis": "改变相机[rotator]轴上的旋转[a]",
+                "Three.block.cam3DsetRotation": "将相机旋转设置为[a]并[cam]",
+                "Three.block.cam3DchangeRotation": "将相机旋转改变[a]并[cam]",
+                "Three.block.cam3DchangeRotationOnAxis": "改变相机[rotator]轴上的旋转[a]并[cam]",
                 "Three.block.cam3DgetRotation": "获取相机旋转",
-                "Three.block.setFov": "将FOV设置为[dist]",
-                "Three.block.changeFov": "改变FOV [dist]",
+                "Three.block.setFov": "将FOV设置为[dist]并[cam]",
+                "Three.block.changeFov": "改变FOV [dist]并[cam]",
                 "Three.block.getFov": "FOV",
-                "Three.block.spr3DsetPosition": "将我的位置设置为[a]",
-                "Three.block.spr3DsetPositionComponent": "将我的[component]坐标设为[a]",
-                "Three.block.spr3DchangePosition": "将我的坐标增加[a]",
-                "Three.block.spr3DchangePositionComponent": "将我的[component]坐标增加[a]",
+                "Three.block.spr3DsetPosition": "将我的位置设置为[a]并[move]",
+                "Three.block.spr3DsetPositionComponent": "将我的[component]坐标设为[a]并[move]",
+                "Three.block.spr3DchangePosition": "将我的坐标增加[a]并[move]",
+                "Three.block.spr3DchangePositionComponent": "将我的[component]坐标增加[a]并[move]",
                 "Three.block.spr3DgetPosition": "我的3D坐标",
                 "Three.block.spr3DgetPositionComponent": "我的[component]坐标",
-                "Three.block.spr3DsetSize": "将我的3D大小设置为[a]",
-                "Three.block.spr3DchangeSize": "将我的3D大小增加[a]",
+                "Three.block.spr3DsetSize": "将我的3D大小设置为[a]并[size]",
+                "Three.block.spr3DchangeSize": "将我的3D大小增加[a]并[size]",
                 "Three.block.spr3DgetSize": "我的3D大小",
-                "Three.block.spr3D": "移动到我的3D坐标"
+                "Three.block.spr3D": "移动到我的3D坐标",
+
+                "Three.menu.nmove": "不更新位置",
+                "Three.menu.move": "更新位置",
+                "Three.menu.nsize": "不更新大小",
+                "Three.menu.size": "更新大小",
+                "Three.menu.ncam": "不更新屏幕",
+                "Three.menu.cam": "更新屏幕",
             },
 
             en: {
@@ -146,7 +153,14 @@ class Three {
                 'Three.block.spr3DsetSize': 'set my 3d size to [a]',
                 'Three.block.spr3DchangeSize': 'change my 3d size by [a]',
                 'Three.block.spr3DgetSize': 'my 3d size',
-                'Three.block.spr3D': 'go to my position in 3D'
+                'Three.block.spr3D': 'go to my position in 3D',
+
+                "Three.menu.nmove": "do not update position",
+                "Three.menu.move": "update position",
+                "Three.menu.nsize": "do not update size",
+                "Three.menu.size": "update size",
+                "Three.menu.ncam": "do not update screen",
+                "Three.menu.cam": "update screen",
             }
         })
     }
@@ -171,32 +185,32 @@ class Three {
                 {
                     disableMonitor: true,
                     opcode: "newV3",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.newV3'),
                     arguments: {
-                        x: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-                        y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-                        z: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                        x: { type: "number", defaultValue: 0 },
+                        y: { type: "number", defaultValue: 0 },
+                        z: { type: "number", defaultValue: 0 },
                     },
                 },
                 {
                     disableMonitor: true,
                     opcode: "newV3fromValue",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.newV3fromValue'),
                     arguments: {
-                        value: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                        value: { type: "number", defaultValue: 0 },
                     },
                 },
                 {
                     disableMonitor: true,
                     opcode: "getAxisOfV3",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.getAxisOfV3'),
                     arguments: {
-                        axis: { type: Scratch.ArgumentType.STRING, menu: "axisMenu" },
+                        axis: { type: "string", menu: "axisMenu" },
                         vector: {
-                            type: Scratch.ArgumentType.STRING,
+                            type: "string",
                             defaultValue: "[0,0,0]",
                         },
                     },
@@ -205,105 +219,105 @@ class Three {
                 {
                     disableMonitor: true,
                     opcode: "addV3",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.addV3'),
                     arguments: {
-                        a: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0,0]" },
-                        b: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0,0]" },
+                        a: { type: "string", defaultValue: "[0,0,0]" },
+                        b: { type: "string", defaultValue: "[0,0,0]" },
                     },
                 },
                 {
                     disableMonitor: true,
                     opcode: "subV3",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.subV3'),
                     arguments: {
-                        a: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0,0]" },
-                        b: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0,0]" },
+                        a: { type: "string", defaultValue: "[0,0,0]" },
+                        b: { type: "string", defaultValue: "[0,0,0]" },
                     },
                 },
                 {
                     disableMonitor: true,
                     opcode: "mulV3",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.mulV3'),
                     arguments: {
-                        a: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0,0]" },
-                        b: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0,0]" },
+                        a: { type: "string", defaultValue: "[0,0,0]" },
+                        b: { type: "string", defaultValue: "[0,0,0]" },
                     },
                 },
                 {
                     disableMonitor: true,
                     opcode: "divV3",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.divV3'),
                     arguments: {
-                        a: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0,0]" },
-                        b: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0,0]" },
+                        a: { type: "string", defaultValue: "[0,0,0]" },
+                        b: { type: "string", defaultValue: "[0,0,0]" },
                     },
                 },
                 {
                     disableMonitor: true,
                     opcode: "dotProductOfV3",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.dotProductOfV3'),
                     arguments: {
-                        a: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0,0]" },
-                        b: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0,0]" },
+                        a: { type: "string", defaultValue: "[0,0,0]" },
+                        b: { type: "string", defaultValue: "[0,0,0]" },
                     },
                 },
                 {
                     disableMonitor: true,
                     opcode: "crossProductOfV3",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.crossProductOfV3'),
                     arguments: {
-                        a: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0,0]" },
-                        b: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0,0]" },
+                        a: { type: "string", defaultValue: "[0,0,0]" },
+                        b: { type: "string", defaultValue: "[0,0,0]" },
                     },
                 },
                 {
                     disableMonitor: true,
                     opcode: "magnitudeV3",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.magnitudeV3'),
                     arguments: {
-                        a: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0,0]" },
+                        a: { type: "string", defaultValue: "[0,0,0]" },
                     },
                 },
                 {
                     disableMonitor: true,
                     opcode: "distanceV3",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.distanceV3'),
                     arguments: {
-                        a: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0,0]" },
-                        b: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0,0]" },
+                        a: { type: "string", defaultValue: "[0,0,0]" },
+                        b: { type: "string", defaultValue: "[0,0,0]" },
                     },
                 },
                 {
                     disableMonitor: true,
                     opcode: "rotateAroundPointV3",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.rotateAroundPointV3'),
                     arguments: {
-                        a: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0,0]" },
-                        b: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0,0]" },
-                        yaw: { type: Scratch.ArgumentType.STRING, defaultValue: "0" },
-                        pitch: { type: Scratch.ArgumentType.STRING, defaultValue: "0" },
-                        roll: { type: Scratch.ArgumentType.STRING, defaultValue: "0" },
+                        a: { type: "string", defaultValue: "[0,0,0]" },
+                        b: { type: "string", defaultValue: "[0,0,0]" },
+                        yaw: { type: "string", defaultValue: "0" },
+                        pitch: { type: "string", defaultValue: "0" },
+                        roll: { type: "string", defaultValue: "0" },
                     },
                 },
                 {
                     disableMonitor: true,
                     opcode: "rotateAroundCenterV3",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.rotateAroundCenterV3'),
                     arguments: {
-                        a: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0,0]" },
-                        yaw: { type: Scratch.ArgumentType.STRING, defaultValue: "0" },
-                        pitch: { type: Scratch.ArgumentType.STRING, defaultValue: "0" },
-                        roll: { type: Scratch.ArgumentType.STRING, defaultValue: "0" },
+                        a: { type: "string", defaultValue: "[0,0,0]" },
+                        yaw: { type: "string", defaultValue: "0" },
+                        pitch: { type: "string", defaultValue: "0" },
+                        roll: { type: "string", defaultValue: "0" },
                     },
                 },
 
@@ -312,31 +326,31 @@ class Three {
                 {
                     disableMonitor: true,
                     opcode: "newV2",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.newV2'),
                     arguments: {
-                        x: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
-                        y: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                        x: { type: "number", defaultValue: 0 },
+                        y: { type: "number", defaultValue: 0 },
                     },
                 },
                 {
                     disableMonitor: true,
                     opcode: "newV2fromValue",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.newV2fromValue'),
                     arguments: {
-                        value: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                        value: { type: "number", defaultValue: 0 },
                     },
                 },
                 {
                     disableMonitor: true,
                     opcode: "getAxisOfV2",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.getAxisOfV2'),
                     arguments: {
-                        axis: { type: Scratch.ArgumentType.STRING, menu: "axisMenu2D" },
+                        axis: { type: "string", menu: "axisMenu2D" },
                         vector: {
-                            type: Scratch.ArgumentType.STRING,
+                            type: "string",
                             defaultValue: "[0,0]",
                         },
                     },
@@ -344,11 +358,11 @@ class Three {
                 {
                     disableMonitor: true,
                     opcode: "project2DFromCam",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.project2DFromCam'),
                     arguments: {
                         a: {
-                            type: Scratch.ArgumentType.STRING,
+                            type: "string",
                             defaultValue: "[0,0,100]",
                         },
                     },
@@ -356,118 +370,118 @@ class Three {
                 {
                     disableMonitor: true,
                     opcode: "project2DFromPos",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.project2DFromPos'),
                     arguments: {
                         a: {
-                            type: Scratch.ArgumentType.STRING,
+                            type: "string",
                             defaultValue: "[0,0,100]",
                         },
-                        b: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0,0]" },
-                        yaw: { type: Scratch.ArgumentType.STRING, defaultValue: "0" },
-                        pitch: { type: Scratch.ArgumentType.STRING, defaultValue: "0" },
-                        roll: { type: Scratch.ArgumentType.STRING, defaultValue: "0" },
+                        b: { type: "string", defaultValue: "[0,0,0]" },
+                        yaw: { type: "string", defaultValue: "0" },
+                        pitch: { type: "string", defaultValue: "0" },
+                        roll: { type: "string", defaultValue: "0" },
                     },
                 },
                 '---' + this.formatMessage('Three.label.Equations2'),
                 {
                     disableMonitor: true,
                     opcode: "addV2",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.addV2'),
                     arguments: {
-                        a: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0]" },
-                        b: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0]" },
+                        a: { type: "string", defaultValue: "[0,0]" },
+                        b: { type: "string", defaultValue: "[0,0]" },
                     },
                 },
                 {
                     disableMonitor: true,
                     opcode: "subV2",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.subV2'),
                     arguments: {
-                        a: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0]" },
-                        b: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0]" },
+                        a: { type: "string", defaultValue: "[0,0]" },
+                        b: { type: "string", defaultValue: "[0,0]" },
                     },
                 },
                 {
                     disableMonitor: true,
                     opcode: "mulV2",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.mulV2'),
                     arguments: {
-                        a: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0]" },
-                        b: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0]" },
+                        a: { type: "string", defaultValue: "[0,0]" },
+                        b: { type: "string", defaultValue: "[0,0]" },
                     },
                 },
                 {
                     disableMonitor: true,
                     opcode: "divV2",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.divV2'),
                     arguments: {
-                        a: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0]" },
-                        b: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0]" },
+                        a: { type: "string", defaultValue: "[0,0]" },
+                        b: { type: "string", defaultValue: "[0,0]" },
                     },
                 },
                 {
                     disableMonitor: true,
                     opcode: "dotProductOfV2",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.dotProductOfV2'),
                     arguments: {
-                        a: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0]" },
-                        b: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0]" },
+                        a: { type: "string", defaultValue: "[0,0]" },
+                        b: { type: "string", defaultValue: "[0,0]" },
                     },
                 },
                 {
                     disableMonitor: true,
                     opcode: "crossProductOfV2",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.crossProductOfV2'),
                     arguments: {
-                        a: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0]" },
-                        b: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0]" },
+                        a: { type: "string", defaultValue: "[0,0]" },
+                        b: { type: "string", defaultValue: "[0,0]" },
                     },
                 },
                 {
                     disableMonitor: true,
                     opcode: "magnitudeV2",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.magnitudeV2'),
                     arguments: {
-                        a: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0]" },
+                        a: { type: "string", defaultValue: "[0,0]" },
                     },
                 },
                 {
                     disableMonitor: true,
                     opcode: "distanceV2",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.distanceV2'),
                     arguments: {
-                        a: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0]" },
-                        b: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0]" },
+                        a: { type: "string", defaultValue: "[0,0]" },
+                        b: { type: "string", defaultValue: "[0,0]" },
                     },
                 },
                 {
                     disableMonitor: true,
                     opcode: "rotateAroundPointV2",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.rotateAroundPointV2'),
                     arguments: {
-                        a: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0]" },
-                        b: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0]" },
-                        yaw: { type: Scratch.ArgumentType.STRING, defaultValue: "0" },
+                        a: { type: "string", defaultValue: "[0,0]" },
+                        b: { type: "string", defaultValue: "[0,0]" },
+                        yaw: { type: "string", defaultValue: "0" },
                     },
                 },
                 {
                     disableMonitor: true,
                     opcode: "rotateAroundCenterV2",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.rotateAroundCenterV2'),
                     arguments: {
-                        a: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0]" },
-                        yaw: { type: Scratch.ArgumentType.STRING, defaultValue: "0" },
+                        a: { type: "string", defaultValue: "[0,0]" },
+                        yaw: { type: "string", defaultValue: "0" },
                     },
                 },
 
@@ -476,35 +490,38 @@ class Three {
                 {
                     disableMonitor: true,
                     opcode: "cam3DsetPosition",
-                    blockType: Scratch.BlockType.COMMAND,
+                    blockType: "command",
                     text: this.formatMessage('Three.block.cam3DsetPosition'),
                     arguments: {
-                        a: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0,0]" },
+                        a: { type: "string", defaultValue: "[0,0,0]" },
+                        cam: { type: "string", menu: "cam"}
                     },
                 },
                 {
                     disableMonitor: true,
                     opcode: "cam3DchangePosition",
-                    blockType: Scratch.BlockType.COMMAND,
+                    blockType: "command",
                     text: this.formatMessage('Three.block.cam3DchangePosition'),
                     arguments: {
-                        a: { type: Scratch.ArgumentType.STRING, defaultValue: "[5,0,0]" },
+                        a: { type: "string", defaultValue: "[5,0,0]" },
+                        cam: { type: "string", menu: "cam"}
                     },
                 },
                 {
                     disableMonitor: true,
                     opcode: "cam3DchangePositionOnAxis",
-                    blockType: Scratch.BlockType.COMMAND,
+                    blockType: "command",
                     text: this.formatMessage('Three.block.cam3DchangePositionOnAxis'),
                     arguments: {
-                        a: { type: Scratch.ArgumentType.NUMBER, defaultValue: "15" },
-                        axis: { type: Scratch.ArgumentType.STRING, defaultValue: "0", menu: "axisMenu2" },
+                        a: { type: "number", defaultValue: "15" },
+                        axis: { type: "string", defaultValue: "0", menu: "axisMenu2" },
+                        cam: { type: "string", menu: "cam"}
                     },
                 },
                 {
                     disableMonitor: false,
                     opcode: "cam3DgetPosition",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.cam3DgetPosition'),
                     arguments: {},
                 },
@@ -512,60 +529,65 @@ class Three {
                 {
                     disableMonitor: true,
                     opcode: "cam3DsetRotation",
-                    blockType: Scratch.BlockType.COMMAND,
+                    blockType: "command",
                     text: this.formatMessage('Three.block.cam3DsetRotation'),
                     arguments: {
-                        a: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0,0]" },
+                        a: { type: "string", defaultValue: "[0,0,0]" },
+                        cam: { type: "string", menu: "cam"}
                     },
                 },
                 {
                     disableMonitor: true,
                     opcode: "cam3DchangeRotation",
-                    blockType: Scratch.BlockType.COMMAND,
+                    blockType: "command",
                     text: this.formatMessage('Three.block.cam3DchangeRotation'),
                     arguments: {
-                        a: { type: Scratch.ArgumentType.STRING, defaultValue: "[15,0,0]" },
+                        a: { type: "string", defaultValue: "[15,0,0]" },
+                        cam: { type: "string", menu: "cam"}
                     },
                 },
                 {
                     disableMonitor: true,
                     opcode: "cam3DchangeRotationOnAxis",
-                    blockType: Scratch.BlockType.COMMAND,
+                    blockType: "command",
                     text: this.formatMessage('Three.block.cam3DchangeRotationOnAxis'),
                     arguments: {
-                        a: { type: Scratch.ArgumentType.NUMBER, defaultValue: "15" },
-                        rotator: { type: Scratch.ArgumentType.STRING, defaultValue: "0", menu: "angleMenu" },
+                        a: { type: "number", defaultValue: "15" },
+                        rotator: { type: "string", defaultValue: "0", menu: "angleMenu" },
+                        cam: { type: "string", menu: "cam"}
                     },
                 },
                 {
                     disableMonitor: false,
                     opcode: "cam3DgetRotation",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.cam3DgetRotation'),
                     arguments: {},
                 },
                 {
                     disableMonitor: true,
                     opcode: "setFov",
-                    blockType: Scratch.BlockType.COMMAND,
+                    blockType: "command",
                     text: this.formatMessage('Three.block.setFov'),
                     arguments: {
-                        dist: { type: Scratch.ArgumentType.NUMBER, defaultValue: 90 },
+                        dist: { type: "number", defaultValue: 90 },
+                        cam: { type: "string", menu: "cam"}
                     },
                 },
                 {
                     disableMonitor: true,
                     opcode: "changeFov",
-                    blockType: Scratch.BlockType.COMMAND,
+                    blockType: "command",
                     text: this.formatMessage('Three.block.changeFov'),
                     arguments: {
-                        dist: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 },
+                        dist: { type: "number", defaultValue: 10 },
+                        cam: { type: "string", menu: "cam"}
                     },
                 },
                 {
                     disableMonitor: false,
                     opcode: "getFov",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.getFov'),
                 },
 
@@ -574,49 +596,53 @@ class Three {
                 {
                     disableMonitor: true,
                     opcode: "spr3DsetPosition",
-                    blockType: Scratch.BlockType.COMMAND,
+                    blockType: "command",
                     text: this.formatMessage('Three.block.spr3DsetPosition'),
                     arguments: {
-                        a: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0,0]" },
+                        a: { type: "string", defaultValue: "[0,0,0]" },
+                        move: { type: "string", menu: "move"}
                     },
                     filter: "sprite",
                 },
                 {
                     disableMonitor: true,
                     opcode: "spr3DsetPositionComponent",
-                    blockType: Scratch.BlockType.COMMAND,
+                    blockType: "command",
                     text: this.formatMessage('Three.block.spr3DsetPositionComponent'),
                     arguments: {
-                        component: { type: Scratch.ArgumentType.STRING, defaultValue: "0", menu: "axisMenu2" },
-                        a: { type: Scratch.ArgumentType.NUMBER, defaultValue: 0 },
+                        component: { type: "string", defaultValue: "0", menu: "axisMenu2" },
+                        a: { type: "number", defaultValue: 0 },
+                        move: { type: "string", menu: "move"}
                     },
                     filter: "sprite",
                 },
                 {
                     disableMonitor: true,
                     opcode: "spr3DchangePosition",
-                    blockType: Scratch.BlockType.COMMAND,
+                    blockType: "command",
                     text: this.formatMessage('Three.block.spr3DchangePosition'),
                     arguments: {
-                        a: { type: Scratch.ArgumentType.STRING, defaultValue: "[0,0,0]" },
+                        a: { type: "string", defaultValue: "[0,0,0]" },
+                        move: { type: "string", menu: "move"}
                     },
                     filter: "sprite",
                 },
                 {
                     disableMonitor: true,
                     opcode: "spr3DchangePositionComponent",
-                    blockType: Scratch.BlockType.COMMAND,
+                    blockType: "command",
                     text: this.formatMessage('Three.block.spr3DchangePositionComponent'),
                     arguments: {
-                        component: { type: Scratch.ArgumentType.STRING, defaultValue: "0", menu: "axisMenu2" },
-                        a: { type: Scratch.ArgumentType.NUMBER, defaultValue: 5 },
+                        component: { type: "string", defaultValue: "0", menu: "axisMenu2" },
+                        a: { type: "number", defaultValue: 5 },
+                        move: { type: "string", menu: "move"}
                     },
                     filter: "sprite",
                 },
                 {
                     disableMonitor: true,
                     opcode: "spr3DgetPosition",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.spr3DgetPosition'),
                     arguments: {},
                     filter: "sprite",
@@ -624,37 +650,39 @@ class Three {
                 {
                     disableMonitor: true,
                     opcode: "spr3DgetPositionComponent",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.spr3DgetPositionComponent'),
                     arguments: {
-                        component: { type: Scratch.ArgumentType.STRING, defaultValue: "0", menu: "axisMenu2" },
+                        component: { type: "string", defaultValue: "0", menu: "axisMenu2" },
                     },
                     filter: "sprite",
                 },
                 {
                     disableMonitor: true,
                     opcode: "spr3DsetSize",
-                    blockType: Scratch.BlockType.COMMAND,
+                    blockType: "command",
                     text: this.formatMessage('Three.block.spr3DsetSize'),
                     arguments: {
-                        a: { type: Scratch.ArgumentType.NUMBER, defaultValue: 100 },
+                        a: { type: "number", defaultValue: 100 },
+                        size: { type: "string", menu: "size"}
                     },
                     filter: "sprite",
                 },
                 {
                     disableMonitor: true,
                     opcode: "spr3DchangeSize",
-                    blockType: Scratch.BlockType.COMMAND,
+                    blockType: "command",
                     text: this.formatMessage('Three.block.spr3DchangeSize'),
                     arguments: {
-                        a: { type: Scratch.ArgumentType.NUMBER, defaultValue: 10 },
+                        a: { type: "number", defaultValue: 10 },
+                        size: { type: "string", menu: "size"}
                     },
                     filter: "sprite",
                 },
                 {
                     disableMonitor: true,
                     opcode: "spr3DgetSize",
-                    blockType: Scratch.BlockType.REPORTER,
+                    blockType: "reporter",
                     text: this.formatMessage('Three.block.spr3DgetSize'),
                     arguments: {},
                     filter: "sprite",
@@ -662,7 +690,7 @@ class Three {
                 {
                     disableMonitor: true,
                     opcode: "spr3D",
-                    blockType: Scratch.BlockType.COMMAND,
+                    blockType: "command",
                     text: this.formatMessage('Three.block.spr3D'),
                     arguments: {},
                     filter: "sprite",
@@ -700,6 +728,27 @@ class Three {
                     ],
                     acceptReporters: true,
                 },
+                move: {
+                    items: [
+                        { text: this.formatMessage('Three.menu.nmove'), value: "0"},
+                        { text: this.formatMessage('Three.menu.move'), value: "1"},
+                    ],
+                    acceptReporters: true,
+                },
+                size: {
+                    items: [
+                        { text: this.formatMessage('Three.menu.nsize'), value: "0"},
+                        { text: this.formatMessage('Three.menu.size'), value: "1"},
+                    ],
+                    acceptReporters: true,
+                },
+                cam: {
+                    items: [
+                        { text: this.formatMessage('Three.menu.ncam'), value: "0"},
+                        { text: this.formatMessage('Three.menu.cam'), value: "1"},
+                    ],
+                    acceptReporters: true,
+                },
             },
 
         }
@@ -720,6 +769,7 @@ class Three {
         return 0;
     }
     newV3fromValue({ value }) {
+        value = JSON.parse(value);
         if (typeof value == "number") {
             return JSON.stringify([value, value, value]);
         }
@@ -906,6 +956,7 @@ class Three {
         ]);
     }
     newV2fromValue({ value }) {
+        value = JSON.parse(value);
         if (typeof value == "number") {
             return JSON.stringify([value, value]);
         }
@@ -1096,14 +1147,49 @@ class Three {
         }
         return "[0,0]";
     }
-    cam3DsetPosition({ a }) {
+    cam3DsetPosition({ a, cam }, util) {
         a = JSON.parse(a);
 
         if (a) {
             camera.position = a;
         }
+        cam = JSON.parse(cam);
+        if (cam) {
+            const target = util.target;
+            this.checkFor3dPositionData(target.id);
+            const myData = JSON.parse(JSON.stringify(spriteData[target.id]));
+
+            myData.position[0] -= camera.position[0];
+            myData.position[1] -= camera.position[1];
+            myData.position[2] -= camera.position[2];
+
+            let temp = myData.position[0];
+
+            myData.position[0] = myData.position[2] * camera.sinAndCos[0] + myData.position[0] * camera.sinAndCos[1];
+            myData.position[2] = myData.position[2] * camera.sinAndCos[1] - temp * camera.sinAndCos[0];
+
+            temp = myData.position[1];
+
+            myData.position[1] = myData.position[2] * camera.sinAndCos[2] + myData.position[1] * camera.sinAndCos[3];
+            myData.position[2] = myData.position[2] * camera.sinAndCos[3] - temp * camera.sinAndCos[2];
+
+            temp = myData.position[0];
+
+            myData.position[0] = myData.position[1] * camera.sinAndCos[4] + myData.position[0] * camera.sinAndCos[5];
+            myData.position[1] = myData.position[1] * camera.sinAndCos[5] - temp * camera.sinAndCos[4];
+
+            let project = fov / myData.position[2];
+
+            if (myData.position[2] < 1) {
+                target.setVisible(false);
+            } else {
+                target.setVisible(true);
+                target.setSize(myData.size * project);
+                target.setXY(myData.position[0] * project, myData.position[1] * project);
+            }
+        }
     }
-    cam3DchangePosition({ a }) {
+    cam3DchangePosition({ a, cam }, util) {
         a = JSON.parse(a);
 
         if (a[0] != undefined && a[1] != undefined && a[2] != undefined) {
@@ -1111,19 +1197,89 @@ class Three {
             camera.position[1] += a[1];
             camera.position[2] += a[2];
         }
+        cam = JSON.parse(cam);
+        if (cam) {
+            const target = util.target;
+            this.checkFor3dPositionData(target.id);
+            const myData = JSON.parse(JSON.stringify(spriteData[target.id]));
+
+            myData.position[0] -= camera.position[0];
+            myData.position[1] -= camera.position[1];
+            myData.position[2] -= camera.position[2];
+
+            let temp = myData.position[0];
+
+            myData.position[0] = myData.position[2] * camera.sinAndCos[0] + myData.position[0] * camera.sinAndCos[1];
+            myData.position[2] = myData.position[2] * camera.sinAndCos[1] - temp * camera.sinAndCos[0];
+
+            temp = myData.position[1];
+
+            myData.position[1] = myData.position[2] * camera.sinAndCos[2] + myData.position[1] * camera.sinAndCos[3];
+            myData.position[2] = myData.position[2] * camera.sinAndCos[3] - temp * camera.sinAndCos[2];
+
+            temp = myData.position[0];
+
+            myData.position[0] = myData.position[1] * camera.sinAndCos[4] + myData.position[0] * camera.sinAndCos[5];
+            myData.position[1] = myData.position[1] * camera.sinAndCos[5] - temp * camera.sinAndCos[4];
+
+            let project = fov / myData.position[2];
+
+            if (myData.position[2] < 1) {
+                target.setVisible(false);
+            } else {
+                target.setVisible(true);
+                target.setSize(myData.size * project);
+                target.setXY(myData.position[0] * project, myData.position[1] * project);
+            }
+        }
     }
-    cam3DchangePositionOnAxis({ a, axis }) {
+    cam3DchangePositionOnAxis({ a, axis, cam }, util) {
         a = Scratch.Cast.toNumber(a);
         axis = Scratch.Cast.toNumber(axis);
 
         if (camera.position[axis] != undefined) {
             camera.position[axis] += a;
         }
+        cam = JSON.parse(cam);
+        if (cam) {
+            const target = util.target;
+            this.checkFor3dPositionData(target.id);
+            const myData = JSON.parse(JSON.stringify(spriteData[target.id]));
+
+            myData.position[0] -= camera.position[0];
+            myData.position[1] -= camera.position[1];
+            myData.position[2] -= camera.position[2];
+
+            let temp = myData.position[0];
+
+            myData.position[0] = myData.position[2] * camera.sinAndCos[0] + myData.position[0] * camera.sinAndCos[1];
+            myData.position[2] = myData.position[2] * camera.sinAndCos[1] - temp * camera.sinAndCos[0];
+
+            temp = myData.position[1];
+
+            myData.position[1] = myData.position[2] * camera.sinAndCos[2] + myData.position[1] * camera.sinAndCos[3];
+            myData.position[2] = myData.position[2] * camera.sinAndCos[3] - temp * camera.sinAndCos[2];
+
+            temp = myData.position[0];
+
+            myData.position[0] = myData.position[1] * camera.sinAndCos[4] + myData.position[0] * camera.sinAndCos[5];
+            myData.position[1] = myData.position[1] * camera.sinAndCos[5] - temp * camera.sinAndCos[4];
+
+            let project = fov / myData.position[2];
+
+            if (myData.position[2] < 1) {
+                target.setVisible(false);
+            } else {
+                target.setVisible(true);
+                target.setSize(myData.size * project);
+                target.setXY(myData.position[0] * project, myData.position[1] * project);
+            }
+        }
     }
     cam3DgetPosition() {
         return JSON.stringify(camera.position);
     }
-    cam3DsetRotation({ a }) {
+    cam3DsetRotation({ a, cam }, util) {
         a = JSON.parse(a);
 
         if (a) {
@@ -1138,8 +1294,43 @@ class Three {
                 Math.cos(-camera.rotation[2] * d2r),
             ];
         }
+        cam = JSON.parse(cam);
+        if (cam) {
+            const target = util.target;
+            this.checkFor3dPositionData(target.id);
+            const myData = JSON.parse(JSON.stringify(spriteData[target.id]));
+
+            myData.position[0] -= camera.position[0];
+            myData.position[1] -= camera.position[1];
+            myData.position[2] -= camera.position[2];
+
+            let temp = myData.position[0];
+
+            myData.position[0] = myData.position[2] * camera.sinAndCos[0] + myData.position[0] * camera.sinAndCos[1];
+            myData.position[2] = myData.position[2] * camera.sinAndCos[1] - temp * camera.sinAndCos[0];
+
+            temp = myData.position[1];
+
+            myData.position[1] = myData.position[2] * camera.sinAndCos[2] + myData.position[1] * camera.sinAndCos[3];
+            myData.position[2] = myData.position[2] * camera.sinAndCos[3] - temp * camera.sinAndCos[2];
+
+            temp = myData.position[0];
+
+            myData.position[0] = myData.position[1] * camera.sinAndCos[4] + myData.position[0] * camera.sinAndCos[5];
+            myData.position[1] = myData.position[1] * camera.sinAndCos[5] - temp * camera.sinAndCos[4];
+
+            let project = fov / myData.position[2];
+
+            if (myData.position[2] < 1) {
+                target.setVisible(false);
+            } else {
+                target.setVisible(true);
+                target.setSize(myData.size * project);
+                target.setXY(myData.position[0] * project, myData.position[1] * project);
+            }
+        }
     }
-    cam3DchangeRotation({ a }) {
+    cam3DchangeRotation({ a, cam }, util) {
         a = JSON.parse(a);
 
         if (a[0] != undefined && a[1] != undefined && a[2] != undefined) {
@@ -1155,8 +1346,43 @@ class Three {
                 Math.cos(-camera.rotation[2] * d2r),
             ];
         }
+        cam = JSON.parse(cam);
+        if (cam) {
+            const target = util.target;
+            this.checkFor3dPositionData(target.id);
+            const myData = JSON.parse(JSON.stringify(spriteData[target.id]));
+
+            myData.position[0] -= camera.position[0];
+            myData.position[1] -= camera.position[1];
+            myData.position[2] -= camera.position[2];
+
+            let temp = myData.position[0];
+
+            myData.position[0] = myData.position[2] * camera.sinAndCos[0] + myData.position[0] * camera.sinAndCos[1];
+            myData.position[2] = myData.position[2] * camera.sinAndCos[1] - temp * camera.sinAndCos[0];
+
+            temp = myData.position[1];
+
+            myData.position[1] = myData.position[2] * camera.sinAndCos[2] + myData.position[1] * camera.sinAndCos[3];
+            myData.position[2] = myData.position[2] * camera.sinAndCos[3] - temp * camera.sinAndCos[2];
+
+            temp = myData.position[0];
+
+            myData.position[0] = myData.position[1] * camera.sinAndCos[4] + myData.position[0] * camera.sinAndCos[5];
+            myData.position[1] = myData.position[1] * camera.sinAndCos[5] - temp * camera.sinAndCos[4];
+
+            let project = fov / myData.position[2];
+
+            if (myData.position[2] < 1) {
+                target.setVisible(false);
+            } else {
+                target.setVisible(true);
+                target.setSize(myData.size * project);
+                target.setXY(myData.position[0] * project, myData.position[1] * project);
+            }
+        }
     }
-    cam3DchangeRotationOnAxis({ a, rotator }) {
+    cam3DchangeRotationOnAxis({ a, rotator, cam }, util) {
         a = Scratch.Cast.toNumber(a);
         rotator = Scratch.Cast.toNumber(rotator);
 
@@ -1170,16 +1396,121 @@ class Three {
                 Math.sin(-camera.rotation[2] * d2r),
                 Math.cos(-camera.rotation[2] * d2r),
             ];
+            cam = JSON.parse(cam);
+            if (cam) {
+                const target = util.target;
+                this.checkFor3dPositionData(target.id);
+                const myData = JSON.parse(JSON.stringify(spriteData[target.id]));
+    
+                myData.position[0] -= camera.position[0];
+                myData.position[1] -= camera.position[1];
+                myData.position[2] -= camera.position[2];
+    
+                let temp = myData.position[0];
+    
+                myData.position[0] = myData.position[2] * camera.sinAndCos[0] + myData.position[0] * camera.sinAndCos[1];
+                myData.position[2] = myData.position[2] * camera.sinAndCos[1] - temp * camera.sinAndCos[0];
+    
+                temp = myData.position[1];
+    
+                myData.position[1] = myData.position[2] * camera.sinAndCos[2] + myData.position[1] * camera.sinAndCos[3];
+                myData.position[2] = myData.position[2] * camera.sinAndCos[3] - temp * camera.sinAndCos[2];
+    
+                temp = myData.position[0];
+    
+                myData.position[0] = myData.position[1] * camera.sinAndCos[4] + myData.position[0] * camera.sinAndCos[5];
+                myData.position[1] = myData.position[1] * camera.sinAndCos[5] - temp * camera.sinAndCos[4];
+    
+                let project = fov / myData.position[2];
+    
+                if (myData.position[2] < 1) {
+                    target.setVisible(false);
+                } else {
+                    target.setVisible(true);
+                    target.setSize(myData.size * project);
+                    target.setXY(myData.position[0] * project, myData.position[1] * project);
+                }
+            }
         }
     }
     cam3DgetRotation() {
         return JSON.stringify(camera.rotation);
     }
-    setFov({ dist }) {
+    setFov({ dist, cam }, util) {
         fov = dist;
+        cam = JSON.parse(cam);
+        if (cam) {
+            const target = util.target;
+            this.checkFor3dPositionData(target.id);
+            const myData = JSON.parse(JSON.stringify(spriteData[target.id]));
+
+            myData.position[0] -= camera.position[0];
+            myData.position[1] -= camera.position[1];
+            myData.position[2] -= camera.position[2];
+
+            let temp = myData.position[0];
+
+            myData.position[0] = myData.position[2] * camera.sinAndCos[0] + myData.position[0] * camera.sinAndCos[1];
+            myData.position[2] = myData.position[2] * camera.sinAndCos[1] - temp * camera.sinAndCos[0];
+
+            temp = myData.position[1];
+
+            myData.position[1] = myData.position[2] * camera.sinAndCos[2] + myData.position[1] * camera.sinAndCos[3];
+            myData.position[2] = myData.position[2] * camera.sinAndCos[3] - temp * camera.sinAndCos[2];
+
+            temp = myData.position[0];
+
+            myData.position[0] = myData.position[1] * camera.sinAndCos[4] + myData.position[0] * camera.sinAndCos[5];
+            myData.position[1] = myData.position[1] * camera.sinAndCos[5] - temp * camera.sinAndCos[4];
+
+            let project = fov / myData.position[2];
+
+            if (myData.position[2] < 1) {
+                target.setVisible(false);
+            } else {
+                target.setVisible(true);
+                target.setSize(myData.size * project);
+                target.setXY(myData.position[0] * project, myData.position[1] * project);
+            }
+        }
     }
-    changeFov({ dist }) {
+    changeFov({ dist, cam }, util) {
         fov += dist;
+        cam = JSON.parse(cam);
+        if (cam) {
+            const target = util.target;
+            this.checkFor3dPositionData(target.id);
+            const myData = JSON.parse(JSON.stringify(spriteData[target.id]));
+
+            myData.position[0] -= camera.position[0];
+            myData.position[1] -= camera.position[1];
+            myData.position[2] -= camera.position[2];
+
+            let temp = myData.position[0];
+
+            myData.position[0] = myData.position[2] * camera.sinAndCos[0] + myData.position[0] * camera.sinAndCos[1];
+            myData.position[2] = myData.position[2] * camera.sinAndCos[1] - temp * camera.sinAndCos[0];
+
+            temp = myData.position[1];
+
+            myData.position[1] = myData.position[2] * camera.sinAndCos[2] + myData.position[1] * camera.sinAndCos[3];
+            myData.position[2] = myData.position[2] * camera.sinAndCos[3] - temp * camera.sinAndCos[2];
+
+            temp = myData.position[0];
+
+            myData.position[0] = myData.position[1] * camera.sinAndCos[4] + myData.position[0] * camera.sinAndCos[5];
+            myData.position[1] = myData.position[1] * camera.sinAndCos[5] - temp * camera.sinAndCos[4];
+
+            let project = fov / myData.position[2];
+
+            if (myData.position[2] < 1) {
+                target.setVisible(false);
+            } else {
+                target.setVisible(true);
+                target.setSize(myData.size * project);
+                target.setXY(myData.position[0] * project, myData.position[1] * project);
+            }
+        }
     }
     getFov() {
         return fov;
@@ -1189,47 +1520,187 @@ class Three {
             spriteData[targetID] = { position: [0, 0, fov], size: 100 };
         }
     }
-    spr3DsetPosition({ a }, util) {
+    spr3DsetPosition({ a, move}, util) {
         const target = util.target;
         this.checkFor3dPositionData(target.id);
 
         a = JSON.parse(a);
+        move = JSON.parse(move);
         if (a) {
             spriteData[target.id].position[0] = a[0];
             spriteData[target.id].position[1] = a[1];
             spriteData[target.id].position[2] = a[2];
         }
+        if (move) {
+            const target = util.target;
+            this.checkFor3dPositionData(target.id);
+            const myData = JSON.parse(JSON.stringify(spriteData[target.id]));
+
+            myData.position[0] -= camera.position[0];
+            myData.position[1] -= camera.position[1];
+            myData.position[2] -= camera.position[2];
+
+            let temp = myData.position[0];
+
+            myData.position[0] = myData.position[2] * camera.sinAndCos[0] + myData.position[0] * camera.sinAndCos[1];
+            myData.position[2] = myData.position[2] * camera.sinAndCos[1] - temp * camera.sinAndCos[0];
+
+            temp = myData.position[1];
+
+            myData.position[1] = myData.position[2] * camera.sinAndCos[2] + myData.position[1] * camera.sinAndCos[3];
+            myData.position[2] = myData.position[2] * camera.sinAndCos[3] - temp * camera.sinAndCos[2];
+
+            temp = myData.position[0];
+
+            myData.position[0] = myData.position[1] * camera.sinAndCos[4] + myData.position[0] * camera.sinAndCos[5];
+            myData.position[1] = myData.position[1] * camera.sinAndCos[5] - temp * camera.sinAndCos[4];
+
+            let project = fov / myData.position[2];
+
+            if (myData.position[2] < 1) {
+                target.setVisible(false);
+            } else {
+                target.setVisible(true);
+                target.setSize(myData.size * project);
+                target.setXY(myData.position[0] * project, myData.position[1] * project);
+            }
+        }
     }
-    spr3DsetPositionComponent({ a, component }, util) {
+    spr3DsetPositionComponent({ a, component, move }, util) {
         const target = util.target;
         this.checkFor3dPositionData(target.id);
 
         a = JSON.parse(a);
+        move = JSON.parse(move);
 
         if (a) {
             //String literal for the funnies!
             if (spriteData[target.id].position[component] == undefined) throw `Component ${component} doesn't exist`;
             spriteData[target.id].position[component] = a;
         }
+        if (move) {
+            const target = util.target;
+            this.checkFor3dPositionData(target.id);
+            const myData = JSON.parse(JSON.stringify(spriteData[target.id]));
+
+            myData.position[0] -= camera.position[0];
+            myData.position[1] -= camera.position[1];
+            myData.position[2] -= camera.position[2];
+
+            let temp = myData.position[0];
+
+            myData.position[0] = myData.position[2] * camera.sinAndCos[0] + myData.position[0] * camera.sinAndCos[1];
+            myData.position[2] = myData.position[2] * camera.sinAndCos[1] - temp * camera.sinAndCos[0];
+
+            temp = myData.position[1];
+
+            myData.position[1] = myData.position[2] * camera.sinAndCos[2] + myData.position[1] * camera.sinAndCos[3];
+            myData.position[2] = myData.position[2] * camera.sinAndCos[3] - temp * camera.sinAndCos[2];
+
+            temp = myData.position[0];
+
+            myData.position[0] = myData.position[1] * camera.sinAndCos[4] + myData.position[0] * camera.sinAndCos[5];
+            myData.position[1] = myData.position[1] * camera.sinAndCos[5] - temp * camera.sinAndCos[4];
+
+            let project = fov / myData.position[2];
+
+            if (myData.position[2] < 1) {
+                target.setVisible(false);
+            } else {
+                target.setVisible(true);
+                target.setSize(myData.size * project);
+                target.setXY(myData.position[0] * project, myData.position[1] * project);
+            }
+        }
     }
-    spr3DchangePosition({ a }, util) {
+    spr3DchangePosition({ a, move }, util) {
         const target = util.target;
         this.checkFor3dPositionData(target.id);
 
         a = JSON.parse(a);
+        move = JSON.parse(move);
 
         if (a) {
             spriteData[target.id].position[0] += a[0];
             spriteData[target.id].position[1] += a[1];
             spriteData[target.id].position[2] += a[2];
         }
+        if (move) {
+            const target = util.target;
+            this.checkFor3dPositionData(target.id);
+            const myData = JSON.parse(JSON.stringify(spriteData[target.id]));
+
+            myData.position[0] -= camera.position[0];
+            myData.position[1] -= camera.position[1];
+            myData.position[2] -= camera.position[2];
+
+            let temp = myData.position[0];
+
+            myData.position[0] = myData.position[2] * camera.sinAndCos[0] + myData.position[0] * camera.sinAndCos[1];
+            myData.position[2] = myData.position[2] * camera.sinAndCos[1] - temp * camera.sinAndCos[0];
+
+            temp = myData.position[1];
+
+            myData.position[1] = myData.position[2] * camera.sinAndCos[2] + myData.position[1] * camera.sinAndCos[3];
+            myData.position[2] = myData.position[2] * camera.sinAndCos[3] - temp * camera.sinAndCos[2];
+
+            temp = myData.position[0];
+
+            myData.position[0] = myData.position[1] * camera.sinAndCos[4] + myData.position[0] * camera.sinAndCos[5];
+            myData.position[1] = myData.position[1] * camera.sinAndCos[5] - temp * camera.sinAndCos[4];
+
+            let project = fov / myData.position[2];
+
+            if (myData.position[2] < 1) {
+                target.setVisible(false);
+            } else {
+                target.setVisible(true);
+                target.setSize(myData.size * project);
+                target.setXY(myData.position[0] * project, myData.position[1] * project);
+            }
+        }
     }
-    spr3DchangePositionComponent({ a, component }, util) {
+    spr3DchangePositionComponent({ a, component, move }, util) {
         const target = util.target;
         this.checkFor3dPositionData(target.id);
         //String literal for the funnies!
         if (spriteData[target.id].position[component] == undefined) throw `Component ${component} doesn't exist`;
         spriteData[target.id].position[component] += a;
+        move = JSON.parse(move);
+        if (move) {
+            const target = util.target;
+            this.checkFor3dPositionData(target.id);
+            const myData = JSON.parse(JSON.stringify(spriteData[target.id]));
+
+            myData.position[0] -= camera.position[0];
+            myData.position[1] -= camera.position[1];
+            myData.position[2] -= camera.position[2];
+
+            let temp = myData.position[0];
+
+            myData.position[0] = myData.position[2] * camera.sinAndCos[0] + myData.position[0] * camera.sinAndCos[1];
+            myData.position[2] = myData.position[2] * camera.sinAndCos[1] - temp * camera.sinAndCos[0];
+
+            temp = myData.position[1];
+
+            myData.position[1] = myData.position[2] * camera.sinAndCos[2] + myData.position[1] * camera.sinAndCos[3];
+            myData.position[2] = myData.position[2] * camera.sinAndCos[3] - temp * camera.sinAndCos[2];
+
+            temp = myData.position[0];
+
+            myData.position[0] = myData.position[1] * camera.sinAndCos[4] + myData.position[0] * camera.sinAndCos[5];
+            myData.position[1] = myData.position[1] * camera.sinAndCos[5] - temp * camera.sinAndCos[4];
+
+            let project = fov / myData.position[2];
+
+            if (myData.position[2] < 1) {
+                target.setVisible(false);
+            } else {
+                target.setVisible(true);
+                target.setSize(myData.size * project);
+                target.setXY(myData.position[0] * project, myData.position[1] * project);
+            }
+        }
     }
     spr3DgetPositionComponent({ component }, util) {
         const target = util.target;
@@ -1243,15 +1714,85 @@ class Three {
         this.checkFor3dPositionData(target.id);
         return JSON.stringify(spriteData[target.id].position);
     }
-    spr3DsetSize({ a }, util) {
+    spr3DsetSize({ a, size }, util) {
         const target = util.target;
         this.checkFor3dPositionData(target.id);
         spriteData[target.id].size = a;
+        size = JSON.parse(size);
+        if (size) {
+            const target = util.target;
+            this.checkFor3dPositionData(target.id);
+            const myData = JSON.parse(JSON.stringify(spriteData[target.id]));
+
+            myData.position[0] -= camera.position[0];
+            myData.position[1] -= camera.position[1];
+            myData.position[2] -= camera.position[2];
+
+            let temp = myData.position[0];
+
+            myData.position[0] = myData.position[2] * camera.sinAndCos[0] + myData.position[0] * camera.sinAndCos[1];
+            myData.position[2] = myData.position[2] * camera.sinAndCos[1] - temp * camera.sinAndCos[0];
+
+            temp = myData.position[1];
+
+            myData.position[1] = myData.position[2] * camera.sinAndCos[2] + myData.position[1] * camera.sinAndCos[3];
+            myData.position[2] = myData.position[2] * camera.sinAndCos[3] - temp * camera.sinAndCos[2];
+
+            temp = myData.position[0];
+
+            myData.position[0] = myData.position[1] * camera.sinAndCos[4] + myData.position[0] * camera.sinAndCos[5];
+            myData.position[1] = myData.position[1] * camera.sinAndCos[5] - temp * camera.sinAndCos[4];
+
+            let project = fov / myData.position[2];
+
+            if (myData.position[2] < 1) {
+                target.setVisible(false);
+            } else {
+                target.setVisible(true);
+                target.setSize(myData.size * project);
+                target.setXY(myData.position[0] * project, myData.position[1] * project);
+            }
+        }
     }
-    spr3DchangeSize({ a }, util) {
+    spr3DchangeSize({ a, size }, util) {
         const target = util.target;
         this.checkFor3dPositionData(target.id);
         spriteData[target.id].size += a;
+        size = JSON.parse(size);
+        if (size) {
+            const target = util.target;
+            this.checkFor3dPositionData(target.id);
+            const myData = JSON.parse(JSON.stringify(spriteData[target.id]));
+
+            myData.position[0] -= camera.position[0];
+            myData.position[1] -= camera.position[1];
+            myData.position[2] -= camera.position[2];
+
+            let temp = myData.position[0];
+
+            myData.position[0] = myData.position[2] * camera.sinAndCos[0] + myData.position[0] * camera.sinAndCos[1];
+            myData.position[2] = myData.position[2] * camera.sinAndCos[1] - temp * camera.sinAndCos[0];
+
+            temp = myData.position[1];
+
+            myData.position[1] = myData.position[2] * camera.sinAndCos[2] + myData.position[1] * camera.sinAndCos[3];
+            myData.position[2] = myData.position[2] * camera.sinAndCos[3] - temp * camera.sinAndCos[2];
+
+            temp = myData.position[0];
+
+            myData.position[0] = myData.position[1] * camera.sinAndCos[4] + myData.position[0] * camera.sinAndCos[5];
+            myData.position[1] = myData.position[1] * camera.sinAndCos[5] - temp * camera.sinAndCos[4];
+
+            let project = fov / myData.position[2];
+
+            if (myData.position[2] < 1) {
+                target.setVisible(false);
+            } else {
+                target.setVisible(true);
+                target.setSize(myData.size * project);
+                target.setXY(myData.position[0] * project, myData.position[1] * project);
+            }
+        }
     }
     spr3DgetSize(args, util) {
         const target = util.target;
