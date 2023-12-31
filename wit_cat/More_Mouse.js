@@ -93,7 +93,14 @@ class WitCatMouse {
 		/**
 		 * 全屏监听事件缓存
 		 */
-		this.fillEvent = null;
+		this.fillEvent = [null, null];
+
+		this.fillEvent[1] = new MutationObserver((mutationsList) => {
+			resizeElementInParent(mutationsList[0].target.parentElement.parentElement, false, 'aspectRatio', this.runtime.stageWidth / this.runtime.stageHeight);
+			resizeElementInParent(mutationsList[0].target.parentElement, false, 'aspectRatio', this.runtime.stageWidth / this.runtime.stageHeight);
+			resizeElementInParent(mutationsList[0].target.parentElement.nextSibling.firstChild, false, 'zoom');
+			resizeElementInParent(mutationsList[0].target, false, 'aspectRatio', this.runtime.stageWidth / this.runtime.stageHeight);
+		});
 
 		this.runtime = runtime;
 
@@ -106,6 +113,18 @@ class WitCatMouse {
 				const { canvas } = this.runtime.renderer;
 				if (canvas instanceof HTMLCanvasElement) {
 					return canvas.parentElement;
+				}
+				return null;
+			} catch (err) {
+				return null;
+			}
+		};
+
+		this.canvasSelf = () => {
+			try {
+				const { canvas } = this.runtime.renderer;
+				if (canvas instanceof HTMLCanvasElement) {
+					return canvas;
 				}
 				return null;
 			} catch (err) {
@@ -150,6 +169,8 @@ class WitCatMouse {
 				'WitCatTouch.type.2': 'Y',
 				'WitCatTouch.type.3': 'ID',
 				'WitCatMouse.fill': '[set]沉浸式全屏',
+				'WitCatMouse.whenoutfill': '当退出全屏',
+				'WitCatMouse.isfill': '全屏?',
 				'WitCatMouse.fillask.1': '作品请求沉浸式全屏，是否同意？\n',
 				'WitCatMouse.fillask.2': '/3次连续拒绝后将不再提示\n您仍可以使用 esc 切换沉浸式全屏状态',
 				'WitCatMouse.setfill': '⚠️(危)设置分辨率高设为[num]',
@@ -217,6 +238,8 @@ class WitCatMouse {
 				'WitCatTouch.type.2': 'Y',
 				'WitCatTouch.type.3': 'ID',
 				'WitCatMouse.fill': '[set]immersive full-screen',
+				'WitCatMouse.whenoutfill': 'When exiting full screen',
+				'WitCatMouse.isfill': 'full screen?',
 				'WitCatMouse.fillask.1':
 					'The project requests to turn on immersive full-screen, agree or not?\nWill stop asking if you keep on to reject for ',
 				'WitCatMouse.fillask.2': '/3 times\nYou can also use esc to toggle immersive full-screen later.',
@@ -295,6 +318,19 @@ class WitCatMouse {
 							defaultValue: '360',
 						},
 					},
+				},
+				{
+					opcode: 'whenOutFill',
+					blockType: 'hat',
+					text: this.formatMessage('WitCatMouse.whenoutfill'),
+					isEdgeActivated: false,
+					arguments: {},
+				},
+				{
+					opcode: 'isfill',
+					blockType: 'Boolean',
+					text: this.formatMessage('WitCatMouse.isfill'),
+					arguments: {},
 				},
 				{
 					opcode: 'fill',
@@ -784,7 +820,7 @@ class WitCatMouse {
 	 * @returns 菜单
 	 */
 	_spriteMenu() {
-		var e = [];
+		let e = [];
 		return this.runtime.targets.forEach((function (t) {
 			t.isOriginal && !t.isStage && e.push({
 				text: t.sprite.name,
@@ -932,8 +968,7 @@ class WitCatMouse {
 	 * @deprecated
 	 */
 	fill(args) {
-		const canvas = this.canvas();
-		console.log(canvas);
+		const canvas = this.canvasSelf();
 		if (canvas === null) {
 			return 0;
 		}
@@ -942,23 +977,61 @@ class WitCatMouse {
 				this.fillNum = 0;
 				let fills = confirm(this.formatMessage('WitCatMouse.fillask.1') + this.fillNum + this.formatMessage('WitCatMouse.fillask.2'))
 				if (fills) {
-					resizeElementInParent(this.canvas().firstChild, false);
-					launchFullscreen(canvas);
-					canvas.firstChild.style.margin = '0 auto';
+					launchFullscreen(this.canvas().parentElement.parentElement);
+					this.canvas().parentElement.parentElement.style.overflow = 'visible';
+					this.canvas().parentElement.parentElement.style.display = 'flex';
+					this.canvas().parentElement.parentElement.style.alignItems = 'center';
+					this.canvas().parentElement.style.display = 'flex';
+					this.canvas().parentElement.style.alignItems = 'center';
+					this.canvas().style.display = 'flex';
+					this.canvas().style.alignItems = 'center';
 					setTimeout(() => {
-						resizeElementInParent(this.canvas().firstChild, false);
-						document.addEventListener("fullscreenchange", () => {
-							setTimeout(() => {
-								if (!document.fullscreenElement) {
-									resizeElementInParent(this.canvas().firstChild, true);
-								}
-							}, 100);
-						}, { once: true });
-						this.fillEvent = window.addEventListener("resize", () => {
-							if (document.fullscreenElement) {
-								resizeElementInParent(this.canvas().firstChild, false);
+						setTimeout(() => {
+							resizeElementInParent(this.canvas().parentElement, false, 'aspectRatio', this.runtime.stageWidth / this.runtime.stageHeight);
+							resizeElementInParent(this.canvas(), false, 'aspectRatio', this.runtime.stageWidth / this.runtime.stageHeight);
+							resizeElementInParent(this.canvas().nextSibling.firstChild, false, 'zoom');
+							resizeElementInParent(canvas, false, 'aspectRatio', this.runtime.stageWidth / this.runtime.stageHeight);
+							this.runtime.renderer.dirty = true;
+							this.runtime.renderer.draw();
+							let button = document.getElementsByClassName('gandi_button_btn_dCMn2 gandi_stage-header_stage-button_hkl9B')[0] ||
+								document.getElementsByClassName('action-item-P9SP6')[0] ||
+								document.getElementsByClassName('c-actionItem')[0];
+							if (button.innerHTML.includes("进入") || button.innerHTML.includes("M12.5 7.5l5-5m0 0h-5m5 0v5m-10 0l-5-5m0 0v5m0-5h5m0 10l-5 5m0 0h5m-5 0v-5m10 0l5 5m0 0v-5m0 5h-5")) {
+								button.click();
 							}
-						});
+						}, 100);
+						document.addEventListener("fullscreenchange", () => {
+							if (!document.fullscreenElement) {
+								console.log("111")
+								this.fillEvent[1].disconnect();
+								setTimeout(() => {
+									this.canvas().style = "";
+									canvas.style.width = "100%";
+									canvas.style.height = "100%";
+									resizeElementInParent(this.canvas().parentElement, true, 'aspectRatio', this.runtime.stageWidth / this.runtime.stageHeight);
+									resizeElementInParent(this.canvas(), true, 'aspectRatio', this.runtime.stageWidth / this.runtime.stageHeight);
+									this.canvas().style.width = "auto";
+									this.canvas().style.height = "auto";
+									this.canvas().parentElement.style.width = "auto";
+									this.canvas().parentElement.style.height = "auto";
+									resizeElementInParent(this.canvas().nextSibling.firstChild, true, 'zoom');
+									resizeElementInParent(canvas, true, 'aspectRatio', this.runtime.stageWidth / this.runtime.stageHeight);
+									this.runtime.startHats(`${witcat_more_mouse_extensionId}_whenOutFill`);
+								}, 100);
+							}
+						}, { once: true });
+						const config = { childList: true, attributeFilter: ['style'] };
+						this.fillEvent[1].observe(canvas, config);
+						if (this.fillEvent[0] === null) {
+							this.fillEvent[0] = window.addEventListener('resize', function reSizeFill() {
+								if (document.fullscreenElement) {
+									resizeElementInParent(this.canvas().parentElement, false, 'aspectRatio', this.runtime.stageWidth / this.runtime.stageHeight);
+									resizeElementInParent(this.canvas(), false, 'aspectRatio', this.runtime.stageWidth / this.runtime.stageHeight);
+									resizeElementInParent(this.canvas().nextSibling.firstChild, false, 'zoom');
+									resizeElementInParent(canvas, false, 'aspectRatio', this.runtime.stageWidth / this.runtime.stageHeight);
+								}
+							}.bind(this));
+						}
 					}, 100);
 				}
 				else {
@@ -966,12 +1039,30 @@ class WitCatMouse {
 				}
 			} else {
 				exitFullscreen();
-				window.removeEventListener(this.fillEvent);
+				this.fillEvent[1].disconnect();
 				setTimeout(() => {
-					resizeElementInParent(canvas.firstChild, true);
-				}, 1000);
+					this.canvas().style = "";
+					canvas.style.width = "100%";
+					canvas.style.height = "100%";
+					resizeElementInParent(this.canvas().parentElement, true, 'aspectRatio', this.runtime.stageWidth / this.runtime.stageHeight);
+					resizeElementInParent(this.canvas(), true, 'aspectRatio', this.runtime.stageWidth / this.runtime.stageHeight);
+					this.canvas().style.width = "auto";
+					this.canvas().style.height = "auto";
+					this.canvas().parentElement.style.width = "auto";
+					this.canvas().parentElement.style.height = "auto";
+					resizeElementInParent(this.canvas().nextSibling.firstChild, true, 'zoom');
+					resizeElementInParent(canvas, true, 'aspectRatio', this.runtime.stageWidth / this.runtime.stageHeight);
+				}, 100);
 			}
 		}
+	}
+
+	whenOutFill() {
+		return true;
+	}
+
+	isfill() {
+		return Boolean(document.fullscreenElement);
 	}
 
 	/**
@@ -979,13 +1070,14 @@ class WitCatMouse {
 	 * @deprecated
 	 */
 	setfill(args) {
-		const canvas = this.canvas();
-		console.log(canvas);
+		const canvas = this.canvasSelf();
 		if (canvas === null) {
 			return 0;
 		}
-		canvas.firstChild.height = Number(args.num);
-		canvas.firstChild.width = (Number(args.num) * this.runtime.stageWidth) / this.runtime.stageHeight;
+		canvas.height = Number(args.num);
+		canvas.width = (Number(args.num) * this.runtime.stageWidth) / this.runtime.stageHeight;
+		this.runtime.renderer.dirty = true;
+		this.runtime.renderer.draw();
 	}
 
 	/**
@@ -993,11 +1085,11 @@ class WitCatMouse {
 	 * @returns {number}
 	 */
 	resolution() {
-		const canvas = this.canvas();
+		const canvas = this.canvasSelf();
 		if (canvas === null) {
 			return 0;
 		}
-		return canvas.firstChild.height;
+		return canvas.height;
 	}
 
 	/**
@@ -1174,8 +1266,8 @@ class WitCatMouse {
 	 * @returns {string} 转换后的文本
 	 */
 	Uint8ArrayToString(fileData) {
-		var dataString = "";
-		for (var i = 0; i < fileData.length; i++) {
+		let dataString = "";
+		for (let i = 0; i < fileData.length; i++) {
 			dataString += String.fromCharCode(fileData[i]);
 		}
 		return dataString
@@ -1364,8 +1456,8 @@ class WitCatMouse {
 `;
 			document.body.appendChild(div);
 
-			var modal = document.getElementById('myModal');
-			var span = document.querySelector('.close');
+			let modal = document.getElementById('myModal');
+			let span = document.querySelector('.close');
 			//创建点击事件
 			span.onclick = function () {
 				div.style.backgroundColor = '#00000000';
@@ -1709,28 +1801,39 @@ function exitFullscreen() {
  * @param {Element} element 需要被计算中心点的角色
  * @param {Boolean} type 模式（true：最小化，false：全屏）
  */
-function resizeElementInParent(element, type) {
+function resizeElementInParent(element, type, types, aspectRatio) {
+	let parentWidth, parentHeight;
+
 	if (type) {
-		var parent = element.parentElement;
-		var parentWidth = parent.clientWidth;
-		var parentHeight = parent.clientHeight;
+		let parent
+		if (types === 'zoom') {
+			parent = element.parentElement.parentElement;
+		}
+		else {
+			parent = element.parentElement;
+		}
+		parentWidth = parent.clientWidth;
+		parentHeight = parent.clientHeight;
+	} else {
+		parentWidth = document.body.clientWidth;
+		parentHeight = document.body.clientHeight;
 	}
-	else {
-		var parentWidth = screen.width;
-		var parentHeight = screen.height;
+
+	let elementWidth = element.offsetWidth;
+	let elementHeight = element.offsetHeight;
+
+	if (types === 'zoom') {
+		let widthRatio = parentWidth / elementWidth;
+		let heightRatio = parentHeight / elementHeight;
+		let scale = Math.min(widthRatio, heightRatio);
+		element.style.transform = 'scale(' + scale + ')';
+	} else {
+		if (parentWidth / parentHeight > aspectRatio) {
+			element.style.height = parentHeight + 'px';
+			element.style.width = parentWidth / (aspectRatio / (parentWidth / parentHeight)) + 'px';
+		} else {
+			element.style.width = parentWidth + 'px';
+			element.style.height = parentHeight / (aspectRatio / (parentWidth / parentHeight)) + 'px';
+		}
 	}
-
-	var elementWidth = element.offsetWidth;
-	var elementHeight = element.offsetHeight;
-
-	var widthRatio = parentWidth / elementWidth;
-	var heightRatio = parentHeight / elementHeight;
-
-	var scale = Math.min(widthRatio, heightRatio);
-
-	var newWidth = elementWidth * scale;
-	var newHeight = elementHeight * scale;
-
-	element.style.width = newWidth + "px";
-	element.style.height = newHeight + "px";
 }
