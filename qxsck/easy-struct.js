@@ -123,7 +123,7 @@ class struct {
           arguments: {
             TYPE:{
               type: 'string',
-              defaultValue: this.formatMessage("qxsckeasystruct.structTypes"),
+              defaultValue: 'structTypes',
               menu: 'structData.List',
             },
           },
@@ -187,7 +187,7 @@ class struct {
             },
             TYPE:{
               type: 'string',
-              defaultValue: this.formatMessage("qxsckeasystruct.memberLength"),
+              defaultValue: 'length',
               menu: 'getStructTypeData.List',
             },
           },
@@ -199,7 +199,7 @@ class struct {
           arguments: {
             TYPE:{
               type: 'string',
-              defaultValue: this.formatMessage("qxsckeasystruct.structTypes"),
+              defaultValue: 'structTypes',
               menu: 'structData.List',
             },
           },
@@ -215,7 +215,7 @@ class struct {
             },
             TYPE:{
               type: 'string',
-              defaultValue: this.formatMessage("qxsckeasystruct.structTypes"),
+              defaultValue: 'structTypes',
               menu: 'structData.List',
             },
           },
@@ -234,7 +234,7 @@ class struct {
             },
             TYPE:{
               type: 'string',
-              defaultValue: this.formatMessage("qxsckeasystruct.structTypes"),
+              defaultValue: 'structTypes',
               menu: 'structData.List',
             },
           },
@@ -254,7 +254,7 @@ class struct {
             },
             TYPE:{
               type: 'string',
-              defaultValue: this.formatMessage("qxsckeasystruct.structTypes"),
+              defaultValue: 'structTypes',
               menu: 'structData.List',
             },
           },
@@ -336,7 +336,7 @@ class struct {
             },
             TYPE:{
               type: 'string',
-              defaultValue: this.formatMessage("qxsckeasystruct.type"),
+              defaultValue: 'type',
               menu: 'getStructListData.List',
             }
           },
@@ -543,13 +543,14 @@ class struct {
         let members=structs[name];
         return '['+members.map(value=>'"'+String(value)+'"').join(',')+']';
       }
-    }
+    }else return '';
   }
   getData(args){
     let type_=String(args.TYPE);
     if(type_=='structTypes') return '['+Object.keys(structs).map(value=>'"'+String(value)+'"').join(',')+']';
     else if(type_=='structs') return '['+Object.keys(useStructs).map(value=>'"'+String(value)+'"').join(',')+']';
     else if(type_=='structLists') return '['+Object.keys(useStructLists).map(value=>'"'+String(value)+'"').join(',')+']';
+    else return '';
   }
   deleteData(args){
     let type_=String(args.TYPE),name=String(args.NAME);
@@ -575,6 +576,7 @@ class struct {
     if(type_=='structTypes') return (name in structs);
     else if(type_=='structs') return (name in useStructs);
     else if(type_=='structLists') return (name in useStructLists);
+    else return '';
   }
   checkDataMember(args){
     let type_=String(args.TYPE),name=String(args.NAME),member=String(args.MEMBER);
@@ -590,6 +592,7 @@ class struct {
       if(name in useStructLists) return (useStructLists[name]['members'].indexOf(member)>-1);
       else return false;
     }
+    else return '';
   }
 
   getStructType(args){
@@ -624,7 +627,7 @@ class struct {
     }else if(type_=='length'){
       if(name in useStructLists) return useStructLists[name]['data'].length;
       else return -1;
-    }
+    }else return '';
   }
   structListPushData(args){
     let name=String(args.NAME),num=Number(args.NUM);
