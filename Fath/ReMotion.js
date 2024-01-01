@@ -804,6 +804,57 @@ class ReMotion {
   }
 }
 
+function addLinearGradientToBody() {
+  // Loop through the two gradients
+  for (let i = 1; i <= 2; i++) {
+    // Create a div element
+    var grad = document.createElement("div");
+    // Set the innerHTML to the svg code with the gradient id
+    grad.innerHTML = `<svg><defs>
+      <linearGradient x1="240" y1="0" x2="240" y2="100" gradientUnits="userSpaceOnUse" id="remotion-GRAD${i}">
+      <stop offset="0" stop-color="#4c97ff"/><stop offset="0.5" stop-color="#6fa8f7"/></linearGradient>
+      </defs></svg>`;
+    // Append the div to the body
+    document.body.appendChild(grad);
+  }
+};
+addLinearGradientToBody()
+
+function documentChangedCallback(mutationsList, observer) {
+  // Get all the elements with the data-category attribute of "ReMotion"
+  var elements = document.querySelectorAll(`g[data-category="ReMotion"] path, g[data-category="ReMotion"] rect.blocklyBlockBackground`);
+  // Loop through the elements
+  elements.forEach(function(element) {
+    // Skip elements with the specific data-id
+    if (element.parentElement.getAttribute('data-shapes') === 'argument round') {
+      return;
+    }
+    // Get the current fill value
+    var currentFill = element.getAttribute("fill");
+    // Use a ternary operator to assign the new fill value based on the element type
+    var newFill = element.tagName === "path" ? "url(#remotion-GRAD1)" : "url(#remotion-GRAD2)";
+    // Set the fill attribute to the new value
+    element.setAttribute("fill", newFill);
+  });
+
+  // Get all the text elements within the elements with the data-category attribute of "ReMotion"
+  var textElements = document.querySelectorAll(`g[data-category="ReMotion"] text`);
+  // Loop through the text elements
+  textElements.forEach(function(textElement) {
+    // Skip text elements within the specific data-id
+    if (textElement.parentElement.getAttribute('data-id') === 'i5-ZLaH;z%S0;siW0TKh') {
+      return;
+    }
+    // Set the fill attribute to white
+    textElement.setAttribute("fill", "#FFFFFF");
+  });
+};
+
+var observer = new MutationObserver(documentChangedCallback);
+var observerConfig = { childList: true, subtree: true };
+observer.observe(document.documentElement, observerConfig);
+
+
 window.tempExt = {
   Extension: ReMotion,
   info: {
