@@ -192,6 +192,10 @@ export default class WitCatBBcode {
         'WitCatBBcode.type.5': '内容',
         'WitCatBBcode.type.6': 'json',
         'WitCatBBcode.type.7': '透视',
+        'WitCatBBcode.type.8': '内容高度',
+        'WitCatBBcode.type.9': '纵向滚动位置',
+        'WitCatBBcode.type.10': '内容宽度',
+        'WitCatBBcode.type.11': '横向滚动位置',
         'WitCatBBcode.ide.1': '可编辑',
         'WitCatBBcode.ide.2': '不可编辑',
         'WitCatBBcode.types.1': '启动',
@@ -249,6 +253,10 @@ export default class WitCatBBcode {
         'WitCatBBcode.type.5': 'content',
         'WitCatBBcode.type.6': 'json',
         'WitCatBBcode.type.7': 'perspective',
+        'WitCatBBcode.type.8': 'Content height',
+        'WitCatBBcode.type.9': 'Longitudinal roll position',
+        'WitCatBBcode.type.10': 'Content width',
+        'WitCatBBcode.type.11': 'Horizontal roll position',
         'WitCatBBcode.ide.1': 'editable',
         'WitCatBBcode.ide.2': 'uneditable',
         'WitCatBBcode.types.1': 'turn on',
@@ -821,6 +829,22 @@ export default class WitCatBBcode {
             value: 'content',
           },
           {
+            text: this.formatMessage('WitCatBBcode.type.8'),
+            value: 'ContentHeight',
+          },
+          {
+            text: this.formatMessage('WitCatBBcode.type.9'),
+            value: 'Longitudinal',
+          },
+          {
+            text: this.formatMessage('WitCatBBcode.type.10'),
+            value: 'ContentWidth',
+          },
+          {
+            text: this.formatMessage('WitCatBBcode.type.11'),
+            value: 'Horizontal',
+          },
+          {
             text: this.formatMessage('WitCatBBcode.type.6'),
             value: 'json',
           },
@@ -849,6 +873,14 @@ export default class WitCatBBcode {
           {
             text: this.formatMessage('WitCatBBcode.type.7'),
             value: 'perspective',
+          },
+          {
+            text: this.formatMessage('WitCatBBcode.type.9'),
+            value: 'Longitudinal',
+          },
+          {
+            text: this.formatMessage('WitCatBBcode.type.11'),
+            value: 'Horizontal',
           },
         ],
         typess: [
@@ -1098,10 +1130,18 @@ export default class WitCatBBcode {
           sstyle.height = `${Number(height)}%`;
           break;
         case 'content':
+          console.log(new bbcode.Parser().toHTML(String(args.text), this.runtime));
           search.innerHTML = `<div class='WitCatBBcodes'>${new bbcode.Parser().toHTML(String(args.text), this.runtime)}</div>`;
           break;
         case 'perspective':
           search.firstChild.style.perspective = `${Number(args.text)}px`;
+          break;
+        case 'Longitudinal':
+          search.scrollTo({ top: Number(args.text) });
+          break;
+        case 'Horizontal':
+          search.scrollTo({ left: Number(args.text) });
+          break;
         default:
           break;
       }
@@ -1543,6 +1583,14 @@ export default class WitCatBBcode {
         return (parseFloat(element.style.height) / 100) * this.runtime.stageHeight;
       case 'content':
         return htmltobbcode(String(element.innerHTML));
+      case 'ContentHeight':
+        return element.scrollHeight;
+      case 'ContentWidth':
+        return element.scrollWidth;
+      case 'Longitudinal':
+        return element.scrollTop;
+      case 'Horizontal':
+        return element.scrollLeft;
       case 'json':
         // 直接把整个东西转成 JSON 对象，再拼接
         return JSON.stringify({
