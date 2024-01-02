@@ -6,7 +6,6 @@
     Scratch.translate.setup({
         "zh-cn": {
             "OPERATION_EXT_NAME": "运算pro",
-            //由于gandi并没有ui的api，所以设置按钮失效
             "OPERATION_SETING": "设置",
             "OPERATION.SHOW": "显示",
             "OPERATION.HIDE": "隐藏",
@@ -105,116 +104,115 @@
             "OPERATION.ARG_APPLE": "苹果",
             "OPERATION.ARG_BANANA": "香蕉"
         },
-       "en":{
-            "OPERATION_EXT_NAME": "operation pro",
-            //"OPERATION_SETING": "⚠️setup(no!)",
-            "OPERATION.SHOW": "show",
-            "OPERATION.HIDE": "hide",
-            "OPERATION.EXPAND": "expand",
-            "OPERATION.COLLAPSE": "collapse",
-            "OPERATION.RARE_BLOCK": "rare block",
-            "OPERATION.EXPAND_MENU": "expand dropdown",
-            "OPERATION.MATH_LABEL": "math",
-            "OPERATION.BOOLEAN_LABEL": "boolean",
-            "OPERATION.STRING_LABEL": "string",
-            "OPERATION.GRAPH_LABEL": "graph",
-            "OPERATION.BASE_LABEL": "base",
-            "OPERATION.CONSTANT_LABEL": "constant",
-            "OPERATION.SHOW_MATH_BLOCK": "show math block",
-            "OPERATION.HIDE_MATH_BLOCK": "hide math block",
-            "OPERATION.SHOW_BOOLEAN_BLOCK": "show boolean block",
-            "OPERATION.HIDE_BOOLEAN_BLOCK": "hide boolean block",
-            "OPERATION.SHOW_STRING_BLOCK": "show string block",
-            "OPERATION.HIDE_STRING_BLOCK": "hide string block",
-            "OPERATION.SHOW_RARD": "show rare block",
-            "OPERATION.HIDE_RARD": "hide rare block",
-            "OPERATION.SHOW_GRAPH_BLOCK": "show graph block",
-            "OPERATION.HIDE_GRAPH_BLOCK": "hide graph block",
-            "OPERATION.SHOW_BASE_BLOCK": "show base block",
-            "OPERATION.HIDE_BASE_BLOCK": "hide base block",
-            "OPERATION.CONSTRAIN": "constrain [NUM] between [LOW] and [HIGH]",
-            "OPERATION.LOOP_NUMBER": "let [NUM] loop between [START] to [END]",
-            "OPERATION.ROUND": "round [NUM1] to [NUM2] decimal places",
-            "OPERATION.MAP_OFF": "map [NUM] from [START1] ~ [END1] to [START2] ~ [END2]",
-            "OPERATION.BASE": "convert [NUM] in [INTO1] base to [INTO2] base",
-            "OPERATION.CALCULATE": "calculate [TEXT]",
-            "OPERATION.FIND_PARTITION": "partition [RANGE_START] to [RANGE_END] into [NUM_PARTITIONS] parts and get the partition of [VALUE]",
-            "OPERATION.BOOLEAN_TO_NUMBER": "convert [BOOLEAN] to binary number",
-            "OPERATION.NUMBER_NOT": "binary not [NUM]",
-            "OPERATION.PERCENT_OF": "[NUM2] percent of [NUM1]",
-            "OPERATION.IS_TRUE": "is [OPERAND] true?",
-            "OPERATION.CHECK_TYPE": "is [INPUT] [MODE]?",
-            "OPERATION.TEXT": "text [STRING]",
-            "OPERATION.TEST": "if [BOOLEAN] then [STRING1] else [STRING2]",
-            "OPERATION.REPEAT": "repeat [STRING] [NUMBER] times",
-            "OPERATION.TRIM": "trim whitespace from [STRING]",
-            "OPERATION.INTERCEPT": "intercept [STRING] from [START] to [END]",
-            "OPERATION.REPLACE": "replace [STRING2] with [STRING3] in [STRING1]",
-            "OPERATION.REPLACE_INDEX": "replace [START] to [END] in [STRING] with [REPLACEMENT]",
-            "OPERATION.SPLIT": "split [STRING] on [SYMBOL] and take item [NUM]",
-            "OPERATION.TOGGLE_CASE": "[STRING1] in [STRING2] [MODE]",
-            "OPERATION.CONVERT": "convert [STRING] to [MODE]",
-            "OPERATION.JOIN": "join text [STRING]",
-            "OPERATION.GET_JOIN": "joined text",
-            "OPERATION.GET_TO_UNICODE": "Unicode of [STRING]",
-            "OPERATION.UNICODE_TO_STRING": "character for Unicode [STRING]",
-            "OPERATION.OVERWRITE": "use [OTHER] overwrite [ORIGINAL], direction: [DIRECTION]",
-            "OPERATION.CALCULATE_LINE_LENGTH": "length of line from ([X1],[Y1]) to ([X2],[Y2])",
-            "OPERATION.CALCULATE_LINE_DIRECTION": "direction of line from ([X1],[Y1]) to ([X2],[Y2])",
-            "OPERATION.CALCULATE_INTERSECTION": "calculate intersection of line from ([X1],[Y1]) to ([X2],[Y2]) and ([X3],[Y3]) to ([X4],[Y4])",
-            "OPERATION.TRIANGLE": "[MODE] of triangle ([X1],[Y1]) ([X2],[Y2]) ([X3],[Y3])",
-            "OPERATION.TRIANGLE_AREA": "area of triangle [S1] [S2] [S3]",
-            "OPERATION.RECTANGLE": "[MODE] of rectangle ([X1],[Y1]) ([X2],[Y2]) ([X3],[Y3]) ([X4],[Y4])",
-            "OPERATION.GRAPH": "[MODE] of polygon [GRAPH]",
-            "OPERATION.CIRCLE": "[MODE] of circle of [LENGTH] [UNITS]",
-            "OPERATION.CALCULATE_ANGLE_DIFFERENCE": "[MODE] of angle [ANGLE1] to [ANGLE2]",
-            "OPERATION.GET_CONSTANT": "constant [OPTION]",
-            "OPERATION.TRUE": "true",
-            "OPERATION.FALSE": "false",
-            "OPERATION.RANDOM": "random",
-            "OPERATION.TYPE_NUMBER": "number",
-            "OPERATION.TYPE_POSITIVE_NUMBER": "positive number",
-            "OPERATION.TYPE_NEGATIVE_NUMBER": "negative number",
-            "OPERATION.TYPE_EVEN_NUMBER": "even number",
-            "OPERATION.TYPE_ODD_NUMBER": "odd number",
-            "OPERATION.TYPE_INTEGER_NUMBER": "integer",
-            "OPERATION.TYPE_DECIMAL_NUMBER": "decimal",
-            "OPERATION.TYPE_PRIME_NUMBER": "prime number",
-            "OPERATION.TYPE_COMPOSITE_NUMBER": "composite number",
-            "OPERATION.TYPE_TEXT": "text",
-            "OPERATION.TYPE_BOOLEAN": "boolean",
-            "OPERATION.NAND": "nand",
-            "OPERATION.NOR": "nor",
-            "OPERATION.XOR": "xor",
-            "OPERATION.XNOR": "xnor",
-            "OPERATION.FIRST_OCCURRENCE": "first occurrence",
-            "OPERATION.LAST_OCCURRENCE": "last occurrence",
-            "OPERATION.NUMBER_OF": "number of",
-            "OPERATION.UPPERCASE": "uppercase",
-            "OPERATION.LOWERCASE": "lowercase",
-            "OPERATION.CAPITALIZE": "capitalize",
-            "OPERATION.REVERSE": "reverse",
-            "OPERATION.AREA": "area",
-            "OPERATION.CIRCUMFERENCE": "circumference",
-            "OPERATION.RADIUS": "radius",
-            "OPERATION.DIAMETER": "diameter",
-            "OPERATION.INTERIOR_ANGLE": "interior angle",
-            "OPERATION.EXTERIOR_ANGLE": "exterior angle",
-            "OPERATION.CLOCKWISE": "clockwise",
-            "OPERATION.COUNTER_CLOCKWISE": "counterclockwise",
+        "zh-tw": {
+            "OPERATION_EXT_NAME": "運算pro",
+            "OPERATION_SETING": "設定",
+            "OPERATION.SHOW": "顯示",
+            "OPERATION.HIDE": "隱藏",
+            "OPERATION.EXPAND": "展開",
+            "OPERATION.COLLAPSE": "收起",
+            "OPERATION.RARE_BLOCK": "不常用積木",
+            "OPERATION.EXPAND_MENU": "展開下拉選單",
+            "OPERATION.MATH_LABEL": "數學",
+            "OPERATION.BOOLEAN_LABEL": "布林值",
+            "OPERATION.STRING_LABEL": "字串",
+            "OPERATION.GRAPH_LABEL": "幾何",
+            "OPERATION.BASE_LABEL": "進位制",
+            "OPERATION.CONSTANT_LABEL": "常數",
+            "OPERATION.SHOW_MATH_BLOCK": "顯示運算積木",
+            "OPERATION.HIDE_MATH_BLOCK": "隱藏運算積木",
+            "OPERATION.SHOW_BOOLEAN_BLOCK": "顯示布林值積木",
+            "OPERATION.HIDE_BOOLEAN_BLOCK": "隱藏布林值積木",
+            "OPERATION.SHOW_STRING_BLOCK": "顯示字串積木",
+            "OPERATION.HIDE_STRING_BLOCK": "隱藏字串積木",
+            "OPERATION.SHOW_GRAPH_BLOCK": "顯示幾何積木",
+            "OPERATION.HIDE_GRAPH_BLOCK": "隱藏幾何積木",
+            "OPERATION.SHOW_BASE_BLOCK": "顯示進位制積木",
+            "OPERATION.HIDE_BASE_BLOCK": "隱藏進位制積木",
+            "OPERATION.SHOW_RARD": "顯示不常用積木",
+            "OPERATION.HIDE_RARD": "隱藏不常用積木",
+            "OPERATION.CONSTRAIN": "約束 [NUM] 介於 [LOW] 與 [HIGH] 之間",
+            "OPERATION.LOOP_NUMBER": "將 [NUM] 循環在 [START] 到 [END]",
+            "OPERATION.ROUND": "四捨五入 [NUM1] 到小數點後 [NUM2] 位",
+            "OPERATION.MAP_OFF": "映射 [NUM] 從 [START1] ~ [END1] 到 [START2] ~ [END2]",
+            "OPERATION.BASE": "把 [INTO1] 進位的 [NUM] 變為 [INTO2] 進位",
+            "OPERATION.CALCULATE": "計算 [TEXT]",
+            "OPERATION.FIND_PARTITION": "將 [RANGE_START] 到 [RANGE_END] 等分為 [NUM_PARTITIONS] 個部分，並獲取 [VALUE] 所屬的分區",
+            "OPERATION.BOOLEAN_TO_NUMBER": "轉換 [BOOLEAN] 为二位制數字",
+            "OPERATION.NUMBER_NOT": "二位制取反 [NUM]",
+            "OPERATION.PERCENT_OF": "[NUM2] 的 [NUM1] %",
+            "OPERATION.IS_TRUE": "[OPERAND] 為真？",
+            "OPERATION.CHECK_TYPE": "[INPUT] 是 [MODE] ？",
+            "OPERATION.TEXT": "字串 [STRING]",
+            "OPERATION.TEST": "如果 [BOOLEAN] 那麼 [STRING1] 否則 [STRING2]",
+            "OPERATION.REPEAT": "重複 [STRING] [NUMBER] 次",
+            "OPERATION.TRIM": "消除 [STRING] 兩側的空白文本",
+            "OPERATION.INTERCEPT": "截取 [STRING] 的 [START] 到 [END]",
+            "OPERATION.REPLACE": "將 [STRING1] 中的 [STRING2] 替換為 [STRING3]",
+            "OPERATION.REPLACE_INDEX": "將 [STRING] 中的第 [START] 到 [END] 替換為 [REPLACEMENT]",
+            "OPERATION.SPLIT": "用 [SYMBOL] 分解 [STRING] 取第 [NUM] 個",
+            "OPERATION.TOGGLE_CASE": "[STRING1] 在 [STRING2] 中 [MODE]",
+            "OPERATION.CONVERT": "轉換 [STRING] 為 [MODE]",
+            "OPERATION.JOIN": "組合字串 [STRING]",
+            "OPERATION.GET_JOIN": "組合的字串",
+            "OPERATION.GET_TO_UNICODE": "[STRING] 的 Unicode 編碼",
+            "OPERATION.UNICODE_TO_STRING": "Unicode 編碼為 [STRING] 的字串",
+            "OPERATION.OVERWRITE": "使用 [OTHER] 覆蓋 [ORIGINAL]，方向：[DIRECTION]",
+            "OPERATION.CALCULATE_LINE_LENGTH": "([X1],[Y1]) 到 ([X2],[Y2]) 的間距",
+            "OPERATION.CALCULATE_LINE_DIRECTION": "([X1],[Y1]) 到 ([X2],[Y2]) 的方向",
+            "OPERATION.CALCULATE_INTERSECTION": "計算交点 ([X1],[Y1]) 到 ([X2],[Y2]) 與 ([X3],[Y3]) 到 ([X4],[Y4])",
+            "OPERATION.TRIANGLE": "三角形 ([X1],[Y1]) ([X2],[Y2]) ([X3],[Y3]) 的 [MODE]",
+            "OPERATION.TRIANGLE_AREA": "三角形 [S1] [S2] [S3] 的面積",
+            "OPERATION.RECTANGLE": "四邊形 ([X1],[Y1]) ([X2],[Y2]) ([X3],[Y3]) ([X4],[Y4]) 的 [MODE]",
+            "OPERATION.GRAPH": "多邊形 [GRAPH] 的 [MODE]",
+            "OPERATION.CIRCLE": "[UNITS] 為 [LENGTH] 的圆的 [MODE]",
+            "OPERATION.CALCULATE_ANGLE_DIFFERENCE": "角度 [ANGLE1] 到 [ANGLE2] 的 [MODE]",
+            "OPERATION.GET_CONSTANT": "常數 [OPTION]",
+            "OPERATION.TRUE": "真",
+            "OPERATION.FALSE": "假",
+            "OPERATION.RANDOM": "隨機",
+            "OPERATION.TYPE_NUMBER": "數字",
+            "OPERATION.TYPE_POSITIVE_NUMBER": "正數",
+            "OPERATION.TYPE_NEGATIVE_NUMBER": "負數",
+            "OPERATION.TYPE_EVEN_NUMBER": "偶數",
+            "OPERATION.TYPE_ODD_NUMBER": "奇數",
+            "OPERATION.TYPE_INTEGER_NUMBER": "整數",
+            "OPERATION.TYPE_DECIMAL_NUMBER": "小數",
+            "OPERATION.TYPE_PRIME_NUMBER": "質數",
+            "OPERATION.TYPE_COMPOSITE_NUMBER": "合數",
+            "OPERATION.TYPE_TEXT": "文字",
+            "OPERATION.TYPE_BOOLEAN": "布林值",
+            "OPERATION.NAND": "與非",
+            "OPERATION.NOR": "或非",
+            "OPERATION.XOR": "異或",
+            "OPERATION.XNOR": "同或",
+            "OPERATION.FIRST_OCCURRENCE": "首次出現的位置",
+            "OPERATION.LAST_OCCURRENCE": "最後出現的位置",
+            "OPERATION.NUMBER_OF": "出現的次數",
+            "OPERATION.UPPERCASE": "大寫",
+            "OPERATION.LOWERCASE": "小寫",
+            "OPERATION.CAPITALIZE": "首字大寫",
+            "OPERATION.REVERSE": "翻轉",
+            "OPERATION.AREA": "面積",
+            "OPERATION.CIRCUMFERENCE": "周長",
+            "OPERATION.RADIUS": "半徑",
+            "OPERATION.DIAMETER": "直徑",
+            "OPERATION.INTERIOR_ANGLE": "內角",
+            "OPERATION.EXTERIOR_ANGLE": "外角",
+            "OPERATION.CLOCKWISE": "順時針",
+            "OPERATION.COUNTER_CLOCKWISE": "逆時針",
             "OPERATION.ARG_APPLE": "apple",
-            "OPERATION.ARG_BANANA": "banana",
-       }
- });
+            "OPERATION.ARG_BANANA": "banna"
+        },
+    });
     const formatMessage = Scratch.translate;
 
-    const rtlRoot = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKICAgd2lkdGg9IjUwbW0iCiAgIGhlaWdodD0iNTBtbSIKICAgdmlld0JveD0iMCAwIDUwIDUwIgogICB2ZXJzaW9uPSIxLjEiCiAgIGlkPSJzdmcxIgogICBpbmtzY2FwZTp2ZXJzaW9uPSIxLjMuMSAoOTFiNjZiMDc4MywgMjAyMy0xMS0xNikiCiAgIHNvZGlwb2RpOmRvY25hbWU9InJ0bFJvb3Quc3ZnIgogICB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIKICAgeG1sbnM6c29kaXBvZGk9Imh0dHA6Ly9zb2RpcG9kaS5zb3VyY2Vmb3JnZS5uZXQvRFREL3NvZGlwb2RpLTAuZHRkIgogICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxzb2RpcG9kaTpuYW1lZHZpZXcKICAgICBpZD0ibmFtZWR2aWV3MSIKICAgICBwYWdlY29sb3I9IiMwMDAwMDAiCiAgICAgYm9yZGVyY29sb3I9IiMwMDAwMDAiCiAgICAgYm9yZGVyb3BhY2l0eT0iMC4yNSIKICAgICBpbmtzY2FwZTpzaG93cGFnZXNoYWRvdz0iMiIKICAgICBpbmtzY2FwZTpwYWdlb3BhY2l0eT0iMC4wIgogICAgIGlua3NjYXBlOnBhZ2VjaGVja2VyYm9hcmQ9IjAiCiAgICAgaW5rc2NhcGU6ZGVza2NvbG9yPSIjZDFkMWQxIgogICAgIGlua3NjYXBlOmRvY3VtZW50LXVuaXRzPSJtbSIKICAgICBpbmtzY2FwZTp6b29tPSIzLjg3NTMxODIiCiAgICAgaW5rc2NhcGU6Y3g9Ijg3Ljk5Mjc3NCIKICAgICBpbmtzY2FwZTpjeT0iOTYuNjM3MjI2IgogICAgIGlua3NjYXBlOndpbmRvdy13aWR0aD0iMTkyMCIKICAgICBpbmtzY2FwZTp3aW5kb3ctaGVpZ2h0PSIxMDAwIgogICAgIGlua3NjYXBlOndpbmRvdy14PSItMTEiCiAgICAgaW5rc2NhcGU6d2luZG93LXk9Ii0xMSIKICAgICBpbmtzY2FwZTp3aW5kb3ctbWF4aW1pemVkPSIxIgogICAgIGlua3NjYXBlOmN1cnJlbnQtbGF5ZXI9ImxheWVyMSIgLz4KICA8ZGVmcwogICAgIGlkPSJkZWZzMSIgLz4KICA8ZwogICAgIGlua3NjYXBlOmxhYmVsPSLlm77lsYIgMSIKICAgICBpbmtzY2FwZTpncm91cG1vZGU9ImxheWVyIgogICAgIGlkPSJsYXllcjEiPgogICAgPHBhdGgKICAgICAgIHN0eWxlPSJmb250LXNpemU6MzcuNjkwOHB4O2ZvbnQtZmFtaWx5OidCSVogVURNaW5jaG8nOy1pbmtzY2FwZS1mb250LXNwZWNpZmljYXRpb246J0JJWiBVRE1pbmNobyc7ZmlsbDojZmZmZmZmO3N0cm9rZTojZmZmZmZmO3N0cm9rZS13aWR0aDowLjg7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0cm9rZS1vcGFjaXR5OjEiCiAgICAgICBkPSJNIDE4Ljg3NTEzMSwxMCBIIDQ3LjUgdiAwLjgwNjExMiBIIDIwLjI2NjA2OSBMIDExLjA1MTEwNyw0MC42MTY0MzggNi4yNjE4NTQsMzEuNTI3OTI1IDMuNjY5NjUyLDM2LjY2NDkxIDIuNSwzNS41MTEwNjUgNi42NDEyMDEsMjcuMjc2MDggbCA0LjM3ODI5Miw4LjE1NTk1NSB6IgogICAgICAgaWQ9InRleHQxIgogICAgICAgYXJpYS1sYWJlbD0i4oiaIgogICAgICAgc29kaXBvZGk6bm9kZXR5cGVzPSJjY2NjY2NjY2NjYyIgLz4KICA8L2c+Cjwvc3ZnPgo=';
     const seting = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik04LjI3MjA2IDIuNjgzNzdDOC40MDgxOCAyLjI3NTQzIDguNzkwMzIgMiA5LjIyMDc1IDJIMTAuNzc5MkMxMS4yMDk3IDIgMTEuNTkxOCAyLjI3NTQzIDExLjcyNzkgMi42ODM3N0wxMi4zMjE5IDQuNDY1OEMxMi43OTE0IDQuNjYzIDEzLjIzMDQgNC45MTgxOCAxMy42MzAyIDUuMjIyMzhMMTUuNDcyMSA0Ljg0NTQ3QzE1Ljg5MzggNC43NTkxNyAxNi4zMjM0IDQuOTUyNCAxNi41Mzg2IDUuMzI1MTZMMTcuMzE3OCA2LjY3NDg1QzE3LjUzMyA3LjA0NzYxIDE3LjQ4NTYgNy41MTYyNyAxNy4yIDcuODM4MzJMMTUuOTUyOSA5LjI0NDY4QzE1Ljk4NCA5LjQ5MjA4IDE2IDkuNzQ0MTcgMTYgMTBDMTYgMTAuMjU1OCAxNS45ODQgMTAuNTA3OSAxNS45NTI5IDEwLjc1NTNMMTcuMiAxMi4xNjE3QzE3LjQ4NTYgMTIuNDgzNyAxNy41MzMgMTIuOTUyNCAxNy4zMTc4IDEzLjMyNTJMMTYuNTM4NiAxNC42NzQ4QzE2LjMyMzQgMTUuMDQ3NiAxNS44OTM4IDE1LjI0MDggMTUuNDcyMSAxNS4xNTQ1TDEzLjYzMDIgMTQuNzc3NkMxMy4yMzA0IDE1LjA4MTggMTIuNzkxNCAxNS4zMzcgMTIuMzIxOSAxNS41MzQyTDExLjcyNzkgMTcuMzE2MkMxMS41OTE4IDE3LjcyNDYgMTEuMjA5NyAxOCAxMC43NzkyIDE4SDkuMjIwNzVDOC43OTAzMiAxOCA4LjQwODE4IDE3LjcyNDYgOC4yNzIwNiAxNy4zMTYyTDcuNjc4MDUgMTUuNTM0MkM3LjIwODYyIDE1LjMzNyA2Ljc2OTU1IDE1LjA4MTggNi4zNjk4MiAxNC43Nzc2TDQuNTI3OTIgMTUuMTU0NUM0LjEwNjIzIDE1LjI0MDggMy42NzY2MyAxNS4wNDc2IDMuNDYxNDEgMTQuNjc0OEwyLjY4MjE3IDEzLjMyNTJDMi40NjY5NiAxMi45NTI0IDIuNTE0NDIgMTIuNDgzNyAyLjggMTIuMTYxN0w0LjA0NzA4IDEwLjc1NTNDNC4wMTYgMTAuNTA3OSAzLjk5OTk5IDEwLjI1NTggMy45OTk5OSAxMEMzLjk5OTk5IDkuNzQ0MTYgNC4wMTYgOS40OTIwNyA0LjA0NzA3IDkuMjQ0NjZMMi44IDcuODM4MzJDMi41MTQ0MiA3LjUxNjI3IDIuNDY2OTYgNy4wNDc2MSAyLjY4MjE3IDYuNjc0ODVMMy40NjE0MSA1LjMyNTE2QzMuNjc2NjMgNC45NTI0IDQuMTA2MjMgNC43NTkxNyA0LjUyNzkyIDQuODQ1NDdMNi4zNjk4IDUuMjIyMzhDNi43Njk1NCA0LjkxODE4IDcuMjA4NjEgNC42NjMgNy42NzgwNSA0LjQ2NThMOC4yNzIwNiAyLjY4Mzc3Wk05Ljk5OTk5IDhDOC44OTU0MiA4IDcuOTk5OTkgOC44OTU0MyA3Ljk5OTk5IDEwQzcuOTk5OTkgMTEuMTA0NiA4Ljg5NTQyIDEyIDkuOTk5OTkgMTJDMTEuMTA0NiAxMiAxMiAxMS4xMDQ2IDEyIDEwQzEyIDguODk1NDMgMTEuMTA0NiA4IDkuOTk5OTkgOFoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=';;
-    const close = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgoKPHN2ZwogICB3aWR0aD0iMzIiCiAgIGhlaWdodD0iMzIiCiAgIHZpZXdCb3g9IjAgMCA4LjQ2NjY2NjIgOC40NjY2NjYyIgogICB2ZXJzaW9uPSIxLjEiCiAgIGlkPSJzdmcxIgogICB4bWw6c3BhY2U9InByZXNlcnZlIgogICBpbmtzY2FwZTp2ZXJzaW9uPSIxLjMuMSAoOTFiNjZiMDc4MywgMjAyMy0xMS0xNikiCiAgIHNvZGlwb2RpOmRvY25hbWU9Iue7mOWbvi5zdmciCiAgIHhtbG5zOmlua3NjYXBlPSJodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy9uYW1lc3BhY2VzL2lua3NjYXBlIgogICB4bWxuczpzb2RpcG9kaT0iaHR0cDovL3NvZGlwb2RpLnNvdXJjZWZvcmdlLm5ldC9EVEQvc29kaXBvZGktMC5kdGQiCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHNvZGlwb2RpOm5hbWVkdmlldwogICAgIGlkPSJuYW1lZHZpZXcxIgogICAgIHBhZ2Vjb2xvcj0iIzAwMDAwMCIKICAgICBib3JkZXJjb2xvcj0iIzAwMDAwMCIKICAgICBib3JkZXJvcGFjaXR5PSIwLjI1IgogICAgIGlua3NjYXBlOnNob3dwYWdlc2hhZG93PSIyIgogICAgIGlua3NjYXBlOnBhZ2VvcGFjaXR5PSIwLjAiCiAgICAgaW5rc2NhcGU6cGFnZWNoZWNrZXJib2FyZD0iMCIKICAgICBpbmtzY2FwZTpkZXNrY29sb3I9IiNkMWQxZDEiCiAgICAgaW5rc2NhcGU6ZG9jdW1lbnQtdW5pdHM9Im1tIgogICAgIGlua3NjYXBlOnpvb209IjE1LjUwMTI3MyIKICAgICBpbmtzY2FwZTpjeD0iMjAuNzQwMjMzIgogICAgIGlua3NjYXBlOmN5PSIxMC45OTkwOTciCiAgICAgaW5rc2NhcGU6d2luZG93LXdpZHRoPSIxOTIwIgogICAgIGlua3NjYXBlOndpbmRvdy1oZWlnaHQ9IjEwMDAiCiAgICAgaW5rc2NhcGU6d2luZG93LXg9Ii0xMSIKICAgICBpbmtzY2FwZTp3aW5kb3cteT0iLTExIgogICAgIGlua3NjYXBlOndpbmRvdy1tYXhpbWl6ZWQ9IjEiCiAgICAgaW5rc2NhcGU6Y3VycmVudC1sYXllcj0ibGF5ZXIxIiAvPjxkZWZzCiAgICAgaWQ9ImRlZnMxIj48c3R5bGUKICAgICAgIGlkPSJzdHlsZTEiPi5jbHMtMXtmaWxsOm5vbmU7c3Ryb2tlOiNmZmY7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS13aWR0aDoycHg7fTwvc3R5bGU+PC9kZWZzPjxnCiAgICAgaW5rc2NhcGU6bGFiZWw9IuWbvuWxgiAxIgogICAgIGlua3NjYXBlOmdyb3VwbW9kZT0ibGF5ZXIiCiAgICAgaWQ9ImxheWVyMSI+PGcKICAgICAgIGlkPSJnMSIKICAgICAgIHRyYW5zZm9ybT0ibWF0cml4KDAuMzM5NjkyNSwwLjMzOTY5MjUsLTAuMzM5NjkyNSwwLjMzOTY5MjUsNC4yMzM0NjU2LDEuNjkyNTY1NykiCiAgICAgICBpbmtzY2FwZTpsYWJlbD0iZzEiPjxsaW5lCiAgICAgICAgIGNsYXNzPSJjbHMtMSIKICAgICAgICAgeDE9IjMuNzQiCiAgICAgICAgIHkxPSI2LjQ4IgogICAgICAgICB4Mj0iMy43NCIKICAgICAgICAgeTI9IjEiCiAgICAgICAgIGlkPSJsaW5lMSIgLz48bGluZQogICAgICAgICBjbGFzcz0iY2xzLTEiCiAgICAgICAgIHgxPSIxIgogICAgICAgICB5MT0iMy43NCIKICAgICAgICAgeDI9IjYuNDgiCiAgICAgICAgIHkyPSIzLjc0IgogICAgICAgICBpZD0ibGluZTIiIC8+PC9nPjwvZz48L3N2Zz4K';
+    const close = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgoKPHN2ZwogICB3aWR0aD0iMjQiCiAgIGhlaWdodD0iMjQiCiAgIHZpZXdCb3g9IjAgMCA2LjM0OTk5OTcgNi4zNDk5OTk3IgogICB2ZXJzaW9uPSIxLjEiCiAgIGlkPSJzdmcxIgogICB4bWw6c3BhY2U9InByZXNlcnZlIgogICBpbmtzY2FwZTp2ZXJzaW9uPSIxLjMuMSAoOTFiNjZiMDc4MywgMjAyMy0xMS0xNikiCiAgIHNvZGlwb2RpOmRvY25hbWU9ImNsb3NlSWNvbi5zdmciCiAgIHhtbG5zOmlua3NjYXBlPSJodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy9uYW1lc3BhY2VzL2lua3NjYXBlIgogICB4bWxuczpzb2RpcG9kaT0iaHR0cDovL3NvZGlwb2RpLnNvdXJjZWZvcmdlLm5ldC9EVEQvc29kaXBvZGktMC5kdGQiCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHNvZGlwb2RpOm5hbWVkdmlldwogICAgIGlkPSJuYW1lZHZpZXcxIgogICAgIHBhZ2Vjb2xvcj0iIzAwMDAwMCIKICAgICBib3JkZXJjb2xvcj0iIzAwMDAwMCIKICAgICBib3JkZXJvcGFjaXR5PSIwLjI1IgogICAgIGlua3NjYXBlOnNob3dwYWdlc2hhZG93PSIyIgogICAgIGlua3NjYXBlOnBhZ2VvcGFjaXR5PSIwLjAiCiAgICAgaW5rc2NhcGU6cGFnZWNoZWNrZXJib2FyZD0iMCIKICAgICBpbmtzY2FwZTpkZXNrY29sb3I9IiNkMWQxZDEiCiAgICAgaW5rc2NhcGU6ZG9jdW1lbnQtdW5pdHM9Im1tIgogICAgIGlua3NjYXBlOnpvb209IjEzLjMxMTUzMyIKICAgICBpbmtzY2FwZTpjeD0iMTMuMjU5MTc5IgogICAgIGlua3NjYXBlOmN5PSIxNi4xODg5NjkiCiAgICAgaW5rc2NhcGU6d2luZG93LXdpZHRoPSIxOTIwIgogICAgIGlua3NjYXBlOndpbmRvdy1oZWlnaHQ9IjEwMjciCiAgICAgaW5rc2NhcGU6d2luZG93LXg9IjE5MTIiCiAgICAgaW5rc2NhcGU6d2luZG93LXk9Ii04IgogICAgIGlua3NjYXBlOndpbmRvdy1tYXhpbWl6ZWQ9IjEiCiAgICAgaW5rc2NhcGU6Y3VycmVudC1sYXllcj0ibGF5ZXIxIiAvPjxkZWZzCiAgICAgaWQ9ImRlZnMxIj48c3R5bGUKICAgICAgIGlkPSJzdHlsZTEiPi5jbHMtMXtmaWxsOm5vbmU7c3Ryb2tlOiNmZmY7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS13aWR0aDoycHg7fTwvc3R5bGU+PC9kZWZzPjxnCiAgICAgaW5rc2NhcGU6bGFiZWw9IuWbvuWxgiAxIgogICAgIGlua3NjYXBlOmdyb3VwbW9kZT0ibGF5ZXIiCiAgICAgaWQ9ImxheWVyMSI+PGcKICAgICAgIGlkPSJnMSIKICAgICAgIHRyYW5zZm9ybT0ibWF0cml4KDAuNTI2MzI1NjgsMC41MjYzMjU2OCwtMC41MjYzMjU2OCwwLjUyNjMyNTY4LDMuMTc1LC0wLjc2MTkxNjA3KSIKICAgICAgIGlua3NjYXBlOmxhYmVsPSJnMSIKICAgICAgIHN0eWxlPSJzdHJva2Utd2lkdGg6MC43MTA5MjM1ODtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3Ryb2tlOiM1NjYyNzY7c3Ryb2tlLW9wYWNpdHk6MSI+PGxpbmUKICAgICAgICAgY2xhc3M9ImNscy0xIgogICAgICAgICB4MT0iMy43NCIKICAgICAgICAgeTE9IjYuNDgiCiAgICAgICAgIHgyPSIzLjc0IgogICAgICAgICB5Mj0iMSIKICAgICAgICAgaWQ9ImxpbmUxIgogICAgICAgICBzdHlsZT0ic3Ryb2tlLXdpZHRoOjAuNzEwOTIzNTg7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0cm9rZTojNTY2Mjc2O3N0cm9rZS1vcGFjaXR5OjEiIC8+PGxpbmUKICAgICAgICAgY2xhc3M9ImNscy0xIgogICAgICAgICB4MT0iMSIKICAgICAgICAgeTE9IjMuNzQiCiAgICAgICAgIHgyPSI2LjQ4IgogICAgICAgICB5Mj0iMy43NCIKICAgICAgICAgaWQ9ImxpbmUyIgogICAgICAgICBzdHlsZT0ic3Ryb2tlLXdpZHRoOjAuNzEwOTIzNTg7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0cm9rZTojNTY2Mjc2O3N0cm9rZS1vcGFjaXR5OjEiIC8+PC9nPjwvZz48L3N2Zz4K';
 
-    const isLang = ['ar', 'fa', 'he', 'ckb'];
-    let isDark = localStorage.getItem('tw:theme') === 'dark';
-    let isRTL = isLang.includes(localStorage.getItem('tw:language'));
+    // const isLang = ['ar', 'fa', 'he', 'ckb'];
+    // let isRTL = isLang.includes(localStorage.getItem('tw:language'));
+    let isRTL = false; // 这个是获取界面布局是否是右到左，gandi 没有阿拉伯语希伯来语的 rtl 布局，所以应当设为假
 
     let mask = document.createElement('div');
     mask.style.position = 'fixed';
@@ -222,7 +220,7 @@
     mask.style.left = '0';
     mask.style.width = '100vw';
     mask.style.height = '100vh';
-    mask.style.backgroundColor = isDark ? '#333333AA' : '#8c81ffe6';
+    mask.style.backgroundColor = '#0000004c';
     mask.style.zIndex = '998';
     mask.style.display = 'none';
     document.body.appendChild(mask);
@@ -235,7 +233,7 @@
 
     let setingWindow = document.createElement('div');
     setingWindow.style.position = 'fixed';
-    setingWindow.style.top = 'calc(106px + 225px)';
+    setingWindow.style.top = 'calc(100px + 225px)';
     setingWindow.style.left = '50%';
     setingWindow.style.transform = 'translate(-50%, -50%)';
     setingWindow.style.width = '480px';
@@ -243,33 +241,34 @@
     setingWindow.style.overflow = 'hidden';
     setingWindow.style.overflowX = 'hidden';
     setingWindow.style.backgroundColor = '#FFFFFF';
-    setingWindow.style.borderRadius = '5px';
+    setingWindow.style.borderRadius = '10px';
     setingWindow.style.display = 'none';
     setingWindow.style.paddingBottom = '5px';
     setingWindow.style.zIndex = '999';
-    setingWindow.style.boxShadow = '0 0 0 4px rgba(255, 255, 255, 0.2)';
+    setingWindow.style.boxShadow = '0 0 10px 4px rgba(0, 0, 0, 0.2)';
     setingWindow.style.userSelect = 'none';
     document.body.appendChild(setingWindow);
 
     let windowContent = document.createElement('div');
     windowContent.style.position = 'absolute';
-    windowContent.style.top = '50px';
+    windowContent.style.top = '72px';
     windowContent.style.width = 'calc(100% - 44px)';
     windowContent.style.height = 'auto';
     windowContent.style.padding = '22px';
     setingWindow.appendChild(windowContent);
 
     let titleBar = document.createElement('div');
-    titleBar.style.height = '50px';
-    titleBar.style.backgroundColor = isDark ? '#333333' : '#6859FF';
-    titleBar.style.color = '#fff';
-    titleBar.style.lineHeight = '50px';
-    titleBar.style.maxHeight = '50px';
+    titleBar.style.height = '72px';
+    titleBar.style.backgroundColor = '#0FBD8C';
+    titleBar.style.color = '#000';
+    titleBar.style.lineHeight = '72px';
+    titleBar.style.maxHeight = '72px';
     titleBar.style.fontSize = '16px';
     titleBar.style.top = '0';
     setingWindow.appendChild(titleBar);
 
     let titleText = document.createElement('div');
+    titleText.style.fontWeight = '700';
     titleText.style.display = 'flex';
     titleText.style.justifyContent = 'center';
     titleText.style.alignItems = 'center';
@@ -282,25 +281,33 @@
     textLabel.style.fontSize = '12px';
     textLabel.style.display = 'flex';
     textLabel.style.alignItems = 'center';
+    if (isRTL) {
+        textLabel.style.right = '24px';
+        textLabel.style.left = 'auto';
+    }
+    else {
+        textLabel.style.left = '24px';
+        textLabel.style.right = 'auto';
+    }
     titleBar.appendChild(textLabel);
 
     let setingIcon = document.createElement('img');
     setingIcon.src = seting;
-    setingIcon.style.width = '24px';
-    setingIcon.style.height = '24px';
-    setingIcon.style.marginLeft = '12px';
-    setingIcon.style.marginRight = '12px';
+    setingIcon.style.width = '18px';
+    setingIcon.style.height = '18px';
+    setingIcon.style.marginLeft = '8px';
+    setingIcon.style.marginRight = '8px';
     textLabel.insertBefore(setingIcon, textLabel.firstChild);
 
     let closeButton = document.createElement('div');
     closeButton.style.position = 'absolute';
-    closeButton.style.top = '9px';
-    closeButton.style.width = '32px';
-    closeButton.style.height = '32px';
+    closeButton.style.top = '24px';
+    closeButton.style.width = '24px';
+    closeButton.style.height = '24px';
     closeButton.style.cursor = 'pointer';
-    closeButton.style.backgroundColor = isDark ? '#FFFFFF26' : '#00000026';
-    closeButton.style.borderRadius = '50%';
-    closeButton.style.transition = 'all 0.2s ease';
+    closeButton.style.backgroundColor = '#00000000';
+    closeButton.style.borderRadius = '5px';
+    closeButton.style.transition = 'all 0.2s';
     titleBar.appendChild(closeButton);
 
     closeButton.addEventListener('click', () => {
@@ -309,49 +316,34 @@
 
     let closeIcon = document.createElement('img');
     closeIcon.src = close;
+    closeIcon.style.position = 'absolute';
+    closeIcon.style.top = '0px';
     closeIcon.style.width = '100%';
     closeIcon.style.height = '100%';
     closeButton.appendChild(closeIcon);
 
     closeButton.onmouseover = function () {
-        this.style.width = '40px';
-        this.style.height = '40px';
-        this.style.top = '5px';
-        if (isRTL) {
-            closeButton.style.left = '10px';
-            closeButton.style.right = 'auto';
-        } else {
-            closeButton.style.right = '10px';
-            closeButton.style.left = 'auto';
-        }
+        closeButton.style.backgroundColor = '#ffffffff';
+
     }
 
     closeButton.onmouseout = function () {
-        this.style.width = '32px';
-        this.style.height = '32px';
-        this.style.top = '9px';
-        if (isRTL) {
-            closeButton.style.left = '14px';
-            closeButton.style.right = 'auto';
-        } else {
-            closeButton.style.right = '14px';
-            closeButton.style.left = 'auto';
-        }
+        closeButton.style.backgroundColor = '#00000000';
     };
 
     const newOption = ({ text, buttonText, runCode }) => {
         let optionDiv = document.createElement('div');
         optionDiv.style.width = 'auto';
         optionDiv.style.height = 'auto';
-        optionDiv.style.color = '#575E75';
+        optionDiv.style.color = '#262B33';
         optionDiv.innerText = (text ?? '') + ': ';
 
         let optionButton = document.createElement('button');
         optionButton.style.margin = '4px';
         optionButton.style.padding = '9.6px 12px';
         optionButton.style.borderRadius = '8px';
-        optionButton.style.backgroundColor = '#6859FF';
-        optionButton.style.color = '#FFFFFF';
+        optionButton.style.backgroundColor = '#F7F7F7';
+        optionButton.style.color = '#262B33';
         optionButton.style.fontWeight = '700';
         optionButton.style.fontSize = '14px';
         optionButton.style.border = 'none';
@@ -364,7 +356,7 @@
 
     const showAndHideType = (type, style) => {
         HideBlockType[type] = style;
-        vm.extensionManager.refreshBlocks();
+        Operation.runtime._events.TOOLBOX_EXTENSIONS_NEED_UPDATE();
         updateButton()
     }
 
@@ -447,7 +439,8 @@
     }
 
     const setRTL = () => {
-        isRTL = isLang.includes(localStorage.getItem('tw:language'));
+        // isRTL = isLang.includes(localStorage.getItem('tw:language'));
+        isRTL = false;
         if (isRTL) {
             setingWindow.style.direction = 'rtl';
         } else {
@@ -459,6 +452,14 @@
         } else {
             closeButton.style.right = '14px';
             closeButton.style.left = 'auto';
+        }
+        if (isRTL) {
+            textLabel.style.right = '24px';
+            textLabel.style.left = 'auto';
+        }
+        else {
+            textLabel.style.left = '24px';
+            textLabel.style.right = 'auto';
         }
     }
 
@@ -473,10 +474,7 @@
         titleText.innerText = formatMessage({ id: 'OPERATION_EXT_NAME', default: 'Operation' });
         setingWindow.style.display = 'block';
         mask.style.display = 'block';
-        isDark = localStorage.getItem('tw:theme') === 'dark';
-        mask.style.backgroundColor = isDark ? '#333333AA' : '#8c81ffe6';
-        titleBar.style.backgroundColor = isDark ? '#333333' : '#6859FF';
-        closeButton.style.backgroundColor = isDark ? '#FFFFFF26' : '#00000026';
+        closeButton.style.backgroundColor = '#00000000';
     }
 
     let HideBlockType = {
@@ -489,21 +487,12 @@
         expandMenu: true
     }
 
-    const sep = (hide) => [
-        {
-            blockType: BlockType.XML,
-            xml: `<sep gap="36"/>`,
-            hideFromPalette: hide
-        }
-    ];
+    const sep = (hide) => {
+        if (hide) return [''];
+        return ['---'];
+    };
 
-    const negSep = (hide) => [
-        {
-            blockType: BlockType.XML,
-            xml: `<sep gap="-12"/>`,
-            hideFromPalette: hide
-        }
-    ];
+    const negSep = (hide) => [/* 废弃 */];
 
     const rareHideAndSow = (type) => HideBlockType[type] || HideBlockType.rareBlock;
 
@@ -882,14 +871,16 @@
 
     const descriptor = (formatMessage) => {
         return [
-            // {
-            //     func: 'openSetingWindow',
-            //     blockType: BlockType.BUTTON,
-            //     text: formatMessage({
-            //         id: 'OPERATION_SETING',
-            //         default: 'Seting'
-            //     }),
-            // },
+            {
+                onClick: () => {
+                    showWindow()
+                },
+                blockType: BlockType.BUTTON,
+                text: formatMessage({
+                    id: 'OPERATION_SETING',
+                    default: 'Seting'
+                }),
+            },
             {
                 opcode: 'exponent',
                 blockType: BlockType.REPORTER,
@@ -921,11 +912,6 @@
                     NUM2: {
                         type: ArgumentType.NUMBER,
                         defaultValue: ''
-                    },
-                    RTL_ROOT: {
-                        type: ArgumentType.IMAGE,
-                        dataURI: rtlRoot,
-                        flipRTL: true
                     }
                 },
                 hideFromPalette: HideBlockType.math
@@ -1133,14 +1119,13 @@
                 },
                 hideFromPalette: rareHideAndSow('math')
             },
-            {
-                blockType: BlockType.LABEL,
-                text: formatMessage({
+            !HideBlockType.bool ? (
+                '---' +
+                formatMessage({
                     id: 'OPERATION.BOOLEAN_LABEL',
                     default: 'Boolean'
-                }),
-                hideFromPalette: HideBlockType.bool
-            },
+                })
+            ) : '',
             {
                 opcode: 'booleanMenu',
                 blockType: BlockType.BOOLEAN,
@@ -1281,14 +1266,13 @@
                 hideFromPalette: HideBlockType.bool
             },
             ...allCompare(),
-            {
-                blockType: BlockType.LABEL,
-                text: formatMessage({
+            !HideBlockType.string ? (
+                '---' +
+                formatMessage({
                     id: 'OPERATION.STRING_LABEL',
                     default: 'String'
-                }),
-                hideFromPalette: HideBlockType.string
-            },
+                })
+            ) : '',
             {
                 opcode: 'text',
                 blockType: BlockType.REPORTER,
@@ -1598,14 +1582,13 @@
                 },
                 hideFromPalette: rareHideAndSow('string')
             },
-            {
-                blockType: BlockType.LABEL,
-                text: formatMessage({
+            !HideBlockType.graph ? (
+                '---' +
+                formatMessage({
                     id: 'OPERATION.GRAPH_LABEL',
                     default: 'Graph'
-                }),
-                hideFromPalette: HideBlockType.graph
-            },
+                })
+            ) : '',
             {
                 opcode: 'calculateLineLength',
                 blockType: BlockType.REPORTER,
@@ -1880,14 +1863,13 @@
                 },
                 hideFromPalette: HideBlockType.graph
             },
-            {
-                blockType: BlockType.LABEL,
-                text: formatMessage({
+            !HideBlockType.base ? (
+                '---' +
+                formatMessage({
                     id: 'OPERATION.BASE_LABEL',
                     default: 'Base'
-                }),
-                hideFromPalette: HideBlockType.base
-            },
+                })
+            ) : '',
             {
                 opcode: 'base',
                 blockType: BlockType.REPORTER,
@@ -1976,13 +1958,13 @@
                 hideFromPalette: HideBlockType.base
             },
             ...allBitwise(isRTL),
-            {
-                blockType: BlockType.LABEL,
-                text: formatMessage({
+            (
+                '---' +
+                formatMessage({
                     id: 'OPERATION.CONSTANT_LABEL',
                     default: 'Constant'
                 })
-            },
+            ),
             {
                 opcode: 'getConstant',
                 blockType: BlockType.REPORTER,
@@ -2419,6 +2401,10 @@
     }
 
     class Operation {
+        constructor(runtime) {
+            Operation.runtime = runtime;
+        }
+
         getInfo() {
             return getInfo();
         }
@@ -2483,16 +2469,18 @@
         }
 
         calculate({ TEXT }) {
+            const expression = String(TEXT);
             const isNumRegex = /^-?\d+(\.\d+)?$/;
-            if (isNumRegex.test(TEXT)) return TEXT;
+            if (isNumRegex.test(expression)) return expression;
             try {
-                let processedExpression = TEXT
+                let processedExpression = expression
                     .replaceAll('[', '(').replaceAll('{', '(')
                     .replaceAll(']', ')').replaceAll('}', ')')
                     .replaceAll('×', '*').replaceAll('÷', '/')
                     .replaceAll('^', '**');
                 processedExpression = processedExpression.replace(/[a-zA-Z]+/g, match => `Math.${match}`);
-                const result = eval(processedExpression);
+                const func = new Function('Math', `return (${processedExpression})`);
+                const result = func(Math);
                 if (typeof result === 'number') return result;
                 else return '';
             }
