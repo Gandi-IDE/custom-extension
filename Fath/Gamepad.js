@@ -728,8 +728,8 @@ window.tempExt = {
   },
   l10n: {
     'zh-cn': {
-      'Gamepad.extensionName': '直接访问游戏手柄，而不仅仅是将按钮映射到按键。',
-      'Gamepad.description': 'Directly access gamepads instead of just mapping buttons to keys.',
+      'Gamepad.extensionName': 'Gamepad',
+      'Gamepad.description': '直接访问游戏手柄，而不仅仅是将按钮映射到按键。',
     },
     en: {
       'Gamepad.extensionName': 'Gamepad',
