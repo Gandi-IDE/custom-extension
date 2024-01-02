@@ -92,9 +92,91 @@ const matchProduct = (id) => {
 
 class GamepadExtension {
   constructor(runtime) {
-    this.runtime = runtime
-    //Generated translation table by Bing Chat cus i am lazy
-    this._formatMessage = runtime.getFormatMessage({ 'zh-cn': { 'Gamepad.Gamepad': "游戏手柄", 'get [d] of pad [i]': "获取手柄 [i] 的 [d]", 'button [b] on pad [i] pressed?': "手柄 [i] 上的按钮 [b] 是否按下？", 'value of button [b] on pad [i]': "手柄 [i] 上的按钮 [b] 的值", 'value of axis [b] on pad [i]': "手柄 [i] 上的轴 [b] 的值", 'direction of axes [axis] on pad [pad]': "手柄 [pad] 上的轴 [axis] 的方向", 'magnitude of axes [axis] on pad [pad]': "手柄 [pad] 上的轴 [axis] 的大小", 'rumble strong [s] and weak [w] for [t] sec. on pad [i]': "在手柄 [i] 上震动强度为 [s] 和 [w] 的 [t] 秒", 'set axis deadzone to [i]': "设置轴的死区为 [i]", 'set button deadzone to [i]': "设置按钮的死区为 [i]", 'get axis deadzone': "获取轴的死区", 'get button deadzone': "获取按钮的死区", 'any': "任意", 'Left bumper (5)': "左肩键 (5)", 'Right bumper (6)': "右肩键 (6)", 'Left trigger (7)': "左扳机 (7)", 'Right trigger (8)': "右扳机 (8)", 'Select/View (9)': "选择/视图 (9)", 'Start/Menu (10)': "开始/菜单 (10)", 'Left stick (11)': "左摇杆 (11)", 'Right stick (12)': "右摇杆 (12)", 'D-pad up (13)': "十字键上 (13)", 'D-pad down (14)': "十字键下 (14)", 'D-pad left (15)': "十字键左 (15)", 'D-pad right (16)': "十字键右 (16)", 'Left stick horizontal (1)': "左摇杆水平 (1)", 'Left stick vertical (2)': "左摇杆垂直 (2)", 'Right stick horizontal (3)': "右摇杆水平 (3)", 'Right stick vertical (4)': "右摇杆垂直 (4)", 'Left stick (1 & 2)': "左摇杆 (1 & 2)", 'Right stick (3 & 4)': "右摇杆 (3 & 4)", 'id': "标识", 'vendor': "厂商", 'product': "产品", 'mapping': "映射" }, en: { 'Gamepad.Gamepad': "Gamepad", 'get [d] of pad [i]': "get [d] of pad [i]", 'button [b] on pad [i] pressed?': "button [b] on pad [i] pressed?", 'value of button [b] on pad [i]': "value of button [b] on pad [i]", 'value of axis [b] on pad [i]': "value of axis [b] on pad [i]", 'direction of axes [axis] on pad [pad]': "direction of axes [axis] on pad [pad]", 'magnitude of axes [axis] on pad [pad]': "magnitude of axes [axis] on pad [pad]", 'rumble strong [s] and weak [w] for [t] sec. on pad [i]': "rumble strong [s] and weak [w] for [t] sec. on pad [i]", 'set axis deadzone to [i]': "set axis deadzone to [i]", 'set button deadzone to [i]': "set button deadzone to [i]", 'get axis deadzone': "get axis deadzone", 'get button deadzone': "get button deadzone", 'any': "any", 'Left bumper (5)': "Left bumper (5)", 'Right bumper (6)': "Right bumper (6)", 'Left trigger (7)': "Left trigger (7)", 'Right trigger (8)': "Right trigger (8)", 'Select/View (9)': "Select/View (9)", 'Start/Menu (10)': "Start/Menu (10)", 'Left stick (11)': "Left stick (11)", 'Right stick (12)': "Right stick (12)", 'D-pad up (13)': "D-pad up (13)", 'D-pad down (14)': "D-pad down (14)", 'D-pad left (15)': "D-pad left (15)", 'D-pad right (16)': "D-pad right (16)", 'Left stick horizontal (1)': "Left stick horizontal (1)", 'Left stick vertical (2)': "Left stick vertical (2)", 'Right stick horizontal (3)': "Right stick horizontal (3)", 'Right stick vertical (4)': "Right stick vertical (4)", 'Left stick (1 & 2)': "Left stick (1 & 2)", 'Right stick (3 & 4)': "Right stick (3 & 4)", 'id': "id", 'vendor': "vendor", 'product': "product", 'mapping': "mapping" }, });
+    this.runtime = runtime;
+    this._formatMessage = runtime.getFormatMessage({
+      "zh-cn": {
+        "Gamepad.Gamepad": "Gamepad",
+        "gamepad [pad] connected?": "游戏手柄 [pad] 已连接?",
+        "get [d] of pad [i]": "获取手柄 [i] 的 [d]",
+        "button [b] on pad [i] pressed?": "按钮 [b] 在游戏手柄 [i] 上被按下",
+        "value of button [b] on pad [i]": "游戏手柄 [i] 上按钮 [b] 的值",
+        "value of axis [b] on pad [i]": "游戏手柄 [i] 上轴 [b] 的值",
+        "direction of axes [axis] on pad [pad]":
+          "游戏手柄 [pad] 上 [axis] 的方向",
+        "magnitude of axes [axis] on pad [pad]":
+          "游戏手柄 [pad] 上 [axis] 的大小",
+        "rumble strong [s] and weak [w] for [t] sec. on pad [i]":
+          "在游戏手柄 [i] 上震动强 [s] 和弱 [w] 各 [t] 秒",
+        "set axis deadzone to [i]": "设置轴的死区为 [i]",
+        "set button deadzone to [i]": "设置按钮的死区为 [i]",
+        "get axis deadzone": "获取轴的死区",
+        "get button deadzone": "获取按钮的死区",
+        any: "任意(any)",
+        "Left bumper (5)": "左按钮 (5)",
+        "Right bumper (6)": "右按钮 (6)",
+        "Left trigger (7)": "左扳机 (7)",
+        "Right trigger (8)": "右扳机 (8)",
+        "Select/View (9)": "选择/查看 (9)",
+        "Start/Menu (10)": "开始/菜单 (10)",
+        "Left stick (11)": "左摇杆 (11)",
+        "Right stick (12)": "右摇杆 (12)",
+        "D-pad up (13)": "方向↑ (13)",
+        "D-pad down (14)": "方向↓ (14)",
+        "D-pad left (15)": "方向← (15)",
+        "D-pad right (16)": "方向→ (16)",
+        "Left stick horizontal (1)": "左摇杆x (1)",
+        "Left stick vertical (2)": "左摇杆y (2)",
+        "Right stick horizontal (3)": "右摇杆x (3)",
+        "Right stick vertical (4)": "右摇杆y (4)",
+        "Left stick (1 & 2)": "左摇杆 (1 & 2)",
+        "Right stick (3 & 4)": "右摇杆 (3 & 4)",
+        id: "标识",
+        vendor: "厂商",
+        product: "产品",
+        mapping: "映射",
+      },
+      en: {
+        "Gamepad.Gamepad": "Gamepad",
+        "gamepad [pad] connected?": "gamepad [pad] connected?",
+        "get [d] of pad [i]": "get [d] of pad [i]",
+        "button [b] on pad [i] pressed?": "button [b] on pad [i] pressed?",
+        "value of button [b] on pad [i]": "value of button [b] on pad [i]",
+        "value of axis [b] on pad [i]": "value of axis [b] on pad [i]",
+        "direction of axes [axis] on pad [pad]":
+          "direction of axes [axis] on pad [pad]",
+        "magnitude of axes [axis] on pad [pad]":
+          "magnitude of axes [axis] on pad [pad]",
+        "rumble strong [s] and weak [w] for [t] sec. on pad [i]":
+          "rumble strong [s] and weak [w] for [t] sec. on pad [i]",
+        "set axis deadzone to [i]": "set axis deadzone to [i]",
+        "set button deadzone to [i]": "set button deadzone to [i]",
+        "get axis deadzone": "get axis deadzone",
+        "get button deadzone": "get button deadzone",
+        any: "any",
+        "Left bumper (5)": "Left bumper (5)",
+        "Right bumper (6)": "Right bumper (6)",
+        "Left trigger (7)": "Left trigger (7)",
+        "Right trigger (8)": "Right trigger (8)",
+        "Select/View (9)": "Select/View (9)",
+        "Start/Menu (10)": "Start/Menu (10)",
+        "Left stick (11)": "Left stick (11)",
+        "Right stick (12)": "Right stick (12)",
+        "D-pad up (13)": "D-pad up (13)",
+        "D-pad down (14)": "D-pad down (14)",
+        "D-pad left (15)": "D-pad left (15)",
+        "D-pad right (16)": "D-pad right (16)",
+        "Left stick horizontal (1)": "Left stick horizontal (1)",
+        "Left stick vertical (2)": "Left stick vertical (2)",
+        "Right stick horizontal (3)": "Right stick horizontal (3)",
+        "Right stick vertical (4)": "Right stick vertical (4)",
+        "Left stick (1 & 2)": "Left stick (1 & 2)",
+        "Right stick (3 & 4)": "Right stick (3 & 4)",
+        id: "id",
+        vendor: "vendor",
+        product: "product",
+        mapping: "mapping",
+      },
+    });
   }
 
   formatMessage(id) {
@@ -111,13 +193,13 @@ class GamepadExtension {
       name: this.formatMessage("Gamepad"),
       blockIconURI: Icon,
       color1: '#2abfb3',
-      color2: '#23a89e ',
+      color2: '#23a89e',
       color3: '#30D5C8',
       blocks: [
         {
           opcode: "gamepadConnected",
           blockType: Scratch.BlockType.BOOLEAN,
-          text: "gamepad [pad] connected?",
+          text: this.formatMessage("gamepad [pad] connected?"),
           arguments: {
             pad: {
               type: Scratch.ArgumentType.NUMBER,
@@ -637,6 +719,10 @@ window.tempExt = {
       {
         collaborator: "Fath11@Cocrea",
         collaboratorURL: "https://cocrea.world/@Fath11",
+      },
+      {
+        collaborator: '官方小傲娇 @ CCW',
+        collaboratorURL: 'https://www.ccw.site/student/62f76ddb49c5dc44ac0c03c0'
       },
     ],
   },
