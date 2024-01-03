@@ -50,20 +50,17 @@ class CommentBlocks {
   
     getInfo() {
       return {
-        id: "commentblocks",
+        id: "lmscomments",
         name: this.formatMessage('CmntExt.extensionName'),
         color1: "#191e25",
         color2: "#191e25",
         color3: "#191919",
         blockIconURI: icon,
         blocks: [
-          "---" + "✨ Made by LilyMakesThings",
-          "---" + "Changed a little bit by Fath11",
-          "---" + "🎩 Hats",
           {
             opcode: "commentHat",
             blockType: Scratch.BlockType.HAT,
-            text: this.formatMessage('CmntExt.commentHat'),
+            text: "// [COMMENT]",
             isEdgeActivated: false,
             arguments: {
               COMMENT: {
@@ -71,26 +68,33 @@ class CommentBlocks {
                 defaultValue: "comment",
               },
             },
-            func: 'returnTrue',
           },
-          "---" + "📚 Stacks",
           {
             opcode: "commentCommand",
             blockType: Scratch.BlockType.COMMAND,
-            text: this.formatMessage('CmntExt.commentCommand'),
+            text: "// [COMMENT]",
             arguments: {
               COMMENT: {
                 type: Scratch.ArgumentType.STRING,
                 defaultValue: "comment",
               },
             },
-            func: 'return',
           },
-          "---" + "📲 Reporters",
+          {
+            opcode: "commentC",
+            blockType: Scratch.BlockType.CONDITIONAL,
+            text: "// [COMMENT]",
+            arguments: {
+              COMMENT: {
+                type: Scratch.ArgumentType.STRING,
+                defaultValue: "comment",
+              },
+            },
+          },
           {
             opcode: "commentReporter",
             blockType: Scratch.BlockType.REPORTER,
-            text: this.formatMessage('CmntExt.commentReporter'),
+            text: "[INPUT] // [COMMENT]",
             allowDropAnywhere: true,
             arguments: {
               COMMENT: {
@@ -102,43 +106,11 @@ class CommentBlocks {
                 defaultValue: "",
               },
             },
-            func: 'return',
           },
-          {
-            opcode: "commentReporter2",
-            blockType: Scratch.BlockType.REPORTER,
-            text: this.formatMessage('CmntExt.commentReporter2'),
-            allowDropAnywhere: true,
-            arguments: {
-              COMMENT: {
-                type: Scratch.ArgumentType.STRING,
-                defaultValue: "comment",
-              },
-              INPUT: {
-                type: Scratch.ArgumentType.STRING,
-                defaultValue: "",
-              },
-            },
-            func: 'return',
-          },
-          {
-            opcode: "commentReporter3",
-            blockType: Scratch.BlockType.REPORTER,
-            text: this.formatMessage('CmntExt.commentReporter3'),
-            allowDropAnywhere: true,
-            arguments: {
-              COMMENT: {
-                type: Scratch.ArgumentType.STRING,
-                defaultValue: "comment",
-              },
-            },
-            func: 'returnComment',
-          },
-          "---" + "🫳 Booleans",
           {
             opcode: "commentBoolean",
             blockType: Scratch.BlockType.BOOLEAN,
-            text: this.formatMessage('CmntExt.commentBoolean'),
+            text: "[INPUT] // [COMMENT]",
             arguments: {
               COMMENT: {
                 type: Scratch.ArgumentType.STRING,
@@ -148,94 +120,29 @@ class CommentBlocks {
                 type: Scratch.ArgumentType.BOOLEAN,
               },
             },
-            func: 'returnBool',
-          },
-          {
-            opcode: "commentBoolean2",
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: this.formatMessage('CmntExt.commentBoolean2'),
-            arguments: {
-              COMMENT: {
-                type: Scratch.ArgumentType.STRING,
-                defaultValue: "comment",
-              },
-              INPUT: {
-                type: Scratch.ArgumentType.BOOLEAN,
-              },
-            },
-            func: 'returnBool',
-          },
-          {
-            opcode: "commentBoolean3",
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: this.formatMessage('CmntExt.commentBoolean3'),
-            arguments: {
-              COMMENT: {
-                type: Scratch.ArgumentType.STRING,
-                defaultValue: "comment",
-              },
-            },
-            func: 'returnCommentBool',
-          },
-          "---" + "📂 C blocks",
-        {
-          opcode: 'commentConditional',
-          blockType: Scratch.BlockType.CONDITIONAL,
-          branchCount: 1,
-          isTerminal: false,
-          blockAllThreads: true,
-          text: this.formatMessage('CmntExt.commentConditional'),
-          arguments: {
-            COMMENT: {
-              type: Scratch.ArgumentType.STRING,
-              defaultValue: "comment",
-            },
-          },
-          func: 'startBranch',
-        },
-          {
-            opcode: "commentLoop",
-            blockType: Scratch.BlockType.LOOP,
-            text: this.formatMessage('CmntExt.commentLoop'),
-            isTerminal: true,
-            arguments: {
-              COMMENT: {
-                type: Scratch.ArgumentType.STRING,
-                defaultValue: "comment",
-              },
-            },
-            func: 'startBranch',
           },
         ],
       };
     }
-  
-    returnTrue() {
+
+    commentHat() {
       return true
     }
-  
-    return(args) {
+
+    commentCommand() {
+      // no-op
+    }
+
+    commentC(args, util) {
+      util.startBranch(1, false);
+    }
+
+    commentReporter(args) {
       return args.INPUT;
     }
   
-    returnBool(args) {
-      return args.INPUT == true || false;
-    }
-
-    returnComment(args) {
-      return args.COMMENT;
-    }
-
-    returnCommentBool(args) {
-      if (args.COMMENT !== "") {
-        return true
-      } else {
-        return false
-      }
-    }
-  
-    startBranch(_, util) {
-      util.startBranch(1, false);
+    commentBoolean(args) {
+      return args.INPUT || false;
     }
   }
   
@@ -244,7 +151,7 @@ class CommentBlocks {
     info: {
       name: 'CmntExt.extensionName',
       description: 'CmntExt.description',
-      extensionId: 'commentblocks',
+      extensionId: 'lmscomments',
       iconURL: cover,
       insetIconURL: icon,
       featured: true,
@@ -255,10 +162,6 @@ class CommentBlocks {
               {
                   collaborator: 'Lily@TW',
                   collaboratorURL: 'https://scratch.mit.edu/users/lilymakesthings/'
-              },
-              {
-                  collaborator: 'Fath11@Cocrea',
-                  collaboratorURL: 'https://cocrea.world/@Fath11'
               },
           ]
     },
