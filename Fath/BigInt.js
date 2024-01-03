@@ -103,7 +103,7 @@
     }
     getInfo() {
       return {
-        id: "bigint",
+        id: "skyhigh173BigInt",
         name: "BigInt",
         color1: "#59C093",
         color2: "#59C093",
@@ -526,7 +526,7 @@
     info: {
       name: 'BigInt.extensionName',
       description: 'BigInt.description',
-      extensionId: 'bigint',
+      extensionId: 'skyhigh173BigInt',
       iconURL: cover,
       insetIconURL: icon,
       featured: true,
