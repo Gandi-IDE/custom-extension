@@ -60,7 +60,7 @@ class CommentBlocks {
           {
             opcode: "commentHat",
             blockType: Scratch.BlockType.HAT,
-            text: "// [COMMENT]",
+            text: "[COMMENT]",
             isEdgeActivated: false,
             arguments: {
               COMMENT: {
@@ -72,7 +72,7 @@ class CommentBlocks {
           {
             opcode: "commentCommand",
             blockType: Scratch.BlockType.COMMAND,
-            text: "// [COMMENT]",
+            text: "[COMMENT]",
             arguments: {
               COMMENT: {
                 type: Scratch.ArgumentType.STRING,
@@ -83,7 +83,7 @@ class CommentBlocks {
           {
             opcode: "commentC",
             blockType: Scratch.BlockType.CONDITIONAL,
-            text: "// [COMMENT]",
+            text: "[COMMENT]",
             arguments: {
               COMMENT: {
                 type: Scratch.ArgumentType.STRING,
