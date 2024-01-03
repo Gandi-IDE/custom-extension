@@ -9,34 +9,11 @@ class CommentBlocks {
     this.runtime = runtime
     this._formatMessage = runtime.getFormatMessage({
       'zh-cn': {
-        'CmntExt.extensionName': "评论区",
-        'CmntExt.commentHat': '[COMMENT]',
-        'CmntExt.commentCommand': '[COMMENT]',
-        'CmntExt.commentCap': '[COMMENT]',
-        'CmntExt.commentReporter': '[INPUT] [COMMENT]',
-        'CmntExt.commentReporter2': '[COMMENT] [INPUT]',
-        'CmntExt.commentReporter3': '[COMMENT]',
-        'CmntExt.commentBoolean': '[INPUT] [COMMENT]',
-        'CmntExt.commentBoolean2': '[COMMENT] [INPUT]',
-        'CmntExt.commentBoolean3': '[COMMENT]',
-        'CmntExt.commentConditional': '[COMMENT]',
-        'CmntExt.commentLoop': '[COMMENT]',
+        'CmntExt.extensionName': "注释块"
       },
   
       en: {
-        'CmntExt.extensionName': "Comment blocks",
-        'CmntExt.commentHat': '[COMMENT]',
-        'CmntExt.commentCommand': '[COMMENT]',
-        'CmntExt.commentCap': '[COMMENT]',
-        'CmntExt.commentReporter': '[INPUT] [COMMENT]',
-        'CmntExt.commentReporter2': '[COMMENT] [INPUT]',
-        'CmntExt.commentReporter3': '[COMMENT]',
-        'CmntExt.commentBoolean': '[INPUT] [COMMENT]',
-        'CmntExt.commentBoolean2': '[COMMENT] [INPUT]',
-        'CmntExt.commentBoolean3': '[COMMENT]',
-        'CmntExt.commentConditional': '[COMMENT]',
-        'CmntExt.commentLoop': '[COMMENT]',
-      },
+        'CmntExt.extensionName': "Comment blocks"
     })
   }
   
@@ -167,7 +144,7 @@ class CommentBlocks {
     },
     l10n: {
       'zh-cn': {
-        'CmntExt.extensionName': "评论区",
+        'CmntExt.extensionName': "注释块",
         'CmntExt.description': '注释你的脚本',
       },
       'en': {
