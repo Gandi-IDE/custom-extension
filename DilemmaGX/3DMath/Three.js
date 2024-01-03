@@ -87,12 +87,12 @@ class Three {
                 'Three.block.spr3DgetSize': '我的3D大小',
                 'Three.block.spr3D': '在3D中前往我的位置',
 
-                "Three.menu.nmove": "不更新位置",
-                "Three.menu.move": "更新位置",
-                "Three.menu.nsize": "不更新大小",
-                "Three.menu.size": "更新大小",
-                "Three.menu.ncam": "不更新屏幕",
-                "Three.menu.cam": "更新屏幕"
+                "Three.menu.nmove": "不更新当前角色",
+                "Three.menu.move": "更新当前角色",
+                "Three.menu.nsize": "不更新当前角色",
+                "Three.menu.size": "更新当前角色",
+                "Three.menu.ncam": "不更新当前角色",
+                "Three.menu.cam": "更新当前角色"
             },
 
             en: {
@@ -155,12 +155,12 @@ class Three {
                 'Three.block.spr3DgetSize': 'my 3d size',
                 'Three.block.spr3D': 'go to my position in 3D',
 
-                "Three.menu.nmove": "do not update position",
-                "Three.menu.move": "update position",
-                "Three.menu.nsize": "do not update size",
-                "Three.menu.size": "update size",
-                "Three.menu.ncam": "do not update screen",
-                "Three.menu.cam": "update screen",
+                "Three.menu.nmove": "do not update current character",
+                "Three.menu.move": "update urrent character",
+                "Three.menu.nsize": "do not update current character",
+                "Three.menu.size": "update current character",
+                "Three.menu.ncam": "do not update current character",
+                "Three.menu.cam": "update current character"
             }
         })
     }
