@@ -299,7 +299,7 @@ class Animator {
             'zh-cn': {
                 'Ani.extensionName': 'Animator',
                 'Ani.Animate':
-                    '[type](初始值=[start], 尾值=[end], 长度=[length]) 于[time]秒时的值', //block
+                    '用[type]方式计算时长[length]从[start]到[end]的函数于[time]时的值', //block
                 'Ani.Move': '🏃在[time]秒内以[type]方式移到[endx][endy]', //block
                 'Ani.Effect': '✨在[time]秒内以[type]方式将[Effect]更改为[endv]', //block
                 'Ani.Dir': '🔄️在[time]秒内以[type]方式转到[endv]度', //block
@@ -537,6 +537,9 @@ class Animator {
             ],
             menus: {
                 Ani: [{
+                    text: this.formatMessage("Ani.linear"),
+                    value: "Linear"
+                }, {
                     text: this.formatMessage("Ani.easeInQuad"),
                     value: "EaseInQuad"
                 }, {
