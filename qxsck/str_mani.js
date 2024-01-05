@@ -1000,13 +1000,17 @@ class str_mani {
     }
     getStrNumInStr(args){
         let str=String(args.STR),str2=String(args.STR2);
-        let str_=str,strindexs=[str_.indexOf(str2)];
-        let index_=strindexs[strindexs.length-1]+1;
-        while(str_.indexOf(str2,index_)!=-1){
-            strindexs.push(str_.indexOf(str2,index_));
-            index_=strindexs[strindexs.length-1]+1;
+        if(str2=="" || str=="") return 0;
+        else if(str.indexOf(str2)==-1) return 0;
+        else{
+            let str_=str,strindexs=[str_.indexOf(str2)];
+            let index_=strindexs[strindexs.length-1]+1;
+            while(str_.indexOf(str2,index_)!=-1){
+                strindexs.push(str_.indexOf(str2,index_));
+                index_=strindexs[strindexs.length-1]+1;
+            }
+            return strindexs.length;
         }
-        return strindexs.length;
     }
     strIsAvailable(args) {
         let str=String(args.STR);
