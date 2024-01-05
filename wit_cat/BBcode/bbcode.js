@@ -161,7 +161,6 @@ let runtime;
   let SpolierTag;
   let HideTag;
   let SpriteTag;
-  let BiliBiliTag;
   let MeterTag;
   let ListItemTag;
   let ListTag;
@@ -817,32 +816,6 @@ let runtime;
     return SpriteTag;
   })(this.bbcode.Tag);
 
-  BiliBiliTag = (function (superClass) {
-    extend(BiliBiliTag, superClass);
-
-    function BiliBiliTag() {
-      this.SELF_CLOSE = true;
-      return BiliBiliTag.__super__.constructor.apply(this, arguments);
-    }
-
-    BiliBiliTag.prototype._toHTML = function () {
-      let attributes = {};
-      if ('width' in this.params) {
-        attributes.width = this.params.width;
-      }
-      if ('height' in this.params) {
-        attributes.height = this.params.height;
-      }
-      if ('aspect-ratio' in this.params) {
-        attributes["style"] = `aspect-ratio:${this.params["aspect-ratio"]};`;
-      }
-      attributes.src = `//player.bilibili.com/player.html?bvid=${this.params[this.name]}`;
-      return [`<iframe ${this.renderer.htmlAttributes(attributes)}>`, `</iframe>`];
-    };
-
-    return BiliBiliTag;
-  })(this.bbcode.Tag);
-
   MeterTag = (function (superClass) {
     extend(MeterTag, superClass);
 
@@ -966,7 +939,6 @@ let runtime;
     spolier: SpolierTag,
     hide: HideTag,
     sprite: SpriteTag,
-    bilibili: BiliBiliTag,
     meter: MeterTag,
     table: TableTag,
     tr: TrTag,
