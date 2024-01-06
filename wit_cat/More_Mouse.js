@@ -2,7 +2,6 @@ const witcat_more_mouse_picture = "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSI
 
 const witcat_more_mouse_icon = "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIxNzcuMDg4NTUiIGhlaWdodD0iMTc3LjA4ODU1IiB2aWV3Qm94PSIwLDAsMTc3LjA4ODU1LDE3Ny4wODg1NSI+PGRlZnM+PGxpbmVhckdyYWRpZW50IHgxPSIyNDcuMDc3MyIgeTE9IjExOS4xNDIzMSIgeDI9IjI0Ny4wNzczIiB5Mj0iMjIyLjA2OTQ4IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgaWQ9ImNvbG9yLTEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2U1ZWFmMyIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xNTEuNDU1NzYsLTkxLjQ1NTc0KSI+PGcgZGF0YS1wYXBlci1kYXRhPSJ7JnF1b3Q7aXNQYWludGluZ0xheWVyJnF1b3Q7OnRydWV9IiBmaWxsLXJ1bGU9Im5vbnplcm8iIHN0cm9rZS13aWR0aD0iMCIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2UtZGFzaGFycmF5PSIiIHN0cm9rZS1kYXNob2Zmc2V0PSIwIiBzdHlsZT0ibWl4LWJsZW5kLW1vZGU6IG5vcm1hbCI+PHBhdGggZD0iTTE1MS40NTU3NiwyNjguNTQ0Mjl2LTE3Ny4wODg1NWgxNzcuMDg4NTV2MTc3LjA4ODU1eiIgZmlsbD0iIzhlYWNlMSIgc3Ryb2tlPSJub25lIiBzdHJva2UtbGluZWNhcD0iYnV0dCIvPjxwYXRoIGQ9Ik0yMzguMjAwNywyNDAuODU3NjlsLTEwLjQ4NDQxLC0zNS4xNjgwMmwtMjEuMzAyNDQsMjEuOTAwNjJsNC40Njc1OCwtMTA0Ljg5OTUxbDYzLjcxNjM3LDc5LjQ1MzQ5bC0yOS4yODgyNCwtMS41OTkxMmw5LjIwMDkxLDM0LjM1MTE1eiIgZmlsbD0iIzcyOGJiNSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNMjQ1Ljg4MDQ3LDIyMi4wNjk0OGwtMTEuOTY4MjcsLTMwLjUxOTFsLTIwLjM0NjA3LDIwLjM0NjA3di05Mi43NTQxM2w2Ny4wMjIzNCw2Ny4wMjIzNGgtMjkuMzIyMjdsMTAuNjUxNTEsMjkuODYwM3oiIGZpbGw9InVybCgjY29sb3ItMSkiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9nPjwvZz48L3N2Zz48IS0tcm90YXRpb25DZW50ZXI6ODguNTQ0MjQ0OTk5OTk5OTk6ODguNTQ0MjU1LS0+";
 
-// eslint-disable-next-line camelcase
 const witcat_more_mouse_extensionId = 'WitCatMouse';
 
 /** @typedef {string|number} SCarg 来自Scratch圆形框的参数，虽然这个框可能只能输入数字，但是可以放入变量，因此有可能获得数字和文本，需要同时处理 */
@@ -84,23 +83,6 @@ class WitCatMouse {
 		 * @type {HTMLDivElement}
 		 */
 		this.titleDiv = null;
-
-		/**
-		 * 拒绝全屏次数
-		 */
-		this.fillNum = 0;
-
-		/**
-		 * 全屏监听事件缓存
-		 */
-		this.fillEvent = [null, null];
-
-		this.fillEvent[1] = new MutationObserver((mutationsList) => {
-			resizeElementInParent(mutationsList[0].target.parentElement.parentElement, false, 'aspectRatio', this.runtime.stageWidth / this.runtime.stageHeight);
-			resizeElementInParent(mutationsList[0].target.parentElement, false, 'aspectRatio', this.runtime.stageWidth / this.runtime.stageHeight);
-			resizeElementInParent(mutationsList[0].target.parentElement.nextSibling.firstChild, false, 'zoom');
-			resizeElementInParent(mutationsList[0].target, false, 'aspectRatio', this.runtime.stageWidth / this.runtime.stageHeight);
-		});
 
 		this.runtime = runtime;
 
@@ -1679,37 +1661,6 @@ window.tempExt = {
 		}
 	}
 };
-
-/**
- * 将元素全屏
- * @param {Element} element 需要全屏的元素
- */
-function launchFullscreen(element) {
-	if (element.requestFullscreen) {
-		element.requestFullscreen();
-	} else if (element.mozRequestFullScreen) {
-		element.mozRequestFullScreen();
-	} else if (element.msRequestFullscreen) {
-		element.msRequestFullscreen();
-	} else if (element.webkitRequestFullscreen) {
-		element.webkitRequestFullScreen();
-	}
-}
-
-/**
- * 退出全屏模式
- */
-function exitFullscreen() {
-	if (document.exitFullscreen) {
-		document.exitFullscreen();
-	} else if (document.msExitFullscreen) {
-		document.msExitFullscreen();
-	} else if (document.mozCancelFullScreen) {
-		document.mozCancelFullScreen();
-	} else if (document.webkitExitFullscreen) {
-		document.webkitExitFullscreen();
-	}
-}
 
 /**
  * 计算舞台在全屏/非全屏的大小
