@@ -336,6 +336,7 @@ class WitCatMouse {
 					opcode: 'fill',
 					blockType: 'command',
 					text: this.formatMessage('WitCatMouse.fill'),
+					hideFromPalette: true,
 					arguments: {
 						set: {
 							type: 'bool',
@@ -968,93 +969,7 @@ class WitCatMouse {
 	 * @deprecated
 	 */
 	fill(args) {
-		const canvas = this.canvasSelf();
-		if (canvas === null) {
-			return 0;
-		}
-		if (this.fillNum < 3) {
-			if (args.set == 'true') {
-				this.fillNum = 0;
-				let fills = confirm(this.formatMessage('WitCatMouse.fillask.1') + this.fillNum + this.formatMessage('WitCatMouse.fillask.2'))
-				if (fills) {
-					launchFullscreen(this.canvas().parentElement.parentElement);
-					this.canvas().parentElement.parentElement.style.overflow = 'visible';
-					this.canvas().parentElement.parentElement.style.display = 'flex';
-					this.canvas().parentElement.parentElement.style.alignItems = 'center';
-					this.canvas().parentElement.style.display = 'flex';
-					this.canvas().parentElement.style.alignItems = 'center';
-					this.canvas().style.display = 'flex';
-					this.canvas().style.alignItems = 'center';
-					setTimeout(() => {
-						setTimeout(() => {
-							resizeElementInParent(this.canvas().parentElement, false, 'aspectRatio', this.runtime.stageWidth / this.runtime.stageHeight);
-							resizeElementInParent(this.canvas(), false, 'aspectRatio', this.runtime.stageWidth / this.runtime.stageHeight);
-							resizeElementInParent(this.canvas().nextSibling.firstChild, false, 'zoom');
-							resizeElementInParent(canvas, false, 'aspectRatio', this.runtime.stageWidth / this.runtime.stageHeight);
-							this.runtime.renderer.dirty = true;
-							this.runtime.renderer.draw();
-							let button = document.getElementsByClassName('gandi_button_btn_dCMn2 gandi_stage-header_stage-button_hkl9B')[0] ||
-								document.getElementsByClassName('action-item-P9SP6')[0] ||
-								document.getElementsByClassName('c-actionItem')[0];
-							if (button.innerHTML.includes("进入") || button.innerHTML.includes("M12.5 7.5l5-5m0 0h-5m5 0v5m-10 0l-5-5m0 0v5m0-5h5m0 10l-5 5m0 0h5m-5 0v-5m10 0l5 5m0 0v-5m0 5h-5")) {
-								button.click();
-							}
-						}, 100);
-						document.addEventListener("fullscreenchange", () => {
-							if (!document.fullscreenElement) {
-								console.log("111")
-								this.fillEvent[1].disconnect();
-								setTimeout(() => {
-									this.canvas().style = "";
-									canvas.style.width = "100%";
-									canvas.style.height = "100%";
-									resizeElementInParent(this.canvas().parentElement, true, 'aspectRatio', this.runtime.stageWidth / this.runtime.stageHeight);
-									resizeElementInParent(this.canvas(), true, 'aspectRatio', this.runtime.stageWidth / this.runtime.stageHeight);
-									this.canvas().style.width = "auto";
-									this.canvas().style.height = "auto";
-									this.canvas().parentElement.style.width = "auto";
-									this.canvas().parentElement.style.height = "auto";
-									resizeElementInParent(this.canvas().nextSibling.firstChild, true, 'zoom');
-									resizeElementInParent(canvas, true, 'aspectRatio', this.runtime.stageWidth / this.runtime.stageHeight);
-									this.runtime.startHats(`${witcat_more_mouse_extensionId}_whenOutFill`);
-								}, 100);
-							}
-						}, { once: true });
-						const config = { childList: true, attributeFilter: ['style'] };
-						this.fillEvent[1].observe(canvas, config);
-						if (this.fillEvent[0] === null) {
-							this.fillEvent[0] = window.addEventListener('resize', function reSizeFill() {
-								if (document.fullscreenElement) {
-									resizeElementInParent(this.canvas().parentElement, false, 'aspectRatio', this.runtime.stageWidth / this.runtime.stageHeight);
-									resizeElementInParent(this.canvas(), false, 'aspectRatio', this.runtime.stageWidth / this.runtime.stageHeight);
-									resizeElementInParent(this.canvas().nextSibling.firstChild, false, 'zoom');
-									resizeElementInParent(canvas, false, 'aspectRatio', this.runtime.stageWidth / this.runtime.stageHeight);
-								}
-							}.bind(this));
-						}
-					}, 100);
-				}
-				else {
-					this.fillNum++;
-				}
-			} else {
-				exitFullscreen();
-				this.fillEvent[1].disconnect();
-				setTimeout(() => {
-					this.canvas().style = "";
-					canvas.style.width = "100%";
-					canvas.style.height = "100%";
-					resizeElementInParent(this.canvas().parentElement, true, 'aspectRatio', this.runtime.stageWidth / this.runtime.stageHeight);
-					resizeElementInParent(this.canvas(), true, 'aspectRatio', this.runtime.stageWidth / this.runtime.stageHeight);
-					this.canvas().style.width = "auto";
-					this.canvas().style.height = "auto";
-					this.canvas().parentElement.style.width = "auto";
-					this.canvas().parentElement.style.height = "auto";
-					resizeElementInParent(this.canvas().nextSibling.firstChild, true, 'zoom');
-					resizeElementInParent(canvas, true, 'aspectRatio', this.runtime.stageWidth / this.runtime.stageHeight);
-				}, 100);
-			}
-		}
+		console.warn('全屏因浏览器兼容问题已下线，并不会再上线\nFull screen has been taken offline due to browser compatibility issues. And never back online.')
 	}
 
 	whenOutFill() {
