@@ -1,0 +1,3 @@
+版本日志
+v1.0.0-dev 拓展积木功能 设置界面 因未添加window.tempExt而没有通过审核
+v1.0.1-beta 适配gandi 添加封面、icon1、icon2 得出两版icon 
