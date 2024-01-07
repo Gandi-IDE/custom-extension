@@ -1,0 +1,25 @@
+{
+  "name": "tilemapext",
+  "version": "1.0.0",
+  "description": "",
+  "main": "rollup.config.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "rollup -c -w",
+    "build": "rollup -c"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^5.0.10",
+    "vite-plugin-eslint": "^1.8.1"
+  },
+  "dependencies": {
+    "@pixi/particle-emitter": "^5.0.8",
+    "@pixi/tilemap": "^4.0.0",
+    "@pixi/ui": "^0.10.1",
+    "pixi.js": "^7.3.3"
+  }
+}

@@ -1,0 +1,20 @@
+{
+    "info": {
+        "name": "nights.tilemap.name",
+        "description": "nights.tilemap.descp",
+        "extensionId": "nightstilemap",
+        "featured": true,
+        "disabled": false,
+        "collaborator": "nights"
+    },
+    "l10n": {
+        "zh-cn": {
+            "nights.tilemap.name": "瓦片地图",
+            "nights.tilemap.descp": "高性能瓦片地图渲染，快有点意思..."
+        },
+        "en": {
+            "nights.tilemap.name": "TileMap",
+            "nights.tilemap.descp": "High-performance tile map rendering, it's getting interestingly fast..."
+        }
+    }
+}
