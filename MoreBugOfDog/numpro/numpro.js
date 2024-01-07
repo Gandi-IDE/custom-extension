@@ -1,6 +1,9 @@
 ((Scratch) => {
     'use strict';
-
+    const OPERATION_EXT_extensionId = "numpro";
+    const OPERATION_EXT_picture = "https://m.ccw.site/user_projects_assets/47a14685789ba3c957c82f14cb9802e3.png";    
+    const OPERATION_EXT_icon = "https://m.ccw.site/user_projects_assets/240948213d2fc2650c375fb2573bfacd.png";
+    const OPERATION_EXT_icon2 = "https://m.ccw.site/user_projects_assets/a4bc960bfbc7215940c24eb3820f5663.png";
     const { Cast, ArgumentType, BlockType } = Scratch;
 
     Scratch.translate.setup({
@@ -226,28 +229,28 @@
     document.body.appendChild(mask);
 
     mask.addEventListener('click', (event) => {
-        if (!setingWindow.contains(event.target)) {
+        if (!settingwindow.contains(event.target)) {
             hideWindow();
         }
     });
 
-    let setingWindow = document.createElement('div');
-    setingWindow.style.position = 'fixed';
-    setingWindow.style.top = 'calc(100px + 225px)';
-    setingWindow.style.left = '50%';
-    setingWindow.style.transform = 'translate(-50%, -50%)';
-    setingWindow.style.width = '480px';
-    setingWindow.style.height = '450px';
-    setingWindow.style.overflow = 'hidden';
-    setingWindow.style.overflowX = 'hidden';
-    setingWindow.style.backgroundColor = '#FFFFFF';
-    setingWindow.style.borderRadius = '10px';
-    setingWindow.style.display = 'none';
-    setingWindow.style.paddingBottom = '5px';
-    setingWindow.style.zIndex = '999';
-    setingWindow.style.boxShadow = '0 0 10px 4px rgba(0, 0, 0, 0.2)';
-    setingWindow.style.userSelect = 'none';
-    document.body.appendChild(setingWindow);
+    let settingwindow = document.createElement('div');
+    settingwindow.style.position = 'fixed';
+    settingwindow.style.top = 'calc(100px + 225px)';
+    settingwindow.style.left = '50%';
+    settingwindow.style.transform = 'translate(-50%, -50%)';
+    settingwindow.style.width = '480px';
+    settingwindow.style.height = '450px';
+    settingwindow.style.overflow = 'hidden';
+    settingwindow.style.overflowX = 'hidden';
+    settingwindow.style.backgroundColor = '#FFFFFF';
+    settingwindow.style.borderRadius = '10px';
+    settingwindow.style.display = 'none';
+    settingwindow.style.paddingBottom = '5px';
+    settingwindow.style.zIndex = '999';
+    settingwindow.style.boxShadow = '0 0 10px 4px rgba(0, 0, 0, 0.2)';
+    settingwindow.style.userSelect = 'none';
+    document.body.appendChild(settingwindow);
 
     let windowContent = document.createElement('div');
     windowContent.style.position = 'absolute';
@@ -255,7 +258,7 @@
     windowContent.style.width = 'calc(100% - 44px)';
     windowContent.style.height = 'auto';
     windowContent.style.padding = '22px';
-    setingWindow.appendChild(windowContent);
+    settingwindow.appendChild(windowContent);
 
     let titleBar = document.createElement('div');
     titleBar.style.height = '72px';
@@ -265,7 +268,7 @@
     titleBar.style.maxHeight = '72px';
     titleBar.style.fontSize = '16px';
     titleBar.style.top = '0';
-    setingWindow.appendChild(titleBar);
+    settingwindow.appendChild(titleBar);
 
     let titleText = document.createElement('div');
     titleText.style.fontWeight = '700';
@@ -291,13 +294,13 @@
     }
     titleBar.appendChild(textLabel);
 
-    let setingIcon = document.createElement('img');
-    setingIcon.src = seting;
-    setingIcon.style.width = '18px';
-    setingIcon.style.height = '18px';
-    setingIcon.style.marginLeft = '8px';
-    setingIcon.style.marginRight = '8px';
-    textLabel.insertBefore(setingIcon, textLabel.firstChild);
+    let settingIcon = document.createElement('img');
+    settingIcon.src = seting;
+    settingIcon.style.width = '18px';
+    settingIcon.style.height = '18px';
+    settingIcon.style.marginLeft = '8px';
+    settingIcon.style.marginRight = '8px';
+    textLabel.insertBefore(settingIcon, textLabel.firstChild);
 
     let closeButton = document.createElement('div');
     closeButton.style.position = 'absolute';
@@ -442,9 +445,9 @@
         // isRTL = isLang.includes(localStorage.getItem('tw:language'));
         isRTL = false;
         if (isRTL) {
-            setingWindow.style.direction = 'rtl';
+            settingwindow.style.direction = 'rtl';
         } else {
-            setingWindow.style.direction = 'ltr';
+            settingwindow.style.direction = 'ltr';
         }
         if (isRTL) {
             closeButton.style.left = '14px';
@@ -464,7 +467,7 @@
     }
 
     const hideWindow = () => {
-        setingWindow.style.display = 'none';
+        settingwindow.style.display = 'none';
         mask.style.display = 'none';
     }
 
@@ -472,7 +475,7 @@
         setRTL();
         updateButton();
         titleText.innerText = formatMessage({ id: 'OPERATION_EXT_NAME', default: 'Operation' });
-        setingWindow.style.display = 'block';
+        settingwindow.style.display = 'block';
         mask.style.display = 'block';
         closeButton.style.backgroundColor = '#00000000';
     }
@@ -866,7 +869,9 @@
             default: 'Operation'
         }),
         blocks: descriptor(formatMessage, isRTL),
-        menus: menus(formatMessage, isRTL)
+        menus: menus(formatMessage, isRTL),
+        menuIconURI: OPERATION_EXT_icon,
+        blockIconURI: OPERATION_EXT_icon2,
     })
 
     const descriptor = (formatMessage) => {
@@ -2409,7 +2414,7 @@
             return getInfo();
         }
 
-        openSetingWindow() {
+        opensettingwindow() {
             showWindow();
         }
 
@@ -3030,5 +3035,38 @@
         }
     }
 
-    Scratch.extensions.register(new Operation());
+    window.tempExt = {
+        Extension: Operation,
+        info: {
+          name: "OPERATION_EXT_NAME",
+          description: "OPERATION_EXT.descp",
+          extensionId: OPERATION_EXT_extensionId,
+          iconURL: OPERATION_EXT_picture,
+          insetIconURL: OPERATION_EXT_icon,
+          featured: true,
+          disabled: false,
+          collaboratorList: [
+            {
+              collaborator: '多bug的啸天犬 @ CCW',
+              collaboratorURL:
+                'https://www.ccw.site/student/6200811f05660557606c8b15',
+            },
+            {
+              collaborator: 'لا اسم@CCW',
+              collaboratorURL:
+                'https://www.ccw.site/student/6267e862a6666f52c7c97059',
+            },
+          ]},
+        l10n: {
+          "zh-cn": {
+            "OPERATION_EXT_NAME": "运算pro",
+            "OPERATION_EXT.descp": "数学课作弊神器！更好的计算！！"
+          },
+          en: {
+            "OPERATION_EXT_NAME": "operation pro",
+            "OPERATION_EXT.descp": "Math class cheating device! Better calculation!!"
+          }
+        }
+       };
+    
 })(Scratch);
