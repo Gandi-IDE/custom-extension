@@ -13,6 +13,7 @@ class dataAnalysis {
         'qxsckdataanalysis.median': '[NUMBERS] 的中位数',
         'qxsckdataanalysis.mode': '[NUMBERS] 的众数',
         'qxsckdataanalysis.variance': '[NUMBERS] 的方差',
+        'qxsckdataanalysis.standardDeviation': '[NUMBERS] 的标准差',
         'qxsckdataanalysis.countNumebrs':'[NUMBERS] 中每个数据出现的 [TYPE]',
         'qxsckdataanalysis.averageInList': '列表 [NUMBERS] 里所有数据的平均数',
         'qxsckdataanalysis.maximumInList': '列表 [NUMBERS] 里所有数据的最大数',
@@ -20,6 +21,7 @@ class dataAnalysis {
         'qxsckdataanalysis.medianInList': '列表 [NUMBERS] 里所有数据的中位数',
         'qxsckdataanalysis.modeInList': '列表 [NUMBERS] 里所有数据的众数',
         'qxsckdataanalysis.varianceInList': '列表 [NUMBERS] 里所有数据的方差',
+        'qxsckdataanalysis.standardDeviationInList': '列表 [NUMBERS] 里所有数据的标准差',
         'qxsckdataanalysis.countNumebrsInList':'列表 [NUMBERS] 中每个数据出现的 [TYPE]',
 
         'qxsckdataanalysis.value.count': '次数',
@@ -34,6 +36,7 @@ class dataAnalysis {
         'qxsckdataanalysis.median': 'median of [NUMBERS]',
         'qxsckdataanalysis.mode': 'mode of [NUMBERS]',
         'qxsckdataanalysis.variance': 'variance of [NUMBERS]',
+        'qxsckdataanalysis.standardDeviation': 'standard deviation of [NUMBERS]',
         'qxsckdataanalysis.countNumebrs':'[TYPE] for each datas in [NUMBERS]',
         'qxsckdataanalysis.averageInList': 'average of list [NUMBERS]',
         'qxsckdataanalysis.maximumInList': 'maximum of list [NUMBERS]',
@@ -41,6 +44,7 @@ class dataAnalysis {
         'qxsckdataanalysis.medianInList': 'median of list [NUMBERS]',
         'qxsckdataanalysis.modeInList': 'mode of list [NUMBERS]',
         'qxsckdataanalysis.varianceInList': 'variance of list [NUMBERS]',
+        'qxsckdataanalysis.standardDeviationInList': 'standard deviation of list [NUMBERS]',
         'qxsckdataanalysis.countNumebrsInList':'[TYPE] for each datas in list [NUMBERS]',
 
         'qxsckdataanalysis.value.count': 'count',
@@ -107,6 +111,9 @@ class dataAnalysis {
       let squaredDifferences=numbers.map(x=>(x-mean)**2);
       let sum=squaredDifferences.reduce((a,b)=>a+b,0);
       return sum/numbers.length;
+    }
+    this.standardDeviationFunc=function(numbers_,type){
+      return Math.sqrt(this.varianceFunc(numbers_,type));
     }
     this.countNumebrsFunc=function(numbers_,type,type_){
       let numbers;
@@ -220,6 +227,17 @@ class dataAnalysis {
           }
         },
         {
+          opcode: 'standardDeviation',
+          blockType: 'reporter',
+          text: this.formatMessage('qxsckdataanalysis.standardDeviation'),
+          arguments: {
+            NUMBERS: {
+              type: 'string',
+              defaultValue: '1 2 3 4 5'
+            }
+          }
+        },
+        {
           opcode: 'countNumebrs',
           blockType: 'reporter',
           text: this.formatMessage('qxsckdataanalysis.countNumebrs'),
@@ -296,17 +314,29 @@ class dataAnalysis {
             disableMonitor: true,
         },
         {
-            opcode: 'varianceInList',
-            blockType: 'reporter',
-            text: this.formatMessage('qxsckdataanalysis.varianceInList'),
-            arguments: {
-                NUMBERS: {
-                    type: 'string',
-                    menu: 'listMenu'
-                }
-            },
-            disableMonitor: true,
+          opcode: 'varianceInList',
+          blockType: 'reporter',
+          text: this.formatMessage('qxsckdataanalysis.varianceInList'),
+          arguments: {
+              NUMBERS: {
+                  type: 'string',
+                  menu: 'listMenu'
+              }
+          },
+          disableMonitor: true,
+      },
+      {
+        opcode: 'standardDeviationInList',
+        blockType: 'reporter',
+        text: this.formatMessage('qxsckdataanalysis.standardDeviationInList'),
+        arguments: {
+            NUMBERS: {
+                type: 'string',
+                menu: 'listMenu'
+            }
         },
+        disableMonitor: true,
+    },
         {
           opcode: 'countNumebrsInList',
           blockType: 'reporter',
@@ -326,7 +356,7 @@ class dataAnalysis {
       ],
       menus: {
         listMenu: {
-            items: 'findAllList'
+          items: 'findAllList'
         },
         countNumebrsList:[
           {
@@ -395,6 +425,9 @@ class dataAnalysis {
   variance(args) {
     return this.varianceFunc(args.NUMBERS,1);
   }
+  standardDeviation(args) {
+    return this.standardDeviationFunc(args.NUMBERS,1);
+  }
   countNumebrs(args){
     var type_=String(args.TYPE);
     return this.countNumebrsFunc(args.NUMBERS,1,type_);
@@ -436,6 +469,12 @@ class dataAnalysis {
 		}
     return -1;
   }
+  standardDeviationInList(args,util) {
+    if(args.NUMBERS!='empty'){
+      return this.standardDeviationFunc(util.target.lookupVariableById(args.NUMBERS),2);
+		}
+    return -1;
+  }
   countNumebrsInList(args,util){
     if(args.NUMBERS!='empty'){
       var type_=String(args.TYPE);
@@ -450,7 +489,7 @@ window.tempExt = {
   info: {
     name: 'qxsck.name',
     description: 'qxsck.description',
-    extensionId: 'qxsckdataanalysis',
+    extensionId: 'qxsckdataanalysis1',
     iconURL: icon,
     insetIconURL: insetIcon,
     featured: true,
