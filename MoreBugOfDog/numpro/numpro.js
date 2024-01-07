@@ -1,3 +1,4 @@
+//Version:v1.0.1-beta 详情请见版本日志（Version log.txt）
 ((Scratch) => {
     'use strict';
     const OPERATION_EXT_extensionId = "numpro";
