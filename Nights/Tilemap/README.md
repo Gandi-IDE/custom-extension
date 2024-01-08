@@ -2,7 +2,7 @@
 在dist文件的tilemap.esm.js
 我已export default
 
-# 打包有多种模式
+# 多种模式
 在main.js修改，现在是GANDI_PRODUCT
 ```js
 const MODE = {
