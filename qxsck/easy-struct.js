@@ -21,6 +21,10 @@ class easyStruct {
         'qxsckeasystruct.clearAll':"clear all",
         'qxsckeasystruct.clearData':'clear all [TYPE]',
 
+        'qxsckeasystruct.sort.tip':'Please ensure that the sorting rule is one of ascending is "asc",\
+        descending is "desc" or not sorting is "none",the sorting type is one of string "str" for lexicographic sorting or number "num" for size sorting,\
+        wrong parameter can inevitably leading to stop sorting.',
+
         'qxsckeasystruct.setStructType':'set struct type,name = [NAME] , members = [MEMBERS]',
         'qxsckeasystruct.setStruct':'set struct,name = [NAME] , type = [TYPE]',
         'qxsckeasystruct.setStructList':'set struct list,name = [NAME] , type = [TYPE]',
@@ -43,6 +47,7 @@ class easyStruct {
         'qxsckeasystruct.getStructListMember':'item [INDEX] of member [MEMBER] in struct list [NAME]',
         'qxsckeasystruct.getStructListMemberIndex':'item [INDEX2] of the [INDEX] member in the struct list [NAME]',
         'qxsckeasystruct.deleteStructListMember':'delete item [INDEX] in struct list [NAME]',
+        'qxsckeasystruct.sortHelp':'help of struct list sorting',
         'qxsckeasystruct.structListSort':'sort struct list [NAME] with rule [RULE]',
       },
       'zh-cn': {
@@ -60,6 +65,9 @@ class easyStruct {
 
         'qxsckeasystruct.clearAll':"清空所有数据",
         'qxsckeasystruct.clearData':'清空所有 [TYPE]',
+
+        'qxsckeasystruct.sort.tip':'请确保排序规则为升序“asc”，降序“desc”，不作排序“none”，\
+        请确保排序类型为字符串“str”以进行字典序排序，数字“num”以进行大小排序，参数填写错误会导致无法排序。',
 
         'qxsckeasystruct.setStructType':'设置结构体类型，类型名称 = [NAME] ，成员 = [MEMBERS]',
         'qxsckeasystruct.setStruct':'设置结构体，结构体名称 = [NAME] ，结构体类型名称 = [TYPE]',
@@ -83,6 +91,7 @@ class easyStruct {
         'qxsckeasystruct.getStructListMember':'结构体列表 [NAME] 的第 [INDEX] 项的成员 [MEMBER]',
         'qxsckeasystruct.getStructListMemberIndex':'结构体列表 [NAME] 的第 [INDEX] 项的第 [INDEX2] 个成员',
         'qxsckeasystruct.deleteStructListMember':'删除结构体列表 [NAME] 的第 [INDEX] 项',
+        'qxsckeasystruct.sortHelp':'结构体列表排序帮助',
         'qxsckeasystruct.structListSort':'使用规则 [RULE] 排序结构体列表 [NAME]',
       },
     });
@@ -456,6 +465,13 @@ class easyStruct {
           },
         },
         {
+          opcode: "sortHelp",
+          blockType: 'reporter',
+          text: this.formatMessage("qxsckeasystruct.sortHelp"),
+          arguments: {},
+          disableMonitor: true,
+        },
+        {
           opcode: "structListSort",
           blockType: 'command',
           text: this.formatMessage("qxsckeasystruct.structListSort"),
@@ -703,21 +719,37 @@ class easyStruct {
       if(index<=this.useStructLists[name]['data'].length)
         this.useStructLists[name]['data'].splice(index-1, 1);
   }
+  sortHelp(){
+    return this.formatMessage("qxsckeasystruct.sort.tip");
+  }
   structListSort(args){
     let name=String(args.NAME),rule_arr=String(args.RULE).split(" ");
     if(name in this.useStructLists){
       let type=this.useStructLists[name]['type'],members=this.structs[type];
+      let flag=0;
       if(members.length===rule_arr.length/3 && rule_arr.length%3===0){
         let rule_member=[],rule_type=[],rule_order=[];
         for(let i=0;i<rule_arr.length/3;i++){
-          if(rule_arr[i*3+2]!='asc' && rule_arr[i*3+2]!='desc' && rule_arr[i*3+2]!='none' && rule_arr[i*3+1]!='num' && rule_arr[i*3+1]!='str') return ;
+          if( (rule_arr[i*3+2]!='asc' && rule_arr[i*3+2]!='desc' && rule_arr[i*3+2]!='none') || (rule_arr[i*3+1]!='num' && rule_arr[i*3+1]!='str') ){
+            flag=i;break;
+          }
           else rule_member.push(rule_arr[i*3]),rule_type.push(rule_arr[i*3+1]),rule_order.push(rule_arr[i*3+2]);
         }
-        let arr=this.useStructLists[name]['data'];
-        //console.log(rule_member,rule_type,rule_order);
-        let result=arr.sort(this.structListsortFunc(rule_member,rule_type,rule_order));
-        //console.log(result);
-        this.useStructLists[name]['data']=result;
+        if(flag===0){
+          let arr=this.useStructLists[name]['data'];
+          //console.log(rule_member,rule_type,rule_order);
+          let result=arr.sort(this.structListsortFunc(rule_member,rule_type,rule_order));
+          //console.log(result);
+          this.useStructLists[name]['data']=result;
+        }else{
+          console.log('第'+String(flag)+'个排序项的排序规则或者排序类型有问题：');
+          console.log('请确保排序规则为升序“asc”，降序“desc”，不作排序“none”，');
+          console.log('请确保排序类型为字符串“str”以进行字典序排序，数字“num”以进行大小排序。');
+          console.log('There is an issue with the sorting rule or type of the '+String(flag)+' th sorting item:');
+          console.log('Please ensure that the sorting rule is one of ascending is "asc",descending is "desc" or not sorting is "none",');
+          console.log('the sorting type is one of string "str" for lexicographic sorting or number "num" for size sorting.');
+        }
+
       }
     }
   }
