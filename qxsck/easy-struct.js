@@ -730,7 +730,7 @@ window.tempExt = {
     description: 'qxsckeasystruct.description',
     extensionId: 'qxsckeasystruct',
     iconURL: insetIcon,
-    insetIconURL: insetIcon,
+    insetIconURL: Icon,
     featured: true,
     disabled: false,
     collaborator: 'CK七星松@CCW'
