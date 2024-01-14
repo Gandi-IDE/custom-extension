@@ -24,6 +24,8 @@ class VarAndList {
         'qxsckvarandlist.haveList': '有列表 [LIST] 吗？',
         'qxsckvarandlist.length': '列表 [LIST] 的长度',
         'qxsckvarandlist.getList': '列表 [LIST] 的值',
+        'qxsckvarandlist.newGetList': '列表 [LIST] 的值',
+        'qxsckvarandlist.getListRange': '列表 [LIST] 中第 [LEFT] 到 [RIGHT] 项的值',
         'qxsckvarandlist.getValueOfList': '列表 [LIST] 的第 [INDEX] 项',
         'qxsckvarandlist.seriListsToJson': '将以 [START] 为开头的所有列表转换为json',
         'qxsckvarandlist.clearList': '清空列表 [LIST]',
@@ -33,6 +35,7 @@ class VarAndList {
         'qxsckvarandlist.replaceOfList': '替换列表 [LIST] 的第 [INDEX] 项为 [VALUE]',
         'qxsckvarandlist.getIndexOfList': '列表 [LIST] 中第一个 [VALUE] 的位置',
         'qxsckvarandlist.getIndexesOfList': '列表 [LIST] 中所有 [VALUE] 的位置',
+        'qxsckvarandlist.newGetIndexesOfList': '列表 [LIST] 中所有 [VALUE] 的位置',
         'qxsckvarandlist.getCountsOfList': '列表 [LIST] 中 [VALUE] 的数量',
         'qxsckvarandlist.listContains': '列表 [LIST] 包括 [VALUE] 吗？',
         'qxsckvarandlist.copyList': '将列表 [LIST1] 复制到列表 [LIST2]',
@@ -53,15 +56,18 @@ class VarAndList {
         'qxsckvarandlist.haveList': 'have list [LIST] ?',
         'qxsckvarandlist.length': 'length of list [LIST]',
         'qxsckvarandlist.getList': 'value of list [LIST]',
+        'qxsckvarandlist.newGetList': 'value of list [LIST]',
+        'qxsckvarandlist.getListRange': 'value of from [LEFT] to [RIGHT] in list [LIST]',
         'qxsckvarandlist.getValueOfList': 'item [INDEX] of list [LIST]',
         'qxsckvarandlist.seriListsToJson': 'convert all lists starting with [START] to json',
         'qxsckvarandlist.clearList': 'delete all of list [LIST]',
         'qxsckvarandlist.deleteOfList': 'delete [INDEX] of list [LIST]',
         'qxsckvarandlist.addValueInList': 'add [VALUE] to list [LIST]',
-        'qxsckvarandlist.addListToList': 'add list [LIST2] to list [LIST]',
+        'qxsckvarandlist.addListInList': 'add list [LIST2] to list [LIST]',
         'qxsckvarandlist.replaceOfList': 'replace item [INDEX] of list [LIST] with [VALUE]',
         'qxsckvarandlist.getIndexOfList': 'first index of list [VALUE] in list [LIST]',
         'qxsckvarandlist.getIndexesOfList': 'indexes of list [LIST] in [VALUE]',
+        'qxsckvarandlist.newGetIndexesOfList': 'indexes of list [LIST] in [VALUE]',
         'qxsckvarandlist.getCountsOfList': 'number of list [LIST] in [VALUE]',
         'qxsckvarandlist.listContains': 'list [LIST] have [VALUE] ?',
         'qxsckvarandlist.copyList': 'copy list [LIST1] to list [LIST2]',
@@ -175,10 +181,41 @@ class VarAndList {
           opcode:'getList',
           blockType: 'reporter',
           text: this.formatMessage('qxsckvarandlist.getList'),
+          hideFromPalette: true,
           arguments: {
             LIST: {
               type: 'string',
               defaultValue:'list'
+            },
+          }
+        },
+        {
+          opcode:'newGetList',
+          blockType: 'reporter',
+          text: this.formatMessage('qxsckvarandlist.newGetList'),
+          arguments: {
+            LIST: {
+              type: 'string',
+              defaultValue:'list'
+            },
+          }
+        },
+        {
+          opcode:'getListRange',
+          blockType: 'reporter',
+          text: this.formatMessage('qxsckvarandlist.getListRange'),
+          arguments: {
+            LIST: {
+              type: 'string',
+              defaultValue:'list'
+            },
+            LEFT: {
+              type: 'string',
+              defaultValue:'1'
+            },
+            RIGHT: {
+              type: 'string',
+              defaultValue:'2'
             },
           }
         },
@@ -302,6 +339,22 @@ class VarAndList {
           opcode:'getIndexesOfList',
           blockType: 'reporter',
           text: this.formatMessage('qxsckvarandlist.getIndexesOfList'),
+          arguments: {
+            LIST: {
+              type: 'string',
+              defaultValue:'list'
+            },
+            VALUE: {
+              type: 'string',
+              defaultValue:'thing'
+            }
+          }
+        },
+        {
+          opcode:'newGetIndexesOfList',
+          blockType: 'reporter',
+          text: this.formatMessage('qxsckvarandlist.newGetIndexesOfList'),
+          hideFromPalette: true,
           arguments: {
             LIST: {
               type: 'string',
@@ -470,11 +523,26 @@ class VarAndList {
   }
   getList(args, util) {
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
-    return variable ? variable.value.toString() :'';
+    return variable ? variable.value.toString() : '';
+  }
+  newGetList(args, util) {
+    const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
+    return variable ? '['+variable.value.map(value=>'"'+String(value)+'"').join(',')+']' : '[]';
+  }
+  getListRange(args, util) {
+    const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
+    if (variable) {
+      let length=variable.value.length,left=Number(args.LEFT),right=Number(args.RIGHT);
+      if(left<1) left=1;
+      if(right>length) right=length;
+      left-=1,right-=1;
+      return '['+variable.value.slice(left,right+1).map(value=>'"'+String(value)+'"').join(',')+']';
+    }
+    return '';
   }
   getValueOfList(args, util) {
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
-    if (!variable) return 0;
+    if (!variable) return '';
     const index = ListIndex(args.INDEX, variable.value.length, false);
     if (index === 'INVALID') return '';
     return variable.value[index - 1];
@@ -581,6 +649,24 @@ class VarAndList {
       if (indexes.length > 0) return indexes.toString();
     }
     return '';
+  }
+  newGetIndexesOfList(args, util) {
+    /** @type {VM.ListVariable} */
+    const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
+    const value = args.VALUE;
+    let flag=openCaseSensitive;
+    if (variable) {
+      var indexes = [];
+      for (var i = 0; i < variable.value.length; i++) {
+        if(!flag){
+          if (Scratch.Cast.compare(variable.value[i], value) === 0) indexes.push(i + 1);
+        }else{
+          if (String(variable.value[i]) === String(value)) indexes.push(i + 1);
+        }
+      }
+      if (indexes.length > 0) return '['+indexes.map(value=>'"'+String(value)+'"').join(',')+']';
+    }
+    return '[]';
   }
   getCountsOfList(args, util) {
     /** @type {VM.ListVariable} */
