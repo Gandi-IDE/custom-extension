@@ -109,6 +109,7 @@ class VarAndList {
       color2: '#ed6b00',
       blockIconURI: Icon,
       menuIconURI: Icon,
+      docsURI: 'https://learn.ccw.site/article/647a5fb4-4f01-4b5d-9177-8cf763f68c69',
       blocks: [
         //command,reporter,Boolean,hat,conditional,loop
         {
