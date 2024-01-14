@@ -479,6 +479,8 @@ class VarAndList {
           }
         },
 
+        '---',
+        
         {
           opcode:'forEach',
           blockType: 'conditional',
