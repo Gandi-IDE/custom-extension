@@ -58,7 +58,7 @@ class VarAndList {
         'qxsckvarandlist.clearList': 'delete all of list [LIST]',
         'qxsckvarandlist.deleteOfList': 'delete [INDEX] of list [LIST]',
         'qxsckvarandlist.addValueInList': 'add [VALUE] to list [LIST]',
-        'qxsckvarandlist.addListInList': 'add list [LIST2] to list [LIST]',
+        'qxsckvarandlist.addListToList': 'add list [LIST2] to list [LIST]',
         'qxsckvarandlist.replaceOfList': 'replace item [INDEX] of list [LIST] with [VALUE]',
         'qxsckvarandlist.getIndexOfList': 'first index of list [VALUE] in list [LIST]',
         'qxsckvarandlist.getIndexesOfList': 'indexes of list [LIST] in [VALUE]',
