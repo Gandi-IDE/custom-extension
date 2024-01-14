@@ -16,7 +16,7 @@ class VarAndList {
         'qxsckvarandlist.close': '关闭',
 
         'qxsckvarandlist.haveVar': '有变量 [VAR] 吗？',
-        'qxsckvarandlist.getVar': '[VAR] 的值',
+        'qxsckvarandlist.getVar': '变量 [VAR] 的值',
         'qxsckvarandlist.setVar': '将变量 [VAR] 的值设置为 [VALUE]',
         'qxsckvarandlist.seriVarsToJson': '将以 [START] 为开头的所有变量转换为json',
 
@@ -40,6 +40,9 @@ class VarAndList {
         'qxsckvarandlist.listContains': '列表 [LIST] 包括 [VALUE] 吗？',
         'qxsckvarandlist.copyList': '将列表 [LIST1] 复制到列表 [LIST2]',
         'qxsckvarandlist.reverseList': '反转列表 [LIST]',
+
+        'qxsckvarandlist.forEach': '对于从 [LEFT] 到 [RIGHT] 中的每个变量 [VAR]',
+        'qxsckvarandlist.forEachList': '对于列表 [LIST] 中从第 [LEFT] 到第 [RIGHT] 项的每个变量 [VAR]',
       },
       en: {
         'qxsckvarandlist.name': 'var and list',
@@ -47,9 +50,9 @@ class VarAndList {
         'qxsckvarandlist.open': 'open',
         'qxsckvarandlist.close': 'close',
 
-        'qxsckvarandlist.haveVar': 'have [VAR] ?',
-        'qxsckvarandlist.getVar': 'value of [VAR]',
-        'qxsckvarandlist.setVar': 'set the value of [VAR] to [VALUE]',
+        'qxsckvarandlist.haveVar': 'have variable [VAR] ?',
+        'qxsckvarandlist.getVar': 'value of variable [VAR]',
+        'qxsckvarandlist.setVar': 'set the value of variable [VAR] to [VALUE]',
         'qxsckvarandlist.seriVarsToJson': 'convert all variables starting with [START] to json',
 
         'qxsckvarandlist.openCaseSensitive': '[CASE] case sensitive',
@@ -72,6 +75,9 @@ class VarAndList {
         'qxsckvarandlist.listContains': 'list [LIST] have [VALUE] ?',
         'qxsckvarandlist.copyList': 'copy list [LIST1] to list [LIST2]',
         'qxsckvarandlist.reverseList': 'reverse lsit [LIST]',
+
+        'qxsckvarandlist.forEach': 'for each variable [VAR] from [LEFT] to [RIGHT]',
+        'qxsckvarandlist.forEachList': 'for each variable [VAR] in value of from [LEFT] to [RIGHT] in list [LIST]',
       },
     });
   }
@@ -92,7 +98,7 @@ class VarAndList {
       blockIconURI: Icon,
       menuIconURI: Icon,
       blocks: [
-        //command,reporter,Boolean,hat
+        //command,reporter,Boolean,hat,conditional,loop
         {
           opcode:'haveVar',
           blockType: 'Boolean',
@@ -339,6 +345,7 @@ class VarAndList {
           opcode:'getIndexesOfList',
           blockType: 'reporter',
           text: this.formatMessage('qxsckvarandlist.getIndexesOfList'),
+          hideFromPalette: true,
           arguments: {
             LIST: {
               type: 'string',
@@ -354,7 +361,6 @@ class VarAndList {
           opcode:'newGetIndexesOfList',
           blockType: 'reporter',
           text: this.formatMessage('qxsckvarandlist.newGetIndexesOfList'),
-          hideFromPalette: true,
           arguments: {
             LIST: {
               type: 'string',
@@ -419,6 +425,49 @@ class VarAndList {
             LIST: {
               type: 'string',
               defaultValue:'list'
+            },
+          }
+        },
+
+        {
+          opcode:'forEach',
+          blockType: 'conditional',
+          text: this.formatMessage('qxsckvarandlist.forEach'),
+          arguments: {
+            VAR: {
+              type: 'string',
+              defaultValue:'variable'
+            },
+            LEFT: {
+              type: 'string',
+              defaultValue:'1'
+            },
+            RIGHT: {
+              type: 'string',
+              defaultValue:'5'
+            },
+          }
+        },
+        {
+          opcode:'forEachList',
+          blockType: 'conditional',
+          text: this.formatMessage('qxsckvarandlist.forEachList'),
+          arguments: {
+            VAR: {
+              type: 'string',
+              defaultValue:'variable'
+            },
+            LIST: {
+              type: 'string',
+              defaultValue:'list'
+            },
+            LEFT: {
+              type: 'string',
+              defaultValue:'1'
+            },
+            RIGHT: {
+              type: 'string',
+              defaultValue:'5'
             },
           }
         },
@@ -543,9 +592,11 @@ class VarAndList {
   getValueOfList(args, util) {
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
     if (!variable) return '';
-    const index = ListIndex(args.INDEX, variable.value.length, false);
-    if (index === 'INVALID') return '';
-    return variable.value[index - 1];
+    const index = String(args.INDEX);
+    if(Number(index)<=variable.value.length && Number(index)>=1){
+      return variable.value[index - 1];
+    }
+    return '';
   }
   seriListsToJson(args, util) {
     const start = String(args.START);
@@ -573,11 +624,12 @@ class VarAndList {
     /** @type {VM.ListVariable} */
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
     if (variable) {
-      const index = ListIndex(args.INDEX, variable.value.length, true);
+      const index = String(args.INDEX);
       if (index === 'ALL') {
         variable.value = [];
-      } else if (index !== 'INVALID') {
-        variable.value.splice(index - 1, 1);
+      } else if(Number(index)<=variable.value.length && Number(index)>=1){
+
+        variable.value.splice(Number(index) - 1, 1);
         variable._monitorUpToDate = false;
       }
     }
@@ -609,8 +661,8 @@ class VarAndList {
     /** @type {VM.ListVariable} */
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
     if (variable) {
-      const index = ListIndex(args.INDEX, variable.value.length, false);
-      if (index !== 'INVALID') {
+      const index = String(args.INDEX);
+      if(Number(index)<=variable.value.length && Number(index)>=1){
         variable.value[index - 1] = args.VALUE;
         variable._monitorUpToDate = false;
       }
@@ -709,6 +761,7 @@ class VarAndList {
     const list2 = util.target.lookupVariableByNameAndType(String(args.LIST2), 'list');
     if (list1 && list2) {
       list2.value = list1.value.slice();
+      list2._monitorUpToDate = false;
     }
   }
   reverseList(args, util) {
@@ -719,6 +772,41 @@ class VarAndList {
       list.reverse();
       variable.value=list;
       variable._monitorUpToDate = false;
+    }
+  }
+
+  forEach(args,util){
+    const variable = util.target.lookupVariableByNameAndType(String(args.VAR), '');
+    if (variable) {
+      let left=Number(args.LEFT),right=Number(args.RIGHT);
+      let range=right-left+1;
+      if(typeof util.stackFrame.index==='undefined'){
+        util.stackFrame.index = 0;
+      }
+
+      if(util.stackFrame.index<range){
+          util.stackFrame.index++;
+          variable.value=util.stackFrame.index+left-1;
+          util.startBranch(1,true);
+      }
+    }
+  }
+  forEachList(args,util){
+    const variable = util.target.lookupVariableByNameAndType(String(args.VAR), '');
+    const list = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
+    if (variable && list) {
+      let left=Number(args.LEFT)>0?Number(args.LEFT):1,
+          right=Number(args.RIGHT)<=list.value.length?Number(args.RIGHT):list.value.length;
+      let range=right-left+1;
+      if(typeof util.stackFrame.index==='undefined'){
+        util.stackFrame.index = 0;
+      }
+
+      if(util.stackFrame.index<range){
+          util.stackFrame.index++;
+          variable.value=list.value[util.stackFrame.index+left-2];
+          util.startBranch(1,true);
+      }
     }
   }
 }
