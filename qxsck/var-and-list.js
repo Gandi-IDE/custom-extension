@@ -15,6 +15,10 @@ class VarAndList {
         'qxsckvarandlist.open': '打开',
         'qxsckvarandlist.close': '关闭',
 
+        'qxsckvarandlist.asc': '升序',
+        'qxsckvarandlist.desc': '降序',
+        'qxsckvarandlist.dictOrder': '字典序',
+
         'qxsckvarandlist.haveVar': '有变量 [VAR] 吗？',
         'qxsckvarandlist.getVar': '变量 [VAR] 的值',
         'qxsckvarandlist.setVar': '将变量 [VAR] 的值设置为 [VALUE]',
@@ -40,15 +44,21 @@ class VarAndList {
         'qxsckvarandlist.listContains': '列表 [LIST] 包括 [VALUE] 吗？',
         'qxsckvarandlist.copyList': '将列表 [LIST1] 复制到列表 [LIST2]',
         'qxsckvarandlist.reverseList': '反转列表 [LIST]',
+        'qxsckvarandlist.sortList': '以 [CASE] 排序列表 [LIST]',
+        'qxsckvarandlist.sortListRange': '以 [CASE] 排序列表 [LIST] 的第 [LEFT] 到 [RIGHT] 项',
 
         'qxsckvarandlist.forEach': '对于从 [LEFT] 到 [RIGHT] 中的每个变量 [VAR]',
         'qxsckvarandlist.forEachList': '对于列表 [LIST] 中从第 [LEFT] 到第 [RIGHT] 项的每个变量 [VAR]',
       },
       en: {
-        'qxsckvarandlist.name': 'var and list',
+        'qxsckvarandlist.name': 'variable and list',
 
         'qxsckvarandlist.open': 'open',
         'qxsckvarandlist.close': 'close',
+
+        'qxsckvarandlist.asc': 'ascending',
+        'qxsckvarandlist.desc': 'descending',
+        'qxsckvarandlist.dictOrder': 'dictionary order',
 
         'qxsckvarandlist.haveVar': 'have variable [VAR] ?',
         'qxsckvarandlist.getVar': 'value of variable [VAR]',
@@ -75,6 +85,8 @@ class VarAndList {
         'qxsckvarandlist.listContains': 'list [LIST] have [VALUE] ?',
         'qxsckvarandlist.copyList': 'copy list [LIST1] to list [LIST2]',
         'qxsckvarandlist.reverseList': 'reverse lsit [LIST]',
+        'qxsckvarandlist.sortList': 'sort list [LIST] with [CASE]',
+        'qxsckvarandlist.sortListRange': 'sort from [LEFT] to [RIGHT] in list [LIST] with [CASE]',
 
         'qxsckvarandlist.forEach': 'for each variable [VAR] from [LEFT] to [RIGHT]',
         'qxsckvarandlist.forEachList': 'for each variable [VAR] in value of from [LEFT] to [RIGHT] in list [LIST]',
@@ -426,6 +438,44 @@ class VarAndList {
               type: 'string',
               defaultValue:'list'
             },
+          },
+        },
+        {
+          opcode:'sortList',
+          blockType: 'command',
+          text: this.formatMessage('qxsckvarandlist.sortList'),
+          arguments: {
+            LIST: {
+              type: 'string',
+              defaultValue:'list'
+            },
+            CASE:{
+              type: 'string',
+              menu: 'sortList.List',
+            }
+          }
+        },
+        {
+          opcode:'sortListRange',
+          blockType: 'command',
+          text: this.formatMessage('qxsckvarandlist.sortListRange'),
+          arguments: {
+            LIST: {
+              type: 'string',
+              defaultValue:'list'
+            },
+            CASE:{
+              type: 'string',
+              menu: 'sortList.List',
+            },
+            LEFT: {
+              type: 'string',
+              defaultValue:'1'
+            },
+            RIGHT: {
+              type: 'string',
+              defaultValue:'2'
+            },
           }
         },
 
@@ -481,6 +531,20 @@ class VarAndList {
           {
             text: this.formatMessage("qxsckvarandlist.close"),
             value: 'close'
+          },
+        ],
+        'sortList.List':[
+          {
+            text: this.formatMessage("qxsckvarandlist.asc"),
+            value: 'asc'
+          },
+          {
+            text: this.formatMessage("qxsckvarandlist.desc"),
+            value: 'desc'
+          },
+          {
+            text: this.formatMessage("qxsckvarandlist.dictOrder"),
+            value: 'dictOrder'
           },
         ],
       }
@@ -647,8 +711,8 @@ class VarAndList {
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list'),list2=String(args.LIST2);
     if (variable) {
       try {
-        var arr = JSON.parse(list2);
-        for (var i = 0; i < arr.length; i++) {
+        let arr = JSON.parse(list2);
+        for (let i = 0; i < arr.length; i++) {
           variable.value.push(arr[i]);
         }
         variable._monitorUpToDate = false;
@@ -674,7 +738,7 @@ class VarAndList {
     const value = args.VALUE;
     let flag=openCaseSensitive;
     if (variable) {
-      for (var i = 0; i < variable.value.length; i++) {
+      for (let i = 0; i < variable.value.length; i++) {
         if(!flag){
           if (Scratch.Cast.compare(variable.value[i], value) === 0) return i + 1;
         }else{
@@ -690,8 +754,8 @@ class VarAndList {
     const value = args.VALUE;
     let flag=openCaseSensitive;
     if (variable) {
-      var indexes = [];
-      for (var i = 0; i < variable.value.length; i++) {
+      let indexes = [];
+      for (let i = 0; i < variable.value.length; i++) {
         if(!flag){
           if (Scratch.Cast.compare(variable.value[i], value) === 0) indexes.push(i + 1);
         }else{
@@ -708,8 +772,8 @@ class VarAndList {
     const value = args.VALUE;
     let flag=openCaseSensitive;
     if (variable) {
-      var indexes = [];
-      for (var i = 0; i < variable.value.length; i++) {
+      let indexes = [];
+      for (let i = 0; i < variable.value.length; i++) {
         if(!flag){
           if (Scratch.Cast.compare(variable.value[i], value) === 0) indexes.push(i + 1);
         }else{
@@ -726,8 +790,8 @@ class VarAndList {
     const value = args.VALUE;
     let flag=openCaseSensitive;
     if (variable) {
-      var indexes = [];
-      for (var i = 0; i < variable.value.length; i++) {
+      let indexes = [];
+      for (let i = 0; i < variable.value.length; i++) {
         if(!flag){
           if (Scratch.Cast.compare(variable.value[i], value) === 0) indexes.push(i + 1);
         }else{
@@ -744,7 +808,7 @@ class VarAndList {
     const value = args.VALUE;
     let flag=openCaseSensitive;
     if (variable) {
-      for (var i = 0;i < variable.value.length;i++) {
+      for (let i = 0;i < variable.value.length;i++) {
         if(!flag){
           if (Scratch.Cast.compare(variable.value[i], value) === 0) return true;
         }else{
@@ -768,9 +832,55 @@ class VarAndList {
     /** @type {VM.ListVariable} */
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
     if (variable) {
-      var list=variable.value.slice();
+      let list=variable.value.slice();
       list.reverse();
       variable.value=list;
+      variable._monitorUpToDate = false;
+    }
+  }
+  sortList(args,util){
+    const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
+    let order=String(args.CASE);
+    if (variable) {
+      let list=variable.value.slice();
+      if(order==='asc'){
+        list=list.map(val=>isNaN(Number(val))?0:Number(val));
+        variable.value=list.sort((a,b)=>a-b);
+      }
+      else if(order==='desc'){
+        list=list.map(val=>isNaN(Number(val))?0:Number(val));
+        variable.value=list.sort((a,b)=>b-a);
+      }
+      else if(order==='dictOrder'){
+        list=list.map(val=>String(val));
+        variable.value=list.sort();
+      }
+      variable._monitorUpToDate = false;
+    }
+  }
+  sortListRange(args,util){
+    const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
+    let order=String(args.CASE);
+    if (variable) {
+      let length=variable.value.length,left=Number(args.LEFT),right=Number(args.RIGHT);
+      if(left<1) left=1;
+      if(right>length) right=length;
+      left-=1,right-=1;
+      let list=variable.value.slice(left,right+1);
+      if(order==='asc'){
+        list=list.map(val=>isNaN(Number(val))?0:Number(val));
+        list=list.sort((a,b)=>a-b);
+      }
+      else if(order==='desc'){
+        list=list.map(val=>isNaN(Number(val))?0:Number(val));
+        list=list.sort((a,b)=>b-a);
+      }
+      else if(order==='dictOrder'){
+        list=list.map(val=>String(val));
+        list=list.sort();
+      }
+      let list2=variable.value.slice();
+      variable.value=[...list2.slice(0,left),...list,...list2.slice(right+1,length)];
       variable._monitorUpToDate = false;
     }
   }
