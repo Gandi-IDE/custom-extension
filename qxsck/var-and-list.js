@@ -90,7 +90,7 @@ class VarAndList {
         'qxsckvarandlist.sortList': 'sort list [LIST] with [CASE]',
         'qxsckvarandlist.sortListRange': 'sort from [LEFT] to [RIGHT] in list [LIST] with [CASE]',
 
-        'qxsckvarandlist.unSupportCompile': '⚠️unsupport complied',
+        'qxsckvarandlist.unSupportCompile': '⚠️unsupport complie',
         
         'qxsckvarandlist.forEach': '⚠️for each variable [VAR] from [LEFT] to [RIGHT]',
         'qxsckvarandlist.forEachList': '⚠️for each variable [VAR] in value of from [LEFT] to [RIGHT] in list [LIST]',
