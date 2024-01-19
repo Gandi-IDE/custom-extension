@@ -52,8 +52,10 @@ class VarAndList {
         'qxsckvarandlist.sortListRange': '以 [CASE] 排序列表 [LIST] 的第 [LEFT] 到 [RIGHT] 项',
         'qxsckvarandlist.mapObject': '映射对象 [OBJ] 的值到列表 [LIST] ，键到列表 [LIST2]',
 
-        'qxsckvarandlist.forEach': '对于从 [LEFT] 到 [RIGHT] 中的每个变量 [VAR]',
-        'qxsckvarandlist.forEachList': '对于列表 [LIST] 中从第 [LEFT] 到第 [RIGHT] 项的每个变量 [VAR]',
+        'qxsckvarandlist.unSupportCompile': '⚠️不支持编译',
+
+        'qxsckvarandlist.forEach': '⚠️对于从 [LEFT] 到 [RIGHT] 中的每个变量 [VAR]',
+        'qxsckvarandlist.forEachList': '⚠️对于列表 [LIST] 中从第 [LEFT] 到第 [RIGHT] 项的每个变量 [VAR]',
       },
       en: {
         'qxsckvarandlist.name': 'variable and list',
@@ -98,8 +100,10 @@ class VarAndList {
         'qxsckvarandlist.sortListRange': 'sort from [LEFT] to [RIGHT] in list [LIST] with [CASE]',
         'qxsckvarandlist.mapObject': 'map object [OBJ] to list [LIST],key to list [LIST2]',
 
-        'qxsckvarandlist.forEach': 'for each variable [VAR] from [LEFT] to [RIGHT]',
-        'qxsckvarandlist.forEachList': 'for each variable [VAR] in value of from [LEFT] to [RIGHT] in list [LIST]',
+        'qxsckvarandlist.unSupportCompile': '⚠️Compilation not supported',
+
+        'qxsckvarandlist.forEach': '⚠️for each variable [VAR] from [LEFT] to [RIGHT]',
+        'qxsckvarandlist.forEachList': '⚠️for each variable [VAR] in value of from [LEFT] to [RIGHT] in list [LIST]',
       },
     });
   }
@@ -585,7 +589,7 @@ class VarAndList {
           }
         },
 
-        '---',
+        '---'+this.formatMessage('qxsckvarandlist.unSupportCompile'),
 
         {
           opcode:'forEach',
@@ -854,7 +858,7 @@ class VarAndList {
     try{
       let arr=JSON.parse(args.LIST2);
       variable.value.splice(index-1,0,...arr);
-    variable._monitorUpToDate = false;
+      variable._monitorUpToDate = false;
     }catch(error){
       console.log('error:', error);
     }
