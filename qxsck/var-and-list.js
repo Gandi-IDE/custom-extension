@@ -40,7 +40,7 @@ class VarAndList {
         'qxsckvarandlist.insertOfList': '在列表 [LIST] 的第 [INDEX] 项前插入 [VALUE]',
         'qxsckvarandlist.insertListToList': '在列表 [LIST] 的第 [INDEX] 项前插入列表 [LIST2]',
         'qxsckvarandlist.replaceOfList': '替换列表 [LIST] 的第 [INDEX] 项为 [VALUE]',
-        'qxsckvarandlist.replaceIndexesOfList': '把列表 [LIST] 的第 [LEFT] 到 [RIGHT] 项都替换为 [VALUE]',
+        'qxsckvarandlist.replaceRangeOfList': '把列表 [LIST] 的第 [LEFT] 到 [RIGHT] 项都替换为 [VALUE]',
         'qxsckvarandlist.getIndexOfList': '列表 [LIST] 中第一个 [VALUE] 的位置',
         'qxsckvarandlist.getIndexesOfList': '列表 [LIST] 中所有 [VALUE] 的位置',
         'qxsckvarandlist.newGetIndexesOfList': '列表 [LIST] 中所有 [VALUE] 的位置',
@@ -86,7 +86,7 @@ class VarAndList {
         'qxsckvarandlist.insertOfList': 'insert [VALUE] before [INDEX] item in the list [LIST]',
         'qxsckvarandlist.insertListToList': 'insert list [LIST2] before [INDEX] item in list [LIST]',
         'qxsckvarandlist.replaceOfList': 'replace item [INDEX] of list [LIST] to [VALUE]',
-        'qxsckvarandlist.replaceIndexesOfList': 'replace [LEFT] to [RIGHT] items in list [LIST] with [VALUE]',
+        'qxsckvarandlist.replaceRangeOfList': 'replace [LEFT] to [RIGHT] items in list [LIST] with [VALUE]',
         'qxsckvarandlist.getIndexOfList': 'first index of list [VALUE] in list [LIST]',
         'qxsckvarandlist.getIndexesOfList': 'indexes of list [LIST] in [VALUE]',
         'qxsckvarandlist.newGetIndexesOfList': 'indexes of list [LIST] in [VALUE]',
@@ -403,9 +403,9 @@ class VarAndList {
           }
         },
         {
-          opcode:'replaceIndexesOfList',
+          opcode:'replaceRangeOfList',
           blockType: 'command',
-          text: this.formatMessage('qxsckvarandlist.replaceIndexesOfList'),
+          text: this.formatMessage('qxsckvarandlist.replaceRangeOfList'),
           arguments: {
             LIST: {
               type: 'string',
@@ -870,7 +870,7 @@ class VarAndList {
       }
     }
   }
-  replaceIndexesOfList(args, util) {
+  replaceRangeOfList(args, util) {
     /** @type {VM.ListVariable} */
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
     if (variable) {
