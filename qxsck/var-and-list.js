@@ -21,7 +21,7 @@ class VarAndList {
 
         'qxsckvarandlist.haveVar': '有变量 [VAR] 吗？',
         'qxsckvarandlist.getVar': '变量 [VAR] 的值',
-        'qxsckvarandlist.setVar': '将变量 [VAR] 的值设置为 [VALUE]',
+        'qxsckvarandlist.setVar': '设置变量 [VAR] 的值为 [VALUE]',
         'qxsckvarandlist.seriVarsToJson': '将以 [START] 为开头的所有变量转换为json',
 
         'qxsckvarandlist.openCaseSensitive': '[CASE] 大小写敏感',
@@ -33,10 +33,14 @@ class VarAndList {
         'qxsckvarandlist.getValueOfList': '列表 [LIST] 的第 [INDEX] 项',
         'qxsckvarandlist.seriListsToJson': '将以 [START] 为开头的所有列表转换为json',
         'qxsckvarandlist.clearList': '清空列表 [LIST]',
+        'qxsckvarandlist.setList': '设置列表 [LIST] 的内容为列表 [LIST2]',
         'qxsckvarandlist.deleteOfList': '删除列表 [LIST] 的第 [INDEX] 项',
         'qxsckvarandlist.addValueInList': '在列表 [LIST] 末尾添加 [VALUE]',
         'qxsckvarandlist.addListToList': '在列表 [LIST] 末尾添加列表 [LIST2]',
+        'qxsckvarandlist.insertOfList': '在列表 [LIST] 的第 [INDEX] 项前插入 [VALUE]',
+        'qxsckvarandlist.insertListToList': '在列表 [LIST] 的第 [INDEX] 项前插入列表 [LIST2]',
         'qxsckvarandlist.replaceOfList': '替换列表 [LIST] 的第 [INDEX] 项为 [VALUE]',
+        'qxsckvarandlist.replaceIndexesOfList': '把列表 [LIST] 的第 [LEFT] 到 [RIGHT] 项都替换为 [VALUE]',
         'qxsckvarandlist.getIndexOfList': '列表 [LIST] 中第一个 [VALUE] 的位置',
         'qxsckvarandlist.getIndexesOfList': '列表 [LIST] 中所有 [VALUE] 的位置',
         'qxsckvarandlist.newGetIndexesOfList': '列表 [LIST] 中所有 [VALUE] 的位置',
@@ -46,11 +50,10 @@ class VarAndList {
         'qxsckvarandlist.reverseList': '反转列表 [LIST]',
         'qxsckvarandlist.sortList': '以 [CASE] 排序列表 [LIST]',
         'qxsckvarandlist.sortListRange': '以 [CASE] 排序列表 [LIST] 的第 [LEFT] 到 [RIGHT] 项',
+        'qxsckvarandlist.mapObject': '映射对象 [OBJ] 的值到列表 [LIST] ，键到列表 [LIST2]',
 
-        'qxsckvarandlist.unSupportCompile': '⚠️不支持编译',
-        
-        'qxsckvarandlist.forEach': '⚠️对于从 [LEFT] 到 [RIGHT] 中的每个变量 [VAR]',
-        'qxsckvarandlist.forEachList': '⚠️对于列表 [LIST] 中从第 [LEFT] 到第 [RIGHT] 项的每个变量 [VAR]',
+        'qxsckvarandlist.forEach': '对于从 [LEFT] 到 [RIGHT] 中的每个变量 [VAR]',
+        'qxsckvarandlist.forEachList': '对于列表 [LIST] 中从第 [LEFT] 到第 [RIGHT] 项的每个变量 [VAR]',
       },
       en: {
         'qxsckvarandlist.name': 'variable and list',
@@ -64,7 +67,7 @@ class VarAndList {
 
         'qxsckvarandlist.haveVar': 'have variable [VAR] ?',
         'qxsckvarandlist.getVar': 'value of variable [VAR]',
-        'qxsckvarandlist.setVar': 'set the value of variable [VAR] to [VALUE]',
+        'qxsckvarandlist.setVar': 'set variable [VAR] to [VALUE]',
         'qxsckvarandlist.seriVarsToJson': 'convert all variables starting with [START] to json',
 
         'qxsckvarandlist.openCaseSensitive': '[CASE] case sensitive',
@@ -76,10 +79,14 @@ class VarAndList {
         'qxsckvarandlist.getValueOfList': 'item [INDEX] of list [LIST]',
         'qxsckvarandlist.seriListsToJson': 'convert all lists starting with [START] to json',
         'qxsckvarandlist.clearList': 'delete all of list [LIST]',
+        'qxsckvarandlist.setList': 'set [LIST] to list [LIST2]',
         'qxsckvarandlist.deleteOfList': 'delete [INDEX] of list [LIST]',
         'qxsckvarandlist.addValueInList': 'add [VALUE] to list [LIST]',
         'qxsckvarandlist.addListInList': 'add list [LIST2] to list [LIST]',
-        'qxsckvarandlist.replaceOfList': 'replace item [INDEX] of list [LIST] with [VALUE]',
+        'qxsckvarandlist.insertOfList': 'insert [VALUE] before [INDEX] item in the list [LIST]',
+        'qxsckvarandlist.insertListToList': 'insert list [LIST2] before [INDEX] item in list [LIST]',
+        'qxsckvarandlist.replaceOfList': 'replace item [INDEX] of list [LIST] to [VALUE]',
+        'qxsckvarandlist.replaceIndexesOfList': 'replace [LEFT] to [RIGHT] items in list [LIST] with [VALUE]',
         'qxsckvarandlist.getIndexOfList': 'first index of list [VALUE] in list [LIST]',
         'qxsckvarandlist.getIndexesOfList': 'indexes of list [LIST] in [VALUE]',
         'qxsckvarandlist.newGetIndexesOfList': 'indexes of list [LIST] in [VALUE]',
@@ -89,11 +96,10 @@ class VarAndList {
         'qxsckvarandlist.reverseList': 'reverse lsit [LIST]',
         'qxsckvarandlist.sortList': 'sort list [LIST] with [CASE]',
         'qxsckvarandlist.sortListRange': 'sort from [LEFT] to [RIGHT] in list [LIST] with [CASE]',
+        'qxsckvarandlist.mapObject': 'map object [OBJ] to list [LIST],key to list [LIST2]',
 
-        'qxsckvarandlist.unSupportCompile': '⚠️unsupport complie',
-        
-        'qxsckvarandlist.forEach': '⚠️for each variable [VAR] from [LEFT] to [RIGHT]',
-        'qxsckvarandlist.forEachList': '⚠️for each variable [VAR] in value of from [LEFT] to [RIGHT] in list [LIST]',
+        'qxsckvarandlist.forEach': 'for each variable [VAR] from [LEFT] to [RIGHT]',
+        'qxsckvarandlist.forEachList': 'for each variable [VAR] in value of from [LEFT] to [RIGHT] in list [LIST]',
       },
     });
   }
@@ -280,6 +286,21 @@ class VarAndList {
           }
         },
         {
+          opcode:'setList',
+          blockType: 'command',
+          text: this.formatMessage('qxsckvarandlist.setList'),
+          arguments: {
+            LIST: {
+              type: 'string',
+              defaultValue:'list'
+            },
+            LIST2: {
+              type: 'string',
+              defaultValue:'["a","a"]'
+            },
+          }
+        },
+        {
           opcode:'deleteOfList',
           blockType: 'command',
           text: this.formatMessage('qxsckvarandlist.deleteOfList'),
@@ -325,6 +346,44 @@ class VarAndList {
           }
         },
         {
+          opcode:'insertOfList',
+          blockType: 'command',
+          text: this.formatMessage('qxsckvarandlist.insertOfList'),
+          arguments: {
+            LIST: {
+              type: 'string',
+              defaultValue:'list'
+            },
+            INDEX: {
+              type: 'string',
+              defaultValue:'1'
+            },
+            VALUE: {
+              type: 'string',
+              defaultValue:'thing'
+            }
+          }
+        },
+        {
+          opcode:'insertListToList',
+          blockType: 'command',
+          text: this.formatMessage('qxsckvarandlist.insertListToList'),
+          arguments: {
+            LIST: {
+              type: 'string',
+              defaultValue:'list'
+            },
+            INDEX: {
+              type: 'string',
+              defaultValue:'1'
+            },
+            LIST2: {
+              type: 'string',
+              defaultValue:'["ark","os"]'
+            }
+          }
+        },
+        {
           opcode:'replaceOfList',
           blockType: 'command',
           text: this.formatMessage('qxsckvarandlist.replaceOfList'),
@@ -336,6 +395,29 @@ class VarAndList {
             INDEX: {
               type: 'string',
               defaultValue:'1'
+            },
+            VALUE: {
+              type: 'string',
+              defaultValue:'thing'
+            }
+          }
+        },
+        {
+          opcode:'replaceIndexesOfList',
+          blockType: 'command',
+          text: this.formatMessage('qxsckvarandlist.replaceIndexesOfList'),
+          arguments: {
+            LIST: {
+              type: 'string',
+              defaultValue:'list'
+            },
+            LEFT: {
+              type: 'string',
+              defaultValue:'1'
+            },
+            RIGHT: {
+              type: 'string',
+              defaultValue:'2'
             },
             VALUE: {
               type: 'string',
@@ -483,9 +565,28 @@ class VarAndList {
             },
           }
         },
+        {
+          opcode:'mapObject',
+          blockType: 'command',
+          text: this.formatMessage('qxsckvarandlist.mapObject'),
+          arguments: {
+            OBJ: {
+              type: 'string',
+              defaultValue:'{"name":"Gandi"}'
+            },
+            LIST: {
+              type: 'string',
+              defaultValue:'list'
+            },
+            LIST2: {
+              type: 'string',
+              defaultValue:'list2'
+            },
+          }
+        },
 
-        '---'+this.formatMessage('qxsckvarandlist.unSupportCompile'),
-        
+        '---',
+
         {
           opcode:'forEach',
           blockType: 'conditional',
@@ -689,6 +790,20 @@ class VarAndList {
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
     if (variable) {
       variable.value = [];
+      variable._monitorUpToDate = false;
+    }
+  }
+  setList(args, util) {
+    /** @type {VM.ListVariable} */
+    const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
+    if (variable) {
+      try{
+        let arr=JSON.parse(args.LIST2);
+        variable.value=arr;
+        variable._monitorUpToDate = false;
+      }catch(error){
+        console.log('error:', error);
+      }
     }
   }
   deleteOfList(args, util) {
@@ -715,17 +830,33 @@ class VarAndList {
   }
   addListToList(args, util) {
     /** @type {VM.ListVariable} */
-    const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list'),list2=String(args.LIST2);
+    const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
     if (variable) {
-      try {
-        let arr = JSON.parse(list2);
-        for (let i = 0; i < arr.length; i++) {
-          variable.value.push(arr[i]);
-        }
+      try{
+        let arr=JSON.parse(args.LIST2);
+        for(let i=0;i<arr.length;i++) variable.value.push(arr[i]);
         variable._monitorUpToDate = false;
-      } catch (error) {
+      }catch(error){
         console.log('error:', error);
       }
+    }
+  }
+  insertOfList(args,util){
+    const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
+    const value=args.VALUE;
+    const index=Number(args.INDEX)>variable.value.length?variable.value.length+1:Number(args.INDEX);
+    variable.value.splice(index-1,0,value);
+    variable._monitorUpToDate = false;
+  }
+  insertListToList(args,util){
+    const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
+    const index=Number(args.INDEX)>variable.value.length?variable.value.length+1:Number(args.INDEX);
+    try{
+      let arr=JSON.parse(args.LIST2);
+      variable.value.splice(index-1,0,...arr);
+    variable._monitorUpToDate = false;
+    }catch(error){
+      console.log('error:', error);
     }
   }
   replaceOfList(args, util) {
@@ -737,6 +868,20 @@ class VarAndList {
         variable.value[index - 1] = args.VALUE;
         variable._monitorUpToDate = false;
       }
+    }
+  }
+  replaceIndexesOfList(args, util) {
+    /** @type {VM.ListVariable} */
+    const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
+    if (variable) {
+      let length=variable.value.length,left=Number(args.LEFT),right=Number(args.RIGHT);
+      if(left<1) left=1;
+      if(right>length) right=length;
+      left-=1,right-=1;
+      for(let i=left;i<=right;i++){
+        variable.value[i]=args.VALUE;
+      }
+      variable._monitorUpToDate = false;
     }
   }
   getIndexOfList(args, util) {
@@ -889,6 +1034,25 @@ class VarAndList {
       let list2=variable.value.slice();
       variable.value=[...list2.slice(0,left),...list,...list2.slice(right+1,length)];
       variable._monitorUpToDate = false;
+    }
+  }
+  mapObject(args,util){
+    const list = util.target.lookupVariableByNameAndType(String(args.LIST), 'list'),
+          list2 = util.target.lookupVariableByNameAndType(String(args.LIST2), 'list');
+    if (list && list2) {
+      try{
+        let object=JSON.parse(args.OBJ);
+        list.value=[];
+        list2.value=[];
+        for(let key in object){
+          list.value.push(key);
+          list2.value.push(object[key]);
+        }
+        list._monitorUpToDate = false;
+        list2._monitorUpToDate = false;
+      }catch(error){
+        console.log('error:', error);
+      }
     }
   }
 
