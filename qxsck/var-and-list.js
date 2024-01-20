@@ -1046,12 +1046,8 @@ class VarAndList {
     if (list && list2) {
       try{
         let object=JSON.parse(args.OBJ);
-        list.value=[];
-        list2.value=[];
-        for(let key in object){
-          list.value.push(key);
-          list2.value.push(object[key]);
-        }
+        list.value=Object.keys(object);
+        list2.value=Object.values(object);
         list._monitorUpToDate = false;
         list2._monitorUpToDate = false;
       }catch(error){
