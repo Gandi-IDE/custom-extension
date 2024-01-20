@@ -51,32 +51,38 @@ class dataAnalysis {
         'qxsckdataanalysis.value.fre': 'frequency',
       },
     });
-    this.averageFunc=function(numbers_,type){
+    this.getData=function(numbers_,type){
       let numbers;
-      if(type===1) numbers=String(numbers_).split(' ').map(Number);
-      else numbers=numbers_.value.map(Number);
-      let sum=numbers.reduce((a, b) => a + b, 0);
+      if(type===1){
+        try{
+          let arr=JSON.parse(numbers_);
+          numbers=arr;
+        }catch(error){
+          numbers=String(numbers_).split(' ');
+        }
+      }else{
+        numbers=numbers_.value;
+      }
+      return numbers;
+    }
+    this.averageFunc=function(numbers_,type){
+      let numbers=this.getData(numbers_,type).map(Number);
 
+      let sum=numbers.reduce((a,b)=>a+b,0);
       return sum/numbers.length;
     }
     this.maximumFunc=function(numbers_,type){
-      let numbers;
-      if(type===1) numbers=String(numbers_).split(' ').map(Number);
-      else numbers=numbers_.value.map(Number);
+      let numbers=this.getData(numbers_,type).map(Number);
 
       return Math.max(...numbers);
     }
     this.minimumFunc=function(numbers_,type){
-      let numbers;
-      if(type===1) numbers=String(numbers_).split(' ').map(Number);
-      else numbers=numbers_.value.map(Number);
-
+      let numbers=this.getData(numbers_,type);
+      console.log(numbers);
       return Math.min(...numbers);
     }
     this.medianFunc=function(numbers_,type){
-      let numbers;
-      if(type===1) numbers=String(numbers_).split(' ').map(Number);
-      else numbers=numbers_.value.map(Number);
+      let numbers=this.getData(numbers_,type).map(Number);
 
       let sorted=numbers.sort((a,b)=>a-b);
       let middle=Math.floor(sorted.length/2);
@@ -87,9 +93,7 @@ class dataAnalysis {
       }
     }
     this.modeFunc=function(numbers_,type){
-      let numbers;
-      if(type===1) numbers=String(numbers_).split(' ').map(Number);
-      else numbers=numbers_.value.map(Number);
+      let numbers=this.getData(numbers_,type).map(Number);
 
       let counts=new Map();
       let maxCount=0;
@@ -103,9 +107,7 @@ class dataAnalysis {
       return mode;
     }
     this.varianceFunc=function(numbers_,type){
-      let numbers;
-      if(type===1) numbers=String(numbers_).split(' ').map(Number);
-      else numbers=numbers_.value.map(Number);
+      let numbers=this.getData(numbers_,type).map(Number);
 
       let mean=numbers.reduce((a,b)=>a+b,0)/numbers.length;
       let squaredDifferences=numbers.map(x=>(x-mean)**2);
@@ -116,28 +118,20 @@ class dataAnalysis {
       return Math.sqrt(this.varianceFunc(numbers_,type));
     }
     this.countNumebrsFunc=function(numbers_,type,type_){
-      let numbers;
-      if(type===1) numbers=String(numbers_).split(' ').map(Number);
-      else numbers=numbers_.value.map(Number);
+      let numbers=this.getData(numbers_,type).map(String);
 
       const counts=new Map();
       for(const number of numbers){
-        let count=counts.get(number)||0;
-        count++;
-        counts.set(number,count);
+        counts.set(number,counts.get(number)+1||1);
       }
-      var result=new Object;
+      let result=new Object;
       if(type_==='count'){
-        for(const [key, value] of counts){
-          var key1=String(key),value1=(value);
-          result[key1]=value1;
-        }
+        for(const [key,value] of counts) result[String(key)]=value;
         return JSON.stringify(result);
       }else if(type_==='fre'){
-        var length=numbers.length;
-        for(const [key, value] of counts){
-          var key1=String(key);
-          result[key1]=(Math.round((value/length)*100)/100);
+        let length=numbers.length;
+        for(const [key,value] of counts){
+          result[String(key)]=(Math.round((value/length)*100)/100);
         }
         return JSON.stringify(result);
       }else return 0;
@@ -178,7 +172,7 @@ class dataAnalysis {
           arguments: {
             NUMBERS: {
               type: 'string',
-              defaultValue: '1 2 3 4 5'
+              defaultValue: '[1,2,3,4,5]'
             }
           }
         },
@@ -189,7 +183,7 @@ class dataAnalysis {
           arguments: {
             NUMBERS: {
               type: 'string',
-              defaultValue: '1 2 3 4 5'
+              defaultValue: '["1","2","3","4","5"]'
             }
           }
         },
@@ -429,7 +423,7 @@ class dataAnalysis {
     return this.standardDeviationFunc(args.NUMBERS,1);
   }
   countNumebrs(args){
-    var type_=String(args.TYPE);
+    let type_=String(args.TYPE);
     return this.countNumebrsFunc(args.NUMBERS,1,type_);
   }
 
@@ -477,10 +471,10 @@ class dataAnalysis {
   }
   countNumebrsInList(args,util){
     if(args.NUMBERS!='empty'){
-      var type_=String(args.TYPE);
+      let type_=String(args.TYPE);
       return this.countNumebrsFunc(util.target.lookupVariableById(args.NUMBERS),2,type_);
     }
-    return -1;
+    return '{}';
   }
 }
 
@@ -489,7 +483,7 @@ window.tempExt = {
   info: {
     name: 'qxsck.name',
     description: 'qxsck.description',
-    extensionId: 'qxsckdataanalysis1',
+    extensionId: 'qxsckdataanalysis',
     iconURL: icon,
     insetIconURL: insetIcon,
     featured: true,
