@@ -1,3 +1,4 @@
 版本日志
 v1.0.0-dev 拓展积木功能 设置界面 因未添加window.tempExt而没有通过审核
 v1.0.1-beta 适配gandi 添加封面、icon1、icon2 得出两版icon 
+v1.0.2-beta  弹窗适配gandi出现问题，暂时不提交（此次pr为帮助其他无法访问github的开发者提交拓展）
