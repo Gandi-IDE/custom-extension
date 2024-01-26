@@ -1,8 +1,8 @@
-//Version:v1.0.1-beta 详情请见版本日志（Version log.txt）
+//Version:v1.0.2-beta 详情请见版本日志（Version log.txt）
 ((Scratch) => {
     'use strict';
     const OPERATION_EXT_extensionId = "numpro";
-    const OPERATION_EXT_picture = "https://m.ccw.site/user_projects_assets/47a14685789ba3c957c82f14cb9802e3.png";    
+    const OPERATION_EXT_picture = "https://m.ccw.site/user_projects_assets/47a14685789ba3c957c82f14cb9802e3.png";
     const OPERATION_EXT_icon = "https://m.ccw.site/user_projects_assets/240948213d2fc2650c375fb2573bfacd.png";
     const OPERATION_EXT_icon2 = "https://m.ccw.site/user_projects_assets/a4bc960bfbc7215940c24eb3820f5663.png";
     const { Cast, ArgumentType, BlockType } = Scratch;
@@ -70,6 +70,7 @@
             "OPERATION.RECTANGLE": "四边形 ([X1],[Y1]) ([X2],[Y2]) ([X3],[Y3]) ([X4],[Y4]) 的 [MODE]",
             "OPERATION.GRAPH": "多边形 [GRAPH] 的 [MODE]",
             "OPERATION.CIRCLE": "[UNITS] 为 [LENGTH] 的圆的 [MODE]",
+            "OPERATION.IS_ANGLE_IN_RANGE": "角 [ANGLE1] 在角 [ANGLE2] 到角 [ANGLE3] 的 [MODE] 之间？",
             "OPERATION.CALCULATE_ANGLE_DIFFERENCE": "角度 [ANGLE1] 到 [ANGLE2] 的 [MODE]",
             "OPERATION.GET_CONSTANT": "常量 [OPTION]",
             "OPERATION.TRUE": "真",
@@ -107,107 +108,7 @@
             "OPERATION.COUNTER_CLOCKWISE": "逆时针",
             "OPERATION.ARG_APPLE": "苹果",
             "OPERATION.ARG_BANANA": "香蕉"
-        },
-        "zh-tw": {
-            "OPERATION_EXT_NAME": "運算pro",
-            "OPERATION_SETING": "設定",
-            "OPERATION.SHOW": "顯示",
-            "OPERATION.HIDE": "隱藏",
-            "OPERATION.EXPAND": "展開",
-            "OPERATION.COLLAPSE": "收起",
-            "OPERATION.RARE_BLOCK": "不常用積木",
-            "OPERATION.EXPAND_MENU": "展開下拉選單",
-            "OPERATION.MATH_LABEL": "數學",
-            "OPERATION.BOOLEAN_LABEL": "布林值",
-            "OPERATION.STRING_LABEL": "字串",
-            "OPERATION.GRAPH_LABEL": "幾何",
-            "OPERATION.BASE_LABEL": "進位制",
-            "OPERATION.CONSTANT_LABEL": "常數",
-            "OPERATION.SHOW_MATH_BLOCK": "顯示運算積木",
-            "OPERATION.HIDE_MATH_BLOCK": "隱藏運算積木",
-            "OPERATION.SHOW_BOOLEAN_BLOCK": "顯示布林值積木",
-            "OPERATION.HIDE_BOOLEAN_BLOCK": "隱藏布林值積木",
-            "OPERATION.SHOW_STRING_BLOCK": "顯示字串積木",
-            "OPERATION.HIDE_STRING_BLOCK": "隱藏字串積木",
-            "OPERATION.SHOW_GRAPH_BLOCK": "顯示幾何積木",
-            "OPERATION.HIDE_GRAPH_BLOCK": "隱藏幾何積木",
-            "OPERATION.SHOW_BASE_BLOCK": "顯示進位制積木",
-            "OPERATION.HIDE_BASE_BLOCK": "隱藏進位制積木",
-            "OPERATION.SHOW_RARD": "顯示不常用積木",
-            "OPERATION.HIDE_RARD": "隱藏不常用積木",
-            "OPERATION.CONSTRAIN": "約束 [NUM] 介於 [LOW] 與 [HIGH] 之間",
-            "OPERATION.LOOP_NUMBER": "將 [NUM] 循環在 [START] 到 [END]",
-            "OPERATION.ROUND": "四捨五入 [NUM1] 到小數點後 [NUM2] 位",
-            "OPERATION.MAP_OFF": "映射 [NUM] 從 [START1] ~ [END1] 到 [START2] ~ [END2]",
-            "OPERATION.BASE": "把 [INTO1] 進位的 [NUM] 變為 [INTO2] 進位",
-            "OPERATION.CALCULATE": "計算 [TEXT]",
-            "OPERATION.FIND_PARTITION": "將 [RANGE_START] 到 [RANGE_END] 等分為 [NUM_PARTITIONS] 個部分，並獲取 [VALUE] 所屬的分區",
-            "OPERATION.BOOLEAN_TO_NUMBER": "轉換 [BOOLEAN] 为二位制數字",
-            "OPERATION.NUMBER_NOT": "二位制取反 [NUM]",
-            "OPERATION.PERCENT_OF": "[NUM2] 的 [NUM1] %",
-            "OPERATION.IS_TRUE": "[OPERAND] 為真？",
-            "OPERATION.CHECK_TYPE": "[INPUT] 是 [MODE] ？",
-            "OPERATION.TEXT": "字串 [STRING]",
-            "OPERATION.TEST": "如果 [BOOLEAN] 那麼 [STRING1] 否則 [STRING2]",
-            "OPERATION.REPEAT": "重複 [STRING] [NUMBER] 次",
-            "OPERATION.TRIM": "消除 [STRING] 兩側的空白文本",
-            "OPERATION.INTERCEPT": "截取 [STRING] 的 [START] 到 [END]",
-            "OPERATION.REPLACE": "將 [STRING1] 中的 [STRING2] 替換為 [STRING3]",
-            "OPERATION.REPLACE_INDEX": "將 [STRING] 中的第 [START] 到 [END] 替換為 [REPLACEMENT]",
-            "OPERATION.SPLIT": "用 [SYMBOL] 分解 [STRING] 取第 [NUM] 個",
-            "OPERATION.TOGGLE_CASE": "[STRING1] 在 [STRING2] 中 [MODE]",
-            "OPERATION.CONVERT": "轉換 [STRING] 為 [MODE]",
-            "OPERATION.JOIN": "組合字串 [STRING]",
-            "OPERATION.GET_JOIN": "組合的字串",
-            "OPERATION.GET_TO_UNICODE": "[STRING] 的 Unicode 編碼",
-            "OPERATION.UNICODE_TO_STRING": "Unicode 編碼為 [STRING] 的字串",
-            "OPERATION.OVERWRITE": "使用 [OTHER] 覆蓋 [ORIGINAL]，方向：[DIRECTION]",
-            "OPERATION.CALCULATE_LINE_LENGTH": "([X1],[Y1]) 到 ([X2],[Y2]) 的間距",
-            "OPERATION.CALCULATE_LINE_DIRECTION": "([X1],[Y1]) 到 ([X2],[Y2]) 的方向",
-            "OPERATION.CALCULATE_INTERSECTION": "計算交点 ([X1],[Y1]) 到 ([X2],[Y2]) 與 ([X3],[Y3]) 到 ([X4],[Y4])",
-            "OPERATION.TRIANGLE": "三角形 ([X1],[Y1]) ([X2],[Y2]) ([X3],[Y3]) 的 [MODE]",
-            "OPERATION.TRIANGLE_AREA": "三角形 [S1] [S2] [S3] 的面積",
-            "OPERATION.RECTANGLE": "四邊形 ([X1],[Y1]) ([X2],[Y2]) ([X3],[Y3]) ([X4],[Y4]) 的 [MODE]",
-            "OPERATION.GRAPH": "多邊形 [GRAPH] 的 [MODE]",
-            "OPERATION.CIRCLE": "[UNITS] 為 [LENGTH] 的圆的 [MODE]",
-            "OPERATION.CALCULATE_ANGLE_DIFFERENCE": "角度 [ANGLE1] 到 [ANGLE2] 的 [MODE]",
-            "OPERATION.GET_CONSTANT": "常數 [OPTION]",
-            "OPERATION.TRUE": "真",
-            "OPERATION.FALSE": "假",
-            "OPERATION.RANDOM": "隨機",
-            "OPERATION.TYPE_NUMBER": "數字",
-            "OPERATION.TYPE_POSITIVE_NUMBER": "正數",
-            "OPERATION.TYPE_NEGATIVE_NUMBER": "負數",
-            "OPERATION.TYPE_EVEN_NUMBER": "偶數",
-            "OPERATION.TYPE_ODD_NUMBER": "奇數",
-            "OPERATION.TYPE_INTEGER_NUMBER": "整數",
-            "OPERATION.TYPE_DECIMAL_NUMBER": "小數",
-            "OPERATION.TYPE_PRIME_NUMBER": "質數",
-            "OPERATION.TYPE_COMPOSITE_NUMBER": "合數",
-            "OPERATION.TYPE_TEXT": "文字",
-            "OPERATION.TYPE_BOOLEAN": "布林值",
-            "OPERATION.NAND": "與非",
-            "OPERATION.NOR": "或非",
-            "OPERATION.XOR": "異或",
-            "OPERATION.XNOR": "同或",
-            "OPERATION.FIRST_OCCURRENCE": "首次出現的位置",
-            "OPERATION.LAST_OCCURRENCE": "最後出現的位置",
-            "OPERATION.NUMBER_OF": "出現的次數",
-            "OPERATION.UPPERCASE": "大寫",
-            "OPERATION.LOWERCASE": "小寫",
-            "OPERATION.CAPITALIZE": "首字大寫",
-            "OPERATION.REVERSE": "翻轉",
-            "OPERATION.AREA": "面積",
-            "OPERATION.CIRCUMFERENCE": "周長",
-            "OPERATION.RADIUS": "半徑",
-            "OPERATION.DIAMETER": "直徑",
-            "OPERATION.INTERIOR_ANGLE": "內角",
-            "OPERATION.EXTERIOR_ANGLE": "外角",
-            "OPERATION.CLOCKWISE": "順時針",
-            "OPERATION.COUNTER_CLOCKWISE": "逆時針",
-            "OPERATION.ARG_APPLE": "apple",
-            "OPERATION.ARG_BANANA": "banna"
-        },
+        }
     });
     const formatMessage = Scratch.translate;
 
@@ -217,6 +118,10 @@
     // const isLang = ['ar', 'fa', 'he', 'ckb'];
     // let isRTL = isLang.includes(localStorage.getItem('tw:language'));
     let isRTL = false; // 这个是获取界面布局是否是右到左，gandi 没有阿拉伯语希伯来语的 rtl 布局，所以应当设为假
+
+    //读取gandi主题颜色的css变量
+    const root = document.documentElement;
+    let root_computed = getComputedStyle(root);
 
     let mask = document.createElement('div');
     mask.style.position = 'fixed';
@@ -244,7 +149,7 @@
     settingwindow.style.height = '450px';
     settingwindow.style.overflow = 'hidden';
     settingwindow.style.overflowX = 'hidden';
-    settingwindow.style.backgroundColor = '#FFFFFF';
+    settingwindow.style.backgroundColor = root_computed.getPropertyValue('--theme-color-300').trim();
     settingwindow.style.borderRadius = '10px';
     settingwindow.style.display = 'none';
     settingwindow.style.paddingBottom = '5px';
@@ -263,7 +168,7 @@
 
     let titleBar = document.createElement('div');
     titleBar.style.height = '72px';
-    titleBar.style.backgroundColor = '#0FBD8C';
+    titleBar.style.backgroundColor = root_computed.getPropertyValue('--theme-color-300').trim();
     titleBar.style.color = '#000';
     titleBar.style.lineHeight = '72px';
     titleBar.style.maxHeight = '72px';
@@ -309,7 +214,7 @@
     closeButton.style.width = '24px';
     closeButton.style.height = '24px';
     closeButton.style.cursor = 'pointer';
-    closeButton.style.backgroundColor = '#00000000';
+    closeButton.style.backgroundColor = root_computed.getPropertyValue('--theme-text-primary').trim();
     closeButton.style.borderRadius = '5px';
     closeButton.style.transition = 'all 0.2s';
     titleBar.appendChild(closeButton);
@@ -1092,7 +997,7 @@
                 arguments: {
                     TEXT: {
                         type: ArgumentType.STRING,
-                        defaultValue: 'abs(3-5)'
+                        defaultValue: 'sqrt(16)+PI+abs(-1)*(-1)'
                     }
                 },
                 hideFromPalette: rareHideAndSow('math')
@@ -1847,6 +1752,33 @@
             },
             ...sep(HideBlockType.graph),
             {
+                opcode: 'isAngleInRange',
+                blockType: BlockType.BOOLEAN,
+                text: formatMessage({
+                    id: 'OPERATION.IS_ANGLE_IN_RANGE',
+                    default: 'is ∠ [ANGLE1] between ∠ [ANGLE2] and ∠ [ANGLE3] in [MODE]?'
+                }),
+                arguments: {
+                    ANGLE1: {
+                        type: ArgumentType.ANGLE,
+                        defaultValue: 45
+                    },
+                    ANGLE2: {
+                        type: ArgumentType.ANGLE,
+                        defaultValue: 0
+                    },
+                    ANGLE3: {
+                        type: ArgumentType.ANGLE,
+                        defaultValue: 90
+                    },
+                    MODE: {
+                        type: ArgumentType.STRING,
+                        menu: 'ANGLE_MODE'
+                    }
+                },
+                hideFromPalette: HideBlockType.graph
+            },
+            {
                 opcode: 'calculateAngleDifference',
                 blockType: BlockType.REPORTER,
                 text: formatMessage({
@@ -2475,24 +2407,116 @@
         }
 
         calculate({ TEXT }) {
-            const expression = String(TEXT);
-            const isNumRegex = /^-?\d+(\.\d+)?$/;
-            if (isNumRegex.test(expression)) return expression;
-            try {
-                let processedExpression = expression
-                    .replaceAll('[', '(').replaceAll('{', '(')
-                    .replaceAll(']', ')').replaceAll('}', ')')
-                    .replaceAll('×', '*').replaceAll('÷', '/')
-                    .replaceAll('^', '**');
-                processedExpression = processedExpression.replace(/[a-zA-Z]+/g, match => `Math.${match}`);
-                const func = new Function('Math', `return (${processedExpression})`);
-                const result = func(Math);
-                if (typeof result === 'number') return result;
-                else return '';
+            let expression = String(TEXT);
+
+            let stack = []; // 存储运算符
+            let postfix = []; // 存储数字
+
+            // 运算符优先级
+            let precedence = {
+                '(': 0,
+                '+': 1, '-': 1,
+                '*': 2, '·': 2, '×': 2, '/': 2, '÷': 2,
+                '√': 3, '∛': 3, '∜': 3,
+                '^': 4,
+                'sin': 5, 'cos': 5, 'tan': 5, 'asin': 5, 'acos': 5, 'atan': 5, 'atan_xy': 5, 'log': 5, 'log_ten': 5, 'abs': 5
+            };
+
+            // 处理表达式
+            expression = `(${expression})`; // 这个括号是必要的，涉及正负数前缀（ “(+” 与 “(-” ）
+            expression = expression.replace(/\s+/g, ''); // 删除所有空格
+            expression = expression.replace(/\(\-/g, '(0-'); // 处理负数前缀（例如：(-2)）
+            expression = expression.replace(/\(\+/g, '(0+'); // 处理正数前缀（例如：(+2)）
+            expression = expression.replace(/sqrt/gi, '√'); // 处理立方根 √
+            expression = expression.replace(/cbrt/gi, '∛'); // 处理平方根 ∛
+            expression = expression.replace(/4thrt/gi, '∜'); // 处理四方根 ∜
+            expression = expression.replace(/π|pi/gi, `${Math.PI}`); // 处理 π
+            expression = expression.replace(/(?<!t)e(?!n)/gi, `${Math.E}`); // 处理 e
+            expression = expression.replace(/phi|φ/gi, '1.618033988749895'); // 处理 φ
+            expression = expression.replace(/\)\s*\(/g, ')·('); // 在两个连续括号的括号之间插入乘法（例如：(2+3)(3+4)）
+            expression = expression.replace(/\)\s*(\d*\.?\d+)/g, ')$1·'); // 在后括号与小数之间插入乘法（例如：(2+3)0.1）
+            expression = expression.replace(/(\d*\.?\d+)\s*\(/g, '$1·('); // 在小数与前括号之间插入乘法（例如：0.1(2+3)）
+
+            // 转换后缀表示法
+            let tokens = expression.match(/(?:sin|cos|tan|asin|acos|atan_xy|atan|log_ten|log|abs|[()]|[\d.]+|\S)/gi);
+            if (tokens === null) return '';
+            for (let token of tokens) {
+                if (token === '(') {
+                    // 处理左括号
+                    stack.push(token);
+                } else if (token === ')') {
+                    // 处理右括号
+                    while (stack.length > 0 && stack[stack.length - 1] !== '(') {
+                        postfix.push(stack.pop());
+                    }
+                    stack.pop();  // 弹出左括号
+                } else {
+                    let value = parseFloat(token);
+                    if (isNaN(value)) {
+                        // 处理运算符
+                        while (stack.length > 0 && precedence[token] <= precedence[stack[stack.length - 1]]) {
+                            postfix.push(stack.pop());
+                        }
+                        stack.push(token);
+                    } else {
+                        // 处理数字
+                        postfix.push(value);
+                    }
+                }
             }
-            catch {
-                return '';
+
+            // 弹出剩余的运算符
+            while (stack.length > 0) {
+                postfix.push(stack.pop());
             }
+
+            // 计算后缀表达式
+            stack = [];
+            for (let token of postfix) {
+                if (typeof token === 'number') {
+                    stack.push(token);
+                } else {
+                    let y = stack.pop();
+                    let x;
+                    // 二元操作符需要两个数
+                    if (['+', '-', '*', '/', '^', '·', '×', '÷'].includes(token)) {
+                        x = stack.pop();
+                    }
+                    switch (token.toLowerCase()) {
+                        case '+': stack.push(x + y); break;
+                        case '-': stack.push(x - y); break;
+
+                        case '*': // ↓
+                        case '·': // ↓
+                        case '×': stack.push(x * y); break;
+
+                        case '/': // ↓
+                        case '÷': stack.push(x / y); break;
+
+                        case '√': stack.push(Math.sqrt(y)); break;
+                        case '∛': stack.push(Math.cbrt(y)); break;
+                        case '∜': stack.push(Math.pow(y, 0.25)); break;
+
+                        case '^': stack.push(Math.pow(x, y)); break;
+
+                        case 'sin': stack.push(Math.sin(y * Math.PI / 180)); break;
+                        case 'cos': stack.push(Math.cos(y * Math.PI / 180)); break;
+                        case 'tan': stack.push(Math.tan(y * Math.PI / 180)); break;
+
+                        case 'asin': stack.push(Math.asin(y) * 180 / Math.PI); break;
+                        case 'acos': stack.push(Math.acos(y) * 180 / Math.PI); break;
+                        case 'atan': stack.push(Math.atan(y) * 180 / Math.PI); break;
+                        case 'atan_xy': stack.push(Math.atan2(x, y) * 180 / Math.PI); break;
+
+                        case 'log': stack.push(Math.log(y) / Math.LN10); break;
+                        case 'log_ten': stack.push(Math.log10(y)); break;
+
+                        case 'abs': stack.push(Math.abs(y)); break;
+                    }
+                }
+            }
+
+            return stack[0] ?? '';
         }
 
         findPartition({ VALUE, RANGE_START, RANGE_END, NUM_PARTITIONS }) {
@@ -2955,6 +2979,50 @@
             return 0;
         }
 
+        isAngleInRange({ ANGLE1, ANGLE2, ANGLE3, MODE }) {
+            const normalizeAngle = angle => (angle + 180) % 360 - 180;
+            let angle1 = normalizeAngle(Cast.toNumber(ANGLE1));
+            let angle2 = normalizeAngle(Cast.toNumber(ANGLE2));
+            let angle3 = normalizeAngle(Cast.toNumber(ANGLE3));
+            switch (MODE) {
+                case "interiorAngle": {
+                    if (angle2 > angle3) {
+                        [angle2, angle3] = [angle3, angle2];
+                    }
+                    if (angle2 <= angle3) {
+                        return angle1 >= angle2 && angle1 <= angle3;
+                    } else {
+                        return angle1 >= angle2 || angle1 <= angle3;
+                    }
+                }
+                case "exteriorAngle": {
+                    if (angle2 < angle3) {
+                        [angle2, angle3] = [angle3, angle2];
+                    }
+                    if (angle2 >= angle3) {
+                        return angle1 >= angle2 || angle1 <= angle3;
+                    } else {
+                        return angle1 >= angle2 && angle1 <= angle3;
+                    }
+                }
+                case "clockwise": {
+                    if (angle2 <= angle3) {
+                        return angle1 >= angle2 && angle1 <= angle3;
+                    } else {
+                        return angle1 <= angle3 || angle1 >= angle2;
+                    }
+                }
+                case "counterClockwise": {
+                    if (angle2 >= angle3) {
+                        return angle1 >= angle3 && angle1 <= angle2;
+                    } else {
+                        return angle1 <= angle2 || angle1 >= angle3;
+                    }
+                }
+            }
+            return false;
+        }
+
         calculateAngleDifference({ ANGLE1, ANGLE2, MODE }) {
             const angle1 = Cast.toNumber(ANGLE1);
             const angle2 = Cast.toNumber(ANGLE2);
@@ -3039,35 +3107,36 @@
     window.tempExt = {
         Extension: Operation,
         info: {
-          name: "OPERATION_EXT_NAME",
-          description: "OPERATION_EXT.descp",
-          extensionId: OPERATION_EXT_extensionId,
-          iconURL: OPERATION_EXT_picture,
-          insetIconURL: OPERATION_EXT_icon,
-          featured: true,
-          disabled: false,
-          collaboratorList: [
-            {
-              collaborator: '多bug的啸天犬 @ CCW',
-              collaboratorURL:
-                'https://www.ccw.site/student/6200811f05660557606c8b15',
-            },
-            {
-              collaborator: 'لا اسم@CCW',
-              collaboratorURL:
-                'https://www.ccw.site/student/6267e862a6666f52c7c97059',
-            },
-          ]},
+            name: "OPERATION_EXT_NAME",
+            description: "OPERATION_EXT.descp",
+            extensionId: OPERATION_EXT_extensionId,
+            iconURL: OPERATION_EXT_picture,
+            insetIconURL: OPERATION_EXT_icon,
+            featured: true,
+            disabled: false,
+            collaboratorList: [
+                {
+                    collaborator: '多bug的啸天犬 @ CCW',
+                    collaboratorURL:
+                        'https://www.ccw.site/student/6200811f05660557606c8b15',
+                },
+                {
+                    collaborator: 'لا اسم@CCW',
+                    collaboratorURL:
+                        'https://www.ccw.site/student/6267e862a6666f52c7c97059',
+                },
+            ]
+        },
         l10n: {
-          "zh-cn": {
-            "OPERATION_EXT_NAME": "运算pro",
-            "OPERATION_EXT.descp": "数学课作弊神器！更好的计算！！"
-          },
-          en: {
-            "OPERATION_EXT_NAME": "operation pro",
-            "OPERATION_EXT.descp": "Math class cheating device! Better calculation!!"
-          }
+            "zh-cn": {
+                "OPERATION_EXT_NAME": "运算pro",
+                "OPERATION_EXT.descp": "数学课作弊神器！更好的计算！！"
+            },
+            en: {
+                "OPERATION_EXT_NAME": "operation pro",
+                "OPERATION_EXT.descp": "Math class cheating device! Better calculation!!"
+            }
         }
-       };
-    
+    };
+
 })(Scratch);
