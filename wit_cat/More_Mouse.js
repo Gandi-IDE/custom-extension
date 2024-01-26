@@ -39,6 +39,11 @@ class WitCatMouse {
 		this.MouseWheel = 0;
 
 		/**
+		 * 上次设置分辨率的时间
+		 */
+		this.LastSet = 0;
+
+		/**
 		 * 鼠标速度重置计时器
 		 * @type {null|number}
 		 */
@@ -967,14 +972,20 @@ class WitCatMouse {
 	 * @deprecated
 	 */
 	setfill(args) {
-		const canvas = this.canvasSelf();
-		if (canvas === null) {
-			return 0;
+		if (Date.now() - this.LastSet > 1000) {
+			this.LastSet = Date.now();
+			const canvas = this.canvasSelf();
+			if (canvas === null) {
+				return 0;
+			}
+			if (Number(args.num) < window.screen.height) {
+				this.runtime.renderer.resize((Number(args.num) * this.runtime.stageWidth) / this.runtime.stageHeight, Number(args.num));
+			} else {
+				console.warn("分辨率超过屏幕，将产生额外性能消耗\nResolution exceeding the screen will incur additional performance costs");
+			}
+		} else {
+			console.warn("设置分辨率太过频繁\nSetting the resolution too often");
 		}
-		canvas.height = Number(args.num);
-		canvas.width = (Number(args.num) * this.runtime.stageWidth) / this.runtime.stageHeight;
-		this.runtime.renderer.dirty = true;
-		this.runtime.renderer.draw();
 	}
 
 	/**
