@@ -24,6 +24,7 @@
     LppException: () => LppException,
     LppFunction: () => LppFunction,
     LppFunctionContext: () => LppFunctionContext,
+    LppHandle: () => LppHandle,
     LppObject: () => LppObject,
     LppPromise: () => LppPromise,
     LppReference: () => LppReference,
@@ -175,7 +176,7 @@
         const then = ensureValue(value.get("then"));
         if (then instanceof LppFunction) {
           const res = then.apply(value, [
-            new LppFunction((_, args) => {
+            new LppFunction(({ args }) => {
               const res2 = processThenReturn(
                 new LppReturn(args[0] ?? new LppConstant(null)),
                 resolve,
@@ -183,7 +184,7 @@
               );
               return withValue(res2, () => new LppReturn(new LppConstant(null)));
             }),
-            new LppFunction((_, args) => {
+            new LppFunction(({ args }) => {
               reject(args[0] ?? new LppConstant(null));
               return new LppReturn(new LppConstant(null));
             })
@@ -953,16 +954,23 @@
       throw new Error("lpp: unknown operand");
     }
   };
+  var LppHandle = class {
+    constructor(fn, self, args) {
+      this.fn = fn;
+      this.self = self;
+      this.args = args;
+    }
+  };
   var LppFunction = class _LppFunction extends LppObject {
     /**
      * Construct a function object.
      * @warning Do not use this function directly unless you know what you are doing! Use LppFunction.native instead.
-     * @param execute Function to execute.
+     * @param caller Function to execute.
      * @param prototype Function prototype.
      */
-    constructor(execute, prototype = new LppObject()) {
+    constructor(caller, prototype = new LppObject()) {
       super(/* @__PURE__ */ new Map(), void 0);
-      this.execute = execute;
+      this.caller = caller;
       this.value.set("prototype", prototype);
     }
     /**
@@ -972,18 +980,16 @@
      * @returns Constructed function.
      */
     static native(execute, prototype) {
-      function addNativeTraceback(exception, fn, self, args) {
+      function addNativeTraceback(exception, ctx) {
         if (exception instanceof LppException)
-          exception.pushStack(new LppTraceback.NativeFn(fn, self, args));
+          exception.pushStack(
+            new LppTraceback.NativeFn(ctx.fn, ctx.self, ctx.args)
+          );
         return exception;
       }
-      const obj = new _LppFunction((self, args) => {
-        return withValue(
-          execute(self, args),
-          (value) => addNativeTraceback(value, obj, self ?? new LppConstant(null), args)
-        );
+      return new _LppFunction((ctx) => {
+        return withValue(execute(ctx), (value) => addNativeTraceback(value, ctx));
       }, prototype);
-      return obj;
     }
     /**
      * Get a value.
@@ -1067,7 +1073,7 @@
      * @returns Return value.
      */
     apply(self, args) {
-      return this.execute(self, args);
+      return this.caller(new LppHandle(this, self, args));
     }
     /**
      * Call function as a constructor.
@@ -1112,27 +1118,28 @@
     done(resolveFn, rejectFn) {
       return _LppPromise.generate((resolve, reject) => {
         this.pm.then(
-          resolveFn ? (value) => {
+          (value) => {
             if (value instanceof LppValue2) {
-              const res = resolveFn.apply(this, [value]);
-              return withValue(
-                res,
-                (v) => processThenReturn(v, resolve, reject)
-              );
+              if (resolveFn) {
+                const res = resolveFn.apply(this, [value]);
+                return withValue(res, (v) => processThenReturn(v, resolve, reject));
+              } else {
+                return processThenReturn(new LppReturn(value), resolve, reject);
+              }
             }
             throw new Error("lpp: unknown result");
-          } : void 0,
-          rejectFn ? (err) => {
+          },
+          (err) => {
             if (err instanceof LppValue2) {
-              const res = rejectFn.apply(this, [err]);
-              return withValue(
-                res,
-                (v) => processThenReturn(v, resolve, reject)
-              );
+              if (rejectFn) {
+                const res = rejectFn.apply(this, [err]);
+                return withValue(res, (v) => processThenReturn(v, resolve, reject));
+              } else {
+                return reject(err);
+              }
             }
             throw err;
-          } : void 0
-          // TODO: uncaughtException
+          }
         );
         return void 0;
       });
@@ -1436,12 +1443,12 @@
   var global = /* @__PURE__ */ new Map();
   var Global;
   ((Global2) => {
-    Global2.Boolean = LppFunction.native((_, args) => {
+    Global2.Boolean = LppFunction.native(({ args }) => {
       if (args.length < 1)
         return new LppReturn(new LppConstant(false));
       return new LppReturn(new LppConstant(asBoolean(args[0])));
     }, new LppObject(/* @__PURE__ */ new Map()));
-    Global2.Number = LppFunction.native((_, args) => {
+    Global2.Number = LppFunction.native(({ args }) => {
       function convertToNumber(args2) {
         if (args2.length < 1)
           return new LppConstant(0);
@@ -1467,7 +1474,7 @@
       return new LppReturn(convertToNumber(args));
     }, new LppObject(/* @__PURE__ */ new Map()));
     Global2.String = LppFunction.native(
-      (_, args) => {
+      ({ args }) => {
         function convertToString(args2) {
           if (args2.length < 1)
             return new LppConstant("");
@@ -1491,7 +1498,7 @@
       )
     );
     Global2.Array = LppFunction.native(
-      (_, args) => {
+      ({ args }) => {
         function convertToArray(args2) {
           if (args2.length < 1)
             return new LppArray();
@@ -1516,7 +1523,7 @@
         ])
       )
     );
-    Global2.Object = LppFunction.native((_, args) => {
+    Global2.Object = LppFunction.native(({ args }) => {
       function convertToObject(args2) {
         if (args2.length < 1)
           return new LppObject();
@@ -1525,7 +1532,7 @@
       return new LppReturn(convertToObject(args));
     }, new LppObject(/* @__PURE__ */ new Map()));
     Global2.Function = LppFunction.native(
-      (_, args) => {
+      ({ args }) => {
         if (args.length < 1)
           return new LppReturn(
             new LppFunction(() => {
@@ -1541,7 +1548,7 @@
           ["prototype", ensureValue(Global2.Object.get("prototype"))],
           [
             "apply",
-            LppFunction.native((self, args) => {
+            LppFunction.native(({ self, args }) => {
               if (self instanceof LppFunction) {
                 let selfArg = new LppConstant(null);
                 let argArray = [];
@@ -1572,12 +1579,12 @@
       )
     );
     Global2.Promise = LppFunction.native(
-      (self, args) => {
+      ({ self, args }) => {
         if (self instanceof LppPromise && args.length > 0 && args[0] instanceof LppFunction) {
           const fn = args[0];
           const temp = LppPromise.generate((resolve, reject) => {
             const res = fn.apply(self, [
-              new LppFunction((_, args2) => {
+              new LppFunction(({ args: args2 }) => {
                 const res2 = processThenReturn(
                   new LppReturn(args2[0] ?? new LppConstant(null)),
                   resolve,
@@ -1585,7 +1592,7 @@
                 );
                 return withValue(res2, () => new LppReturn(new LppConstant(null)));
               }),
-              new LppFunction((_, args2) => {
+              new LppFunction(({ args: args2 }) => {
                 reject(args2[0] ?? new LppConstant(null));
                 return new LppReturn(new LppConstant(null));
               })
@@ -1601,7 +1608,7 @@
         /* @__PURE__ */ new Map([
           [
             "then",
-            LppFunction.native((self, args) => {
+            LppFunction.native(({ self, args }) => {
               if (self instanceof LppPromise) {
                 return new LppReturn(
                   self.done(
@@ -1616,7 +1623,7 @@
           ],
           [
             "catch",
-            LppFunction.native((self, args) => {
+            LppFunction.native(({ self, args }) => {
               if (self instanceof LppPromise && args.length > 0 && args[0] instanceof LppFunction) {
                 return new LppReturn(self.error(args[0]));
               } else {
@@ -1634,7 +1641,7 @@
     );
     Global2.Promise.set(
       "resolve",
-      LppFunction.native((self, args) => {
+      LppFunction.native(({ self, args }) => {
         if (self !== Global2.Promise) {
           return raise(Global2.IllegalInvocationError.construct([]));
         }
@@ -1651,7 +1658,7 @@
     );
     Global2.Promise.set(
       "reject",
-      LppFunction.native((self, args) => {
+      LppFunction.native(({ self, args }) => {
         if (self !== Global2.Promise) {
           return raise(Global2.IllegalInvocationError.construct([]));
         }
@@ -1662,7 +1669,7 @@
         );
       })
     );
-    Global2.Error = LppFunction.native((self, args) => {
+    Global2.Error = LppFunction.native(({ self, args }) => {
       if (self.instanceof(Global2.Error)) {
         self.set("value", args[0] ?? new LppConstant(null));
         self.set("stack", new LppConstant(null));
@@ -1672,7 +1679,7 @@
       }
     }, new LppObject(/* @__PURE__ */ new Map()));
     Global2.IllegalInvocationError = LppFunction.native(
-      (self, args) => {
+      ({ self, args }) => {
         if (self.instanceof(Global2.IllegalInvocationError)) {
           const res = Global2.Error.apply(self, args);
           return withValue(res, (v) => {
@@ -1687,7 +1694,7 @@
       new LppObject(/* @__PURE__ */ new Map([["prototype", ensureValue(Global2.Error.get("prototype"))]]))
     );
     Global2.SyntaxError = LppFunction.native(
-      (self, args) => {
+      ({ self, args }) => {
         if (self.instanceof(Global2.SyntaxError)) {
           const res = Global2.Error.apply(self, args);
           return withValue(res, (v) => {
@@ -1705,7 +1712,7 @@
       /* @__PURE__ */ new Map([
         [
           "parse",
-          LppFunction.native((self, args) => {
+          LppFunction.native(({ self, args }) => {
             if (self !== Global2.JSON) {
               return raise(Global2.IllegalInvocationError.construct([]));
             }
@@ -1728,7 +1735,7 @@
         ],
         [
           "stringify",
-          LppFunction.native((self, args) => {
+          LppFunction.native(({ self, args }) => {
             if (self !== Global2.JSON) {
               return raise(Global2.IllegalInvocationError.construct([]));
             }
@@ -2094,33 +2101,50 @@
     LppTraceback3.Block = Block2;
   })(LppTraceback2 || (LppTraceback2 = {}));
 
-  // src/impl/serialization/index.ts
-  var serialization_exports = {};
-  __export(serialization_exports, {
-    Validator: () => Validator,
-    attachMetadata: () => attachMetadata,
-    attachTypehint: () => attachTypehint,
-    deserializeBlock: () => deserializeBlock,
-    hasMetadata: () => hasMetadata,
-    serializeBlock: () => serializeBlock
+  // src/impl/metadata/index.ts
+  var metadata_exports = {};
+  __export(metadata_exports, {
+    TypeMetadata: () => TypeMetadata,
+    attach: () => attach,
+    hasMetadata: () => hasMetadata
   });
-  function attachMetadata(originalFn, target, blocks, block, signature) {
-    const v = originalFn;
-    v.target = target;
-    v.blocks = blocks;
-    v.block = block;
-    v.signature = signature;
-    v.isTypehint = false;
+  var TypeMetadata = class {
+    /**
+     * Construct a type metadata object.
+     * @param signature Function's signature.
+     */
+    constructor(signature) {
+      this.signature = signature;
+    }
+  };
+  function hasMetadata(obj) {
+    const v = obj;
+    return !!v.metadata;
   }
-  function attachTypehint(originalFn, signature) {
-    const v = originalFn;
-    v.signature = signature;
-    v.isTypehint = true;
+  function attach(obj, metadata) {
+    const v = obj;
+    v.metadata = metadata;
+    return v;
   }
-  function hasMetadata(fn) {
-    const v = fn;
-    return (v.block === void 0 || typeof v.block === "string") && (v.target === void 0 || typeof v.target === "string") && v.signature instanceof Array && v.signature.every((v2) => typeof v2 === "string") && typeof v.isTypehint === "boolean";
-  }
+
+  // src/impl/serialization.ts
+  var ScratchMetadata = class extends TypeMetadata {
+    /**
+     * Construct a Scratch metadata object.
+     * @param signature Function's signature.
+     * @param blocks Runtime blocks instance (for serialize/deserialize) and Block ID (refers to lpp_constructFunction).
+     * @param sprite Original sprite ID of block container.
+     * @param target Target ID.
+     * @param closure Function's closure.
+     */
+    constructor(signature, blocks, sprite, target, closure) {
+      super(signature);
+      this.blocks = blocks;
+      this.sprite = sprite;
+      this.target = target;
+      this.closure = closure;
+    }
+  };
   function serializeBlock(container, block) {
     function serializeBlockInternal(container2, block2) {
       const v = {};
@@ -2192,11 +2216,11 @@
         return false;
       if (typeof v.topLevel !== "boolean")
         return false;
-      if (!(typeof v.inputs === "object" && v.inputs !== null) || !Object.values(v.inputs).every((elem) => isInput(container, elem)))
+      if (!(typeof v.inputs === "object" && v.inputs !== null) || !Object.values(v.inputs).every((elem) => isInput(container, elem)) && Object.keys(v.inputs).length !== 0)
         return false;
-      if (!(v.fields === "object" && v.fields !== null) || !Object.values(v.fields).every((v2) => isField(v2)))
+      if (!(typeof v.fields === "object" && v.fields !== null) || !Object.values(v.fields).every((v2) => isField(v2)) && Object.keys(v.fields).length !== 0)
         return false;
-      if (v.mutation !== void 0 && !(v.mutation === "object" && v.mutation !== null))
+      if (v.mutation !== void 0 && !(typeof v.mutation === "object" && v.mutation !== null))
         return false;
       return true;
     }
@@ -2205,13 +2229,13 @@
       if (!(typeof value === "object" && value !== null))
         return false;
       const v = value;
-      if (!(v.signature instanceof Array) || !v.signature.every((v2) => typeof v2 === "string"))
+      if (!(v.signature instanceof Array) || !v.signature.every((v2) => typeof v2 === "string") && v.signature.length !== 0)
         return false;
       if (!(typeof v.script === "object" && v.script !== null) || !Object.entries(v.script).every(
         (elem) => isBlock(v.script, elem[0], elem[1])
-      ))
+      ) && Object.keys(v.script).length !== 0)
         return false;
-      if (v.block !== null && (typeof v.block !== "string" || !(v.block in v.script)))
+      if (typeof v.block !== "string" || !(v.block in v.script))
         return false;
       return true;
     }
@@ -2289,7 +2313,7 @@
           )
         );
       }
-      if (metadata && !value2.isTypehint) {
+      if (metadata && value2.metadata instanceof ScratchMetadata) {
         const subelem = document.createElement("li");
         subelem.append(
           dialog_exports.Text(
@@ -2300,11 +2324,11 @@
         );
         const traceback = document.createElement("span");
         traceback.classList.add("lpp-code");
-        if (Blockly && value2.target && value2.block && vm.runtime.getTargetById(value2.target)) {
+        if (Blockly && value2.metadata.sprite && vm.runtime.getTargetById(value2.metadata.sprite)) {
           const workspace = Blockly.getMainWorkspace();
           traceback.classList.add("lpp-traceback-stack-enabled");
-          const { target, block } = value2;
-          traceback.textContent = block;
+          const { sprite, blocks } = value2.metadata;
+          traceback.textContent = blocks[1];
           traceback.title = formatMessage(
             "lpp.tooltip.button.scrollToBlockEnabled"
           );
@@ -2312,15 +2336,15 @@
             const box = Blockly.DropDownDiv.getContentDiv().getElementsByClassName(
               "valueReportBox"
             )[0];
-            vm.setEditingTarget(target);
-            workspace.centerOnBlock(block, true);
+            vm.setEditingTarget(sprite);
+            workspace.centerOnBlock(blocks[1], true);
             if (box) {
               Blockly.DropDownDiv.hideWithoutAnimation();
               Blockly.DropDownDiv.clearContent();
               Blockly.DropDownDiv.getContentDiv().append(box);
               Blockly.DropDownDiv.showPositionedByBlock(
                 workspace,
-                workspace.getBlockById(block)
+                workspace.getBlockById(blocks[1])
               );
             }
           });
@@ -2369,31 +2393,31 @@
         code = dialog_exports.Text(value.value.length === 0 ? "[]" : "[...]", "lpp-code");
       } else if (value instanceof LppFunction) {
         code = dialog_exports.Text(
-          `f (${hasMetadata(value) ? value.signature.join(", ") : ""})`,
+          `f (${hasMetadata(value) && value.metadata instanceof TypeMetadata ? value.metadata.signature.join(", ") : ""})`,
           "lpp-code"
         );
         code.style.fontStyle = "italic";
       } else {
         code = dialog_exports.Text(value.value.size === 0 ? "{}" : "{...}", "lpp-code");
       }
-      if (Blockly && value instanceof LppFunction && hasMetadata(value) && value.target && value.block && vm.runtime.getTargetById(value.target)) {
+      if (Blockly && value instanceof LppFunction && hasMetadata(value) && value.metadata instanceof ScratchMetadata && value.metadata.sprite && vm.runtime.getTargetById(value.metadata.sprite)) {
         const workspace = Blockly.getMainWorkspace();
-        const { target, block } = value;
+        const { sprite, blocks } = value.metadata;
         code.title = formatMessage("lpp.tooltip.button.scrollToBlockEnabled");
         code.classList.add("lpp-traceback-stack-enabled");
         code.addEventListener("click", () => {
           const box = Blockly.DropDownDiv.getContentDiv().getElementsByClassName(
             "valueReportBox"
           )[0];
-          vm.setEditingTarget(target);
-          workspace.centerOnBlock(block, true);
+          vm.setEditingTarget(sprite);
+          workspace.centerOnBlock(blocks[1], true);
           if (box) {
             Blockly.DropDownDiv.hideWithoutAnimation();
             Blockly.DropDownDiv.clearContent();
             Blockly.DropDownDiv.getContentDiv().append(box);
             Blockly.DropDownDiv.showPositionedByBlock(
               workspace,
-              workspace.getBlockById(block)
+              workspace.getBlockById(blocks[1])
             );
           }
         });
@@ -3743,12 +3767,12 @@
     }
   };
 
-  // src/impl/metadata.ts
+  // src/impl/typehint.ts
   function attachType() {
     function attachType2(fn, signature) {
       const v = ensureValue(fn);
       if (v instanceof LppFunction)
-        attachTypehint(v, signature);
+        attach(v, new TypeMetadata(signature));
     }
     attachType2(Global.Function.get("prototype").get("apply"), ["self", "args"]);
     attachType2(Global.Function.get("deserialize"), ["obj"]);
@@ -4438,94 +4462,49 @@
         }
         Global.Function.set(
           "serialize",
-          LppFunction.native((self, args) => {
+          LppFunction.native(({ self, args }) => {
             const fn = args[0];
-            if (self !== Global.Function || !fn || !(fn instanceof LppFunction) || !hasMetadata(fn) || fn.isTypehint) {
+            if (self !== Global.Function || !fn || !(fn instanceof LppFunction) || !hasMetadata(fn) || !(fn.metadata instanceof ScratchMetadata)) {
               return raise(Global.IllegalInvocationError.construct([]));
             }
+            const v = fn.metadata.blocks[0]?.getBlock(fn.metadata.blocks[1]);
+            if (!v)
+              throw new Error("lpp: serialize blockId invalid");
             return new LppReturn(
               LppExtension.serializeFunction(
-                fn.blocks && fn.block ? fn.blocks.getBlock(fn.block) : void 0,
-                fn.blocks,
-                fn.signature
+                v,
+                fn.metadata.blocks[0],
+                fn.metadata.signature
               )
             );
           })
         );
         Global.Function.set(
           "deserialize",
-          LppFunction.native((self, args) => {
+          LppFunction.native(({ self, args }) => {
             if (self !== Global.Function) {
               return raise(Global.IllegalInvocationError.construct([]));
             }
             const val = ffi_exports.toObject(args[0] ?? new LppConstant(null));
             if (Validator.isInfo(val)) {
-              if (!val.block) {
-                const fn2 = new LppFunction(() => {
-                  return new LppReturn(new LppConstant(null));
-                });
-                attachMetadata(
-                  fn2,
-                  void 0,
-                  void 0,
-                  void 0,
-                  val.signature
-                );
-                return new LppReturn(fn2);
-              }
               const Blocks = runtime.flyoutBlocks.constructor;
               const blocks = new Blocks(runtime, true);
               deserializeBlock(blocks, val.script);
-              const fn = new LppFunction((self2, args2) => {
-                const Target = runtime.getTargetForStage()?.constructor;
-                if (!Target)
-                  throw new Error("lpp: project is disposed");
-                if (!this.util)
-                  throw new Error("lpp: util used before initialization");
-                const controller = new ThreadController(runtime, this.util);
-                const target = this.createDummyTarget(Target, blocks);
-                const block = blocks.getBlock(val.block ?? "");
-                if (!block?.inputs?.SUBSTACK)
-                  return new LppReturn(new LppConstant(null));
-                const thread = controller.create(
-                  block.inputs.SUBSTACK.block,
-                  target
-                );
-                return ImmediatePromise.sync(
-                  new ImmediatePromise((resolve) => {
-                    thread.lpp = new LppFunctionContext(
-                      void 0,
-                      self2 ?? new LppConstant(null),
-                      (val2) => {
-                        resolve(val2);
-                      },
-                      (val2) => {
-                        resolve(val2);
-                      }
-                    );
-                    for (const [key, value] of val.signature.entries()) {
-                      if (key < args2.length)
-                        thread.lpp.closure.set(value, args2[key]);
-                      else
-                        thread.lpp.closure.set(value, new LppConstant(null));
-                    }
-                    controller.wait(thread).then(() => {
-                      ;
-                      thread?.lpp?.returnCallback(
-                        new LppReturn(new LppConstant(null))
-                      );
-                    });
-                  })
-                );
-              });
-              attachMetadata(
-                fn,
-                void 0,
-                blocks,
-                val.block,
-                val.signature
+              const Target = runtime.getTargetForStage()?.constructor;
+              if (!Target)
+                throw new Error("lpp: project is disposed");
+              return new LppReturn(
+                attach(
+                  new LppFunction(this.executeScratch.bind(this, Target)),
+                  new ScratchMetadata(
+                    val.signature,
+                    [blocks, val.block],
+                    void 0,
+                    void 0,
+                    void 0
+                  )
+                )
               );
-              return new LppReturn(fn);
             }
             return raise(
               Global.SyntaxError.construct([new LppConstant("Invalid value")])
@@ -4534,11 +4513,10 @@
         );
         attachType();
         runtime.lpp = {
-          Serialization: serialization_exports,
-          Wrapper,
           Core: core_exports,
-          version: lppVersion,
-          global
+          Metadata: metadata_exports,
+          Wrapper,
+          version: lppVersion
         };
         console.groupCollapsed("\u{1F4AB} lpp", lppVersion);
         console.log("\u{1F31F}", this.formatMessage("lpp.about.summary"));
@@ -4786,10 +4764,11 @@
           if (!(fn instanceof LppValue2 || fn instanceof LppReference))
             throw new LppError("syntaxError");
           const func = ensureValue(fn);
+          const lppThread = thread;
           if (!(func instanceof LppFunction))
             throw new LppError("notCallable");
           const res = func.apply(
-            fn instanceof LppReference ? fn.parent.deref() ?? new LppConstant(null) : new LppConstant(null),
+            fn instanceof LppReference ? fn.parent.deref() ?? new LppConstant(null) : lppThread.lpp?.unwind()?.self ?? new LppConstant(null),
             actualArgs
           );
           return this.asap(
@@ -4964,60 +4943,20 @@
             else
               throw new LppError("syntaxError");
           }
-          let context;
           const blocks = thread.target.blocks;
-          const targetId = target.id;
           const lppThread = thread;
-          if (lppThread.lpp) {
-            context = lppThread.lpp;
-          }
-          const fn = new LppFunction((self, args2) => {
-            const target2 = this.vm.runtime.getTargetById(targetId) ?? this.createDummyTarget(Target, blocks);
-            const id = block.inputs.SUBSTACK?.block;
-            if (!id)
-              return new LppReturn(new LppConstant(null));
-            if (!this.util)
-              throw new Error("lpp: util used before initialization");
-            const controller = new ThreadController(
-              this.vm.runtime,
-              this.util
-            );
-            const thread2 = controller.create(id, target2);
-            return ImmediatePromise.sync(
-              new ImmediatePromise((resolve) => {
-                thread2.lpp = new LppFunctionContext(
-                  context,
-                  self ?? new LppConstant(null),
-                  (val) => {
-                    resolve(val);
-                  },
-                  (val) => {
-                    resolve(val);
-                  }
-                );
-                for (const [key, value] of signature.entries()) {
-                  if (key < args2.length)
-                    thread2.lpp.closure.set(value, args2[key]);
-                  else
-                    thread2.lpp.closure.set(value, new LppConstant(null));
-                }
-                controller.wait(thread2).then(() => {
-                  ;
-                  thread2?.lpp?.returnCallback(
-                    new LppReturn(new LppConstant(null))
-                  );
-                });
-              })
-            );
-          });
-          attachMetadata(
-            fn,
-            target.sprite.clones[0].id,
-            blocks,
-            block.id,
-            signature
+          return new Wrapper(
+            attach(
+              new LppFunction(this.executeScratch.bind(this, Target)),
+              new ScratchMetadata(
+                signature,
+                [blocks, block.id],
+                target.sprite.clones[0].id,
+                target.id,
+                lppThread.lpp
+              )
+            )
           );
-          return new Wrapper(fn);
         } catch (e) {
           this.handleError(e);
         }
@@ -5250,10 +5189,14 @@
       nop({ value }, util) {
         const { thread } = util;
         this.util = util;
-        if (thread.isCompiled && thread.stackClick && thread.atStackTop() && !thread.target.blocks.getBlock(thread.peekStack())?.next && value !== void 0) {
-          this.vm.runtime.visualReport(thread.peekStack(), value);
+        if (thread.stackClick && thread.atStackTop() && !thread.target.blocks.getBlock(thread.peekStack())?.next && value !== void 0) {
+          if (thread.isCompiled) {
+            this.vm.runtime.visualReport(thread.peekStack(), value);
+          } else {
+            return value;
+          }
         }
-        return value;
+        return void 0;
       }
       /**
        * Handle syntax error.
@@ -5382,6 +5325,53 @@
         };
         return isPromise(res) ? new PromiseProxy(res, postProcess, postProcess) : res;
       }
+      executeScratch(Target, ctx) {
+        if (hasMetadata(ctx.fn) && ctx.fn.metadata instanceof ScratchMetadata) {
+          const metadata = ctx.fn.metadata;
+          let target;
+          if (metadata.target)
+            target = this.vm.runtime.getTargetById(metadata.target);
+          if (!target)
+            target = this.createDummyTarget(Target, metadata.blocks[0]);
+          const id = metadata.blocks[0].getBlock(metadata.blocks[1])?.inputs.SUBSTACK?.block;
+          if (!id)
+            return new LppReturn(new LppConstant(null));
+          if (!this.util)
+            throw new Error("lpp: util used before initialization");
+          const controller = new ThreadController(
+            this.vm.runtime,
+            this.util
+          );
+          const thread = controller.create(id, target);
+          return ImmediatePromise.sync(
+            new ImmediatePromise((resolve) => {
+              thread.lpp = new LppFunctionContext(
+                metadata.closure,
+                ctx.self ?? new LppConstant(null),
+                (val) => {
+                  resolve(val);
+                },
+                (val) => {
+                  resolve(val);
+                }
+              );
+              for (const [key, value] of metadata.signature.entries()) {
+                if (key < ctx.args.length)
+                  thread.lpp.closure.set(value, ctx.args[key]);
+                else
+                  thread.lpp.closure.set(value, new LppConstant(null));
+              }
+              controller.wait(thread).then(() => {
+                ;
+                thread?.lpp?.returnCallback(
+                  new LppReturn(new LppConstant(null))
+                );
+              });
+            })
+          );
+        }
+        return new LppReturn(new LppConstant(null));
+      }
       /**
        * Serialize function.
        * @param block Function block instance.
@@ -5390,12 +5380,6 @@
        * @returns LppFunction result.
        */
       static serializeFunction(block, blocks, signature) {
-        if (!block || !blocks)
-          return ffi_exports.fromObject({
-            signature,
-            script: {},
-            block: null
-          });
         const info = {
           signature,
           script: serializeBlock(blocks, block),
