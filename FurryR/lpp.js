@@ -4195,7 +4195,7 @@
   // src/index.ts
   (function(Scratch2) {
     const color = "#808080";
-    const lppVersion = "Technical Preview for Gandi IDE";
+    const lppVersion = "Technical Preview Snapshot #1 for Gandi IDE";
     if (Scratch2.extensions.unsandboxed === false) {
       throw new Error("lpp must be loaded in unsandboxed mode.");
     }
@@ -4221,10 +4221,6 @@
        * Blockly extension.
        */
       extension;
-      /**
-       * thread controller.
-       */
-      _threadController;
       /**
        * Scratch util.
        */
@@ -4484,11 +4480,14 @@
                 const Target = runtime.getTargetForStage()?.constructor;
                 if (!Target)
                   throw new Error("lpp: project is disposed");
+                if (!this.util)
+                  throw new Error("lpp: util used before initialization");
+                const controller = new ThreadController(runtime, this.util);
                 const target = this.createDummyTarget(Target, blocks);
                 const block = blocks.getBlock(val.block ?? "");
                 if (!block?.inputs?.SUBSTACK)
                   return new LppReturn(new LppConstant(null));
-                const thread = runtime._pushThread(
+                const thread = controller.create(
                   block.inputs.SUBSTACK.block,
                   target
                 );
@@ -4510,7 +4509,7 @@
                       else
                         thread.lpp.closure.set(value, new LppConstant(null));
                     }
-                    this.threadController.wait(thread).then(() => {
+                    controller.wait(thread).then(() => {
                       ;
                       thread?.lpp?.returnCallback(
                         new LppReturn(new LppConstant(null))
@@ -4974,10 +4973,16 @@
           }
           const fn = new LppFunction((self, args2) => {
             const target2 = this.vm.runtime.getTargetById(targetId) ?? this.createDummyTarget(Target, blocks);
-            if (!block.inputs.SUBSTACK)
+            const id = block.inputs.SUBSTACK?.block;
+            if (!id)
               return new LppReturn(new LppConstant(null));
-            const id = block.inputs.SUBSTACK.block;
-            const thread2 = this.threadController.create(id, target2);
+            if (!this.util)
+              throw new Error("lpp: util used before initialization");
+            const controller = new ThreadController(
+              this.vm.runtime,
+              this.util
+            );
+            const thread2 = controller.create(id, target2);
             return ImmediatePromise.sync(
               new ImmediatePromise((resolve) => {
                 thread2.lpp = new LppFunctionContext(
@@ -4996,7 +5001,7 @@
                   else
                     thread2.lpp.closure.set(value, new LppConstant(null));
                 }
-                this.threadController.wait(thread2).then(() => {
+                controller.wait(thread2).then(() => {
                   ;
                   thread2?.lpp?.returnCallback(
                     new LppReturn(new LppConstant(null))
@@ -5108,11 +5113,17 @@
           const id = block.inputs.SUBSTACK?.block;
           if (!id)
             return;
+          if (!this.util)
+            throw new Error("lpp: util used initialization");
+          const controller = new ThreadController(
+            this.vm.runtime,
+            this.util
+          );
           const parentThread = thread;
           return this.asap(
             ImmediatePromise.sync(
               new ImmediatePromise((resolve) => {
-                const scopeThread = this.threadController.create(id, target);
+                const scopeThread = controller.create(id, target);
                 scopeThread.lpp = new LppContext(
                   parentThread.lpp ?? void 0,
                   (value) => {
@@ -5130,9 +5141,7 @@
                     this.handleException(value);
                   }
                 );
-                resolve(
-                  this.threadController.wait(scopeThread).then(() => void 0)
-                );
+                resolve(controller.wait(scopeThread).then(() => void 0));
               })
             ),
             thread
@@ -5158,9 +5167,15 @@
           const id = block.inputs.SUBSTACK?.block;
           if (!id)
             return;
+          if (!this.util)
+            throw new Error("lpp: util used before initialization");
+          const controller = new ThreadController(
+            this.vm.runtime,
+            this.util
+          );
           const captureId = block.inputs.SUBSTACK_2?.block;
           const parentThread = thread;
-          const tryThread = this.threadController.create(id, target);
+          const tryThread = controller.create(id, target);
           let triggered = false;
           return this.asap(
             ImmediatePromise.sync(
@@ -5191,10 +5206,7 @@
                       error.set("stack", traceback);
                     }
                     dest.assign(error);
-                    const catchThread = this.threadController.create(
-                      captureId,
-                      target
-                    );
+                    const catchThread = controller.create(captureId, target);
                     catchThread.lpp = new LppContext(
                       parentThread.lpp ?? void 0,
                       (value2) => {
@@ -5212,12 +5224,12 @@
                         this.handleException(value2);
                       }
                     );
-                    this.threadController.wait(catchThread).then(() => {
+                    controller.wait(catchThread).then(() => {
                       resolve(void 0);
                     });
                   }
                 );
-                this.threadController.wait(tryThread).then(() => {
+                controller.wait(tryThread).then(() => {
                   if (!triggered) {
                     resolve(void 0);
                   }
@@ -5359,21 +5371,16 @@
        * @returns Processed promise or value.
        */
       asap(res, thread) {
+        if (!this.util)
+          throw new Error("lpp: util used before initialization");
+        const controller = new ThreadController(
+          this.vm.runtime,
+          this.util
+        );
         const postProcess = () => {
-          this.threadController.step(thread);
+          controller.step(thread);
         };
         return isPromise(res) ? new PromiseProxy(res, postProcess, postProcess) : res;
-      }
-      get threadController() {
-        if (this._threadController)
-          return this._threadController;
-        if (this.util) {
-          return this._threadController = new ThreadController(
-            this.vm.runtime,
-            this.util
-          );
-        }
-        throw new Error("lpp: used threadController before initialization");
       }
       /**
        * Serialize function.
