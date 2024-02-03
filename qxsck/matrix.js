@@ -283,7 +283,7 @@ window.tempExt = {
       'qxsckmatrix.description': '帮你进行矩阵的计算与操作',
     },
     'en': {
-      'qxsckmatrix.name': 'matrix',
+      'qxsckmatrix.name': 'Matrix',
       'qxsckmatrix.description': 'Help you calculate and operate matrix.',
     },
   },
