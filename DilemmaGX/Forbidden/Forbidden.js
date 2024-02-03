@@ -16,13 +16,17 @@ class Forbidden {
                 'Fbd.extensionName': 'Forbidden',
 
                 'Fbd.block.isLegal': '[text]在[list]中是否合法？',
+                'Fbd.block.isLegalUser': '[text]在[ulist]中是否合法？',
                 'Fbd.block.replace': '根据词库[list]过滤[text]并替换为[replacement]',
+                'Fbd.block.replaceUser': '根据词库[ulist]过滤[text]并替换为[replacement]',
             },
             en: {
                 'Fbd.extensionName': 'Forbidden',
 
                 'Fbd.block.isLegal': 'is[text]legal based on[list]?',
-                'Fbd.block.replace': 'filter[text]based by[list]with[replacement]'
+                'Fbd.block.isLegalUser': 'is[text]legal based on[ulist]?',
+                'Fbd.block.replace': 'filter[text]based by[list]with[replacement]',
+                'Fbd.block.replaceUser': 'filter[text]based by[ulist]with[replacement]',
             }
         })
     }
@@ -57,6 +61,20 @@ class Forbidden {
                     disableMonitor: true
                 },
                 {
+                    opcode: 'isLegalUser',
+                    blockType: 'Boolean',
+                    text: this.formatMessage('Fbd.block.isLegalUser'),
+                    arguments: {
+                        text: {
+                            type: 'string'
+                        },
+                        ulist: {
+                            type: 'string'
+                        }
+                    },
+                    disableMonitor: true
+                },
+                {
                     opcode: 'replace',
                     blockType: 'reporter',
                     text: this.formatMessage('Fbd.block.replace'),
@@ -67,6 +85,23 @@ class Forbidden {
                         list: {
                             type: 'string',
                             menu: 'list'
+                        },
+                        replacement: {
+                            type: 'string'
+                        }
+                    },
+                    disableMonitor: true
+                },
+                {
+                    opcode: 'replaceUser',
+                    blockType: 'reporter',
+                    text: this.formatMessage('Fbd.block.replaceUser'),
+                    arguments: {
+                        text: {
+                            type: 'string'
+                        },
+                        ulist: {
+                            type: 'string'
                         },
                         replacement: {
                             type: 'string'
@@ -84,25 +119,13 @@ class Forbidden {
         }
     }
     // dependencies
-    toUnicode(jsonArray) {
-        var unicodeArray = [];
-        for (var i = 0; i < jsonArray.length; i++) {
-            var unicode = JSON.stringify(jsonArray[i]).replace(/[\u00A0-\u9999<>\&]/gim, function (i) {
-                return '\\u' + i.charCodeAt(0).toString(16).toUpperCase();
-            });
-            unicodeArray.push(unicode);
+    _parseJSON(json) {
+        try {
+            return JSON.parse(json);
         }
-        return unicodeArray;
-    }
-    fromUnicode(jsonArray) {
-        var charArray = [];
-        for (var i = 0; i < jsonArray.length; i++) {
-            var str = jsonArray[i].replace(/\\u[\dA-Fa-f]{4}/g, function (match) {
-                return String.fromCharCode(parseInt(match.substr(2), 16));
-            });
-            charArray.push(JSON.parse(str));
+        catch (_) {
+            return undefined;
         }
-        return charArray;
     }
     // functions
     isLegal(args) {
@@ -117,6 +140,17 @@ class Forbidden {
         }
         return true;
     }
+    isLegalUser(args) {
+        let l = this._parseJSON(args.ulist);
+        if (typeof (l) == "object") {
+            for (let i = 0; i < l.length; i++) {
+                if (args.text.includes(l[i])) {
+                    return false;
+                }
+            }
+            return true;
+        } else return false;
+    }
     replace(args) {
         switch (args.list) {
             case 'd8478':
@@ -124,6 +158,15 @@ class Forbidden {
         }
         let regex = new RegExp('\\b(' + l.join('|') + ')\\b', 'g');
         return args.text.replace(regex, args.replacement);
+    }
+    replaceUser(args) {
+        let l = this._parseJSON(args.ulist);
+        if (typeof (l) == "object") {
+            let regex = new RegExp('\\b(' + l.join('|') + ')\\b', 'g');
+            return args.text.replace(regex, args.replacement);
+        } else { 
+            return undefined;
+        }
     }
 }
 
