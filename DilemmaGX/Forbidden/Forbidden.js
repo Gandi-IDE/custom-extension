@@ -124,7 +124,7 @@ class Forbidden {
             }
         }
     }
-    // dependencies
+    // ==================== dependencies ====================
     _parseJSON(json) {
         try {
             return JSON.parse(json);
@@ -133,7 +133,11 @@ class Forbidden {
             return undefined;
         }
     }
-    // functions
+    // v8 engine cannot read gandi "string" properly.
+    _parseText(text){
+        return String(text);
+    }
+    // ==================== functions ====================
     isLegal(args) {
         switch (args.list) {
             case 'd8478':
@@ -167,13 +171,13 @@ class Forbidden {
                 var l = internationalDefault;
         }
         let regex = new RegExp('\\b(' + l.join('|') + ')\\b', 'g');
-        return args.text.replace(regex, args.replacement);
+        return this._parseText(args.text).replace(regex, args.replacement);
     }
     replaceUser(args) {
         let l = this._parseJSON(args.ulist);
         if (typeof (l) == "object") {
             let regex = new RegExp('\\b(' + l.join('|') + ')\\b', 'g');
-            return args.text.replace(regex, args.replacement);
+            return this._parseText(args.text).replace(regex, args.replacement);
         } else { 
             return undefined;
         }
