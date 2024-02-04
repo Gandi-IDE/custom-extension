@@ -196,6 +196,11 @@ window.tempExt = {
             {
                 collaborator: '官方小傲娇 @ CCW',
                 collaboratorURL: 'https://www.ccw.site/student/62f76ddb49c5dc44ac0c03c0'
+            },
+            {
+                // international default
+                collaborator: 'Fath11 @ Cocrea',
+                collaboratorURL: 'https://cocrea.world/@Fath11'
             }
         ]
     },
