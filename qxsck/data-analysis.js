@@ -641,7 +641,7 @@ class dataAnalysis {
     else if(oper==='symmetricDifference') return this.symmetricDifferenceFunc(args.NUMBERS,args.NUMBERS2,1);
   }
 
-  unaryOperList(args){
+  unaryOperList(args,util){
     let oper=args.OPER;
     if(oper==='average') return this.averageFunc(util.target.lookupVariableById(args.NUMBERS),2);
     else if(oper==='maximum') return this.maximumFunc(util.target.lookupVariableById(args.NUMBERS),2);
