@@ -15,7 +15,7 @@ class EasyEmojis {
         "ee.extensionName": "表情符号",
 
         "ee.button.help": "速查表",
-        "ee.button.help.url": "",
+        "ee.button.help.url": "", // TODO: add url
 
         "ee.block.getAll": "获取全部数据",
         "ee.block.getEmoji": "尝试根据[b]获取[name]的表情的[t]",
@@ -23,12 +23,12 @@ class EasyEmojis {
 
         "ee.menu.b.char": "表情符号",
         "ee.menu.b.name": "表情名称",
-        "ee.menu.b.id": "表情代号",
+        "ee.menu.b.id": "表情id",
         "ee.menu.b.codes": "Unicode",
 
         "ee.menu.t.char": "表情符号",
         "ee.menu.t.name": "表情名称",
-        "ee.menu.t.id": "表情代号",
+        "ee.menu.t.id": "表情id",
         "ee.menu.t.group": "组别",
         "ee.menu.t.subgroup": "附属组别",
         "ee.menu.t.codes": "Unicode",
@@ -40,20 +40,20 @@ class EasyEmojis {
         "ee.button.help": "Cheatsheat",
         "ee.button.help.url": "",
 
-        "ee.block.getAll": "获取全部数据",
-        "ee.block.getEmoji": "尝试根据[b]获取[name]的表情的[t]",
-        "ee.block.parseEmoji": "尝试解析[text]",
+        "ee.block.getAll": "get all data",
+        "ee.block.getEmoji": "try to get the[t]of[b][name]",
+        "ee.block.parseEmoji": "try to parse[text]",
 
-        "ee.menu.b.char": "表情符号",
-        "ee.menu.b.name": "表情名称",
-        "ee.menu.b.id": "表情代号",
+        "ee.menu.b.char": "emoji symbol",
+        "ee.menu.b.name": "emoji name",
+        "ee.menu.b.id": "emoji id",
         "ee.menu.b.codes": "Unicode",
 
-        "ee.menu.t.char": "表情符号",
-        "ee.menu.t.name": "表情名称",
-        "ee.menu.t.id": "表情代号",
-        "ee.menu.t.group": "组别",
-        "ee.menu.t.subgroup": "附属组别",
+        "ee.menu.t.char": "emoji symbol",
+        "ee.menu.t.name": "emoji name",
+        "ee.menu.t.id": "emoji id",
+        "ee.menu.t.group": "group",
+        "ee.menu.t.subgroup": "subgroup",
         "ee.menu.t.codes": "Unicode",
         "ee.menu.t.JSON": "JSON",
       },
