@@ -643,55 +643,59 @@ class dataAnalysis {
 
   unaryOperList(args,util){
     let oper=args.OPER;
-    if(oper==='average') return this.averageFunc(util.target.lookupVariableById(args.NUMBERS),2);
-    else if(oper==='maximum') return this.maximumFunc(util.target.lookupVariableById(args.NUMBERS),2);
-    else if(oper==='minimum') return this.minimumFunc(util.target.lookupVariableById(args.NUMBERS),2);
-    else if(oper==='median') return this.medianFunc(util.target.lookupVariableById(args.NUMBERS),2);
-    else if(oper==='mode') return this.modeFunc(util.target.lookupVariableById(args.NUMBERS),2);
-    else if(oper==='variance') return this.varianceFunc(util.target.lookupVariableById(args.NUMBERS),2);
-    else if(oper==='standardDeviation') return this.standardDeviationFunc(args.NUMBERS,2);
+    if(args.NUMBERS!='empty'){
+      let numbers=util.target.lookupVariableById(args.NUMBERS);
+      if(oper==='average') return this.averageFunc(numbers,2);
+      else if(oper==='maximum') return this.maximumFunc(numbers,2);
+      else if(oper==='minimum') return this.minimumFunc(numbers,2);
+      else if(oper==='median') return this.medianFunc(numbers,2);
+      else if(oper==='mode') return this.modeFunc(numbers,2);
+      else if(oper==='variance') return this.varianceFunc(numbers,2);
+      else if(oper==='standardDeviation') return this.standardDeviationFunc(args.NUMBERS,2);
+    }
+    return 'NaN';
   }
   averageInList(args, util) {
-		if(args.NUMBERS!='empty'){
+    if(args.NUMBERS!='empty'){
       return this.averageFunc(util.target.lookupVariableById(args.NUMBERS),2);
-		}
-    return -1;
+    }
+    return 'NaN';
   }
   maximumInList(args, util) {
-		if(args.NUMBERS!='empty'){
-	  	return this.maximumFunc(util.target.lookupVariableById(args.NUMBERS),2);
-		}
-    return -1;
+    if(args.NUMBERS!='empty'){
+      return this.maximumFunc(util.target.lookupVariableById(args.NUMBERS),2);
+    }
+    return 'NaN';
   }
   minimumInList(args, util) {
-		if(args.NUMBERS!='empty'){
-			return this.minimumFunc(util.target.lookupVariableById(args.NUMBERS),2);
-		}
-    return -1;
+    if(args.NUMBERS!='empty'){
+      return this.minimumFunc(util.target.lookupVariableById(args.NUMBERS),2);
+    }
+    return 'NaN';
   }
   medianInList(args, util) {
-		if(args.NUMBERS!='empty'){
-			return this.medianFunc(util.target.lookupVariableById(args.NUMBERS),2);
-		}
-    return -1;
+    if(args.NUMBERS!='empty'){
+      return this.medianFunc(util.target.lookupVariableById(args.NUMBERS),2);
+    }
+    return 'NaN';;
   }
   modeInList(args, util) {
-		if(args.NUMBERS!='empty'){
-			return this.modeFunc(util.target.lookupVariableById(args.NUMBERS),2);
-		}
-    return -1;
+    if(args.NUMBERS!='empty'){
+      return this.modeFunc(util.target.lookupVariableById(args.NUMBERS),2);
+    }
+    return 'NaN';
   }
   varianceInList(args, util) {
-		if(args.NUMBERS!='empty'){
-			return this.varianceFunc(util.target.lookupVariableById(args.NUMBERS),2);
-		}
-    return -1;
+    if(args.NUMBERS!='empty'){
+      return this.varianceFunc(util.target.lookupVariableById(args.NUMBERS),2);
+    }
+    return 'NaN';
   }
   standardDeviationInList(args,util) {
     if(args.NUMBERS!='empty'){
       return this.standardDeviationFunc(util.target.lookupVariableById(args.NUMBERS),2);
-		}
-    return -1;
+    }
+    return 'NaN';
   }
   countNumebrsInList(args,util){
     if(args.NUMBERS!='empty'){
