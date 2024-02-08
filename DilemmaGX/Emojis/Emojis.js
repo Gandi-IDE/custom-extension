@@ -15,7 +15,7 @@ class EasyEmojis {
         "ee.extensionName": "表情符号",
 
         "ee.button.help": "速查表",
-        "ee.button.help.url": "", // TODO: add url
+        "ee.button.help.url": "https://dilemmagx.github.io/extension-docs/lib/emojis/support-cn.html",
 
         "ee.block.getAll": "获取全部数据",
         "ee.block.getEmoji": "尝试根据[b]获取[name]的表情的[t]",
@@ -37,8 +37,8 @@ class EasyEmojis {
       en: {
         "ee.extensionName": "Emojis",
 
-        "ee.button.help": "Cheatsheat",
-        "ee.button.help.url": "",
+        "ee.button.help": "Cheat sheet",
+        "ee.button.help.url": "https://dilemmagx.github.io/extension-docs/lib/emojis/support-en.html",
 
         "ee.block.getAll": "get all data",
         "ee.block.getEmoji": "try to get the[t]of[b][name]",
