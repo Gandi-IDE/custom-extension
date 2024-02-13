@@ -1218,9 +1218,9 @@ class VarAndList {
       }
 
       if(util.stackFrame.index<range){
-          util.stackFrame.index++;
-          variable.value=util.stackFrame.index+left-1;
-          util.startBranch(1,true);
+        util.stackFrame.index++;
+        variable.value=util.stackFrame.index+left-1;
+        util.startBranch(1,true);
       }
     }
   }
@@ -1236,9 +1236,9 @@ class VarAndList {
       }
 
       if(util.stackFrame.index<range){
-          util.stackFrame.index++;
-          variable.value=list.value[util.stackFrame.index+left-2];
-          util.startBranch(1,true);
+        util.stackFrame.index++;
+        variable.value=list.value[util.stackFrame.index+left-2];
+        util.startBranch(1,true);
       }
     }
   }
