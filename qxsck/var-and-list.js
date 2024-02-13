@@ -19,19 +19,25 @@ class VarAndList {
         'qxsckvarandlist.desc': '降序',
         'qxsckvarandlist.dictOrder': '字典序',
 
+        'qxsckvarandlist.complete': '补全缺少部分',
+        'qxsckvarandlist.delete': '删除多余部分',
+
         'qxsckvarandlist.haveVar': '有变量 [VAR] 吗？',
         'qxsckvarandlist.getVar': '变量 [VAR] 的值',
         'qxsckvarandlist.setVar': '设置变量 [VAR] 的值为 [VALUE]',
         'qxsckvarandlist.seriVarsToJson': '将以 [START] 为开头的所有变量转换为json',
+        'qxsckvarandlist.swapVar': '交换变量 [VAR] 和 [VAR2]',
 
         'qxsckvarandlist.openCaseSensitive': '[CASE] 大小写敏感',
         'qxsckvarandlist.haveList': '有列表 [LIST] 吗？',
+        'qxsckvarandlist.emptyList': '列表 [LIST] 是空的吗？',
         'qxsckvarandlist.length': '列表 [LIST] 的长度',
         'qxsckvarandlist.getList': '列表 [LIST] 的值',
         'qxsckvarandlist.newGetList': '列表 [LIST] 的值',
         'qxsckvarandlist.getListRange': '列表 [LIST] 中第 [LEFT] 到 [RIGHT] 项的值',
         'qxsckvarandlist.getValueOfList': '列表 [LIST] 的第 [INDEX] 项',
         'qxsckvarandlist.seriListsToJson': '将以 [START] 为开头的所有列表转换为json',
+        'qxsckvarandlist.swapList': '交换列表 [LIST] 和 [LIST2]',
         'qxsckvarandlist.clearList': '清空列表 [LIST]',
         'qxsckvarandlist.setList': '设置列表 [LIST] 的内容为列表 [LIST2]',
         'qxsckvarandlist.setListValue': '设置列表 [LIST] 为 [NUM] 个 [VALUE]',
@@ -52,6 +58,7 @@ class VarAndList {
         'qxsckvarandlist.sortList': '以 [CASE] 排序列表 [LIST]',
         'qxsckvarandlist.sortListRange': '以 [CASE] 排序列表 [LIST] 的第 [LEFT] 到 [RIGHT] 项',
         'qxsckvarandlist.mapObject': '映射对象 [OBJ] 的值到列表 [LIST] ，键到列表 [LIST2]',
+        'qxsckvarandlist.associateList':'关联列表 [LIST] 为键，[LIST2] 为值，如果长度不同则 [DO]',
 
         'qxsckvarandlist.unSupportCompile': '⚠️不支持编译',
 
@@ -68,19 +75,25 @@ class VarAndList {
         'qxsckvarandlist.desc': 'descending',
         'qxsckvarandlist.dictOrder': 'dictionary order',
 
+        'qxsckvarandlist.complete': 'complete the missing parts',
+        'qxsckvarandlist.delete': 'delete the excess parts',
+
         'qxsckvarandlist.haveVar': 'have variable [VAR] ?',
         'qxsckvarandlist.getVar': 'value of variable [VAR]',
         'qxsckvarandlist.setVar': 'set variable [VAR] to [VALUE]',
         'qxsckvarandlist.seriVarsToJson': 'convert all variables starting with [START] to json',
+        'qxsckvarandlist.swapVar': 'swap variable [VAR] and [VAR2]',
 
         'qxsckvarandlist.openCaseSensitive': '[CASE] case sensitive',
         'qxsckvarandlist.haveList': 'have list [LIST] ?',
+        'qxsckvarandlist.emptyList': 'list [LIST] is empty?',
         'qxsckvarandlist.length': 'length of list [LIST]',
         'qxsckvarandlist.getList': 'value of list [LIST]',
         'qxsckvarandlist.newGetList': 'values of list [LIST]',
         'qxsckvarandlist.getListRange': 'values of from [LEFT] to [RIGHT] in list [LIST]',
         'qxsckvarandlist.getValueOfList': 'item # [INDEX] of list [LIST]',
         'qxsckvarandlist.seriListsToJson': 'convert all lists starting with [START] to json',
+        'qxsckvarandlist.swapList': 'swap list [LIST] and [LIST2]',
         'qxsckvarandlist.clearList': 'delete all of list [LIST]',
         'qxsckvarandlist.setList': 'set list [LIST] to list [LIST2]',
         'qxsckvarandlist.setListValue': 'set list [LIST] to [VALUE] [NUM] times',
@@ -100,7 +113,8 @@ class VarAndList {
         'qxsckvarandlist.reverseList': 'reverse list [LIST]',
         'qxsckvarandlist.sortList': 'sort list [LIST] with [CASE]',
         'qxsckvarandlist.sortListRange': 'sort item [LEFT] to [RIGHT] in list [LIST] with [CASE]',
-        'qxsckvarandlist.mapObject': 'map object [OBJ] to list [LIST], and key to list [LIST2]',
+        'qxsckvarandlist.mapObject': 'map object [OBJ] , keys to list [LIST], and values to list [LIST2]',
+        'qxsckvarandlist.associateList':'associate list [LIST] to keys, and [LIST2] to values, if length is different, then [DO]',
 
         'qxsckvarandlist.unSupportCompile': '⚠️Compilation not supported',
 
@@ -108,13 +122,23 @@ class VarAndList {
         'qxsckvarandlist.forEachList': '⚠️for each variable [VAR] in value of from [LEFT] to [RIGHT] in list [LIST]',
       },
     });
+    this.randomString=function(length){
+      let stringDict=
+        'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890~`!@#$%^&*()_-+={[}}|:;<,>.?/';
+      let result='';
+      for(let i=0;i<length;i++){
+        let idx=Math.floor(Math.random()*stringDict.length);
+        result+=stringDict[idx];
+      }
+      return result;
+    };
   }
   formatMessage(id) {
-      return this._formatMessage({
-        id,
-        default: id,
-        description: id,
-      })
+    return this._formatMessage({
+      id,
+      default: id,
+      description: id,
+    })
   }
 
   getInfo() {
@@ -176,6 +200,21 @@ class VarAndList {
             },
           }
         },
+        {
+            opcode:'swapVar',
+            blockType: 'command',
+            text: this.formatMessage('qxsckvarandlist.swapVar'),
+            arguments: {
+              VAR: {
+                type: 'string',
+                defaultValue:'variable1'
+              },
+              VAR2: {
+                type: 'string',
+                defaultValue:'variable2'
+              },
+            }
+          },
 
         '---',
 
@@ -280,6 +319,21 @@ class VarAndList {
             },
           }
         },
+         {
+            opcode:'swapList',
+            blockType: 'command',
+            text: this.formatMessage('qxsckvarandlist.swapList'),
+            arguments: {
+              LIST: {
+                type: 'string',
+                defaultValue:'list1'
+              },
+              LIST2: {
+                type: 'string',
+                defaultValue:'list2'
+              },
+            }
+          },
         {
           opcode:'clearList',
           blockType: 'command',
@@ -601,11 +655,30 @@ class VarAndList {
             },
             LIST: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue:'list1'
             },
             LIST2: {
               type: 'string',
               defaultValue:'list2'
+            },
+          }
+        },
+        {
+          opcode:'associateList',
+          blockType: 'reporter',
+          text: this.formatMessage('qxsckvarandlist.associateList'),
+          arguments: {
+            LIST: {
+              type: 'string',
+              defaultValue:'list1'
+            },
+            LIST2: {
+              type: 'string',
+              defaultValue:'list2'
+            },
+            DO: {
+              type: 'string',
+              menu:'associateList.List'
             },
           }
         },
@@ -680,6 +753,15 @@ class VarAndList {
             value: 'dictOrder'
           },
         ],
+        'associateList.List':[
+          {
+            text: this.formatMessage("qxsckvarandlist.complete"),
+            value: 'c'
+          },
+          {
+            text: this.formatMessage("qxsckvarandlist.delete"),              value: 'd'
+          },
+        ],
       }
     };
   }
@@ -751,6 +833,15 @@ class VarAndList {
     }
     return JSON.stringify(serialized);
   }
+  swapVar(args,util){
+    const variable = util.target.lookupVariableByNameAndType(String(args.VAR), '');
+    const variable2 = util.target.lookupVariableByNameAndType(String(args.VAR2), '');
+    if (variable && variable2) {
+      let value=variable.value;
+      variable.value=variable2.value;
+      variable2.value=value;
+    }
+  }
 
   openCaseSensitive(args){
     openCaseSensitive=(String(args.CASE)==='open'?true:false);
@@ -813,6 +904,17 @@ class VarAndList {
       }
     }
     return JSON.stringify(serialized);
+  }
+  swapList(args,util){
+    const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
+    const variable2 = util.target.lookupVariableByNameAndType(String(args.LIST2), 'list');
+    if (variable && variable2) {
+      let value=variable.value;
+      variable.value=variable2.value;
+      variable2.value=value;
+      variable._monitorUpToDate = false;
+      variable2._monitorUpToDate = false;
+    }
   }
   clearList(args, util) {
     /** @type {VM.ListVariable} */
@@ -1086,6 +1188,24 @@ class VarAndList {
         console.log('error:', error);
       }
     }
+  }
+  associateList(args,util){
+    const list = util.target.lookupVariableByNameAndType(String(args.LIST), 'list'),
+          list2 = util.target.lookupVariableByNameAndType(String(args.LIST2), 'list');
+    if (list && list2) {
+      let object={};
+      let length=(
+        args.DO==='d'?
+          Math.min(list.value.length,list2.value.length) :
+          Math.max(list.value.length,list2.value.length)
+      );
+      for(let i=0;i<length;i++){
+        let key=list.value.length<=i?'key'+this.randomString(10):list.value[i];
+        let val=list2.value.length<=i?'':list2.value[i];
+        object[key]=val;
+      }
+      return JSON.stringify(object);
+    }else return '{}';
   }
 
   forEach(args,util){
