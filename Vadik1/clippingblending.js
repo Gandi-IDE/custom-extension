@@ -1,13 +1,10 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable class-methods-use-this */
 
-// Name: Clipping & Blending
-// ID: xeltallivclipblend
-// Description: Clipping outside of a specified rectangular area and different color blending modes.
-// Original: Vadik1 <https://scratch.mit.edu/users/Vadik1/>
-// Porter: Arkos
+// Original by: Vadik1 <https://scratch.mit.edu/users/Vadik1/>
 // codes from: https://github.com/TurboWarp/extensions/blob/master/extensions/Xeltalliv/clippingblending.js
 // cover from: https://github.com/TurboWarp/extensions/blob/master/images/Xeltalliv/clippingblending.svg
+// Modified & Ported by: Arkos
 
 (function (Scratch) {
   // Simplified remake of an icon by True-Fantom
@@ -160,6 +157,8 @@
       const targetProto = Object.getPrototypeOf(runtime.targets[0]);
       const osa = targetProto.onStopAll;
       targetProto.onStopAll = function () {
+        this.clipbox = null;
+        this.blendMode = null;
         this.renderer.updateDrawableClipBox.call(
           renderer,
           this.drawableID,
@@ -216,12 +215,12 @@
         const { clipbox } = target;
         if (
           !lastClipbox ^ !clipbox
-            || lastBlendMode != target.blendMode
+            || lastBlendMode !== target.blendMode
             || (clipbox
-              && (clipbox.x_min != lastClipbox.x_min
-                || clipbox.y_min != lastClipbox.y_min
-                || clipbox.x_max != lastClipbox.x_max
-                || clipbox.y_max != lastClipbox.y_max))
+              && (clipbox.x_min !== lastClipbox.x_min
+                || clipbox.y_min !== lastClipbox.y_min
+                || clipbox.x_max !== lastClipbox.x_max
+                || clipbox.y_max !== lastClipbox.y_max))
         ) {
           if (skin.a_lineColorIndex) {
             skin._flushLines();
@@ -301,16 +300,17 @@
       //     l10n
       this.initFormatMessage({
         name: ['裁剪与混合', 'Clipping and Blending'],
-        docsURI: [
-          'https://learn.ccw.site/article/ed40913d-60d6-4f81-95dc-bf05237aafeb',
-          'https://getgandi.com/extensions/layers',
-        ],
+        credit: ['✨ 扩展由 TurboWarp 的 Vadik1 制作', '✨ Made by Vadik1 From TurboWarp'],
+        // docsURI: [
+        //   'https://learn.ccw.site/article/',
+        //   'https://getgandi.com/extensions/',
+        // ],
 
-        setClipbox: ['设置裁剪框 x1:[X1] y1:[Y1] x2:[X2] y2:[Y2]', 'set clipping box x1:[X1] y1:[Y1] x2:[X2] y2:[Y2]'],
-        clearClipbox: ['清除裁剪框', 'clear clipping box'],
-        getClipbox: ['裁剪框的 [PROP]', 'clipping box [PROP]'],
-        setBlend: ['使用 [BLENDMODE] 混合模式', 'use [BLENDMODE] blending'],
-        getBlend: ['混合模式', 'blending'],
+        setClipbox: ['设置我的裁剪框 x1:[X1] y1:[Y1] x2:[X2] y2:[Y2]', 'set my clipping box x1:[X1] y1:[Y1] x2:[X2] y2:[Y2]'],
+        clearClipbox: ['清除我的裁剪框', 'clear my clipping box'],
+        getClipbox: ['我的裁剪框 [PROP]', 'my clipping box [PROP]'],
+        setBlend: ['为我开启 [BLENDMODE] 混合模式', 'use [BLENDMODE] blending for me'],
+        getBlend: ['我的混合模式', 'my blending'],
         setAdditiveBlend: ['叠加混合 [STATE]', 'turn additive blending [STATE]'],
         getAdditiveBlend: ['是否开启叠加混合？', 'is additive blending on?'],
 
@@ -323,10 +323,10 @@
         invert: ['反转', 'invert'],
         width: ['宽度', 'width'],
         height: ['高度', 'height'],
-        'min x': ['最小 x', 'min x'],
-        'min y': ['最小 y', 'min y'],
-        'max x': ['最大 x', 'max x'],
-        'max y': ['最大 y', 'max y'],
+        'min x': ['左 x', 'min x'],
+        'min y': ['下 y', 'min y'],
+        'max x': ['右 x', 'max x'],
+        'max y': ['上 y', 'max y'],
 
       });
     }
@@ -357,6 +357,7 @@
         color3: '#774DCB',
         menuIconURI: icon,
         blocks: [
+          `---${this.fm('credit')}`,
           {
             opcode: 'setClipbox',
             blockType: Scratch.BlockType.COMMAND,
@@ -598,16 +599,16 @@
       insetIconURL: icon,
       featured: true,
       disabled: false,
-      docsURI: 'https://learn.ccw.site/article/?',
+      // docsURI: 'https://learn.ccw.site/article/?',
       collaborator: 'Vadik1 @ TurboWarp',
       collaboratorList: [
         {
-          collaborator: 'Vadik1 @ TW',
+          collaborator: 'Vadik1@TW',
           collaboratorURL:
           'https://scratch.mit.edu/users/Vadik1/',
         },
         {
-          collaborator: 'Arkos(搬运者) @ CCW',
+          collaborator: 'Arkos(porter)@CCW',
           collaboratorURL:
           'https://www.ccw.site/student/628979aa804a3a2bc801b097',
         },
