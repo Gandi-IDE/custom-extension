@@ -306,11 +306,11 @@
         //   'https://getgandi.com/extensions/',
         // ],
 
-        setClipbox: ['设置当前角色裁剪框 x1:[X1] y1:[Y1] x2:[X2] y2:[Y2]', 'set clipping box for this sprite x1:[X1] y1:[Y1] x2:[X2] y2:[Y2]'],
-        clearClipbox: ['清除当前角色裁剪框', 'clear clipping box of this sprite'],
-        getClipbox: ['当前角色裁剪框 [PROP]', 'clipping box [PROP] of this sprite'],
-        setBlend: ['为当前角色开启 [BLENDMODE] 混合模式', 'use [BLENDMODE] blending for this sprite'],
-        getBlend: ['当前角色的混合模式', 'blending of this sprite'],
+        setClipbox: ['设置裁剪框 x1:[X1] y1:[Y1] x2:[X2] y2:[Y2]', 'set clipping box x1:[X1] y1:[Y1] x2:[X2] y2:[Y2]'],
+        clearClipbox: ['清除裁剪框', 'clear clipping box'],
+        getClipbox: ['裁剪框 [PROP]', 'clipping box [PROP]'],
+        setBlend: ['开启 [BLENDMODE] 混合模式', 'use [BLENDMODE] blending'],
+        getBlend: ['混合模式', 'blending'],
         setAdditiveBlend: ['叠加混合 [STATE]', 'turn additive blending [STATE]'],
         getAdditiveBlend: ['是否开启叠加混合？', 'is additive blending on?'],
 
