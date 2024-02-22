@@ -1,6 +1,7 @@
 // Name: Gamepad
 // ID: Gamepad
 // Description: Directly access gamepads instead of just mapping buttons to keys.
+// By: GarboMUffin <https://github.com/GarboMuffin>, DNin01 <https://github.com/DNin01>, Meehdrescher <https://github.com/Meehdrescher>
 
 // Some parts of this scripts are based on or designed to be compatible-ish with:
 // https://arpruss.github.io/gamepad.js (MIT Licensed)
