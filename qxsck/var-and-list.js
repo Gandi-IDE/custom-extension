@@ -954,7 +954,7 @@ class VarAndList {
       left-=1,right-=1;
       return '['+variable.value.slice(left,right+1).map(value=>'"'+String(value)+'"').join(',')+']';
     }
-    return '[]';
+    return '';
   }
   getValueOfList(args, util) {
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
@@ -1005,7 +1005,7 @@ class VarAndList {
     if (variable) {
       try{
         let arr=JSON.parse(args.LIST2);
-        variable.value=arr;
+        if(Array.isArray(arr)) variable.value=arr;variable.value=arr.map(val=>String(val));
         variable._monitorUpToDate = false;
       }catch(error){
         console.log('error:', error);
