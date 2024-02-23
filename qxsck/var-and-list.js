@@ -1065,7 +1065,7 @@ class VarAndList {
       left-=1,right-=1;
       return '['+variable.value.slice(left,right+1).map(value=>'"'+String(value)+'"').join(',')+']';
     }
-    return '';
+    return '[]';
   }
   getValueOfList(args, util) {
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
