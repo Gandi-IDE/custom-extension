@@ -64,7 +64,7 @@
       initExt(rt);
       this.initFormatMessage({
         name: ['角色拉伸', 'Stretch'],
-        credit: ['✨ 扩展搬运自 TurboWarp', '✨ This Extension Are From TurboWarp'],
+        credit: ['✨ 扩展搬运自 TurboWarp', '✨ Ported From TurboWarp'],
         // docsURI: [
         //   'https://learn.ccw.site/article/',
         //   'https://getgandi.com/extensions/',
