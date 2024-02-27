@@ -235,9 +235,6 @@ class MoreSensingExt {
      */
     this.lastValue = {};
 
-    /** Scratch 的 Canvas */
-    this.canvas = runtime.renderer.canvas;
-
     /**
      * by GPT 3.5。获取网络UTC毫秒时间戳
      * @returns {Promise} 得到网络时间后resolve的promise
@@ -1014,9 +1011,10 @@ class MoreSensingExt {
   _ScratchXYToClientXY(x, y) {
     let canvasHeight = 0;
     let canvasWidth = 0;
-    if (this.canvas) {
-      canvasHeight = this.canvas.clientHeight;
-      canvasWidth = this.canvas.clientWidth;
+    const cvs = this.runtime.renderer.canvas;
+    if (cvs) {
+      canvasHeight = cvs.clientHeight;
+      canvasWidth = cvs.clientWidth;
     }
     const x1 = (x / this.runtime.stageWidth + 0.5) * canvasWidth;
     const y1 = (-y / this.runtime.stageHeight + 0.5) * canvasHeight;
@@ -1253,8 +1251,13 @@ class MoreSensingExt {
   }
 
   amIOnTheTopAtMouse(args, util) {
-    const [X, Y] = this.getMouseForTarget(util.target, util);
-    return this.amIOnTheTop({ X, Y }, util);
+    const [x, y] = this.getMouseForTarget(util.target, util);
+    const { renderer } = this.runtime;
+    if (renderer) {
+      if (util.target.isStage) return renderer.pick(x, y) === false;
+      return util.target.drawableID === renderer.pick(x, y);
+    }
+    return false;
   }
 
   getMouseForTarget(target, util) {
