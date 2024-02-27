@@ -142,7 +142,7 @@ const getScratchKeyByKey = (key) => {
  * 用于移除扩展隐藏的监视器（避免扩展无法移除）
  */
 const removeExtMonitors = (extId, runtime) => {
-  if (!runtime) return;
+  if (!runtime || !runtime._monitorState?._list?._tail?.array) return;
   // eslint-disable-next-line no-restricted-syntax
   runtime._monitorState._list._tail.array
     .filter((item) => (item[0].startsWith(`${extId}_`) && !item[1].visible))
