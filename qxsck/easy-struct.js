@@ -137,7 +137,7 @@ class easyStruct {
 
   getInfo() {
     return {
-      id: "qxsckeasystruct1",
+      id: "qxsckeasystruct",
       name: this.formatMessage("qxsckeasystruct.name"),
       color1: '#0e7bed',
       color2: '#0e7bed',
