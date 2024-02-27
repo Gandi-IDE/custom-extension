@@ -338,8 +338,8 @@ class MoreSensingExt {
       ],
       amIclicked: ['我被点击？', 'sprite clicked?'],
       whenKeyDown: ['当按键[KEY][TYPE]？', 'on key[KEY][TYPE]?'],
-      keyDown: ['松开变按下', 'down'],
-      keyUp: ['按下变松开', 'release'],
+      keyDown: ['变为按下', 'down'],
+      keyUp: ['变为松开', 'release'],
       keyPressed: ['按住', 'pressed'],
       colorAt: ['x:[X]y:[Y]处的颜色', 'color at x:[X]y:[Y]'],
       whenValueChanged: [
