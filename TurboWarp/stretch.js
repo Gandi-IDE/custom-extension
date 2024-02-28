@@ -6,6 +6,7 @@
 // Original Author: GarboMuffin <https://github.com/GarboMuffin>, Star World <https://github.com/TheStarWorld>
 // Code ported from: https://github.com/TurboWarp/extensions/blob/master/extensions/stretch.js
 // Cover from: https://github.com/TurboWarp/extensions/blob/master/images/stretch.svg
+// Cover License: GPLv3
 // Porter: Arkos
 
 (function (Scratch) {
