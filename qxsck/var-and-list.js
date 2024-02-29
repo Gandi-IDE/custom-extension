@@ -12,28 +12,43 @@ class VarAndList {
       'zh-cn': {
         'qxsckvarandlist.name': '变量与列表',
 
+        'qxsckvarandlist.show': '显示',
+        'qxsckvarandlist.hide': '隐藏',
+
         'qxsckvarandlist.open': '打开',
         'qxsckvarandlist.close': '关闭',
 
         'qxsckvarandlist.asc': '升序',
         'qxsckvarandlist.desc': '降序',
         'qxsckvarandlist.dictOrder': '字典序',
+        'qxsckvarandlist.random': '随机',
+
+        'qxsckvarandlist.complete': '补全缺少部分',
+        'qxsckvarandlist.delete': '删除多余部分',
 
         'qxsckvarandlist.haveVar': '有变量 [VAR] 吗？',
         'qxsckvarandlist.getVar': '变量 [VAR] 的值',
         'qxsckvarandlist.setVar': '设置变量 [VAR] 的值为 [VALUE]',
         'qxsckvarandlist.seriVarsToJson': '将以 [START] 为开头的所有变量转换为json',
+        'qxsckvarandlist.swapVar': '交换变量 [VAR] 和 [VAR2]',
+        'qxsckvarandlist.changeMonitorVar': '[CASE] 变量 [VAR]',
+        'qxsckvarandlist.isShowVar': '变量 [VAR] 显示了吗？',
 
         'qxsckvarandlist.openCaseSensitive': '[CASE] 大小写敏感',
         'qxsckvarandlist.haveList': '有列表 [LIST] 吗？',
+        'qxsckvarandlist.emptyList': '列表 [LIST] 是空的吗？',
         'qxsckvarandlist.length': '列表 [LIST] 的长度',
         'qxsckvarandlist.getList': '列表 [LIST] 的值',
         'qxsckvarandlist.newGetList': '列表 [LIST] 的值',
         'qxsckvarandlist.getListRange': '列表 [LIST] 中第 [LEFT] 到 [RIGHT] 项的值',
         'qxsckvarandlist.getValueOfList': '列表 [LIST] 的第 [INDEX] 项',
         'qxsckvarandlist.seriListsToJson': '将以 [START] 为开头的所有列表转换为json',
+        'qxsckvarandlist.swapList': '交换列表 [LIST] 和 [LIST2]',
+        'qxsckvarandlist.changeMonitorList': '[CASE] 列表 [LIST]',
+          'qxsckvarandlist.isShowList': '列表 [LIST] 显示了吗？',
         'qxsckvarandlist.clearList': '清空列表 [LIST]',
         'qxsckvarandlist.setList': '设置列表 [LIST] 的内容为列表 [LIST2]',
+        'qxsckvarandlist.setListValue': '设置列表 [LIST] 为 [NUM] 个 [VALUE]',
         'qxsckvarandlist.deleteOfList': '删除列表 [LIST] 的第 [INDEX] 项',
         'qxsckvarandlist.addValueInList': '在列表 [LIST] 末尾添加 [VALUE]',
         'qxsckvarandlist.addListToList': '在列表 [LIST] 末尾添加列表 [LIST2]',
@@ -50,7 +65,9 @@ class VarAndList {
         'qxsckvarandlist.reverseList': '反转列表 [LIST]',
         'qxsckvarandlist.sortList': '以 [CASE] 排序列表 [LIST]',
         'qxsckvarandlist.sortListRange': '以 [CASE] 排序列表 [LIST] 的第 [LEFT] 到 [RIGHT] 项',
+        'qxsckvarandlist.isOrder': '列表 [LIST] 是 [CASE] 的吗？',
         'qxsckvarandlist.mapObject': '映射对象 [OBJ] 的值到列表 [LIST] ，键到列表 [LIST2]',
+        'qxsckvarandlist.associateList':'关联列表 [LIST] 为键，[LIST2] 为值，如果长度不同则 [DO]',
 
         'qxsckvarandlist.unSupportCompile': '⚠️不支持编译',
 
@@ -60,45 +77,62 @@ class VarAndList {
       en: {
         'qxsckvarandlist.name': 'variable and list',
 
+        'qxsckvarandlist.show': 'show',
+        'qxsckvarandlist.hide': 'hide',
+
         'qxsckvarandlist.open': 'open',
         'qxsckvarandlist.close': 'close',
 
         'qxsckvarandlist.asc': 'ascending',
         'qxsckvarandlist.desc': 'descending',
         'qxsckvarandlist.dictOrder': 'dictionary order',
+        'qxsckvarandlist.random': 'random',
+
+        'qxsckvarandlist.complete': 'complete the missing parts',
+        'qxsckvarandlist.delete': 'delete the excess parts',
 
         'qxsckvarandlist.haveVar': 'have variable [VAR] ?',
         'qxsckvarandlist.getVar': 'value of variable [VAR]',
         'qxsckvarandlist.setVar': 'set variable [VAR] to [VALUE]',
         'qxsckvarandlist.seriVarsToJson': 'convert all variables starting with [START] to json',
+        'qxsckvarandlist.swapVar': 'swap variable [VAR] and [VAR2]',
+        'qxsckvarandlist.changeMonitorVar': '[CASE] variable [VAR]',
+        'qxsckvarandlist.isShowVar': 'variable [VAR] is showing?',
 
         'qxsckvarandlist.openCaseSensitive': '[CASE] case sensitive',
         'qxsckvarandlist.haveList': 'have list [LIST] ?',
+        'qxsckvarandlist.emptyList': 'list [LIST] is empty?',
         'qxsckvarandlist.length': 'length of list [LIST]',
         'qxsckvarandlist.getList': 'value of list [LIST]',
-        'qxsckvarandlist.newGetList': 'value of list [LIST]',
-        'qxsckvarandlist.getListRange': 'value of from [LEFT] to [RIGHT] in list [LIST]',
-        'qxsckvarandlist.getValueOfList': 'item [INDEX] of list [LIST]',
+        'qxsckvarandlist.newGetList': 'values of list [LIST]',
+        'qxsckvarandlist.getListRange': 'values of from [LEFT] to [RIGHT] in list [LIST]',
+        'qxsckvarandlist.getValueOfList': 'item # [INDEX] of list [LIST]',
         'qxsckvarandlist.seriListsToJson': 'convert all lists starting with [START] to json',
+        'qxsckvarandlist.swapList': 'swap list [LIST] and [LIST2]',
+        'qxsckvarandlist.changeMonitorList': '[CASE] list [LIST]',
+        'qxsckvarandlist.isShowList': 'list [LIST] is showing?',
         'qxsckvarandlist.clearList': 'delete all of list [LIST]',
-        'qxsckvarandlist.setList': 'set [LIST] to list [LIST2]',
-        'qxsckvarandlist.deleteOfList': 'delete [INDEX] of list [LIST]',
+        'qxsckvarandlist.setList': 'set list [LIST] to list [LIST2]',
+        'qxsckvarandlist.setListValue': 'set list [LIST] to [VALUE] [NUM] times',
+        'qxsckvarandlist.deleteOfList': 'delete # [INDEX] of list [LIST]',
         'qxsckvarandlist.addValueInList': 'add [VALUE] to list [LIST]',
-        'qxsckvarandlist.addListInList': 'add list [LIST2] to list [LIST]',
-        'qxsckvarandlist.insertOfList': 'insert [VALUE] before [INDEX] item in the list [LIST]',
-        'qxsckvarandlist.insertListToList': 'insert list [LIST2] before [INDEX] item in list [LIST]',
+        'qxsckvarandlist.addListToList': 'add list [LIST2] to list [LIST]',
+        'qxsckvarandlist.insertOfList': 'insert [VALUE] before item # [INDEX] in the list [LIST]',
+        'qxsckvarandlist.insertListToList': 'insert list [LIST2] before item # [INDEX] in list [LIST]',
         'qxsckvarandlist.replaceOfList': 'replace item [INDEX] of list [LIST] to [VALUE]',
-        'qxsckvarandlist.replaceRangeOfList': 'replace [LEFT] to [RIGHT] items in list [LIST] with [VALUE]',
-        'qxsckvarandlist.getIndexOfList': 'first index of list [VALUE] in list [LIST]',
-        'qxsckvarandlist.getIndexesOfList': 'indexes of list [LIST] in [VALUE]',
-        'qxsckvarandlist.newGetIndexesOfList': 'indexes of list [LIST] in [VALUE]',
-        'qxsckvarandlist.getCountsOfList': 'number of list [LIST] in [VALUE]',
+        'qxsckvarandlist.replaceRangeOfList': 'replace items [LEFT] to [RIGHT] in list [LIST] with [VALUE]',
+        'qxsckvarandlist.getIndexOfList': 'first index of [VALUE] in list [LIST]',
+        'qxsckvarandlist.getIndexesOfList': 'indexes of [VALUE] in list [LIST]',
+        'qxsckvarandlist.newGetIndexesOfList': 'indexes of [VALUE] in list [LIST]',
+        'qxsckvarandlist.getCountsOfList': 'number of [VALUE] in list [LIST]',
         'qxsckvarandlist.listContains': 'list [LIST] have [VALUE] ?',
         'qxsckvarandlist.copyList': 'copy list [LIST1] to list [LIST2]',
-        'qxsckvarandlist.reverseList': 'reverse lsit [LIST]',
+        'qxsckvarandlist.reverseList': 'reverse list [LIST]',
         'qxsckvarandlist.sortList': 'sort list [LIST] with [CASE]',
-        'qxsckvarandlist.sortListRange': 'sort from [LEFT] to [RIGHT] in list [LIST] with [CASE]',
-        'qxsckvarandlist.mapObject': 'map object [OBJ] to list [LIST],key to list [LIST2]',
+        'qxsckvarandlist.sortListRange': 'sort item [LEFT] to [RIGHT] in list [LIST] with [CASE]',
+        'qxsckvarandlist.isOrder': 'list [LIST] is [CASE] ?',
+        'qxsckvarandlist.mapObject': 'map object [OBJ] , keys to list [LIST], and values to list [LIST2]',
+        'qxsckvarandlist.associateList':'associate list [LIST] to keys, and [LIST2] to values, if length is different, then [DO]',
 
         'qxsckvarandlist.unSupportCompile': '⚠️Compilation not supported',
 
@@ -106,13 +140,65 @@ class VarAndList {
         'qxsckvarandlist.forEachList': '⚠️for each variable [VAR] in value of from [LEFT] to [RIGHT] in list [LIST]',
       },
     });
+    this.randomString=function(length){
+      let stringDict=
+        'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890~`!@#$%^&*()_-+={[}}|:;<,>.?/';
+      let result='';
+      for(let i=0;i<length;i++){
+        let idx=Math.floor(Math.random()*stringDict.length);
+        result+=stringDict[idx];
+      }
+      return result;
+    };
+    this.sortFunc=function(data){
+      let arr=data.arr,order=data.order,length=data.arr.length;
+      let left=data.range?data.range[0]:1,right=data.range?data.range[1]:length;
+      if(left<1) left=1;
+      if(right>length) right=length;
+      left-=1,right-=1;
+      let list=arr.slice(left,right+1);
+      switch(order){
+        case 'asc':
+          list=list.map(val=>isNaN(Number(val))?0:Number(val));
+          list.sort((a,b)=>a-b);
+          break;
+        case 'desc':
+          list=list.map(val=>isNaN(Number(val))?0:Number(val));
+          list.sort((a,b)=>b-a);
+          break;
+        case 'dictOrder':
+          list=list.map(val=>String(val));
+          list.sort();
+          break;
+        case 'random':
+          list.sort(function(){
+            return (0.5-Math.random());
+          });
+          break;
+      }
+      let list2=arr.slice();
+      return [...list2.slice(0,left),...list,...list2.slice(right+1,length)];
+    };
+    this.isOrderFunc=function(arr,order){
+      if(order==='asc'){
+        for(let i=0;i<arr.length-1;i++){
+          if (arr[i]>arr[i+1]) return false;
+        }
+        return true;
+      }else{
+        for(let i=0;i<arr.length-1;i++){
+          if (arr[i]<arr[i+1]) return false;
+        }
+        return true;
+      }
+    }
   }
   formatMessage(id) {
-      return this._formatMessage({
-        id,
-        default: id,
-        description: id,
-      })
+    return this._formatMessage({
+      id,
+      default: id,
+      description: id,
+    })
   }
 
   getInfo() {
@@ -169,6 +255,47 @@ class VarAndList {
           text: this.formatMessage('qxsckvarandlist.seriVarsToJson'),
           arguments: {
             START: {
+              type: 'string',
+              defaultValue:'variable'
+            },
+          }
+        },
+        {
+          opcode:'swapVar',
+          blockType: 'command',
+          text: this.formatMessage('qxsckvarandlist.swapVar'),
+          arguments: {
+            VAR: {
+              type: 'string',
+              defaultValue:'variable1'
+            },
+            VAR2: {
+              type: 'string',
+              defaultValue:'variable2'
+            },
+          }
+        },
+        {
+          opcode:'changeMonitorVar',
+          blockType: 'command',
+          text: this.formatMessage('qxsckvarandlist.changeMonitorVar'),
+          arguments: {
+            CASE: {
+              type: 'string',
+              menu: 'changeMonitor.List',
+            },
+            VAR: {
+              type: 'string',
+              defaultValue:'variable'
+            },
+          }
+        },
+        {
+          opcode:'isShowVar',
+          blockType: 'Boolean',
+          text: this.formatMessage('qxsckvarandlist.isShowVar'),
+          arguments: {
+            VAR: {
               type: 'string',
               defaultValue:'variable'
             },
@@ -279,6 +406,47 @@ class VarAndList {
           }
         },
         {
+          opcode:'swapList',
+          blockType: 'command',
+          text: this.formatMessage('qxsckvarandlist.swapList'),
+          arguments: {
+            LIST: {
+              type: 'string',
+              defaultValue:'list1'
+            },
+            LIST2: {
+              type: 'string',
+              defaultValue:'list2'
+            },
+          }
+        },
+        {
+          opcode:'changeMonitorList',
+          blockType: 'command',
+          text: this.formatMessage('qxsckvarandlist.changeMonitorList'),
+          arguments: {
+            CASE: {
+              type: 'string',
+              menu: 'changeMonitor.List',
+            },
+            LIST: {
+              type: 'string',
+              defaultValue:'list'
+            },
+          }
+        },
+        {
+          opcode:'isShowList',
+          blockType: 'Boolean',
+          text: this.formatMessage('qxsckvarandlist.isShowList'),
+          arguments: {
+            LIST: {
+              type: 'string',
+              defaultValue:'list'
+            },
+          }
+        },
+        {
           opcode:'clearList',
           blockType: 'command',
           text: this.formatMessage('qxsckvarandlist.clearList'),
@@ -300,7 +468,26 @@ class VarAndList {
             },
             LIST2: {
               type: 'string',
-              defaultValue:'["a","a"]'
+              defaultValue:'["a","b"]'
+            },
+          }
+        },
+        {
+          opcode:'setListValue',
+          blockType: 'command',
+          text: this.formatMessage('qxsckvarandlist.setListValue'),
+          arguments: {
+            LIST: {
+              type: 'string',
+              defaultValue:'list'
+            },
+            NUM: {
+              type: 'string',
+              defaultValue:'5'
+            },
+            VALUE: {
+              type: 'string',
+              defaultValue:'thing'
             },
           }
         },
@@ -345,7 +532,7 @@ class VarAndList {
             },
             LIST2: {
               type: 'string',
-              defaultValue:'["a","a"]'
+              defaultValue:'["a","b"]'
             },
           }
         },
@@ -570,6 +757,21 @@ class VarAndList {
           }
         },
         {
+          opcode:'isOrder',
+          blockType: 'Boolean',
+          text: this.formatMessage('qxsckvarandlist.isOrder'),
+          arguments: {
+            LIST: {
+              type: 'string',
+              defaultValue:'list'
+            },
+            CASE:{
+              type: 'string',
+              menu: 'isOrder.List',
+            },
+          }
+        },
+        {
           opcode:'mapObject',
           blockType: 'command',
           text: this.formatMessage('qxsckvarandlist.mapObject'),
@@ -580,11 +782,30 @@ class VarAndList {
             },
             LIST: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue:'list1'
             },
             LIST2: {
               type: 'string',
               defaultValue:'list2'
+            },
+          }
+        },
+        {
+          opcode:'associateList',
+          blockType: 'reporter',
+          text: this.formatMessage('qxsckvarandlist.associateList'),
+          arguments: {
+            LIST: {
+              type: 'string',
+              defaultValue:'list1'
+            },
+            LIST2: {
+              type: 'string',
+              defaultValue:'list2'
+            },
+            DO: {
+              type: 'string',
+              menu:'associateList.List'
             },
           }
         },
@@ -635,6 +856,16 @@ class VarAndList {
         },
       ],
       menus: {
+        'changeMonitor.List':[
+          {
+            text: this.formatMessage("qxsckvarandlist.show"),
+            value: 'show'
+          },
+          {
+            text: this.formatMessage("qxsckvarandlist.hide"),
+            value: 'hide'
+          },
+        ],
         'openCaseSensitive.List':[
           {
             text: this.formatMessage("qxsckvarandlist.open"),
@@ -657,6 +888,30 @@ class VarAndList {
           {
             text: this.formatMessage("qxsckvarandlist.dictOrder"),
             value: 'dictOrder'
+          },
+          {
+            text: this.formatMessage("qxsckvarandlist.random"),
+            value: 'random'
+          },
+        ],
+        'isOrder.List':[
+          {
+            text: this.formatMessage("qxsckvarandlist.asc"),
+            value: 'asc'
+          },
+          {
+            text: this.formatMessage("qxsckvarandlist.desc"),
+            value: 'desc'
+          },
+        ],
+        'associateList.List':[
+          {
+            text: this.formatMessage("qxsckvarandlist.complete"),
+            value: 'c'
+          },
+          {
+            text: this.formatMessage("qxsckvarandlist.delete"),
+            value: 'd'
           },
         ],
       }
@@ -700,6 +955,24 @@ class VarAndList {
     if (list.length === 0) list.push({text: `-`,value: 'empty'});
     return list;
   }
+  //from turbowarp-vm
+  changeMonitorVisibility(id, visible) {
+    // Send the monitor blocks an event like the flyout checkbox event.
+    // This both updates the monitor state and changes the isMonitored block flag.
+    this.runtime.monitorBlocks.changeBlock({
+      id: id, // Monitor blocks for variables are the variable ID.
+      element: 'checkbox', // Mimic checkbox event from flyout.
+      value: visible
+    }, this.runtime);
+  }
+
+  isShow(args) {
+    let list = args.list;
+    if (!list) return false;
+    list = this.runtime.getMonitorState().get(list.id);
+    if (!list) return false;
+    return list.visible;
+  }
 
   haveVar(args, util) {
     const variable = util.target.lookupVariableByNameAndType(String(args.VAR), '');
@@ -713,6 +986,12 @@ class VarAndList {
     const variable = util.target.lookupVariableByNameAndType(String(args.VAR), '');
     if (variable) {
       variable.value = args.VALUE;
+      if (variable.isCloud) {
+        util.runtime.ioDevices.cloud.requestUpdateVariable(
+          variable.name,
+          variable.value
+        );
+      }
     }
   }
   seriVarsToJson(args, util) {
@@ -730,13 +1009,36 @@ class VarAndList {
     }
     return JSON.stringify(serialized);
   }
+  swapVar(args,util){
+    const variable = util.target.lookupVariableByNameAndType(String(args.VAR), '');
+    const variable2 = util.target.lookupVariableByNameAndType(String(args.VAR2), '');
+    if (variable && variable2) {
+      let value=variable.value;
+      variable.value=variable2.value;
+      variable2.value=value;
+    }
+  }
+  changeMonitorVar(args,util){
+    const variable = util.target.lookupVariableByNameAndType(String(args.VAR), '');
+    if (variable) {
+      this.changeMonitorVisibility(variable.id, args.CASE==='show');
+    }
+  }
+  isShowVar(args,util){
+    const variable = util.target.lookupVariableByNameAndType(String(args.VAR), '');
+    return this.isShow({list:variable});
+  }
 
   openCaseSensitive(args){
-    openCaseSensitive=(String(args.CASE)==='open'?true:false);
+    openCaseSensitive=(args.CASE==='open'?true:false);
   }
   haveList(args, util) {
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
     return variable ? true : false;
+  }
+  emptyList(args, util) {
+    const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
+    return variable ? (variable.value.length?false:true) : true;
   }
   length(args, util) {
     /** @type {VM.ListVariable} */
@@ -763,7 +1065,7 @@ class VarAndList {
       left-=1,right-=1;
       return '['+variable.value.slice(left,right+1).map(value=>'"'+String(value)+'"').join(',')+']';
     }
-    return '';
+    return '[]';
   }
   getValueOfList(args, util) {
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
@@ -789,6 +1091,27 @@ class VarAndList {
     }
     return JSON.stringify(serialized);
   }
+  swapList(args,util){
+    const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
+    const variable2 = util.target.lookupVariableByNameAndType(String(args.LIST2), 'list');
+    if (variable && variable2) {
+      let value=variable.value;
+      variable.value=variable2.value;
+      variable2.value=value;
+      variable._monitorUpToDate = false;
+      variable2._monitorUpToDate = false;
+    }
+  }
+  changeMonitorList(args,util){
+    const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
+    if (variable) {
+      this.changeMonitorVisibility(variable.id, args.CASE==='show');
+    }
+  }
+  isShowList(args,util){
+    const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
+    return this.isShow({list:variable});
+  }
   clearList(args, util) {
     /** @type {VM.ListVariable} */
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
@@ -803,11 +1126,21 @@ class VarAndList {
     if (variable) {
       try{
         let arr=JSON.parse(args.LIST2);
-        variable.value=arr;
+        if(Array.isArray(arr)) variable.value=arr.map(val=>String(val));
         variable._monitorUpToDate = false;
       }catch(error){
         console.log('error:', error);
       }
+    }
+  }
+  setListValue(args, util) {
+    /** @type {VM.ListVariable} */
+    const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
+    if (variable) {
+      let val=String(args.VALUE),num=Number(args.NUM);
+      variable.value=[];
+      for(let i=1;i<=num;i++) variable.value.push(val);
+      variable._monitorUpToDate = false;
     }
   }
   deleteOfList(args, util) {
@@ -818,7 +1151,6 @@ class VarAndList {
       if (index === 'ALL') {
         variable.value = [];
       } else if(Number(index)<=variable.value.length && Number(index)>=1){
-
         variable.value.splice(Number(index) - 1, 1);
         variable._monitorUpToDate = false;
       }
@@ -838,7 +1170,7 @@ class VarAndList {
     if (variable) {
       try{
         let arr=JSON.parse(args.LIST2);
-        for(let i=0;i<arr.length;i++) variable.value.push(arr[i]);
+        for(let i=0;i<arr.length;i++) variable.value.push(String(arr[i]));
         variable._monitorUpToDate = false;
       }catch(error){
         console.log('error:', error);
@@ -847,7 +1179,7 @@ class VarAndList {
   }
   insertOfList(args,util){
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
-    const value=args.VALUE;
+    const value=String(args.VALUE);
     const index=Number(args.INDEX)>variable.value.length?variable.value.length+1:Number(args.INDEX);
     variable.value.splice(index-1,0,value);
     variable._monitorUpToDate = false;
@@ -856,7 +1188,7 @@ class VarAndList {
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
     const index=Number(args.INDEX)>variable.value.length?variable.value.length+1:Number(args.INDEX);
     try{
-      let arr=JSON.parse(args.LIST2);
+      let arr=JSON.parse(args.LIST2).map(String);
       variable.value.splice(index-1,0,...arr);
       variable._monitorUpToDate = false;
     }catch(error){
@@ -869,7 +1201,7 @@ class VarAndList {
     if (variable) {
       const index = String(args.INDEX);
       if(Number(index)<=variable.value.length && Number(index)>=1){
-        variable.value[index - 1] = args.VALUE;
+        variable.value[index-1]=String(args.VALUE);
         variable._monitorUpToDate = false;
       }
     }
@@ -882,23 +1214,21 @@ class VarAndList {
       if(left<1) left=1;
       if(right>length) right=length;
       left-=1,right-=1;
-      for(let i=left;i<=right;i++){
-        variable.value[i]=args.VALUE;
-      }
+      for(let i=left;i<=right;i++) variable.value[i]=String(args.VALUE);
       variable._monitorUpToDate = false;
     }
   }
   getIndexOfList(args, util) {
     /** @type {VM.ListVariable} */
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
-    const value = args.VALUE;
+    const value=String(args.VALUE);
     let flag=openCaseSensitive;
     if (variable) {
-      for (let i = 0; i < variable.value.length; i++) {
+      for(let i=0;i<variable.value.length;i++){
         if(!flag){
-          if (Scratch.Cast.compare(variable.value[i], value) === 0) return i + 1;
+          if(Scratch.Cast.compare(variable.value[i],value)===0) return i + 1;
         }else{
-          if (String(variable.value[i]) === String(value)) return i + 1;
+          if(String(variable.value[i]) ==String(value)) return i + 1;
         }
       }
     }
@@ -907,51 +1237,51 @@ class VarAndList {
   getIndexesOfList(args, util) {
     /** @type {VM.ListVariable} */
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
-    const value = args.VALUE;
+    const value=String(args.VALUE);
     let flag=openCaseSensitive;
-    if (variable) {
-      let indexes = [];
-      for (let i = 0; i < variable.value.length; i++) {
+    if(variable){
+      let indexes=[];
+      for(let i=0;i<variable.value.length;i++){
         if(!flag){
-          if (Scratch.Cast.compare(variable.value[i], value) === 0) indexes.push(i + 1);
+          if(Scratch.Cast.compare(variable.value[i],value)===0) indexes.push(i + 1);
         }else{
-          if (String(variable.value[i]) === String(value)) indexes.push(i + 1);
+          if(String(variable.value[i])===String(value)) indexes.push(i + 1);
         }
       }
-      if (indexes.length > 0) return indexes.toString();
+      if(indexes.length>0) return indexes.toString();
     }
     return '';
   }
   newGetIndexesOfList(args, util) {
     /** @type {VM.ListVariable} */
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
-    const value = args.VALUE;
+    const value=String(args.VALUE);
     let flag=openCaseSensitive;
-    if (variable) {
-      let indexes = [];
-      for (let i = 0; i < variable.value.length; i++) {
+    if(variable){
+      let indexes=[];
+      for(let i=0;i<variable.value.length;i++){
         if(!flag){
-          if (Scratch.Cast.compare(variable.value[i], value) === 0) indexes.push(i + 1);
+          if(Scratch.Cast.compare(variable.value[i],value)===0) indexes.push(i + 1);
         }else{
-          if (String(variable.value[i]) === String(value)) indexes.push(i + 1);
+          if(String(variable.value[i])===String(value)) indexes.push(i + 1);
         }
       }
-      if (indexes.length > 0) return '['+indexes.map(value=>'"'+String(value)+'"').join(',')+']';
+      if(indexes.length>0) return '['+indexes.map(value=>'"'+String(value)+'"').join(',')+']';
     }
     return '[]';
   }
   getCountsOfList(args, util) {
     /** @type {VM.ListVariable} */
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
-    const value = args.VALUE;
+    const value=String(args.VALUE);
     let flag=openCaseSensitive;
-    if (variable) {
-      let indexes = [];
-      for (let i = 0; i < variable.value.length; i++) {
+    if(variable){
+      let indexes=[];
+      for(let i=0;i<variable.value.length;i++){
         if(!flag){
-          if (Scratch.Cast.compare(variable.value[i], value) === 0) indexes.push(i + 1);
+          if(Scratch.Cast.compare(variable.value[i],value)===0) indexes.push(i + 1);
         }else{
-          if (String(variable.value[i]) === String(value)) indexes.push(i + 1);
+          if(String(variable.value[i])===String(value)) indexes.push(i + 1);
         }
       }
       return indexes.length;
@@ -961,14 +1291,14 @@ class VarAndList {
   listContains(args, util) {
     /** @type {VM.ListVariable} */
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
-    const value = args.VALUE;
+    const value=String(args.VALUE);
     let flag=openCaseSensitive;
     if (variable) {
-      for (let i = 0;i < variable.value.length;i++) {
+      for(let i=0;i<variable.value.length;i++){
         if(!flag){
-          if (Scratch.Cast.compare(variable.value[i], value) === 0) return true;
+          if(Scratch.Cast.compare(variable.value[i],value)===0) return true;
         }else{
-          if (String(variable.value[i]) === String(value)) return true;
+          if(String(variable.value[i])===String(value)) return false;
         }
       }
       return false;
@@ -996,49 +1326,27 @@ class VarAndList {
   }
   sortList(args,util){
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
-    let order=String(args.CASE);
     if (variable) {
-      let list=variable.value.slice();
-      if(order==='asc'){
-        list=list.map(val=>isNaN(Number(val))?0:Number(val));
-        variable.value=list.sort((a,b)=>a-b);
-      }
-      else if(order==='desc'){
-        list=list.map(val=>isNaN(Number(val))?0:Number(val));
-        variable.value=list.sort((a,b)=>b-a);
-      }
-      else if(order==='dictOrder'){
-        list=list.map(val=>String(val));
-        variable.value=list.sort();
-      }
+      let order=args.CASE;
+      variable.value=this.sortFunc({arr:variable.value,order:order});
       variable._monitorUpToDate = false;
     }
   }
   sortListRange(args,util){
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
-    let order=String(args.CASE);
     if (variable) {
-      let length=variable.value.length,left=Number(args.LEFT),right=Number(args.RIGHT);
-      if(left<1) left=1;
-      if(right>length) right=length;
-      left-=1,right-=1;
-      let list=variable.value.slice(left,right+1);
-      if(order==='asc'){
-        list=list.map(val=>isNaN(Number(val))?0:Number(val));
-        list=list.sort((a,b)=>a-b);
-      }
-      else if(order==='desc'){
-        list=list.map(val=>isNaN(Number(val))?0:Number(val));
-        list=list.sort((a,b)=>b-a);
-      }
-      else if(order==='dictOrder'){
-        list=list.map(val=>String(val));
-        list=list.sort();
-      }
-      let list2=variable.value.slice();
-      variable.value=[...list2.slice(0,left),...list,...list2.slice(right+1,length)];
+      let order=args.CASE,left=Number(args.LEFT),right=Number(args.RIGHT);
+      variable.value=this.sortFunc({arr:variable.value,order:order,range:[left,right]});
       variable._monitorUpToDate = false;
     }
+  }
+  isOrder(args,util){
+    const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
+    if(variable){
+      let order=args.CASE;
+      return this.isOrderFunc(variable.value,order);
+    }
+    return false;
   }
   mapObject(args,util){
     const list = util.target.lookupVariableByNameAndType(String(args.LIST), 'list'),
@@ -1055,6 +1363,24 @@ class VarAndList {
       }
     }
   }
+  associateList(args,util){
+    const list = util.target.lookupVariableByNameAndType(String(args.LIST), 'list'),
+          list2 = util.target.lookupVariableByNameAndType(String(args.LIST2), 'list');
+    if (list && list2) {
+      let object={};
+      let length=(
+        args.DO==='d'?
+          Math.min(list.value.length,list2.value.length) :
+          Math.max(list.value.length,list2.value.length)
+      );
+      for(let i=0;i<length;i++){
+        let key=list.value.length<=i?'key'+this.randomString(10):list.value[i];
+        let val=list2.value.length<=i?'':list2.value[i];
+        object[key]=val;
+      }
+      return JSON.stringify(object);
+    }else return '{}';
+  }
 
   forEach(args,util){
     const variable = util.target.lookupVariableByNameAndType(String(args.VAR), '');
@@ -1066,9 +1392,9 @@ class VarAndList {
       }
 
       if(util.stackFrame.index<range){
-          util.stackFrame.index++;
-          variable.value=util.stackFrame.index+left-1;
-          util.startBranch(1,true);
+        util.stackFrame.index++;
+        variable.value=util.stackFrame.index+left-1;
+        util.startBranch(1,true);
       }
     }
   }
@@ -1084,9 +1410,9 @@ class VarAndList {
       }
 
       if(util.stackFrame.index<range){
-          util.stackFrame.index++;
-          variable.value=list.value[util.stackFrame.index+left-2];
-          util.startBranch(1,true);
+        util.stackFrame.index++;
+        variable.value=list.value[util.stackFrame.index+left-2];
+        util.startBranch(1,true);
       }
     }
   }
