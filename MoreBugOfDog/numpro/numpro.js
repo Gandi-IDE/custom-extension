@@ -1,4 +1,4 @@
-//Version:v1.0.2-beta 详情请见版本日志（Version log.txt）
+//Version:v1.0.5-beta 详情请见版本日志（Version log.txt）
 ((Scratch) => {
     'use strict';
     const OPERATION_EXT_extensionId = "numpro";
@@ -782,6 +782,10 @@
 
     const descriptor = (formatMessage) => {
         return [
+            /*
+            最近没时间修复，又赶着上线，所以暂时把有问题的功能隐藏了
+            下次会修复的
+                       ——多bug的啸天犬
             {
                 onClick: () => {
                     showWindow()
@@ -792,6 +796,7 @@
                     default: 'Seting'
                 }),
             },
+            */
             {
                 opcode: 'exponent',
                 blockType: BlockType.REPORTER,

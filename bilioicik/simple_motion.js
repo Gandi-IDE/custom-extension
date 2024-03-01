@@ -1,8 +1,9 @@
+//v1.0.0
 const { Scratch } = window;
 
 const {
     BlockType, ArgumentType, TargetType, Cast,
-  } = Scratch;
+} = Scratch;
 
 const speed = Symbol("speed");
 const dt = Symbol("dt");
@@ -20,122 +21,122 @@ const turnlefticon = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAqCAYA
 
 const EXTCONFIGCOMMENTID = '_ExtensionConfig_';
 
-class simplemotion{
+class simplemotion {
     static extCount = 0;
     constructor(runtime) {
         this.runtime = runtime;
         simplemotion.extCount += 1;
         this.id = simplemotion.extCount;
         this.hideExtraBlocks = true;
-        this.homex=0;
-        this.homey=0;
+        this.homex = 0;
+        this.homey = 0;
         if (!this.parseExtConfig()) {
             runtime.on('PROJECTLOADED', () => {
-              this.parseExtConfig();
+                this.parseExtConfig();
             });
         }
         runtime.targets.forEach((target) => this.implementForTarget(target));
-            runtime.on("targetWasCreated", (target, originalTarget) =>
+        runtime.on("targetWasCreated", (target, originalTarget) =>
             this.implementForTarget(target, originalTarget)
         );
         runtime.on("PROJECT_LOADED", () => {
             runtime.targets.forEach((target) => this.implementForTarget(target));
         });
-        
+
         this._formatMessage = runtime.getFormatMessage({
             "zh-cn": {
-                'cmname':'简单运动',
-                'simplemotiondocs':'文档',
+                'cmname': '简单运动',
+                'simplemotiondocs': '文档',
                 'simplemotionshowBlock': '显示不常用积木',
                 'simplemotionhideBlock': '隐藏不常用积木',
-                'simplemotionshowBlock?':'为了避免积木过多，一些不常用积木被隐藏了。\n是否显示隐藏积木？',
+                'simplemotionshowBlock?': '为了避免积木过多，一些不常用积木被隐藏了。\n是否显示隐藏积木？',
 
-                'titleMove':'移动',
-                'cmsethome':'设为出生点',
-                'cmgohome':'移到出生点',
-                'moveab':'向[a]移动[b]步',
-                'moveabx':'向[a]移动[b]步所得x',
-                'moveaby':'向[a]移动[b]步所得y',
-                'movea':'向[a]移动',
-                'moveax':'向[a]移动所得x',
-                'moveay':'向[a]移动所得y',
-                'moveb':'移动[b]步',
-                'movebx':'移动[b]步所得x',
-                'moveby':'移动[b]步所得y',
-                'move':'移动',
-                'movex':'移动所得x',
-                'movey':'移动所得y',
-                'rspeed':'速度',
-                'rdirection':'方向',
-                'cmsetspeed':'速度设为[a]',
-                'cmsetdirection':'方向设为[a]',
-                'cmchangespeed':'速度增加[a]',
-                'cmchangedirection':'方向增加[a]',
-                'turn':'旋转[i]',
-                'rturn':'旋转角度',
-                'cmsetturn':'旋转角度设为[a]',
-                'cmchangeturn':'旋转角度增加[a]',
+                'titleMove': '移动',
+                'cmsethome': '设为出生点',
+                'cmgohome': '移到出生点',
+                'moveab': '向[a]移动[b]步',
+                'moveabx': '向[a]移动[b]步所得x',
+                'moveaby': '向[a]移动[b]步所得y',
+                'movea': '向[a]移动',
+                'moveax': '向[a]移动所得x',
+                'moveay': '向[a]移动所得y',
+                'moveb': '移动[b]步',
+                'movebx': '移动[b]步所得x',
+                'moveby': '移动[b]步所得y',
+                'move': '移动',
+                'movex': '移动所得x',
+                'movey': '移动所得y',
+                'rspeed': '速度',
+                'rdirection': '方向',
+                'cmsetspeed': '速度设为[a]',
+                'cmsetdirection': '方向设为[a]',
+                'cmchangespeed': '速度增加[a]',
+                'cmchangedirection': '方向增加[a]',
+                'turn': '旋转[i]',
+                'rturn': '旋转角度',
+                'cmsetturn': '旋转角度设为[a]',
+                'cmchangeturn': '旋转角度增加[a]',
 
 
-                'titleCoordinateandDirection':'坐标与方向',
-                'rdistancetocoordinate':'到x:[x]y:[y]的距离',
-                'rdirectiontocoordinate':'到x:[x]y:[y]的方向',
-                'cmsetdirectiontocoordinate':'方向设到x:[x]y:[y]',
-                'cmdirectiontocoordinate':'面向x:[x]y:[y]',
-                'cmcoordinateadd':'x,y各增加[x][y]',
-                'turndegreearound':'绕x:[x]y:[y]旋转[i][d]度',
+                'titleCoordinateandDirection': '坐标与方向',
+                'rdistancetocoordinate': '到x:[x]y:[y]的距离',
+                'rdirectiontocoordinate': '到x:[x]y:[y]的方向',
+                'cmsetdirectiontocoordinate': '方向设到x:[x]y:[y]',
+                'cmdirectiontocoordinate': '面向x:[x]y:[y]',
+                'cmcoordinateadd': 'x,y各增加[x][y]',
+                'turndegreearound': '绕x:[x]y:[y]旋转[i][d]度',
 
-                'titletobecontinued':'未完待续',
-                
-                'r':'',
+                'titletobecontinued': '未完待续',
+
+                'r': '',
             },
             en: {
-                'cmname':'simple motion',
-                'simplemotiondocs':'documentation',
+                'cmname': 'simple motion',
+                'simplemotiondocs': 'documentation',
                 'simplemotionshowBlock': 'show other blocks',
                 'simplemotionhideBlock': 'hide other blocks',
-                'simplemotionshowBlock?':'To avoid clutter, some infrequently used blocks are hidden.\nDo you want to show hidden blocks?',
+                'simplemotionshowBlock?': 'To avoid clutter, some infrequently used blocks are hidden.\nDo you want to show hidden blocks?',
 
-                'titleMove':'Move',
-                'cmsethome':'set home',
-                'cmgohome':'go home',
-                'moveab':'move[b]steps in direction[a]',
-                'moveabx':'x after moving[b]steps in direction[a]',
-                'moveaby':'y after moving[b]steps in direction[a]',
-                'movea':'move in direction[a]',
-                'moveax':'x after moving in direction[a]',
-                'moveay':'y after moving in direction[a]',
-                'moveb':'move[b]steps',
-                'movebx':'x after[b]-step-move',
-                'moveby':'y after[b]-step-move',
-                'move':'move',
-                'movex':'x after move',
-                'movey':'y after move',
-                'rspeed':'speed',
-                'rdirection':'direction',
-                'cmsetspeed':'set speed to[a]',
-                'cmsetdirection':'set direction to[a]',
-                'cmchangespeed':'change speed by[a]',
-                'cmchangedirection':'change direction by[a]',
-                'turn':'turn[i]degrees',
-                'rturn':'rotation angle',
-                'cmsetturn':'set rotation angle to[a]degrees',
-                'cmchangeturn':'change rotation angle by[a]',
+                'titleMove': 'Move',
+                'cmsethome': 'set home',
+                'cmgohome': 'go home',
+                'moveab': 'move[b]steps in direction[a]',
+                'moveabx': 'x after moving[b]steps in direction[a]',
+                'moveaby': 'y after moving[b]steps in direction[a]',
+                'movea': 'move in direction[a]',
+                'moveax': 'x after moving in direction[a]',
+                'moveay': 'y after moving in direction[a]',
+                'moveb': 'move[b]steps',
+                'movebx': 'x after[b]-step-move',
+                'moveby': 'y after[b]-step-move',
+                'move': 'move',
+                'movex': 'x after move',
+                'movey': 'y after move',
+                'rspeed': 'speed',
+                'rdirection': 'direction',
+                'cmsetspeed': 'set speed to[a]',
+                'cmsetdirection': 'set direction to[a]',
+                'cmchangespeed': 'change speed by[a]',
+                'cmchangedirection': 'change direction by[a]',
+                'turn': 'turn[i]degrees',
+                'rturn': 'rotation angle',
+                'cmsetturn': 'set rotation angle to[a]degrees',
+                'cmchangeturn': 'change rotation angle by[a]',
 
-                'titleCoordinateandDirection':'Coordinate and Direction',
-                'rdistancetocoordinate':'distance to x:[x]y:[y]',
-                'rdirectiontocoordinate':'direction to x:[x]y:[y]',
-                'cmsetdirectiontocoordinate':'set direction to x:[x]y:[y]',
-                'cmdirectiontocoordinate':'point towards x:[x]y:[y]',
-                'cmcoordinateadd':'changed x and y by[x][y]',
-                'turndegreearound':'turn[i][d]degrees around x:[x]y:[y]',
-                
-                'titletobecontinued':'To be continued',
+                'titleCoordinateandDirection': 'Coordinate and Direction',
+                'rdistancetocoordinate': 'distance to x:[x]y:[y]',
+                'rdirectiontocoordinate': 'direction to x:[x]y:[y]',
+                'cmsetdirectiontocoordinate': 'set direction to x:[x]y:[y]',
+                'cmdirectiontocoordinate': 'point towards x:[x]y:[y]',
+                'cmcoordinateadd': 'changed x and y by[x][y]',
+                'turndegreearound': 'turn[i][d]degrees around x:[x]y:[y]',
 
-                'r':'',
+                'titletobecontinued': 'To be continued',
+
+                'r': '',
             }
         })
-	}
+    }
     formatMessage(id) {
         return this._formatMessage({
             id,
@@ -143,15 +144,15 @@ class simplemotion{
             description: id
         });
     }
-    getInfo(){
-        return{
-            id:simplemotionextensionId,
-            name:this.formatMessage('cmname'),
-            blockIconURI:'',
+    getInfo() {
+        return {
+            id: simplemotionextensionId,
+            name: this.formatMessage('cmname'),
+            blockIconURI: '',
             menuIconURI: simplemotionicon,
-            color1:'#4c97ff',
-            color2:'#a5caff',
-            blocks:[
+            color1: '#4c97ff',
+            color2: '#a5caff',
+            blocks: [
                 {
                     blockType: "button",
                     text: this.formatMessage('simplemotiondocs'),
@@ -162,11 +163,11 @@ class simplemotion{
                     hideFromPalette: !this.hideExtraBlocks,
                     text: this.formatMessage('simplemotionshowBlock'),
                     onClick: () => {
-                      if (confirm(this.formatMessage('simplemotionshowBlock?'))) {
-                        this.hideExtraBlocks = false;
-                        this.storeExtConfig();
-                        this.runtime.emit('TOOLBOX_EXTENSIONS_NEED_UPDATE')
-                      }
+                        if (confirm(this.formatMessage('simplemotionshowBlock?'))) {
+                            this.hideExtraBlocks = false;
+                            this.storeExtConfig();
+                            this.runtime.emit('TOOLBOX_EXTENSIONS_NEED_UPDATE')
+                        }
                     },
                 },
                 {
@@ -183,29 +184,29 @@ class simplemotion{
                 {
                     opcode: 'rtest',
                     blockType: 'reporter',
-                    text:'test',
+                    text: 'test',
                     filter: ['sprite'],
                     hideFromPalette: 1
                 },
                 {
                     opcode: 'cmtest',
                     blockType: 'command',
-                    text:'test',
+                    text: 'test',
                     filter: ['sprite'],
                     hideFromPalette: 1
                 },
                 {
                     opcode: 'rmoveab',
                     blockType: 'reporter',
-                    text:this.formatMessage('moveab'),
-                    arguments:{
-                        a:{
-                            type:'angle',
-                            defaultValue:23
+                    text: this.formatMessage('moveab'),
+                    arguments: {
+                        a: {
+                            type: 'angle',
+                            defaultValue: 23
                         },
-                        b:{
-                            type:'string',
-                            defaultValue:24
+                        b: {
+                            type: 'string',
+                            defaultValue: 24
                         }
                     },
                     filter: ['sprite'],
@@ -214,15 +215,15 @@ class simplemotion{
                 {
                     opcode: 'rmoveabx',
                     blockType: 'reporter',
-                    text:this.formatMessage('moveabx'),
-                    arguments:{
-                        a:{
-                            type:'angle',
-                            defaultValue:23
+                    text: this.formatMessage('moveabx'),
+                    arguments: {
+                        a: {
+                            type: 'angle',
+                            defaultValue: 23
                         },
-                        b:{
-                            type:'string',
-                            defaultValue:24
+                        b: {
+                            type: 'string',
+                            defaultValue: 24
                         }
                     },
                     filter: ['sprite'],
@@ -231,15 +232,15 @@ class simplemotion{
                 {
                     opcode: 'rmoveaby',
                     blockType: 'reporter',
-                    text:this.formatMessage('moveaby'),
-                    arguments:{
-                        a:{
-                            type:'angle',
-                            defaultValue:23
+                    text: this.formatMessage('moveaby'),
+                    arguments: {
+                        a: {
+                            type: 'angle',
+                            defaultValue: 23
                         },
-                        b:{
-                            type:'string',
-                            defaultValue:24
+                        b: {
+                            type: 'string',
+                            defaultValue: 24
                         }
                     },
                     filter: ['sprite'],
@@ -248,15 +249,15 @@ class simplemotion{
                 {
                     opcode: 'cmmoveab',
                     blockType: 'command',
-                    text:this.formatMessage('moveab'),
-                    arguments:{
-                        a:{
-                            type:'angle',
-                            defaultValue:23
+                    text: this.formatMessage('moveab'),
+                    arguments: {
+                        a: {
+                            type: 'angle',
+                            defaultValue: 23
                         },
-                        b:{
-                            type:'string',
-                            defaultValue:24
+                        b: {
+                            type: 'string',
+                            defaultValue: 24
                         }
                     },
                     filter: ['sprite']
@@ -264,11 +265,11 @@ class simplemotion{
                 {
                     opcode: 'rmovea',
                     blockType: 'reporter',
-                    text:this.formatMessage('movea'),
-                    arguments:{
-                        a:{
-                            type:'angle',
-                            defaultValue:23
+                    text: this.formatMessage('movea'),
+                    arguments: {
+                        a: {
+                            type: 'angle',
+                            defaultValue: 23
                         }
                     },
                     filter: ['sprite'],
@@ -277,11 +278,11 @@ class simplemotion{
                 {
                     opcode: 'rmoveax',
                     blockType: 'reporter',
-                    text:this.formatMessage('moveax'),
-                    arguments:{
-                        a:{
-                            type:'angle',
-                            defaultValue:23
+                    text: this.formatMessage('moveax'),
+                    arguments: {
+                        a: {
+                            type: 'angle',
+                            defaultValue: 23
                         }
                     },
                     filter: ['sprite'],
@@ -290,11 +291,11 @@ class simplemotion{
                 {
                     opcode: 'rmoveay',
                     blockType: 'reporter',
-                    text:this.formatMessage('moveay'),
-                    arguments:{
-                        a:{
-                            type:'angle',
-                            defaultValue:23
+                    text: this.formatMessage('moveay'),
+                    arguments: {
+                        a: {
+                            type: 'angle',
+                            defaultValue: 23
                         }
                     },
                     filter: ['sprite'],
@@ -303,11 +304,11 @@ class simplemotion{
                 {
                     opcode: 'cmmovea',
                     blockType: 'command',
-                    text:this.formatMessage('movea'),
-                    arguments:{
-                        a:{
-                            type:'angle',
-                            defaultValue:23
+                    text: this.formatMessage('movea'),
+                    arguments: {
+                        a: {
+                            type: 'angle',
+                            defaultValue: 23
                         }
                     },
                     filter: ['sprite']
@@ -315,11 +316,11 @@ class simplemotion{
                 {
                     opcode: 'rmoveb',
                     blockType: 'reporter',
-                    text:this.formatMessage('moveb'),
-                    arguments:{
-                        b:{
-                            type:'string',
-                            defaultValue:24
+                    text: this.formatMessage('moveb'),
+                    arguments: {
+                        b: {
+                            type: 'string',
+                            defaultValue: 24
                         }
                     },
                     filter: ['sprite'],
@@ -328,11 +329,11 @@ class simplemotion{
                 {
                     opcode: 'rmovebx',
                     blockType: 'reporter',
-                    text:this.formatMessage('movebx'),
-                    arguments:{
-                        b:{
-                            type:'string',
-                            defaultValue:24
+                    text: this.formatMessage('movebx'),
+                    arguments: {
+                        b: {
+                            type: 'string',
+                            defaultValue: 24
                         }
                     },
                     filter: ['sprite'],
@@ -341,11 +342,11 @@ class simplemotion{
                 {
                     opcode: 'rmoveby',
                     blockType: 'reporter',
-                    text:this.formatMessage('moveby'),
-                    arguments:{
-                        b:{
-                            type:'string',
-                            defaultValue:24
+                    text: this.formatMessage('moveby'),
+                    arguments: {
+                        b: {
+                            type: 'string',
+                            defaultValue: 24
                         }
                     },
                     filter: ['sprite'],
@@ -354,11 +355,11 @@ class simplemotion{
                 {
                     opcode: 'cmmoveb',
                     blockType: 'command',
-                    text:this.formatMessage('moveb'),
-                    arguments:{
-                        b:{
-                            type:'string',
-                            defaultValue:24
+                    text: this.formatMessage('moveb'),
+                    arguments: {
+                        b: {
+                            type: 'string',
+                            defaultValue: 24
                         }
                     },
                     filter: ['sprite']
@@ -366,7 +367,7 @@ class simplemotion{
                 {
                     opcode: 'rmove',
                     blockType: 'reporter',
-                    text:this.formatMessage('move'),
+                    text: this.formatMessage('move'),
                     disableMonitor: true,
                     filter: ['sprite'],
                     hideFromPalette: this.hideExtraBlocks
@@ -374,7 +375,7 @@ class simplemotion{
                 {
                     opcode: 'rmovex',
                     blockType: 'reporter',
-                    text:this.formatMessage('movex'),
+                    text: this.formatMessage('movex'),
                     disableMonitor: true,
                     filter: ['sprite'],
                     hideFromPalette: this.hideExtraBlocks
@@ -382,7 +383,7 @@ class simplemotion{
                 {
                     opcode: 'rmovey',
                     blockType: 'reporter',
-                    text:this.formatMessage('movey'),
+                    text: this.formatMessage('movey'),
                     disableMonitor: true,
                     filter: ['sprite'],
                     hideFromPalette: this.hideExtraBlocks
@@ -390,29 +391,29 @@ class simplemotion{
                 {
                     opcode: 'cmmove',
                     blockType: 'command',
-                    text:this.formatMessage('move'),
+                    text: this.formatMessage('move'),
                     filter: ['sprite']
                 },
                 {
                     opcode: 'rspeed',
                     blockType: 'reporter',
-                    text:this.formatMessage('rspeed'),
+                    text: this.formatMessage('rspeed'),
                     filter: ['sprite']
                 },
                 {
                     opcode: 'rdirection',
                     blockType: 'reporter',
-                    text:this.formatMessage('rdirection'),
+                    text: this.formatMessage('rdirection'),
                     filter: ['sprite']
                 },
                 {
                     opcode: 'cmsetspeed',
                     blockType: 'command',
-                    text:this.formatMessage('cmsetspeed'),
-                    arguments:{
-                        a:{
-                            type:'string',
-                            defaultValue:24
+                    text: this.formatMessage('cmsetspeed'),
+                    arguments: {
+                        a: {
+                            type: 'string',
+                            defaultValue: 24
                         }
                     },
                     filter: ['sprite']
@@ -420,11 +421,11 @@ class simplemotion{
                 {
                     opcode: 'cmsetdirection',
                     blockType: 'command',
-                    text:this.formatMessage('cmsetdirection'),
-                    arguments:{
-                        a:{
-                            type:'angle',
-                            defaultValue:24
+                    text: this.formatMessage('cmsetdirection'),
+                    arguments: {
+                        a: {
+                            type: 'angle',
+                            defaultValue: 24
                         }
                     },
                     filter: ['sprite']
@@ -432,11 +433,11 @@ class simplemotion{
                 {
                     opcode: 'cmchangespeed',
                     blockType: 'command',
-                    text:this.formatMessage('cmchangespeed'),
-                    arguments:{
-                        a:{
-                            type:'string',
-                            defaultValue:24
+                    text: this.formatMessage('cmchangespeed'),
+                    arguments: {
+                        a: {
+                            type: 'string',
+                            defaultValue: 24
                         }
                     },
                     filter: ['sprite']
@@ -444,11 +445,11 @@ class simplemotion{
                 {
                     opcode: 'cmchangedirection',
                     blockType: 'command',
-                    text:this.formatMessage('cmchangedirection'),
-                    arguments:{
-                        a:{
-                            type:'angle',
-                            defaultValue:24
+                    text: this.formatMessage('cmchangedirection'),
+                    arguments: {
+                        a: {
+                            type: 'angle',
+                            defaultValue: 24
                         }
                     },
                     filter: ['sprite']
@@ -456,10 +457,10 @@ class simplemotion{
                 {
                     opcode: 'rturnright',
                     blockType: 'reporter',
-                    text:this.formatMessage('turn'),
-                    arguments:{
-                        i:{
-                            type:Scratch.ArgumentType.IMAGE,
+                    text: this.formatMessage('turn'),
+                    arguments: {
+                        i: {
+                            type: Scratch.ArgumentType.IMAGE,
                             dataURI: turnrighticon,
                         }
                     },
@@ -470,10 +471,10 @@ class simplemotion{
                 {
                     opcode: 'rturnleft',
                     blockType: 'reporter',
-                    text:this.formatMessage('turn'),
-                    arguments:{
-                        i:{
-                            type:Scratch.ArgumentType.IMAGE,
+                    text: this.formatMessage('turn'),
+                    arguments: {
+                        i: {
+                            type: Scratch.ArgumentType.IMAGE,
                             dataURI: turnlefticon,
                         }
                     },
@@ -484,10 +485,10 @@ class simplemotion{
                 {
                     opcode: 'cmturnright',
                     blockType: 'command',
-                    text:this.formatMessage('turn'),
-                    arguments:{
-                        i:{
-                            type:Scratch.ArgumentType.IMAGE,
+                    text: this.formatMessage('turn'),
+                    arguments: {
+                        i: {
+                            type: Scratch.ArgumentType.IMAGE,
                             dataURI: turnrighticon,
                         }
                     },
@@ -496,10 +497,10 @@ class simplemotion{
                 {
                     opcode: 'cmturnleft',
                     blockType: 'command',
-                    text:this.formatMessage('turn'),
-                    arguments:{
-                        i:{
-                            type:Scratch.ArgumentType.IMAGE,
+                    text: this.formatMessage('turn'),
+                    arguments: {
+                        i: {
+                            type: Scratch.ArgumentType.IMAGE,
                             dataURI: turnlefticon,
                         }
                     },
@@ -508,17 +509,17 @@ class simplemotion{
                 {
                     opcode: 'rturn',
                     blockType: 'reporter',
-                    text:this.formatMessage('rturn'),
+                    text: this.formatMessage('rturn'),
                     filter: ['sprite']
                 },
                 {
                     opcode: 'cmsetturn',
                     blockType: 'command',
-                    text:this.formatMessage('cmsetturn'),
-                    arguments:{
-                        a:{
-                            type:'string',
-                            defaultValue:24
+                    text: this.formatMessage('cmsetturn'),
+                    arguments: {
+                        a: {
+                            type: 'string',
+                            defaultValue: 24
                         }
                     },
                     filter: ['sprite']
@@ -526,11 +527,11 @@ class simplemotion{
                 {
                     opcode: 'cmchangeturn',
                     blockType: 'command',
-                    text:this.formatMessage('cmchangeturn'),
-                    arguments:{
-                        a:{
-                            type:'string',
-                            defaultValue:24
+                    text: this.formatMessage('cmchangeturn'),
+                    arguments: {
+                        a: {
+                            type: 'string',
+                            defaultValue: 24
                         }
                     },
                     filter: ['sprite']
@@ -539,15 +540,15 @@ class simplemotion{
                 {
                     opcode: 'rdistancetocoordinate',
                     blockType: 'reporter',
-                    text:this.formatMessage('rdistancetocoordinate'),
-                    arguments:{
-                        x:{
-                            type:'string',
-                            defaultValue:23
+                    text: this.formatMessage('rdistancetocoordinate'),
+                    arguments: {
+                        x: {
+                            type: 'string',
+                            defaultValue: 23
                         },
-                        y:{
-                            type:'string',
-                            defaultValue:33
+                        y: {
+                            type: 'string',
+                            defaultValue: 33
                         }
                     },
                     filter: ['sprite']
@@ -555,15 +556,15 @@ class simplemotion{
                 {
                     opcode: 'rdirectiontocoordinate',
                     blockType: 'reporter',
-                    text:this.formatMessage('rdirectiontocoordinate'),
-                    arguments:{
-                        x:{
-                            type:'string',
-                            defaultValue:23
+                    text: this.formatMessage('rdirectiontocoordinate'),
+                    arguments: {
+                        x: {
+                            type: 'string',
+                            defaultValue: 23
                         },
-                        y:{
-                            type:'string',
-                            defaultValue:33
+                        y: {
+                            type: 'string',
+                            defaultValue: 33
                         }
                     },
                     filter: ['sprite']
@@ -571,15 +572,15 @@ class simplemotion{
                 {
                     opcode: 'cmsetdirectiontocoordinate',
                     blockType: 'command',
-                    text:this.formatMessage('cmsetdirectiontocoordinate'),
-                    arguments:{
-                        x:{
-                            type:'string',
-                            defaultValue:23
+                    text: this.formatMessage('cmsetdirectiontocoordinate'),
+                    arguments: {
+                        x: {
+                            type: 'string',
+                            defaultValue: 23
                         },
-                        y:{
-                            type:'string',
-                            defaultValue:33
+                        y: {
+                            type: 'string',
+                            defaultValue: 33
                         }
                     },
                     filter: ['sprite']
@@ -587,15 +588,15 @@ class simplemotion{
                 {
                     opcode: 'cmdirectiontocoordinate',
                     blockType: 'command',
-                    text:this.formatMessage('cmdirectiontocoordinate'),
-                    arguments:{
-                        x:{
-                            type:'string',
-                            defaultValue:23
+                    text: this.formatMessage('cmdirectiontocoordinate'),
+                    arguments: {
+                        x: {
+                            type: 'string',
+                            defaultValue: 23
                         },
-                        y:{
-                            type:'string',
-                            defaultValue:33
+                        y: {
+                            type: 'string',
+                            defaultValue: 33
                         }
                     },
                     filter: ['sprite']
@@ -603,21 +604,21 @@ class simplemotion{
                 {
                     opcode: 'rxy',
                     blockType: 'reporter',
-                    text:'x,y',
+                    text: 'x,y',
                     filter: ['sprite']
                 },
                 {
                     opcode: 'cmcoordinateadd',
                     blockType: 'command',
-                    text:this.formatMessage('cmcoordinateadd'),
-                    arguments:{
-                        x:{
-                            type:'string',
-                            defaultValue:23
+                    text: this.formatMessage('cmcoordinateadd'),
+                    arguments: {
+                        x: {
+                            type: 'string',
+                            defaultValue: 23
                         },
-                        y:{
-                            type:'string',
-                            defaultValue:33
+                        y: {
+                            type: 'string',
+                            defaultValue: 33
                         }
                     },
                     filter: ['sprite']
@@ -625,22 +626,22 @@ class simplemotion{
                 {
                     opcode: 'cmturnrightaround',
                     blockType: 'command',
-                    text:this.formatMessage('turndegreearound'),
-                    arguments:{
-                        x:{
-                            type:'string',
-                            defaultValue:23
+                    text: this.formatMessage('turndegreearound'),
+                    arguments: {
+                        x: {
+                            type: 'string',
+                            defaultValue: 23
                         },
-                        y:{
-                            type:'string',
-                            defaultValue:33
+                        y: {
+                            type: 'string',
+                            defaultValue: 33
                         },
-                        d:{
-                            type:'angle',
-                            defaultValue:33
+                        d: {
+                            type: 'angle',
+                            defaultValue: 33
                         },
-                        i:{
-                            type:Scratch.ArgumentType.IMAGE,
+                        i: {
+                            type: Scratch.ArgumentType.IMAGE,
                             dataURI: turnrighticon,
                         }
                     },
@@ -649,22 +650,22 @@ class simplemotion{
                 {
                     opcode: 'cmturnleftaround',
                     blockType: 'command',
-                    text:this.formatMessage('turndegreearound'),
-                    arguments:{
-                        x:{
-                            type:'string',
-                            defaultValue:23
+                    text: this.formatMessage('turndegreearound'),
+                    arguments: {
+                        x: {
+                            type: 'string',
+                            defaultValue: 23
                         },
-                        y:{
-                            type:'string',
-                            defaultValue:33
+                        y: {
+                            type: 'string',
+                            defaultValue: 33
                         },
-                        d:{
-                            type:'angle',
-                            defaultValue:33
+                        d: {
+                            type: 'angle',
+                            defaultValue: 33
                         },
-                        i:{
-                            type:Scratch.ArgumentType.IMAGE,
+                        i: {
+                            type: Scratch.ArgumentType.IMAGE,
                             dataURI: turnlefticon,
                         }
                     },
@@ -673,10 +674,10 @@ class simplemotion{
 
                 '---' + this.formatMessage('titletobecontinued')
             ],
-            menus:{
-                boolean:{
-                    acceptReporters:true,
-                    items:['','true','false']
+            menus: {
+                boolean: {
+                    acceptReporters: true,
+                    items: ['', 'true', 'false']
                 }
             }
         }
@@ -699,21 +700,21 @@ class simplemotion{
         if (!comment) return undefined;
         const lines = comment.text.split('\n');
         if (lines.length === 0) {
-          console.warn(
-            `${simplemotionextensionId}: Extension config comment does not contain valid line.`,
-          );
-          return undefined;
+            console.warn(
+                `${simplemotionextensionId}: Extension config comment does not contain valid line.`,
+            );
+            return undefined;
         }
         const jsonText = lines[lines.length - 1];
         try {
-          const parsed = JSON.parse(jsonText);
-          if (!parsed || typeof parsed !== 'object') {
-            throw new Error('Invalid object');
-          }
-          return parsed;
+            const parsed = JSON.parse(jsonText);
+            if (!parsed || typeof parsed !== 'object') {
+                throw new Error('Invalid object');
+            }
+            return parsed;
         } catch (e) {
-          console.warn(`${simplemotionextensionId}: Config comment has invalid JSON`, e);
-          return undefined;
+            console.warn(`${simplemotionextensionId}: Config comment has invalid JSON`, e);
+            return undefined;
         }
     }
     parseExtConfig() {
@@ -722,8 +723,8 @@ class simplemotion{
         config = config[simplemotionextensionId];
         if (!config) return false;
         if ('hideExtraBlocks' in config) {
-          this.hideExtraBlocks = Cast.toBoolean(config.hideExtraBlocks);
-          this.runtime.emit('TOOLBOX_EXTENSIONS_NEED_UPDATE');
+            this.hideExtraBlocks = Cast.toBoolean(config.hideExtraBlocks);
+            this.runtime.emit('TOOLBOX_EXTENSIONS_NEED_UPDATE');
         }
         return true;
     }
@@ -732,193 +733,193 @@ class simplemotion{
         options.hideExtraBlocks = this.hideExtraBlocks;
         return options;
     }
-    
-      storeExtConfig() {
+
+    storeExtConfig() {
         let config = this.getAllExtConfig();
         if (!config) config = {};
         config[simplemotionextensionId] = this.generateExtConfig();
-    
+
         const existingComment = this.findExtConfigComment();
         if (existingComment) {
-          const lines = existingComment.text.split('\n');
-          if (lines.length === 0) {
-            lines.push('');
-          }
-          lines[lines.length - 1] = JSON.stringify(config);
-          existingComment.text = lines.join('\n');
+            const lines = existingComment.text.split('\n');
+            if (lines.length === 0) {
+                lines.push('');
+            }
+            lines[lines.length - 1] = JSON.stringify(config);
+            existingComment.text = lines.join('\n');
         } else {
-          const target = this.runtime.getTargetForStage();
-          const text = `${this.formatMessage('config.tip')}\n${JSON.stringify(
-            config,
-          )}`;
-          target.createComment(
-            EXTCONFIGCOMMENTID,
-            null,
-            text,
-            1,
-            1,
-            400,
-            200,
-            false,
-          );
+            const target = this.runtime.getTargetForStage();
+            const text = `${this.formatMessage('config.tip')}\n${JSON.stringify(
+                config,
+            )}`;
+            target.createComment(
+                EXTCONFIGCOMMENTID,
+                null,
+                text,
+                1,
+                1,
+                400,
+                200,
+                false,
+            );
         }
         this.runtime.emitProjectChanged();
     }
-    implementForTarget(target, originalTarget){
-        if (speed in target)return;
+    implementForTarget(target, originalTarget) {
+        if (speed in target) return;
         target[speed] = originalTarget ? originalTarget[speed] : 10;
         target[dt] = originalTarget ? originalTarget[dt] : 90;
         target[turn] = originalTarget ? originalTarget[turn] : 45
     }
-    ToBoolean(a){
-        return ! [0,false,'','0','false','undefined','null'].includes(a)
+    ToBoolean(a) {
+        return ![0, false, '', '0', 'false', 'undefined', 'null'].includes(a)
     }
-    rtest(args,util){
+    rtest(args, util) {
         return NaN == NaN
     }
-    cmtest(args,util){
+    cmtest(args, util) {
         util.target.stopAll();
     }
-    rmoveab(args,util){
-        const a = Math.PI*args.a/180
+    rmoveab(args, util) {
+        const a = Math.PI * args.a / 180
         return (util.target.x + args.b * Math.sin(a)) + ',' + (util.target.y + args.b * Math.cos(a))
     }
-    rmoveabx(args,util){
-        return util.target.x + args.b * Math.sin(Math.PI*args.a/180)
+    rmoveabx(args, util) {
+        return util.target.x + args.b * Math.sin(Math.PI * args.a / 180)
     }
-    rmoveaby(args,util){
-        return util.target.y + args.b * Math.cos(Math.PI*args.a/180)
+    rmoveaby(args, util) {
+        return util.target.y + args.b * Math.cos(Math.PI * args.a / 180)
     }
-    cmmoveab(args,util){
-        const d = Math.PI*args.a/180;
-        util.target.setXY(util.target.x + args.b * Math.sin(d),util.target.y + args.b * Math.cos(d))
+    cmmoveab(args, util) {
+        const d = Math.PI * args.a / 180;
+        util.target.setXY(util.target.x + args.b * Math.sin(d), util.target.y + args.b * Math.cos(d))
     }
-    rmovea(args,util){
-        const a = Math.PI*args.a/180
+    rmovea(args, util) {
+        const a = Math.PI * args.a / 180
         return (util.target.x + util.target[speed] * Math.sin(a)) + ',' + (util.target.y + util.target[speed] * Math.cos(a))
     }
-    rmoveax(args,util){
-        return util.target.x + util.target[speed] * Math.sin(Math.PI*args.a/180)
+    rmoveax(args, util) {
+        return util.target.x + util.target[speed] * Math.sin(Math.PI * args.a / 180)
     }
-    rmoveay(args,util){
-        return util.target.y + util.target[speed] * Math.cos(Math.PI*args.a/180)
+    rmoveay(args, util) {
+        return util.target.y + util.target[speed] * Math.cos(Math.PI * args.a / 180)
     }
-    cmmovea(args,util){
-        const d = Math.PI*args.a/180;
-        util.target.setXY(util.target.x + util.target[speed] * Math.sin(d),util.target.y + util.target[speed] * Math.cos(d))
+    cmmovea(args, util) {
+        const d = Math.PI * args.a / 180;
+        util.target.setXY(util.target.x + util.target[speed] * Math.sin(d), util.target.y + util.target[speed] * Math.cos(d))
     }
-    rmoveb(args,util){
-        const a = Math.PI*util.target[dt]/180
+    rmoveb(args, util) {
+        const a = Math.PI * util.target[dt] / 180
         return (util.target.x + args.b * Math.sin(a)) + ',' + (util.target.y + args.b * Math.cos(a))
     }
-    rmovebx(args,util){
-        return util.target.x + args.b * Math.sin(Math.PI*util.target[dt]/180)
+    rmovebx(args, util) {
+        return util.target.x + args.b * Math.sin(Math.PI * util.target[dt] / 180)
     }
-    rmoveby(args,util){
-        return util.target.y + args.b * Math.cos(Math.PI*util.target[dt]/180)
+    rmoveby(args, util) {
+        return util.target.y + args.b * Math.cos(Math.PI * util.target[dt] / 180)
     }
-    cmmoveb(args,util){
-        const d = Math.PI*util.target[dt]/180;
-        util.target.setXY(util.target.x + args.b * Math.sin(d),util.target.y + args.b * Math.cos(d))
+    cmmoveb(args, util) {
+        const d = Math.PI * util.target[dt] / 180;
+        util.target.setXY(util.target.x + args.b * Math.sin(d), util.target.y + args.b * Math.cos(d))
     }
-    rmove(args,util){
-        const a = Math.PI*util.target[dt]/180
+    rmove(args, util) {
+        const a = Math.PI * util.target[dt] / 180
         return (util.target.x + util.target[speed] * Math.sin(a)) + ',' + (util.target.y + util.target[speed] * Math.cos(a))
     }
-    rmovex(args,util){
-        return util.target.x + util.target[speed] * Math.sin(Math.PI*util.target[dt]/180)
+    rmovex(args, util) {
+        return util.target.x + util.target[speed] * Math.sin(Math.PI * util.target[dt] / 180)
     }
-    rmovey(args,util){
-        return util.target.y + util.target[speed] * Math.cos(Math.PI*util.target[dt]/180)
+    rmovey(args, util) {
+        return util.target.y + util.target[speed] * Math.cos(Math.PI * util.target[dt] / 180)
     }
-    cmmove(args,util){
-        const d = Math.PI*util.target[dt]/180;
-        util.target.setXY(util.target.x + util.target[speed] * Math.sin(d),util.target.y + util.target[speed] * Math.cos(d))
+    cmmove(args, util) {
+        const d = Math.PI * util.target[dt] / 180;
+        util.target.setXY(util.target.x + util.target[speed] * Math.sin(d), util.target.y + util.target[speed] * Math.cos(d))
     }
-    rspeed(args,util){
+    rspeed(args, util) {
         return util.target[speed]
     }
-    rdirection(ars,util){
+    rdirection(ars, util) {
         return util.target[dt]
     }
-    cmsetspeed(args,util){
+    cmsetspeed(args, util) {
         util.target[speed] = Number(args.a)
     }
-    cmsetdirection(args,util){
+    cmsetdirection(args, util) {
         util.target[dt] = Number(args.a)
     }
-    cmchangespeed(args,util){
+    cmchangespeed(args, util) {
         util.target[speed] += Number(args.a)
     }
-    cmchangedirection(args,util){
+    cmchangedirection(args, util) {
         util.target[dt] += Number(args.a)
     }
-    rturnright(args,util){
+    rturnright(args, util) {
         return util.target.direction + util.target[turn]
     }
-    rturnleft(args,util){
+    rturnleft(args, util) {
         return util.target.direction - util.target[turn]
     }
-    cmturnright(args,util){
+    cmturnright(args, util) {
         util.target.setDirection(util.target.direction + util.target[turn])
     }
-    cmturnleft(args,util){
+    cmturnleft(args, util) {
         util.target.setDirection(util.target.direction - util.target[turn])
     }
-    rturn(args,util){
+    rturn(args, util) {
         return util.target[turn]
     }
-    cmsetturn(args,util){
+    cmsetturn(args, util) {
         util.target[turn] = Number(args.a)
     }
-    cmchangeturn(args,util){
+    cmchangeturn(args, util) {
         util.target[turn] += Number(args.a)
     }
-    rdistancetocoordinate(args,util){
+    rdistancetocoordinate(args, util) {
         const dx = util.target.x - args.x
         const dy = util.target.y - args.y
         return Math.sqrt(dx * dx + dy * dy)
     }
-    rdirectiontocoordinate(args,util){
+    rdirectiontocoordinate(args, util) {
         const dx = args.x - util.target.x;
         const dy = args.y - util.target.y;
-        const dr = dx/dy
-        if (isNaN(dr))return;
-        if (dy > 0)return Math.atan(dr) / Math.PI * 180
-        if(dx > 0)return Math.atan(dr) / Math.PI * 180 + 180
+        const dr = dx / dy
+        if (isNaN(dr)) return;
+        if (dy > 0) return Math.atan(dr) / Math.PI * 180
+        if (dx > 0) return Math.atan(dr) / Math.PI * 180 + 180
         return Math.atan(dr) / Math.PI * 180 - 180
     }
-    cmsetdirectiontocoordinate(args,util){
-        const dy = util.target.y - args.y ;
+    cmsetdirectiontocoordinate(args, util) {
+        const dy = util.target.y - args.y;
         util.target[dt] = (Math.atan((util.target.x - args.x) / (dy)) / Math.PI * 180 + (dy > 0 ? 180 : 0))
     }
-    cmdirectiontocoordinate(args,util){
-        const dy = util.target.y - args.y ;
+    cmdirectiontocoordinate(args, util) {
+        const dy = util.target.y - args.y;
         util.target.setDirection(Math.atan((util.target.x - args.x) / (dy)) / Math.PI * 180 + (dy > 0 ? 180 : 0))
     }
-    rxy(args,util){
+    rxy(args, util) {
         return (util.target.x) + ',' + (util.target.y);
     }
-    cmcoordinateadd(args,util){
-        util.target.setXY(util.target.x + Number(args.x),util.target.y + Number(args.y))
+    cmcoordinateadd(args, util) {
+        util.target.setXY(util.target.x + Number(args.x), util.target.y + Number(args.y))
     }
-    cmturnrightaround(args,util){
+    cmturnrightaround(args, util) {
         const dx = util.target.x - args.x;
         const dy = util.target.y - args.y;
-        const dr = dx/dy;
-        if (isNaN(dr))return;
+        const dr = dx / dy;
+        if (isNaN(dr)) return;
         const r = Math.sqrt(dx * dx + dy * dy);
-        const d = (-args.d-(dy > 0 ? 270 : 90))*Math.PI/180 - Math.atan(dr);
-        util.target.setXY(Math.cos(d)*r,Math.sin(d)*r)
+        const d = (-args.d - (dy > 0 ? 270 : 90)) * Math.PI / 180 - Math.atan(dr);
+        util.target.setXY(Math.cos(d) * r, Math.sin(d) * r)
     }
-    cmturnleftaround(args,util){
+    cmturnleftaround(args, util) {
         const dx = util.target.x - args.x;
         const dy = util.target.y - args.y;
-        const dr = dx/dy;
-        if (isNaN(dr))return;
+        const dr = dx / dy;
+        if (isNaN(dr)) return;
         const r = Math.sqrt(dx * dx + dy * dy);
-        const d = (args.d-(dy > 0 ? 270 : 90))*Math.PI/180 - Math.atan(dr);
-        util.target.setXY(Math.cos(d)*r,Math.sin(d)*r)
+        const d = (args.d - (dy > 0 ? 270 : 90)) * Math.PI / 180 - Math.atan(dr);
+        util.target.setXY(Math.cos(d) * r, Math.sin(d) * r)
     }
 }
 
