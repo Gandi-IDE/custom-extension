@@ -118,11 +118,6 @@ class str_mani {
       docsURI:'https://learn.ccw.site/article/e6ba96d6-17a4-4f63-b5e1-126acbbb82d4',
       blocks:[
         {
-          blockType: 'button',
-          text: this.formatMessage('qxsckstrmani.getHelp'),
-          onClick: this.getHelp
-        },
-        {
           opcode: 'length',
           blockType: 'reporter',
           text: this.formatMessage('qxsckstrmani.length'),
