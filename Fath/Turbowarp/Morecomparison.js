@@ -475,10 +475,10 @@ almostEqual3n(args) {
   return Math.abs(args.a - args.b) <= args.c;
 }
 between(args) {
-  return args.a < args.b && args.b < args.c;
+  return args.a < Scratch.Cast.toNumber(args.b) && Scratch.Cast.toNumber(args.b) < args.c;
 }
 betweenEqual(args) {
-  return args.a <= args.b && args.b <= args.c;
+  return args.a <= Scratch.Cast.toNumber(args.b) && Scratch.Cast.toNumber(args.b) <= args.c;
 }
 notEqual(args) {
   return args.a != args.b;
