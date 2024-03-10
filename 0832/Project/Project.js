@@ -3,11 +3,16 @@
     Scratch.translate.setup({
         zh: {
             'Project': '项目',
+            'GetCurrentProject': '获取当前项目',
+            'GetInformationInside': '获取内含信息',
+            'InsideInformation': '内含信息',
+            'GetSprite': '获取[Sprite]',
             'TotalUsedBlocks': '使用的块总数',
             'NumberOfBlockTypes': '块种类数',
             'NumberOfSegments': '段数',
             'NumberOfCostumes': '造型数',
             'NumberOfSounds': '声音数',
+            'Onlyoneperproject': '一个项目中只能有一个'
         }
     });
     let totalUsedBlocks, numberOfBlockTypes, numberOfSegments, numberOfCostumes, numberOfSounds;
@@ -43,12 +48,12 @@
 
                 // Count the number of costumes
                 if (target.sprite.costumes) {
-                    costumeCount += target.costumes.length;
+                    costumeCount += target.sprite.costumes.length;
                 }
 
                 // Count the number of sounds
                 if (target.sprite.sounds) {
-                    soundCount += target.sounds.length;
+                    soundCount += target.sprite.sounds.length;
                 }
             }
 
@@ -92,7 +97,6 @@
             };
         }
         TotalUsedBlocks() {
-            console.log(this.runtime)
             this.calculate(this.runtime.targets);
             return totalUsedBlocks;
         }
