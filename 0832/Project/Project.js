@@ -57,7 +57,7 @@
                 }
             }
 
-            totalUsedBlocks = targets.reduce((acc, target) => acc + Object.keys(target.blocks || {}).length, 0);
+            totalUsedBlocks = targets.reduce((acc, target) => acc + Object.keys(target.blocks._blocks || {}).length, 0);
             numberOfBlockTypes = Object.keys(blocksUsed).length;
             numberOfSegments = segmentCount;
             numberOfCostumes = costumeCount;
@@ -96,28 +96,28 @@
                 ]
             };
         }
-        TotalUsedBlocks() {
-            this.calculate(this.runtime.targets);
+        TotalUsedBlocks({ }, util) {
+            this.calculate(util.sequencer.runtime.targets);
             return totalUsedBlocks;
         }
 
-        NumberOfBlockTypes() {
-            this.calculate(this.runtime.targets);
+        NumberOfBlockTypes({ }, util) {
+            this.calculate(util.sequencer.runtime.targets);
             return numberOfBlockTypes;
         }
 
-        NumberOfSegments() {
-            this.calculate(this.runtime.targets);
+        NumberOfSegments({ }, util) {
+            this.calculate(util.sequencer.runtime.targets);
             return numberOfSegments;
         }
 
-        NumberOfCostumes() {
-            this.calculate(this.runtime.targets);
+        NumberOfCostumes({ }, util) {
+            this.calculate(util.sequencer.runtime.targets);
             return numberOfCostumes;
         }
 
-        NumberOfSounds() {
-            this.calculate(this.runtime.targets);
+        NumberOfSounds({ }, util) {
+            this.calculate(util.sequencer.runtime.targets);
             return numberOfSounds;
         }
     }
