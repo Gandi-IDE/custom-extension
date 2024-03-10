@@ -3,10 +3,6 @@
     Scratch.translate.setup({
         zh: {
             'Project': '项目',
-            'GetCurrentProject': '获取当前项目',
-            'GetInformationInside': '获取内含信息',
-            'InsideInformation': '内含信息',
-            'GetSprite': '获取[Sprite]',
             'TotalUsedBlocks': '使用的块总数',
             'NumberOfBlockTypes': '块种类数',
             'NumberOfSegments': '段数',
