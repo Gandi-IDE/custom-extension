@@ -1630,19 +1630,13 @@ class WitCatMouse {
 			}, 50);
 		});
 		// 给页面绑定滑轮滚动事件
-		document.addEventListener(
-			'wheel',
-			(e) => {
-				this.MouseWheel = e.deltaY;
-				if (this.timer !== null) {
-					clearTimeout(this.timer);
-				}
-				this.timer = setTimeout(() => {
-					this.MouseWheel = 0;
-				}, 30);
-			},
-			{ capture: true }
-		);
+		document.addEventListener('wheel', (e) => {
+			clearTimeout(this.timer);
+			this.MouseWheel = e.deltaY;
+			this.timer = setTimeout(() => {
+				this.MouseWheel = 0;
+			}, 30);
+		}, { capture: true });
 		window.addEventListener('deviceorientation', (e) => {
 			this.Gyroscope = e;
 		});
@@ -1672,45 +1666,3 @@ window.tempExt = {
 		}
 	}
 };
-
-/**
- * 计算舞台在全屏/非全屏的大小
- * @param {Element} element 需要被计算中心点的角色
- * @param {Boolean} type 模式（true：最小化，false：全屏）
- */
-function resizeElementInParent(element, type, types, aspectRatio) {
-	let parentWidth, parentHeight;
-
-	if (type) {
-		let parent
-		if (types === 'zoom') {
-			parent = element.parentElement.parentElement;
-		}
-		else {
-			parent = element.parentElement;
-		}
-		parentWidth = parent.clientWidth;
-		parentHeight = parent.clientHeight;
-	} else {
-		parentWidth = document.body.clientWidth;
-		parentHeight = document.body.clientHeight;
-	}
-
-	let elementWidth = element.offsetWidth;
-	let elementHeight = element.offsetHeight;
-
-	if (types === 'zoom') {
-		let widthRatio = parentWidth / elementWidth;
-		let heightRatio = parentHeight / elementHeight;
-		let scale = Math.min(widthRatio, heightRatio);
-		element.style.transform = 'scale(' + scale + ')';
-	} else {
-		if (parentWidth / parentHeight > aspectRatio) {
-			element.style.height = parentHeight + 'px';
-			element.style.width = parentWidth / (aspectRatio / (parentWidth / parentHeight)) + 'px';
-		} else {
-			element.style.width = parentWidth + 'px';
-			element.style.height = parentHeight / (aspectRatio / (parentWidth / parentHeight)) + 'px';
-		}
-	}
-}
