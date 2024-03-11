@@ -133,6 +133,7 @@ class WitCatInput {
 				"WitCatInput.number.17": "行高",
 				"WitCatInput.number.18": "字体粗细",
 				"WitCatInput.number.19": "阴影",
+				"WitCatInput.number.20": "字体",
 				"WitCatInput.fontweight": "设置文本框[id]的字体粗细为[text]", // 在文档中提示用户字体兼容性问题，并推荐合适的字体
 				"WitCatInput.normal": "常规",
 				"WitCatInput.bold": "粗体",
@@ -201,6 +202,7 @@ class WitCatInput {
 				"WitCatInput.number.17": "line height",
 				"WitCatInput.number.18": "font weight",
 				"WitCatInput.number.19": "shadow",
+				"WitCatInput.number.20": "font",
 				"WitCatInput.fontweight": "Set fontweight of input[id] to[text]",
 				"WitCatInput.normal": "normal",
 				"WitCatInput.bold": "bold",
@@ -698,6 +700,10 @@ class WitCatInput {
 						value: "font-size",
 					},
 					{
+						text: this.formatMessage("WitCatInput.number.20"),
+						value: "font",
+					},
+					{
 						text: this.formatMessage("WitCatInput.number.11"),
 						value: "rp",
 					},
@@ -770,6 +776,10 @@ class WitCatInput {
 					{
 						text: this.formatMessage("WitCatInput.number.8"),
 						value: "font-size",
+					},
+					{
+						text: this.formatMessage("WitCatInput.number.20"),
+						value: "font",
 					},
 					{
 						text: this.formatMessage("WitCatInput.number.11"),
@@ -1253,6 +1263,8 @@ class WitCatInput {
 				return element.style.fontWeight;
 			case "ts":
 				return element.style.textShadow;
+			case "font":
+				return element.style.fontFamily;
 			case "json":
 				// 直接把整个东西转成 JSON 对象，再拼接
 				return JSON.stringify({
@@ -1415,8 +1427,8 @@ class WitCatInput {
 					break;
 				case "bg":
 					if (
-						String(args.text).startsWith("https://m.ccw") ||
-						String(args.text).startsWith("https://m.xiguacity") ||
+						String(args.text).indexOf("ccw") !== -1 ||
+						String(args.text).indexOf("xiguacity") !== -1 ||
 						String(args.text).startsWith("linear-gradient")
 					) {
 						sstyle.backgroundImage = `url("${encodeURI(String(args.text))}")`;
@@ -1432,8 +1444,10 @@ class WitCatInput {
 					sstyle.textShadow = String(args.text);
 					break;
 				case "css":
-					// https://www.cnblogs.com/ndos/p/9706646.html
 					search.setAttribute("style", String(args.text));
+					break;
+				case "font":
+					search.style.fontFamily = `"${args.text}"`;
 					break;
 				default:
 					break;
