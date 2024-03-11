@@ -28,6 +28,13 @@ class WitCatInput {
 		this.MouseWheel = 0;
 
 		/**
+		 * 监听输入的enter事件
+		 */
+		this.InputListen = []
+
+		this.InputEnter = false;
+
+		/**
 		 * 鼠标速度复位为0的计时器
 		 * @type {number|undefined}
 		 */
@@ -86,14 +93,14 @@ class WitCatInput {
 		};
 
 		if (this.canvas() === null || this.inputParent() === null) {
-			alert("当前页面不支持文本框，请前往作品详情页体验完整作品！");
+			console.warn("当前页面不支持文本框，请前往作品详情页体验完整作品！");
 			// 注意：在提示之后，扩展仍然在运行。需要在后面引用 Canvas 的部分进行判断。
 		}
 		this._addevent();
 
 		this._formatMessage = runtime.getFormatMessage({
 			"zh-cn": {
-				"WitCatInput.name": "[beta]白猫的输入框",
+				"WitCatInput.name": "白猫的输入框",
 				"WitCatInput.createinput":
 					"创建或修改[type]文本框并命名为[id]，X[x]Y[y]宽[width]高[height]内容[text]颜色[color]提示[texts]字体大小[size]",
 				"WitCatInput.deleteinput": "删除文本框[id]",
@@ -148,6 +155,7 @@ class WitCatInput {
 				"WitCatInput.textalign.3": "右对齐",
 				"WitCatInput.docs": "📖拓展教程",
 				"WitCatInput.input": "输入框",
+				"WitCatInput.assist": "辅助",
 				"WitCatInput.focal": "焦点",
 				"WitCatInput.keyboard": "键盘",
 				"WitCatInput.shadow": "阴影x[x]y[y]宽[width]颜色[color]",
@@ -155,9 +163,12 @@ class WitCatInput {
 				"WitCatInput.fontadaptive": "字体大小自适应[type]",
 				"WitCatInput.set.1": "启用",
 				"WitCatInput.set.2": "禁用",
+				"WitCatInput.color": "渐变颜色[color]和颜色[colors]角度[deg]",
+				"WitCatInput.ok": "用户确认输入?",
+				"WitCatInput.setenter": "设置文本框[id]快捷键确认为[enter]换行为[more]",
 			},
 			en: {
-				"WitCatInput.name": "[beta]WitCat‘s Input",
+				"WitCatInput.name": "WitCat‘s Input",
 				"WitCatInput.createinput":
 					"Create or modify [type]input ID[id]X[x]Y[y]width[width]height[height]content[text]color[color]prompt[texts]fontSize[size]",
 				"WitCatInput.deleteinput": "Delete input[id]",
@@ -212,6 +223,7 @@ class WitCatInput {
 				"WitCatInput.textalign.3": "right",
 				"WitCatInput.docs": "📖Tutorials",
 				"WitCatInput.input": "text area",
+				"WitCatInput.assist": "assist",
 				"WitCatInput.focal": "focal",
 				"WitCatInput.keyboard": "keyboard",
 				"WitCatInput.shadow": "shadow x[x]y[y]weight[width]color[color]",
@@ -219,6 +231,9 @@ class WitCatInput {
 				"WitCatInput.fontadaptive": "[type]font size adaptation",
 				"WitCatInput.set.1": "Enable",
 				"WitCatInput.set.2": "Disable",
+				"WitCatInput.color": "Gradient color [color] and color [colors] angle [deg]",
+				"WitCatInput.ok": "confirms input?",
+				"WitCatInput.setenter": "Set text box [id] shortcut key Confirm [enter] line feed [more]",
 			},
 		});
 	}
@@ -318,44 +333,6 @@ class WitCatInput {
 					},
 				},
 				{
-					opcode: "shadow",
-					blockType: "reporter",
-					text: this.formatMessage("WitCatInput.shadow"),
-					arguments: {
-						x: {
-							type: "number",
-							defaultValue: "0",
-						},
-						y: {
-							type: "number",
-							defaultValue: "0",
-						},
-						width: {
-							type: "number",
-							defaultValue: "3",
-						},
-						color: {
-							type: "string",
-							defaultValue: "#000000",
-						},
-					},
-				},
-				{
-					opcode: "shadows",
-					blockType: "reporter",
-					text: this.formatMessage("WitCatInput.shadows"),
-					arguments: {
-						first: {
-							type: "string",
-							defaultValue: "0px 0px 3px #000000",
-						},
-						last: {
-							type: "string",
-							defaultValue: "0px 0px 3px #000000",
-						},
-					},
-				},
-				{
 					opcode: "fontweight",
 					blockType: "command",
 					text: this.formatMessage("WitCatInput.fontweight"),
@@ -435,13 +412,21 @@ class WitCatInput {
 					},
 				},
 				{
-					opcode: "compute",
-					blockType: "reporter",
-					text: this.formatMessage("WitCatInput.compute"),
+					opcode: "setenter",
+					blockType: "command",
+					text: this.formatMessage("WitCatInput.setenter"),
 					arguments: {
-						size: {
-							type: "number",
-							defaultValue: "16",
+						id: {
+							type: "string",
+							defaultValue: "i",
+						},
+						enter: {
+							type: "string",
+							defaultValue: "Enter",
+						},
+						more: {
+							type: "string",
+							defaultValue: ",Enter",
 						},
 					},
 				},
@@ -506,6 +491,87 @@ class WitCatInput {
 						type: {
 							type: "Boolean",
 							menu: "set",
+						},
+					},
+				},
+				`---${this.formatMessage("WitCatInput.assist")}`,
+				{
+					opcode: "ok",
+					blockType: "hat",
+					text: this.formatMessage("WitCatInput.ok"),
+					arguments: {},
+				},
+				{
+					opcode: "oks",
+					blockType: "Boolean",
+					text: this.formatMessage("WitCatInput.ok"),
+					arguments: {},
+				},
+				{
+					opcode: "compute",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatInput.compute"),
+					arguments: {
+						size: {
+							type: "number",
+							defaultValue: "16",
+						},
+					},
+				},
+				{
+					opcode: "shadow",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatInput.shadow"),
+					arguments: {
+						x: {
+							type: "number",
+							defaultValue: "0",
+						},
+						y: {
+							type: "number",
+							defaultValue: "0",
+						},
+						width: {
+							type: "number",
+							defaultValue: "3",
+						},
+						color: {
+							type: "string",
+							defaultValue: "#000000",
+						},
+					},
+				},
+				{
+					opcode: "shadows",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatInput.shadows"),
+					arguments: {
+						first: {
+							type: "string",
+							defaultValue: "0px 0px 3px #000000",
+						},
+						last: {
+							type: "string",
+							defaultValue: "0px 0px 3px #000000",
+						},
+					},
+				},
+				{
+					opcode: "color",
+					blockType: "reporter",
+					text: this.formatMessage("WitCatInput.color"),
+					arguments: {
+						color: {
+							type: "color",
+							defaultValue: "#ffff00",
+						},
+						colors: {
+							type: "color",
+							defaultValue: "#ff0000",
+						},
+						deg: {
+							type: "number",
+							defaultValue: "0",
 						},
 					},
 				},
@@ -905,9 +971,38 @@ class WitCatInput {
 				return;
 			}
 			search = document.createElement(argstype);
+			let s = {};
 			// 只有 input 才有 type 属性，textarea 没有
 			if (search instanceof HTMLInputElement) {
 				search.type = "text";
+				s.id = args.id;
+				s.enter = "Enter";
+				s.more = ",Enter";
+			} else {
+				s.id = args.id;
+				s.enter = ",Enter";
+				s.more = "Enter";
+			}
+			s.input = true;
+			search.addEventListener("compositionstart", (e) => {
+				this.InputListen.find((event) => event.id === e.target.id.split("WitCatInput")[1]).input = false;
+			})
+			search.addEventListener("compositionend", (e) => {
+				setTimeout(() => {
+					this.InputListen.find((event) => event.id === e.target.id.split("WitCatInput")[1]).input = true;
+				}, 100);
+			})
+			this.InputListen = this.InputListen.filter(function (item) {
+				return item.id !== args.id;
+			});
+			this.InputListen.push(s);
+			search.onkeydown = (e) => {
+				if (e.code === "Enter")
+					e.preventDefault();
+			}
+			search.onkeyup = (e) => {
+				if (e.code === "Enter")
+					e.preventDefault();
 			}
 			search.id = `WitCatInput${args.id}`;
 			search.value = String(args.text);
@@ -951,6 +1046,9 @@ class WitCatInput {
 		if (this.inputParent() === null) {
 			return;
 		}
+		this.InputListen = this.InputListen.filter(function (item) {
+			return item.id !== args.id;
+		});
 		const search = document.getElementById(`WitCatInput${args.id}`);
 		if (search !== null) {
 			this.inputParent().removeChild(search);
@@ -1029,10 +1127,23 @@ class WitCatInput {
 		if (this.inputParent() === null) {
 			return;
 		}
-		const search = document.getElementsByClassName("WitCatInput");
-		Array.prototype.map.call(search, (item) =>
-			this.inputParent().removeChild(item)
-		);
+		while (document.getElementsByClassName("WitCatInput").length !== 0) {
+			const search = document.getElementsByClassName("WitCatInput");
+			search.forEach(item => {
+				item.remove();
+			});
+		}
+		this.InputListen = [];
+	}
+
+	ok() {
+		let s = this.InputEnter;
+		return s !== false;
+	}
+
+	oks() {
+		let s = this.InputEnter;
+		return s !== false;
 	}
 
 	/**
@@ -1063,6 +1174,13 @@ class WitCatInput {
 			return this._getattrib(search, String(args.type));
 		}
 		return "";
+	}
+
+	setenter(args) {
+		if (this.InputListen.find((e) => { return e.id === args.id }) !== undefined) {
+			this.InputListen.find((e) => { return e.id === args.id }).enter = args.enter;
+			this.InputListen.find((e) => { return e.id === args.id }).more = args.more;
+		}
 	}
 
 	/**
@@ -1179,6 +1297,16 @@ class WitCatInput {
 	}
 
 	/**
+	 * 支持组合键的按键检测
+	 * @param {array} keydown 按下的按键
+	 * @param {array} press 需要按下的按键
+	 * @returns {boolean} 是否按下
+	 */
+	keypresss(keydown, press) {
+		return press.every((item) => Object.keys(keydown).includes(item)) && Object.keys(keydown).every((item) => press.includes(item));
+	}
+
+	/**
 	 * 按键检测(帽子积木)
 	 * @param {object} args
 	 * @param {SCarg} args.type 按键类型，用逗号分隔
@@ -1287,8 +1415,9 @@ class WitCatInput {
 					break;
 				case "bg":
 					if (
-						String(args.text).startsWith("https://m.ccw.site/") ||
-						String(args.text).startsWith("https://m.xiguacity.com/")
+						String(args.text).startsWith("https://m.ccw") ||
+						String(args.text).startsWith("https://m.xiguacity") ||
+						String(args.text).startsWith("linear-gradient")
 					) {
 						sstyle.backgroundImage = `url("${encodeURI(String(args.text))}")`;
 						sstyle.backgroundSize = "100% 100%";
@@ -1456,7 +1585,7 @@ class WitCatInput {
 						const searchId = this._getWitCatID(item);
 						const fontsize = this.inputFontSize[searchId];
 						if (fontsize) {
-							item.style.fontSize = `${(parseFloat(this.canvas().style.width) / 360) * fontsize
+							item.style.fontSize = `${(parseFloat(this.canvas().offsetWidth) / 360) * fontsize
 								}px`;
 						}
 					});
@@ -1473,6 +1602,10 @@ class WitCatInput {
 		}
 	}
 
+	color(args) {
+		return `linear-gradient(${args.deg}deg, ${args.color}, ${args.colors});`
+	}
+
 	/**
 	 * 添加键盘鼠标事件
 	 */
@@ -1484,6 +1617,27 @@ class WitCatInput {
 		document.addEventListener("keydown", (event) => {
 			this.keypresslist[event.code] = true;
 			this.lastKey = event.code;
+			if (event.target instanceof HTMLTextAreaElement || event.target instanceof HTMLInputElement) {
+				if (this.InputListen.find((e) => e.id === event.target.id.split("WitCatInput")[1]).input) {
+					if (this.keypresss(this.keypresslist, this.InputListen.find((e) => e.id === event.target.id.split("WitCatInput")[1]).more.split(','))) {
+						if (event.target instanceof HTMLTextAreaElement) {
+							let start = event.target.selectionStart;
+							let end = event.target.selectionEnd;
+							var newDope = event.target.value.substring(0, start) + '\n' + event.target.value.substring(end, event.target.value.length);
+							event.target.value = (newDope);
+							event.target.selectionStart = start + 1;
+							event.target.selectionEnd = start + 1;
+						}
+					}
+					if (
+						this.keypresss(this.keypresslist, this.InputListen.find((e) => e.id === event.target.id.split("WitCatInput")[1]).enter.split(','))) {
+						clearTimeout(this.InputEnter);
+						this.InputEnter = setTimeout(() => {
+							this.InputEnter = false;
+						}, 30);
+					}
+				}
+			}
 		});
 		document.addEventListener("keyup", (event) => {
 			delete this.keypresslist[event.code];
@@ -1497,8 +1651,8 @@ class WitCatInput {
 				// 目前的标准用法是使用 deltaY，但是 deltaY 的符号和 WheelDeltaY 相反。
 				// 为了和原有的行为一致，乘上 -3
 				// 在我的浏览器中 deltaY = WheelDeltaY / -3
-				this.MouseWheel = e.deltaY * -3;
 				clearTimeout(this.timer);
+				this.MouseWheel = e.deltaY * -3;
 				this.timer = setTimeout(() => {
 					this.MouseWheel = 0;
 				}, 30);
@@ -1582,11 +1736,11 @@ window.tempExt = {
 	},
 	l10n: {
 		"zh-cn": {
-			"WitCatInput.name": "白猫的输入框 V2.7",
+			"WitCatInput.name": "白猫的输入框 V2.8",
 			"WitCatInput.descp": "全新的输入框！",
 		},
 		en: {
-			"WitCatInput.name": "WitCat‘s Input V2.7",
+			"WitCatInput.name": "WitCat‘s Input V2.8",
 			"WitCatInput.descp": "what a nice input!",
 		},
 	},
