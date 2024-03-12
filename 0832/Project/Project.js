@@ -24,10 +24,10 @@ let totalUsedBlocks, numberOfBlockTypes, numberOfSegments, numberOfCostumes, num
 const extensionId = 'Project';
 class Project {
     constructor(runtime) {
-        this.targets = runtime.targets;
+        this.runtime = runtime;
     }
     calculate() {
-        const targets = this.targets;
+        const targets = this.runtime.targets;
         const blocksUsed = {}; // Record the number of block types
         let segmentCount = 0; // Record the number of segments
         let costumeCount = 0; // Record the number of costumes
@@ -132,6 +132,7 @@ class Project {
 Scratch.extensions.register(new Project());
 
 const extension = {
+    Extension: Project,
     info: {
         name: `${extensionId}.Project`,
         description: `${extensionId}.description`,
