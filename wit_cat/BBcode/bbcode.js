@@ -1,4 +1,3 @@
-/* eslint-disable */
 const obj = window || global || {};
 let runtime;
 // 以下代码来自github  https://github.com/vishnevskiy/bbcodejs
