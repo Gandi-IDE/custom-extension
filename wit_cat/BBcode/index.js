@@ -5,7 +5,7 @@ import { witcat_BBcode_icon, witcat_BBcode_picture } from './assets/index.js';
 import htmltobbcode from './htmlToBBCode.js';
 import bbcode from './bbcode.js';
 
-const witcat_BBcode_extensionId = 'WitCatBBcode';
+const witcat_BBcode_extensionId = 'WitCatBBcodes';
 let bbcodemousedown = {};
 let touchEvent = {};
 /**
@@ -14,7 +14,7 @@ let touchEvent = {};
 
 /** @typedef {string|number|boolean} SCarg 来自Scratch圆形框的参数，虽然这个框可能只能输入数字，但是可以放入变量，因此有可能获得数字、布尔和文本（极端情况下还有 null 或 undefined，需要同时处理 */
 
-export default class WitCatBBcode {
+export default class WitCatBBcodes {
   constructor(runtime) {
     window.addEventListener('mousedown', (e) => {
       bbcodemousedown = e;
@@ -27,7 +27,7 @@ export default class WitCatBBcode {
     this.runtime = runtime;
 
     this.resize = null;
-
+    this.maxParsedable = 100;
     /**
      * Scratch 所使用的 canvas，获取不到返回 null
      * @return {HTMLcanvasElement | null}
@@ -78,32 +78,32 @@ export default class WitCatBBcode {
       h6{
           font-size:0.67em;
       }
-      .WitCatBBcode::-webkit-scrollbar{
+      .WitCatBBcodes::-webkit-scrollbar{
           display: none;
       }
-      .WitCatBBcode{
+      .WitCatBBcodes{
           color:black;
       }
-      .WitCatBBcode{
+      .WitCatBBcodes{
           transform-origin: 0 0;
           zoom:var(--witcat-bbcode-scale);
       }
-      .WitCatBBcode ul{
+      .WitCatBBcodes ul{
           padding-inline-start: 40px;
           list-style:none;
       }
-      .WitCatBBcode ol{
+      .WitCatBBcodes ol{
           padding-inline-start: 40px;
           list-style:auto;
       }
-      .WitCatBBcode blockquote{
+      .WitCatBBcodes blockquote{
           display: block;
           margin-block-start: 1em;
           margin-block-end: 1em;
           margin-inline-start: 40px;
           margin-inline-end: 40px;
       }
-      .WitCatBBcodepolier{
+      .WitCatBBcodespolier{
         display: inline-block;
         white-space: nowrap;
         width: 100%;
@@ -111,7 +111,7 @@ export default class WitCatBBcode {
         overflow: hidden;
         position: relative;
       }
-      .WitCatBBcodepolier button{
+      .WitCatBBcodespolier button{
         background-color: #00000000;
         color: #1A96E2;
         position: absolute;
@@ -119,32 +119,32 @@ export default class WitCatBBcode {
         bottom: 0px;
         border-radius: 0.5em;
       }
-      .WitCatBBcodeHide{
+      .WitCatBBcodesHide{
         background-color: #252525;
         color: #252525;
         text-shadow: none;
         border-radius: 0.5em;
       }
-      .WitCatBBcodeHide:hover{
+      .WitCatBBcodesHide:hover{
         color: white !important;
       }
-      .WitCatBBcodeg-container {
+      .WitCatBBcodesg-container {
         width: 240px;
         height: 10px;
         border-radius: 0.5em;
         background: #eee;
       }
-      .WitCatBBcodeg-progress {
+      .WitCatBBcodesg-progress {
         width: 50%;
         height: inherit;
         border-radius: 0.5em;
         background: #0f0;
       }
-      .WitCatBBcodeTable{
+      .WitCatBBcodesTable{
         border: 1px solid black;
         border-collapse: separate;
       }
-      .WitCatBBcodeTable td{
+      .WitCatBBcodesTable td{
         border: 1px solid black;
         padding: 8px;
       }
@@ -168,126 +168,128 @@ export default class WitCatBBcode {
 
     this._formatMessage = runtime.getFormatMessage({
       'zh-cn': {
-        'WitCatBBcode.name': '白猫的BBcode',
-        'WitCatBBcode.docs': '📖拓展教程',
-        'WitCatBBcode.docss': '📖示例内容',
-        'WitCatBBcode.tutorial':
+        'WitCatBBcodes.name': '白猫的BBcode',
+        'WitCatBBcodes.docs': '📖拓展教程',
+        'WitCatBBcodes.docss': '📖示例内容',
+        'WitCatBBcodes.tutorial':
           '[size=40]欢迎来到[color=#ffff00]白猫[/color]的BBcode[/size]\n\n加粗：\n[b]粗体字 Bold text[/b]\n\n斜体：\n[i]斜体字 Italic[/i]\n\n删除线：\n[s]删除线[/s]\n\n下划线：\n[u]下划线[/u]\n\n改变字号：\n[size=2]大小可变[/size]\n\n改变颜色：\n[color=#ff0000]我是红色[/color]\n\n网页链接：\n[url=https://ccw.site/]示例网址[/url]\n\n引用：\n[quote]《我三》是《艺三》难以企及的标杆[/quote]\n\n列表（无序）：\n[list]\n[*]列表项目\n[*]列表项目\n[/list]\n\n列表（数字）：\n[list=1]\n[*]列表项目A\n[*]列表项目B\n[/list]\n\n列表（字母）：\n[list=a]\n[*]列表项目A\n[*]列表项目B\n[/list]\n\n插入图片：\n[img=5]https://m.xiguacity.cn/works-covers/f6348af6-ba33-4172-b99d-246733242a00.png?x-oss-process=image%2Fresize%2Cs_360%2Fformat%2Cwebp[/img]\n\n插入代码：\n[code]printf("hello world!")[/code]\n使用代码高亮积木为代码配置语言高亮\n\n当然，你也可以嵌套：\n[color=#ff0000][b][size=100]aaa[/size][/b][/color]',
-        'WitCatBBcode.create': '创建 BBcode ID[id]X[x]Y[y]宽[width]高[height]内容[text]',
-        'WitCatBBcode.delete': '删除 BBcode ID[id]',
-        'WitCatBBcode.deleteall': '删除所有 BBcode ',
-        'WitCatBBcode.get': ' BBcode ID[id]的[type]',
-        'WitCatBBcode.set': '设置 BBcode ID[id]的[type]为[text]',
-        'WitCatBBcode.settextalign': '设置 BBcode ID[id]第[num]个[type]为[text]',
-        'WitCatBBcode.imgstyle': ' BBcode ID[id]的第[num]张图片的宽[width]高[height]',
-        'WitCatBBcode.loadfontfamily': '从[text]加载字体名[name]',
-        'WitCatBBcode.setfontfamily': '设置 BBcode ID[id]的字体为[name]',
-        'WitCatBBcode.code': '设置 BBcode ID[id]第[num]个代码框的高亮为[name]',
-        'WitCatBBcode.ide': '设置 BBcode ID[id]为[name]',
-        'WitCatBBcode.size': 'BBcode大小自适应[type]',
-        'WitCatBBcode.type.1': 'X',
-        'WitCatBBcode.type.2': 'Y',
-        'WitCatBBcode.type.3': '宽',
-        'WitCatBBcode.type.4': '高',
-        'WitCatBBcode.type.5': '内容',
-        'WitCatBBcode.type.6': 'json',
-        'WitCatBBcode.type.7': '透视',
-        'WitCatBBcode.type.8': '内容高度',
-        'WitCatBBcode.type.9': '纵向滚动位置',
-        'WitCatBBcode.type.10': '内容宽度',
-        'WitCatBBcode.type.11': '横向滚动位置',
-        'WitCatBBcode.ide.1': '可编辑',
-        'WitCatBBcode.ide.2': '不可编辑',
-        'WitCatBBcode.types.1': '启动',
-        'WitCatBBcode.types.2': '关闭',
-        'WitCatBBcode.getwidth': '获取内容[content]的渲染[type]',
-        'WitCatBBcode.click': '上次点击的元素的[clickmenu]',
-        'WitCatBBcode.touchs': '碰到的元素的[clickmenu]',
-        'WitCatBBcode.clickmenu.1': 'bbcode来源',
-        'WitCatBBcode.clickmenu.2': '类型',
-        'WitCatBBcode.clickmenu.3': '序号',
-        'WitCatBBcode.touch': '碰到BBcode[id]第[number]个[type]元素?',
-        'WitCatBBcode.move': 'BBcode[id]第[number]个[type]元素偏移X[x]Y[y]',
-        'WitCatBBcode.scale': 'BBcode[id]第[number]个[type]元素缩放X[x]Y[y]',
-        'WitCatBBcode.rot': 'BBcode[id]第[number]个[type]元素旋转[y]',
-        'WitCatBBcode.3dmove': 'BBcode[id]第[number]个[type]元素3D偏移X[x]Y[y]Z[z]',
-        'WitCatBBcode.3drot': 'BBcode[id]第[number]个[type]元素3D旋转X[x]Y[y]Z[z]',
-        'WitCatBBcode.setinsite': 'BBcode[id]第[number]个[type]元素的[input]设为[text]',
-        'WitCatBBcode.transition': '为BBcode[id]设置过渡为[s]秒的[timing]',
-        'WitCatBBcode.morecontent': '设置展开消息ID[id]为[show]',
-        'WitCatBBcode.meter': '设置进度条ID[id]的百分比为[text]',
-        'WitCatBBcode.show.1': '展开',
-        'WitCatBBcode.show.2': '收起',
-        'WitCatBBcode.timing.1': '线性',
-        'WitCatBBcode.timing.2': '缓出',
-        'WitCatBBcode.timing.3': '缓入',
-        'WitCatBBcode.timing.4': '缓出入',
-        'WitCatBBcode.timing.5': '缓动',
-        'WitCatBBcode.textalign.1': '左对齐',
-        'WitCatBBcode.textalign.2': '右对齐',
-        'WitCatBBcode.setinsite.1': '阴影',
-        'WitCatBBcode.setinsite.2': '文字阴影',
+        'WitCatBBcodes.create': '创建 BBcode ID[id]X[x]Y[y]宽[width]高[height]内容[text]',
+        'WitCatBBcodes.delete': '删除 BBcode ID[id]',
+        'WitCatBBcodes.deleteall': '删除所有 BBcode ',
+        'WitCatBBcodes.get': ' BBcode ID[id]的[type]',
+        'WitCatBBcodes.set': '设置 BBcode ID[id]的[type]为[text]',
+        'WitCatBBcodes.settextalign': '设置 BBcode ID[id]第[num]个[type]为[text]',
+        'WitCatBBcodes.imgstyle': ' BBcode ID[id]的第[num]张图片的宽[width]高[height]',
+        'WitCatBBcodes.loadfontfamily': '从[text]加载字体名[name]',
+        'WitCatBBcodes.setfontfamily': '设置 BBcode ID[id]的字体为[name]',
+        'WitCatBBcodes.code': '设置 BBcode ID[id]第[num]个代码框的高亮为[name]',
+        'WitCatBBcodes.ide': '设置 BBcode ID[id]为[name]',
+        'WitCatBBcodes.size': 'BBcode大小自适应[type]',
+        'WitCatBBcodes.type.1': 'X',
+        'WitCatBBcodes.type.2': 'Y',
+        'WitCatBBcodes.type.3': '宽',
+        'WitCatBBcodes.type.4': '高',
+        'WitCatBBcodes.type.5': '内容',
+        'WitCatBBcodes.type.6': 'json',
+        'WitCatBBcodes.type.7': '透视',
+        'WitCatBBcodes.type.8': '内容高度',
+        'WitCatBBcodes.type.9': '纵向滚动位置',
+        'WitCatBBcodes.type.10': '内容宽度',
+        'WitCatBBcodes.type.11': '横向滚动位置',
+        'WitCatBBcodes.ide.1': '可编辑',
+        'WitCatBBcodes.ide.2': '不可编辑',
+        'WitCatBBcodes.types.1': '启动',
+        'WitCatBBcodes.types.2': '关闭',
+        'WitCatBBcodes.getwidth': '获取内容[content]的渲染[type]',
+        'WitCatBBcodes.click': '上次点击的元素的[clickmenu]',
+        'WitCatBBcodes.touchs': '碰到的元素的[clickmenu]',
+        'WitCatBBcodes.clickmenu.1': 'bbcode来源',
+        'WitCatBBcodes.clickmenu.2': '类型',
+        'WitCatBBcodes.clickmenu.3': '序号',
+        'WitCatBBcodes.touch': '碰到BBcode[id]第[number]个[type]元素?',
+        'WitCatBBcodes.move': 'BBcode[id]第[number]个[type]元素偏移X[x]Y[y]',
+        'WitCatBBcodes.scale': 'BBcode[id]第[number]个[type]元素缩放X[x]Y[y]',
+        'WitCatBBcodes.rot': 'BBcode[id]第[number]个[type]元素旋转[y]',
+        'WitCatBBcodes.3dmove': 'BBcode[id]第[number]个[type]元素3D偏移X[x]Y[y]Z[z]',
+        'WitCatBBcodes.3drot': 'BBcode[id]第[number]个[type]元素3D旋转X[x]Y[y]Z[z]',
+        'WitCatBBcodes.setinsite': 'BBcode[id]第[number]个[type]元素的[input]设为[text]',
+        'WitCatBBcodes.transition': '为BBcode[id]设置过渡为[s]秒的[timing]',
+        'WitCatBBcodes.morecontent': '设置展开消息ID[id]为[show]',
+        'WitCatBBcodes.meter': '设置进度条ID[id]的百分比为[text]',
+        'WitCatBBcodes.show.1': '展开',
+        'WitCatBBcodes.show.2': '收起',
+        'WitCatBBcodes.timing.1': '线性',
+        'WitCatBBcodes.timing.2': '缓出',
+        'WitCatBBcodes.timing.3': '缓入',
+        'WitCatBBcodes.timing.4': '缓出入',
+        'WitCatBBcodes.timing.5': '缓动',
+        'WitCatBBcodes.textalign.1': '左对齐',
+        'WitCatBBcodes.textalign.2': '右对齐',
+        'WitCatBBcodes.setinsite.1': '阴影',
+        'WitCatBBcodes.setinsite.2': '文字阴影',
+        'WitCatBBcodes.setnum': '⚠️设置解析最大数为[num]',
       },
       en: {
-        'WitCatBBcode.name': 'WitCat’s BBcode',
-        'WitCatBBcode.docs': '📖 Tutorial',
-        'WitCatBBcode.docss': '📖Example Content',
-        'WitCatBBcode.tutorial':
+        'WitCatBBcodes.name': 'WitCat’s BBcode',
+        'WitCatBBcodes.docs': '📖 Tutorial',
+        'WitCatBBcodes.docss': '📖Example Content',
+        'WitCatBBcodes.tutorial':
           '[size=40] Welcome to [color=#ffff00] White Cat [/color] BBcode[/size]\n\nBold:\n[/b] Bold text[/b]\n\nItalics:\n[i] Italic[/i]\n\nDelete line:\n[s] stripper line [/s]\n\nUnderline:\n[u] Underline [/u]\n\nChange the font size:\n[size=2] Variable size [/size]\n\nChange color:\n[color=#ff0000] I am red [/color]\n\nWeb link:\n[url=https://ccw.site/] Example url [/url]\n\nQuote:\n[quote] "My Three" is "Art Three" difficult to match the benchmark [/quote]\n\nList (unordered) :\n[list]\n[*] List items\n[*] List items\n[/list]\n\nList (numbers) :\n[list=1]\n[*] List item A\n[*] List item B\n[/list]\n\nList (letters) :\n[list=a]\n[*] List item A\n[*] List item B\n[/list]\n\nInsert picture:\n[img=5]https://m.xiguacity.cn/works-covers/f6348af6-ba33-4172-b99d-246733242a00.png?x-oss-process=image%2Fresize%2Cs_360 %2Fformat%2Cwebp[/img]\n\nInsert code:\n[code]printf("hello world!" )[/code]\nConfigure language highlighting for code using code highlighting blocks\n\nOf course, you can also nest:\n[color=#ff0000][b][size=100]aaa[/size][/b][/color]',
-        'WitCatBBcode.create': 'Create BBcode ID[id]X[x]Y[y] width [width] height [height] content [text]',
-        'WitCatBBcode.delete': 'Delete BBcode ID[id]',
-        'WitCatBBcode.deleteall': 'Delete all BBcode',
-        'WitCatBBcode.get': 'ID[id]BBcode`s[type]',
-        'WitCatBBcode.set': 'set BBcode ID[id]`s[type] to [text]',
-        'WitCatBBcode.settextalign': 'set BBcode ID[id] num [num]`s[type] to [text]',
-        'WitCatBBcode.imgstyle': 'BBcode ID[id] width of [num] picture [width] height [height]',
-        'WitCatBBcode.loadfontfamily': 'load[name]from url[text]',
-        'WitCatBBcode.setfontfamily': 'set BBcode ID[id]`s font family[name]',
-        'WitCatBBcode.code': 'Set the [num] code box highlighted by BBcode ID[id] to [name]',
-        'WitCatBBcode.ide': 'Set BBcode ID[id] to [name]',
-        'WitCatBBcode.size': 'BBcode size adaptive[type]',
-        'WitCatBBcode.type.1': 'X',
-        'WitCatBBcode.type.2': 'Y',
-        'WitCatBBcode.type.3': 'width',
-        'WitCatBBcode.type.4': 'height',
-        'WitCatBBcode.type.5': 'content',
-        'WitCatBBcode.type.6': 'json',
-        'WitCatBBcode.type.7': 'perspective',
-        'WitCatBBcode.type.8': 'Content height',
-        'WitCatBBcode.type.9': 'Longitudinal roll position',
-        'WitCatBBcode.type.10': 'Content width',
-        'WitCatBBcode.type.11': 'Horizontal roll position',
-        'WitCatBBcode.ide.1': 'editable',
-        'WitCatBBcode.ide.2': 'uneditable',
-        'WitCatBBcode.types.1': 'turn on',
-        'WitCatBBcode.types.2': 'turn off',
-        'WitCatBBcode.getwidth': 'get[content]`s render[type]',
-        'WitCatBBcode.click': 'Last clicked element`s[clickmenu]',
-        'WitCatBBcode.touchs': 'Touch element`s[clickmenu]',
-        'WitCatBBcode.clickmenu.1': 'bbcode Source',
-        'WitCatBBcode.clickmenu.2': 'type',
-        'WitCatBBcode.clickmenu.3': 'Serial number',
-        'WitCatBBcode.touch': 'BBcode[id]num[number]`s[type]element is encountered?',
-        'WitCatBBcode.move': 'BBcode[id]num[number]`s[type] element offset X[x]Y[y]',
-        'WitCatBBcode.scale': 'BBcode[id]num[number]`s[type] element scale X[x]Y[y]',
-        'WitCatBBcode.rot': 'BBcode[id]num[number]`s[type] element rotat [y]',
-        'WitCatBBcode.3dmove': 'BBcode[id]num[number]`s[type] element 3Doffset X[x]Y[y]Z[z]',
-        'WitCatBBcode.3drot': 'BBcode[id]num[number]`s[type] element 3Drotat X[x]Y[y]Z[z]',
-        'WitCatBBcode.setinsite': 'Set BBcode[id]num[number]`s[type] element [input] to [text]',
-        'WitCatBBcode.transition': 'Set [timing] for BBcode[id] to transition to [s] seconds',
-        'WitCatBBcode.morecontent': 'Set the expanded message ID[id] to [show]',
-        'WitCatBBcode.meter': 'Set the percentage of progress bar ID[id] to [text]',
-        'WitCatBBcode.show.1': 'show',
-        'WitCatBBcode.show.2': 'hide',
-        'WitCatBBcode.timing.1': 'linear',
-        'WitCatBBcode.timing.2': 'ease-out',
-        'WitCatBBcode.timing.3': 'ease-in',
-        'WitCatBBcode.timing.4': 'ease-in-out',
-        'WitCatBBcode.timing.5': 'ease',
-        'WitCatBBcode.textalign.1': 'Align left',
-        'WitCatBBcode.textalign.2': 'Align right',
-        'WitCatBBcode.setinsite.1': 'shadow',
-        'WitCatBBcode.setinsite.2': 'text shadow',
+        'WitCatBBcodes.create': 'Create BBcode ID[id]X[x]Y[y] width [width] height [height] content [text]',
+        'WitCatBBcodes.delete': 'Delete BBcode ID[id]',
+        'WitCatBBcodes.deleteall': 'Delete all BBcode',
+        'WitCatBBcodes.get': 'ID[id]BBcode`s[type]',
+        'WitCatBBcodes.set': 'set BBcode ID[id]`s[type] to [text]',
+        'WitCatBBcodes.settextalign': 'set BBcode ID[id] num [num]`s[type] to [text]',
+        'WitCatBBcodes.imgstyle': 'BBcode ID[id] width of [num] picture [width] height [height]',
+        'WitCatBBcodes.loadfontfamily': 'load[name]from url[text]',
+        'WitCatBBcodes.setfontfamily': 'set BBcode ID[id]`s font family[name]',
+        'WitCatBBcodes.code': 'Set the [num] code box highlighted by BBcode ID[id] to [name]',
+        'WitCatBBcodes.ide': 'Set BBcode ID[id] to [name]',
+        'WitCatBBcodes.size': 'BBcode size adaptive[type]',
+        'WitCatBBcodes.type.1': 'X',
+        'WitCatBBcodes.type.2': 'Y',
+        'WitCatBBcodes.type.3': 'width',
+        'WitCatBBcodes.type.4': 'height',
+        'WitCatBBcodes.type.5': 'content',
+        'WitCatBBcodes.type.6': 'json',
+        'WitCatBBcodes.type.7': 'perspective',
+        'WitCatBBcodes.type.8': 'Content height',
+        'WitCatBBcodes.type.9': 'Longitudinal roll position',
+        'WitCatBBcodes.type.10': 'Content width',
+        'WitCatBBcodes.type.11': 'Horizontal roll position',
+        'WitCatBBcodes.ide.1': 'editable',
+        'WitCatBBcodes.ide.2': 'uneditable',
+        'WitCatBBcodes.types.1': 'turn on',
+        'WitCatBBcodes.types.2': 'turn off',
+        'WitCatBBcodes.getwidth': 'get[content]`s render[type]',
+        'WitCatBBcodes.click': 'Last clicked element`s[clickmenu]',
+        'WitCatBBcodes.touchs': 'Touch element`s[clickmenu]',
+        'WitCatBBcodes.clickmenu.1': 'bbcode Source',
+        'WitCatBBcodes.clickmenu.2': 'type',
+        'WitCatBBcodes.clickmenu.3': 'Serial number',
+        'WitCatBBcodes.touch': 'BBcode[id]num[number]`s[type]element is encountered?',
+        'WitCatBBcodes.move': 'BBcode[id]num[number]`s[type] element offset X[x]Y[y]',
+        'WitCatBBcodes.scale': 'BBcode[id]num[number]`s[type] element scale X[x]Y[y]',
+        'WitCatBBcodes.rot': 'BBcode[id]num[number]`s[type] element rotat [y]',
+        'WitCatBBcodes.3dmove': 'BBcode[id]num[number]`s[type] element 3Doffset X[x]Y[y]Z[z]',
+        'WitCatBBcodes.3drot': 'BBcode[id]num[number]`s[type] element 3Drotat X[x]Y[y]Z[z]',
+        'WitCatBBcodes.setinsite': 'Set BBcode[id]num[number]`s[type] element [input] to [text]',
+        'WitCatBBcodes.transition': 'Set [timing] for BBcode[id] to transition to [s] seconds',
+        'WitCatBBcodes.morecontent': 'Set the expanded message ID[id] to [show]',
+        'WitCatBBcodes.meter': 'Set the percentage of progress bar ID[id] to [text]',
+        'WitCatBBcodes.show.1': 'show',
+        'WitCatBBcodes.show.2': 'hide',
+        'WitCatBBcodes.timing.1': 'linear',
+        'WitCatBBcodes.timing.2': 'ease-out',
+        'WitCatBBcodes.timing.3': 'ease-in',
+        'WitCatBBcodes.timing.4': 'ease-in-out',
+        'WitCatBBcodes.timing.5': 'ease',
+        'WitCatBBcodes.textalign.1': 'Align left',
+        'WitCatBBcodes.textalign.2': 'Align right',
+        'WitCatBBcodes.setinsite.1': 'shadow',
+        'WitCatBBcodes.setinsite.2': 'text shadow',
+        'WitCatBBcodes.setnum': '⚠️ set maximum parsedable to[num]',
       },
     });
   }
@@ -308,7 +310,7 @@ export default class WitCatBBcode {
   getInfo() {
     return {
       id: witcat_BBcode_extensionId, // 拓展id
-      name: this.formatMessage('WitCatBBcode.name'), // 拓展名
+      name: this.formatMessage('WitCatBBcodes.name'), // 拓展名
       blockIconURI: witcat_BBcode_icon,
       menuIconURI: witcat_BBcode_icon,
       color1: '#e16c96',
@@ -316,14 +318,25 @@ export default class WitCatBBcode {
       blocks: [
         {
           blockType: 'button',
-          text: this.formatMessage('WitCatBBcode.docs'),
+          text: this.formatMessage('WitCatBBcodes.docs'),
           onClick: this.docs,
         },
-        `---${this.formatMessage('WitCatBBcode.name')}`,
+        {
+          opcode: 'setnum',
+          blockType: 'command',
+          text: this.formatMessage('WitCatBBcodes.setnum'),
+          arguments: {
+            num: {
+              type: 'number',
+              defaultValue: '300',
+            },
+          },
+        },
+        `---${this.formatMessage('WitCatBBcodes.name')}`,
         {
           opcode: 'create',
           blockType: 'command',
-          text: this.formatMessage('WitCatBBcode.create'),
+          text: this.formatMessage('WitCatBBcodes.create'),
           arguments: {
             id: {
               type: 'string',
@@ -354,7 +367,7 @@ export default class WitCatBBcode {
         {
           opcode: 'set',
           blockType: 'command',
-          text: this.formatMessage('WitCatBBcode.set'),
+          text: this.formatMessage('WitCatBBcodes.set'),
           arguments: {
             id: {
               type: 'string',
@@ -373,7 +386,7 @@ export default class WitCatBBcode {
         {
           opcode: 'imgstyle',
           blockType: 'command',
-          text: this.formatMessage('WitCatBBcode.imgstyle'),
+          text: this.formatMessage('WitCatBBcodes.imgstyle'),
           arguments: {
             id: {
               type: 'string',
@@ -396,7 +409,7 @@ export default class WitCatBBcode {
         {
           opcode: 'code',
           blockType: 'command',
-          text: this.formatMessage('WitCatBBcode.code'),
+          text: this.formatMessage('WitCatBBcodes.code'),
           arguments: {
             id: {
               type: 'string',
@@ -415,7 +428,7 @@ export default class WitCatBBcode {
         {
           opcode: 'ide',
           blockType: 'command',
-          text: this.formatMessage('WitCatBBcode.ide'),
+          text: this.formatMessage('WitCatBBcodes.ide'),
           arguments: {
             id: {
               type: 'string',
@@ -434,7 +447,7 @@ export default class WitCatBBcode {
         {
           opcode: 'size',
           blockType: 'command',
-          text: this.formatMessage('WitCatBBcode.size'),
+          text: this.formatMessage('WitCatBBcodes.size'),
           arguments: {
             type: {
               type: 'boolean',
@@ -445,7 +458,7 @@ export default class WitCatBBcode {
         {
           opcode: 'setfont',
           blockType: 'command',
-          text: this.formatMessage('WitCatBBcode.setfontfamily'),
+          text: this.formatMessage('WitCatBBcodes.setfontfamily'),
           arguments: {
             id: {
               type: 'string',
@@ -460,7 +473,7 @@ export default class WitCatBBcode {
         {
           opcode: 'loadfont',
           blockType: 'command',
-          text: this.formatMessage('WitCatBBcode.loadfontfamily'),
+          text: this.formatMessage('WitCatBBcodes.loadfontfamily'),
           arguments: {
             text: {
               type: 'string',
@@ -475,7 +488,7 @@ export default class WitCatBBcode {
         {
           opcode: 'morecontent',
           blockType: 'command',
-          text: this.formatMessage('WitCatBBcode.morecontent'),
+          text: this.formatMessage('WitCatBBcodes.morecontent'),
           arguments: {
             id: {
               type: 'string',
@@ -490,7 +503,7 @@ export default class WitCatBBcode {
         {
           opcode: 'meter',
           blockType: 'command',
-          text: this.formatMessage('WitCatBBcode.meter'),
+          text: this.formatMessage('WitCatBBcodes.meter'),
           arguments: {
             id: {
               type: 'string',
@@ -505,7 +518,7 @@ export default class WitCatBBcode {
         {
           opcode: 'delete',
           blockType: 'command',
-          text: this.formatMessage('WitCatBBcode.delete'),
+          text: this.formatMessage('WitCatBBcodes.delete'),
           arguments: {
             id: {
               type: 'string',
@@ -516,13 +529,13 @@ export default class WitCatBBcode {
         {
           opcode: 'deleteall',
           blockType: 'command',
-          text: this.formatMessage('WitCatBBcode.deleteall'),
+          text: this.formatMessage('WitCatBBcodes.deleteall'),
           arguments: {},
         },
         {
           opcode: 'get',
           blockType: 'reporter',
-          text: this.formatMessage('WitCatBBcode.get'),
+          text: this.formatMessage('WitCatBBcodes.get'),
           arguments: {
             id: {
               type: 'string',
@@ -537,7 +550,7 @@ export default class WitCatBBcode {
         {
           opcode: 'getwidth',
           blockType: 'reporter',
-          text: this.formatMessage('WitCatBBcode.getwidth'),
+          text: this.formatMessage('WitCatBBcodes.getwidth'),
           arguments: {
             content: {
               type: 'string',
@@ -552,7 +565,7 @@ export default class WitCatBBcode {
         {
           opcode: 'click',
           blockType: 'reporter',
-          text: this.formatMessage('WitCatBBcode.click'),
+          text: this.formatMessage('WitCatBBcodes.click'),
           arguments: {
             clickmenu: {
               type: 'string',
@@ -563,7 +576,7 @@ export default class WitCatBBcode {
         {
           opcode: 'touchs',
           blockType: 'reporter',
-          text: this.formatMessage('WitCatBBcode.touchs'),
+          text: this.formatMessage('WitCatBBcodes.touchs'),
           arguments: {
             clickmenu: {
               type: 'string',
@@ -574,7 +587,7 @@ export default class WitCatBBcode {
         {
           opcode: 'touch',
           blockType: 'Boolean',
-          text: this.formatMessage('WitCatBBcode.touch'),
+          text: this.formatMessage('WitCatBBcodes.touch'),
           arguments: {
             id: {
               type: 'string',
@@ -593,7 +606,7 @@ export default class WitCatBBcode {
         {
           opcode: 'settextalign',
           blockType: 'command',
-          text: this.formatMessage('WitCatBBcode.settextalign'),
+          text: this.formatMessage('WitCatBBcodes.settextalign'),
           arguments: {
             id: {
               type: 'string',
@@ -616,7 +629,7 @@ export default class WitCatBBcode {
         {
           opcode: 'move',
           blockType: 'command',
-          text: this.formatMessage('WitCatBBcode.move'),
+          text: this.formatMessage('WitCatBBcodes.move'),
           arguments: {
             id: {
               type: 'string',
@@ -643,7 +656,7 @@ export default class WitCatBBcode {
         {
           opcode: 'scale',
           blockType: 'command',
-          text: this.formatMessage('WitCatBBcode.scale'),
+          text: this.formatMessage('WitCatBBcodes.scale'),
           arguments: {
             id: {
               type: 'string',
@@ -670,7 +683,7 @@ export default class WitCatBBcode {
         {
           opcode: 'rot',
           blockType: 'command',
-          text: this.formatMessage('WitCatBBcode.rot'),
+          text: this.formatMessage('WitCatBBcodes.rot'),
           arguments: {
             id: {
               type: 'string',
@@ -693,7 +706,7 @@ export default class WitCatBBcode {
         {
           opcode: 'dmove',
           blockType: 'command',
-          text: this.formatMessage('WitCatBBcode.3dmove'),
+          text: this.formatMessage('WitCatBBcodes.3dmove'),
           arguments: {
             id: {
               type: 'string',
@@ -724,7 +737,7 @@ export default class WitCatBBcode {
         {
           opcode: 'drot',
           blockType: 'command',
-          text: this.formatMessage('WitCatBBcode.3drot'),
+          text: this.formatMessage('WitCatBBcodes.3drot'),
           arguments: {
             id: {
               type: 'string',
@@ -755,7 +768,7 @@ export default class WitCatBBcode {
         {
           opcode: 'setinsite',
           blockType: 'command',
-          text: this.formatMessage('WitCatBBcode.setinsite'),
+          text: this.formatMessage('WitCatBBcodes.setinsite'),
           arguments: {
             id: {
               type: 'string',
@@ -782,7 +795,7 @@ export default class WitCatBBcode {
         {
           opcode: 'transition',
           blockType: 'command',
-          text: this.formatMessage('WitCatBBcode.transition'),
+          text: this.formatMessage('WitCatBBcodes.transition'),
           arguments: {
             id: {
               type: 'string',
@@ -801,7 +814,7 @@ export default class WitCatBBcode {
         {
           opcode: 'docss',
           blockType: 'reporter',
-          text: this.formatMessage('WitCatBBcode.docss'),
+          text: this.formatMessage('WitCatBBcodes.docss'),
           disableMonitor: true,
           arguments: {},
         },
@@ -809,87 +822,87 @@ export default class WitCatBBcode {
       menus: {
         type: [
           {
-            text: this.formatMessage('WitCatBBcode.type.1'),
+            text: this.formatMessage('WitCatBBcodes.type.1'),
             value: 'x',
           },
           {
-            text: this.formatMessage('WitCatBBcode.type.2'),
+            text: this.formatMessage('WitCatBBcodes.type.2'),
             value: 'y',
           },
           {
-            text: this.formatMessage('WitCatBBcode.type.3'),
+            text: this.formatMessage('WitCatBBcodes.type.3'),
             value: 'width',
           },
           {
-            text: this.formatMessage('WitCatBBcode.type.4'),
+            text: this.formatMessage('WitCatBBcodes.type.4'),
             value: 'height',
           },
           {
-            text: this.formatMessage('WitCatBBcode.type.5'),
+            text: this.formatMessage('WitCatBBcodes.type.5'),
             value: 'content',
           },
           {
-            text: this.formatMessage('WitCatBBcode.type.8'),
+            text: this.formatMessage('WitCatBBcodes.type.8'),
             value: 'ContentHeight',
           },
           {
-            text: this.formatMessage('WitCatBBcode.type.9'),
+            text: this.formatMessage('WitCatBBcodes.type.9'),
             value: 'Longitudinal',
           },
           {
-            text: this.formatMessage('WitCatBBcode.type.10'),
+            text: this.formatMessage('WitCatBBcodes.type.10'),
             value: 'ContentWidth',
           },
           {
-            text: this.formatMessage('WitCatBBcode.type.11'),
+            text: this.formatMessage('WitCatBBcodes.type.11'),
             value: 'Horizontal',
           },
           {
-            text: this.formatMessage('WitCatBBcode.type.6'),
+            text: this.formatMessage('WitCatBBcodes.type.6'),
             value: 'json',
           },
         ],
         types: [
           {
-            text: this.formatMessage('WitCatBBcode.type.1'),
+            text: this.formatMessage('WitCatBBcodes.type.1'),
             value: 'x',
           },
           {
-            text: this.formatMessage('WitCatBBcode.type.2'),
+            text: this.formatMessage('WitCatBBcodes.type.2'),
             value: 'y',
           },
           {
-            text: this.formatMessage('WitCatBBcode.type.3'),
+            text: this.formatMessage('WitCatBBcodes.type.3'),
             value: 'width',
           },
           {
-            text: this.formatMessage('WitCatBBcode.type.4'),
+            text: this.formatMessage('WitCatBBcodes.type.4'),
             value: 'height',
           },
           {
-            text: this.formatMessage('WitCatBBcode.type.5'),
+            text: this.formatMessage('WitCatBBcodes.type.5'),
             value: 'content',
           },
           {
-            text: this.formatMessage('WitCatBBcode.type.7'),
+            text: this.formatMessage('WitCatBBcodes.type.7'),
             value: 'perspective',
           },
           {
-            text: this.formatMessage('WitCatBBcode.type.9'),
+            text: this.formatMessage('WitCatBBcodes.type.9'),
             value: 'Longitudinal',
           },
           {
-            text: this.formatMessage('WitCatBBcode.type.11'),
+            text: this.formatMessage('WitCatBBcodes.type.11'),
             value: 'Horizontal',
           },
         ],
         typess: [
           {
-            text: this.formatMessage('WitCatBBcode.types.1'),
+            text: this.formatMessage('WitCatBBcodes.types.1'),
             value: 'true',
           },
           {
-            text: this.formatMessage('WitCatBBcode.types.2'),
+            text: this.formatMessage('WitCatBBcodes.types.2'),
             value: 'false',
           },
         ],
@@ -913,87 +926,87 @@ export default class WitCatBBcode {
         ],
         ide: [
           {
-            text: this.formatMessage('WitCatBBcode.ide.1'),
+            text: this.formatMessage('WitCatBBcodes.ide.1'),
             value: 'true',
           },
           {
-            text: this.formatMessage('WitCatBBcode.ide.2'),
+            text: this.formatMessage('WitCatBBcodes.ide.2'),
             value: 'false',
           },
         ],
         width: [
           {
-            text: this.formatMessage('WitCatBBcode.type.3'),
+            text: this.formatMessage('WitCatBBcodes.type.3'),
             value: 'width',
           },
           {
-            text: this.formatMessage('WitCatBBcode.type.4'),
+            text: this.formatMessage('WitCatBBcodes.type.4'),
             value: 'height',
           },
         ],
         clickmenu: [
           {
-            text: this.formatMessage('WitCatBBcode.clickmenu.1'),
+            text: this.formatMessage('WitCatBBcodes.clickmenu.1'),
             value: 'bbcode',
           },
           {
-            text: this.formatMessage('WitCatBBcode.clickmenu.2'),
+            text: this.formatMessage('WitCatBBcodes.clickmenu.2'),
             value: 'type',
           },
           {
-            text: this.formatMessage('WitCatBBcode.clickmenu.3'),
+            text: this.formatMessage('WitCatBBcodes.clickmenu.3'),
             value: 'number',
           },
         ],
         timing: [
           {
-            text: this.formatMessage('WitCatBBcode.timing.1'),
+            text: this.formatMessage('WitCatBBcodes.timing.1'),
             value: 'linear',
           },
           {
-            text: this.formatMessage('WitCatBBcode.timing.2'),
+            text: this.formatMessage('WitCatBBcodes.timing.2'),
             value: 'ease-out',
           },
           {
-            text: this.formatMessage('WitCatBBcode.timing.3'),
+            text: this.formatMessage('WitCatBBcodes.timing.3'),
             value: 'ease-in',
           },
           {
-            text: this.formatMessage('WitCatBBcode.timing.4'),
+            text: this.formatMessage('WitCatBBcodes.timing.4'),
             value: 'ease-in-out',
           },
           {
-            text: this.formatMessage('WitCatBBcode.timing.5'),
+            text: this.formatMessage('WitCatBBcodes.timing.5'),
             value: 'ease',
           },
         ],
         textalign: [
           {
-            text: this.formatMessage('WitCatBBcode.textalign.1'),
+            text: this.formatMessage('WitCatBBcodes.textalign.1'),
             value: 'left',
           },
           {
-            text: this.formatMessage('WitCatBBcode.textalign.2'),
+            text: this.formatMessage('WitCatBBcodes.textalign.2'),
             value: 'right',
           },
         ],
         setinsite: [
           {
-            text: this.formatMessage('WitCatBBcode.setinsite.1'),
+            text: this.formatMessage('WitCatBBcodes.setinsite.1'),
             value: 'shadow',
           },
           {
-            text: this.formatMessage('WitCatBBcode.setinsite.2'),
+            text: this.formatMessage('WitCatBBcodes.setinsite.2'),
             value: 'textShadow',
           },
         ],
         show: [
           {
-            text: this.formatMessage('WitCatBBcode.show.1'),
+            text: this.formatMessage('WitCatBBcodes.show.1'),
             value: 'more',
           },
           {
-            text: this.formatMessage('WitCatBBcode.show.2'),
+            text: this.formatMessage('WitCatBBcodes.show.2'),
             value: 'fold',
           },
         ],
@@ -1022,6 +1035,10 @@ export default class WitCatBBcode {
     // return isNaN(x) ? min : Math.min(max, Math.max(min, x));
   }
 
+  setnum(args) {
+    this.maxParsedable = Number(args.num);
+  }
+
   /**
    * 创建文本框
    * @param {Object} args
@@ -1046,7 +1063,7 @@ export default class WitCatBBcode {
 
     /** @type {HTMLDivElement|null} */
     let search = null;
-    const search_1 = document.getElementById(`WitCatBBcode${args.id}`);
+    const search_1 = document.getElementById(`WitCatBBcodes${args.id}`);
     if (search_1 instanceof HTMLDivElement) {
       search = search_1;
     }
@@ -1056,8 +1073,8 @@ export default class WitCatBBcode {
     }
     if (search === null) {
       search = document.createElement('div');
-      search.id = `WitCatBBcode${args.id}`;
-      search.className = 'WitCatBBcode';
+      search.id = `WitCatBBcodes${args.id}`;
+      search.className = 'WitCatBBcodes';
       search.style.overflow = 'auto';
       search.style.webkitUserSelect = 'text';
       search.style.userSelect = 'text';
@@ -1070,12 +1087,12 @@ export default class WitCatBBcode {
     sstyle.top = `${y}%`;
     sstyle.width = `${width}%`;
     sstyle.height = `${height}%`;
-    search.innerHTML = `<div class='WitCatBBcode'>${new bbcode.Parser().toHTML(String(args.text), this.runtime)}</div>`;
+    search.innerHTML = `<div class='WitCatBBcodes'>${new bbcode.Parser().toHTML(String(args.text), this.runtime, this.maxParsedable)}</div>`;
   }
 
   imgstyle(args) {
     let search = null;
-    const search_1 = document.getElementById(`WitCatBBcode${args.id}`);
+    const search_1 = document.getElementById(`WitCatBBcodes${args.id}`);
     if (search_1 instanceof HTMLDivElement) {
       search = search_1;
     }
@@ -1096,7 +1113,7 @@ export default class WitCatBBcode {
    */
   set(args) {
     let search = null;
-    const search_1 = document.getElementById(`WitCatBBcode${args.id}`);
+    const search_1 = document.getElementById(`WitCatBBcodes${args.id}`);
     if (search_1 instanceof HTMLDivElement) {
       search = search_1;
     }
@@ -1130,7 +1147,7 @@ export default class WitCatBBcode {
           sstyle.height = `${Number(height)}%`;
           break;
         case 'content':
-          search.innerHTML = `<div class='WitCatBBcode'>${new bbcode.Parser().toHTML(String(args.text), this.runtime)}</div>`;
+          search.innerHTML = `<div class='WitCatBBcodes'>${new bbcode.Parser().toHTML(String(args.text), this.runtime, this.maxParsedable)}</div>`;
           break;
         case 'perspective':
           search.firstChild.style.perspective = `${Number(args.text)}px`;
@@ -1149,7 +1166,7 @@ export default class WitCatBBcode {
 
   morecontent(args) {
     let search = null;
-    const search_1 = document.getElementById(`WitCatBBcodepolier${args.id}`);
+    const search_1 = document.getElementById(`WitCatBBcodespolier${args.id}`);
     if (search_1 instanceof HTMLSpanElement) {
       search = search_1;
     }
@@ -1170,7 +1187,7 @@ export default class WitCatBBcode {
 
   meter(args) {
     let search = null;
-    const search_1 = document.getElementById(`WitCatBBcodeMeter${args.id}`);
+    const search_1 = document.getElementById(`WitCatBBcodesMeter${args.id}`);
     if (search_1 instanceof HTMLDivElement) {
       search = search_1;
     }
@@ -1187,7 +1204,7 @@ export default class WitCatBBcode {
    */
   setfont(args) {
     let search = null;
-    const search_1 = document.getElementById(`WitCatBBcode${args.id}`);
+    const search_1 = document.getElementById(`WitCatBBcodes${args.id}`);
     if (search_1 instanceof HTMLDivElement) {
       search = search_1;
     }
@@ -1202,7 +1219,7 @@ export default class WitCatBBcode {
    */
   code(args) {
     let search = null;
-    const search_1 = document.getElementById(`WitCatBBcode${args.id}`);
+    const search_1 = document.getElementById(`WitCatBBcodes${args.id}`);
     if (search_1 instanceof HTMLDivElement) {
       search = search_1;
     }
@@ -1219,7 +1236,7 @@ export default class WitCatBBcode {
 
   ide(args) {
     let search = null;
-    const search_1 = document.getElementById(`WitCatBBcode${args.id}`);
+    const search_1 = document.getElementById(`WitCatBBcodes${args.id}`);
     if (search_1 instanceof HTMLDivElement) {
       search = search_1;
     }
@@ -1236,8 +1253,8 @@ export default class WitCatBBcode {
     }
     const search = document.createElement('span');
     search.style.position = 'fixed';
-    search.className = 'WitCatBBcode';
-    search.innerHTML = `<div class='WitCatBBcode'>${new bbcode.Parser().toHTML(String(args.content), this.runtime)}</div>`;
+    search.className = 'WitCatBBcodes';
+    search.innerHTML = `<div class='WitCatBBcodes'>${new bbcode.Parser().toHTML(String(args.content), this.runtime, this.maxParsedable)}</div>`;
     document.body.appendChild(search);
     const cvsw = this.canvas().offsetWidth;
     const cvsh = this.canvas().offsetHeight;
@@ -1279,7 +1296,7 @@ export default class WitCatBBcode {
 
   setinsite(args) {
     let search = null;
-    const search_1 = document.getElementById(`WitCatBBcode${args.id}`);
+    const search_1 = document.getElementById(`WitCatBBcodes${args.id}`);
     if (search_1 instanceof HTMLDivElement) {
       search = search_1;
       const ele = search.getElementsByTagName(String(args.type))[Number(args.number) - 1];
@@ -1325,12 +1342,12 @@ export default class WitCatBBcode {
   click(args) {
     let out = '';
     if (JSON.stringify(bbcodemousedown) !== '{}') {
-      const s = document.getElementsByClassName('WitCatBBcode');
+      const s = document.getElementsByClassName('WitCatBBcodes');
       s.forEach((e) => {
         if (e.contains(bbcodemousedown.target)) {
           switch (args.clickmenu) {
             case 'bbcode':
-              out = e.parentElement.id.split('WitCatBBcode')[1];
+              out = e.parentElement.id.split('WitCatBBcodes')[1];
               break;
             case 'type':
               out = bbcodemousedown.target.tagName.toLowerCase();
@@ -1356,12 +1373,12 @@ export default class WitCatBBcode {
   touchs(args) {
     let out = '';
     if (JSON.stringify(touchEvent) !== '{}') {
-      const s = document.getElementsByClassName('WitCatBBcode');
+      const s = document.getElementsByClassName('WitCatBBcodes');
       s.forEach((e) => {
         if (e.contains(touchEvent.target)) {
           switch (args.clickmenu) {
             case 'bbcode':
-              out = e.parentElement.id.split('WitCatBBcode')[1];
+              out = e.parentElement.id.split('WitCatBBcodes')[1];
               break;
             case 'type':
               out = touchEvent.target.tagName.toLowerCase();
@@ -1386,7 +1403,7 @@ export default class WitCatBBcode {
 
   touch(args) {
     let search = null;
-    const search_1 = document.getElementById(`WitCatBBcode${args.id}`);
+    const search_1 = document.getElementById(`WitCatBBcodes${args.id}`);
     if (search_1 instanceof HTMLDivElement) {
       search = search_1;
       if (Number(args.number) > 0) {
@@ -1404,7 +1421,7 @@ export default class WitCatBBcode {
 
   move(args) {
     let search = null;
-    const search_1 = document.getElementById(`WitCatBBcode${args.id}`);
+    const search_1 = document.getElementById(`WitCatBBcodes${args.id}`);
     if (search_1 instanceof HTMLDivElement) {
       search = search_1;
       const ele = search.getElementsByTagName(String(args.type))[Number(args.number) - 1];
@@ -1419,7 +1436,7 @@ export default class WitCatBBcode {
 
   scale(args) {
     let search = null;
-    const search_1 = document.getElementById(`WitCatBBcode${args.id}`);
+    const search_1 = document.getElementById(`WitCatBBcodes${args.id}`);
     if (search_1 instanceof HTMLDivElement) {
       search = search_1;
       const ele = search.getElementsByTagName(String(args.type))[Number(args.number) - 1];
@@ -1434,7 +1451,7 @@ export default class WitCatBBcode {
 
   rot(args) {
     let search = null;
-    const search_1 = document.getElementById(`WitCatBBcode${args.id}`);
+    const search_1 = document.getElementById(`WitCatBBcodes${args.id}`);
     if (search_1 instanceof HTMLDivElement) {
       search = search_1;
       const ele = search.getElementsByTagName(String(args.type))[Number(args.number) - 1];
@@ -1449,7 +1466,7 @@ export default class WitCatBBcode {
 
   dmove(args) {
     let search = null;
-    const search_1 = document.getElementById(`WitCatBBcode${args.id}`);
+    const search_1 = document.getElementById(`WitCatBBcodes${args.id}`);
     if (search_1 instanceof HTMLDivElement) {
       search = search_1;
       const ele = search.getElementsByTagName(String(args.type))[Number(args.number) - 1];
@@ -1465,7 +1482,7 @@ export default class WitCatBBcode {
 
   drot(args) {
     let search = null;
-    const search_1 = document.getElementById(`WitCatBBcode${args.id}`);
+    const search_1 = document.getElementById(`WitCatBBcodes${args.id}`);
     if (search_1 instanceof HTMLDivElement) {
       search = search_1;
       const ele = search.getElementsByTagName(String(args.type))[Number(args.number) - 1];
@@ -1480,7 +1497,7 @@ export default class WitCatBBcode {
 
   transition(args) {
     let search = null;
-    const search_1 = document.getElementById(`WitCatBBcode${args.id}`);
+    const search_1 = document.getElementById(`WitCatBBcodes${args.id}`);
     if (search_1 instanceof HTMLDivElement) {
       search = search_1;
       search.style.transition = `all ${args.s}s ${args.timing}`;
@@ -1489,7 +1506,7 @@ export default class WitCatBBcode {
 
   settextalign(args) {
     let search = null;
-    const search_1 = document.getElementById(`WitCatBBcode${args.id}`);
+    const search_1 = document.getElementById(`WitCatBBcodes${args.id}`);
     if (search_1 instanceof HTMLDivElement) {
       search = search_1;
       if (String(args.type) === 'all') {
@@ -1512,7 +1529,7 @@ export default class WitCatBBcode {
       return;
     }
     let search = null;
-    const search_1 = document.getElementById(`WitCatBBcode${args.id}`);
+    const search_1 = document.getElementById(`WitCatBBcodes${args.id}`);
     if (search_1 instanceof HTMLDivElement) {
       search = search_1;
     }
@@ -1530,7 +1547,7 @@ export default class WitCatBBcode {
     if (this.inputParent() === null) {
       return;
     }
-    const search = document.getElementById(`WitCatBBcode${args.id}`);
+    const search = document.getElementById(`WitCatBBcodes${args.id}`);
     if (search !== null) {
       this.inputParent().removeChild(search);
     }
@@ -1545,7 +1562,7 @@ export default class WitCatBBcode {
     if (this.inputParent() === null) {
       return;
     }
-    const search = document.getElementsByClassName('WitCatBBcode');
+    const search = document.getElementsByClassName('WitCatBBcodes');
     for (const item of Array.from(search)) {
       this.inputParent().removeChild(item);
     }
@@ -1556,7 +1573,7 @@ export default class WitCatBBcode {
    * @returns {string}
    */
   docss() {
-    return this.formatMessage('WitCatBBcode.tutorial');
+    return this.formatMessage('WitCatBBcodes.tutorial');
   }
 
   /**
@@ -1606,10 +1623,10 @@ export default class WitCatBBcode {
 }
 
 window.tempExt = {
-  Extension: WitCatBBcode,
+  Extension: WitCatBBcodes,
   info: {
-    name: "WitCatBBcode.name",
-    description: "WitCatBBcode.descp",
+    name: "WitCatBBcodes.name",
+    description: "WitCatBBcodes.descp",
     extensionId: witcat_BBcode_extensionId,
     iconURL: witcat_BBcode_picture,
     insetIconURL: witcat_BBcode_icon,
@@ -1619,12 +1636,12 @@ window.tempExt = {
   },
   l10n: {
     "zh-cn": {
-      "WitCatBBcode.name": "白猫的BBcode",
-      "WitCatBBcode.descp": "更优雅的文本框"
+      "WitCatBBcodes.name": "白猫的BBcode",
+      "WitCatBBcodes.descp": "更优雅的文本框"
     },
     en: {
-      "WitCatBBcode.name": "WitCat’s BBcode",
-      "WitCatBBcode.descp": "Make your text box more colorful"
+      "WitCatBBcodes.name": "WitCat’s BBcode",
+      "WitCatBBcodes.descp": "Make your text box more colorful"
     }
   }
 };
