@@ -1067,7 +1067,7 @@ let runtime;
       tokens = input.split(_TOKEN_RE);
       let tagNumber = 0;
       let lastTag = null;
-      while (tokens.length && tagNumber < 100) {
+      while (tokens.length) {
         tagNumber++;
         token = tokens.shift();
         if (token.match(_TOKEN_RE)) {
