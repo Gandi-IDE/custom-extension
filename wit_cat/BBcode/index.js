@@ -1563,7 +1563,7 @@ export default class WitCatBBcode {
     }
     const search = document.getElementsByClassName('WitCatBBcode');
     for (const item of Array.from(search)) {
-      this.inputParent().removeChild(item);
+      item.parentElement.remove();
     }
   }
 
