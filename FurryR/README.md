@@ -3,6 +3,7 @@
 目前包含的插件:
 
 - not.js (MIT): [GitHub](https://github.com/FurryR/not.js)
+- lpp (MIT): [GitHub](https://github.com/FurryR/lpp-scratch)
 
 ---
 
