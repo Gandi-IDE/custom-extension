@@ -192,7 +192,7 @@ class dataAnalysis {
     this.complementFunc=function(numbers_,numbers2_,type){
       let numbers=this.getData(numbers_,type).map(Number),numbers2=this.getData(numbers2_,type).map(Number);
       numbers=this.unique(numbers),numbers2=this.unique(numbers2);
-      const complement=numbers2.filter(value=>!numbers.includes(value));;
+      const complement=numbers2.filter(value=>!numbers.includes(value));
       return JSON.stringify(complement);
     }
     this.symmetricDifferenceFunc=function(numbers_,numbers2_,type){
@@ -218,6 +218,7 @@ class dataAnalysis {
       color2: '#ff9494',
       blockIconURI: insetIcon,
       menuIconURI: insetIcon,
+      docsURI: 'https://learn.ccw.site/article/259ee729-cbe5-4898-8e0a-9fe5dc5b7813',
       blocks: [
         {
           opcode: 'unaryOper',
@@ -677,7 +678,7 @@ class dataAnalysis {
     if(args.NUMBERS!='empty'){
       return this.medianFunc(util.target.lookupVariableById(args.NUMBERS),2);
     }
-    return 'NaN';;
+    return 'NaN';
   }
   modeInList(args, util) {
     if(args.NUMBERS!='empty'){
