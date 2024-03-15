@@ -78,6 +78,9 @@ export default class WitCatBBcode {
       h6{
           font-size:0.67em;
       }
+      .WitCatBBcodeOut::-webkit-scrollbar{
+          display: none;
+      }
       .WitCatBBcode::-webkit-scrollbar{
           display: none;
       }
@@ -1074,6 +1077,7 @@ export default class WitCatBBcode {
     if (search === null) {
       search = document.createElement('div');
       search.id = `WitCatBBcode${args.id}`;
+      search.className = 'WitCatBBcodeOut';
       search.style.overflow = 'auto';
       search.style.webkitUserSelect = 'text';
       search.style.userSelect = 'text';
