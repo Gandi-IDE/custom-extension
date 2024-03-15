@@ -6,11 +6,11 @@ const witcat_file_helper_picture = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUg
 
 const witcat_file_helper_icon = "data:image/png;base64,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";
 
-const witcat_file_helper_extensionId = "WitCatFileHelpers";
+const witcat_file_helper_extensionId = "WitCatFileHelper";
 
 /** @typedef {string|number|boolean} SCarg 来自Scratch圆形框的参数，虽然这个框可能只能输入数字，但是可以放入变量，因此有可能获得数字、布尔和文本（极端情况下还有 null 或 undefined，需要同时处理 */
 
-class WitCatFileHelpers {
+class WitCatFileHelper {
     constructor(runtime) {
         /**
          * 被打开的文件列表(类似input.files)
@@ -43,139 +43,139 @@ class WitCatFileHelpers {
         this.runtime = runtime;
         this._formatMessage = runtime.getFormatMessage({
             "zh-cn": {
-                "WitCatFileHelpers.name": "白猫的文件助手",
-                "WitCatFileHelpers.filehelper": "文件处理",
-                "WitCatFileHelpers.inputmanagement": "键值对",
-                "WitCatFileHelpers.imageprocess": "图片",
-                "WitCatFileHelpers.Multiplelinestext": "多行文本",
-                "WitCatFileHelpers.downloads": "将内容[text]按[s]分割后命名为[name]并下载多行文本",
-                "WitCatFileHelpers.download": "将内容[text]命名为[name]并下载",
-                "WitCatFileHelpers.save": "设置键[name]的值为[text]",
-                "WitCatFileHelpers.upload": "获取键[name]的值",
-                "WitCatFileHelpers.delete": "删除键[name]",
-                "WitCatFileHelpers.segmentation": "将[text]按[s]分割为[thing]",
-                "WitCatFileHelpers.encrypt": "base64编码[text]",
-                "WitCatFileHelpers.decrypt": "base64解码[text]",
-                "WitCatFileHelpers.openfile": "打开文件",
-                "WitCatFileHelpers.showvar": "设置其他作品[show]键[name]的值",
-                "WitCatFileHelpers.saveother": "设置作品ID[id]的键[name]的值为[text]",
-                "WitCatFileHelpers.uploadother": "获取作品[id]的键[name]的值",
-                "WitCatFileHelpers.other": "作品[id]的键[name]的状态",
-                "WitCatFileHelpers.showon": "只读",
-                "WitCatFileHelpers.showoff": "私有",
-                "WitCatFileHelpers.showall": "公开",
-                "WitCatFileHelpers.deleteMultiplelinestext": "删除[text]的第[num]行",
-                "WitCatFileHelpers.addMultiplelinestext": "将[text]插入到[texts]的第[num]行之前",
-                "WitCatFileHelpers.whatMultiplelinestext": "[text]的第[num]行",
-                "WitCatFileHelpers.numMultiplelinestext": "[text]的行数",
-                "WitCatFileHelpers.replacementMultiplelinestext": "替换[text]的第[num]行为[texts]",
-                "WitCatFileHelpers.thing.1": "数组",
-                "WitCatFileHelpers.thing.2": "多行文本",
-                "WitCatFileHelpers.number": "第[num]个键值对的[type]",
-                "WitCatFileHelpers.numbers": "键值对数量",
-                "WitCatFileHelpers.number.1": "键",
-                "WitCatFileHelpers.number.2": "值",
-                "WitCatFileHelpers.turnMultiplelinestext": "将多行文本[text]转化为数组",
-                "WitCatFileHelpers.turnsMultiplelinestext": "将数组[text]转化为多行文本",
-                "WitCatFileHelpers.downloadnum": "可下载文件数量",
-                "WitCatFileHelpers.downloadask": "作品企图下载疑似会威胁电脑的文件，是否继续？\n内容如下：",
-                "WitCatFileHelpers.openfiless": "打开[name]的[nums]并读取为[type]",
-                "WitCatFileHelpers.openfiless.1": "单文件",
-                "WitCatFileHelpers.openfiless.2": "多文件",
-                "WitCatFileHelpers.openfile.1": "UTF-8(文本)",
-                "WitCatFileHelpers.openfile.2": "zip(压缩文件)",
-                "WitCatFileHelpers.file": "上次打开第[num]个文件的[type]",
-                "WitCatFileHelpers.file.1": "文件名",
-                "WitCatFileHelpers.file.2": "文件后缀",
-                "WitCatFileHelpers.file.3": "文件大小(KB)",
-                "WitCatFileHelpers.file.4": "文件内容",
-                "WitCatFileHelpers.file.5": "文件大小(字节数)",
-                "WitCatFileHelpers.file.6": "文件大小(自动单位)",
-                "WitCatFileHelpers.docs": "📖拓展教程",
-                "WitCatFileHelpers.arrayjoin": "用[s]作为分隔符合并数组[text]",
-                "WitCatFileHelpers.asks": "文件大小太大，可能导致浏览器崩溃，确定继续？",
-                "WitCatFileHelpers.zip": "压缩文件",
-                "WitCatFileHelpers.DownloadZip": "将zip包[id]命名为[name]并下载",
-                "WitCatFileHelpers.CreateZip": "创建或重置ID为[id]的zip包",
-                "WitCatFileHelpers.ExportZip": "将zip包[id]导出为blob",
-                "WitCatFileHelpers.SetZip": "设置ID为[id]的zip包为[content]",
-                "WitCatFileHelpers.CreateFold": "为zip包[id]目录[way]创建文件夹[name]",
-                "WitCatFileHelpers.CreateFile": "为zip包[id]目录[way]创建或复写类型为[type]内容为[content]的文件[name]",
-                "WitCatFileHelpers.DeleteFile": "为zip包[id]目录[way]删除文件[name]",
-                "WitCatFileHelpers.DeleteFold": "为zip包[id]目录[way]删除文件夹[name]",
-                "WitCatFileHelpers.lastfile": "用[type]读取上次打开第[num]个文件的内容",
-                "WitCatFileHelpers.getzipfiles": "zip包[id]目录[way]下的所有文件",
-                "WitCatFileHelpers.zipfile": "用[type]读取zip包[id]目录[way]文件[name]的内容",
-                "WitCatFileHelpers.outzip": "清除并释放zip包[id]",
-                "WitCatFileHelpers.dragfile": "当文件被拖到舞台",
+                "WitCatFileHelper.name": "白猫的文件助手",
+                "WitCatFileHelper.filehelper": "文件处理",
+                "WitCatFileHelper.inputmanagement": "键值对",
+                "WitCatFileHelper.imageprocess": "图片",
+                "WitCatFileHelper.Multiplelinestext": "多行文本",
+                "WitCatFileHelper.downloads": "将内容[text]按[s]分割后命名为[name]并下载多行文本",
+                "WitCatFileHelper.download": "将内容[text]命名为[name]并下载",
+                "WitCatFileHelper.save": "设置键[name]的值为[text]",
+                "WitCatFileHelper.upload": "获取键[name]的值",
+                "WitCatFileHelper.delete": "删除键[name]",
+                "WitCatFileHelper.segmentation": "将[text]按[s]分割为[thing]",
+                "WitCatFileHelper.encrypt": "base64编码[text]",
+                "WitCatFileHelper.decrypt": "base64解码[text]",
+                "WitCatFileHelper.openfile": "打开文件",
+                "WitCatFileHelper.showvar": "设置其他作品[show]键[name]的值",
+                "WitCatFileHelper.saveother": "设置作品ID[id]的键[name]的值为[text]",
+                "WitCatFileHelper.uploadother": "获取作品[id]的键[name]的值",
+                "WitCatFileHelper.other": "作品[id]的键[name]的状态",
+                "WitCatFileHelper.showon": "只读",
+                "WitCatFileHelper.showoff": "私有",
+                "WitCatFileHelper.showall": "公开",
+                "WitCatFileHelper.deleteMultiplelinestext": "删除[text]的第[num]行",
+                "WitCatFileHelper.addMultiplelinestext": "将[text]插入到[texts]的第[num]行之前",
+                "WitCatFileHelper.whatMultiplelinestext": "[text]的第[num]行",
+                "WitCatFileHelper.numMultiplelinestext": "[text]的行数",
+                "WitCatFileHelper.replacementMultiplelinestext": "替换[text]的第[num]行为[texts]",
+                "WitCatFileHelper.thing.1": "数组",
+                "WitCatFileHelper.thing.2": "多行文本",
+                "WitCatFileHelper.number": "第[num]个键值对的[type]",
+                "WitCatFileHelper.numbers": "键值对数量",
+                "WitCatFileHelper.number.1": "键",
+                "WitCatFileHelper.number.2": "值",
+                "WitCatFileHelper.turnMultiplelinestext": "将多行文本[text]转化为数组",
+                "WitCatFileHelper.turnsMultiplelinestext": "将数组[text]转化为多行文本",
+                "WitCatFileHelper.downloadnum": "可下载文件数量",
+                "WitCatFileHelper.downloadask": "作品企图下载疑似会威胁电脑的文件，是否继续？\n内容如下：",
+                "WitCatFileHelper.openfiless": "打开[name]的[nums]并读取为[type]",
+                "WitCatFileHelper.openfiless.1": "单文件",
+                "WitCatFileHelper.openfiless.2": "多文件",
+                "WitCatFileHelper.openfile.1": "UTF-8(文本)",
+                "WitCatFileHelper.openfile.2": "zip(压缩文件)",
+                "WitCatFileHelper.file": "上次打开第[num]个文件的[type]",
+                "WitCatFileHelper.file.1": "文件名",
+                "WitCatFileHelper.file.2": "文件后缀",
+                "WitCatFileHelper.file.3": "文件大小(KB)",
+                "WitCatFileHelper.file.4": "文件内容",
+                "WitCatFileHelper.file.5": "文件大小(字节数)",
+                "WitCatFileHelper.file.6": "文件大小(自动单位)",
+                "WitCatFileHelper.docs": "📖拓展教程",
+                "WitCatFileHelper.arrayjoin": "用[s]作为分隔符合并数组[text]",
+                "WitCatFileHelper.asks": "文件大小太大，可能导致浏览器崩溃，确定继续？",
+                "WitCatFileHelper.zip": "压缩文件",
+                "WitCatFileHelper.DownloadZip": "将zip包[id]命名为[name]并下载",
+                "WitCatFileHelper.CreateZip": "创建或重置ID为[id]的zip包",
+                "WitCatFileHelper.ExportZip": "将zip包[id]导出为blob",
+                "WitCatFileHelper.SetZip": "设置ID为[id]的zip包为[content]",
+                "WitCatFileHelper.CreateFold": "为zip包[id]目录[way]创建文件夹[name]",
+                "WitCatFileHelper.CreateFile": "为zip包[id]目录[way]创建或复写类型为[type]内容为[content]的文件[name]",
+                "WitCatFileHelper.DeleteFile": "为zip包[id]目录[way]删除文件[name]",
+                "WitCatFileHelper.DeleteFold": "为zip包[id]目录[way]删除文件夹[name]",
+                "WitCatFileHelper.lastfile": "用[type]读取上次打开第[num]个文件的内容",
+                "WitCatFileHelper.getzipfiles": "zip包[id]目录[way]下的所有文件",
+                "WitCatFileHelper.zipfile": "用[type]读取zip包[id]目录[way]文件[name]的内容",
+                "WitCatFileHelper.outzip": "清除并释放zip包[id]",
+                "WitCatFileHelper.dragfile": "当文件被拖到舞台",
             },
             en: {
-                "WitCatFileHelpers.name": "WitCat’s File Helper",
-                "WitCatFileHelpers.filehelper": "File",
-                "WitCatFileHelpers.inputmanagement": "Key-value pair",
-                "WitCatFileHelpers.imageprocess": "Image",
-                "WitCatFileHelpers.Multiplelinestext": "Multi-line text",
-                "WitCatFileHelpers.downloads": "Download split text [text] by [s] named [name]",
-                "WitCatFileHelpers.download": "Download text [text] named [name]",
-                "WitCatFileHelpers.save": "Set value of key [name] to [text]",
-                "WitCatFileHelpers.upload": "value of key [name]",
-                "WitCatFileHelpers.delete": "Delete key [name]",
-                "WitCatFileHelpers.segmentation": "Split [text] by [s] to [thing]",
-                "WitCatFileHelpers.encrypt": "base64 encode[text]",
-                "WitCatFileHelpers.decrypt": "base64 decode[text]",
-                "WitCatFileHelpers.openfile": "load file",
-                "WitCatFileHelpers.showvar": "Other project [show] value of key [name]",
-                "WitCatFileHelpers.saveother": "Set value of key [name] of project [id] to [text]",
-                "WitCatFileHelpers.uploadother": "value of key [name] of project [id]",
-                "WitCatFileHelpers.other": "get permission of value [name] of project [id]",
+                "WitCatFileHelper.name": "WitCat’s File Helper",
+                "WitCatFileHelper.filehelper": "File",
+                "WitCatFileHelper.inputmanagement": "Key-value pair",
+                "WitCatFileHelper.imageprocess": "Image",
+                "WitCatFileHelper.Multiplelinestext": "Multi-line text",
+                "WitCatFileHelper.downloads": "Download split text [text] by [s] named [name]",
+                "WitCatFileHelper.download": "Download text [text] named [name]",
+                "WitCatFileHelper.save": "Set value of key [name] to [text]",
+                "WitCatFileHelper.upload": "value of key [name]",
+                "WitCatFileHelper.delete": "Delete key [name]",
+                "WitCatFileHelper.segmentation": "Split [text] by [s] to [thing]",
+                "WitCatFileHelper.encrypt": "base64 encode[text]",
+                "WitCatFileHelper.decrypt": "base64 decode[text]",
+                "WitCatFileHelper.openfile": "load file",
+                "WitCatFileHelper.showvar": "Other project [show] value of key [name]",
+                "WitCatFileHelper.saveother": "Set value of key [name] of project [id] to [text]",
+                "WitCatFileHelper.uploadother": "value of key [name] of project [id]",
+                "WitCatFileHelper.other": "get permission of value [name] of project [id]",
                 // Is value [name] of project [id] readable?
                 // Is value [name] of project [id] modifiable?
-                "WitCatFileHelpers.showon": "can read",
-                "WitCatFileHelpers.showoff": "can't read",
-                "WitCatFileHelpers.showall": "can read and modify",
-                "WitCatFileHelpers.deleteMultiplelinestext": "delete the [num] line of [text]",
-                "WitCatFileHelpers.addMultiplelinestext": "insert [text] before line [num] of [texts]",
-                "WitCatFileHelpers.whatMultiplelinestext": "line [num] of [text]",
-                "WitCatFileHelpers.numMultiplelinestext": "number of lines in [text]",
-                "WitCatFileHelpers.replacementMultiplelinestext": "substitution of [num] behavior of [text] [texts]",
-                "WitCatFileHelpers.thing.1": "array",
-                "WitCatFileHelpers.thing.2": "multi-line text",
-                "WitCatFileHelpers.number": "[type] of key [num]",
-                "WitCatFileHelpers.numbers": "key count",
-                "WitCatFileHelpers.number.1": "key",
-                "WitCatFileHelpers.number.2": "value",
-                "WitCatFileHelpers.turnMultiplelinestext": "convert multi-line [text] to array",
-                "WitCatFileHelpers.turnsMultiplelinestext": "convert array[text] to multi-line text",
-                "WitCatFileHelpers.downloadnum": "number of downloadable files",
-                "WitCatFileHelpers.downloadask": "The project attempts to download a suspicious file, continue? \n File content: ",
-                "WitCatFileHelpers.openfiless": "load[name]`s[nums]file read as[type]",
-                "WitCatFileHelpers.openfiless.1": "Single",
-                "WitCatFileHelpers.openfiless.2": "multi",
-                "WitCatFileHelpers.openfile.1": "UTF-8(text)",
-                "WitCatFileHelpers.openfile.2": "zip(Compressed file)",
-                "WitCatFileHelpers.file": "[type] of [num] file opened",
-                "WitCatFileHelpers.file.1": "name",
-                "WitCatFileHelpers.file.2": "extension",
-                "WitCatFileHelpers.file.3": "size(KB)",
-                "WitCatFileHelpers.file.4": "content",
-                "WitCatFileHelpers.file.5": "size(bytes)",
-                "WitCatFileHelpers.file.6": "size(auto-unit)",
-                "WitCatFileHelpers.docs": "📖 Tutorial",
-                "WitCatFileHelpers.arrayjoin": "join array [text], seperating by [s]",
-                "WitCatFileHelpers.asks": "The file size is too large and may cause the browser to crash, are you sure to continue?",
-                "WitCatFileHelpers.zip": "Compressed file",
-                "WitCatFileHelpers.DownloadZip": "name the zip package [id] as [name] and download it",
-                "WitCatFileHelpers.CreateZip": "Create or reset the zip package [id]",
-                "WitCatFileHelpers.ExportZip": "Export zip package [id] as blob",
-                "WitCatFileHelpers.SetZip": "Set the zip package ID [id] to [content].",
-                "WitCatFileHelpers.CreateFold": "Create folder [name] for zip package [id] directory [way]",
-                "WitCatFileHelpers.CreateFile": "Create or reset file [name] with type [type] and content [content] for zip package [id] directory [way]",
-                "WitCatFileHelpers.DeleteFile": "Delete files [name] for zip package [id] directory [way]",
-                "WitCatFileHelpers.DeleteFold": "Delete folder [name] for zip package [id] directory [way]",
-                "WitCatFileHelpers.lastfile": "Use [type] to read the contents of the [num] file that was last opened",
-                "WitCatFileHelpers.getzipfiles": "All files in zip package [id] directory [way]",
-                "WitCatFileHelpers.zipfile": "Use [type] to read the contents of zip package [id] directory [way] file [name]",
-                "WitCatFileHelpers.outzip": "Clear and release zip package [id]",
+                "WitCatFileHelper.showon": "can read",
+                "WitCatFileHelper.showoff": "can't read",
+                "WitCatFileHelper.showall": "can read and modify",
+                "WitCatFileHelper.deleteMultiplelinestext": "delete the [num] line of [text]",
+                "WitCatFileHelper.addMultiplelinestext": "insert [text] before line [num] of [texts]",
+                "WitCatFileHelper.whatMultiplelinestext": "line [num] of [text]",
+                "WitCatFileHelper.numMultiplelinestext": "number of lines in [text]",
+                "WitCatFileHelper.replacementMultiplelinestext": "substitution of [num] behavior of [text] [texts]",
+                "WitCatFileHelper.thing.1": "array",
+                "WitCatFileHelper.thing.2": "multi-line text",
+                "WitCatFileHelper.number": "[type] of key [num]",
+                "WitCatFileHelper.numbers": "key count",
+                "WitCatFileHelper.number.1": "key",
+                "WitCatFileHelper.number.2": "value",
+                "WitCatFileHelper.turnMultiplelinestext": "convert multi-line [text] to array",
+                "WitCatFileHelper.turnsMultiplelinestext": "convert array[text] to multi-line text",
+                "WitCatFileHelper.downloadnum": "number of downloadable files",
+                "WitCatFileHelper.downloadask": "The project attempts to download a suspicious file, continue? \n File content: ",
+                "WitCatFileHelper.openfiless": "load[name]`s[nums]file read as[type]",
+                "WitCatFileHelper.openfiless.1": "Single",
+                "WitCatFileHelper.openfiless.2": "multi",
+                "WitCatFileHelper.openfile.1": "UTF-8(text)",
+                "WitCatFileHelper.openfile.2": "zip(Compressed file)",
+                "WitCatFileHelper.file": "[type] of [num] file opened",
+                "WitCatFileHelper.file.1": "name",
+                "WitCatFileHelper.file.2": "extension",
+                "WitCatFileHelper.file.3": "size(KB)",
+                "WitCatFileHelper.file.4": "content",
+                "WitCatFileHelper.file.5": "size(bytes)",
+                "WitCatFileHelper.file.6": "size(auto-unit)",
+                "WitCatFileHelper.docs": "📖 Tutorial",
+                "WitCatFileHelper.arrayjoin": "join array [text], seperating by [s]",
+                "WitCatFileHelper.asks": "The file size is too large and may cause the browser to crash, are you sure to continue?",
+                "WitCatFileHelper.zip": "Compressed file",
+                "WitCatFileHelper.DownloadZip": "name the zip package [id] as [name] and download it",
+                "WitCatFileHelper.CreateZip": "Create or reset the zip package [id]",
+                "WitCatFileHelper.ExportZip": "Export zip package [id] as blob",
+                "WitCatFileHelper.SetZip": "Set the zip package ID [id] to [content].",
+                "WitCatFileHelper.CreateFold": "Create folder [name] for zip package [id] directory [way]",
+                "WitCatFileHelper.CreateFile": "Create or reset file [name] with type [type] and content [content] for zip package [id] directory [way]",
+                "WitCatFileHelper.DeleteFile": "Delete files [name] for zip package [id] directory [way]",
+                "WitCatFileHelper.DeleteFold": "Delete folder [name] for zip package [id] directory [way]",
+                "WitCatFileHelper.lastfile": "Use [type] to read the contents of the [num] file that was last opened",
+                "WitCatFileHelper.getzipfiles": "All files in zip package [id] directory [way]",
+                "WitCatFileHelper.zipfile": "Use [type] to read the contents of zip package [id] directory [way] file [name]",
+                "WitCatFileHelper.outzip": "Clear and release zip package [id]",
             }
         })
     }
@@ -196,7 +196,7 @@ class WitCatFileHelpers {
     getInfo() {
         return {
             id: witcat_file_helper_extensionId, // 拓展id
-            name: this.formatMessage("WitCatFileHelpers.name"), // 拓展名
+            name: this.formatMessage("WitCatFileHelper.name"), // 拓展名
             blockIconURI: witcat_file_helper_icon,
             menuIconURI: witcat_file_helper_icon,
             color1: "#60D6F4",
@@ -204,14 +204,14 @@ class WitCatFileHelpers {
             blocks: [
                 {
                     blockType: "button",
-                    text: this.formatMessage('WitCatFileHelpers.docs'),
+                    text: this.formatMessage('WitCatFileHelper.docs'),
                     onClick: this.docs,
                 },
-                "---" + this.formatMessage("WitCatFileHelpers.filehelper"),
+                "---" + this.formatMessage("WitCatFileHelper.filehelper"),
                 {
                     opcode: "downloads",
                     blockType: "command",
-                    text: this.formatMessage("WitCatFileHelpers.downloads"),
+                    text: this.formatMessage("WitCatFileHelper.downloads"),
                     arguments: {
                         text: {
                             type: "string",
@@ -230,7 +230,7 @@ class WitCatFileHelpers {
                 {
                     opcode: "download",
                     blockType: "command",
-                    text: this.formatMessage("WitCatFileHelpers.download"),
+                    text: this.formatMessage("WitCatFileHelper.download"),
                     arguments: {
                         text: {
                             type: "string",
@@ -245,20 +245,20 @@ class WitCatFileHelpers {
                 {
                     opcode: "downloadnum",
                     blockType: "reporter",
-                    text: this.formatMessage("WitCatFileHelpers.downloadnum"),
+                    text: this.formatMessage("WitCatFileHelper.downloadnum"),
                     arguments: {},
                 },
                 {
                     opcode: "openfile",
                     blockType: "reporter",
-                    text: this.formatMessage("WitCatFileHelpers.openfile"),
+                    text: this.formatMessage("WitCatFileHelper.openfile"),
                     disableMonitor: true,
                     arguments: {},
                 },
                 {
                     opcode: "openfiless",
                     blockType: "reporter",
-                    text: this.formatMessage("WitCatFileHelpers.openfiless"),
+                    text: this.formatMessage("WitCatFileHelper.openfiless"),
                     disableMonitor: true,
                     arguments: {
                         name: {
@@ -278,7 +278,7 @@ class WitCatFileHelpers {
                 {
                     opcode: "file",
                     blockType: "reporter",
-                    text: this.formatMessage("WitCatFileHelpers.file"),
+                    text: this.formatMessage("WitCatFileHelper.file"),
                     disableMonitor: true,
                     arguments: {
                         num: {
@@ -294,7 +294,7 @@ class WitCatFileHelpers {
                 {
                     opcode: "lastfile",
                     blockType: "reporter",
-                    text: this.formatMessage("WitCatFileHelpers.lastfile"),
+                    text: this.formatMessage("WitCatFileHelper.lastfile"),
                     disableMonitor: true,
                     arguments: {
                         num: {
@@ -311,7 +311,7 @@ class WitCatFileHelpers {
                 {
                     opcode: "upload",
                     blockType: "reporter",
-                    text: this.formatMessage("WitCatFileHelpers.upload"),
+                    text: this.formatMessage("WitCatFileHelper.upload"),
                     hideFromPalette: true,
                     arguments: {
                         name: {
@@ -323,7 +323,7 @@ class WitCatFileHelpers {
                 {
                     opcode: "save",
                     blockType: "command",
-                    text: this.formatMessage("WitCatFileHelpers.save"),
+                    text: this.formatMessage("WitCatFileHelper.save"),
                     hideFromPalette: true,
                     arguments: {
                         text: {
@@ -339,7 +339,7 @@ class WitCatFileHelpers {
                 {
                     opcode: "delete",
                     blockType: "command",
-                    text: this.formatMessage("WitCatFileHelpers.delete"),
+                    text: this.formatMessage("WitCatFileHelper.delete"),
                     hideFromPalette: true,
                     arguments: {
                         name: {
@@ -351,7 +351,7 @@ class WitCatFileHelpers {
                 {
                     opcode: "showvar",
                     blockType: "command",
-                    text: this.formatMessage("WitCatFileHelpers.showvar"),
+                    text: this.formatMessage("WitCatFileHelper.showvar"),
                     hideFromPalette: true,
                     arguments: {
                         name: {
@@ -367,7 +367,7 @@ class WitCatFileHelpers {
                 {
                     opcode: "number",
                     blockType: "reporter",
-                    text: this.formatMessage("WitCatFileHelpers.number"),
+                    text: this.formatMessage("WitCatFileHelper.number"),
                     hideFromPalette: true,
                     arguments: {
                         num: {
@@ -383,14 +383,14 @@ class WitCatFileHelpers {
                 {
                     opcode: "numbers",
                     blockType: "reporter",
-                    text: this.formatMessage("WitCatFileHelpers.numbers"),
+                    text: this.formatMessage("WitCatFileHelper.numbers"),
                     hideFromPalette: true,
                     arguments: {},
                 },
                 {
                     opcode: "saveother",
                     blockType: "command",
-                    text: this.formatMessage("WitCatFileHelpers.saveother"),
+                    text: this.formatMessage("WitCatFileHelper.saveother"),
                     hideFromPalette: true,
                     arguments: {
                         id: {
@@ -410,7 +410,7 @@ class WitCatFileHelpers {
                 {
                     opcode: "uploadother",
                     blockType: "reporter",
-                    text: this.formatMessage("WitCatFileHelpers.uploadother"),
+                    text: this.formatMessage("WitCatFileHelper.uploadother"),
                     hideFromPalette: true,
                     arguments: {
                         id: {
@@ -426,7 +426,7 @@ class WitCatFileHelpers {
                 {
                     opcode: "other",
                     blockType: "reporter",
-                    text: this.formatMessage("WitCatFileHelpers.other"),
+                    text: this.formatMessage("WitCatFileHelper.other"),
                     hideFromPalette: true,
                     arguments: {
                         id: {
@@ -439,11 +439,11 @@ class WitCatFileHelpers {
                         },
                     },
                 },
-                "---" + this.formatMessage("WitCatFileHelpers.zip"),
+                "---" + this.formatMessage("WitCatFileHelper.zip"),
                 {
                     opcode: "DownloadZip",
                     blockType: "command",
-                    text: this.formatMessage("WitCatFileHelpers.DownloadZip"),
+                    text: this.formatMessage("WitCatFileHelper.DownloadZip"),
                     arguments: {
                         id: {
                             type: "string",
@@ -458,7 +458,7 @@ class WitCatFileHelpers {
                 {
                     opcode: "CreateZip",
                     blockType: "command",
-                    text: this.formatMessage("WitCatFileHelpers.CreateZip"),
+                    text: this.formatMessage("WitCatFileHelper.CreateZip"),
                     arguments: {
                         id: {
                             type: "string",
@@ -469,7 +469,7 @@ class WitCatFileHelpers {
                 {
                     opcode: "SetZip",
                     blockType: "command",
-                    text: this.formatMessage("WitCatFileHelpers.SetZip"),
+                    text: this.formatMessage("WitCatFileHelper.SetZip"),
                     arguments: {
                         id: {
                             type: "string",
@@ -484,7 +484,7 @@ class WitCatFileHelpers {
                 {
                     opcode: "outzip",
                     blockType: "command",
-                    text: this.formatMessage("WitCatFileHelpers.outzip"),
+                    text: this.formatMessage("WitCatFileHelper.outzip"),
                     arguments: {
                         id: {
                             type: "string",
@@ -495,7 +495,7 @@ class WitCatFileHelpers {
                 {
                     opcode: "ExportZip",
                     blockType: "reporter",
-                    text: this.formatMessage("WitCatFileHelpers.ExportZip"),
+                    text: this.formatMessage("WitCatFileHelper.ExportZip"),
                     arguments: {
                         id: {
                             type: "string",
@@ -506,7 +506,7 @@ class WitCatFileHelpers {
                 {
                     opcode: "CreateFold",
                     blockType: "command",
-                    text: this.formatMessage("WitCatFileHelpers.CreateFold"),
+                    text: this.formatMessage("WitCatFileHelper.CreateFold"),
                     arguments: {
                         way: {
                             type: "string",
@@ -525,7 +525,7 @@ class WitCatFileHelpers {
                 {
                     opcode: "CreateFile",
                     blockType: "command",
-                    text: this.formatMessage("WitCatFileHelpers.CreateFile"),
+                    text: this.formatMessage("WitCatFileHelper.CreateFile"),
                     arguments: {
                         way: {
                             type: "string",
@@ -552,7 +552,7 @@ class WitCatFileHelpers {
                 {
                     opcode: "DeleteFold",
                     blockType: "command",
-                    text: this.formatMessage("WitCatFileHelpers.DeleteFold"),
+                    text: this.formatMessage("WitCatFileHelper.DeleteFold"),
                     arguments: {
                         way: {
                             type: "string",
@@ -571,7 +571,7 @@ class WitCatFileHelpers {
                 {
                     opcode: "DeleteFile",
                     blockType: "command",
-                    text: this.formatMessage("WitCatFileHelpers.DeleteFile"),
+                    text: this.formatMessage("WitCatFileHelper.DeleteFile"),
                     arguments: {
                         way: {
                             type: "string",
@@ -590,7 +590,7 @@ class WitCatFileHelpers {
                 {
                     opcode: "getzipfiles",
                     blockType: "reporter",
-                    text: this.formatMessage("WitCatFileHelpers.getzipfiles"),
+                    text: this.formatMessage("WitCatFileHelper.getzipfiles"),
                     arguments: {
                         way: {
                             type: "string",
@@ -609,7 +609,7 @@ class WitCatFileHelpers {
                 {
                     opcode: "zipfile",
                     blockType: "reporter",
-                    text: this.formatMessage("WitCatFileHelpers.zipfile"),
+                    text: this.formatMessage("WitCatFileHelper.zipfile"),
                     arguments: {
                         way: {
                             type: "string",
@@ -637,7 +637,7 @@ class WitCatFileHelpers {
                 {
                     opcode: "encrypt",
                     blockType: "reporter",
-                    text: this.formatMessage("WitCatFileHelpers.encrypt"),
+                    text: this.formatMessage("WitCatFileHelper.encrypt"),
                     arguments: {
                         text: {
                             type: "string",
@@ -648,7 +648,7 @@ class WitCatFileHelpers {
                 {
                     opcode: "decrypt",
                     blockType: "reporter",
-                    text: this.formatMessage("WitCatFileHelpers.decrypt"),
+                    text: this.formatMessage("WitCatFileHelper.decrypt"),
                     arguments: {
                         text: {
                             type: "string",
@@ -656,11 +656,11 @@ class WitCatFileHelpers {
                         },
                     },
                 },
-                "---" + this.formatMessage("WitCatFileHelpers.Multiplelinestext"),
+                "---" + this.formatMessage("WitCatFileHelper.Multiplelinestext"),
                 {
                     opcode: "arrayjoin",
                     blockType: "reporter",
-                    text: this.formatMessage("WitCatFileHelpers.arrayjoin"),
+                    text: this.formatMessage("WitCatFileHelper.arrayjoin"),
                     arguments: {
                         text: {
                             type: "string",
@@ -675,7 +675,7 @@ class WitCatFileHelpers {
                 {
                     opcode: "segmentation",
                     blockType: "reporter",
-                    text: this.formatMessage("WitCatFileHelpers.segmentation"),
+                    text: this.formatMessage("WitCatFileHelper.segmentation"),
                     arguments: {
                         text: {
                             type: "string",
@@ -694,7 +694,7 @@ class WitCatFileHelpers {
                 {
                     opcode: "deleteMultiplelinestext",
                     blockType: "reporter",
-                    text: this.formatMessage("WitCatFileHelpers.deleteMultiplelinestext"),
+                    text: this.formatMessage("WitCatFileHelper.deleteMultiplelinestext"),
                     arguments: {
                         text: {
                             type: "string",
@@ -709,7 +709,7 @@ class WitCatFileHelpers {
                 {
                     opcode: "addMultiplelinestext",
                     blockType: "reporter",
-                    text: this.formatMessage("WitCatFileHelpers.addMultiplelinestext"),
+                    text: this.formatMessage("WitCatFileHelper.addMultiplelinestext"),
                     arguments: {
                         text: {
                             type: "string",
@@ -728,7 +728,7 @@ class WitCatFileHelpers {
                 {
                     opcode: "whatMultiplelinestext",
                     blockType: "reporter",
-                    text: this.formatMessage("WitCatFileHelpers.whatMultiplelinestext"),
+                    text: this.formatMessage("WitCatFileHelper.whatMultiplelinestext"),
                     arguments: {
                         text: {
                             type: "string",
@@ -743,7 +743,7 @@ class WitCatFileHelpers {
                 {
                     opcode: "numMultiplelinestext",
                     blockType: "reporter",
-                    text: this.formatMessage("WitCatFileHelpers.numMultiplelinestext"),
+                    text: this.formatMessage("WitCatFileHelper.numMultiplelinestext"),
                     arguments: {
                         text: {
                             type: "string",
@@ -754,7 +754,7 @@ class WitCatFileHelpers {
                 {
                     opcode: "turnMultiplelinestext",
                     blockType: "reporter",
-                    text: this.formatMessage("WitCatFileHelpers.turnMultiplelinestext"),
+                    text: this.formatMessage("WitCatFileHelper.turnMultiplelinestext"),
                     arguments: {
                         text: {
                             type: "string",
@@ -765,7 +765,7 @@ class WitCatFileHelpers {
                 {
                     opcode: "turnsMultiplelinestext",
                     blockType: "reporter",
-                    text: this.formatMessage("WitCatFileHelpers.turnsMultiplelinestext"),
+                    text: this.formatMessage("WitCatFileHelper.turnsMultiplelinestext"),
                     arguments: {
                         text: {
                             type: "string",
@@ -777,81 +777,81 @@ class WitCatFileHelpers {
             menus: {
                 setvariable: [
                     {
-                        text: this.formatMessage('WitCatFileHelpers.showall'),
+                        text: this.formatMessage('WitCatFileHelper.showall'),
                         value: '#witcat'
                     },
                     {
-                        text: this.formatMessage('WitCatFileHelpers.showon'),
+                        text: this.formatMessage('WitCatFileHelper.showon'),
                         value: '$witcat'
                     },
                     {
-                        text: this.formatMessage('WitCatFileHelpers.showoff'),
+                        text: this.formatMessage('WitCatFileHelper.showoff'),
                         value: '@witcat'
                     },
                 ],
                 thing: [
                     {
-                        text: this.formatMessage('WitCatFileHelpers.thing.1'),
+                        text: this.formatMessage('WitCatFileHelper.thing.1'),
                         value: 'true'
                     },
                     {
-                        text: this.formatMessage('WitCatFileHelpers.thing.2'),
+                        text: this.formatMessage('WitCatFileHelper.thing.2'),
                         value: 'false'
                     },
                 ],
                 type: [
                     {
-                        text: this.formatMessage('WitCatFileHelpers.number.1'),
+                        text: this.formatMessage('WitCatFileHelper.number.1'),
                         value: 'name'
                     },
                     {
-                        text: this.formatMessage('WitCatFileHelpers.number.2'),
+                        text: this.formatMessage('WitCatFileHelper.number.2'),
                         value: 'content'
                     },
                 ],
                 file: [
                     {
-                        text: this.formatMessage('WitCatFileHelpers.file.1'),
+                        text: this.formatMessage('WitCatFileHelper.file.1'),
                         value: 'name'
                     },
                     {
-                        text: this.formatMessage('WitCatFileHelpers.file.2'),
+                        text: this.formatMessage('WitCatFileHelper.file.2'),
                         value: 'suffix'
                     },
                     {
-                        text: this.formatMessage('WitCatFileHelpers.file.3'),
+                        text: this.formatMessage('WitCatFileHelper.file.3'),
                         value: 'size'
                     },
                     {
-                        text: this.formatMessage('WitCatFileHelpers.file.5'),
+                        text: this.formatMessage('WitCatFileHelper.file.5'),
                         value: 'sizeB'
                     },
                     {
-                        text: this.formatMessage('WitCatFileHelpers.file.6'),
+                        text: this.formatMessage('WitCatFileHelper.file.6'),
                         value: 'sizeH'
                     },
                     {
-                        text: this.formatMessage('WitCatFileHelpers.file.4'),
+                        text: this.formatMessage('WitCatFileHelper.file.4'),
                         value: 'content'
                     },
                 ],
                 openfile: [
                     {
-                        text: this.formatMessage('WitCatFileHelpers.openfile.1'),
+                        text: this.formatMessage('WitCatFileHelper.openfile.1'),
                         value: 'utf-8'
                     },
                     {
-                        text: this.formatMessage('WitCatFileHelpers.openfile.2'),
+                        text: this.formatMessage('WitCatFileHelper.openfile.2'),
                         value: 'zip'
                     },
                 ],
                 openfiless: [
                     {
-                        text: this.formatMessage('WitCatFileHelpers.openfiless.1'),
+                        text: this.formatMessage('WitCatFileHelper.openfiless.1'),
                         value: 'Single'
                     },
                     {
-                        text: this.formatMessage('WitCatFileHelpers.openfiless.2'),
+                        text: this.formatMessage('WitCatFileHelper.openfiless.2'),
                         value: 'multiple'
                     },
                 ],
@@ -900,7 +900,7 @@ class WitCatFileHelpers {
         // 疑似危险的文件后缀
         const maliext = ["bat", "cmd", "vbs", "ps1", "sh"];
         if (maliext.includes(SuffixName.toLowerCase())) {
-            const ask = this.formatMessage("WitCatFileHelpers.downloadask");
+            const ask = this.formatMessage("WitCatFileHelper.downloadask");
             // 如果生成大量文字，则截短文字
             let showtext = text;
             const max_length = 1000;
@@ -1084,7 +1084,7 @@ class WitCatFileHelpers {
         const filelist = await this._inputfileclick("", false);
         // 首先，检查所有打开的文件大小
         if (filelist.some((file) => file.size > 50 * 1024 * 1024)) { // 50M
-            let usercheck = confirm(this.formatMessage("WitCatFileHelpers.asks"));
+            let usercheck = confirm(this.formatMessage("WitCatFileHelper.asks"));
             if (!usercheck) {
                 console.error("文件过大\nfile is too lage.");
                 return "";
@@ -1123,7 +1123,7 @@ class WitCatFileHelpers {
             const filelist = await this._inputfileclick(accepttype, multiple);
             // 首先，检查所有打开的文件大小
             if (filelist.some((file) => file.size > 50 * 1024 * 1024)) { // 50M
-                let usercheck = confirm(this.formatMessage("WitCatFileHelpers.asks"));
+                let usercheck = confirm(this.formatMessage("WitCatFileHelper.asks"));
                 if (!usercheck) {
                     console.error("文件过大\nfile is too lage.");
                     return "";
@@ -1573,10 +1573,10 @@ class WitCatFileHelpers {
 }
 
 window.tempExt = {
-    Extension: WitCatFileHelpers,
+    Extension: WitCatFileHelper,
     info: {
-        name: "WitCatFileHelpers.name",
-        description: "WitCatFileHelpers.descp",
+        name: "WitCatFileHelper.name",
+        description: "WitCatFileHelper.descp",
         extensionId: witcat_file_helper_extensionId,
         iconURL: witcat_file_helper_picture,
         insetIconURL: witcat_file_helper_icon,
@@ -1586,12 +1586,12 @@ window.tempExt = {
     },
     l10n: {
         "zh-cn": {
-            "WitCatFileHelpers.name": "白猫的文件助手 V2.8",
-            "WitCatFileHelpers.descp": "读取/处理本地数据"
+            "WitCatFileHelper.name": "白猫的文件助手 V2.8",
+            "WitCatFileHelper.descp": "读取/处理本地数据"
         },
         en: {
-            "WitCatFileHelpers.name": "WitCat’s File Helper V2.8",
-            "WitCatFileHelpers.descp": "Handling local data"
+            "WitCatFileHelper.name": "WitCat’s File Helper V2.8",
+            "WitCatFileHelper.descp": "Handling local data"
         }
     }
 };
