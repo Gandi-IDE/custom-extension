@@ -1,0 +1,12 @@
+{
+    "l10n": {
+        "zh-cn": {
+            "nights.tilemap.name": "瓦片地图",
+            "nights.tilemap.descp": "[beta] 高性能的瓦片地图渲染器"
+        },
+        "en": {
+            "nights.tilemap.name": "Tilemap",
+            "nights.tilemap.descp": "[beta] A high-performance tile map renderer"
+        }
+    }
+}
