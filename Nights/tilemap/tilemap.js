@@ -23,12 +23,12 @@
     Y: "y",
   };
 
-  const SCRATCH_TYEP = {
+  const SCRATCH_TYPE = {
     GANDI: "gandi", // gandi 的 scratch-render 有些特殊需要改一下
     TURBOWARP: "turbowarp",
   };
 
-  const SCRATCH_BUILD_TYPE = SCRATCH_TYEP.GANDI;
+  const SCRATCH_BUILD_TYPE = SCRATCH_TYPE.GANDI;
 
   const createBuffer = (gl, bufferType, size, usage) => {
     let buffer = gl.createBuffer();
@@ -80,7 +80,7 @@
       case ROUND_TYEP.FLOOR:
         return Math.floor(Math.abs(num)) * f;
       default:
-        throw new Error("你这样我很难帮你办事哟！");
+        throw new Error(`Unknown rounding type ${type}`);
     }
   };
 
@@ -219,7 +219,7 @@
           this.tileSize.y = this.retlTileSize.y;
           break;
         default:
-          throw new Error("你这样我很难帮你办事呀");
+          throw new Error(`Unknown map mode ${this.mode}`);
       }
       this.tileSize.x = this.retlTileSize.x;
       this.nativeSize = this.app.renderer._nativeSize;
@@ -1198,7 +1198,7 @@
     const canDrawTilemap =
       drawMode == "default" &&
       projection == this._projection &&
-      (!this.tilemapFirstRender || SCRATCH_BUILD_TYPE == SCRATCH_TYEP.TURBOWARP);
+      (!this.tilemapFirstRender || SCRATCH_BUILD_TYPE == SCRATCH_TYPE.TURBOWARP);
     // By:nights end
 
     for (let drawableIndex = 0; drawableIndex < numDrawables; ++drawableIndex) {
