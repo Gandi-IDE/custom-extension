@@ -48,7 +48,7 @@ class Network {
           arguments: {
             url: {
               type: 'string',
-              defaultValue: 'url',
+              defaultValue: 'https://extensions.turbowarp.org/hello.txt',
             },
           },
         },
@@ -59,7 +59,7 @@ class Network {
           arguments: {
             url: {
               type: 'string',
-              defaultValue: 'url',
+              defaultValue: 'https://extensions.turbowarp.org/hello.txt',
             },
             body: {
               type: 'string',
