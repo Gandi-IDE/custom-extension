@@ -812,6 +812,19 @@ class KukeMCI18n {
       },
     };
 
+    const replaceText = {
+      opcode: "replaceText",
+      blockType: Scratch.BlockType.REPORTER,
+      text: "replace text [TEXT]",
+      arguments: {
+        TEXT: {
+          type: Scratch.ArgumentType.STRING,
+          defaultValue:
+            "My name is [我的变量%scr], nickName is [i%ark], fullName is [data%ads], bio is [key%i18n]",
+        },
+      },
+    };
+
     return {
       id: kukemc_i18n_extensionId,
       name: "I18n",
@@ -834,6 +847,7 @@ class KukeMCI18n {
         "---" + this.formatMessage("kukeMCI18n.div.2"),
         getI18n,
         getExtraData,
+        replaceText,
         "---" + this.formatMessage("kukeMCI18n.div.3"),
         setLanguage,
         getLanguageForI18n,
@@ -931,6 +945,79 @@ class KukeMCI18n {
   getI18n({ KEY }) {
     if (!this.i18n) return KEY;
     return this.i18n[KEY];
+  }
+
+  getVariables() {
+    let variables = {};
+
+    Object.values({
+      ...(this.runtime._stageTarget ?? this.runtime._stageTarget.variables),
+      ...(this.runtime._editingTarget ?? this.runtime._editingTarget.variables),
+    })
+      .filter((v) => {
+        return !!v.id && v.type === "";
+      })
+      .forEach((v) => {
+        variables[v.name] = v.value;
+      });
+
+    return variables;
+  }
+
+  /**
+   * @description l10n 积木语句
+   * @param {String} TEXT
+   * @return {String}
+   */
+  replaceText({ TEXT }) {
+    const regex = /\[(.*?)\%\w+\]/g;
+    const matches = [...TEXT.matchAll(regex)];
+    const result = matches.map((match) => {
+      return {
+        key: match[1],
+        type: match[0].substring(match[1].length + 3, match[0].length - 1),
+      };
+    });
+
+    result.forEach(({ key, type }) => {
+      switch (type) {
+        case "i18n":
+          TEXT = TEXT.replace(`[${key}%i18n]`, this.getI18n({ KEY: key }));
+          break;
+        case "ark":
+          if (this.runtime.ext_arkosExtensions) {
+            TEXT = TEXT.replace(
+              `[${key}%ark]`,
+              this.runtime.ext_arkosExtensions.tempData[key] || key
+            );
+          } else {
+            TEXT = TEXT.replace(`[${key}%ark]`, key);
+          }
+          break;
+        case "ads":
+          if (this.runtime.ext_moreDataTypes) {
+            TEXT = TEXT.replace(
+              `[${key}%ads]`,
+              this.runtime.ext_moreDataTypes.tempData.value[key] || key
+            );
+          } else {
+            TEXT = TEXT.replace(`[${key}%ads]`, key);
+          }
+          break;
+        case "scr":
+          const tmp = this.getVariables();
+          TEXT = TEXT.replace(`[${key}%scr]`, tmp[key] || key);
+          break;
+        default:
+          console.error(
+            `[kukeMcI18n] unknown replaceText argument type`,
+            `type: ${type}, key: ${key}`
+          );
+          TEXT = TEXT.replace(`[${key}%${type}]`, key);
+      }
+    });
+
+    return TEXT;
   }
 
   /**
