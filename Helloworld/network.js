@@ -169,18 +169,18 @@ class Network {
       ],
     }
   }
-  httpget(url)
+  httpget(args)
   {
     let xhr= new XMLHttpRequest();
-    xhr.open('GET',url,false);
+    xhr.open('GET',args.url,false);
     xhr.send(null);
     return xhr.responseText;
   }
-  httppost(url,body)
+  httppost(args)
   {
     let xhr=new XMLHttpRequest();
-    xhr.open('GET',url,false);
-    xhr.send(body);
+    xhr.open('GET',args.url,false);
+    xhr.send(args.body);
     return xhr.responseText;
   }
 }
