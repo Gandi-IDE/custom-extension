@@ -835,11 +835,6 @@ class KukeMCI18n {
       docsURI:
         "https://learn.ccw.site/article/99e0432c-98f2-4394-8a32-e501beee1e27",
       blocks: [
-        {
-          blockType: "button",
-          text: this.formatMessage("kukeMCI18n.docs"),
-          onClick: this.docs,
-        },
         "---" + this.formatMessage("kukeMCI18n.div.1"),
         initI18nForJSON,
         initI18nForURL,
@@ -951,11 +946,11 @@ class KukeMCI18n {
     let variables = {};
 
     Object.values({
-      ...(this.runtime._stageTarget ?? this.runtime._stageTarget.variables),
-      ...(this.runtime._editingTarget ?? this.runtime._editingTarget.variables),
+      ...this.runtime._stageTarget.variables,
+      ...this.runtime._editingTarget.variables,
     })
       .filter((v) => {
-        return !!v.id && v.type === "";
+        return "id" in v && v.type === "";
       })
       .forEach((v) => {
         variables[v.name] = v.value;
@@ -970,52 +965,60 @@ class KukeMCI18n {
    * @return {String}
    */
   replaceText({ TEXT }) {
-    const regex = /\[(.*?)\%\w+\]/g;
+    const regex = /([\u0000-\uFFFF]+)%([\u0000-\uFFFF]+)/gu;
     const matches = [...TEXT.matchAll(regex)];
-    const result = matches.map((match) => {
-      return {
-        key: match[1],
-        type: match[0].substring(match[1].length + 3, match[0].length - 1),
-      };
-    });
 
-    result.forEach(({ key, type }) => {
+    function replaceKeyWithType(text, key, value) {
+      return text.replace(new RegExp(`${key}%.*?`, "g"), value);
+    }
+
+    for (const match of matches) {
+      const keyTypePair = match[0];
+      const [key, type] = keyTypePair.slice(1, -1).split("%");
+
       switch (type) {
-        case "i18n":
-          TEXT = TEXT.replace(`[${key}%i18n]`, this.getI18n({ KEY: key }));
+        case "i18n": {
+          TEXT = replaceKeyWithType(TEXT, key, this.getI18n({ KEY: key }));
           break;
-        case "ark":
+        }
+        case "ark": {
           if (this.runtime.ext_arkosExtensions) {
-            TEXT = TEXT.replace(
-              `[${key}%ark]`,
-              this.runtime.ext_arkosExtensions.tempData[key] || key
+            TEXT = replaceKeyWithType(
+              TEXT,
+              key,
+              this.runtime.ext_arkosExtensions.tempData[key]
             );
           } else {
-            TEXT = TEXT.replace(`[${key}%ark]`, key);
+            TEXT = replaceKeyWithType(TEXT, key, key);
           }
           break;
-        case "ads":
+        }
+        case "ads": {
           if (this.runtime.ext_moreDataTypes) {
-            TEXT = TEXT.replace(
-              `[${key}%ads]`,
-              this.runtime.ext_moreDataTypes.tempData.value[key] || key
+            TEXT = replaceKeyWithType(
+              TEXT,
+              key,
+              this.runtime.ext_moreDataTypes.tempData.value[key]
             );
           } else {
-            TEXT = TEXT.replace(`[${key}%ads]`, key);
+            TEXT = replaceKeyWithType(TEXT, key, key);
           }
           break;
-        case "scr":
+        }
+        case "scr": {
           const tmp = this.getVariables();
-          TEXT = TEXT.replace(`[${key}%scr]`, tmp[key] || key);
+          TEXT = replaceKeyWithType(TEXT, key, tmp[key]);
           break;
-        default:
+        }
+        default: {
           console.error(
             `[kukeMcI18n] unknown replaceText argument type`,
             `type: ${type}, key: ${key}`
           );
-          TEXT = TEXT.replace(`[${key}%${type}]`, key);
+          TEXT = replaceKeyWithType(TEXT, key, key);
+        }
       }
-    });
+    }
 
     return TEXT;
   }
@@ -1127,7 +1130,7 @@ class KukeMCI18n {
    * @return {String}
    */
   convertUnit({ NUM, UNIT }) {
-    const chineseUnits = ["", "万", "亿"];
+    const chineseUnits = ["千", "万", "亿"];
     const internationalUnits = ["K", "M", "B"];
 
     let tmp = NUM;
