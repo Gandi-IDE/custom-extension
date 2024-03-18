@@ -4,6 +4,7 @@ class Network {
     this._formatMessage = runtime.getFormatMessage({
       'zh-cn': {
         'NetworkExt.ExtName': '网络扩展',
+        'NetworkExt.description': '让你的作品可以访问网络',
         'NetworkExt.httpget': 'GET方法同步请求[url]',
         'NetworkExt.httppost': 'POST方法同步请求[url]请求主体[body]',
         'NetworkExt.setheader': '设置异步请求头部[key]=[value]',
@@ -185,25 +186,25 @@ class Network {
 }
 
 window.tempExt = {
-    Extension: ArkosExtensions,
+    Extension: Network,
     info: {
-      name: 'hcn.extensionName',
-      description: 'hcn.description',
-      extensionId: 'hcnTest',
+      name: 'NetworkExt.ExtName',
+      description: 'NetworkExt.description',
+      extensionId: 'HelloworldNetworkExt',
       // iconURL: icon,
       // insetIconURL: cover,
       featured: true,
       disabled: false,
-      collaborator: 'only for hcn test',
+      collaborator: 'Helloworld@CCW',
     },
     l10n: {
       'zh-cn': {
-        'hcn.extensionName': 'hcn 的测试',
-        'hcn.description': 'hcn 的测试',
+        'NetworkExt.ExtName': '网络扩展',
+        'hcn.description': '让你的作品可以访问网络',
       },
       en: {
-        'hcn.extensionName': 'hcn test',
-        'hcn.description': 'hcn test',
+        'hcn.extensionName': 'Network extension',
+        'hcn.description': 'Make your work accessible to the Internet.',
       },
     },
   }
