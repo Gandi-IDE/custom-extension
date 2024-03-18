@@ -1,6 +1,7 @@
 class Network {
   constructor(runtime) {
-    this.runtime = runtime
+    this.runtime = runtime;
+    this.gloxhr = new XMLHttpRequest();
     this._formatMessage = runtime.getFormatMessage({
       'zh-cn': {
         'NetworkExt.ExtName': '网络扩展',
@@ -11,7 +12,7 @@ class Network {
         'NetworkExt.status': '异步请求状态码',
         'NetworkExt.setmethod': '设置异步请求方法为[method]',
         'NetworkExt.seturl': '设置异步请求url[url]',
-        'NetworkExt.whenasync': '当异步请求结束',
+        'NetworkExt.whenasync': '当异步请求结束[content]',
       },
 
       en: {
@@ -85,84 +86,38 @@ class Network {
         {
           opcode: 'status',
           blockType: 'reporter',
-          text: this.formatMessage('ArkosExt.distance'),
-          arguments: {
-            X1: {
-              type: 'number',
-              defaultValue: 0,
-            },
-            Y1: {
-              type: 'number',
-              defaultValue: 0,
-            },
-            X2: {
-              type: 'number',
-              defaultValue: 0,
-            },
-            Y2: {
-              type: 'number',
-              defaultValue: 0,
-            },
-          },
+          text: this.formatMessage('NetworkExt.status'),
         },
         {
           opcode: 'setmethod',
-          blockType: 'reporter',
-          text: this.formatMessage('ArkosExt.searchString'),
+          blockType: 'command',
+          text: this.formatMessage('NetworkExt.setmethod'),
           arguments: {
-            str: {
+            method: {
               type: 'string',
-              defaultValue: 'banana',
-            },
-            substr: {
-              type: 'string',
-              defaultValue: 'na',
-            },
-            pos: {
-              type: 'number',
-              defaultValue: 1,
+              defaultValue: 'GET',
             },
           },
         },
         {
           opcode: 'seturl',
-          blockType: 'reporter',
-          text: this.formatMessage('ArkosExt.insertString'),
+          blockType: 'command',
+          text: this.formatMessage('NetworkExt.seturl'),
           arguments: {
-            str: {
+            url: {
               type: 'string',
-              defaultValue: 'ac',
-            },
-            substr: {
-              type: 'string',
-              defaultValue: 'b',
-            },
-            pos: {
-              type: 'number',
-              defaultValue: 2,
+              defaultValue: 'url',
             },
           },
         },
         {
           opcode: 'whenasync',
-          blockType: 'reporter',
-          text: this.formatMessage('ArkosExt.replaceString'),
+          blockType: 'event',
+          text: this.formatMessage('NetworkExt.whenasync'),
           arguments: {
-            str: {
+            content: {
               type: 'string',
-              defaultValue: 'ABCDEF',
-            },
-            substr: {
-              type: 'string',
-              defaultValue: 'XX',
-            },
-            start: {
-              type: 'number',
-              defaultValue: 3,
-            },
-            end: {
-              type: 'number',
-              defaultValue: 4,
+              defaultValue: 'CONTENT',
             },
           },
         },
