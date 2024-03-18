@@ -171,6 +171,7 @@ class Network {
   }
   httpget(args)
   {
+    console.log(args);
     let xhr= new XMLHttpRequest();
     xhr.open('GET',args.url,false);
     xhr.send(null);
