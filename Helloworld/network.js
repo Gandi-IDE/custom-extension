@@ -180,7 +180,7 @@ class Network {
   httppost(args)
   {
     let xhr=new XMLHttpRequest();
-    xhr.open('GET',args.url,false);
+    xhr.open('POST',args.url,false);
     xhr.send(args.body);
     return xhr.responseText;
   }
