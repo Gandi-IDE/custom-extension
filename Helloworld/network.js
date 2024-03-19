@@ -111,7 +111,7 @@ class Network {
         this.runtime.startHatsWithParams(
           'whenasync',
           {
-            parameters: {content: xhr.responseText}
+            parameters: [xhr.responseText]
           }
         )
       }
