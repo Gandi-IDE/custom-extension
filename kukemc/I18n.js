@@ -1084,33 +1084,16 @@ class KukeMCI18n {
    */
   async translateText({ TEXT, LANG1, LANG2 }) {
     if (this.runtime.isPlayerOnly) return;
-    return new Promise((resolve, reject) => {
-      if (LANG1 === LANG2) return resolve(TEXT);
-      if (!this.canRequest()) return resolve("");
-      const xhr = new XMLHttpRequest();
-      xhr.open("POST", "https://api-save.kuke.ink/api/translation", true);
-      xhr.setRequestHeader("Content-Type", "application/json");
-
-      xhr.onload = function () {
-        if (xhr.status === 200) {
-          resolve(xhr.responseText);
-        } else {
-          reject(xhr.statusText);
-        }
-      };
-
-      xhr.onerror = function () {
-        reject(`[kukeMCI18n] request failed`);
-      };
-
-      xhr.send(
-        JSON.stringify({
-          text: TEXT,
-          from: LANG1,
-          to: LANG2,
-        })
-      );
-    });
+      if (LANG1 === LANG2) return TEXT;
+      if (!this.canRequest()) return "";
+      const req = await fetch("https://api-save.kuke.ink/api/translation", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ text: TEXT, from: LANG1, to: LANG2 })
+      });
+      return response.ok ? req.text() : req.status;
   }
 
   /**
