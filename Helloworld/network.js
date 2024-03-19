@@ -7,20 +7,20 @@ class Network {
         'NetworkExt.description': '让你的作品可以访问网络',
         'NetworkExt.httpget': 'GET方法同步请求[url]',
         'NetworkExt.httppost': 'POST方法同步请求[url]请求主体[body]',
-        'NetworkExt.content': '异步请求内容',
+        'NetworkExt.content': '异步请求返回内容',
         'NetworkExt.setheader': '设置异步请求头部[key]=[value]',
         'NetworkExt.status': '异步请求状态码',
         'NetworkExt.setmethod': '设置异步请求方法为[method]',
         'NetworkExt.sendasyncreq': '发送异步请求,方法为[method],主体为(没有填null)[body],url为[url]',
         'NetworkExt.seturl': '设置异步请求url[url]',
-        'NetworkExt.whenasync': '当异步请求结束[content]',
+        'NetworkExt.whenasync': '当异步请求结束',
       },
 
       en: {
         'NetworkExt.ExtName': 'Network extension',
         'NetworkExt.httpget': 'GET method synchronization request [url]',
         'NetworkExt.httppost': 'POST method synchronization request [url] request body [body]',
-        'NetworkExt.content': '异步请求内容',
+        'NetworkExt.content': '异步请求返回内容',
         'NetworkExt.setheader': 'Set asynchronous request header [key] = [value]',
         'NetworkExt.status': 'Asynchronous request status code',
         'NetworkExt.setmethod': 'Set the asynchronous request method to [method]',
@@ -111,7 +111,8 @@ class Network {
   }
   content(_args)
   {
-    return this.content;
+    if(this.content) return this.content;
+    return "";
   }
   sendasyncreq(args)
   {
@@ -121,7 +122,7 @@ class Network {
       if(xhr.readyState == XMLHttpRequest.DONE)
       {
         this.content = xhr.responseText;
-        this.runtime.startHats('whenasync')
+        this.runtime.startHats('whenasync');
       }
     }
     if(args.body=='null') xhr.send(null);
