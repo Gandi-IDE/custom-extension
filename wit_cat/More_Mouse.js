@@ -1630,19 +1630,13 @@ class WitCatMouse {
 			}, 50);
 		});
 		// 给页面绑定滑轮滚动事件
-		document.addEventListener(
-			'wheel',
-			(e) => {
-				this.MouseWheel = e.deltaY;
-				if (this.timer !== null) {
-					clearTimeout(this.timer);
-				}
-				this.timer = setTimeout(() => {
-					this.MouseWheel = 0;
-				}, 30);
-			},
-			{ capture: true }
-		);
+		document.addEventListener('wheel', (e) => {
+			clearTimeout(this.timer);
+			this.MouseWheel = e.deltaY;
+			this.timer = setTimeout(() => {
+				this.MouseWheel = 0;
+			}, 30);
+		}, { capture: true });
 		window.addEventListener('deviceorientation', (e) => {
 			this.Gyroscope = e;
 		});
