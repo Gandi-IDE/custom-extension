@@ -1,7 +1,6 @@
 class Network {
   constructor(runtime) {
     this.runtime = runtime;
-    this.gloxhr = new XMLHttpRequest();
     this._formatMessage = runtime.getFormatMessage({
       'zh-cn': {
         'NetworkExt.ExtName': '网络扩展',
@@ -11,6 +10,7 @@ class Network {
         'NetworkExt.setheader': '设置异步请求头部[key]=[value]',
         'NetworkExt.status': '异步请求状态码',
         'NetworkExt.setmethod': '设置异步请求方法为[method]',
+        'NetworkExt.sendasyncreq': '发送异步请求,方法为[method],主体为(没有填null)[body],url为[url]',
         'NetworkExt.seturl': '设置异步请求url[url]',
         'NetworkExt.whenasync': '当异步请求结束[content]',
       },
@@ -22,6 +22,7 @@ class Network {
         'NetworkExt.setheader': 'Set asynchronous request header [key] = [value]',
         'NetworkExt.status': 'Asynchronous request status code',
         'NetworkExt.setmethod': 'Set the asynchronous request method to [method]',
+        'NetworkExt.sendasyncreq': '发送异步请求,方法为[method],主体为(没有填null)[body],url为[url]',
         'NetworkExt.seturl': 'Set asynchronous request url[url]',
         'NetworkExt.whenasync': 'When the asynchronous request ends.',
       },
@@ -69,44 +70,21 @@ class Network {
           },
         },
         {
-          opcode: 'setheader',
+          opcode: 'sendasyncreq',
           blockType: 'command',
-          text: this.formatMessage('NetworkExt.setheader'),
-          arguments: {
-            key: {
-              type: 'number',
-              defaultValue: 0,
-            },
-            value: {
-              type: 'number',
-              defaultValue: 0,
-            },
-          },
-        },
-        {
-          opcode: 'status',
-          blockType: 'reporter',
-          text: this.formatMessage('NetworkExt.status'),
-        },
-        {
-          opcode: 'setmethod',
-          blockType: 'command',
-          text: this.formatMessage('NetworkExt.setmethod'),
-          arguments: {
-            method: {
-              type: 'string',
-              defaultValue: 'GET',
-            },
-          },
-        },
-        {
-          opcode: 'seturl',
-          blockType: 'command',
-          text: this.formatMessage('NetworkExt.seturl'),
+          text: this.formatMessage('NetworkExt.sendasyncreq'),
           arguments: {
             url: {
               type: 'string',
-              defaultValue: 'url',
+              defaultValue: 'https://extensions.turbowarp.org/hello.txt',
+            },
+            body: {
+              type: 'string',
+              defaultValue: 'null',
+            },
+            method: {
+              type: 'string',
+              defaultValue: 'GET',
             },
           },
         },
@@ -116,13 +94,30 @@ class Network {
           text: this.formatMessage('NetworkExt.whenasync'),
           arguments: {
             content: {
-              type: 'string',
-              defaultValue: 'CONTENT',
+              type: 'ccw_hat_parameter',
             },
           },
         },
       ],
     }
+  }
+  sendasyncreq(args)
+  {
+    let xhr=new XMLHttpRequest();
+    xhr.open(args.method,args.url,true);
+    xhr.onreadystatechange = () => {
+      if(xhr.readyState == XMLHttpRequest.DONE)
+      {
+        this.runtime.startHatsWithParams(
+          'whenasync',
+          {
+            parameters: {content: xhr.responseText}
+          }
+        )
+      }
+    }
+    if(args.body=='null') xhr.send(null);
+    else xhr.send(args.body);
   }
   httpget(args)
   {
