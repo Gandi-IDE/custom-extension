@@ -1082,7 +1082,7 @@ class KukeMCI18n {
    * @param {String} LANG2 新语言
    * @return {Promise<unknown>}
    */
-  translateText({ TEXT, LANG1, LANG2 }) {
+  async translateText({ TEXT, LANG1, LANG2 }) {
     if (this.runtime.isPlayerOnly) return;
     return new Promise((resolve, reject) => {
       if (LANG1 === LANG2) return resolve(TEXT);
