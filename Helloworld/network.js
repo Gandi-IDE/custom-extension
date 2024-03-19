@@ -7,6 +7,7 @@ class Network {
         'NetworkExt.description': '让你的作品可以访问网络',
         'NetworkExt.httpget': 'GET方法同步请求[url]',
         'NetworkExt.httppost': 'POST方法同步请求[url]请求主体[body]',
+        'NetworkExt.content': '异步请求内容',
         'NetworkExt.setheader': '设置异步请求头部[key]=[value]',
         'NetworkExt.status': '异步请求状态码',
         'NetworkExt.setmethod': '设置异步请求方法为[method]',
@@ -19,6 +20,7 @@ class Network {
         'NetworkExt.ExtName': 'Network extension',
         'NetworkExt.httpget': 'GET method synchronization request [url]',
         'NetworkExt.httppost': 'POST method synchronization request [url] request body [body]',
+        'NetworkExt.content': '异步请求内容',
         'NetworkExt.setheader': 'Set asynchronous request header [key] = [value]',
         'NetworkExt.status': 'Asynchronous request status code',
         'NetworkExt.setmethod': 'Set the asynchronous request method to [method]',
@@ -98,8 +100,17 @@ class Network {
             },
           },
         },
+        {
+          opcode: 'content',
+          blockType: 'reporter',
+          text: this.formatMessage('NetworkExt.httppost'),
+        },
       ],
     }
+  }
+  content()
+  {
+    return this.content;
   }
   sendasyncreq(args)
   {
@@ -108,12 +119,8 @@ class Network {
     xhr.onreadystatechange = () => {
       if(xhr.readyState == XMLHttpRequest.DONE)
       {
-        this.runtime.startHatsWithParams(
-          'whenasync',
-          {
-            parameters: [xhr.responseText]
-          }
-        )
+        this.content = xhr.responseText;
+        this.runtime.startHats('whenasync')
       }
     }
     if(args.body=='null') xhr.send(null);
