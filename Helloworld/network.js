@@ -103,12 +103,13 @@ class Network {
         {
           opcode: 'content',
           blockType: 'reporter',
-          text: this.formatMessage('NetworkExt.httppost'),
+          text: this.formatMessage('NetworkExt.content'),
+          arguments: {},
         },
       ],
     }
   }
-  content()
+  content(_args)
   {
     return this.content;
   }
