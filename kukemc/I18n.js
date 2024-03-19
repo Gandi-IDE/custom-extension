@@ -835,7 +835,10 @@ class KukeMCI18n {
       docsURI:
         "https://learn.ccw.site/article/99e0432c-98f2-4394-8a32-e501beee1e27",
       blocks: [
-        "---" + this.formatMessage("kukeMCI18n.div.1"),
+        {
+            blockType: Scratch.BlockType.LABEL,
+            text: this.formatMessage("kukeMCI18n.div.1")
+        }
         initI18nForJSON,
         initI18nForURL,
         initI18nForFile,
