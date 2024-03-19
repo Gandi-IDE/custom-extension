@@ -14,7 +14,7 @@ class KukeMCI18n {
     this.lastRequestTimestamp = 0;
     /** default config */
 
-    this.language = "en";
+    this.language = vm.getLocale(); // 或许会更好一些。
     this._initialedI18n = {
       locales: {
         [this.language]: {
