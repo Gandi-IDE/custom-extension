@@ -12,9 +12,37 @@ class KukeMCI18n {
   constructor(runtime) {
     this.runtime = runtime;
     this.lastRequestTimestamp = 0;
+
+    // 获取 ScratchVM by lpp
+
+    function hijack(fn) {
+      const _orig = Function.prototype.apply
+      Function.prototype.apply = function (thisArg) {
+        return thisArg
+      }
+      const result = fn()
+      Function.prototype.apply = _orig
+      return result
+    }
+    let virtualMachine = null;
+
+    if (this.runtime._events['QUESTION'] instanceof Array) {
+      for (const value of this.runtime._events['QUESTION']) {
+        const v = hijack(value)
+        if (v?.props?.vm) {
+          virtualMachine = v?.props?.vm
+          break
+        }
+      }
+    } else if (this.runtime._events['QUESTION']) {
+      virtualMachine = hijack(this.runtime._events['QUESTION'])?.props?.vm
+    }
+    if (!virtualMachine)
+      throw new Error('lpp cannot get Virtual Machine instance.')
+    this.vm = virtualMachine
     /** default config */
 
-    this.language = vm.getLocale(); // 或许会更好一些。
+    this.language = this.vm.getLocale(); 
     this._initialedI18n = {
       locales: {
         [this.language]: {
@@ -495,6 +523,7 @@ class KukeMCI18n {
         "kukeMCI18n.block.initI18nForFile": "从文件 [FILE] 初始化i18n",
         "kukeMCI18n.block.setLanguage": "设置语言为 [LANG]",
         "kukeMCI18n.block.getExtraData": "额外数据 [KEY]",
+        "kukeMCI18n.block.replaceText": "格式化 [TEXT] 数据源 [DATA]",
         "kukeMCI18n.block.getLanguageForI18n": "当前i18n语言",
         "kukeMCI18n.block.getLanguageForBrowser": "浏览器当前语言",
         "kukeMCI18n.block.getSupportedLanguages": "支持的语言列表",
@@ -526,6 +555,7 @@ class KukeMCI18n {
         "kukeMCI18n.block.initI18nForFile": "Initialize i18n from file [FILE]",
         "kukeMCI18n.block.setLanguage": "Set language to [LANG]",
         "kukeMCI18n.block.getExtraData": "Extra data for [KEY]",
+        "kukeMCI18n.block.replaceText": "Format [TEXT] data from [DATA]",
         "kukeMCI18n.block.getLanguageForI18n": "Current language",
         "kukeMCI18n.block.getLanguageForBrowser": "Current browser language",
         "kukeMCI18n.block.getSupportedLanguages": "List of supported languages",
@@ -815,12 +845,17 @@ class KukeMCI18n {
     const replaceText = {
       opcode: "replaceText",
       blockType: Scratch.BlockType.REPORTER,
-      text: "replace text [TEXT]",
+      text: this.formatMessage("kukeMCI18n.block.replaceText"),
       arguments: {
         TEXT: {
           type: Scratch.ArgumentType.STRING,
           defaultValue:
-            "My name is [我的变量%scr], nickName is [i%ark], fullName is [data%ads], bio is [key%i18n]",
+            "Hello, {name}! You are {age} years old.",
+        },
+        DATA: {
+          type: Scratch.ArgumentType.STRING,
+          defaultValue:
+            "{\"name\": \"kukemc\", \"age\": 20}",
         },
       },
     };
@@ -836,9 +871,9 @@ class KukeMCI18n {
         "https://learn.ccw.site/article/99e0432c-98f2-4394-8a32-e501beee1e27",
       blocks: [
         {
-            blockType: Scratch.BlockType.LABEL,
-            text: this.formatMessage("kukeMCI18n.div.1")
-        }
+          blockType: Scratch.BlockType.LABEL,
+          text: this.formatMessage("kukeMCI18n.div.1")
+        },
         initI18nForJSON,
         initI18nForURL,
         initI18nForFile,
@@ -962,68 +997,20 @@ class KukeMCI18n {
     return variables;
   }
 
+  formatString(format, valuesObject) {
+    return format.replace(/\{(\w+)\}/g, function(match, key) {
+        return typeof valuesObject[key] !== 'undefined' ? String(valuesObject[key]) : match;
+    });
+  }
+
   /**
    * @description l10n 积木语句
-   * @param {String} TEXT
+   * @param {Object} params - 参数对象，包含TEXT和DATA属性
    * @return {String}
    */
-  replaceText({ TEXT }) {
-    const regex = /([\u0000-\uFFFF]+)%([\u0000-\uFFFF]+)/gu;
-    const matches = [...TEXT.matchAll(regex)];
-
-    function replaceKeyWithType(text, key, value) {
-      return text.replace(new RegExp(`${key}%.*?`, "g"), value);
-    }
-
-    for (const match of matches) {
-      const keyTypePair = match[0];
-      const [key, type] = keyTypePair.slice(1, -1).split("%");
-
-      switch (type) {
-        case "i18n": {
-          TEXT = replaceKeyWithType(TEXT, key, this.getI18n({ KEY: key }));
-          break;
-        }
-        case "ark": {
-          if (this.runtime.ext_arkosExtensions) {
-            TEXT = replaceKeyWithType(
-              TEXT,
-              key,
-              this.runtime.ext_arkosExtensions.tempData[key]
-            );
-          } else {
-            TEXT = replaceKeyWithType(TEXT, key, key);
-          }
-          break;
-        }
-        case "ads": {
-          if (this.runtime.ext_moreDataTypes) {
-            TEXT = replaceKeyWithType(
-              TEXT,
-              key,
-              this.runtime.ext_moreDataTypes.tempData.value[key]
-            );
-          } else {
-            TEXT = replaceKeyWithType(TEXT, key, key);
-          }
-          break;
-        }
-        case "scr": {
-          const tmp = this.getVariables();
-          TEXT = replaceKeyWithType(TEXT, key, tmp[key]);
-          break;
-        }
-        default: {
-          console.error(
-            `[kukeMcI18n] unknown replaceText argument type`,
-            `type: ${type}, key: ${key}`
-          );
-          TEXT = replaceKeyWithType(TEXT, key, key);
-        }
-      }
-    }
-
-    return TEXT;
+  replaceText({ TEXT, DATA }) {
+      const values = JSON.parse(DATA);
+      return this.formatString(TEXT, values);
   }
 
   /**
@@ -1086,8 +1073,8 @@ class KukeMCI18n {
    * @return {Promise<unknown>}
    */
   async translateText({ TEXT, LANG1, LANG2 }) {
-    if (this.runtime.isPlayerOnly) return;
-      if (LANG1 === LANG2) return TEXT;
+    if (this.runtime.isPlayerOnly) return "";
+    if (LANG1 === LANG2) return TEXT;
       if (!this.canRequest()) return "";
       const req = await fetch("https://api-save.kuke.ink/api/translation", {
           method: "POST",
@@ -1096,7 +1083,7 @@ class KukeMCI18n {
           },
           body: JSON.stringify({ text: TEXT, from: LANG1, to: LANG2 })
       });
-      return response.ok ? req.text() : req.status;
+      return req.ok ? req.text() : req.status;
   }
 
   /**
@@ -1116,7 +1103,7 @@ class KukeMCI18n {
    * @return {String}
    */
   convertUnit({ NUM, UNIT }) {
-    const chineseUnits = ["千", "万", "亿"];
+    const chineseUnits = ["千", "万", "亿", "万亿", "千亿", "兆", "京", "垓", "秭", "穰", "沟", "涧", "正", "载"];
     const internationalUnits = ["K", "M", "B"];
 
     let tmp = NUM;
@@ -1130,11 +1117,16 @@ class KukeMCI18n {
           unitIndex++;
         }
 
-        if (unitIndex === 0 && tmp !== 1000) {
+        if (unitIndex === 0 & NUM.toString().length !== 4) {
           return `${NUM}`;
         }
 
         NUM = Math.round(NUM * 10) / 10;
+
+        if (chineseUnits[unitIndex] == "千") {
+          NUM /= 1000
+        }
+
         return `${NUM}${chineseUnits[unitIndex]}`;
       case "intl":
         while (NUM >= divisor * 1000) {
