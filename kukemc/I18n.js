@@ -943,7 +943,7 @@ class KukeMCI18n {
   }
 
   getVariables() {
-    let variables = {};
+    const variables = {};
 
     Object.values({
       ...this.runtime._stageTarget.variables,
