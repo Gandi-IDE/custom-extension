@@ -50,6 +50,11 @@ class WitCatMouse {
 		this.timer = null;
 
 		/**
+		 * 触屏速度重置计时器
+		 */
+		this.touchtimer = null;
+
+		/**
 		 * 手指列表
 		 * @type {{identifier: number|"mouse", clientX: number, clientY: number}[]}
 		 */
@@ -147,14 +152,17 @@ class WitCatMouse {
 				'WitCatMouse.way.1': 'X',
 				'WitCatMouse.way.2': 'Y',
 				'WitCatMouse.way.3': 'Z',
+				'WitCatMouse.way.4': '距离',
 				'WitCatTouch.down': '按下的手指数量',
 				'WitCatTouch.istouch': '碰到手指[num]?',
 				'WitCatTouch.touchs': '碰到的手指',
 				'WitCatTouch.num': '第[num]个手指的[type]',
 				'WitCatTouch.info': '手指[num]的[type]',
+				'WitCatMouse.touchacceleration': '手指[num]的[way]速度',
 				'WitCatTouch.type.1': 'X',
 				'WitCatTouch.type.2': 'Y',
 				'WitCatTouch.type.3': 'ID',
+				'WitCatTouch.type.4': '按下?',
 				'WitCatMouse.fill': '[set]沉浸式全屏',
 				'WitCatMouse.whenoutfill': '当退出全屏',
 				'WitCatMouse.isfill': '全屏?',
@@ -215,15 +223,19 @@ class WitCatMouse {
 				'WitCatMouse.acceleration': 'mouse[way]speed',
 				'WitCatMouse.way.1': 'X',
 				'WitCatMouse.way.2': 'Y',
+				'WitCatMouse.way.3': 'Z',
+				'WitCatMouse.way.4': 'distance',
 				'WitCatTouch.name': 'Touch',
 				'WitCatTouch.down': 'Finger count',
 				'WitCatTouch.istouch': 'Touch finger[num]?',
 				'WitCatTouch.touchs': 'Touching fingers',
 				'WitCatTouch.num': '[type]of finger[num]',
 				'WitCatTouch.info': '[type] of finger [num]',
+				'WitCatMouse.touchacceleration': '[way]speed of[num]finger',
 				'WitCatTouch.type.1': 'X',
 				'WitCatTouch.type.2': 'Y',
 				'WitCatTouch.type.3': 'ID',
+				'WitCatTouch.type.4': 'press?',
 				'WitCatMouse.fill': '[set]immersive full-screen',
 				'WitCatMouse.whenoutfill': 'When exiting full screen',
 				'WitCatMouse.isfill': 'full screen?',
@@ -589,6 +601,21 @@ class WitCatMouse {
 					},
 				},
 				{
+					opcode: 'touchacceleration',
+					blockType: 'reporter',
+					text: this.formatMessage('WitCatMouse.touchacceleration'),
+					arguments: {
+						num: {
+							type: 'string',
+							defaultValue: '0',
+						},
+						way: {
+							type: 'string',
+							menu: 'wayss',
+						},
+					},
+				},
+				{
 					opcode: 'touchs',
 					blockType: 'reporter',
 					text: this.formatMessage('WitCatTouch.touchs'),
@@ -720,6 +747,20 @@ class WitCatMouse {
 						value: 'y',
 					},
 				],
+				wayss: [
+					{
+						text: this.formatMessage('WitCatMouse.way.1'),
+						value: 'x',
+					},
+					{
+						text: this.formatMessage('WitCatMouse.way.2'),
+						value: 'y',
+					},
+					{
+						text: this.formatMessage('WitCatMouse.way.4'),
+						value: 's',
+					},
+				],
 				rot: [
 					{
 						text: this.formatMessage('WitCatMouse.way.1'),
@@ -756,6 +797,10 @@ class WitCatMouse {
 					{
 						text: this.formatMessage('WitCatTouch.type.3'),
 						value: 'ID',
+					},
+					{
+						text: this.formatMessage('WitCatTouch.type.4'),
+						value: 'press',
 					},
 				],
 				types: [
@@ -918,7 +963,13 @@ class WitCatMouse {
 			if (args.type === 'y') {
 				return this.runtime.stageHeight * ((touch1.clientY - canvas.getBoundingClientRect().top) / canvas.offsetHeight);
 			}
+			if (args.type === 'press') {
+				return "true";
+			}
 			return touch1.identifier;
+		}
+		if (args.type === 'press') {
+			return "false";
 		}
 		return 0;
 	}
@@ -936,7 +987,7 @@ class WitCatMouse {
 			return 0;
 		}
 		for (let i = 0; i < this.touch.length; i++) {
-			if (this.touch[i]["identifier"] === args.num) {
+			if (String(this.touch[i]["identifier"]) === String(args.num)) {
 				if (this.touch[i] !== undefined) {
 					if (args.type === 'x') {
 						return this.runtime.stageWidth * ((this.touch[i].clientX - canvas.getBoundingClientRect().left) / canvas.offsetWidth);
@@ -944,9 +995,15 @@ class WitCatMouse {
 					if (args.type === 'y') {
 						return this.runtime.stageHeight * ((this.touch[i].clientY - canvas.getBoundingClientRect().top) / canvas.offsetHeight);
 					}
+					if (args.type === 'press') {
+						return "true";
+					}
 					return touch1.identifier;
 				}
 			}
+		}
+		if (args.type === 'press') {
+			return "false";
 		}
 		return 0;
 	}
@@ -1457,6 +1514,25 @@ class WitCatMouse {
 		return false;
 	}
 
+	touchacceleration(args) {
+		for (let i = 0; i < this.touch.length; i++) {
+			if (String(this.touch[i]["identifier"]) === String(args.num)) {
+				if (this.touch[i] !== undefined) {
+					if (args.way === 'x') {
+						return this.touch[i].Xspeed;
+					}
+					else if (args.way === 'y') {
+						return this.touch[i].Yspeed;
+					}
+					else {
+						return this.touch[i].speed;
+					}
+				}
+			}
+		}
+		return 0;
+	}
+
 	/**
 	 * 判断是否碰到某个手指
 	 * @param {*} args 
@@ -1466,7 +1542,7 @@ class WitCatMouse {
 	isTouch(args, util) {
 		const canvas = this.canvas();
 		for (let i = 0; i < this.touch.length; i++) {
-			if (this.touch[i]["identifier"] === args.num) {
+			if (String(this.touch[i]["identifier"]) === String(args.num)) {
 				if (this.touch[i] !== undefined) {
 					let x = (this.touch[i].clientX - canvas.getBoundingClientRect().left);
 					let y = (this.touch[i].clientY - canvas.getBoundingClientRect().top);
@@ -1527,10 +1603,23 @@ class WitCatMouse {
 	 * @param {TouchList} touches
 	 */
 	_copytouch(touches) {
+		let x, y;
 		this.touch = Array.from(touches).map((touch) => {
+			for (let i = 0; i < this.touch.length; i++) {
+				if (String(this.touch[i]["identifier"]) === String(touch.identifier)) {
+					if (this.touch[i] !== undefined) {
+						x = this.touch[i].clientX;
+						y = this.touch[i].clientY;
+						break;
+					}
+				}
+			}
 			return {
 				clientX: touch.clientX,
 				clientY: touch.clientY,
+				Xspeed: touch.clientX - x,
+				Yspeed: touch.clientY - y,
+				speed: Math.sqrt((touch.clientX - x) * (touch.clientX - x) + (touch.clientY - y) * (touch.clientY - y)),
 				identifier: touch.identifier,
 			};
 		});
@@ -1605,6 +1694,16 @@ class WitCatMouse {
 				this.yMouse = 0;
 			}, 30);
 			// e.targetTouches 会随着时间改变，必须复制一份。
+			if (this.timer !== null) {
+				clearTimeout(this.touchtimer);
+			}
+			this.touchtimer = setTimeout(() => {
+				for (let i = 0; i < this.touch.length; i++) {
+					this.touch[i].Xspeed = 0;
+					this.touch[i].Yspeed = 0;
+					this.touch[i].speed = 0;
+				}
+			}, 30);
 			this._copytouch(e.targetTouches);
 		});
 		canvas.addEventListener('touchend', (e) => {
@@ -1657,11 +1756,11 @@ window.tempExt = {
 	},
 	l10n: {
 		"zh-cn": {
-			"WitCatMouse.name": "白猫的高级鼠标 V3.2",
+			"WitCatMouse.name": "白猫的高级鼠标 V3.3",
 			"WitCatMouse.descp": "更精准的控制鼠标/触屏/全屏！"
 		},
 		en: {
-			"WitCatMouse.name": "WitCat’s Mouse V3.2",
+			"WitCatMouse.name": "WitCat’s Mouse V3.3",
 			"WitCatMouse.descp": "More precise mouse/touch/full screen control!"
 		}
 	}
