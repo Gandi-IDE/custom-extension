@@ -1157,7 +1157,7 @@ class KukeMCI18n {
   }
 
   getSupportedLanguages() {
-    return Object.keys(this.initialedI18n?.locales);
+    return JSON.stringify(Object.keys(this.initialedI18n?.locales));
   }
 
   /**
@@ -1300,7 +1300,7 @@ class KukeMCI18n {
   }
 
   RecognitionLanguageNameAll({ TEXT }) {
-    return francAll(TEXT,{minLength: TEXT.length});
+    return JSON.stringify(francAll(TEXT,{minLength: TEXT.length}));
   }
 
   flattenPinyinArray(pinyinList) {
@@ -1337,7 +1337,7 @@ class KukeMCI18n {
         "zh-CN": {
           "test": "你好 世界",
           "start_button_text": "开始游戏",
-          "start_button_skin": "开始游戏_zh-CN",
+          "start_button_skin": "StartGame_CN",
           "menu_title": "主菜单",
           "credits_text": "制作人员"
         },
