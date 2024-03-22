@@ -1,0 +1,21 @@
+{
+    "info": {
+        "name": "nights.tilemap.name",
+        "description": "nights.tilemap.descp",
+        "extensionId": "nightstilemap",
+        "featured": true,
+        "disabled": false,
+        "collaborator": "nights",
+        "collaboratorURL": "https://www.ccw.site/student/612ed1533068ae6640de96f0",
+    },
+    "l10n": {
+        "zh-cn": {
+            "nights.tilemap.name": "瓦片地图",
+            "nights.tilemap.descp": "[beta] 高性能的瓦片地图渲染器（不兼容雷神，图层管理，以后会兼容）"
+        },
+        "en": {
+            "nights.tilemap.name": "Tilemap",
+            "nights.tilemap.descp": "[beta] High performance tile map renderer (not compatible with quake, layer management, will be compatible in the future)"
+        }
+    }
+}
