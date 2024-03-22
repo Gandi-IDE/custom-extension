@@ -296,7 +296,7 @@
     // 需要考察中心出屏幕边界的是否在屏幕里面
     drawRow(y, stepOffset, toRenderMembers, beyondRendering) {
       let equOffset = 0;
-      if (this.mode == MAP_MODE.ISOMETRIC && y % 2 == 0) {
+      if (this.mode == MAP_MODE.ISOMETRIC && y % 2 != 0) {
         equOffset += Math.round(this.tileSize.x / 2);
       }
       stepOffset.x = -this.tileSize.x * this.drawTileNum.x;
