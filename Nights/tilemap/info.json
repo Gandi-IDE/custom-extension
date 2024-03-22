@@ -15,7 +15,7 @@
         },
         "en": {
             "nights.tilemap.name": "Tilemap",
-            "nights.tilemap.descp": "[beta] High performance tile map renderer (not compatible with Thor, layer management, will be compatible in the future)"
+            "nights.tilemap.descp": "[beta] High performance tile map renderer (not compatible with quake, layer management, will be compatible in the future)"
         }
     }
 }
