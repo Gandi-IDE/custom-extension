@@ -1631,7 +1631,7 @@ class WitCatInput {
 		document.addEventListener("keydown", (event) => {
 			this.keypresslist[event.code] = true;
 			this.lastKey = event.code;
-			if (event.target instanceof HTMLTextAreaElement || event.target instanceof HTMLInputElement) {
+			if ((event.target instanceof HTMLTextAreaElement || event.target instanceof HTMLInputElement) && event.target.id.startsWith("WitCatInput")) {
 				if (this.InputListen.find((e) => e.id === event.target.id.split("WitCatInput")[1]).input) {
 					if (this.keypresss(this.keypresslist, this.InputListen.find((e) => e.id === event.target.id.split("WitCatInput")[1]).more.split(','))) {
 						if (event.target instanceof HTMLTextAreaElement) {
