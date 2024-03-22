@@ -15,8 +15,11 @@ class KukeMCI18n {
   constructor(runtime) {
     this.runtime = runtime;
     this.lastRequestTimestamp = 0;
-
-    // 获取 ScratchVM by lpp
+    
+    /*
+    获取 ScratchVM
+    该段代码来源于lpp项目，并遵循MIT开源协议。
+    */
 
     function hijack(fn) {
       const _orig = Function.prototype.apply
@@ -41,14 +44,9 @@ class KukeMCI18n {
       virtualMachine = hijack(this.runtime._events['QUESTION'])?.props?.vm
     }
     if (!virtualMachine)
-      throw new Error('lpp cannot get Virtual Machine instance.')
+      throw new Error('I18n cannot get Virtual Machine instance.')
     this.vm = virtualMachine
     /** default config */
-
-    this.language = this.vm.getLocale(); 
-    if (this.language === "zh-cn") {
-      this.language = "zh-CN";
-    }
     
     this._initialedI18n = {
       locales: {
@@ -56,7 +54,6 @@ class KukeMCI18n {
           key: "value",
         },
       },
-      version: 0,
     };
     this.i18n = {
       ...this._initialedI18n.locales[this.language],
@@ -533,7 +530,6 @@ class KukeMCI18n {
         "kukeMCI18n.div.6": "🪄 单位转换",
         "kukeMCI18n.div.7": "✨ I18n 示例",
         "kukeMCI18n.block.initI18nForJSON": "从JSON [JSON] 初始化i18n",
-        "kukeMCI18n.block.initI18nForURL": "从URL [URL] 初始化i18n",
         "kukeMCI18n.block.initI18nForFile": "从文件 [FILE] 初始化i18n",
         "kukeMCI18n.block.setLanguage": "设置语言为 [LANG]",
         "kukeMCI18n.block.getExtraData": "额外数据 [KEY]",
@@ -542,14 +538,14 @@ class KukeMCI18n {
         "kukeMCI18n.block.getLanguageForBrowser": "浏览器当前语言",
         "kukeMCI18n.block.getSupportedLanguages": "支持的语言列表",
         "kukeMCI18n.block.checkLanguageSupport": "[LANG] 是否支持",
-        "kukeMCI18n.block.RecognitionLanguageName": "识别 [TEXT] 语言",
-        "kukeMCI18n.block.RecognitionLanguageNameAll": "识别 [TEXT] 语言(返回全部)",
+        "kukeMCI18n.block.recognitionLanguageName": "识别 [TEXT] 语言",
+        "kukeMCI18n.block.recognitionLanguageNameAll": "识别 [TEXT] 语言(返回全部)",
         "kukeMCI18n.block.translateText":
           "☁️ 将 [TEXT] 从 [LANG1] 翻译为 [LANG2]",
         "kukeMCI18n.block.translateTextWithClipboard":
           "☁️ 将 [TEXT] 从 [LANG1] 翻译为 [LANG2] 并复制到剪贴板",
         "kukeMCI18n.button.printSupportedLanguages": "☁️ 打印支持的语言列表",
-        "kukeMCI18n.tip.frequently": "操作频繁！",
+        "kukeMCI18n.tip.rateLimit": "操作频繁！",
         "kukeMCI18n.tip.allSupportedLanguages": "共支持 [NUM] 个语言",
         "kukeMCI18n.block.convertUnit": "数学单位换算 [NUM] 转换为 [UNIT] 单位",
         "kukeMCI18n.block.getTimestamp": "本地时间戳",
@@ -570,7 +566,6 @@ class KukeMCI18n {
         "kukeMCI18n.div.6": "🪄 Unit conversion",
         "kukeMCI18n.div.7": "✨ I18n Example",
         "kukeMCI18n.block.initI18nForJSON": "Initialize i18n from JSON [JSON]",
-        "kukeMCI18n.block.initI18nForURL": "Initialize i18n from URL [URL]",
         "kukeMCI18n.block.initI18nForFile": "Initialize i18n from file [FILE]",
         "kukeMCI18n.block.setLanguage": "Set language to [LANG]",
         "kukeMCI18n.block.getExtraData": "Extra data for [KEY]",
@@ -579,15 +574,15 @@ class KukeMCI18n {
         "kukeMCI18n.block.getLanguageForBrowser": "Current browser language",
         "kukeMCI18n.block.getSupportedLanguages": "List of supported languages",
         "kukeMCI18n.block.checkLanguageSupport": "Is [LANG] supported?",
-        "kukeMCI18n.block.RecognitionLanguageName": "Detect language of [TEXT]",
-        "kukeMCI18n.block.RecognitionLanguageNameAll": "Detect language of [TEXT](back to all)",
+        "kukeMCI18n.block.recognitionLanguageName": "Detect language of [TEXT]",
+        "kukeMCI18n.block.recognitionLanguageNameAll": "Detect language of [TEXT](back to all)",
         "kukeMCI18n.block.translateText":
           "☁️ Translate [TEXT] from [LANG1] to [LANG2]",
         "kukeMCI18n.block.translateTextWithClipboard":
           "☁️ Translate [TEXT] from [LANG1] to [LANG2], and copy to clipboard",
         "kukeMCI18n.button.printSupportedLanguages":
           "☁️ Print the list of supported languages",
-        "kukeMCI18n.tip.frequently": "Frequent operation!",
+        "kukeMCI18n.tip.rateLimit": "Frequent operation!",
         "kukeMCI18n.tip.allSupportedLanguages":
           "Supports [NUM] languages in total",
         "kukeMCI18n.block.convertUnit":
@@ -639,6 +634,10 @@ class KukeMCI18n {
   }
 
   getInfo() {
+    this.language = this.vm.getLocale(); 
+    if (this.language === "zh-cn") {
+      this.language = "zh-CN";
+    }
     const initI18nForJSON = {
       opcode: "initI18nForJSON",
       blockType: Scratch.BlockType.COMMAND,
@@ -647,17 +646,6 @@ class KukeMCI18n {
         JSON: {
           type: Scratch.ArgumentType.STRING,
           defaultValue: "{}",
-        },
-      },
-    };
-    const initI18nForURL = {
-      opcode: "initI18nForURL",
-      blockType: Scratch.BlockType.COMMAND,
-      text: this.formatMessage("kukeMCI18n.block.initI18nForURL"),
-      arguments: {
-        URL: {
-          type: Scratch.ArgumentType.STRING,
-          defaultValue: "https://example.com/i18n.json",
         },
       },
     };
@@ -883,10 +871,10 @@ class KukeMCI18n {
       },
     };
 
-    const RecognitionLanguageName = {
-      opcode: "RecognitionLanguageName",
+    const recognitionLanguageName = {
+      opcode: "recognitionLanguageName",
       blockType: Scratch.BlockType.REPORTER,
-      text: this.formatMessage("kukeMCI18n.block.RecognitionLanguageName"),
+      text: this.formatMessage("kukeMCI18n.block.recognitionLanguageName"),
       arguments: {
         TEXT: {
           type: Scratch.ArgumentType.STRING,
@@ -896,10 +884,10 @@ class KukeMCI18n {
       },
     };
 
-    const RecognitionLanguageNameAll = {
-      opcode: "RecognitionLanguageNameAll",
+    const recognitionLanguageNameAll = {
+      opcode: "recognitionLanguageNameAll",
       blockType: Scratch.BlockType.REPORTER,
-      text: this.formatMessage("kukeMCI18n.block.RecognitionLanguageNameAll"),
+      text: this.formatMessage("kukeMCI18n.block.recognitionLanguageNameAll"),
       arguments: {
         TEXT: {
           type: Scratch.ArgumentType.STRING,
@@ -910,7 +898,7 @@ class KukeMCI18n {
     };
 
     const Pinyin = {
-      opcode: "Pinyin",
+      opcode: "pinyin",
       blockType: Scratch.BlockType.REPORTER,
       text: this.formatMessage("kukeMCI18n.block.Pinyin"),
       arguments: {
@@ -928,7 +916,7 @@ class KukeMCI18n {
     }
 
     const Example = {
-      opcode: "Example",
+      opcode: "example",
       blockType: Scratch.BlockType.REPORTER,
       text: this.formatMessage("kukeMCI18n.block.Example"),
       arguments: {},
@@ -949,7 +937,6 @@ class KukeMCI18n {
           text: this.formatMessage("kukeMCI18n.div.1")
         },
         initI18nForJSON,
-        initI18nForURL,
         initI18nForFile,
         "---" + this.formatMessage("kukeMCI18n.div.2"),
         getI18n,
@@ -961,8 +948,8 @@ class KukeMCI18n {
         getLanguageForBrowser,
         getSupportedLanguages,
         checkLanguageSupport,
-        RecognitionLanguageName,
-        RecognitionLanguageNameAll,
+        recognitionLanguageName,
+        recognitionLanguageNameAll,
         "---" + this.formatMessage("kukeMCI18n.div.4"),
         printSupportedLanguages,
         "---" + this.formatMessage("kukeMCI18n.div.5"),
@@ -1050,23 +1037,6 @@ class KukeMCI18n {
   }
 
   /**
-   * @param {String} URL
-   * @return {*}
-   */
-  initI18nForURL({ URL }) {
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", URL, false);
-    xhr.send();
-
-    if (xhr.status === 200) {
-      this.initialedI18n = xhr.responseText;
-      this.i18n = this.initialedI18n?.locales[this.language];
-    } else {
-      console.warn(`[kukeMCI18n] request i18n failed: `);
-    }
-  }
-
-  /**
    * @param {String} FILE
    * @return {*}
    */
@@ -1090,31 +1060,15 @@ class KukeMCI18n {
     return i18n;
   }
 
-  getVariables() {
-    const variables = {};
-
-    Object.values({
-      ...this.runtime._stageTarget.variables,
-      ...this.runtime._editingTarget.variables,
-    })
-      .filter((v) => {
-        return "id" in v && v.type === "";
-      })
-      .forEach((v) => {
-        variables[v.name] = v.value;
-      });
-
-    return variables;
-  }
-
   formatString(format, valuesObject) {
+    // 只处理 {key} 形式的正常格式化占位符
     return format.replace(/(\\*)\{(\w+)\}/g, function(match, escapeChars, key) {
-        if (escapeChars.length % 2 === 1) { // 前面有奇数个反斜杠，说明是转义的 {}
-            return match.slice(1); // 去掉最后一个反斜杠并返回剩余字符串片段
+        if (escapeChars.length % 2 === 1) {
+            return match.slice(1);
         } else {
             return typeof valuesObject[key] !== 'undefined' ? String(valuesObject[key]) : match;
         }
-    }).replace(/\\(.)/g, '$1'); // 去除所有转义的字符前的反斜杠
+    }).replace(/\\(.)/g, '$1');
   }
 
   /**
@@ -1133,7 +1087,7 @@ class KukeMCI18n {
    */
   getExtraData({ KEY }) {
     const i18n = this.initialedI18n[KEY];
-    if (Array.isArray(i18n) || typeof i18n === 'object' && i18n !== null) {
+    if (typeof i18n !== 'string') {
       return JSON.stringify(i18n);
     }
     return i18n;
@@ -1179,7 +1133,7 @@ class KukeMCI18n {
     if (result) this.lastRequestTimestamp = Date.now();
     if (!result && needToast)
       this.runtime.scratchBlocks.utils?.toast(
-        this.formatMessage("kukeMCI18n.tip.frequently")
+        this.formatMessage("kukeMCI18n.tip.rateLimit")
       );
     return result;
   }
@@ -1295,11 +1249,11 @@ class KukeMCI18n {
     return date.format(FORMAT);
   }
 
-  RecognitionLanguageName({ TEXT }) {
+  recognitionLanguageName({ TEXT }) {
     return franc(TEXT,{minLength: TEXT.length});
   }
 
-  RecognitionLanguageNameAll({ TEXT }) {
+  recognitionLanguageNameAll({ TEXT }) {
     return JSON.stringify(francAll(TEXT,{minLength: TEXT.length}));
   }
 
@@ -1307,7 +1261,7 @@ class KukeMCI18n {
     return JSON.stringify(pinyinList.flat().map(item => item.toLowerCase())); // 如果需要转成小写拼音
   }
 
-  Pinyin({ TEXT, MODE }) {
+  pinyin({ TEXT, MODE }) {
     if (MODE === "default") {
       return this.flattenPinyinArray(pinyin(TEXT));
     }
@@ -1331,7 +1285,7 @@ class KukeMCI18n {
     }
   }
 
-  Example() {
+  example() {
     return JSON.stringify({
       "locales": {
         "zh-CN": {
