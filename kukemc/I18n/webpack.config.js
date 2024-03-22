@@ -3,7 +3,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: './I18n.js', // 指定项目的入口文件
+  entry: './index.js', // 指定项目的入口文件
   output: {
     filename: 'I18n.js', // 打包后的输出文件名
     path: path.resolve(__dirname, 'dist'), // 输出路径
