@@ -768,8 +768,8 @@
       "nights.tilemap.mapMode.square": "正交地图（正方形）",
       "nights.tilemap.mapMode.isometric": "等距地图（菱形）",
 
-      "nights.tilemap.showMode.hide": "显示",
-      "nights.tilemap.showMode.show": "隐藏",
+      "nights.tilemap.showMode.hide": "隐藏",
+      "nights.tilemap.showMode.show": "显示",
 
       "nights.tilemap.default.tilesetName": "城市",
       "nights.tilemap.default.tileDataName": "草坪1",
@@ -813,8 +813,8 @@
       "nights.tilemap.mapMode.square": "Square Map",
       "nights.tilemap.mapMode.isometric": "Isometric Map",
 
-      "nights.tilemap.showMode.hide": "Show",
-      "nights.tilemap.showMode.show": "Hide",
+      "nights.tilemap.showMode.hide": "Hide",
+      "nights.tilemap.showMode.show": "Show",
 
       "nights.tilemap.default.tilesetName": "city",
       "nights.tilemap.default.tileDataName": "grass1",
