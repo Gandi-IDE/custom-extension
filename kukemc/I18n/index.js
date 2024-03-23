@@ -1,5 +1,5 @@
 import KukeMCI18n from "./extension.js";
-import { kukemc_i18n_icon, kukemc_i18n_cover, kukemc_i18n_extensionId } from "./assets";
+import { kukemcI18nIcon, kukemcI18nCover, kukemcI18nExtensionId } from "./assets";
 
 window.tempExt = {
 	Extension: KukeMCI18n,
@@ -7,9 +7,9 @@ window.tempExt = {
 	  name: "kukeMCI18n.name",
 	  description: "kukeMCI18n.description",
 	  doc: "https://learn.ccw.site/article/99e0432c-98f2-4394-8a32-e501beee1e27",
-	  extensionId: kukemc_i18n_extensionId,
-	  iconURL: kukemc_i18n_cover,
-	  insetIconURL: kukemc_i18n_icon,
+	  extensionId: kukemcI18nExtensionId,
+	  iconURL: kukemcI18nCover,
+	  insetIconURL: kukemcI18nIcon,
 	  featured: true,
 	  disabled: false,
 	  collaborator: "酷可mc @ CCW",
