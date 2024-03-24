@@ -546,7 +546,6 @@ export default class KukeMCI18n {
                 value: t[2],
               };
             }
-
           }),
         },
         UNIT_LIST: {
