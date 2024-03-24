@@ -3,9 +3,12 @@
 const path = require('path');
 
 module.exports = {
-  entry: './index.js', // 指定项目的入口文件
+  entry: {
+    I18n_dev : './index.js', //开发调试用
+    I18n_prd : './extension.js',//发布用
+  }, // 指定项目的入口文件
   output: {
-    filename: 'I18n.js', // 打包后的输出文件名
+    filename: '[name].js', // 打包后的输出文件名
     path: path.resolve(__dirname, 'dist'), // 输出路径
   },
   module: {
