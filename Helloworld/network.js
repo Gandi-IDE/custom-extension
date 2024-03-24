@@ -102,11 +102,20 @@ class Network {
   }
   encoding(args)
   {
-    return encodeURIComponent(JSON.stringify(args.json));
+    let obj=JSON.parse(args.json);
+    let encodedString = Object.keys(obj).map(key => key + '=' + obj[key]).join('&');
+    return encodedString;
   }
   decoding(args)
   {
-    return decodeURIComponent(args.uri);
+    let encodedString=args.uri;
+    let decodedObj = {};
+    encodedString.split('&').forEach(function(keyValue)
+    {
+        var pair = keyValue.split('=');
+        decodedObj[pair[0]] = pair[1];
+    });
+    return JSON.stringify(decodedObj);
   }
   httpget(args)
   {
