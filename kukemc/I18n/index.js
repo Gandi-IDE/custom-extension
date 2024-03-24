@@ -23,6 +23,10 @@ window.tempExt = {
 		  collaborator: "YUEN @ CCW",
 		  collaboratorURL: "https://www.ccw.site/student/236217560",
 		},
+                {
+                  collaborator: 'FurryR @ Simplicity Studio',
+                  collaboratorURL: 'https://www.ccw.site/student/63ddff9293ebb01fb90efa79'
+		}
 	  ],
 	},
 	l10n: {
