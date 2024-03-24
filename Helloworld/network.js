@@ -5,7 +5,7 @@ class Network {
       'zh-cn': {
         'NetworkExt.ExtName': '网络扩展',
         'NetworkExt.description': '让你的作品可以访问网络',
-        'NetworkExt.httpget': 'GET方法同步请求[url]查询字符串[query]没有则留空必须是转换过的',
+        'NetworkExt.httpget': 'GET方法同步请求[url]查询字符串[query]没有则留空',
         'NetworkExt.httppost': 'POST方法同步请求[url]请求主体[body]',
         'NetworkExt.encoding': 'json转换uri编码字符串[json]',
         'NetworkExt.decoding': 'uri编码字符串转换json[uri]',
@@ -60,6 +60,7 @@ class Network {
             },
             query: {
               type: 'string',
+              defaultValue: undefined,
             },
           },
         },
