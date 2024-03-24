@@ -5,7 +5,7 @@ class Network {
       'zh-cn': {
         'NetworkExt.ExtName': '网络扩展',
         'NetworkExt.description': '让你的作品可以访问网络',
-        'NetworkExt.httpget': 'GET方法同步请求[url]',
+        'NetworkExt.httpget': 'GET方法同步请求[url]查询字符串[query]没有则留空必须是转换过的',
         'NetworkExt.httppost': 'POST方法同步请求[url]请求主体[body]',
         'NetworkExt.encoding': 'json转换uri编码字符串[json]',
         'NetworkExt.decoding': 'uri编码字符串转换json[uri]',
@@ -57,6 +57,9 @@ class Network {
             url: {
               type: 'string',
               defaultValue: 'https://extensions.turbowarp.org/hello.txt',
+            },
+            query: {
+              type: 'string',
             },
           },
         },
@@ -119,9 +122,15 @@ class Network {
   }
   httpget(args)
   {
-    console.log(args);
+    // console.log(args);
     let xhr= new XMLHttpRequest();
-    xhr.open('GET',args.url,false);
+    let url=args.url;
+    if(args.query)
+    {
+      url+='?';
+      url+=args.query;
+    }
+    xhr.open('GET',url,false);
     xhr.send(null);
     return xhr.responseText;
   }
