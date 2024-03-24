@@ -7,6 +7,8 @@ class Network {
         'NetworkExt.description': '让你的作品可以访问网络',
         'NetworkExt.httpget': 'GET方法同步请求[url]',
         'NetworkExt.httppost': 'POST方法同步请求[url]请求主体[body]',
+        'NetworkExt.encoding': 'json转换uri编码字符串[json]',
+        'NetworkExt.decoding': 'uri编码字符串转换json[uri]',
         // 'NetworkExt.content': '异步请求返回内容',
         // 'NetworkExt.setheader': '设置异步请求头部[key]=[value]',
         // 'NetworkExt.status': '异步请求状态码',
@@ -20,6 +22,8 @@ class Network {
         'NetworkExt.ExtName': 'Network extension',
         'NetworkExt.httpget': 'GET method synchronization request [url]',
         'NetworkExt.httppost': 'POST method synchronization request [url] request body [body]',
+        'NetworkExt.encoding': 'json转换uri编码字符串[json]',
+        'NetworkExt.decoding': 'uri编码字符串转换json[uri]',
         // 'NetworkExt.content': '异步请求返回内容',
         // 'NetworkExt.setheader': 'Set asynchronous request header [key] = [value]',
         // 'NetworkExt.status': 'Asynchronous request status code',
@@ -41,8 +45,8 @@ class Network {
 
   getInfo() {
     return {
-      id: 'HelloworldNetworkExt', // 拓展id
-      name: this.formatMessage('NetworkExt.ExtName'), // 拓展名
+      id: 'HelloworldNetworkExt',
+      name: this.formatMessage('NetworkExt.ExtName'),
       color1: '#e000ff',
       blocks: [
         {
@@ -70,9 +74,39 @@ class Network {
               defaultValue: 'body',
             },
           },
+        },
+        {
+          opcode: 'encoding',
+          blockType: 'reporter',
+          text: this.formatMessage('NetworkExt.encoding'),
+          arguments: {
+            json: {
+              type: 'string',
+              defaultValue: '{"nihao":"666","wohao":"777"}',
+            },
+          },
+        },
+        {
+          opcode: 'decoding',
+          blockType: 'reporter',
+          text: this.formatMessage('NetworkExt.decoding'),
+          arguments: {
+            uri: {
+              type: 'string',
+              defaultValue: 'nihao=666&wohao=777',
+            },
+          },
         }
       ],
     }
+  }
+  encoding(args)
+  {
+    return encodeURIComponent(JSON.stringify(args.json));
+  }
+  decoding(args)
+  {
+    return decodeURIComponent(args.uri);
   }
   httpget(args)
   {
