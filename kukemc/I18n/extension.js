@@ -870,9 +870,8 @@ export default class KukeMCI18n {
       return this.flattenPinyinArray(pinyin(TEXT));
     }
     else if (MODE === "heteronym") {
-      return this.flattenPinyinArray(pinyin(TEXT, {
+      return JSON.stringify(pinyin(TEXT, {
         heteronym: true,
-        segment: true,
       }));
     }
     else if (MODE === "tone") {
@@ -881,10 +880,9 @@ export default class KukeMCI18n {
       }))
     }
     else if (MODE === "toneheteronym") {
-      return this.flattenPinyinArray(pinyin(TEXT, {
+      return JSON.stringify(pinyin(TEXT, {
         style: pinyin.STYLE_NORMAL,
         heteronym: true,
-        segment: true,
       }))
     }
   }
