@@ -1,24 +1,27 @@
 # ccw-user-extensions
 
 - [ccw-user-extensions](#ccw-user-extensions)
-  * [What for](#what-for)
-  * [How to jump in](#how-to-jump-in)
-    + [Normal remote extension (for anyone)](#normal-remote-extension--for-anyone-)
-    + [CCW approved extension (for CCW collaborator)](#ccw-approved-extension--for-ccw-collaborator-)
-    + [Apply for CCW collaborator](#apply-for-ccw-collaborator)
-  * [How to develop](#how-to-develop)
-    + [Define a extension](#define-a-extension)
+  - [What for](#what-for)
+  - [About license](#about-license)
+  - [How to jump in](#how-to-jump-in)
+    - [Normal remote extension (for anyone)](#normal-remote-extension-for-anyone)
+    - [CCW approved extension (for CCW collaborator)](#ccw-approved-extension-for-ccw-collaborator)
+    - [Apply for CCW collaborator](#apply-for-ccw-collaborator)
+  - [How to develop](#how-to-develop)
+    - [Define a extension](#define-a-extension)
       - [normal remote extension](#normal-remote-extension)
       - [CCW approved extension](#ccw-approved-extension)
-    + [Test your extension](#test-your-extension)
+    - [Test your extension](#test-your-extension)
       - [normal remote extension](#normal-remote-extension-1)
       - [CCW approved extension](#ccw-approved-extension-1)
-    + [Asset standard](#asset-standard)
+    - [Asset standard](#asset-standard)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
 ## What for
 This repo is for CCW Creator who wants make and test their own extensions.
+## About license
+Extensions in this repository are licensed under [LGPL-2.1](./LICENSE) by default, but certain extensions may have different licenses (such as extensions ported from TurboWarp for which we are grateful for their contributions).
 ## How to jump in
 There are two ways to develop and test your extensions.
 ### Normal remote extension (for anyone)
