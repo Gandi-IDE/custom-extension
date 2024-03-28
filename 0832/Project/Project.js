@@ -2,22 +2,22 @@ import { icon } from "./Project.svg";
 
 Scratch.translate.setup({
     zh: {
-        'Project': '项目',
-        'description': '在Gandi中读取项目信息',
-        'TotalUsedBlocks': '使用的块总数',
-        'NumberOfBlockTypes': '块种类数',
-        'NumberOfSegments': '段数',
-        'NumberOfCostumes': '造型数',
-        'NumberOfSounds': '声音数'
+        'Project.Project': '项目',
+        'Project.description': '在Gandi中读取项目信息',
+        'Project.TotalUsedBlocks': '使用的块总数',
+        'Project.NumberOfBlockTypes': '块种类数',
+        'Project.NumberOfSegments': '段数',
+        'Project.NumberOfCostumes': '造型数',
+        'Project.NumberOfSounds': '声音数'
     },
     en: {
-        'Project': 'Project',
-        'description': 'Read project infomation in Gandi',
-        'TotalUsedBlocks': 'Total Used Blocks',
-        'NumberOfBlockTypes': 'Number Of Block Types',
-        'NumberOfSegments': 'Number Of Segments',
-        'NumberOfCostumes': 'Number Of Costumes',
-        'NumberOfSounds': 'Number Of Sounds'
+        'Project.Project': 'Project',
+        'Project.description': 'Read Project infomation in Gandi',
+        'Project.TotalUsedBlocks': 'Total Used Blocks',
+        'Project.NumberOfBlockTypes': 'Number Of Block Types',
+        'Project.NumberOfSegments': 'Number Of Segments',
+        'Project.NumberOfCostumes': 'Number Of Costumes',
+        'Project.NumberOfSounds': 'Number Of Sounds'
     }
 });
 let totalUsedBlocks, numberOfBlockTypes, numberOfSegments, numberOfCostumes, numberOfSounds;
@@ -73,37 +73,37 @@ class Project {
     getInfo() {
         return {
             id: extensionId,
-            name: Scratch.translate({ id: 'Project', default: 'Project' }),
+            name: Scratch.translate({ id: 'Project.Project', default: 'Project' }),
             blocks: [
                 {
                     opcode: 'TotalUsedBlocks',
                     blockType: Scratch.BlockType.REPORTER,
                     disableMonitor: true,
-                    text: Scratch.translate({ id: 'TotalUsedBlocks', default: 'Total Used Blocks' })
+                    text: Scratch.translate({ id: 'Project.TotalUsedBlocks', default: 'Total Used Blocks' })
                 },
                 {
                     opcode: 'NumberOfBlockTypes',
                     blockType: Scratch.BlockType.REPORTER,
                     disableMonitor: true,
-                    text: Scratch.translate({ id: 'NumberOfBlockTypes', default: 'Number of Block Types' })
+                    text: Scratch.translate({ id: 'Project.NumberOfBlockTypes', default: 'Number of Block Types' })
                 },
                 {
                     opcode: 'NumberOfSegments',
                     blockType: Scratch.BlockType.REPORTER,
                     disableMonitor: true,
-                    text: Scratch.translate({ id: 'NumberOfSegments', default: 'Number of Segments' })
+                    text: Scratch.translate({ id: 'Project.NumberOfSegments', default: 'Number of Segments' })
                 },
                 {
                     opcode: 'NumberOfCostumes',
                     blockType: Scratch.BlockType.REPORTER,
                     disableMonitor: true,
-                    text: Scratch.translate({ id: 'NumberOfCostumes', default: 'Number of Costumes' })
+                    text: Scratch.translate({ id: 'Project.NumberOfCostumes', default: 'Number of Costumes' })
                 },
                 {
                     opcode: 'NumberOfSounds',
                     blockType: Scratch.BlockType.REPORTER,
                     disableMonitor: true,
-                    text: Scratch.translate({ id: 'NumberOfSounds', default: 'Number of Sounds' })
+                    text: Scratch.translate({ id: 'Project.NumberOfSounds', default: 'Number of Sounds' })
                 },
             ]
         };
@@ -139,8 +139,8 @@ Scratch.extensions.register(new Project());
 const extension = {
     Extension: Project,
     info: {
-        name: `${extensionId}.Project`,
-        description: `${extensionId}.description`,
+        name: `${extensionId}.Project.Project`,
+        description: `${extensionId}.Project.description`,
         extensionId,
         iconURL: icon,
         featured: true,
@@ -154,12 +154,12 @@ const extension = {
     },
     l10n: {
         "zh-cn": {
-            [`${extensionId}.Project`]: "项目",
-            [`${extensionId}.description`]: "在Gandi中读取项目信息",
+            [`${extensionId}.Project.Project`]: "项目",
+            [`${extensionId}.Project.description`]: "在Gandi中读取项目信息",
         },
         en: {
-            [`${extensionId}.Project`]: "Project",
-            [`${extensionId}.description`]: "Read project infomation in Gandi",
+            [`${extensionId}.Project.Project`]: "Project",
+            [`${extensionId}.Project.description`]: "Read Project infomation in Gandi",
         },
     },
 };
