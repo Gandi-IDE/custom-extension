@@ -27,7 +27,7 @@ export default class WitCatBBcode {
     this.runtime = runtime;
 
     this.resize = null;
-
+    this.maxParsedable = 100;
     /**
      * Scratch 所使用的 canvas，获取不到返回 null
      * @return {HTMLcanvasElement | null}
@@ -78,15 +78,18 @@ export default class WitCatBBcode {
       h6{
           font-size:0.67em;
       }
+      .WitCatBBcodeOut::-webkit-scrollbar{
+          display: none;
+      }
       .WitCatBBcode::-webkit-scrollbar{
           display: none;
       }
       .WitCatBBcode{
           color:black;
       }
-      .WitCatBBcodes{
+      .WitCatBBcode{
           transform-origin: 0 0;
-          zoom:var(--witcat-bbcode-scale);
+          transform:var(--witcat-bbcode-scale);
       }
       .WitCatBBcode ul{
           padding-inline-start: 40px;
@@ -103,7 +106,7 @@ export default class WitCatBBcode {
           margin-inline-start: 40px;
           margin-inline-end: 40px;
       }
-      .WitCatBBcodeSpolier{
+      .WitCatBBcodepolier{
         display: inline-block;
         white-space: nowrap;
         width: 100%;
@@ -111,7 +114,7 @@ export default class WitCatBBcode {
         overflow: hidden;
         position: relative;
       }
-      .WitCatBBcodeSpolier button{
+      .WitCatBBcodepolier button{
         background-color: #00000000;
         color: #1A96E2;
         position: absolute;
@@ -227,6 +230,7 @@ export default class WitCatBBcode {
         'WitCatBBcode.textalign.2': '右对齐',
         'WitCatBBcode.setinsite.1': '阴影',
         'WitCatBBcode.setinsite.2': '文字阴影',
+        'WitCatBBcode.setnum': '⚠️设置解析最大数为[num]',
       },
       en: {
         'WitCatBBcode.name': 'WitCat’s BBcode',
@@ -288,6 +292,7 @@ export default class WitCatBBcode {
         'WitCatBBcode.textalign.2': 'Align right',
         'WitCatBBcode.setinsite.1': 'shadow',
         'WitCatBBcode.setinsite.2': 'text shadow',
+        'WitCatBBcode.setnum': '⚠️ set maximum parsedable to[num]',
       },
     });
   }
@@ -318,6 +323,17 @@ export default class WitCatBBcode {
           blockType: 'button',
           text: this.formatMessage('WitCatBBcode.docs'),
           onClick: this.docs,
+        },
+        {
+          opcode: 'setnum',
+          blockType: 'command',
+          text: this.formatMessage('WitCatBBcode.setnum'),
+          arguments: {
+            num: {
+              type: 'number',
+              defaultValue: '300',
+            },
+          },
         },
         `---${this.formatMessage('WitCatBBcode.name')}`,
         {
@@ -1022,6 +1038,10 @@ export default class WitCatBBcode {
     // return isNaN(x) ? min : Math.min(max, Math.max(min, x));
   }
 
+  setnum(args) {
+    this.maxParsedable = Number(args.num);
+  }
+
   /**
    * 创建文本框
    * @param {Object} args
@@ -1057,7 +1077,7 @@ export default class WitCatBBcode {
     if (search === null) {
       search = document.createElement('div');
       search.id = `WitCatBBcode${args.id}`;
-      search.className = 'WitCatBBcode';
+      search.className = 'WitCatBBcodeOut';
       search.style.overflow = 'auto';
       search.style.webkitUserSelect = 'text';
       search.style.userSelect = 'text';
@@ -1070,7 +1090,7 @@ export default class WitCatBBcode {
     sstyle.top = `${y}%`;
     sstyle.width = `${width}%`;
     sstyle.height = `${height}%`;
-    search.innerHTML = `<div class='WitCatBBcodes'>${new bbcode.Parser().toHTML(String(args.text), this.runtime)}</div>`;
+    search.innerHTML = `<div class='WitCatBBcode'>${new bbcode.Parser().toHTML(String(args.text), this.runtime, this.maxParsedable)}</div>`;
   }
 
   imgstyle(args) {
@@ -1130,8 +1150,7 @@ export default class WitCatBBcode {
           sstyle.height = `${Number(height)}%`;
           break;
         case 'content':
-          console.log(new bbcode.Parser().toHTML(String(args.text), this.runtime));
-          search.innerHTML = `<div class='WitCatBBcodes'>${new bbcode.Parser().toHTML(String(args.text), this.runtime)}</div>`;
+          search.innerHTML = `<div class='WitCatBBcode'>${new bbcode.Parser().toHTML(String(args.text), this.runtime, this.maxParsedable)}</div>`;
           break;
         case 'perspective':
           search.firstChild.style.perspective = `${Number(args.text)}px`;
@@ -1150,7 +1169,7 @@ export default class WitCatBBcode {
 
   morecontent(args) {
     let search = null;
-    const search_1 = document.getElementById(`WitCatBBcodeSpolier${args.id}`);
+    const search_1 = document.getElementById(`WitCatBBcodepolier${args.id}`);
     if (search_1 instanceof HTMLSpanElement) {
       search = search_1;
     }
@@ -1238,7 +1257,7 @@ export default class WitCatBBcode {
     const search = document.createElement('span');
     search.style.position = 'fixed';
     search.className = 'WitCatBBcode';
-    search.innerHTML = `<div class='WitCatBBcodes'>${new bbcode.Parser().toHTML(String(args.content), this.runtime)}</div>`;
+    search.innerHTML = `<div class='WitCatBBcode'>${new bbcode.Parser().toHTML(String(args.content), this.runtime, this.maxParsedable)}</div>`;
     document.body.appendChild(search);
     const cvsw = this.canvas().offsetWidth;
     const cvsh = this.canvas().offsetHeight;
@@ -1266,7 +1285,7 @@ export default class WitCatBBcode {
     if (args.type === 'true') {
       if (this.resize === null) {
         this.resize = new ResizeObserver(() => {
-          document.documentElement.style.setProperty('--witcat-bbcode-scale', this.canvas().offsetHeight / 360);
+          document.documentElement.style.setProperty('--witcat-bbcode-scale', `scale(${parseFloat(this.canvas().offsetWidth) / 360})`);
         });
         this.resize.observe(this.canvas(), { attributes: true, attributeFilter: ['style'] });
       }
@@ -1326,7 +1345,7 @@ export default class WitCatBBcode {
   click(args) {
     let out = '';
     if (JSON.stringify(bbcodemousedown) !== '{}') {
-      const s = document.getElementsByClassName('WitCatBBcodes');
+      const s = document.getElementsByClassName('WitCatBBcode');
       s.forEach((e) => {
         if (e.contains(bbcodemousedown.target)) {
           switch (args.clickmenu) {
@@ -1357,7 +1376,7 @@ export default class WitCatBBcode {
   touchs(args) {
     let out = '';
     if (JSON.stringify(touchEvent) !== '{}') {
-      const s = document.getElementsByClassName('WitCatBBcodes');
+      const s = document.getElementsByClassName('WitCatBBcode');
       s.forEach((e) => {
         if (e.contains(touchEvent.target)) {
           switch (args.clickmenu) {
@@ -1548,7 +1567,7 @@ export default class WitCatBBcode {
     }
     const search = document.getElementsByClassName('WitCatBBcode');
     for (const item of Array.from(search)) {
-      this.inputParent().removeChild(item);
+      item.parentElement.remove();
     }
   }
 
