@@ -78,26 +78,31 @@ class Project {
                 {
                     opcode: 'TotalUsedBlocks',
                     blockType: Scratch.BlockType.REPORTER,
+                    disableMonitor: true,
                     text: Scratch.translate({ id: 'TotalUsedBlocks', default: 'Total Used Blocks' })
                 },
                 {
                     opcode: 'NumberOfBlockTypes',
                     blockType: Scratch.BlockType.REPORTER,
+                    disableMonitor: true,
                     text: Scratch.translate({ id: 'NumberOfBlockTypes', default: 'Number of Block Types' })
                 },
                 {
                     opcode: 'NumberOfSegments',
                     blockType: Scratch.BlockType.REPORTER,
+                    disableMonitor: true,
                     text: Scratch.translate({ id: 'NumberOfSegments', default: 'Number of Segments' })
                 },
                 {
                     opcode: 'NumberOfCostumes',
                     blockType: Scratch.BlockType.REPORTER,
+                    disableMonitor: true,
                     text: Scratch.translate({ id: 'NumberOfCostumes', default: 'Number of Costumes' })
                 },
                 {
                     opcode: 'NumberOfSounds',
                     blockType: Scratch.BlockType.REPORTER,
+                    disableMonitor: true,
                     text: Scratch.translate({ id: 'NumberOfSounds', default: 'Number of Sounds' })
                 },
             ]
