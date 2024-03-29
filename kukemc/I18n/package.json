@@ -2,8 +2,7 @@
   "dependencies": {
     "franc-min": "^6.2.0",
     "moment-timezone": "^0.5.45",
-    "pinyin": "^4.0.0-alpha.0",
-    "segmentit": "^2.0.3"
+    "pinyin": "^4.0.0-alpha.0"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",
@@ -13,5 +12,17 @@
     "webpack": "^5.90.3",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.0.3"
-  }
+  },
+  "name": "KukeMCI18n",
+  "version": "1.0.0",
+  "description": "I18n extension",
+  "main": "index.js",
+  "scripts": {
+    "production": "npx webpack --mode production"
+  },
+  "keywords": [
+    "extension"
+  ],
+  "author": "kukemc",
+  "license": "ISC"
 }
