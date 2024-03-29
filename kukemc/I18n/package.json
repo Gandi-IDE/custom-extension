@@ -13,12 +13,12 @@
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.0.3"
   },
-  "name": "i18n",
+  "name": "KukeMCI18n",
   "version": "1.0.0",
   "description": "I18n extension",
   "main": "index.js",
   "scripts": {
-    "test": "npx webpack --mode production"
+    "production": "npx webpack --mode production"
   },
   "keywords": [
     "extension"
