@@ -16,34 +16,6 @@ class WitCatGamePad {
 
 		this.runtime = runtime;
 
-		/**
-		 * Scratch 所使用的 canvas，获取不到返回 null
-		 * @return {HTMLCanvasElement | null}
-		 */
-		this.canvas = () => {
-			try {
-				const { canvas } = this.runtime.renderer;
-				if (canvas instanceof HTMLCanvasElement) {
-					return canvas.parentElement;
-				}
-				return null;
-			} catch (err) {
-				return null;
-			}
-		};
-
-		this.canvasSelf = () => {
-			try {
-				const { canvas } = this.runtime.renderer;
-				if (canvas instanceof HTMLCanvasElement) {
-					return canvas;
-				}
-				return null;
-			} catch (err) {
-				return null;
-			}
-		};
-
 		this._formatMessage = runtime.getFormatMessage({
 			'zh-cn': {
 				'WitCatGamePad.name': '白猫的游戏手柄',
