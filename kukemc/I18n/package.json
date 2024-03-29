@@ -1,8 +1,7 @@
 {
   "dependencies": {
     "franc-min": "^6.2.0",
-    "moment-timezone": "^0.5.45",
-    "pinyin": "^4.0.0-alpha.0"
+    "moment-timezone": "^0.5.45"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",

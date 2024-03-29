@@ -1,6 +1,5 @@
 import moment from "moment-timezone";
 import {franc, francAll} from 'franc-min'
-import pinyin from "pinyin";
 import { kukemcI18nExtensionId, kukemcI18nIcon, supportedTranslateCodes } from "./assets";
 
 
@@ -56,13 +55,6 @@ export default class KukeMCI18n {
       ["中文", "Chinese", "cn"],
       ["国际", "International", "intl"],
     ];
-
-    this.supportedPinyin = [
-      ["默认模式", "default", "default"],
-      ["多音字模式", "heteronym", "heteronym"],
-      ["无声调", "no tone", "tone"],
-      ["无声调&多音字", "no tone&heteronym", "toneheteronym"],
-    ];
   
     this._formatMessage = runtime.getFormatMessage({
       "zh-cn": {
@@ -97,7 +89,6 @@ export default class KukeMCI18n {
         "kukeMCI18n.block.offsetTimeZone":
           "将时间 [TIME] 从 [ZONE1] 转换为 [ZONE2]",
         "kukeMCI18n.block.formatTimestamp": "将时间 [TIME] 按 [FORMAT] 格式化",
-        "kukeMCI18n.block.pinyin": "将 [TEXT] 转换为拼音 [MODE]",
         "kukeMCI18n.block.example": "i18n 示例",
       },
       en: {
@@ -136,7 +127,6 @@ export default class KukeMCI18n {
         "kukeMCI18n.block.offsetTimeZone":
           "convert time [TIME] from [ZONE1] to [ZONE2]",
         "kukeMCI18n.block.formatTimestamp": "format time [TIME] as [FORMAT]",
-        "kukeMCI18n.block.pinyin": "convert [TEXT] to Pinyin [MODE]",
         "kukeMCI18n.block.example": "i18n example",
       },
     });
@@ -441,24 +431,6 @@ export default class KukeMCI18n {
       },
     };
 
-    const pinyin = {
-      opcode: "pinyin",
-      blockType: Scratch.BlockType.REPORTER,
-      text: this.formatMessage("kukeMCI18n.block.pinyin"),
-      arguments: {
-        TEXT: {
-          type: Scratch.ArgumentType.STRING,
-          defaultValue:
-            "我是拼音!",
-        },
-        MODE: {
-          type: Scratch.ArgumentType.STRING,
-          menu: "PINYIN_LIST",
-          defaultValue: "default",
-        },
-      },
-    }
-
     const example = {
       opcode: "example",
       blockType: Scratch.BlockType.REPORTER,
@@ -515,7 +487,6 @@ export default class KukeMCI18n {
           blockType: Scratch.BlockType.LABEL,
           text: this.formatMessage("kukeMCI18n.div.6")
         },
-        pinyin,
         convertUnit,
         getTimestamp,
         getTimeZone,
@@ -557,22 +528,6 @@ export default class KukeMCI18n {
             };
           }),
         },
-        PINYIN_LIST: {
-          items: this.supportedPinyin.map((t) => {
-            if (this.language === "zh-CN"){
-              return {
-                text: `${t[0]}`,
-                value: t[2],
-              };
-            }
-            else{
-              return {
-                text: `${t[1]}`,
-                value: t[2],
-              };
-            }
-          }),
-        }
       },
     };
   }
@@ -859,32 +814,6 @@ export default class KukeMCI18n {
 
   recognitionLanguageNameAll({ TEXT }) {
     return JSON.stringify(francAll(TEXT,{minLength: TEXT.length}));
-  }
-
-  flattenPinyinArray(pinyinList) {
-    return JSON.stringify(pinyinList.flat().map(item => item.toLowerCase())); // 如果需要转成小写拼音
-  }
-
-  pinyin({ TEXT, MODE }) {
-    if (MODE === "default") {
-      return this.flattenPinyinArray(pinyin(TEXT));
-    }
-    else if (MODE === "heteronym") {
-      return JSON.stringify(pinyin(TEXT, {
-        heteronym: true,
-      }));
-    }
-    else if (MODE === "tone") {
-      return this.flattenPinyinArray(pinyin(TEXT, {
-        style: pinyin.STYLE_NORMAL
-      }))
-    }
-    else if (MODE === "toneheteronym") {
-      return JSON.stringify(pinyin(TEXT, {
-        style: pinyin.STYLE_NORMAL,
-        heteronym: true,
-      }))
-    }
   }
 
   example() {
