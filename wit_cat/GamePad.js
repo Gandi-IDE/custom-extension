@@ -24,7 +24,7 @@ class WitCatGamePad {
 				'WitCatGamePad.exist': '存在第[num]的手柄',
 				'WitCatGamePad.names': '手柄第[num]的名称',
 				'WitCatGamePad.button': '手柄第[num]按键[button][touch]?',
-				'WitCatGamePad.axes': '手柄第[num]摇杆[button]?',
+				'WitCatGamePad.axis': '手柄第[num]摇杆[button]?',
 				'WitCatGamePad.shake': '手柄第[num]在[s]秒后以强度最大[max]最小[min]震动[ss]秒',
 				'WitCatGamePad.touch.1': '按下',
 				'WitCatGamePad.touch.2': '触摸',
@@ -37,7 +37,7 @@ class WitCatGamePad {
 				'WitCatGamePad.exist': 'Num[num]gamepad exists',
 				'WitCatGamePad.names': 'Num[num]gamepad name',
 				'WitCatGamePad.button': 'Num[num]gamepad button [button][touch]? ',
-				'WitCatGamePad.axes': 'Num[num]gamepad axes [button]? ',
+				'WitCatGamePad.axis': 'Num[num]gamepad axis [button]? ',
 				'WitCatGamePad.shake': 'Num[num]gamepad vibrates [ss] seconds after [s] seconds with maximum intensity [max] minimum [min]',
 				'WitCatGamePad.touch.1': 'press',
 				'WitCatGamePad.touch.2': 'touch',
@@ -120,7 +120,7 @@ class WitCatGamePad {
 				{
 					opcode: 'axes',
 					blockType: 'reporter',
-					text: this.formatMessage('WitCatGamePad.axes'),
+					text: this.formatMessage('WitCatGamePad.axis'),
 					arguments: {
 						num: {
 							type: 'number',
