@@ -5,8 +5,6 @@ const witcat_Gamepad_icon = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAA
 // eslint-disable-next-line camelcase
 const witcat_Gamepad_extensionId = 'WitCatGamePad';
 
-navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
-
 /** @typedef {string|number} ScratchArg 来自Scratch圆形框的参数，虽然这个框可能只能输入数字，但是可以放入变量，因此有可能获得数字和文本，需要同时处理 */
 
 class WitCatGamePad {
