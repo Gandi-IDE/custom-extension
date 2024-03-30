@@ -270,7 +270,7 @@ window.tempExt = {
   info: {
     name: 'qxsckmatrix.name',
     description: 'qxsckmatrix.description',
-    extensionId: 'qxsckmatrix1',
+    extensionId: 'qxsckmatrix',
     iconURL: insetIcon,
     insetIconURL: Icon,
     featured: true,
