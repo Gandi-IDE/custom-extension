@@ -2,10 +2,10 @@
 import * as THREE from "https://unpkg.com/three@0.162.0/build/three.module.js";
 
 // 插件
-// 这里为该扩展目录下的三个js文件
-import {OBJLoader} from "https://livefile.xesimg.com/programme/python_assets/5bcc04d1d301d7a3e096fa6b8708af7f.js";
-import {OrbitControls} from 'https://livefile.xesimg.com/programme/python_assets/22b053c1486c0311a7e493e9419cebf7.js';
-import {MTLLoader} from 'https://livefile.xesimg.com/programme/python_assets/bfdf94e29d1b77c18dbfc5aa778e6df7.js';
+// 这里为该扩展目录下的三个js文件，请一同随主扩展上传至CCW cdn
+import {OBJLoader} from "./OBJLoader.js";
+import {OrbitControls} from './OrbitControls.js';
+import {MTLLoader} from './MTLLoader.js';
 // import {OBJLoader} from "https://cdn.jsdelivr.net/gh/MoreBugOfDog/cdn-file@TBS/file/OBJLoader.js";
 // import {OrbitControls} from 'https://cdn.jsdelivr.net/gh/MoreBugOfDog/cdn-file@TBS/file/OrbitControls.js';
 // import {MTLLoader} from 'https://cdn.jsdelivr.net/gh/MoreBugOfDog/cdn-file@TBS/file/MTLLoader.js';
