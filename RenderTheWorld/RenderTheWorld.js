@@ -2,7 +2,7 @@
 import * as THREE from "https://unpkg.com/three@0.162.0/build/three.module.js";
 
 // 插件
-// 这里为该扩展目录下的三个js文件，请一同随主扩展上传至CCW cdn
+// 这里为该扩展目录下的三个js文件
 import {OBJLoader} from "./OBJLoader.js";
 import {OrbitControls} from './OrbitControls.js';
 import {MTLLoader} from './MTLLoader.js';
@@ -225,8 +225,10 @@ class RenderTheWorld {
                     blockType: "command",
                     text: this.formatMessage("RenderTheWorld.render"),
                 },
-                
-                "---"+this.formatMessage("RenderTheWorld.objects"),
+                {
+                    opcode: "label",
+                    text: this.formatMessage("RenderTheWorld.objects"),
+                },
                 {
                     opcode: "makeCube",
                     blockType: "command",
@@ -489,7 +491,10 @@ class RenderTheWorld {
                         },
                     },
                 },
-                "---"+this.formatMessage("RenderTheWorld.lights"),
+                {
+                    opcode: "label",
+                    text: this.formatMessage("RenderTheWorld.lights"),
+                },
                 {
                     opcode: "makePointLight",
                     blockType: "command",
@@ -549,7 +554,10 @@ class RenderTheWorld {
                         },
                     },
                 },
-                "---"+this.formatMessage("RenderTheWorld.camera"),
+                {
+                    opcode: "label",
+                    text: this.formatMessage("RenderTheWorld.camera"),
+                },
                 {
                     opcode: "moveCamera",
                     blockType: "command",
@@ -632,7 +640,10 @@ class RenderTheWorld {
                         },
                     },
                 },
-                "---"+this.formatMessage("RenderTheWorld.fogs"),
+                {
+                    opcode: "label",
+                    text: this.formatMessage("RenderTheWorld.fogs"),
+                },
                 {
                     opcode: "enableFogEffect",
                     blockType: "command",
@@ -656,7 +667,10 @@ class RenderTheWorld {
                     blockType: "command",
                     text: this.formatMessage("RenderTheWorld.disableFogEffect"),
                 },
-                "---"+this.formatMessage("RenderTheWorld.tools"),
+                {
+                    opcode: "label",
+                    text: this.formatMessage("RenderTheWorld.tools"),
+                },
                 {
                     opcode: "controlCamera",
                     blockType: "command",
