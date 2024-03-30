@@ -763,7 +763,7 @@ window.tempExt = {
   info: {
     name: 'qxsckeasystruct.name',
     description: 'qxsckeasystruct.description',
-    extensionId: 'qxsckeasystruct',
+    extensionId: 'qxsckeasystruct1',
     iconURL: insetIcon,
     insetIconURL: Icon,
     featured: true,
@@ -777,7 +777,7 @@ window.tempExt = {
     },
     'en': {
       'qxsckeasystruct.name': 'Easy struct',
-      'qxsckeasystruct.description': 'Some blocks of use easy struct.',
+      'qxsckeasystruct.description': 'Some blocks about easy struct.',
     },
   },
 }
