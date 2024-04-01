@@ -58,7 +58,7 @@ class WitCatFPS {
                 "WitCatFPS.type.2": "关闭",
                 "WitCatFPS.docs": "📖拓展教程",
                 "WitCatFPS.compute": "在帧率[fps]下的[num]",
-                "WitCatFPS.deltaTime": "与上一帧时间差(ms)",
+                "WitCatFPS.deltaTime": "帧时间差(ms)",
             },
             en: {
                 "WitCatFPS.name": "[beta]WitCat’s FPS",
@@ -174,6 +174,7 @@ class WitCatFPS {
                 {
                     opcode: "deltaTime",
                     blockType: "reporter",
+                    disableMonitor: true,
                     text: this.formatMessage("WitCatFPS.deltaTime"),
                 },
             ],
