@@ -7,7 +7,7 @@ const witcat_fps_extensionId = "WitCatFPS";
 
 /** @typedef {string|number|boolean} SCarg 来自Scratch圆形框的参数，虽然这个框可能只能输入数字，但是可以放入变量，因此有可能获得数字、布尔和文本（极端情况下还有 null 或 undefined，需要同时处理 */
 
-let initHack = false;
+let hacked = false;
 
 class WitCatFPS {
     constructor(runtime) {
@@ -41,26 +41,6 @@ class WitCatFPS {
         this.webfpstime = 0;
         /** 浏览器 fps 每秒更新 setInterval 计时器 */
         this.webfpsinterval = -1;
-
-
-        if (!initHack && runtime) {
-            // 只hack一次
-            initHack = true;
-            const origStep = this.runtime._step;
-            let that = this;
-            this.runtime._step = function () {
-                // 开启FPS检测才执行
-                if (that.scfpson) {
-                    // 根据和上一帧的时间差，计算FPS
-                    let timestamp = Date.now();
-                    that.scDeltaTime = timestamp - that.scfpstime;
-                    that.scfpsn = 1000 / that.scDeltaTime;
-                    that.scfpstime = timestamp;
-                    that.scfpscnt++;
-                }
-                origStep.call(this);
-            }
-        }
 
         this._formatMessage = runtime.getFormatMessage({
             "zh-cn": {
@@ -286,6 +266,25 @@ class WitCatFPS {
         if (args.type == "true") {
             if (this.scfpson == false) {
                 this.scfpson = true;
+                if (!hacked) {
+                    // 还没hack先hack
+                    hacked = true;
+                    const origStep = this.runtime._step;
+                    let that = this;
+                    this.runtime._step = function () {
+                        // 开启FPS检测才执行
+                        if (that.scfpson) {
+                            // 根据和上一帧的时间差，计算FPS
+                            let timestamp = Date.now();
+                            that.scDeltaTime = timestamp - that.scfpstime;
+                            that.scfpsn = 1000 / that.scDeltaTime;
+                            that.scfpstime = timestamp;
+                            that.scfpscnt++;
+                        }
+                        // 执行原_stephan
+                        origStep.call(this);
+                    }
+                }
                 this.scfpsinterval = setInterval(() => {
                     this.scfps = this.scfpscnt;
                     this.scfpscnt = 0;
