@@ -269,8 +269,9 @@ class WitCatFPS {
                 if (!hacked) {
                     // 还没hack先hack
                     hacked = true;
-                    const origStep = this.runtime._step;
+                    this.scfpstime = Date.now();
                     let that = this;
+                    const origStep = this.runtime._step;
                     this.runtime._step = function () {
                         // 开启FPS检测才执行
                         if (that.scfpson) {
