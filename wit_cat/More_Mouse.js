@@ -2,7 +2,6 @@ const witcat_more_mouse_picture = "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSI
 
 const witcat_more_mouse_icon = "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIxNzcuMDg4NTUiIGhlaWdodD0iMTc3LjA4ODU1IiB2aWV3Qm94PSIwLDAsMTc3LjA4ODU1LDE3Ny4wODg1NSI+PGRlZnM+PGxpbmVhckdyYWRpZW50IHgxPSIyNDcuMDc3MyIgeTE9IjExOS4xNDIzMSIgeDI9IjI0Ny4wNzczIiB5Mj0iMjIyLjA2OTQ4IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgaWQ9ImNvbG9yLTEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2U1ZWFmMyIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xNTEuNDU1NzYsLTkxLjQ1NTc0KSI+PGcgZGF0YS1wYXBlci1kYXRhPSJ7JnF1b3Q7aXNQYWludGluZ0xheWVyJnF1b3Q7OnRydWV9IiBmaWxsLXJ1bGU9Im5vbnplcm8iIHN0cm9rZS13aWR0aD0iMCIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2UtZGFzaGFycmF5PSIiIHN0cm9rZS1kYXNob2Zmc2V0PSIwIiBzdHlsZT0ibWl4LWJsZW5kLW1vZGU6IG5vcm1hbCI+PHBhdGggZD0iTTE1MS40NTU3NiwyNjguNTQ0Mjl2LTE3Ny4wODg1NWgxNzcuMDg4NTV2MTc3LjA4ODU1eiIgZmlsbD0iIzhlYWNlMSIgc3Ryb2tlPSJub25lIiBzdHJva2UtbGluZWNhcD0iYnV0dCIvPjxwYXRoIGQ9Ik0yMzguMjAwNywyNDAuODU3NjlsLTEwLjQ4NDQxLC0zNS4xNjgwMmwtMjEuMzAyNDQsMjEuOTAwNjJsNC40Njc1OCwtMTA0Ljg5OTUxbDYzLjcxNjM3LDc5LjQ1MzQ5bC0yOS4yODgyNCwtMS41OTkxMmw5LjIwMDkxLDM0LjM1MTE1eiIgZmlsbD0iIzcyOGJiNSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNMjQ1Ljg4MDQ3LDIyMi4wNjk0OGwtMTEuOTY4MjcsLTMwLjUxOTFsLTIwLjM0NjA3LDIwLjM0NjA3di05Mi43NTQxM2w2Ny4wMjIzNCw2Ny4wMjIzNGgtMjkuMzIyMjdsMTAuNjUxNTEsMjkuODYwM3oiIGZpbGw9InVybCgjY29sb3ItMSkiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9nPjwvZz48L3N2Zz48IS0tcm90YXRpb25DZW50ZXI6ODguNTQ0MjQ0OTk5OTk5OTk6ODguNTQ0MjU1LS0+";
 
-// eslint-disable-next-line camelcase
 const witcat_more_mouse_extensionId = 'WitCatMouse';
 
 /** @typedef {string|number} SCarg 来自Scratch圆形框的参数，虽然这个框可能只能输入数字，但是可以放入变量，因此有可能获得数字和文本，需要同时处理 */
@@ -40,10 +39,20 @@ class WitCatMouse {
 		this.MouseWheel = 0;
 
 		/**
+		 * 上次设置分辨率的时间
+		 */
+		this.LastSet = 0;
+
+		/**
 		 * 鼠标速度重置计时器
 		 * @type {null|number}
 		 */
 		this.timer = null;
+
+		/**
+		 * 触屏速度重置计时器
+		 */
+		this.touchtimer = null;
 
 		/**
 		 * 手指列表
@@ -83,7 +92,7 @@ class WitCatMouse {
 		 * 鼠标提示的div
 		 * @type {HTMLDivElement}
 		 */
-		this.title = null;
+		this.titleDiv = null;
 
 		this.runtime = runtime;
 
@@ -103,6 +112,18 @@ class WitCatMouse {
 			}
 		};
 
+		this.canvasSelf = () => {
+			try {
+				const { canvas } = this.runtime.renderer;
+				if (canvas instanceof HTMLCanvasElement) {
+					return canvas;
+				}
+				return null;
+			} catch (err) {
+				return null;
+			}
+		};
+
 		if (this.canvas() === null) {
 			console.error('当前页面不支持多指触控/全屏，请前往作品详情页体验完整作品！');
 			// 注意：在提示之后，扩展仍然在运行。需要在后面引用 Canvas 的部分进行判断。
@@ -112,7 +133,7 @@ class WitCatMouse {
 		this._formatMessage = runtime.getFormatMessage({
 			'zh-cn': {
 				'WitCatMouse.copythis': '复制以下内容：',
-				'WitCatMouse.name': '[beta]白猫的高级鼠标',
+				'WitCatMouse.name': '白猫的高级鼠标',
 				'WitCatMouse.name.1': '高级鼠标',
 				'WitCatMouse.name.2': '手机端',
 				'WitCatMouse.set': '[set]右键菜单',
@@ -131,17 +152,22 @@ class WitCatMouse {
 				'WitCatMouse.way.1': 'X',
 				'WitCatMouse.way.2': 'Y',
 				'WitCatMouse.way.3': 'Z',
+				'WitCatMouse.way.4': '距离',
 				'WitCatTouch.down': '按下的手指数量',
 				'WitCatTouch.istouch': '碰到手指[num]?',
 				'WitCatTouch.touchs': '碰到的手指',
 				'WitCatTouch.num': '第[num]个手指的[type]',
 				'WitCatTouch.info': '手指[num]的[type]',
+				'WitCatMouse.touchacceleration': '手指[num]的[way]速度',
 				'WitCatTouch.type.1': 'X',
 				'WitCatTouch.type.2': 'Y',
 				'WitCatTouch.type.3': 'ID',
+				'WitCatTouch.type.4': '按下?',
 				'WitCatMouse.fill': '[set]沉浸式全屏',
+				'WitCatMouse.whenoutfill': '当退出全屏',
+				'WitCatMouse.isfill': '全屏?',
 				'WitCatMouse.fillask.1': '作品请求沉浸式全屏，是否同意？\n',
-				'WitCatMouse.fillask.2': '/3次连续拒绝后将不再提示\n您仍可以使用 ctrl+shift+alt 切换沉浸式全屏状态',
+				'WitCatMouse.fillask.2': '/3次连续拒绝后将不再提示\n您仍可以使用 esc 切换沉浸式全屏状态',
 				'WitCatMouse.setfill': '⚠️(危)设置分辨率高设为[num]',
 				'WitCatMouse.resolution': '当前分辨率高',
 				'WitCatMouse.cantouch': '设备支持[type]?',
@@ -179,7 +205,7 @@ class WitCatMouse {
 			},
 			en: {
 				'WitCatMouse.copythis': 'Copy the following text:',
-				'WitCatMouse.name': '[beta]WitCat’s Mouse',
+				'WitCatMouse.name': 'WitCat’s Mouse',
 				'WitCatMouse.name.1': 'more mouse',
 				'WitCatMouse.name.2': 'Mobile terminal',
 				'WitCatMouse.set': '[set]right-click menu',
@@ -197,19 +223,25 @@ class WitCatMouse {
 				'WitCatMouse.acceleration': 'mouse[way]speed',
 				'WitCatMouse.way.1': 'X',
 				'WitCatMouse.way.2': 'Y',
+				'WitCatMouse.way.3': 'Z',
+				'WitCatMouse.way.4': 'distance',
 				'WitCatTouch.name': 'Touch',
 				'WitCatTouch.down': 'Finger count',
 				'WitCatTouch.istouch': 'Touch finger[num]?',
 				'WitCatTouch.touchs': 'Touching fingers',
 				'WitCatTouch.num': '[type]of finger[num]',
 				'WitCatTouch.info': '[type] of finger [num]',
+				'WitCatMouse.touchacceleration': '[way]speed of[num]finger',
 				'WitCatTouch.type.1': 'X',
 				'WitCatTouch.type.2': 'Y',
 				'WitCatTouch.type.3': 'ID',
+				'WitCatTouch.type.4': 'press?',
 				'WitCatMouse.fill': '[set]immersive full-screen',
+				'WitCatMouse.whenoutfill': 'When exiting full screen',
+				'WitCatMouse.isfill': 'full screen?',
 				'WitCatMouse.fillask.1':
 					'The project requests to turn on immersive full-screen, agree or not?\nWill stop asking if you keep on to reject for ',
-				'WitCatMouse.fillask.2': '/3 times\nYou can also use Ctrl+Shift+Alt to toggle immersive full-screen later.',
+				'WitCatMouse.fillask.2': '/3 times\nYou can also use esc to toggle immersive full-screen later.',
 				'WitCatMouse.setfill': '⚠️(danger)Set resolution height to[num]',
 				'WitCatMouse.resolution': 'Current high resolution',
 				'WitCatMouse.cantouch': 'Device support[type]?',
@@ -279,13 +311,25 @@ class WitCatMouse {
 					opcode: 'setfill',
 					blockType: 'command',
 					text: this.formatMessage('WitCatMouse.setfill'),
-					hideFromPalette: true,
 					arguments: {
 						num: {
 							type: 'number',
 							defaultValue: '360',
 						},
 					},
+				},
+				{
+					opcode: 'whenOutFill',
+					blockType: 'hat',
+					text: this.formatMessage('WitCatMouse.whenoutfill'),
+					isEdgeActivated: false,
+					arguments: {},
+				},
+				{
+					opcode: 'isfill',
+					blockType: 'Boolean',
+					text: this.formatMessage('WitCatMouse.isfill'),
+					arguments: {},
 				},
 				{
 					opcode: 'fill',
@@ -303,7 +347,6 @@ class WitCatMouse {
 					opcode: 'resolution',
 					blockType: 'reporter',
 					text: this.formatMessage('WitCatMouse.resolution'),
-					hideFromPalette: true,
 					arguments: {},
 				},
 				`---${this.formatMessage('WitCatMouse.name.1')}`,
@@ -558,6 +601,21 @@ class WitCatMouse {
 					},
 				},
 				{
+					opcode: 'touchacceleration',
+					blockType: 'reporter',
+					text: this.formatMessage('WitCatMouse.touchacceleration'),
+					arguments: {
+						num: {
+							type: 'string',
+							defaultValue: '0',
+						},
+						way: {
+							type: 'string',
+							menu: 'wayss',
+						},
+					},
+				},
+				{
 					opcode: 'touchs',
 					blockType: 'reporter',
 					text: this.formatMessage('WitCatTouch.touchs'),
@@ -689,6 +747,20 @@ class WitCatMouse {
 						value: 'y',
 					},
 				],
+				wayss: [
+					{
+						text: this.formatMessage('WitCatMouse.way.1'),
+						value: 'x',
+					},
+					{
+						text: this.formatMessage('WitCatMouse.way.2'),
+						value: 'y',
+					},
+					{
+						text: this.formatMessage('WitCatMouse.way.4'),
+						value: 's',
+					},
+				],
 				rot: [
 					{
 						text: this.formatMessage('WitCatMouse.way.1'),
@@ -725,6 +797,10 @@ class WitCatMouse {
 					{
 						text: this.formatMessage('WitCatTouch.type.3'),
 						value: 'ID',
+					},
+					{
+						text: this.formatMessage('WitCatTouch.type.4'),
+						value: 'press',
 					},
 				],
 				types: [
@@ -777,7 +853,7 @@ class WitCatMouse {
 	 * @returns 菜单
 	 */
 	_spriteMenu() {
-		var e = [];
+		let e = [];
 		return this.runtime.targets.forEach((function (t) {
 			t.isOriginal && !t.isStage && e.push({
 				text: t.sprite.name,
@@ -887,7 +963,13 @@ class WitCatMouse {
 			if (args.type === 'y') {
 				return this.runtime.stageHeight * ((touch1.clientY - canvas.getBoundingClientRect().top) / canvas.offsetHeight);
 			}
+			if (args.type === 'press') {
+				return "true";
+			}
 			return touch1.identifier;
+		}
+		if (args.type === 'press') {
+			return "false";
 		}
 		return 0;
 	}
@@ -905,7 +987,7 @@ class WitCatMouse {
 			return 0;
 		}
 		for (let i = 0; i < this.touch.length; i++) {
-			if (this.touch[i]["identifier"] === args.num) {
+			if (String(this.touch[i]["identifier"]) === String(args.num)) {
 				if (this.touch[i] !== undefined) {
 					if (args.type === 'x') {
 						return this.runtime.stageWidth * ((this.touch[i].clientX - canvas.getBoundingClientRect().left) / canvas.offsetWidth);
@@ -913,9 +995,15 @@ class WitCatMouse {
 					if (args.type === 'y') {
 						return this.runtime.stageHeight * ((this.touch[i].clientY - canvas.getBoundingClientRect().top) / canvas.offsetHeight);
 					}
+					if (args.type === 'press') {
+						return "true";
+					}
 					return touch1.identifier;
 				}
 			}
+		}
+		if (args.type === 'press') {
+			return "false";
 		}
 		return 0;
 	}
@@ -924,20 +1012,37 @@ class WitCatMouse {
 	 * 全屏
 	 * @deprecated
 	 */
-	fill() {
-		console.warn(
-			'全屏因浏览器兼容问题已下线，在未来修复后将会重新上线\nFull screen has been taken offline due to browser compatibility issues. It will be back online after a future fix'
-		);
+	fill(args) {
+		console.warn('全屏因浏览器兼容问题已下线，并不会再上线\nFull screen has been taken offline due to browser compatibility issues. And never back online.')
+	}
+
+	whenOutFill() {
+		return true;
+	}
+
+	isfill() {
+		return Boolean(document.fullscreenElement);
 	}
 
 	/**
 	 * 设置分辨率
 	 * @deprecated
 	 */
-	setfill() {
-		console.warn(
-			'全屏因浏览器兼容问题已下线，在未来修复后将会重新上线\nFull screen has been taken offline due to browser compatibility issues. It will be back online after a future fix'
-		);
+	setfill(args) {
+		if (Date.now() - this.LastSet > 1000) {
+			this.LastSet = Date.now();
+			const canvas = this.canvasSelf();
+			if (canvas === null) {
+				return 0;
+			}
+			if (Number(args.num) < window.screen.height) {
+				this.runtime.renderer.resize((Number(args.num) * this.runtime.stageWidth) / this.runtime.stageHeight, Number(args.num));
+			} else {
+				console.warn("分辨率超过屏幕，将产生额外性能消耗\nResolution exceeding the screen will incur additional performance costs");
+			}
+		} else {
+			console.warn("设置分辨率太过频繁\nSetting the resolution too often");
+		}
 	}
 
 	/**
@@ -945,7 +1050,7 @@ class WitCatMouse {
 	 * @returns {number}
 	 */
 	resolution() {
-		const canvas = this.canvas();
+		const canvas = this.canvasSelf();
 		if (canvas === null) {
 			return 0;
 		}
@@ -1079,16 +1184,20 @@ class WitCatMouse {
 	}
 
 	titlenow(args) {
+		const canvas = this.canvas();
+		if (canvas === null) {
+			return;
+		}
 		if (args.show === 'true') {
 			if (this.titleDiv == null) {
 				this.titleDiv = document.createElement("div");
 				this.titleDiv.innerText = String(args.text);
-				this.titleDiv.style = `transition: transform 0.2s ease-in-out;transform: scale(0, 0);border:1px solid #000000 ;transform-origin:0px 0px;border-radius:10px;background-color:#ffffff;padding:5px;position:fixed;top:${this.MouseY + 10}px;left:${this.MouseX + 10}px`;
+				this.titleDiv.style = `transition: transform 0.2s ease-in-out;transform: scale(0, 0);z-index: 10000;border:1px solid #000000 ;transform-origin:0px 0px;border-radius:10px;background-color:#ffffff;padding:5px;position:fixed;top:${this.MouseY + 10}px;left:${this.MouseX + 10}px`;
 				this.MouseTitle = setInterval(() => {
 					this.titleDiv.style.top = (this.MouseY + 10) + 'px';
 					this.titleDiv.style.left = (this.MouseX + 10) + 'px';
 				}, 1);
-				document.body.appendChild(this.titleDiv);
+				canvas.append(this.titleDiv);
 				setTimeout(() => {
 					this.titleDiv.style.transform = 'scale(1, 1)';
 				}, 10);
@@ -1104,8 +1213,9 @@ class WitCatMouse {
 			}
 		}
 		else {
-			if (this.titleDiv !== null) {
+			if (this.MouseTitle !== null) {
 				clearInterval(this.MouseTitle);
+				this.MouseTitle = null;
 				this.titleDiv.style.transform = 'scale(0, 0)';
 				setTimeout(() => {
 					document.body.removeChild(this.titleDiv);
@@ -1121,8 +1231,8 @@ class WitCatMouse {
 	 * @returns {string} 转换后的文本
 	 */
 	Uint8ArrayToString(fileData) {
-		var dataString = "";
-		for (var i = 0; i < fileData.length; i++) {
+		let dataString = "";
+		for (let i = 0; i < fileData.length; i++) {
 			dataString += String.fromCharCode(fileData[i]);
 		}
 		return dataString
@@ -1311,8 +1421,8 @@ class WitCatMouse {
 `;
 			document.body.appendChild(div);
 
-			var modal = document.getElementById('myModal');
-			var span = document.querySelector('.close');
+			let modal = document.getElementById('myModal');
+			let span = document.querySelector('.close');
 			//创建点击事件
 			span.onclick = function () {
 				div.style.backgroundColor = '#00000000';
@@ -1404,6 +1514,25 @@ class WitCatMouse {
 		return false;
 	}
 
+	touchacceleration(args) {
+		for (let i = 0; i < this.touch.length; i++) {
+			if (String(this.touch[i]["identifier"]) === String(args.num)) {
+				if (this.touch[i] !== undefined) {
+					if (args.way === 'x') {
+						return this.touch[i].Xspeed;
+					}
+					else if (args.way === 'y') {
+						return this.touch[i].Yspeed;
+					}
+					else {
+						return this.touch[i].speed;
+					}
+				}
+			}
+		}
+		return 0;
+	}
+
 	/**
 	 * 判断是否碰到某个手指
 	 * @param {*} args 
@@ -1413,7 +1542,7 @@ class WitCatMouse {
 	isTouch(args, util) {
 		const canvas = this.canvas();
 		for (let i = 0; i < this.touch.length; i++) {
-			if (this.touch[i]["identifier"] === args.num) {
+			if (String(this.touch[i]["identifier"]) === String(args.num)) {
 				if (this.touch[i] !== undefined) {
 					let x = (this.touch[i].clientX - canvas.getBoundingClientRect().left);
 					let y = (this.touch[i].clientY - canvas.getBoundingClientRect().top);
@@ -1474,10 +1603,23 @@ class WitCatMouse {
 	 * @param {TouchList} touches
 	 */
 	_copytouch(touches) {
+		let x, y;
 		this.touch = Array.from(touches).map((touch) => {
+			for (let i = 0; i < this.touch.length; i++) {
+				if (String(this.touch[i]["identifier"]) === String(touch.identifier)) {
+					if (this.touch[i] !== undefined) {
+						x = this.touch[i].clientX;
+						y = this.touch[i].clientY;
+						break;
+					}
+				}
+			}
 			return {
 				clientX: touch.clientX,
 				clientY: touch.clientY,
+				Xspeed: touch.clientX - x,
+				Yspeed: touch.clientY - y,
+				speed: Math.sqrt((touch.clientX - x) * (touch.clientX - x) + (touch.clientY - y) * (touch.clientY - y)),
 				identifier: touch.identifier,
 			};
 		});
@@ -1552,6 +1694,16 @@ class WitCatMouse {
 				this.yMouse = 0;
 			}, 30);
 			// e.targetTouches 会随着时间改变，必须复制一份。
+			if (this.timer !== null) {
+				clearTimeout(this.touchtimer);
+			}
+			this.touchtimer = setTimeout(() => {
+				for (let i = 0; i < this.touch.length; i++) {
+					this.touch[i].Xspeed = 0;
+					this.touch[i].Yspeed = 0;
+					this.touch[i].speed = 0;
+				}
+			}, 30);
 			this._copytouch(e.targetTouches);
 		});
 		canvas.addEventListener('touchend', (e) => {
@@ -1577,19 +1729,13 @@ class WitCatMouse {
 			}, 50);
 		});
 		// 给页面绑定滑轮滚动事件
-		document.addEventListener(
-			'wheel',
-			(e) => {
-				this.MouseWheel = e.deltaY;
-				if (this.timer !== null) {
-					clearTimeout(this.timer);
-				}
-				this.timer = setTimeout(() => {
-					this.MouseWheel = 0;
-				}, 30);
-			},
-			{ capture: true }
-		);
+		document.addEventListener('wheel', (e) => {
+			clearTimeout(this.timer);
+			this.MouseWheel = e.deltaY;
+			this.timer = setTimeout(() => {
+				this.MouseWheel = 0;
+			}, 30);
+		}, { capture: true });
 		window.addEventListener('deviceorientation', (e) => {
 			this.Gyroscope = e;
 		});
@@ -1610,12 +1756,54 @@ window.tempExt = {
 	},
 	l10n: {
 		"zh-cn": {
-			"WitCatMouse.name": "[beta]白猫的高级鼠标",
+			"WitCatMouse.name": "白猫的高级鼠标 V3.3",
 			"WitCatMouse.descp": "更精准的控制鼠标/触屏/全屏！"
 		},
 		en: {
-			"WitCatMouse.name": "[beta]WitCat’s Mouse",
+			"WitCatMouse.name": "WitCat’s Mouse V3.3",
 			"WitCatMouse.descp": "More precise mouse/touch/full screen control!"
 		}
 	}
 };
+
+/**
+ * 计算舞台在全屏/非全屏的大小
+ * @param {Element} element 需要被计算中心点的角色
+ * @param {Boolean} type 模式（true：最小化，false：全屏）
+ */
+function resizeElementInParent(element, type, types, aspectRatio) {
+	let parentWidth, parentHeight;
+
+	if (type) {
+		let parent
+		if (types === 'zoom') {
+			parent = element.parentElement.parentElement;
+		}
+		else {
+			parent = element.parentElement;
+		}
+		parentWidth = parent.clientWidth;
+		parentHeight = parent.clientHeight;
+	} else {
+		parentWidth = document.body.clientWidth;
+		parentHeight = document.body.clientHeight;
+	}
+
+	let elementWidth = element.offsetWidth;
+	let elementHeight = element.offsetHeight;
+
+	if (types === 'zoom') {
+		let widthRatio = parentWidth / elementWidth;
+		let heightRatio = parentHeight / elementHeight;
+		let scale = Math.min(widthRatio, heightRatio);
+		element.style.transform = 'scale(' + scale + ')';
+	} else {
+		if (parentWidth / parentHeight > aspectRatio) {
+			element.style.height = parentHeight + 'px';
+			element.style.width = parentWidth / (aspectRatio / (parentWidth / parentHeight)) + 'px';
+		} else {
+			element.style.width = parentWidth + 'px';
+			element.style.height = parentHeight / (aspectRatio / (parentWidth / parentHeight)) + 'px';
+		}
+	}
+}

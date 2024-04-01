@@ -2,7 +2,7 @@
  * @file 实现简单的缓动动画以及数据运算
  *  
  * @author 官方小傲娇 <gfxaj@qq.com>
- * @version 1.0.0  
+ * @version 1.0.3
  */
 
 // @ts-nocheck
@@ -52,6 +52,10 @@ class Animate {
             end,
             length
         ]
+    }
+    /** @type {AnimationMethod} 线性 */
+    static Linear(t, b, c, d) {
+        return c * t / d + b
     }
     /** @type {AnimationMethod} 平方缓入。 */
     static EaseInQuad(t, b, c, d) {
@@ -295,11 +299,12 @@ class Animator {
             'zh-cn': {
                 'Ani.extensionName': 'Animator',
                 'Ani.Animate':
-                    '[type](初始值=[start], 尾值=[end], 长度=[length]) 于[time]秒时的值', //block
-                'Ani.Move': '在[time]秒内以[type]方式移到[endx][endy]', //block
-                'Ani.Effect': '在[time]秒内以[type]方式将[Effect]更改为[endv]', //block
-                'Ani.Dir': '在[time]秒内以[type]方式转到[endv]度', //block
+                    '用[type]方式计算时长[length]从[start]到[end]的函数于[time]时的值', //block
+                'Ani.Move': '🏃在[time]秒内以[type]方式移到[endx][endy]', //block
+                'Ani.Effect': '✨在[time]秒内以[type]方式将[Effect]更改为[endv]', //block
+                'Ani.Dir': '🔄️在[time]秒内以[type]方式转到[endv]度', //block
 
+                'Ani.linear': '线性',
                 'Ani.easeInQuad': '二次缓入',
                 'Ani.easeOutQuad': '二次缓出',
                 'Ani.easeInOutQuad': '二次缓动',
@@ -331,7 +336,7 @@ class Animator {
                 'Ani.easeOutBounce': '弹跳缓出',
                 'Ani.easeInOutBounce': '弹跳缓动',
 
-                'Ani.getEffect': '获取特效[Effect]的值', //block
+                'Ani.getEffect': '🛠️获取特效[Effect]的值', //block
                 'Ani.color': '颜色',
                 'Ani.fisheye': '鱼眼',
                 'Ani.whirl': '旋涡',
@@ -341,7 +346,7 @@ class Animator {
                 'Ani.ghost': '虚像',
                 'Ani.size': '大小',
 
-                'Ani.docs': '📖文档(编写中)',
+                'Ani.docs': '📖文档',//Not included
 
                 'Ani.Fac_ani': '🌟缓动运算',
                 'Ani.Fac_dat': '🪄特效参数'
@@ -351,10 +356,11 @@ class Animator {
                 'Ani.extensionName': 'Animator',
                 'Ani.Animate':
                     '[type](start=[start], end=[end], duration=[length]) at[time]second(s)', //block
-                'Ani.Move': 'Move to[endx][endy]within[time]second(s) using[type]', //block
-                'Ani.Effect': 'Change[Effect]to[endv]within[time]second(s) using[type]', //block
-                'Ani.Dir': 'Turn to[endv]degrees within[time]second(s) using[type]', //block
+                'Ani.Move': '🏃Move to[endx][endy]within[time]second(s) using[type]', //block
+                'Ani.Effect': '✨Change[Effect]to[endv]within[time]second(s) using[type]', //block
+                'Ani.Dir': '🔄️Turn to[endv]degrees within[time]second(s) using[type]', //block
 
+                'Ani.linear': 'Linear',
                 'Ani.easeInQuad': 'Quadratic ease-in',
                 'Ani.easeOutQuad': 'Quadratic ease-out',
                 'Ani.easeInOutQuad': 'Quadratic ease-in-out',
@@ -386,7 +392,7 @@ class Animator {
                 'Ani.easeOutBounce': 'Bounce ease-out',
                 'Ani.easeInOutBounce': 'Bounce ease-in-out',
 
-                'Ani.getEffect': 'Get[Effect]value', //block
+                'Ani.getEffect': '🛠️Get[Effect]value', //block
                 'Ani.color': 'color',
                 'Ani.fisheye': 'fisheye',
                 'Ani.whirl': 'whirl',
@@ -396,7 +402,7 @@ class Animator {
                 'Ani.ghost': 'ghost',
                 'Ani.size': 'size',
 
-                'Ani.docs': '📖Docs(WIP)',
+                'Ani.docs': '📖Docs',//Not included
 
                 'Ani.Fac_ani': '🌟Easing functions',
                 'Ani.Fac_dat': '🪄Effect parameters'
@@ -427,13 +433,6 @@ class Animator {
             menuIconURI: ani_icon,
             blockIconURI: ani_icon,
             blocks: [
-                /*
-                {
-                    blockType: 'button',
-                    text: this.formatMessage('Ani.docs'),
-                    onClick: this.docs
-                },
-                */
                 '---' + this.formatMessage('Ani.Fac_ani'),
                 {
                     opcode: 'Animate',
@@ -533,177 +532,133 @@ class Animator {
                             menu: 'Effect'
                         }
                     },
-                    disableMonitor: true //disable the tick before this block (bugs may accure when monitoring)
+                    disableMonitor: true
                 }
             ],
             menus: {
-                Ani: [
-                    {
-                        text: this.formatMessage('Ani.easeInQuad'),
-                        value: 'EaseInQuad'
-                    },
-                    {
-                        text: this.formatMessage('Ani.easeOutQuad'),
-                        value: 'EaseOutQuad'
-                    },
-                    {
-                        text: this.formatMessage('Ani.easeInOutQuad'),
-                        value: 'EaseInOutQuad'
-                    },
-                    {
-                        text: this.formatMessage('Ani.easeInSine'),
-                        value: 'EaseInSine'
-                    },
-                    {
-                        text: this.formatMessage('Ani.easeOutSine'),
-                        value: 'EaseOutSine'
-                    },
-                    {
-                        text: this.formatMessage('Ani.easeInOutSine'),
-                        value: 'EaseInOutSine'
-                    },
-                    {
-                        text: this.formatMessage('Ani.easeInExpo'),
-                        value: 'EaseInExpo'
-                    },
-                    {
-                        text: this.formatMessage('Ani.easeOutExpo'),
-                        value: 'EaseOutExpo'
-                    },
-                    {
-                        text: this.formatMessage('Ani.easeInOutExpo'),
-                        value: 'EaseInOutExpo'
-                    },
-                    {
-                        text: this.formatMessage('Ani.easeInCirc'),
-                        value: 'EaseInCirc'
-                    },
-                    {
-                        text: this.formatMessage('Ani.easeOutCirc'),
-                        value: 'EaseOutCirc'
-                    },
-                    {
-                        text: this.formatMessage('Ani.easeInOutCirc'),
-                        value: 'EaseInOutCirc'
-                    },
-                    {
-                        text: this.formatMessage('Ani.easeInCubic'),
-                        value: 'EaseInCubic'
-                    },
-                    {
-                        text: this.formatMessage('Ani.easeOutCubic'),
-                        value: 'EaseOutCubic'
-                    },
-                    {
-                        text: this.formatMessage('Ani.easeInOutCubic'),
-                        value: 'EaseInOutCubic'
-                    },
-                    {
-                        text: this.formatMessage('Ani.easeInQuart'),
-                        value: 'EaseInQuart'
-                    },
-                    {
-                        text: this.formatMessage('Ani.easeOutQuart'),
-                        value: 'EaseOutQuart'
-                    },
-                    {
-                        text: this.formatMessage('Ani.easeInOutQuart'),
-                        value: 'EaseInOutQuart'
-                    },
-                    {
-                        text: this.formatMessage('Ani.easeInQuint'),
-                        value: 'EaseInQuint'
-                    },
-                    {
-                        text: this.formatMessage('Ani.easeOutQuint'),
-                        value: 'EaseOutQuint'
-                    },
-                    {
-                        text: this.formatMessage('Ani.easeInOutQuint'),
-                        value: 'EaseInOutQuint'
-                    },
-                    {
-                        text: this.formatMessage('Ani.easeInElastic'),
-                        value: 'EaseInElastic'
-                    },
-                    {
-                        text: this.formatMessage('Ani.easeOutElastic'),
-                        value: 'EaseOutElastic'
-                    },
-                    {
-                        text: this.formatMessage('Ani.easeInOutElastic'),
-                        value: 'EaseInOutElastic'
-                    },
-                    {
-                        text: this.formatMessage('Ani.easeInBack'),
-                        value: 'EaseInBack'
-                    },
-                    {
-                        text: this.formatMessage('Ani.easeOutBack'),
-                        value: 'EaseOutBack'
-                    },
-                    {
-                        text: this.formatMessage('Ani.easeInOutBack'),
-                        value: 'EaseInOutBack'
-                    },
-                    {
-                        text: this.formatMessage('Ani.easeInBounce'),
-                        value: 'EaseInBounce'
-                    },
-                    {
-                        text: this.formatMessage('Ani.easeOutBounce'),
-                        value: 'EaseOutBounce'
-                    },
-                    {
-                        text: this.formatMessage('Ani.easeInOutBounce'),
-                        value: 'EaseInOutBounce'
-                    }
-                ],
-                Effect: [
-                    {
-                        text: this.formatMessage('Ani.color'),
-                        value: 'color'
-                    },
-                    {
-                        text: this.formatMessage('Ani.fisheye'),
-                        value: 'fisheye'
-                    },
-                    {
-                        text: this.formatMessage('Ani.whirl'),
-                        value: 'whirl'
-                    },
-                    {
-                        text: this.formatMessage('Ani.pixelate'),
-                        value: 'pixelate'
-                    },
-                    {
-                        text: this.formatMessage('Ani.mosaic'),
-                        value: 'mosaic'
-                    },
-                    {
-                        text: this.formatMessage('Ani.brightness'),
-                        value: 'brightness'
-                    },
-                    {
-                        text: this.formatMessage('Ani.ghost'),
-                        value: 'ghost'
-                    },
-                    {
-                        text: this.formatMessage('Ani.size'),
-                        value: 'size'
-                    }
-                ]
+                Ani: [{
+                    text: this.formatMessage("Ani.linear"),
+                    value: "Linear"
+                }, {
+                    text: this.formatMessage("Ani.easeInQuad"),
+                    value: "EaseInQuad"
+                }, {
+                    text: this.formatMessage("Ani.easeOutQuad"),
+                    value: "EaseOutQuad"
+                }, {
+                    text: this.formatMessage("Ani.easeInOutQuad"),
+                    value: "EaseInOutQuad"
+                }, {
+                    text: this.formatMessage("Ani.easeInSine"),
+                    value: "EaseInSine"
+                }, {
+                    text: this.formatMessage("Ani.easeOutSine"),
+                    value: "EaseOutSine"
+                }, {
+                    text: this.formatMessage("Ani.easeInOutSine"),
+                    value: "EaseInOutSine"
+                }, {
+                    text: this.formatMessage("Ani.easeInExpo"),
+                    value: "EaseInExpo"
+                }, {
+                    text: this.formatMessage("Ani.easeOutExpo"),
+                    value: "EaseOutExpo"
+                }, {
+                    text: this.formatMessage("Ani.easeInOutExpo"),
+                    value: "EaseInOutExpo"
+                }, {
+                    text: this.formatMessage("Ani.easeInCirc"),
+                    value: "EaseInCirc"
+                }, {
+                    text: this.formatMessage("Ani.easeOutCirc"),
+                    value: "EaseOutCirc"
+                }, {
+                    text: this.formatMessage("Ani.easeInOutCirc"),
+                    value: "EaseInOutCirc"
+                }, {
+                    text: this.formatMessage("Ani.easeInCubic"),
+                    value: "EaseInCubic"
+                }, {
+                    text: this.formatMessage("Ani.easeOutCubic"),
+                    value: "EaseOutCubic"
+                }, {
+                    text: this.formatMessage("Ani.easeInOutCubic"),
+                    value: "EaseInOutCubic"
+                }, {
+                    text: this.formatMessage("Ani.easeInQuart"),
+                    value: "EaseInQuart"
+                }, {
+                    text: this.formatMessage("Ani.easeOutQuart"),
+                    value: "EaseOutQuart"
+                }, {
+                    text: this.formatMessage("Ani.easeInOutQuart"),
+                    value: "EaseInOutQuart"
+                }, {
+                    text: this.formatMessage("Ani.easeInQuint"),
+                    value: "EaseInQuint"
+                }, {
+                    text: this.formatMessage("Ani.easeOutQuint"),
+                    value: "EaseOutQuint"
+                }, {
+                    text: this.formatMessage("Ani.easeInOutQuint"),
+                    value: "EaseInOutQuint"
+                }, {
+                    text: this.formatMessage("Ani.easeInElastic"),
+                    value: "EaseInElastic"
+                }, {
+                    text: this.formatMessage("Ani.easeOutElastic"),
+                    value: "EaseOutElastic"
+                }, {
+                    text: this.formatMessage("Ani.easeInOutElastic"),
+                    value: "EaseInOutElastic"
+                }, {
+                    text: this.formatMessage("Ani.easeInBack"),
+                    value: "EaseInBack"
+                }, {
+                    text: this.formatMessage("Ani.easeOutBack"),
+                    value: "EaseOutBack"
+                }, {
+                    text: this.formatMessage("Ani.easeInOutBack"),
+                    value: "EaseInOutBack"
+                }, {
+                    text: this.formatMessage("Ani.easeInBounce"),
+                    value: "EaseInBounce"
+                }, {
+                    text: this.formatMessage("Ani.easeOutBounce"),
+                    value: "EaseOutBounce"
+                }, {
+                    text: this.formatMessage("Ani.easeInOutBounce"),
+                    value: "EaseInOutBounce"
+                }],
+                Effect: [{
+                    text: this.formatMessage("Ani.color"),
+                    value: "color"
+                }, {
+                    text: this.formatMessage("Ani.fisheye"),
+                    value: "fisheye"
+                }, {
+                    text: this.formatMessage("Ani.whirl"),
+                    value: "whirl"
+                }, {
+                    text: this.formatMessage("Ani.pixelate"),
+                    value: "pixelate"
+                }, {
+                    text: this.formatMessage("Ani.mosaic"),
+                    value: "mosaic"
+                }, {
+                    text: this.formatMessage("Ani.brightness"),
+                    value: "brightness"
+                }, {
+                    text: this.formatMessage("Ani.ghost"),
+                    value: "ghost"
+                }, {
+                    text: this.formatMessage("Ani.size"),
+                    value: "size"
+                }]
             }
         }
     }
 
-    docs() {
-        /*
-        docs missing (in progress)
-
-        window.open('https://gandi.rth1.app/Docs/Animator.js.html')
-        */
-    }
     /**
      * 获取动画效果。
      * @param {{type: string, start: string, end: string, length: string, time: string}} param0
@@ -872,8 +827,8 @@ class Animator {
                 }
                 util.yield()
             } else {
-                    util.target.setDirection(util.stackFrame.endV)
-                }
+                util.target.setDirection(util.stackFrame.endV)
+            }
         } else {
             ;[
                 util.stackFrame.type,
@@ -922,6 +877,7 @@ window.tempExt = {
         insetIconURL: ani_icon,
         featured: true,
         disabled: false,
+        doc: "https://learn.ccw.site/article/63a876b1-ccd4-4e74-a298-04e94109ab95",
         collaborator: '官方小傲娇 @ CCW',
         collaboratorURL: 'https://www.ccw.site/student/62f76ddb49c5dc44ac0c03c0',
         collaboratorList: [
@@ -942,7 +898,7 @@ window.tempExt = {
                 collaboratorURL: 'https://www.ccw.site/student/6173f57f48cf8f4796fc860e'
             },
             {
-                collaborator: '凌 @ CCW',
+                collaborator: 'FurryR @ Simplicity Studio',
                 collaboratorURL: 'https://www.ccw.site/student/63ddff9293ebb01fb90efa79'
             }
         ]
@@ -950,11 +906,11 @@ window.tempExt = {
     l10n: {
         'zh-cn': {
             'Ani.extensionName': 'Animator',
-            'Ani.description': '让你的角色动起来🏃‍♂️'
+            'Ani.description': '让你的角色动起来🏃'
         },
         en: {
             'Ani.extensionName': 'Animator',
-            'Ani.description': 'Make your characters move 🏃‍♂️'
+            'Ani.description': 'Make your characters move 🏃'
         }
     }
 }
