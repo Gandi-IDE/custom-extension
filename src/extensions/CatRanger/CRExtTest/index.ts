@@ -6,6 +6,9 @@ import en from "./l10n/en.json";
 import cover from "./assets/cover.jpg";
 import blockIcon from "./assets/icon.png";
 
+/** Scratch 参数类型 */
+type SCarg = string | number | boolean;
+
 export default class CRExtTest extends GandiExtension {
   get extensionId(): string {
     return extensionId;
@@ -122,22 +125,22 @@ export default class CRExtTest extends GandiExtension {
   }
 
   //block opcode functions
-  test(args) {
+  test(args: { A: SCarg; B: SCarg; C: SCarg }) {
     const {A, B, C} = args;
     console.log('test', A, B, C);
   }
 
-  targetReporter(args) {}
+  targetReporter() {}
 
-  globalReporter(args) {}
+  globalReporter() {}
 
-  conditionalBlocks(args) {}
+  conditionalBlocks() {}
 
-  loopBlocks(args) {}
+  loopBlocks() {}
 
-  eventBlocks(args) {}
+  eventBlocks() {}
 
-  hatBlocks(args) {}
+  hatBlocks() {}
 
   //dynamic menu function
 

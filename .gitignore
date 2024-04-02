@@ -9,6 +9,8 @@
 # production
 /dist
 
+/types
+
 # misc
 .DS_Store
 .idea
@@ -26,3 +28,4 @@ yarn-error.log*
 
 .cache
 !.gitkeep
+*.lock

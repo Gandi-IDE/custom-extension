@@ -1,0 +1,19 @@
+{
+  "name": "[beta] Block style",
+  "desc": "Come and play with cute cats~",
+  "docURL": "https://learn.ccw.site/article/78d5b0c2-e56a-43fd-8c2e-b463f6f7fdac",
+  "Switch.OFF": "❎OFF",
+  "Switch.ON": "✅ON",
+  "Args.URI": "https://m.ccw.site/gandi/GandiIDE.png",
+  "Label.Set": "⚙ Load cute cats",
+  "Block.OfficialCat": "show cute cat [Style]",
+  "Block.CustomCat": "show custom cute cat with image links [URI]",
+  "Label.Tool": "🔧 Scratch Blocks Tool",
+  "Block.CloseAllCat": "Turn off block styles",
+  "Block.UseMouseCursor": "Whether to enable cat's eye tracking [MouseCursor]",
+  "Block.UseMouseCursor.OFF": "Cat eye disabled🔴",
+  "Block.UseMouseCursor.ON": "Cat eye enabled🟢",
+  "Block.applyCustomCatHat": "show custom cat",
+  "Block.applyCatHat": "show cat",
+  "Block.refreshConfig": "Refresh cat menu"
+}

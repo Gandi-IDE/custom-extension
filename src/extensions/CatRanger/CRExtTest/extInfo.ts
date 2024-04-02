@@ -8,9 +8,14 @@ export const extensionNS = 'CatRanger';
 
 export const extensionId = `${extensionNS}.CRExtTest`;
 
-const buildInfoL10n = (l10n) => {
-  const {name, desc, docURL} = l10n;
-  const infoL10n = {}
+const buildInfoL10n = (l10n: {
+  name: string;
+  desc: string;
+  docURL: string;
+  [key: string]: string;
+}) => {
+  const { name, desc, docURL } = l10n;
+  const infoL10n: { [key: string]: string } = {};
   infoL10n[`${extensionId}.name`] = name;
   infoL10n[`${extensionId}.desc`] = desc;
   infoL10n[`${extensionId}.docURL`] = docURL;

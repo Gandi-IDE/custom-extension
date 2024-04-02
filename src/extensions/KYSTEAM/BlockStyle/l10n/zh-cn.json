@@ -1,0 +1,18 @@
+{
+  "name": "[beta] 积木样式",
+  "desc": "快来和猫猫一起玩吧~",
+  "docURL": "https://learn.ccw.site/article/78d5b0c2-e56a-43fd-8c2e-b463f6f7fdac",
+  "Switch.OFF": "❎OFF",
+  "Switch.ON": "✅ON",
+  "Args.URI": "https://m.ccw.site/gandi/GandiIDE.png",
+  "Label.Set": "⚙ 使用可爱的猫猫",
+  "Block.OfficialCat": "显示可爱的猫猫 [Style]",
+  "Block.CustomCat": "显示自定义图像的猫猫 [URI]",
+  "Label.Tool": "🔧 工具",
+  "Block.CloseAllCat": "关闭可爱的猫猫",
+  "Block.UseMouseCursor.OFF": "猫眼追踪 - 已关闭🔴",
+  "Block.UseMouseCursor.ON": "猫眼追踪 - 已开启🟢",
+  "Block.applyCustomCatHat": "显示自定义猫猫",
+  "Block.applyCatHat": "显示猫猫",
+  "Block.refreshConfig": "刷新猫猫菜单"
+}

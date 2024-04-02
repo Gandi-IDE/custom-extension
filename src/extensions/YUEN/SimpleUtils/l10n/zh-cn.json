@@ -11,6 +11,7 @@
     "deviceName": "设备型号",
     "CPU_Type": "CPU架构",
     "is_online": "连接到互联网了吗?",
+    "getUserAgent": "get UserAgent",
     "get_notif_perm": "拥有通知权限?",
     "ask_notif_perm": "请求通知权限",
     "notification": "发送通知 标题: [TITLE] 内容: [CONTENT] 图标: [ICON]",

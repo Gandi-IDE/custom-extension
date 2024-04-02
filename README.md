@@ -26,9 +26,9 @@ This branch is a template for developing extensions for Gandi IDE, an in-browser
 
 ## Localization
 
-run command 'yarn extension l10n {extension_path}'
+run command 'yarn extension-kit l10n {extension_path}'
 
-like 'yarn extension l10n src/extension/Arkos/file_helper'
+like 'yarn extension-kit l10n src/extension/Arkos/file_helper'
 
 l10n file will be created in path 'src/extension/Arkos/file_helper/l10n'
 
@@ -37,10 +37,10 @@ it will analyze your code and generate l10n key-value into zh-cn.json and en.jso
 ```
 {
   test: 'test[A][B][C]',
-  commandArugA: 'commandArugA',
+  commandArgumentA: 'commandArgumentA',
   menuOpt1: 'menuOpt1',
   menuOpt12: 'menuOpt12',
-  commandArguB: 'commandArguB',
+  commandArgumentB: 'commandArgumentB',
   targetReporter: 'targetReporter[A][B][C]',
   globalReporter: 'globalReporter[A][B][C]',
   conditionalBlocks: 'conditionalBlocks[A][B][C]',
