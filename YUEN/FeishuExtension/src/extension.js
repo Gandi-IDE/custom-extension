@@ -5,7 +5,9 @@ import Icon from "./assets/icon.png";
 
 export { Cover, Icon };
 export const extensionNS = "YUEN";
-export const extensionId = `${extensionNS}.feishu`;
+export const extensionId = `${extensionNS}.feishu${
+  DEPLOY_ENV && DEPLOY_ENV === "pre" ? "1" : ""
+}`;
 
 const { BlockType, ArgumentType } = window.Scratch;
 

@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require("webpack");
 
 module.exports = {
   mode: "production",
@@ -38,7 +39,11 @@ module.exports = {
   resolve: {
     extensions: [".js", ".png", ".svg", ".gif", ".jpg", ".jpeg", ".css"],
   },
-  plugins: [],
+  plugins: [
+    new webpack.DefinePlugin({
+      DEPLOY_ENV: `"${process.env.DEPLOY_ENV}"`,
+    }),
+  ],
   devServer: {
     host: "127.0.0.1",
     port: 9999,
