@@ -2,7 +2,7 @@
     "name": "系统工具",
     "desc": "实用的系统信息获取工具！",
     "docURL": "https://www.ccw.site/post/5e4fff4e-3556-4497-a453-a2480864d90d",
-    "get_client_info": "获取客户端信息 [TYPE]",
+    "get_client_info": "（⚠不推荐使用）获取客户端信息 [TYPE]",
     "json": "JSON",
     "browserName": "浏览器名称",
     "browserVersion": "浏览器版本",
