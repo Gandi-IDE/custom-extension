@@ -6,7 +6,7 @@ import ext from "./index";
 
 export const extensionNS = "YUEN";
 
-export const extensionId = `${extensionNS}.SimpleUtils${DEPLOY_ENV && DEPLOY_ENV !== 'dev' ? '1' : ''}`;
+export const extensionId = `${extensionNS}.SimpleUtils${DEPLOY_ENV && DEPLOY_ENV === 'dev' ? '1' : ''}`;
 
 const buildInfoL10n = (l10n: {
   name: string;
