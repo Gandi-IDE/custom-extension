@@ -41,7 +41,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      DEPLOY_ENV: `"${process.env.DEPLOY_ENV}"`,
+      DEPLOY_ENV: `"${process.env.DEPLOY_ENV || 'prd'}"`,
     }),
   ],
   devServer: {
