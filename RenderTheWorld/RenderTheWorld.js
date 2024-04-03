@@ -46,6 +46,9 @@ class RenderTheWorld {
 
         // 环境光
         this.ambient_light = null;
+        // 半球光
+        this.hemisphere_light = null;
+        
 
         // 光
         this.lights = {};
@@ -100,7 +103,8 @@ class RenderTheWorld {
                 "RenderTheWorld.xyz.z": "z轴",
                 
                 "RenderTheWorld.lights": "光照",
-                "RenderTheWorld.setAmbientLightColor": "设置环境光颜色: [color]",
+                "RenderTheWorld.setAmbientLightColor": "设置环境光颜色: [color] 光照强度：[intensity]",
+                "RenderTheWorld.setHemisphereLightColor": "设置半球光天空颜色: [skyColor] 地面颜色: [groundColor] 光照强度：[intensity]",
                 "RenderTheWorld.makePointLight": "创建或重置点光源: [name] 颜色: [color] 光照强度: [intensity] 位置: x[x] y[y] z[z] 衰减量[decay] [YN]投射阴影",
                 "RenderTheWorld.deleteLight": "删除光源: [name]",
 
@@ -155,7 +159,8 @@ class RenderTheWorld {
                 "RenderTheWorld.xyz.z": "z-axis",
 
                 "RenderTheWorld.lights": "Lights",
-                "RenderTheWorld.setAmbientLightColor": "set AmbientLight\'s color: [color]",
+                "RenderTheWorld.setAmbientLightColor": "set AmbientLight\'s color: [color] intensity: [intensity]",
+                "RenderTheWorld.setHemisphereLightColor": "set HemisphereLight\'s skyColor: [skyColor] groundColor: [groundColor] intensity: [intensity]",
                 "RenderTheWorld.makePointLight": "reset or make a PointLight: [name] color: [color] intensity: [intensity] position: x[x] y[y] z[z] decay[decay] [YN]cast shadows",
                 "RenderTheWorld.deleteLight": "delete ligth: [name]",
                 
@@ -207,11 +212,11 @@ class RenderTheWorld {
                         },
                         sizex: {
                             type: "number",
-                            defaultValue: 0,
+                            defaultValue: 640,
                         },
                         sizey: {
                             type: "number",
-                            defaultValue: 0,
+                            defaultValue: 360,
                         },
                         Anti_Aliasing: {
                             type: "string",
@@ -599,7 +604,7 @@ class RenderTheWorld {
                         },
                         intensity: {
                             type: "number",
-                            defaultValue: 1,
+                            defaultValue: 100,
                         },
                         x: {
                             type: "number",
@@ -631,6 +636,27 @@ class RenderTheWorld {
                         color: {
                             type: "number",
                         },
+                        intensity: {
+                            type: "number",
+                            defaultValue: 1,
+                        }
+                    },
+                },
+                {
+                    opcode: "setHemisphereLightColor",
+                    blockType: "command",
+                    text: this.formatMessage("RenderTheWorld.setHemisphereLightColor"),
+                    arguments: {
+                        skyColor: {
+                            type: "number",
+                        },
+                        groundColor: {
+                            type: "number",
+                        },
+                        intensity: {
+                            type: "number",
+                            defaultValue: 1,
+                        }
                     },
                 },
                 {
@@ -792,16 +818,15 @@ class RenderTheWorld {
                     },
                 },
                 {
-                    opcode: "_isWebGLAvailable",
-                    blockType: "reporter",
-                    text: this.formatMessage("RenderTheWorld._isWebGLAvailable")
-                },
-                {
                     opcode: "isWebGLAvailable",
                     blockType: "command",
                     text: this.formatMessage("RenderTheWorld.isWebGLAvailable")
                 },
-                
+                {
+                    opcode: "_isWebGLAvailable",
+                    blockType: "reporter",
+                    text: this.formatMessage("RenderTheWorld._isWebGLAvailable")
+                },
             ],
             
             menus: {
@@ -902,8 +927,8 @@ class RenderTheWorld {
         if (model.type === 'Mesh') {
             model.geometry.dispose();
             model.material.dispose();
-        } else {
-            model.traverse(function(obj) {
+        } else if (model.type === 'Group') {
+            model.traverse((obj) => {
                 if (obj.type === 'Mesh') {
                     obj.geometry.dispose();
                     obj.material.dispose();
@@ -911,6 +936,9 @@ class RenderTheWorld {
             })
         }
      
+        console.log('===========================');
+        console.log(model);
+        console.log('===========================');
         this.scene.remove(model);
 
     }
@@ -980,6 +1008,10 @@ class RenderTheWorld {
         // 创建环境光
         this.ambient_light = new THREE.AmbientLight(0x000000);
         this.scene.add(this.ambient_light)
+
+        // 创建半球光
+        this.hemisphere_light = new THREE.HemisphereLight(0x000000, 0x000000);
+        this.scene.add(this.hemisphere_light);
 
         console.log(THREE);
         //console.log(this.renderer);
@@ -1230,6 +1262,7 @@ class RenderTheWorld {
         const gltfLoader = new GLTFLoader();
         const url = Scratch.Cast.toString(args.gltfurl);
         // 添加到场景
+        console.log(name, name in this.objects);
         if (name in this.objects) {
             this._deleteObject(this.objects[name]);
         }
@@ -1407,10 +1440,25 @@ class RenderTheWorld {
     /**
      * 设置环境光颜色
      * @param {number} args.color
+     * @param {number} args.intensity
      */
     setAmbientLightColor(args) {
         // 设置环境光颜色
         this.ambient_light.color = new THREE.Color(Scratch.Cast.toNumber(args.color));
+        this.ambient_light.intensity = Scratch.Cast.toNumber(args.intensity);
+    }
+
+    /**
+     * 设置环境光颜色
+     * @param {number} args.skyColor
+     * @param {number} args.groundColor
+     * @param {number} args.intensity
+     */
+    setHemisphereLightColor(args) {
+        // 设置环境光颜色
+        this.hemisphere_light.color = new THREE.Color(Scratch.Cast.toNumber(args.skyColor));
+        this.hemisphere_light.groundColor = new THREE.Color(Scratch.Cast.toNumber(args.groundColor));
+        this.hemisphere_light.intensity = Scratch.Cast.toNumber(args.intensity);
     }
 
     /**
