@@ -1,4 +1,4 @@
-/// Copyright (c) FurryR 2023. This project is licensed under the MIT license.
+/// Copyright (c) FurryR 2023. This project is licensed under the LGPL-3.0 license.
 /// Original repository: https://github.com/FurryR/lpp-scratch
 
 "use strict";
@@ -10,13 +10,14 @@
   };
 
   // src/impl/asset/icon.ts
-  var icon_default = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDYwMCAzNzIiPjxkZWZzPjxzdHlsZT4KICAgICAgLmNscy0xIHsKICAgICAgICBmaWxsOiAjZmZmOwogICAgICB9CiAgICA8L3N0eWxlPjwvZGVmcz48cmVjdCBjbGFzcz0iY2xzLTEiIHdpZHRoPSI2MDAiIGhlaWdodD0iMzcyIi8+PGc+PHBhdGggZD0iTTIzMC4xNCwxNjEuMzd2NDUuMDVoMjUuNDJjMi4wMywwLDMuNTgsLjQ5LDQuNjcsMS40OCwxLjA4LC45OSwxLjYzLDIuMjIsMS42MywzLjcxcy0uNTQsMi43NS0xLjYsMy42OWMtMS4wNywuOTQtMi42MywxLjQxLTQuNjksMS40MWgtMzAuMjdjLTIuNzMsMC00LjY5LS42LTUuODktMS44Mi0xLjItMS4yMS0xLjc5LTMuMTctMS43OS01Ljg3di00Ny42N2MwLTIuNTMsLjU3LTQuNDMsMS43MS01LjcsMS4xNC0xLjI3LDIuNjQtMS45LDQuNS0xLjlzMy40MSwuNjMsNC41OCwxLjg4YzEuMTcsMS4yNSwxLjc1LDMuMTYsMS43NSw1LjcyWiIvPjxwYXRoIGQ9Ik0yOTQuMSwxOTIuNjJoLTExLjQ4djE3LjUyYzAsMi41LS41OSw0LjQxLTEuNzcsNS43cy0yLjY3LDEuOTQtNC40OCwxLjk0LTMuNDEtLjY0LTQuNTYtMS45MmMtMS4xNS0xLjI4LTEuNzMtMy4xNi0xLjczLTUuNjR2LTQ3LjcxYzAtMi43NiwuNjMtNC43MywxLjktNS45MXMzLjI4LTEuNzcsNi4wNC0xLjc3aDE2LjA5YzQuNzYsMCw4LjQyLC4zNywxMC45OCwxLjEsMi41MywuNyw0LjcyLDEuODcsNi41NywzLjUsMS44NCwxLjYzLDMuMjQsMy42Myw0LjIsNnMxLjQ0LDUuMDIsMS40NCw3Ljk4YzAsNi4zMS0xLjk0LDExLjA4LTUuODMsMTQuMzMtMy44OCwzLjI1LTkuNjcsNC44OC0xNy4zNSw0Ljg4Wm0tMy4wNC0yOC4zN2gtOC40NHYxOC45MWg4LjQ0YzIuOTYsMCw1LjQyLS4zMSw3LjQxLS45MywxLjk4LS42MiwzLjUtMS42Myw0LjU0LTMuMDQsMS4wNC0xLjQxLDEuNTYtMy4yNSwxLjU2LTUuNTMsMC0yLjczLS44LTQuOTUtMi40MS02LjY3LTEuOC0xLjgzLTUuNS0yLjc0LTExLjEtMi43NFoiLz48cGF0aCBkPSJNMzUxLjc3LDE5Mi42MmgtMTEuNDh2MTcuNTJjMCwyLjUtLjU5LDQuNDEtMS43Nyw1LjctMS4xOCwxLjI5LTIuNjcsMS45NC00LjQ3LDEuOTRzLTMuNDEtLjY0LTQuNTYtMS45MmMtMS4xNi0xLjI4LTEuNzMtMy4xNi0xLjczLTUuNjR2LTQ3LjcxYzAtMi43NiwuNjMtNC43MywxLjktNS45MXMzLjI4LTEuNzcsNi4wNC0xLjc3aDE2LjA4YzQuNzYsMCw4LjQyLC4zNywxMC45OCwxLjEsMi41MywuNyw0LjcyLDEuODcsNi41NywzLjUsMS44NCwxLjYzLDMuMjQsMy42Myw0LjIsNiwuOTYsMi4zNiwxLjQzLDUuMDIsMS40Myw3Ljk4LDAsNi4zMS0xLjk0LDExLjA4LTUuODMsMTQuMzMtMy44OCwzLjI1LTkuNjcsNC44OC0xNy4zNSw0Ljg4Wm0tMy4wNC0yOC4zN2gtOC40NHYxOC45MWg4LjQ0YzIuOTYsMCw1LjQzLS4zMSw3LjQxLS45MywxLjk4LS42MiwzLjUtMS42Myw0LjU0LTMuMDQsMS4wNC0xLjQxLDEuNTYtMy4yNSwxLjU2LTUuNTMsMC0yLjczLS44LTQuOTUtMi40MS02LjY3LTEuOC0xLjgzLTUuNS0yLjc0LTExLjEtMi43NFoiLz48cGF0aCBkPSJNMzc5LjMsMjE3Ljc4Yy0xLjc1LDAtMy4yNS0uNTYtNC41Mi0xLjY5LTEuMjctMS4xMy0xLjktMi43LTEuOS00LjczLDAtMS43MiwuNjEtMy4xOSwxLjgyLTQuNDMsMS4yMS0xLjI0LDIuNy0xLjg2LDQuNDgtMS44NnMzLjI5LC42MSw0LjU0LDEuODRjMS4yNSwxLjIyLDEuODgsMi43MSwxLjg4LDQuNDUsMCwyLS42MywzLjU3LTEuODgsNC43MS0xLjI1LDEuMTQtMi43MiwxLjcxLTQuNDEsMS43MVoiLz48cGF0aCBkPSJNNDM1LjQ5LDE2MS4zN3YzMi40MmMwLDIuODItLjEyLDUuMjEtLjM2LDcuMTgtLjI0LDEuOTctLjc4LDMuOTctMS42Miw2LTEuNDEsMy40MS0zLjczLDYuMDYtNi45Nyw3Ljk2LTMuMjQsMS45LTcuMTgsMi44NS0xMS44MiwyLjg1LTQuMTksMC03LjY5LS42Ni0xMC40OS0xLjk4cy01LjA2LTMuNDYtNi43OC02LjQyYy0uOS0xLjU4LTEuNjMtMy4zOS0yLjItNS40NS0uNTYtMi4wNS0uODQtNC4wMS0uODQtNS44NywwLTEuOTcsLjU1LTMuNDgsMS42NS00LjUyczIuNS0xLjU2LDQuMjItMS41NiwyLjkxLC40OCwzLjc2LDEuNDQsMS40OSwyLjQ1LDEuOTQsNC40OGMuNDgsMi4xNywuOTYsMy45LDEuNDMsNS4xOSwuNDgsMS4yOSwxLjI4LDIuNDEsMi40MSwzLjMzLDEuMTIsLjkzLDIuNzMsMS4zOSw0LjgxLDEuMzksNS41NCwwLDguMzItNC4wNyw4LjMyLTEyLjJ2LTM0LjI0YzAtMi41MywuNTYtNC40MywxLjY3LTUuNywxLjExLTEuMjcsMi42Mi0xLjksNC41NC0xLjlzMy40OCwuNjMsNC42MiwxLjksMS43MSwzLjE3LDEuNzEsNS43WiIvPjxwYXRoIGQ9Ik00OTYuMTIsMTk4LjE1YzAsMy43NC0uOTYsNy4xMS0yLjg5LDEwLjA5LTEuOTMsMi45OC00Ljc1LDUuMzItOC40Niw3LjAxLTMuNzEsMS42OS04LjEyLDIuNTMtMTMuMjEsMi41My02LjExLDAtMTEuMTUtMS4xNS0xNS4xMi0zLjQ2LTIuODEtMS42Ni01LjEtMy44OC02Ljg2LTYuNjVzLTIuNjQtNS40Ny0yLjY0LTguMDhjMC0xLjUyLC41My0yLjgyLDEuNTgtMy45MSwxLjA2LTEuMDgsMi40LTEuNjMsNC4wMy0xLjYzLDEuMzIsMCwyLjQ0LC40MiwzLjM2LDEuMjcsLjkxLC44NCwxLjcsMi4xLDIuMzQsMy43NiwuNzksMS45NywxLjY0LDMuNjIsMi41NSw0Ljk0LC45MSwxLjMyLDIuMiwyLjQxLDMuODYsMy4yNywxLjY2LC44NiwzLjg0LDEuMjksNi41NCwxLjI5LDMuNzEsMCw2LjczLS44Nyw5LjA2LTIuNiwyLjMyLTEuNzMsMy40OC0zLjg5LDMuNDgtNi40OCwwLTIuMDUtLjYzLTMuNzItMS44OC01LTEuMjUtMS4yOC0yLjg3LTIuMjYtNC44Ni0yLjkzcy00LjY0LTEuMzktNy45Ni0yLjE1Yy00LjQ1LTEuMDQtOC4xNy0yLjI2LTExLjE3LTMuNjUtMy0xLjM5LTUuMzgtMy4yOS03LjEzLTUuNy0xLjc2LTIuNDEtMi42NC01LjQtMi42NC04Ljk3cy45My02LjQzLDIuNzktOS4wOGMxLjg2LTIuNjUsNC41NC00LjY4LDguMDYtNi4xLDMuNTItMS40Miw3LjY2LTIuMTMsMTIuNDEtMi4xMywzLjgsMCw3LjA4LC40Nyw5Ljg2LDEuNDEsMi43NywuOTQsNS4wNywyLjIsNi45LDMuNzYsMS44MywxLjU2LDMuMTcsMy4yLDQuMDEsNC45MiwuODQsMS43MiwxLjI3LDMuMzksMS4yNyw1LjAyLDAsMS40OS0uNTMsMi44NC0xLjU4LDQuMDMtMS4wNSwxLjItMi4zNywxLjc5LTMuOTUsMS43OS0xLjQ0LDAtMi41My0uMzYtMy4yNy0xLjA4LS43NS0uNzItMS41Ni0xLjg5LTIuNDMtMy41My0xLjEzLTIuMzQtMi40OC00LjE2LTQuMDUtNS40Ny0xLjU4LTEuMzEtNC4xMS0xLjk2LTcuNi0xLjk2LTMuMjQsMC01Ljg1LC43MS03LjgzLDIuMTMtMS45OCwxLjQyLTIuOTgsMy4xMy0yLjk4LDUuMTMsMCwxLjI0LC4zNCwyLjMxLDEuMDEsMy4yMSwuNjgsLjksMS42LDEuNjcsMi43OSwyLjMyLDEuMTgsLjY1LDIuMzgsMS4xNSwzLjU5LDEuNTIsMS4yMSwuMzcsMy4yMSwuOSw2LDEuNiwzLjQ5LC44Miw2LjY1LDEuNzIsOS40OCwyLjcsMi44MywuOTksNS4yMywyLjE4LDcuMjIsMy41OSwxLjk4LDEuNDEsMy41MywzLjE5LDQuNjQsNS4zNCwxLjExLDIuMTUsMS42Nyw0Ljc5LDEuNjcsNy45MloiLz48L2c+PHBhdGggZD0iTTEwMi4xMywxNDguMjJjMC01LjgyLDQuNzItMTAuNTMsMTAuNTMtMTAuNTNoNzUuMjVjNS44MiwwLDEwLjUzLDQuNzIsMTAuNTMsMTAuNTN2NzUuMjVjMCw1LjgyLTQuNzIsMTAuNTMtMTAuNTMsMTAuNTNIMTEyLjY2Yy01LjgyLDAtMTAuNTMtNC43Mi0xMC41My0xMC41M3YtNzUuMjVabTEwLjUzLTEuNWMtLjgzLDAtMS41LC42Ny0xLjUsMS41djc1LjI1YzAsLjgzLC42NywxLjUsMS41LDEuNWg3NS4yNWMuODMsMCwxLjUtLjY3LDEuNS0xLjV2LTc1LjI1YzAtLjgzLS42Ny0xLjUtMS41LTEuNUgxMTIuNjZabTQ0Ljk3LDIzLjljMS43Ni0xLjc2LDQuNjItMS43Niw2LjM4LDBsMTIuMDQsMTIuMDRjMS43NiwxLjc2LDEuNzYsNC42MiwwLDYuMzhsLTEyLjA0LDEyLjA0Yy0xLjY5LDEuODItNC41NSwxLjkzLTYuMzcsLjI0LS42NC0uNTktMS4wOS0xLjM2LTEuMy0yLjItLjQxLTEuNiwuMDktMy4yOSwxLjI5LTQuNDJsOC44NS04Ljg1LTguODUtOC44NWMtMS43Ni0xLjc2LTEuNzYtNC42MiwwLTYuMzhabS0xNC42OSw2LjM4bC04Ljg1LDguODUsOC44NSw4Ljg1YzEuODIsMS42OSwxLjkzLDQuNTUsLjI0LDYuMzctLjU5LC42NC0xLjM2LDEuMDktMi4yLDEuMy0xLjYsLjQxLTMuMjktLjA5LTQuNDItMS4yOWwtMTIuMDQtMTIuMDRjLTEuNzYtMS43Ni0xLjc2LTQuNjIsMC02LjM4bDEyLjA0LTEyLjA0YzEuNzgtMS42Niw0LjU1LTEuNjEsNi4yNywuMTEsMS43MiwxLjcyLDEuNzYsNC40OSwuMTEsNi4yN1oiLz48L3N2Zz4=";
+  var icon_default = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBmaWxsPSJub25lIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSI2MDAiIGhlaWdodD0iMzcyIiB2aWV3Qm94PSIwIDAgNjAwIDM3MiI+PGc+PGc+PHBhdGggZD0iTTI3Ni40NTMxNDgzMzk4NDM4LDExMC45MjQ4MDQ2ODc1TDIxMC45NzQ1NDgzMzk4NDM3NSwxMTAuOTI0ODA0Njg3NUwyMTAuOTc0NTQ4MzM5ODQzNzUsMzUyLjUxMDgwNDY4NzVMMjExLjAwMDAwMDAzOTg0Mzc0LDM1Mi41MTA4MDQ2ODc1TDIxMS4wMDAwMDAwMzk4NDM3NCwzNzEuOTk5ODA0Njg3NUwyMzIuMDAwMDQ4MzM5ODQzNzQsMzcxLjk5OTgwNDY4NzVMMjMyLjAwMDA0ODMzOTg0Mzc0LDI0MS45NTQ4MDQ2ODc1TDI3Ni40NTMxNDgzMzk4NDM4LDI0MS45NTQ4MDQ2ODc1QzMxMi42MTU1NDgzMzk4NDM3NywyNDEuOTU0ODA0Njg3NSwzNDEuOTMxNTQ4MzM5ODQzNzQsMjEyLjYyMjgwNDY4NzQ5OTk4LDM0MS45MzE1NDgzMzk4NDM3NCwxNzYuNDM5NjA0Njg3NDk5OThDMzQxLjkzMTU0ODMzOTg0Mzc0LDE0MC4yNTY4MDQ2ODc1LDMxMi42MTU1NDgzMzk4NDM3NywxMTAuOTI0ODA0Njg3NSwyNzYuNDUzMTQ4MzM5ODQzOCwxMTAuOTI0ODA0Njg3NVpNMjMyLjAwMDA0ODMzOTg0Mzc0LDEzMS4zOTgyMDQ2ODc1TDIzMi4wMDAwNDgzMzk4NDM3NCwyMjEuNDgwODA0Njg3NDk5OThMMjc2LjQ1MzE0ODMzOTg0MzgsMjIxLjQ4MDgwNDY4NzQ5OTk4UTI4NS4wMzk3NDgzMzk4NDM3NSwyMjEuNDgwODA0Njg3NDk5OTgsMjkzLjAyMzQ0ODMzOTg0Mzc1LDIxOC4zMTg4MDQ2ODc1UTMwMS42OTIwNDgzMzk4NDM3LDIxNC44ODQ4MDQ2ODc0OTk5OCwzMDguMjg0NjQ4MzM5ODQzOCwyMDguMjg4NzA0Njg3NVEzMTQuODc3NTQ4MzM5ODQzNzcsMjAxLjY5MjUwNDY4NzUsMzE4LjMwODU0ODMzOTg0Mzc1LDE5My4wMTkxMDQ2ODc1UTMyMS40Njk1NDgzMzk4NDM3NSwxODUuMDMxMDA0Njg3NSwzMjEuNDY5NTQ4MzM5ODQzNzUsMTc2LjQzOTYwNDY4NzQ5OTk4UTMyMS40Njk1NDgzMzk4NDM3NSwxNjcuODQ4MjA0Njg3NTAwMDIsMzE4LjMwODU0ODMzOTg0Mzc1LDE1OS44NjAxMDQ2ODc0OTk5OFEzMTQuODc3NTQ4MzM5ODQzNzcsMTUxLjE4NjcwNDY4NzUsMzA4LjI4NDY0ODMzOTg0MzgsMTQ0LjU5MDUwNDY4NzUwMDAyUTMwMS42OTIxNDgzMzk4NDM3NSwxMzcuOTk0MzA0Njg3NSwyOTMuMDIzNDQ4MzM5ODQzNzUsMTM0LjU2MDYwNDY4NzVRMjg1LjAzOTc0ODMzOTg0Mzc1LDEzMS4zOTgyMDQ2ODc1LDI3Ni40NTMxNDgzMzk4NDM4LDEzMS4zOTgyMDQ2ODc1TDIzMi4wMDAwNDgzMzk4NDM3NCwxMzEuMzk4MjA0Njg3NVoiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZmlsbD0iIzg2ODY4NiIgZmlsbC1vcGFjaXR5PSIxIi8+PC9nPjxnPjxwYXRoIGQ9Ik0xMzYuMTA4NzE2ODk0NTMxMjYsMEw4Ni45OTk4MTY4OTQ1MzEyNSwwTDg2Ljk5OTgxNjg5NDUzMTI1LDIwLjQ3MzRMMTE1LjY0NjcxNjg5NDUzMTI1LDIwLjQ3MzRMMTE1LjY0NjcxNjg5NDUzMTI1LDE3Ni4wNzFDMTE1LjY0NjcxNjg5NDUzMTI1LDIxMi4yNTQsMTQ0Ljk2MjQxNjg5NDUzMTI2LDI0MS41ODYsMTgxLjEyNTMxNjg5NDUzMTI0LDI0MS41ODZMMTkxLjM1NTgxNjg5NDUzMTI0LDI0MS41ODZMMTkxLjM1NTgxNjg5NDUzMTI0LDIyMS4xMTJMMTgxLjEyNTMxNjg5NDUzMTI0LDIyMS4xMTJRMTcyLjUzODYxNjg5NDUzMTIzLDIyMS4xMTIsMTY0LjU1NDkxNjg5NDUzMTIzLDIxNy45NVExNTUuODg2MzE2ODk0NTMxMjYsMjE0LjUxNiwxNDkuMjkzODE2ODk0NTMxMjMsMjA3LjkyUTE0Mi43MDEzMTY4OTQ1MzEyNiwyMDEuMzI0LDEzOS4yNjk0MTY4OTQ1MzEyNSwxOTIuNjUxUTEzNi4xMDg3MTY4OTQ1MzEyNiwxODQuNjYyLDEzNi4xMDg3MTY4OTQ1MzEyNiwxNzYuMDcxTDEzNi4xMDg3MTY4OTQ1MzEyNiwwWiIgZmlsbC1ydWxlPSJldmVub2RkIiBmaWxsPSIjODY4Njg2IiBmaWxsLW9wYWNpdHk9IjEiLz48L2c+PGc+PHBhdGggZD0iTTQyNy40Nzg2MDAwMDAwMDAwMywxMTFMMzYyLDExMUwzNjIsMzUyLjU4NkwzNjIuMDI1NDUxNywzNTIuNTg2TDM2Mi4wMjU0NTE3LDM3MkwzODMuMDI1NSwzNzJMMzgzLjAyNTUsMjQyLjAzTDQyNy40Nzg2MDAwMDAwMDAwMywyNDIuMDNDNDYzLjY0MSwyNDIuMDMsNDkyLjk1NywyMTIuNjk3OTk5OTk5OTk5OTgsNDkyLjk1NywxNzYuNTE0Nzk5OTk5OTk5OThDNDkyLjk1NywxNDAuMzMyLDQ2My42NDEsMTExLDQyNy40Nzg2MDAwMDAwMDAwMywxMTFaTTM4My4wMjU1LDEzMS40NzM0TDM4My4wMjU1LDIyMS41NTU5OTk5OTk5OTk5OEw0MjcuNDc4NjAwMDAwMDAwMDMsMjIxLjU1NTk5OTk5OTk5OTk4UTQzNi4wNjUyLDIyMS41NTU5OTk5OTk5OTk5OCw0NDQuMDQ4OSwyMTguMzk0UTQ1Mi43MTc1LDIxNC45NTk5OTk5OTk5OTk5OCw0NTkuMzEwMTAwMDAwMDAwMDMsMjA4LjM2MzlRNDY1LjkwMywyMDEuNzY3Nyw0NjkuMzM0LDE5My4wOTQzUTQ3Mi40OTUsMTg1LjEwNjIsNDcyLjQ5NSwxNzYuNTE0Nzk5OTk5OTk5OThRNDcyLjQ5NSwxNjcuOTIzNDAwMDAwMDAwMDIsNDY5LjMzNCwxNTkuOTM1Mjk5OTk5OTk5OThRNDY1LjkwMywxNTEuMjYxOSw0NTkuMzEwMTAwMDAwMDAwMDMsMTQ0LjY2NTcwMDAwMDAwMDAyUTQ1Mi43MTc2LDEzOC4wNjk1LDQ0NC4wNDg5LDEzNC42MzU4UTQzNi4wNjUyLDEzMS40NzM0LDQyNy40Nzg2MDAwMDAwMDAwMywxMzEuNDczNEwzODMuMDI1NSwxMzEuNDczNFoiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZmlsbD0iIzg2ODY4NiIgZmlsbC1vcGFjaXR5PSIxIi8+PC9nPjxnIHRyYW5zZm9ybT0ibWF0cml4KDAuNzA2OTExMjA2MjQ1NDIyNCwwLjcwNzMwMjMzMTkyNDQzODUsLTAuNzA2OTExMjA2MjQ1NDIyNCwwLjcwNzMwMjMzMTkyNDQzODUsOTIuODA5NzA0OTIwMDgyMzcsLTE5LjEyMjU5OTY2NzQwMDIxKSI+PHBhdGggZD0iTTg5LjkxODIxNTc0NzA3MDMyLDEwMi40OTQ1MzczNTM1MTU2Mkw2OS40NTA1MTU3NDcwNzAzMSwxMDIuNDk0NTM3MzUzNTE1NjJMNjkuNDUwNTE1NzQ3MDcwMzEsMjAwLjczOTUzNzM1MzUxNTYzTDE2Ny42OTU1MTU3NDcwNzAzMiwyMDAuNzM5NTM3MzUzNTE1NjNMMTY3LjY5NTUxNTc0NzA3MDMyLDE4MC4yNzE4MzczNTM1MTU2Mkw4OS45MTgyMTU3NDcwNzAzMiwxODAuMjcxODM3MzUzNTE1NjJMODkuOTE4MjE1NzQ3MDcwMzIsMTAyLjQ5NDUzNzM1MzUxNTYyWiIgZmlsbC1ydWxlPSJldmVub2RkIiBmaWxsPSIjNDY0NjQ2IiBmaWxsLW9wYWNpdHk9IjEiLz48L2c+PGcgdHJhbnNmb3JtPSJtYXRyaXgoLTAuNzA2OTExMDg3MDM2MTMyOCwtMC43MDczMDIzMzE5MjQ0Mzg1LDAuNzA2OTExMjA2MjQ1NDIyNCwtMC43MDczMDIyNzIzMTk3OTM3LDczNS4wOTE5NzYwNjU1OTYxLDc4Ny4wNjQ3MDc5NjU0MykiPjxwYXRoIGQ9Ik01NTEuMDE3MTk5NTExNzE4OCwyNDEuMjAyNjM2NzE4NzVMNTMwLjU0OTQ5OTUxMTcxODgsMjQxLjIwMjYzNjcxODc1TDUzMC41NDk0OTk1MTE3MTg4LDMzOS40NDc2MzY3MTg3NUw2MjguNzk0NDk5NTExNzE4OCwzMzkuNDQ3NjM2NzE4NzVMNjI4Ljc5NDQ5OTUxMTcxODgsMzE4Ljk3OTkzNjcxODc0OTk3TDU1MS4wMTcxOTk1MTE3MTg4LDMxOC45Nzk5MzY3MTg3NDk5N0w1NTEuMDE3MTk5NTExNzE4OCwyNDEuMjAyNjM2NzE4NzVaIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGZpbGw9IiM0NjQ2NDYiIGZpbGwtb3BhY2l0eT0iMSIvPjwvZz48L2c+PC9zdmc+";
 
   // src/core/index.ts
   var core_exports = {};
   __export(core_exports, {
     Global: () => Global,
     LppArray: () => LppArray,
+    LppAsyncFunctionContext: () => LppAsyncFunctionContext,
     LppClosure: () => LppClosure,
     LppConstant: () => LppConstant,
     LppContext: () => LppContext,
@@ -30,18 +31,31 @@
     LppReference: () => LppReference,
     LppReturn: () => LppReturn,
     LppTraceback: () => LppTraceback,
-    LppValue: () => LppValue2,
+    LppValue: () => LppValue,
     asBoolean: () => asBoolean,
-    ensureValue: () => ensureValue,
+    asValue: () => asValue,
+    async: () => async,
     ffi: () => ffi_exports,
-    global: () => global,
     isPromise: () => isPromise,
-    raise: () => raise,
-    withValue: () => withValue
+    raise: () => raise
   });
 
-  // src/core/helper.ts
-  function ensureValue(obj) {
+  // src/core/type/base.ts
+  var LppError = class extends Error {
+    /**
+     * Construct a new Lpp error.
+     * @param id Error ID.
+     */
+    constructor(id) {
+      super(`lpp: Error ${id}`);
+      this.id = id;
+    }
+  };
+  var LppValue = class {
+  };
+
+  // src/core/helper/cast.ts
+  function asValue(obj) {
     return obj instanceof LppReference ? obj.value : obj;
   }
   function asBoolean(value) {
@@ -66,6 +80,24 @@
     }
     return false;
   }
+
+  // src/core/helper/promise.ts
+  function isPromise(value) {
+    return typeof value === "object" && value !== null && typeof value.then === "function";
+  }
+  function async(fn, ...args) {
+    const generator = fn(...args);
+    function next(v) {
+      const res = generator.next(v);
+      if (isPromise(res.value)) {
+        return res.done ? res.value : res.value.then((v2) => next(v2));
+      }
+      return res.done ? res.value : next(res.value);
+    }
+    return next();
+  }
+
+  // src/core/helper/math.ts
   function mathOp(lhs, op, rhs) {
     if (!(lhs instanceof LppConstant && rhs instanceof LppConstant))
       return NaN;
@@ -75,6 +107,7 @@
       ["+", (a, b) => a + b],
       ["-", (a, b) => a - b],
       ["*", (a, b) => a * b],
+      ["**", (a, b) => a ** b],
       ["/", (a, b) => a / b],
       ["<<", (a, b) => a << b],
       [">>", (a, b) => a >> b],
@@ -89,8 +122,6 @@
     return fn(left, right);
   }
   function equal(lhs, rhs) {
-    lhs = lhs instanceof LppConstant && typeof lhs.value === "boolean" ? new LppConstant(+lhs.value) : lhs;
-    rhs = rhs instanceof LppConstant && typeof rhs.value === "boolean" ? new LppConstant(+rhs.value) : rhs;
     if (lhs instanceof LppConstant && rhs instanceof LppConstant)
       return lhs.value === rhs.value;
     return lhs === rhs;
@@ -166,31 +197,32 @@
       throw new Error("lpp: not implemented");
     return compareInternal(fn, lhs, rhs);
   }
-  function isPromise(value) {
-    return typeof value === "object" && value !== null && typeof value.then === "function";
-  }
+
+  // src/core/helper/index.ts
   function processThenReturn(returnValue, resolve, reject) {
     if (returnValue instanceof LppReturn) {
       const value = returnValue.value;
       if (!(value instanceof LppConstant) || value.value !== null) {
-        const then = ensureValue(value.get("then"));
+        const then = asValue(value.get("then"));
         if (then instanceof LppFunction) {
-          const res = then.apply(value, [
-            new LppFunction(({ args }) => {
-              const res2 = processThenReturn(
-                new LppReturn(args[0] ?? new LppConstant(null)),
-                resolve,
-                reject
-              );
-              return withValue(res2, () => new LppReturn(new LppConstant(null)));
-            }),
-            new LppFunction(({ args }) => {
-              reject(args[0] ?? new LppConstant(null));
-              return new LppReturn(new LppConstant(null));
-            })
-          ]);
-          return withValue(res, (value2) => {
-            return value2 instanceof LppException ? void reject(value2.value) : void 0;
+          return async(function* () {
+            const res = yield then.apply(value, [
+              new LppFunction(({ args }) => {
+                return async(function* () {
+                  yield processThenReturn(
+                    new LppReturn(args[0] ?? new LppConstant(null)),
+                    resolve,
+                    reject
+                  );
+                  return new LppReturn(new LppConstant(null));
+                });
+              }),
+              new LppFunction(({ args }) => {
+                reject(args[0] ?? new LppConstant(null));
+                return new LppReturn(new LppConstant(null));
+              })
+            ]);
+            return res instanceof LppException ? void reject(res.value) : void 0;
           });
         }
       }
@@ -198,32 +230,962 @@
     }
     return void reject(returnValue.value);
   }
-  function withValue(v, fn) {
-    if (isPromise(v)) {
-      return v.then((v2) => fn(v2));
-    }
-    return fn(v);
-  }
-  function raise(v) {
-    return withValue(
-      v,
-      (value) => value instanceof LppException ? value : new LppException(value.value)
-    );
+  function raise(res) {
+    return res instanceof LppException ? res : new LppException(res.value);
   }
 
-  // src/core/type.ts
-  var LppError = class extends Error {
+  // src/core/helper/prototype.ts
+  function lookupPrototype(proto, name) {
+    const cache = /* @__PURE__ */ new WeakSet();
+    function lookupPrototypeInternal(proto2, name2) {
+      if (proto2 instanceof LppObject) {
+        const res = proto2.value.get(name2);
+        if (res) {
+          return res;
+        } else {
+          const v = proto2.value.get("prototype");
+          if (v instanceof LppObject) {
+            if (cache.has(v))
+              throw new LppError("recursivePrototype");
+            else
+              cache.add(v);
+            return lookupPrototype(v, name2);
+          }
+        }
+      }
+      return null;
+    }
+    return lookupPrototypeInternal(proto, name);
+  }
+  function comparePrototype(prototype1, prototype2) {
+    if (prototype1 === prototype2)
+      return true;
+    if (prototype1.value.has("prototype")) {
+      const v = prototype1.value.get("prototype");
+      if (v instanceof LppObject)
+        return comparePrototype(v, prototype2);
+    }
+    return false;
+  }
+
+  // src/core/type/object.ts
+  var LppObject = class _LppObject extends LppValue {
     /**
-     * Construct a new Lpp error.
-     * @param id Error ID.
+     * Construct a object value.
+     * @param value Object content.
+     * @param constructor Constructor function. Defaults to Object.
      */
-    constructor(id) {
-      super(`lpp: Error ${id}`);
-      this.id = id;
+    constructor(value = /* @__PURE__ */ new Map(), constructor) {
+      super();
+      this.value = value;
+      this.value = value ?? /* @__PURE__ */ new Map();
+      if (constructor)
+        this.value.set("constructor", constructor);
+    }
+    /**
+     * Get a value.
+     * @param key Value to get.
+     * @returns Child object.
+     */
+    get(key) {
+      if (key === "constructor") {
+        return this.value.get(key) ?? global_default.Object;
+      } else {
+        const res = this.value.get(key);
+        if (res || key == "prototype")
+          return new LppReference(this, key, res ?? new LppConstant(null));
+        const constructor = asValue(this.get("constructor"));
+        if (!(constructor instanceof LppFunction))
+          throw new Error(
+            "lpp: unexpected constructor -- must be a LppFunction instance"
+          );
+        const proto = asValue(constructor.get("prototype"));
+        if (!(proto instanceof _LppObject))
+          throw new Error(
+            "lpp: unexpected prototype -- must be a LppObject instance"
+          );
+        const member = lookupPrototype(proto, key);
+        if (member === null)
+          return new LppReference(this, key, new LppConstant(null));
+        return new LppReference(this, key, member);
+      }
+    }
+    /**
+     * Set a value.
+     * @param key Key to set.
+     * @param value Value to set.
+     * @returns Value.
+     */
+    set(key, value) {
+      this.value.set(key, value);
+      return new LppReference(this, key, value);
+    }
+    /**
+     * Detect whether a value exists.
+     * @param key Key to detect.
+     * @returns Whether the value exists.
+     */
+    has(key) {
+      if (key === "constructor" || this.value.has(key))
+        return true;
+      const constructor = asValue(this.get("constructor"));
+      if (!(constructor instanceof LppFunction))
+        throw new Error(
+          "lpp: unexpected constructor -- must be a LppFunction instance"
+        );
+      const proto = asValue(constructor.get("prototype"));
+      if (!(proto instanceof _LppObject))
+        throw new Error(
+          "lpp: unexpected prototype -- must be a LppObject instance"
+        );
+      return lookupPrototype(proto, key) !== null;
+    }
+    /**
+     * Delete a value from the object.
+     * @param key Key to delete.
+     * @returns Whether the value exists.
+     */
+    delete(key) {
+      return this.value.delete(key);
+    }
+    /**
+     * Detect whether a value is constructed from fn.
+     * @param fn Function.
+     * @returns Whether the value is constructed from fn.
+     */
+    instanceof(fn) {
+      const constructor = this.get("constructor");
+      const prototype1 = asValue(constructor.get("prototype"));
+      const prototype2 = asValue(fn.get("prototype"));
+      if (prototype1 instanceof _LppObject && prototype2 instanceof _LppObject)
+        return comparePrototype(prototype1, prototype2);
+      return false;
+    }
+    /**
+     * @returns toString for visualReport.
+     */
+    toString() {
+      return "<Lpp Object>";
+    }
+    /**
+     * Do arithmetic operations.
+     * @param op Binary operator.
+     * @param rhs Right hand side of the operation.
+     */
+    calc(op, rhs) {
+      if (rhs) {
+        switch (op) {
+          case "=": {
+            throw new LppError("assignOfConstant");
+          }
+          case "+": {
+            if (rhs instanceof _LppObject && !(rhs instanceof LppFunction)) {
+              if (this.value.has("constructor") || rhs.value.has("constructor")) {
+                return new LppConstant(NaN);
+              }
+              const ret = new _LppObject();
+              for (const [key, value] of this.value.entries()) {
+                ret.set(key, value);
+              }
+              for (const [key, value] of rhs.value.entries()) {
+                ret.set(key, value);
+              }
+              return ret;
+            }
+            return new LppConstant(NaN);
+          }
+          case "==": {
+            return new LppConstant(equal(this, rhs));
+          }
+          case "!=": {
+            return new LppConstant(!equal(this, rhs));
+          }
+          case ">":
+          case "<":
+          case ">=":
+          case "<=": {
+            return new LppConstant(compare(this, op, rhs));
+          }
+          case "&&":
+          case "||": {
+            const left = asBoolean(this);
+            const right = asBoolean(rhs);
+            return new LppConstant(op === "&&" ? left && right : left || right);
+          }
+          case "instanceof": {
+            if (rhs instanceof LppFunction) {
+              return new LppConstant(this.instanceof(rhs));
+            }
+            throw new LppError("notCallable");
+          }
+          case "*":
+          case "**":
+          case "-":
+          case "/":
+          case "%":
+          case "<<":
+          case ">>":
+          case ">>>":
+          case "&":
+          case "|":
+          case "^": {
+            return new LppConstant(NaN);
+          }
+        }
+      } else {
+        switch (op) {
+          case "delete": {
+            throw new LppError("assignOfConstant");
+          }
+          case "!": {
+            return new LppConstant(!asBoolean(this));
+          }
+          case "+":
+          case "-":
+          case "~": {
+            return new LppConstant(NaN);
+          }
+        }
+      }
+      throw new Error("lpp: unknown operand");
     }
   };
-  var LppValue2 = class {
+
+  // src/core/type/promise.ts
+  var LppPromise = class _LppPromise extends LppObject {
+    constructor(pm) {
+      super(/* @__PURE__ */ new Map(), global_default.Promise);
+      this.pm = pm;
+    }
+    /**
+     * then() function.
+     * @param resolveFn
+     * @param rejectFn
+     * @returns
+     */
+    done(resolveFn, rejectFn) {
+      return _LppPromise.generate((resolve, reject) => {
+        this.pm.then(
+          (value) => {
+            if (value instanceof LppValue) {
+              if (resolveFn) {
+                return async(function* () {
+                  return processThenReturn(
+                    yield resolveFn.apply(this, [value]),
+                    resolve,
+                    reject
+                  );
+                }.bind(this));
+              } else {
+                return processThenReturn(new LppReturn(value), resolve, reject);
+              }
+            }
+            throw new Error("lpp: unknown result");
+          },
+          (err) => {
+            if (err instanceof LppValue) {
+              if (rejectFn) {
+                return async(function* () {
+                  return processThenReturn(
+                    yield rejectFn.apply(this, [err]),
+                    resolve,
+                    reject
+                  );
+                }.bind(this));
+              } else {
+                return reject(err);
+              }
+            }
+            throw err;
+          }
+        );
+        return void 0;
+      });
+    }
+    /**
+     * catch() function.
+     * @param rejectFn
+     * @returns
+     */
+    error(rejectFn) {
+      return _LppPromise.generate((resolve, reject) => {
+        this.pm.catch((err) => {
+          if (err instanceof LppValue) {
+            return async(function* () {
+              return processThenReturn(
+                yield rejectFn.apply(this, [err]),
+                resolve,
+                reject
+              );
+            }.bind(this));
+          }
+          throw err;
+        });
+        return void 0;
+      });
+    }
+    static generate(fn) {
+      let resolveFn;
+      let rejectFn;
+      resolveFn = rejectFn = () => {
+        throw new Error("not initialized");
+      };
+      const pm = new Promise((resolve, reject) => {
+        resolveFn = resolve;
+        rejectFn = reject;
+      });
+      return async(function* () {
+        yield fn(resolveFn, rejectFn);
+        return new _LppPromise(pm);
+      });
+    }
   };
+
+  // src/core/type/function.ts
+  var LppHandle = class {
+    constructor(fn, self, args) {
+      this.fn = fn;
+      this.self = self;
+      this.args = args;
+    }
+  };
+  var LppFunction = class _LppFunction extends LppObject {
+    /**
+     * Construct a function object.
+     * @warning Do not use this function directly unless you know what you are doing! Use LppFunction.native instead.
+     * @param caller Function to execute.
+     * @param prototype Function prototype.
+     */
+    constructor(caller, prototype = new LppObject()) {
+      super(/* @__PURE__ */ new Map(), void 0);
+      this.caller = caller;
+      this.value.set("prototype", prototype);
+    }
+    /**
+     * Construct a native function.
+     * @param caller Function to execute.
+     * @param prototype Function prototype.
+     * @returns Constructed function.
+     */
+    static native(caller, prototype) {
+      function addNativeTraceback(exception, ctx) {
+        if (exception instanceof LppException)
+          exception.pushStack(
+            new LppTraceback.NativeFn(ctx.fn, ctx.self, ctx.args)
+          );
+        return exception;
+      }
+      return new _LppFunction((ctx) => {
+        return async(function* () {
+          return addNativeTraceback(yield caller(ctx), ctx);
+        });
+      }, prototype);
+    }
+    /**
+     * Get a value.
+     * @param key Value to get.
+     * @returns Child object.
+     */
+    get(key) {
+      if (key === "constructor") {
+        return global_default.Function;
+      } else if (key === "prototype") {
+        const res = this.value.get(key);
+        if (res)
+          return res;
+        else
+          throw new Error("lpp: unexpected get -- prototype is null");
+      } else {
+        const res = this.value.get(key);
+        if (res)
+          return new LppReference(this, key, res);
+        const constructor = asValue(this.get("constructor"));
+        if (!(constructor instanceof _LppFunction))
+          throw new Error(
+            "lpp: unexpected constructor -- must be a LppFunction instance"
+          );
+        const proto = asValue(constructor.get("prototype"));
+        if (!(proto instanceof LppObject))
+          throw new Error(
+            "lpp: unexpected prototype -- must be a LppObject instance"
+          );
+        const member = lookupPrototype(proto, key);
+        if (member === null)
+          return new LppReference(this, key, new LppConstant(null));
+        return new LppReference(this, key, member);
+      }
+    }
+    /**
+     * Set a value.
+     * @param key Key to set.
+     * @param value Value to set.
+     * @returns Value.
+     */
+    set(key, value) {
+      this.value.set(key, value);
+      return new LppReference(this, key, value);
+    }
+    /**
+     * Detect whether a value exists.
+     * @param key Key to detect.
+     * @returns Whether the value exists.
+     */
+    has(key) {
+      if (key === "constructor" || this.value.has(key))
+        return true;
+      const constructor = asValue(this.get("constructor"));
+      if (!(constructor instanceof _LppFunction))
+        throw new Error(
+          "lpp: unexpected constructor -- must be a LppFunction instance"
+        );
+      const proto = asValue(constructor.get("prototype"));
+      if (!(proto instanceof LppObject))
+        throw new Error(
+          "lpp: unexpected prototype -- must be a LppObject instance"
+        );
+      return lookupPrototype(proto, key) !== null;
+    }
+    /**
+     * Delete a value from the object.
+     * @param key Key to delete.
+     * @returns Whether the value exists.
+     */
+    delete(key) {
+      if (key === "prototype") {
+        throw new LppError("assignOfConstant");
+      }
+      return this.value.delete(key);
+    }
+    /**
+     * Call function with arguments.
+     * @param self Function self object. Might be null.
+     * @param args Function arguments.
+     * @returns Return value.
+     */
+    apply(self, args) {
+      return this.caller(new LppHandle(this, self, args));
+    }
+    /**
+     * Do arithmetic operations.
+     * @param op Binary operator.
+     * @param rhs Right hand side of the operation.
+     */
+    calc(op, rhs) {
+      if (rhs) {
+        switch (op) {
+          case "=": {
+            throw new LppError("assignOfConstant");
+          }
+          case "==": {
+            return new LppConstant(equal(this, rhs));
+          }
+          case "!=": {
+            return new LppConstant(!equal(this, rhs));
+          }
+          case ">":
+          case "<":
+          case ">=":
+          case "<=": {
+            return new LppConstant(compare(this, op, rhs));
+          }
+          case "&&":
+          case "||": {
+            const left = asBoolean(this);
+            const right = asBoolean(rhs);
+            return new LppConstant(op === "&&" ? left && right : left || right);
+          }
+          case "instanceof": {
+            if (rhs instanceof _LppFunction) {
+              return new LppConstant(this.instanceof(rhs));
+            }
+            throw new LppError("notCallable");
+          }
+          case "+":
+          case "*":
+          case "**":
+          case "-":
+          case "/":
+          case "%":
+          case "<<":
+          case ">>":
+          case ">>>":
+          case "&":
+          case "|":
+          case "^": {
+            return new LppConstant(NaN);
+          }
+        }
+      } else {
+        switch (op) {
+          case "delete": {
+            throw new LppError("assignOfConstant");
+          }
+          case "!": {
+            return new LppConstant(!asBoolean(this));
+          }
+          case "+":
+          case "-":
+          case "~": {
+            return new LppConstant(NaN);
+          }
+        }
+      }
+      throw new Error("lpp: unknown operand");
+    }
+    /**
+     * Call function as a constructor.
+     * @param args Function arguments.
+     * @returns Return value.
+     */
+    construct(args) {
+      if (this === global_default.Number || this === global_default.String || this === global_default.Boolean || this === global_default.Array || this === global_default.Function || this === global_default.Object)
+        return this.apply(new LppConstant(null), args);
+      const obj = this === global_default.Promise ? new LppPromise(new Promise(() => {
+      })) : new LppObject(/* @__PURE__ */ new Map(), this);
+      return async(function* () {
+        const result = yield this.apply(obj, args);
+        if (result instanceof LppException)
+          return result;
+        return new LppReturn(obj);
+      }.bind(this));
+    }
+    /**
+     * @returns toString for visualReport.
+     */
+    toString() {
+      return "<Lpp Function>";
+    }
+  };
+
+  // src/core/type/array.ts
+  var LppArray = class _LppArray extends LppValue {
+    /**
+     * Construct an array object.
+     * @param value Array of values.
+     */
+    constructor(value = []) {
+      super();
+      this.value = value;
+    }
+    /**
+     * Get a value.
+     * @param key Value to get.
+     * @returns Child object.
+     */
+    get(key) {
+      if (key === "constructor") {
+        return global_default.Array;
+      } else {
+        const idx = parseInt(key, 10);
+        if (idx >= 0) {
+          const res = this.value[idx];
+          if (res)
+            return new LppReference(this, key, res);
+          else
+            return new LppReference(this, key, new LppConstant(null));
+        } else {
+          const constructor = asValue(this.get("constructor"));
+          if (!(constructor instanceof LppFunction))
+            throw new Error(
+              "lpp: unexpected constructor -- must be a LppFunction instance"
+            );
+          const proto = asValue(constructor.get("prototype"));
+          if (!(proto instanceof LppObject))
+            throw new Error(
+              "lpp: unexpected prototype -- must be a LppObject instance"
+            );
+          const member = lookupPrototype(proto, key);
+          if (member === null)
+            throw new LppError("invalidIndex");
+          return new LppReference(this, key, member);
+        }
+      }
+    }
+    /**
+     * Set a value.
+     * @param key Key to set.
+     * @param value Value to set.
+     * @returns Value.
+     */
+    set(key, value) {
+      const idx = parseInt(key, 10);
+      if (idx >= 0) {
+        this.value[idx] = value;
+        return new LppReference(this, key, value);
+      } else
+        throw new LppError("invalidIndex");
+    }
+    /**
+     * Detect whether a value exists.
+     * @param key Key to detect.
+     * @returns Whether the value exists.
+     */
+    has(key) {
+      if (key === "constructor")
+        return true;
+      const idx = parseInt(key, 10);
+      if (idx >= 0 && idx in this.value)
+        return true;
+      const constructor = asValue(this.get("constructor"));
+      if (!(constructor instanceof LppFunction))
+        throw new Error(
+          "lpp: unexpected constructor -- must be a LppFunction instance"
+        );
+      const proto = asValue(constructor.get("prototype"));
+      if (!(proto instanceof LppObject))
+        throw new Error(
+          "lpp: unexpected prototype -- must be a LppObject instance"
+        );
+      return lookupPrototype(proto, key) !== null;
+    }
+    /**
+     * Delete a value from the object.
+     * @param key Key to delete.
+     * @returns Whether the value exists.
+     */
+    delete(key) {
+      const idx = parseInt(key, 10);
+      if (idx >= 0 && idx in this.value) {
+        delete this.value[idx];
+        return true;
+      }
+      return false;
+    }
+    /**
+     * Detect whether a value is constructed from fn.
+     * @param fn Function.
+     * @returns Whether the value is constructed from fn.
+     */
+    instanceof(fn) {
+      return fn === global_default.Array;
+    }
+    /**
+     * @returns toString for visualReport.
+     */
+    toString() {
+      return "<Lpp Array>";
+    }
+    /**
+     * Do arithmetic operations.
+     * @param op Binary operator.
+     * @param rhs Right hand side of the operation.
+     */
+    calc(op, rhs) {
+      if (rhs) {
+        switch (op) {
+          case "=": {
+            throw new LppError("assignOfConstant");
+          }
+          case "+": {
+            if (rhs instanceof _LppArray) {
+              return new _LppArray(this.value.concat(rhs.value));
+            }
+            return new LppConstant(NaN);
+          }
+          case "*": {
+            if (rhs instanceof LppConstant && (typeof rhs.value === "boolean" || typeof rhs.value === "number")) {
+              const time = typeof rhs.value === "boolean" ? +rhs.value : rhs.value;
+              if (Number.isInteger(time)) {
+                const ret = new _LppArray();
+                for (let i = 0; i < time; i++) {
+                  ret.value = ret.value.concat(this.value);
+                }
+                return ret;
+              }
+            }
+            return new LppConstant(NaN);
+          }
+          case "==": {
+            return new LppConstant(equal(this, rhs));
+          }
+          case "!=": {
+            return new LppConstant(!equal(this, rhs));
+          }
+          case ">":
+          case "<":
+          case ">=":
+          case "<=": {
+            return new LppConstant(compare(this, op, rhs));
+          }
+          case "&&":
+          case "||": {
+            const left = asBoolean(this);
+            const right = asBoolean(rhs);
+            return new LppConstant(op === "&&" ? left && right : left || right);
+          }
+          case "instanceof": {
+            if (rhs instanceof LppFunction) {
+              return new LppConstant(this.instanceof(rhs));
+            }
+            throw new LppError("notCallable");
+          }
+          case "-":
+          case "**":
+          case "/":
+          case "%":
+          case "<<":
+          case ">>":
+          case ">>>":
+          case "&":
+          case "|":
+          case "^": {
+            return new LppConstant(NaN);
+          }
+        }
+      } else {
+        switch (op) {
+          case "delete": {
+            throw new LppError("assignOfConstant");
+          }
+          case "!": {
+            return new LppConstant(!asBoolean(this));
+          }
+          case "+":
+          case "-":
+          case "~": {
+            return new LppConstant(NaN);
+          }
+        }
+      }
+      throw new Error("lpp: unknown operand");
+    }
+  };
+
+  // src/core/type/constant.ts
+  var LppConstant = class _LppConstant extends LppValue {
+    /**
+     * Construct a value.
+     * @param _value The stored value.
+     */
+    constructor(_value) {
+      super();
+      this._value = _value;
+    }
+    /**
+     * @returns The stored value.
+     */
+    get value() {
+      return this._value;
+    }
+    /**
+     * Get a value.
+     * @param key Value to get.
+     * @returns Child object.
+     */
+    get(key) {
+      if (this.value === null)
+        throw new LppError("accessOfNull");
+      if (key === "constructor") {
+        switch (typeof this.value) {
+          case "string":
+            return global_default.String;
+          case "number":
+            return global_default.Number;
+          case "boolean":
+            return global_default.Boolean;
+        }
+      } else if (key === "prototype") {
+        return new _LppConstant(null);
+      } else {
+        if (typeof this.value === "string") {
+          const idx = parseInt(key);
+          if (!isNaN(idx)) {
+            const v = this.value[idx];
+            return v !== void 0 ? new _LppConstant(v) : new _LppConstant(null);
+          }
+        }
+        const constructor = asValue(this.get("constructor"));
+        if (!(constructor instanceof LppFunction))
+          throw new Error(
+            "lpp: unexpected constructor -- must be a LppFunction instance"
+          );
+        const proto = asValue(constructor.get("prototype"));
+        if (!(proto instanceof LppObject))
+          throw new Error(
+            "lpp: unexpected prototype -- must be a LppObject instance"
+          );
+        const member = lookupPrototype(proto, key);
+        if (member === null)
+          return new _LppConstant(null);
+        return new LppReference(this, key, member);
+      }
+    }
+    /**
+     * LppConstant instances are not able to set properties.
+     */
+    set() {
+      throw new LppError("assignOfConstant");
+    }
+    /**
+     * Detect whether a value exists.
+     * @param key Key to detect.
+     * @returns Whether the value exists.
+     */
+    has(key) {
+      if (this.value === null)
+        throw new LppError("accessOfNull");
+      if (key === "constructor")
+        return true;
+      const constructor = asValue(this.get("constructor"));
+      if (!(constructor instanceof LppFunction))
+        throw new Error(
+          "lpp: unexpected constructor -- must be a LppFunction instance"
+        );
+      const proto = asValue(constructor.get("prototype"));
+      if (!(proto instanceof LppObject))
+        throw new Error(
+          "lpp: unexpected prototype -- must be a LppObject instance"
+        );
+      return lookupPrototype(proto, key) !== null;
+    }
+    /**
+     * LppConstant instances are not able to set properties.
+     */
+    delete() {
+      if (this.value === null)
+        throw new LppError("accessOfNull");
+      throw new LppError("assignOfConstant");
+    }
+    /**
+     * Detect whether a value is constructed from fn.
+     * @param fn Function.
+     * @returns Whether the value is constructed from fn.
+     */
+    instanceof(fn) {
+      if (this.value === null)
+        return false;
+      switch (typeof this.value) {
+        case "string":
+          return fn === global_default.String;
+        case "number":
+          return fn === global_default.Number;
+        case "boolean":
+          return fn === global_default.Boolean;
+      }
+    }
+    /**
+     * toString for visualReport.
+     * @returns Human readable string.
+     */
+    toString() {
+      return `${this.value}`;
+    }
+    /**
+     * Do arithmetic operations.
+     * @param op Binary operator.
+     * @param rhs Right hand side of the operation.
+     */
+    calc(op, rhs) {
+      if (rhs) {
+        switch (op) {
+          case "=": {
+            throw new LppError("assignOfConstant");
+          }
+          case "+": {
+            if (this.value !== null) {
+              if (rhs instanceof _LppConstant) {
+                if (rhs.value !== null)
+                  return new _LppConstant(mathOp(this, op, rhs));
+              }
+            }
+            return new _LppConstant(NaN);
+          }
+          case "*": {
+            if (this.value !== null) {
+              if (rhs instanceof _LppConstant) {
+                if (typeof this.value === "string" && typeof rhs.value === "number") {
+                  if (Number.isInteger(rhs.value))
+                    return new _LppConstant(this.value.repeat(rhs.value));
+                } else if (typeof this.value === "number" && typeof rhs.value === "string") {
+                  if (Number.isInteger(this.value))
+                    return new _LppConstant(rhs.value.repeat(this.value));
+                }
+                return new _LppConstant(mathOp(this, op, rhs));
+              } else if (rhs instanceof LppArray && (typeof this.value === "boolean" || typeof this.value === "number")) {
+                const time = typeof this.value === "boolean" ? +this.value : this.value;
+                if (Number.isInteger(time)) {
+                  const ret = new LppArray();
+                  for (let i = 0; i < time; i++) {
+                    ret.value = ret.value.concat(rhs.value);
+                  }
+                  return ret;
+                }
+              }
+            }
+            return new _LppConstant(NaN);
+          }
+          case "==": {
+            return new _LppConstant(equal(this, rhs));
+          }
+          case "!=": {
+            return new _LppConstant(!equal(this, rhs));
+          }
+          case ">":
+          case "<":
+          case ">=":
+          case "<=": {
+            return new _LppConstant(compare(this, op, rhs));
+          }
+          case "&&":
+          case "||": {
+            const left = asBoolean(this);
+            const right = asBoolean(rhs);
+            return new _LppConstant(op === "&&" ? left && right : left || right);
+          }
+          case "-":
+          case "**":
+          case "/":
+          case "%":
+          case "<<":
+          case ">>":
+          case ">>>":
+          case "&":
+          case "|":
+          case "^": {
+            if (!(rhs instanceof _LppConstant) || this.value === null || rhs.value === null || typeof this.value === "string" || typeof rhs.value === "string")
+              return new _LppConstant(NaN);
+            return new _LppConstant(mathOp(this, op, rhs));
+          }
+          case "instanceof": {
+            if (rhs instanceof LppFunction) {
+              return new _LppConstant(this.instanceof(rhs));
+            }
+            throw new LppError("notCallable");
+          }
+        }
+      } else {
+        switch (op) {
+          case "delete": {
+            throw new LppError("assignOfConstant");
+          }
+          case "+": {
+            if (!(typeof this.value === "boolean" || typeof this.value === "number" || typeof this.value === "string"))
+              return new _LppConstant(NaN);
+            return new _LppConstant(+this.value);
+          }
+          case "-": {
+            if (!(typeof this.value === "boolean" || typeof this.value === "number" || typeof this.value === "string"))
+              return new _LppConstant(NaN);
+            return new _LppConstant(-this.value);
+          }
+          case "!": {
+            return new _LppConstant(!asBoolean(this));
+          }
+          case "~": {
+            if (!(typeof this.value === "boolean" || typeof this.value === "number" || typeof this.value === "string"))
+              return new _LppConstant(NaN);
+            const v = +this.value;
+            if (isNaN(v))
+              return new _LppConstant(NaN);
+            return new _LppConstant(~v);
+          }
+        }
+      }
+      throw new Error("lpp: unknown operand");
+    }
+  };
+
+  // src/core/type/reference.ts
   var LppReference = class {
     /**
      * Construct a new LppChildObject object.
@@ -320,861 +1282,6 @@
       return this.value.calc(op, rhs);
     }
   };
-  function lookupPrototype(proto, name) {
-    const cache = /* @__PURE__ */ new WeakSet();
-    function lookupPrototypeInternal(proto2, name2) {
-      if (proto2 instanceof LppObject) {
-        const res = proto2.value.get(name2);
-        if (res) {
-          return res;
-        } else {
-          const v = proto2.value.get("prototype");
-          if (v instanceof LppObject) {
-            if (cache.has(v))
-              throw new LppError("recursivePrototype");
-            else
-              cache.add(v);
-            return lookupPrototype(v, name2);
-          }
-        }
-      }
-      return null;
-    }
-    return lookupPrototypeInternal(proto, name);
-  }
-  function comparePrototype(prototype1, prototype2) {
-    if (prototype1 === prototype2)
-      return true;
-    if (prototype1.value.has("prototype")) {
-      const v = prototype1.value.get("prototype");
-      if (v instanceof LppObject)
-        return comparePrototype(v, prototype2);
-    }
-    return false;
-  }
-  var LppConstant = class _LppConstant extends LppValue2 {
-    /**
-     * Construct a value.
-     * @param _value The stored value.
-     */
-    constructor(_value) {
-      super();
-      this._value = _value;
-    }
-    /**
-     * @returns The stored value.
-     */
-    get value() {
-      return this._value;
-    }
-    /**
-     * Get a value.
-     * @param key Value to get.
-     * @returns Child object.
-     */
-    get(key) {
-      if (this.value === null)
-        throw new LppError("accessOfNull");
-      if (key === "constructor") {
-        switch (typeof this.value) {
-          case "string":
-            return global.get("String") ?? new _LppConstant(null);
-          case "number":
-            return global.get("Number") ?? new _LppConstant(null);
-          case "boolean":
-            return global.get("Boolean") ?? new _LppConstant(null);
-        }
-      } else if (key === "prototype") {
-        return new _LppConstant(null);
-      } else {
-        if (typeof this.value === "string") {
-          const idx = parseInt(key);
-          if (!isNaN(idx)) {
-            const v = this.value[idx];
-            return v !== void 0 ? new _LppConstant(v) : new _LppConstant(null);
-          }
-        }
-        const constructor = ensureValue(this.get("constructor"));
-        if (!(constructor instanceof LppFunction))
-          throw new Error(
-            "lpp: unexpected constructor -- must be a LppFunction instance"
-          );
-        const proto = ensureValue(constructor.get("prototype"));
-        if (!(proto instanceof LppObject))
-          throw new Error(
-            "lpp: unexpected prototype -- must be a LppObject instance"
-          );
-        const member = lookupPrototype(proto, key);
-        if (member === null)
-          return new _LppConstant(null);
-        return new LppReference(this, key, member);
-      }
-    }
-    /**
-     * LppConstant instances are not able to set properties.
-     */
-    set() {
-      throw new LppError("assignOfConstant");
-    }
-    /**
-     * Detect whether a value exists.
-     * @param key Key to detect.
-     * @returns Whether the value exists.
-     */
-    has(key) {
-      if (this.value === null)
-        throw new LppError("accessOfNull");
-      if (key === "constructor")
-        return true;
-      const constructor = ensureValue(this.get("constructor"));
-      if (!(constructor instanceof LppFunction))
-        throw new Error(
-          "lpp: unexpected constructor -- must be a LppFunction instance"
-        );
-      const proto = ensureValue(constructor.get("prototype"));
-      if (!(proto instanceof LppObject))
-        throw new Error(
-          "lpp: unexpected prototype -- must be a LppObject instance"
-        );
-      return lookupPrototype(proto, key) !== null;
-    }
-    /**
-     * LppConstant instances are not able to set properties.
-     */
-    delete() {
-      if (this.value === null)
-        throw new LppError("accessOfNull");
-      throw new LppError("assignOfConstant");
-    }
-    /**
-     * Detect whether a value is constructed from fn.
-     * @param fn Function.
-     * @returns Whether the value is constructed from fn.
-     */
-    instanceof(fn) {
-      if (this.value === null)
-        return false;
-      switch (typeof this.value) {
-        case "string":
-          return fn === global.get("String");
-        case "number":
-          return fn === global.get("Number");
-        case "boolean":
-          return fn === global.get("Boolean");
-      }
-    }
-    /**
-     * toString for visualReport.
-     * @returns Human readable string.
-     */
-    toString() {
-      return `${this.value}`;
-    }
-    /**
-     * Do arithmetic operations.
-     * @param op Binary operator.
-     * @param rhs Right hand side of the operation.
-     */
-    calc(op, rhs) {
-      if (rhs) {
-        switch (op) {
-          case "=": {
-            throw new LppError("assignOfConstant");
-          }
-          case "+": {
-            if (this.value !== null) {
-              if (rhs instanceof _LppConstant) {
-                if (rhs.value !== null)
-                  return new _LppConstant(mathOp(this, op, rhs));
-              }
-            }
-            return new _LppConstant(NaN);
-          }
-          case "*": {
-            if (this.value !== null) {
-              if (rhs instanceof _LppConstant) {
-                if (typeof this.value === "string" && typeof rhs.value === "number") {
-                  if (Number.isInteger(rhs.value))
-                    return new _LppConstant(this.value.repeat(rhs.value));
-                } else if (typeof this.value === "number" && typeof rhs.value === "string") {
-                  if (Number.isInteger(this.value))
-                    return new _LppConstant(rhs.value.repeat(this.value));
-                }
-                return new _LppConstant(mathOp(this, op, rhs));
-              } else if (rhs instanceof LppArray && (typeof this.value === "boolean" || typeof this.value === "number")) {
-                const time = typeof this.value === "boolean" ? +this.value : this.value;
-                if (Number.isInteger(time)) {
-                  const ret = new LppArray();
-                  for (let i = 0; i < time; i++) {
-                    ret.value = ret.value.concat(rhs.value);
-                  }
-                  return ret;
-                }
-              }
-            }
-            return new _LppConstant(NaN);
-          }
-          case "==": {
-            return new _LppConstant(equal(this, rhs));
-          }
-          case "!=": {
-            return new _LppConstant(!equal(this, rhs));
-          }
-          case ">":
-          case "<":
-          case ">=":
-          case "<=": {
-            return new _LppConstant(compare(this, op, rhs));
-          }
-          case "&&":
-          case "||": {
-            const left = asBoolean(this);
-            const right = asBoolean(rhs);
-            return new _LppConstant(op === "&&" ? left && right : left || right);
-          }
-          case "-":
-          case "/":
-          case "%":
-          case "<<":
-          case ">>":
-          case ">>>":
-          case "&":
-          case "|":
-          case "^": {
-            if (!(rhs instanceof _LppConstant) || this.value === null || rhs.value === null || typeof this.value === "string" || typeof rhs.value === "string")
-              return new _LppConstant(NaN);
-            return new _LppConstant(mathOp(this, op, rhs));
-          }
-          case "instanceof": {
-            if (rhs instanceof LppFunction) {
-              return new _LppConstant(this.instanceof(rhs));
-            }
-            throw new LppError("notCallable");
-          }
-        }
-      } else {
-        switch (op) {
-          case "delete": {
-            throw new LppError("assignOfConstant");
-          }
-          case "+": {
-            if (!(typeof this.value === "boolean" || typeof this.value === "number" || typeof this.value === "string"))
-              return new _LppConstant(NaN);
-            return new _LppConstant(+this.value);
-          }
-          case "-": {
-            if (!(typeof this.value === "boolean" || typeof this.value === "number" || typeof this.value === "string"))
-              return new _LppConstant(NaN);
-            return new _LppConstant(-this.value);
-          }
-          case "!": {
-            return new _LppConstant(!asBoolean(this));
-          }
-          case "~": {
-            if (!(typeof this.value === "boolean" || typeof this.value === "number" || typeof this.value === "string"))
-              return new _LppConstant(NaN);
-            const v = +this.value;
-            if (isNaN(v))
-              return new _LppConstant(NaN);
-            return new _LppConstant(~v);
-          }
-        }
-      }
-      throw new Error("lpp: unknown operand");
-    }
-  };
-  var LppObject = class _LppObject extends LppValue2 {
-    /**
-     * Construct a object value.
-     * @param value Object content.
-     * @param constructor Constructor function. Defaults to Object.
-     */
-    constructor(value = /* @__PURE__ */ new Map(), constructor) {
-      super();
-      this.value = value;
-      this.value = value ?? /* @__PURE__ */ new Map();
-      if (constructor)
-        this.value.set("constructor", constructor);
-    }
-    /**
-     * Get a value.
-     * @param key Value to get.
-     * @returns Child object.
-     */
-    get(key) {
-      if (key === "constructor") {
-        return this.value.get(key) ?? global.get("Object") ?? new LppConstant(null);
-      } else {
-        const res = this.value.get(key);
-        if (res || key == "prototype")
-          return new LppReference(this, key, res ?? new LppConstant(null));
-        const constructor = ensureValue(this.get("constructor"));
-        if (!(constructor instanceof LppFunction))
-          throw new Error(
-            "lpp: unexpected constructor -- must be a LppFunction instance"
-          );
-        const proto = ensureValue(constructor.get("prototype"));
-        if (!(proto instanceof _LppObject))
-          throw new Error(
-            "lpp: unexpected prototype -- must be a LppObject instance"
-          );
-        const member = lookupPrototype(proto, key);
-        if (member === null)
-          return new LppReference(this, key, new LppConstant(null));
-        return new LppReference(this, key, member);
-      }
-    }
-    /**
-     * Set a value.
-     * @param key Key to set.
-     * @param value Value to set.
-     * @returns Value.
-     */
-    set(key, value) {
-      this.value.set(key, value);
-      return new LppReference(this, key, value);
-    }
-    /**
-     * Detect whether a value exists.
-     * @param key Key to detect.
-     * @returns Whether the value exists.
-     */
-    has(key) {
-      if (key === "constructor" || this.value.has(key))
-        return true;
-      const constructor = ensureValue(this.get("constructor"));
-      if (!(constructor instanceof LppFunction))
-        throw new Error(
-          "lpp: unexpected constructor -- must be a LppFunction instance"
-        );
-      const proto = ensureValue(constructor.get("prototype"));
-      if (!(proto instanceof _LppObject))
-        throw new Error(
-          "lpp: unexpected prototype -- must be a LppObject instance"
-        );
-      return lookupPrototype(proto, key) !== null;
-    }
-    /**
-     * Delete a value from the object.
-     * @param key Key to delete.
-     * @returns Whether the value exists.
-     */
-    delete(key) {
-      return this.value.delete(key);
-    }
-    /**
-     * Detect whether a value is constructed from fn.
-     * @param fn Function.
-     * @returns Whether the value is constructed from fn.
-     */
-    instanceof(fn) {
-      const constructor = this.get("constructor");
-      const prototype1 = ensureValue(constructor.get("prototype"));
-      const prototype2 = ensureValue(fn.get("prototype"));
-      if (prototype1 instanceof _LppObject && prototype2 instanceof _LppObject)
-        return comparePrototype(prototype1, prototype2);
-      return false;
-    }
-    /**
-     * @returns toString for visualReport.
-     */
-    toString() {
-      return "<Lpp Object>";
-    }
-    /**
-     * Do arithmetic operations.
-     * @param op Binary operator.
-     * @param rhs Right hand side of the operation.
-     */
-    calc(op, rhs) {
-      if (rhs) {
-        switch (op) {
-          case "=": {
-            throw new LppError("assignOfConstant");
-          }
-          case "+": {
-            if (!(this instanceof LppFunction) && rhs instanceof _LppObject && !(rhs instanceof LppFunction)) {
-              if (this.value.has("constructor") || rhs.value.has("constructor")) {
-                return new LppConstant(NaN);
-              }
-              const ret = new _LppObject();
-              for (const [key, value] of this.value.entries()) {
-                ret.set(key, value);
-              }
-              for (const [key, value] of rhs.value.entries()) {
-                ret.set(key, value);
-              }
-              return ret;
-            }
-            return new LppConstant(NaN);
-          }
-          case "==": {
-            return new LppConstant(equal(this, rhs));
-          }
-          case "!=": {
-            return new LppConstant(!equal(this, rhs));
-          }
-          case ">":
-          case "<":
-          case ">=":
-          case "<=": {
-            return new LppConstant(compare(this, op, rhs));
-          }
-          case "&&":
-          case "||": {
-            const left = asBoolean(this);
-            const right = asBoolean(rhs);
-            return new LppConstant(op === "&&" ? left && right : left || right);
-          }
-          case "instanceof": {
-            if (rhs instanceof LppFunction) {
-              return new LppConstant(this.instanceof(rhs));
-            }
-            throw new LppError("notCallable");
-          }
-          case "*":
-          case "-":
-          case "/":
-          case "%":
-          case "<<":
-          case ">>":
-          case ">>>":
-          case "&":
-          case "|":
-          case "^": {
-            return new LppConstant(NaN);
-          }
-        }
-      } else {
-        switch (op) {
-          case "delete": {
-            throw new LppError("assignOfConstant");
-          }
-          case "!": {
-            return new LppConstant(!asBoolean(this));
-          }
-          case "+":
-          case "-":
-          case "~": {
-            return new LppConstant(NaN);
-          }
-        }
-      }
-      throw new Error("lpp: unknown operand");
-    }
-  };
-  var LppArray = class _LppArray extends LppValue2 {
-    /**
-     * Construct an array object.
-     * @param value Array of values.
-     */
-    constructor(value = []) {
-      super();
-      this.value = value;
-    }
-    /**
-     * Get a value.
-     * @param key Value to get.
-     * @returns Child object.
-     */
-    get(key) {
-      if (key === "constructor") {
-        return global.get("Array") ?? new LppConstant(null);
-      } else {
-        const idx = parseInt(key, 10);
-        if (idx >= 0) {
-          const res = this.value[idx];
-          if (res)
-            return new LppReference(this, key, res);
-          else
-            return new LppReference(this, key, new LppConstant(null));
-        } else {
-          const constructor = ensureValue(this.get("constructor"));
-          if (!(constructor instanceof LppFunction))
-            throw new Error(
-              "lpp: unexpected constructor -- must be a LppFunction instance"
-            );
-          const proto = ensureValue(constructor.get("prototype"));
-          if (!(proto instanceof LppObject))
-            throw new Error(
-              "lpp: unexpected prototype -- must be a LppObject instance"
-            );
-          const member = lookupPrototype(proto, key);
-          if (member === null)
-            throw new LppError("invalidIndex");
-          return new LppReference(this, key, member);
-        }
-      }
-    }
-    /**
-     * Set a value.
-     * @param key Key to set.
-     * @param value Value to set.
-     * @returns Value.
-     */
-    set(key, value) {
-      const idx = parseInt(key, 10);
-      if (idx >= 0) {
-        this.value[idx] = value;
-        return new LppReference(this, key, value);
-      } else
-        throw new LppError("invalidIndex");
-    }
-    /**
-     * Detect whether a value exists.
-     * @param key Key to detect.
-     * @returns Whether the value exists.
-     */
-    has(key) {
-      if (key === "constructor")
-        return true;
-      const idx = parseInt(key, 10);
-      if (idx >= 0 && idx in this.value)
-        return true;
-      const constructor = ensureValue(this.get("constructor"));
-      if (!(constructor instanceof LppFunction))
-        throw new Error(
-          "lpp: unexpected constructor -- must be a LppFunction instance"
-        );
-      const proto = ensureValue(constructor.get("prototype"));
-      if (!(proto instanceof LppObject))
-        throw new Error(
-          "lpp: unexpected prototype -- must be a LppObject instance"
-        );
-      return lookupPrototype(proto, key) !== null;
-    }
-    /**
-     * Delete a value from the object.
-     * @param key Key to delete.
-     * @returns Whether the value exists.
-     */
-    delete(key) {
-      const idx = parseInt(key, 10);
-      if (idx >= 0 && idx in this.value) {
-        delete this.value[idx];
-        return true;
-      }
-      return false;
-    }
-    /**
-     * Detect whether a value is constructed from fn.
-     * @param fn Function.
-     * @returns Whether the value is constructed from fn.
-     */
-    instanceof(fn) {
-      return fn === global.get("Array");
-    }
-    /**
-     * @returns toString for visualReport.
-     */
-    toString() {
-      return "<Lpp Array>";
-    }
-    /**
-     * Do arithmetic operations.
-     * @param op Binary operator.
-     * @param rhs Right hand side of the operation.
-     */
-    calc(op, rhs) {
-      if (rhs) {
-        switch (op) {
-          case "=": {
-            throw new LppError("assignOfConstant");
-          }
-          case "+": {
-            if (rhs instanceof _LppArray) {
-              return new _LppArray(this.value.concat(rhs.value));
-            }
-            return new LppConstant(NaN);
-          }
-          case "*": {
-            if (rhs instanceof LppConstant && (typeof rhs.value === "boolean" || typeof rhs.value === "number")) {
-              const time = typeof rhs.value === "boolean" ? +rhs.value : rhs.value;
-              if (Number.isInteger(time)) {
-                const ret = new _LppArray();
-                for (let i = 0; i < time; i++) {
-                  ret.value = ret.value.concat(this.value);
-                }
-                return ret;
-              }
-            }
-            return new LppConstant(NaN);
-          }
-          case "==": {
-            return new LppConstant(equal(this, rhs));
-          }
-          case "!=": {
-            return new LppConstant(!equal(this, rhs));
-          }
-          case ">":
-          case "<":
-          case ">=":
-          case "<=": {
-            return new LppConstant(compare(this, op, rhs));
-          }
-          case "&&":
-          case "||": {
-            const left = asBoolean(this);
-            const right = asBoolean(rhs);
-            return new LppConstant(op === "&&" ? left && right : left || right);
-          }
-          case "instanceof": {
-            if (rhs instanceof LppFunction) {
-              return new LppConstant(this.instanceof(rhs));
-            }
-            throw new LppError("notCallable");
-          }
-          case "-":
-          case "/":
-          case "%":
-          case "<<":
-          case ">>":
-          case ">>>":
-          case "&":
-          case "|":
-          case "^": {
-            return new LppConstant(NaN);
-          }
-        }
-      } else {
-        switch (op) {
-          case "delete": {
-            throw new LppError("assignOfConstant");
-          }
-          case "!": {
-            return new LppConstant(!asBoolean(this));
-          }
-          case "+":
-          case "-":
-          case "~": {
-            return new LppConstant(NaN);
-          }
-        }
-      }
-      throw new Error("lpp: unknown operand");
-    }
-  };
-  var LppHandle = class {
-    constructor(fn, self, args) {
-      this.fn = fn;
-      this.self = self;
-      this.args = args;
-    }
-  };
-  var LppFunction = class _LppFunction extends LppObject {
-    /**
-     * Construct a function object.
-     * @warning Do not use this function directly unless you know what you are doing! Use LppFunction.native instead.
-     * @param caller Function to execute.
-     * @param prototype Function prototype.
-     */
-    constructor(caller, prototype = new LppObject()) {
-      super(/* @__PURE__ */ new Map(), void 0);
-      this.caller = caller;
-      this.value.set("prototype", prototype);
-    }
-    /**
-     * Construct a native function.
-     * @param execute Function to execute.
-     * @param prototype Function prototype.
-     * @returns Constructed function.
-     */
-    static native(execute, prototype) {
-      function addNativeTraceback(exception, ctx) {
-        if (exception instanceof LppException)
-          exception.pushStack(
-            new LppTraceback.NativeFn(ctx.fn, ctx.self, ctx.args)
-          );
-        return exception;
-      }
-      return new _LppFunction((ctx) => {
-        return withValue(execute(ctx), (value) => addNativeTraceback(value, ctx));
-      }, prototype);
-    }
-    /**
-     * Get a value.
-     * @param key Value to get.
-     * @returns Child object.
-     */
-    get(key) {
-      if (key === "constructor") {
-        return global.get("Function") ?? new LppConstant(null);
-      } else if (key === "prototype") {
-        const res = this.value.get(key);
-        if (res)
-          return res;
-        else
-          throw new Error("lpp: unexpected get -- prototype is null");
-      } else {
-        const res = this.value.get(key);
-        if (res)
-          return new LppReference(this, key, res);
-        const constructor = ensureValue(this.get("constructor"));
-        if (!(constructor instanceof _LppFunction))
-          throw new Error(
-            "lpp: unexpected constructor -- must be a LppFunction instance"
-          );
-        const proto = ensureValue(constructor.get("prototype"));
-        if (!(proto instanceof LppObject))
-          throw new Error(
-            "lpp: unexpected prototype -- must be a LppObject instance"
-          );
-        const member = lookupPrototype(proto, key);
-        if (member === null)
-          return new LppReference(this, key, new LppConstant(null));
-        return new LppReference(this, key, member);
-      }
-    }
-    /**
-     * Set a value.
-     * @param key Key to set.
-     * @param value Value to set.
-     * @returns Value.
-     */
-    set(key, value) {
-      this.value.set(key, value);
-      return new LppReference(this, key, value);
-    }
-    /**
-     * Detect whether a value exists.
-     * @param key Key to detect.
-     * @returns Whether the value exists.
-     */
-    has(key) {
-      if (key === "constructor" || this.value.has(key))
-        return true;
-      const constructor = ensureValue(this.get("constructor"));
-      if (!(constructor instanceof _LppFunction))
-        throw new Error(
-          "lpp: unexpected constructor -- must be a LppFunction instance"
-        );
-      const proto = ensureValue(constructor.get("prototype"));
-      if (!(proto instanceof LppObject))
-        throw new Error(
-          "lpp: unexpected prototype -- must be a LppObject instance"
-        );
-      return lookupPrototype(proto, key) !== null;
-    }
-    /**
-     * Delete a value from the object.
-     * @param key Key to delete.
-     * @returns Whether the value exists.
-     */
-    delete(key) {
-      if (key === "prototype") {
-        throw new LppError("assignOfConstant");
-      }
-      return this.value.delete(key);
-    }
-    /**
-     * Call function with arguments.
-     * @param self Function self object. Might be null.
-     * @param args Function arguments.
-     * @returns Return value.
-     */
-    apply(self, args) {
-      return this.caller(new LppHandle(this, self, args));
-    }
-    /**
-     * Call function as a constructor.
-     * @param args Function arguments.
-     * @returns Return value.
-     */
-    construct(args) {
-      if (this === global.get("Number") || this === global.get("String") || this === global.get("Boolean") || this === global.get("Array") || this === global.get("Function") || this === global.get("Object"))
-        return this.apply(new LppConstant(null), args);
-      const obj = this === global.get("Promise") ? new LppPromise(new Promise(() => {
-      })) : new LppObject(/* @__PURE__ */ new Map(), this);
-      const res = this.apply(obj, args);
-      const process = (result) => {
-        if (result instanceof LppException)
-          return result;
-        return new LppReturn(obj);
-      };
-      return withValue(res, (result) => process(result));
-    }
-    /**
-     * @returns toString for visualReport.
-     */
-    toString() {
-      return "<Lpp Function>";
-    }
-  };
-  var LppPromise = class _LppPromise extends LppObject {
-    constructor(pm) {
-      const GlobalPromise = global.get("Promise");
-      if (!(GlobalPromise instanceof LppFunction)) {
-        throw new Error("lpp: not implemented");
-      }
-      super(/* @__PURE__ */ new Map(), GlobalPromise);
-      this.pm = pm;
-    }
-    /**
-     * then() function.
-     * @param resolveFn
-     * @param rejectFn
-     * @returns
-     */
-    done(resolveFn, rejectFn) {
-      return _LppPromise.generate((resolve, reject) => {
-        this.pm.then(
-          (value) => {
-            if (value instanceof LppValue2) {
-              if (resolveFn) {
-                const res = resolveFn.apply(this, [value]);
-                return withValue(res, (v) => processThenReturn(v, resolve, reject));
-              } else {
-                return processThenReturn(new LppReturn(value), resolve, reject);
-              }
-            }
-            throw new Error("lpp: unknown result");
-          },
-          (err) => {
-            if (err instanceof LppValue2) {
-              if (rejectFn) {
-                const res = rejectFn.apply(this, [err]);
-                return withValue(res, (v) => processThenReturn(v, resolve, reject));
-              } else {
-                return reject(err);
-              }
-            }
-            throw err;
-          }
-        );
-        return void 0;
-      });
-    }
-    /**
-     * catch() function.
-     * @param rejectFn
-     * @returns
-     */
-    error(rejectFn) {
-      return _LppPromise.generate((resolve, reject) => {
-        this.pm.catch((err) => {
-          if (err instanceof LppValue2) {
-            const res = rejectFn.apply(this, [err]);
-            return withValue(res, (v) => processThenReturn(v, resolve, reject));
-          }
-          throw err;
-        });
-        return void 0;
-      });
-    }
-    static generate(fn) {
-      let resolveFn;
-      let rejectFn;
-      resolveFn = rejectFn = () => {
-        throw new Error("not initialized");
-      };
-      const pm = new Promise((resolve, reject) => {
-        resolveFn = resolve;
-        rejectFn = reject;
-      });
-      const res = fn(resolveFn, rejectFn);
-      return withValue(res, () => new _LppPromise(pm));
-    }
-  };
 
   // src/core/context.ts
   var LppReturn = class {
@@ -1232,7 +1339,7 @@
     }
     LppTraceback3.NativeFn = NativeFn;
   })(LppTraceback || (LppTraceback = {}));
-  var LppClosure = class extends LppValue2 {
+  var LppClosure = class extends LppValue {
     value = /* @__PURE__ */ new Map();
     /**
      * Get a value.
@@ -1289,13 +1396,11 @@
     /**
      * Construct a new context.
      * @param parent Parent closure.
-     * @param returnCallback Callback if function returns.
-     * @param exceptionCallback Callback if function throws.
+     * @param callback Callback for return / exception.
      */
-    constructor(parent, _returnCallback, _exceptionCallback) {
+    constructor(parent, callback) {
       this.parent = parent;
-      this._returnCallback = _returnCallback;
-      this._exceptionCallback = _exceptionCallback;
+      this.callback = callback;
       this.closure = new LppClosure();
       this.parent = parent;
     }
@@ -1304,20 +1409,13 @@
      */
     closure = new LppClosure();
     /**
-     * Exception callback wrapper.
+     * Callback wrapper.
      * @param value Exception.
      */
-    exceptionCallback(value) {
-      this._exceptionCallback(value);
-      this.clearCallbacks();
-    }
-    /**
-     * Return callback wrapper.
-     * @param value Result.
-     */
-    returnCallback(value) {
-      this._returnCallback(value);
-      this.clearCallbacks();
+    resolve(value) {
+      this.callback(value);
+      this.callback = () => {
+      };
     }
     /**
      * Get variable.
@@ -1329,15 +1427,6 @@
         return this.closure.get(name);
       else
         return this.parent ? this.parent.get(name) : this.closure.get(name);
-    }
-    /**
-     * Clear callbacks.
-     */
-    clearCallbacks() {
-      this._exceptionCallback = () => {
-      };
-      this._returnCallback = () => {
-      };
     }
     /**
      * Unwind to a parent function context.
@@ -1354,8 +1443,8 @@
      * @param returnCallback Callback if function returns.
      * @param exceptionCallback Callback if function throws.
      */
-    constructor(parent, self, returnCallback, exceptionCallback) {
-      super(parent, returnCallback, exceptionCallback);
+    constructor(parent, self, callback) {
+      super(parent, callback);
       this.self = self;
     }
     /**
@@ -1366,6 +1455,543 @@
       return this;
     }
   };
+  var LppAsyncFunctionContext = class extends LppFunctionContext {
+    promise;
+    detach() {
+      if (!this.promise) {
+        let resolveFn;
+        let rejectFn;
+        resolveFn = rejectFn = () => {
+          throw new Error("not initialized");
+        };
+        const pm = new Promise((resolve, reject) => {
+          resolveFn = resolve;
+          rejectFn = reject;
+        });
+        this.promise = {
+          promise: pm,
+          resolve: resolveFn,
+          reject: rejectFn
+        };
+        this.resolve(new LppReturn(new LppPromise(pm)));
+      }
+    }
+  };
+
+  // src/core/global/type/Array.ts
+  function Array_default(global2) {
+    global2.Array = LppFunction.native(
+      ({ args }) => {
+        function convertToArray(args2) {
+          if (args2.length < 1)
+            return new LppArray();
+          if (args2.length === 1 && args2[0] instanceof LppArray) {
+            return args2[0];
+          }
+          return new LppArray(args2);
+        }
+        return new LppReturn(convertToArray(args));
+      },
+      new LppObject(
+        /* @__PURE__ */ new Map([
+          [
+            "length",
+            LppFunction.native(({ self }) => {
+              if (!(self instanceof LppArray)) {
+                return async(function* () {
+                  return raise(
+                    yield global2.IllegalInvocationError.construct([])
+                  );
+                });
+              }
+              return new LppReturn(new LppConstant(self.value.length));
+            })
+          ],
+          [
+            "slice",
+            LppFunction.native(({ self, args }) => {
+              return async(function* () {
+                if (!(self instanceof LppArray)) {
+                  return raise(
+                    yield global2.IllegalInvocationError.construct([])
+                  );
+                }
+                const start = args[0];
+                const end = args[0];
+                if (start && !(start instanceof LppConstant) || end && !(end instanceof LppConstant)) {
+                  return raise(
+                    yield global2.IllegalInvocationError.construct([])
+                  );
+                }
+                return new LppReturn(
+                  new LppArray(
+                    self.value.slice(
+                      start?.value ?? void 0,
+                      end?.value ?? void 0
+                    )
+                  )
+                );
+              });
+            })
+          ],
+          [
+            "map",
+            LppFunction.native(({ self, args }) => {
+              return async(function* () {
+                if (!(self instanceof LppArray) || !(args[0] instanceof LppFunction)) {
+                  return raise(
+                    yield global2.IllegalInvocationError.construct([])
+                  );
+                }
+                const result = new LppArray();
+                const predict = args[0];
+                for (const [k, v] of self.value.entries()) {
+                  const res = yield predict.apply(self, [
+                    v ?? new LppConstant(null),
+                    new LppConstant(k)
+                  ]);
+                  if (res instanceof LppException)
+                    return res;
+                  else
+                    result.value.push(res.value);
+                }
+                return new LppReturn(result);
+              });
+            })
+          ],
+          [
+            "every",
+            LppFunction.native(({ self, args }) => {
+              return async(function* () {
+                if (!(self instanceof LppArray) || !(args[0] instanceof LppFunction)) {
+                  return raise(
+                    yield global2.IllegalInvocationError.construct([])
+                  );
+                }
+                const predict = args[0];
+                for (const [k, v] of self.value.entries()) {
+                  const res = yield predict.apply(self, [
+                    v ?? new LppConstant(null),
+                    new LppConstant(k)
+                  ]);
+                  if (res instanceof LppException)
+                    return res;
+                  else if (!asBoolean(res.value)) {
+                    return new LppReturn(new LppConstant(false));
+                  }
+                }
+                return new LppReturn(new LppConstant(true));
+              });
+            })
+          ],
+          [
+            "any",
+            LppFunction.native(({ self, args }) => {
+              return async(function* () {
+                if (!(self instanceof LppArray) || !(args[0] instanceof LppFunction)) {
+                  return raise(
+                    yield global2.IllegalInvocationError.construct([])
+                  );
+                }
+                const predict = args[0];
+                for (const [k, v] of self.value.entries()) {
+                  const res = yield predict.apply(self, [
+                    v ?? new LppConstant(null),
+                    new LppConstant(k)
+                  ]);
+                  if (res instanceof LppException)
+                    return res;
+                  else if (asBoolean(res.value)) {
+                    return new LppReturn(new LppConstant(true));
+                  }
+                }
+                return new LppReturn(new LppConstant(false));
+              });
+            })
+          ]
+        ])
+      )
+    );
+  }
+
+  // src/core/global/type/Boolean.ts
+  function Boolean_default(global2) {
+    global2.Boolean = LppFunction.native(({ args }) => {
+      if (args.length < 1)
+        return new LppReturn(new LppConstant(false));
+      return new LppReturn(new LppConstant(asBoolean(args[0])));
+    }, new LppObject(/* @__PURE__ */ new Map()));
+  }
+
+  // src/core/global/type/Number.ts
+  function Number_default(global2) {
+    global2.Number = LppFunction.native(({ args }) => {
+      function convertToNumber(args2) {
+        if (args2.length < 1)
+          return new LppConstant(0);
+        const v = args2[0];
+        if (v instanceof LppConstant) {
+          if (v === new LppConstant(null))
+            return new LppConstant(0);
+          switch (typeof v.value) {
+            case "string":
+              return new LppConstant(globalThis.Number(v.value));
+            case "number":
+              return new LppConstant(v.value);
+            case "boolean":
+              return v.value ? new LppConstant(1) : new LppConstant(0);
+          }
+        } else if (v instanceof LppFunction) {
+          return new LppConstant(NaN);
+        } else if (v instanceof LppObject) {
+          return new LppConstant(NaN);
+        }
+        return new LppConstant(NaN);
+      }
+      return new LppReturn(convertToNumber(args));
+    }, new LppObject(/* @__PURE__ */ new Map()));
+    global2.Number.set("EPLISON", new LppConstant(globalThis.Number.EPSILON));
+    global2.Number.set("MAX_VALUE", new LppConstant(globalThis.Number.MAX_VALUE));
+    global2.Number.set(
+      "MAX_SAFE_INTEGER",
+      new LppConstant(globalThis.Number.MAX_SAFE_INTEGER)
+    );
+    global2.Number.set("MIN_VALUE", new LppConstant(globalThis.Number.MIN_VALUE));
+    global2.Number.set(
+      "MIN_SAFE_INTEGER",
+      new LppConstant(globalThis.Number.MIN_SAFE_INTEGER)
+    );
+    global2.Number.set(
+      "isNaN",
+      LppFunction.native(({ args }) => {
+        return new LppReturn(
+          new LppConstant(
+            args.length > 0 && args[0] instanceof LppConstant && globalThis.Number.isNaN(args[0].value)
+          )
+        );
+      })
+    );
+    global2.Number.set(
+      "isFinite",
+      LppFunction.native(({ args }) => {
+        return new LppReturn(
+          new LppConstant(
+            args.length > 0 && args[0] instanceof LppConstant && globalThis.Number.isFinite(args[0].value)
+          )
+        );
+      })
+    );
+    global2.Number.set(
+      "isSafeInteger",
+      LppFunction.native(({ args }) => {
+        return new LppReturn(
+          new LppConstant(
+            args.length > 0 && args[0] instanceof LppConstant && globalThis.Number.isSafeInteger(args[0].value)
+          )
+        );
+      })
+    );
+    global2.Number.set(
+      "isSafeInteger",
+      LppFunction.native(({ args }) => {
+        return new LppReturn(
+          new LppConstant(
+            args.length > 0 && args[0] instanceof LppConstant && globalThis.Number.isSafeInteger(args[0].value)
+          )
+        );
+      })
+    );
+  }
+
+  // src/core/global/type/Object.ts
+  function Object_default(global2) {
+    global2.Object = LppFunction.native(({ args }) => {
+      function convertToObject(args2) {
+        if (args2.length < 1)
+          return new LppObject();
+        return args2[0];
+      }
+      return new LppReturn(convertToObject(args));
+    }, new LppObject(/* @__PURE__ */ new Map()));
+  }
+
+  // src/core/global/type/String.ts
+  function String_default(global2) {
+    global2.String = LppFunction.native(
+      ({ args }) => {
+        function convertToString(args2) {
+          if (args2.length < 1)
+            return new LppConstant("");
+          const v = args2[0];
+          return new LppConstant(v.toString());
+        }
+        return new LppReturn(convertToString(args));
+      },
+      new LppObject(
+        /* @__PURE__ */ new Map([
+          [
+            "length",
+            LppFunction.native(({ self }) => {
+              if (self instanceof LppConstant && typeof self.value === "string") {
+                return new LppReturn(new LppConstant(self.value.length));
+              }
+              return async(function* () {
+                return raise(
+                  yield global2.IllegalInvocationError.construct(
+                    []
+                  )
+                );
+              });
+            })
+          ]
+        ])
+      )
+    );
+  }
+
+  // src/core/global/type/Function.ts
+  function Function_default(global2) {
+    global2.Function = LppFunction.native(
+      ({ args }) => {
+        if (args.length < 1)
+          return new LppReturn(
+            new LppFunction(() => {
+              return new LppReturn(new LppConstant(null));
+            })
+          );
+        if (args[0] instanceof LppFunction)
+          return new LppReturn(args[0]);
+        return async(function* () {
+          return raise(
+            yield global2.IllegalInvocationError.construct([])
+          );
+        });
+      },
+      new LppObject(
+        /* @__PURE__ */ new Map([
+          ["prototype", asValue(global2.Object.get("prototype"))],
+          [
+            "bind",
+            LppFunction.native(({ self, args }) => {
+              if (!(self instanceof LppFunction) || args.length < 1) {
+                return async(function* () {
+                  return raise(
+                    yield global2.IllegalInvocationError.construct([])
+                  );
+                });
+              }
+              const selfArg = args[0];
+              return new LppReturn(
+                new LppFunction((ctx) => {
+                  return self.apply(selfArg, ctx.args);
+                })
+              );
+            })
+          ]
+        ])
+      )
+    );
+  }
+
+  // src/core/global/type/Promise.ts
+  function processPromise(self, res) {
+    self.pm = res.pm;
+    return new LppReturn(new LppConstant(null));
+  }
+  function Promise_default(global2) {
+    global2.Promise = LppFunction.native(
+      ({ self, args }) => {
+        if (self instanceof LppPromise && args.length > 0 && args[0] instanceof LppFunction) {
+          const fn = args[0];
+          return async(function* () {
+            return processPromise(
+              self,
+              yield LppPromise.generate((resolve, reject) => {
+                return async(function* () {
+                  yield fn.apply(self, [
+                    new LppFunction(({ args: args2 }) => {
+                      return async(function* () {
+                        yield processThenReturn(
+                          new LppReturn(args2[0] ?? new LppConstant(null)),
+                          resolve,
+                          reject
+                        );
+                        return new LppReturn(new LppConstant(null));
+                      });
+                    }),
+                    new LppFunction(({ args: args2 }) => {
+                      reject(args2[0] ?? new LppConstant(null));
+                      return new LppReturn(new LppConstant(null));
+                    })
+                  ]);
+                  return void 0;
+                });
+              })
+            );
+          });
+        } else {
+          return async(function* () {
+            return raise(
+              yield global2.IllegalInvocationErrorError.construct(
+                []
+              )
+            );
+          });
+        }
+      },
+      new LppObject(
+        /* @__PURE__ */ new Map([
+          [
+            "then",
+            LppFunction.native(({ self, args }) => {
+              if (self instanceof LppPromise) {
+                return new LppReturn(
+                  self.done(
+                    args[0] instanceof LppFunction ? args[0] : void 0,
+                    args[1] instanceof LppFunction ? args[1] : void 0
+                  )
+                );
+              } else {
+                return async(function* () {
+                  return raise(
+                    yield global2.IllegalInvocationErrorError.construct([])
+                  );
+                });
+              }
+            })
+          ],
+          [
+            "catch",
+            LppFunction.native(({ self, args }) => {
+              if (self instanceof LppPromise && args.length > 0 && args[0] instanceof LppFunction) {
+                return new LppReturn(self.error(args[0]));
+              } else {
+                return async(function* () {
+                  return raise(
+                    yield global2.IllegalInvocationErrorError.construct([])
+                  );
+                });
+              }
+            })
+          ]
+        ])
+      )
+    );
+    global2.Promise.set(
+      "resolve",
+      LppFunction.native(({ args }) => {
+        return async(function* () {
+          return new LppReturn(
+            yield LppPromise.generate((resolve, reject) => {
+              return async(function* () {
+                yield processThenReturn(
+                  new LppReturn(args[0] ?? new LppConstant(null)),
+                  resolve,
+                  reject
+                );
+                return void 0;
+              });
+            })
+          );
+        });
+      })
+    );
+    global2.Promise.set(
+      "reject",
+      LppFunction.native(({ args }) => {
+        return new LppReturn(
+          new LppPromise(
+            globalThis.Promise.reject(args[0] ?? new LppConstant(null))
+          )
+        );
+      })
+    );
+  }
+
+  // src/core/global/type/index.ts
+  function type_default(global2) {
+    Number_default(global2);
+    Boolean_default(global2);
+    String_default(global2);
+    Array_default(global2);
+    Object_default(global2);
+    Function_default(global2);
+    Promise_default(global2);
+  }
+
+  // src/core/global/error/Error.ts
+  function Error_default(global2) {
+    const Error2 = global2.Error = LppFunction.native(({ self, args }) => {
+      if (self.instanceof(Error2)) {
+        self.set("value", args[0] ?? new LppConstant(null));
+        self.set("stack", new LppConstant(null));
+        return new LppReturn(new LppArray());
+      } else {
+        return async(function* () {
+          return raise(
+            yield global2.IllegalInvocationError.construct([])
+          );
+        });
+      }
+    }, new LppObject(/* @__PURE__ */ new Map()));
+  }
+
+  // src/core/global/error/IllegalInvocationError.ts
+  function IllegalInvocationError_default(global2) {
+    const IllegalInvocationError = global2.IllegalInvocationError = LppFunction.native(
+      ({ self, args }) => {
+        if (self.instanceof(IllegalInvocationError)) {
+          return async(function* () {
+            const v = yield global2.Error.apply(self, args);
+            if (v instanceof LppException)
+              return v;
+            return new LppReturn(new LppConstant(null));
+          });
+        } else {
+          return async(function* () {
+            return raise(yield IllegalInvocationError.construct([]));
+          });
+        }
+      },
+      new LppObject(
+        /* @__PURE__ */ new Map([["prototype", asValue(global2.Error.get("prototype"))]])
+      )
+    );
+  }
+
+  // src/core/global/error/SyntaxError.ts
+  function SyntaxError_default(global2) {
+    const SyntaxError = global2.SyntaxError = LppFunction.native(
+      ({ self, args }) => {
+        if (self.instanceof(SyntaxError)) {
+          return async(function* () {
+            const v = yield global2.Error.apply(self, args);
+            if (v instanceof LppException)
+              return v;
+            return new LppReturn(new LppConstant(null));
+          });
+        } else {
+          return async(function* () {
+            return raise(
+              yield global2.IllegalInvocationError.construct([])
+            );
+          });
+        }
+      },
+      new LppObject(
+        /* @__PURE__ */ new Map([
+          ["prototype", asValue(global2.Error.get("prototype"))]
+        ])
+      )
+    );
+  }
+
+  // src/core/global/error/index.ts
+  function error_default(global2) {
+    Error_default(global2);
+    IllegalInvocationError_default(global2);
+    SyntaxError_default(global2);
+  }
 
   // src/core/ffi/index.ts
   var ffi_exports = {};
@@ -1435,341 +2061,255 @@
     return serializeInternal(value);
   }
 
-  // src/core/global.ts
-  function processPromise(self, res) {
-    self.pm = res.pm;
-    return new LppReturn(new LppConstant(null));
-  }
-  var global = /* @__PURE__ */ new Map();
-  var Global;
-  ((Global2) => {
-    Global2.Boolean = LppFunction.native(({ args }) => {
-      if (args.length < 1)
-        return new LppReturn(new LppConstant(false));
-      return new LppReturn(new LppConstant(asBoolean(args[0])));
-    }, new LppObject(/* @__PURE__ */ new Map()));
-    Global2.Number = LppFunction.native(({ args }) => {
-      function convertToNumber(args2) {
-        if (args2.length < 1)
-          return new LppConstant(0);
-        const v = args2[0];
-        if (v instanceof LppConstant) {
-          if (v === new LppConstant(null))
-            return new LppConstant(0);
-          switch (typeof v.value) {
-            case "string":
-              return new LppConstant(globalThis.Number(v.value));
-            case "number":
-              return new LppConstant(v.value);
-            case "boolean":
-              return v.value ? new LppConstant(1) : new LppConstant(0);
-          }
-        } else if (v instanceof LppFunction) {
-          return new LppConstant(NaN);
-        } else if (v instanceof LppObject) {
-          return new LppConstant(NaN);
-        }
-        return new LppConstant(NaN);
-      }
-      return new LppReturn(convertToNumber(args));
-    }, new LppObject(/* @__PURE__ */ new Map()));
-    Global2.String = LppFunction.native(
-      ({ args }) => {
-        function convertToString(args2) {
-          if (args2.length < 1)
-            return new LppConstant("");
-          const v = args2[0];
-          return new LppConstant(v.toString());
-        }
-        return new LppReturn(convertToString(args));
-      },
-      new LppObject(
-        /* @__PURE__ */ new Map([
-          [
-            "length",
-            LppFunction.native((self) => {
-              if (self instanceof LppConstant && typeof self.value === "string") {
-                return new LppReturn(new LppConstant(self.value.length));
-              }
-              return raise(Global2.IllegalInvocationError.construct([]));
-            })
-          ]
-        ])
-      )
-    );
-    Global2.Array = LppFunction.native(
-      ({ args }) => {
-        function convertToArray(args2) {
-          if (args2.length < 1)
-            return new LppArray();
-          if (args2.length === 1 && args2[0] instanceof LppArray) {
-            return args2[0];
-          }
-          return new LppArray(args2);
-        }
-        return new LppReturn(convertToArray(args));
-      },
-      new LppObject(
-        /* @__PURE__ */ new Map([
-          [
-            "length",
-            LppFunction.native((self) => {
-              if (self instanceof LppArray) {
-                return new LppReturn(new LppConstant(self.value.length));
-              }
-              return raise(Global2.IllegalInvocationError.construct([]));
-            })
-          ]
-        ])
-      )
-    );
-    Global2.Object = LppFunction.native(({ args }) => {
-      function convertToObject(args2) {
-        if (args2.length < 1)
-          return new LppObject();
-        return args2[0];
-      }
-      return new LppReturn(convertToObject(args));
-    }, new LppObject(/* @__PURE__ */ new Map()));
-    Global2.Function = LppFunction.native(
-      ({ args }) => {
-        if (args.length < 1)
-          return new LppReturn(
-            new LppFunction(() => {
-              return new LppReturn(new LppConstant(null));
-            })
-          );
-        if (args[0] instanceof LppFunction)
-          return new LppReturn(args[0]);
-        return raise(Global2.IllegalInvocationError.construct([]));
-      },
-      new LppObject(
-        /* @__PURE__ */ new Map([
-          ["prototype", ensureValue(Global2.Object.get("prototype"))],
-          [
-            "apply",
-            LppFunction.native(({ self, args }) => {
-              if (self instanceof LppFunction) {
-                let selfArg = new LppConstant(null);
-                let argArray = [];
-                switch (args.length) {
-                  case 0: {
-                    break;
-                  }
-                  case 1: {
-                    selfArg = args[0];
-                    break;
-                  }
-                  default: {
-                    if (!(args[1] instanceof LppArray)) {
-                      return raise(Global2.IllegalInvocationError.construct([]));
-                    }
-                    selfArg = args[0];
-                    argArray = args[1].value.map((v) => v ?? new LppConstant(null));
-                    break;
-                  }
-                }
-                return self.apply(selfArg, argArray);
-              } else {
-                return raise(Global2.IllegalInvocationError.construct([]));
-              }
-            })
-          ]
-        ])
-      )
-    );
-    Global2.Promise = LppFunction.native(
-      ({ self, args }) => {
-        if (self instanceof LppPromise && args.length > 0 && args[0] instanceof LppFunction) {
-          const fn = args[0];
-          const temp = LppPromise.generate((resolve, reject) => {
-            const res = fn.apply(self, [
-              new LppFunction(({ args: args2 }) => {
-                const res2 = processThenReturn(
-                  new LppReturn(args2[0] ?? new LppConstant(null)),
-                  resolve,
-                  reject
-                );
-                return withValue(res2, () => new LppReturn(new LppConstant(null)));
-              }),
-              new LppFunction(({ args: args2 }) => {
-                reject(args2[0] ?? new LppConstant(null));
-                return new LppReturn(new LppConstant(null));
-              })
-            ]);
-            return withValue(res, () => void 0);
-          });
-          return withValue(temp, (res) => processPromise(self, res));
-        } else {
-          return raise(Global2.IllegalInvocationError.construct([]));
-        }
-      },
-      new LppObject(
-        /* @__PURE__ */ new Map([
-          [
-            "then",
-            LppFunction.native(({ self, args }) => {
-              if (self instanceof LppPromise) {
-                return new LppReturn(
-                  self.done(
-                    args[0] instanceof LppFunction ? args[0] : void 0,
-                    args[1] instanceof LppFunction ? args[1] : void 0
-                  )
-                );
-              } else {
-                return raise(Global2.IllegalInvocationError.construct([]));
-              }
-            })
-          ],
-          [
-            "catch",
-            LppFunction.native(({ self, args }) => {
-              if (self instanceof LppPromise && args.length > 0 && args[0] instanceof LppFunction) {
-                return new LppReturn(self.error(args[0]));
-              } else {
-                const res = Global2.IllegalInvocationError.construct([]);
-                return withValue(res, (v) => {
-                  if (v instanceof LppException)
-                    return v;
-                  return new LppException(v.value);
-                });
-              }
-            })
-          ]
-        ])
-      )
-    );
-    Global2.Promise.set(
-      "resolve",
-      LppFunction.native(({ self, args }) => {
-        if (self !== Global2.Promise) {
-          return raise(Global2.IllegalInvocationError.construct([]));
-        }
-        const res = LppPromise.generate((resolve, reject) => {
-          const res2 = processThenReturn(
-            new LppReturn(args[0] ?? new LppConstant(null)),
-            resolve,
-            reject
-          );
-          return withValue(res2, () => void 0);
-        });
-        return withValue(res, (v) => new LppReturn(v));
-      })
-    );
-    Global2.Promise.set(
-      "reject",
-      LppFunction.native(({ self, args }) => {
-        if (self !== Global2.Promise) {
-          return raise(Global2.IllegalInvocationError.construct([]));
-        }
-        return new LppReturn(
-          new LppPromise(
-            globalThis.Promise.reject(args[0] ?? new LppConstant(null))
-          )
-        );
-      })
-    );
-    Global2.Error = LppFunction.native(({ self, args }) => {
-      if (self.instanceof(Global2.Error)) {
-        self.set("value", args[0] ?? new LppConstant(null));
-        self.set("stack", new LppConstant(null));
-        return new LppReturn(new LppArray());
-      } else {
-        return raise(Global2.IllegalInvocationError.construct([]));
-      }
-    }, new LppObject(/* @__PURE__ */ new Map()));
-    Global2.IllegalInvocationError = LppFunction.native(
-      ({ self, args }) => {
-        if (self.instanceof(Global2.IllegalInvocationError)) {
-          const res = Global2.Error.apply(self, args);
-          return withValue(res, (v) => {
-            if (v instanceof LppException)
-              return v;
-            return new LppReturn(new LppConstant(null));
-          });
-        } else {
-          return raise(Global2.IllegalInvocationError.construct([]));
-        }
-      },
-      new LppObject(/* @__PURE__ */ new Map([["prototype", ensureValue(Global2.Error.get("prototype"))]]))
-    );
-    Global2.SyntaxError = LppFunction.native(
-      ({ self, args }) => {
-        if (self.instanceof(Global2.SyntaxError)) {
-          const res = Global2.Error.apply(self, args);
-          return withValue(res, (v) => {
-            if (v instanceof LppException)
-              return v;
-            return new LppReturn(new LppConstant(null));
-          });
-        } else {
-          return raise(Global2.IllegalInvocationError.construct([]));
-        }
-      },
-      new LppObject(/* @__PURE__ */ new Map([["prototype", ensureValue(Global2.Error.get("prototype"))]]))
-    );
-    Global2.JSON = new LppObject(
+  // src/core/global/JSON.ts
+  function JSON_default(global2) {
+    global2.JSON = new LppObject(
       /* @__PURE__ */ new Map([
         [
           "parse",
-          LppFunction.native(({ self, args }) => {
-            if (self !== Global2.JSON) {
-              return raise(Global2.IllegalInvocationError.construct([]));
-            }
+          LppFunction.native(({ args }) => {
             if (args.length < 1 || !(args[0] instanceof LppConstant) || !(typeof args[0].value === "string")) {
-              return raise(
-                Global2.SyntaxError.construct([new LppConstant("Invalid JSON")])
-              );
+              return async(function* () {
+                return raise(
+                  yield global2.SyntaxError.construct([
+                    new LppConstant("Invalid JSON")
+                  ])
+                );
+              });
             }
             try {
               return new LppReturn(
                 fromObject(globalThis.JSON.parse(args[0].value))
               );
             } catch (e) {
-              if (e instanceof globalThis.Error) {
-                return raise(Global2.SyntaxError.construct([new LppConstant(e.message)]));
-              }
-              throw e;
+              return async(function* () {
+                if (e instanceof globalThis.Error) {
+                  return raise(
+                    yield global2.SyntaxError.construct([
+                      new LppConstant(e.message)
+                    ])
+                  );
+                }
+                throw e;
+              });
             }
           })
         ],
         [
           "stringify",
-          LppFunction.native(({ self, args }) => {
-            if (self !== Global2.JSON) {
-              return raise(Global2.IllegalInvocationError.construct([]));
-            }
+          LppFunction.native(({ args }) => {
             if (args.length < 1) {
-              return raise(
-                Global2.SyntaxError.construct([new LppConstant("Invalid value")])
-              );
+              return async(function* () {
+                return raise(
+                  yield global2.SyntaxError.construct([
+                    new LppConstant("Invalid value")
+                  ])
+                );
+              });
             }
             try {
               return new LppReturn(
                 new LppConstant(globalThis.JSON.stringify(toObject(args[0])))
               );
             } catch (e) {
-              if (e instanceof globalThis.Error) {
-                return raise(Global2.SyntaxError.construct([new LppConstant(e.message)]));
-              }
-              throw e;
+              return async(function* () {
+                if (e instanceof globalThis.Error) {
+                  return raise(
+                    yield global2.SyntaxError.construct([
+                      new LppConstant(e.message)
+                    ])
+                  );
+                }
+                throw e;
+              });
             }
           })
         ]
       ])
     );
-  })(Global || (Global = {}));
-  global.set("Boolean", Global.Boolean);
-  global.set("Number", Global.Number);
-  global.set("String", Global.String);
-  global.set("Array", Global.Array);
-  global.set("Object", Global.Object);
-  global.set("Function", Global.Function);
-  global.set("Promise", Global.Promise);
-  global.set("Error", Global.Error);
-  global.set("IllegalInvocationError", Global.IllegalInvocationError);
-  global.set("SyntaxError", Global.SyntaxError);
-  global.set("JSON", Global.JSON);
+  }
+
+  // src/core/global/Math.ts
+  function Math_default(global2) {
+    global2.Math = new LppObject(
+      /* @__PURE__ */ new Map([
+        ["E", new LppConstant(globalThis.Math.E)],
+        ["PI", new LppConstant(globalThis.Math.PI)],
+        [
+          "sin",
+          LppFunction.native(({ args }) => {
+            if (args.length < 1 || !(args[0] instanceof LppConstant) || !(typeof args[0].value === "number")) {
+              return new LppReturn(new LppConstant(NaN));
+            }
+            return new LppReturn(
+              new LppConstant(globalThis.Math.sin(args[0].value))
+            );
+          })
+        ],
+        [
+          "sinh",
+          LppFunction.native(({ args }) => {
+            if (args.length < 1 || !(args[0] instanceof LppConstant) || !(typeof args[0].value === "number")) {
+              return new LppReturn(new LppConstant(NaN));
+            }
+            return new LppReturn(
+              new LppConstant(globalThis.Math.sinh(args[0].value))
+            );
+          })
+        ],
+        [
+          "asin",
+          LppFunction.native(({ args }) => {
+            if (args.length < 1 || !(args[0] instanceof LppConstant) || !(typeof args[0].value === "number")) {
+              return new LppReturn(new LppConstant(NaN));
+            }
+            return new LppReturn(
+              new LppConstant(globalThis.Math.asin(args[0].value))
+            );
+          })
+        ],
+        [
+          "asinh",
+          LppFunction.native(({ args }) => {
+            if (args.length < 1 || !(args[0] instanceof LppConstant) || !(typeof args[0].value === "number")) {
+              return new LppReturn(new LppConstant(NaN));
+            }
+            return new LppReturn(
+              new LppConstant(globalThis.Math.asinh(args[0].value))
+            );
+          })
+        ],
+        [
+          "cos",
+          LppFunction.native(({ args }) => {
+            if (args.length < 1 || !(args[0] instanceof LppConstant) || !(typeof args[0].value === "number")) {
+              return new LppReturn(new LppConstant(NaN));
+            }
+            return new LppReturn(
+              new LppConstant(globalThis.Math.cos(args[0].value))
+            );
+          })
+        ],
+        [
+          "cosh",
+          LppFunction.native(({ args }) => {
+            if (args.length < 1 || !(args[0] instanceof LppConstant) || !(typeof args[0].value === "number")) {
+              return new LppReturn(new LppConstant(NaN));
+            }
+            return new LppReturn(
+              new LppConstant(globalThis.Math.cosh(args[0].value))
+            );
+          })
+        ],
+        [
+          "acos",
+          LppFunction.native(({ args }) => {
+            if (args.length < 1 || !(args[0] instanceof LppConstant) || !(typeof args[0].value === "number")) {
+              return new LppReturn(new LppConstant(NaN));
+            }
+            return new LppReturn(
+              new LppConstant(globalThis.Math.acos(args[0].value))
+            );
+          })
+        ],
+        [
+          "acosh",
+          LppFunction.native(({ args }) => {
+            if (args.length < 1 || !(args[0] instanceof LppConstant) || !(typeof args[0].value === "number")) {
+              return new LppReturn(new LppConstant(NaN));
+            }
+            return new LppReturn(
+              new LppConstant(globalThis.Math.acosh(args[0].value))
+            );
+          })
+        ],
+        [
+          "tan",
+          LppFunction.native(({ args }) => {
+            if (args.length < 1 || !(args[0] instanceof LppConstant) || !(typeof args[0].value === "number")) {
+              return new LppReturn(new LppConstant(NaN));
+            }
+            return new LppReturn(
+              new LppConstant(globalThis.Math.tan(args[0].value))
+            );
+          })
+        ],
+        [
+          "tanh",
+          LppFunction.native(({ args }) => {
+            if (args.length < 1 || !(args[0] instanceof LppConstant) || !(typeof args[0].value === "number")) {
+              return new LppReturn(new LppConstant(NaN));
+            }
+            return new LppReturn(
+              new LppConstant(globalThis.Math.tanh(args[0].value))
+            );
+          })
+        ],
+        [
+          "atan",
+          LppFunction.native(({ args }) => {
+            if (args.length < 1 || !(args[0] instanceof LppConstant) || !(typeof args[0].value === "number")) {
+              return new LppReturn(new LppConstant(NaN));
+            }
+            return new LppReturn(
+              new LppConstant(globalThis.Math.atan(args[0].value))
+            );
+          })
+        ],
+        [
+          "atanh",
+          LppFunction.native(({ args }) => {
+            if (args.length < 1 || !(args[0] instanceof LppConstant) || !(typeof args[0].value === "number")) {
+              return new LppReturn(new LppConstant(NaN));
+            }
+            return new LppReturn(
+              new LppConstant(globalThis.Math.atanh(args[0].value))
+            );
+          })
+        ],
+        [
+          "atan2",
+          LppFunction.native(({ args }) => {
+            if (args.length < 2 || !(args[0] instanceof LppConstant) || !(typeof args[0].value === "number") || !(args[1] instanceof LppConstant) || !(typeof args[0].value === "number")) {
+              return new LppReturn(new LppConstant(NaN));
+            }
+            return new LppReturn(
+              new LppConstant(globalThis.Math.atan2(args[0].value, args[1].value))
+            );
+          })
+        ],
+        [
+          "random",
+          LppFunction.native(() => {
+            return new LppReturn(new LppConstant(globalThis.Math.random()));
+          })
+        ]
+      ])
+    );
+  }
+
+  // src/core/global/index.ts
+  var global = {};
+  type_default(global);
+  error_default(global);
+  JSON_default(global);
+  Math_default(global);
+  var global_default = global;
+
+  // src/core/index.ts
+  var Global = global_default;
+
+  // package.json
+  var version = "1.0.0";
+  var developers = [
+    "\u{1F43A} @FurryR https://github.com/FurryR - Developer, Test, Translation, Documentation",
+    "\u{1F914} @SimonShiki https://github.com/SimonShiki - Test, Technical support",
+    "\u{1F604} @Nights https://github.com/Nightre - Technical support",
+    "\u{1F524} @CST1229 https://github.com/CST1229 - Technical support",
+    "\u2B50 @DilemmaGX https://github.com/DilemmaGX - Icon artist (legacy)",
+    "\u{1F36D} @TangDo158 https://github.com/TangDo158 - Icon artist (new)",
+    "\u{1F43A} @VeroFess https://github.com/VeroFess - Technical support"
+  ];
 
   // src/impl/l10n/en-us.ts
   var en_us_default = {
@@ -1783,9 +2323,10 @@
     "lpp.block.construct.Number": "Number",
     "lpp.block.construct.String": "String",
     "lpp.block.construct.Function": "function",
+    "lpp.block.construct.AsyncFunction": "async function",
     /// Operator
     "lpp.block.operator.var": "var",
-    "lpp.block.operator.self": "self",
+    "lpp.block.operator.self": "this",
     /// Statement
     "lpp.block.statement.return": "return",
     "lpp.block.statement.throw": "throw",
@@ -1800,7 +2341,7 @@
     "lpp.error.useOutsideContext.summary": "Cannot use this block outside a lpp context.",
     "lpp.error.useOutsideContext.detail": 'Please create a lpp context use "scope" block first.',
     "lpp.error.syntaxError.summary": "Syntax error.",
-    "lpp.error.syntaxError.detail": "You used the block incorrectly. Please note that lpp doesn't allow direct usages of Scratch literals (index access is a exception).",
+    "lpp.error.syntaxError.detail": "You used the block incorrectly. Please recheck if you used Scratch literals directly or misused expand operator.",
     "lpp.error.accessOfNull.summary": "Invalid access of null.",
     "lpp.error.accessOfNull.detail": "Please validate the object before you use.",
     "lpp.error.assignOfConstant.summary": "Assigning to a constant is not allowed.",
@@ -1820,7 +2361,7 @@
     "lpp.error.blockNotFound": "Unable to find the block in Blockly workspace. The block might not belong to the target that you are currently editing.",
     "lpp.error.position": "Position:",
     "lpp.error.context": "Context:",
-    "lpp.error.self": "Self:",
+    "lpp.error.self": "This:",
     "lpp.error.arguments": "Arguments:",
     "lpp.error.hint": "For further information please check DevTools Console.",
     // Category
@@ -1838,6 +2379,7 @@
     "lpp.tooltip.construct.Array": 'Construct an Array object with specified structure. Use "+" to add or "-" to remove an element.',
     "lpp.tooltip.construct.Object": 'Construct an Object object with specified structure. Use "+" to add or "-" to remove an element.',
     "lpp.tooltip.construct.Function": 'Construct an Function object. Use "+" to add or "-" to remove an argument.',
+    "lpp.tooltip.construct.AsyncFunction": 'Construct an asynchronous Function object. Use "+" to add or "-" to remove an argument.',
     "lpp.tooltip.operator.get": "Get specified member of specified object.",
     "lpp.tooltip.operator.binaryOp": "Do binary operations.",
     "lpp.tooltip.operator.unaryOp": "Do unary operations.",
@@ -1876,6 +2418,7 @@
     "lpp.block.construct.Number": "\u6570\u5B57",
     "lpp.block.construct.String": "\u5B57\u7B26\u4E32",
     "lpp.block.construct.Function": "\u51FD\u6570",
+    "lpp.block.construct.AsyncFunction": "\u5F02\u6B65\u51FD\u6570",
     /// 运算符
     "lpp.block.operator.var": "\u53D8\u91CF",
     "lpp.block.operator.self": "\u81EA\u8EAB",
@@ -1893,7 +2436,7 @@
     "lpp.error.useOutsideContext.summary": "\u65E0\u6CD5\u5728 lpp \u4E0A\u4E0B\u6587\u4EE5\u5916\u4F7F\u7528\u6B64\u79EF\u6728\u3002",
     "lpp.error.useOutsideContext.detail": "\u8BF7\u9996\u5148\u4F7F\u7528\u4F5C\u7528\u57DF\u79EF\u6728\u6765\u521B\u5EFA\u4F5C\u7528\u57DF\u3002",
     "lpp.error.syntaxError.summary": "\u79EF\u6728\u8BED\u6CD5\u9519\u8BEF\u3002",
-    "lpp.error.syntaxError.detail": "\u60A8\u9519\u8BEF\u5730\u4F7F\u7528\u4E86\u79EF\u6728\u3002\u8BF7\u6CE8\u610F lpp \u4E0D\u5141\u8BB8\uFF08\u5728\u4E0B\u6807\u8BBF\u95EE\u4EE5\u5916\u7684\u60C5\u51B5\u4E0B\uFF09\u76F4\u63A5\u4F7F\u7528 Scratch \u5B57\u9762\u91CF\u3002",
+    "lpp.error.syntaxError.detail": "\u60A8\u9519\u8BEF\u5730\u4F7F\u7528\u4E86\u79EF\u6728\u3002\u8BF7\u91CD\u65B0\u68C0\u67E5\u662F\u5426\u6709\u76F4\u63A5\u4F7F\u7528 Scratch \u5B57\u9762\u91CF\u6216\u9519\u8BEF\u4F7F\u7528\u5C55\u5F00\u8FD0\u7B97\u7B26\u7684\u60C5\u51B5\u3002",
     "lpp.error.accessOfNull.summary": "\u8BBF\u95EE\u4E86 null \u7684\u6210\u5458\u3002",
     "lpp.error.accessOfNull.detail": "\u8BF7\u5728\u4F7F\u7528\u5BF9\u8C61\u524D\u68C0\u67E5\u5BF9\u8C61\u662F\u5426\u4E3A\u7A7A\u3002",
     "lpp.error.assignOfConstant.summary": "\u5BF9\u5E38\u91CF\u8FDB\u884C\u4E86\u8D4B\u503C\u64CD\u4F5C\u3002",
@@ -1931,6 +2474,7 @@
     "lpp.tooltip.construct.Array": "\u4EE5\u6307\u5B9A\u7ED3\u6784\u6784\u9020 Array \u5BF9\u8C61\u3002\u53EF\u4F7F\u7528\u201C+\u201D\u6216\u201C-\u201D\u5BF9\u5143\u7D20\u8FDB\u884C\u589E\u51CF\u3002",
     "lpp.tooltip.construct.Object": "\u4EE5\u6307\u5B9A\u7ED3\u6784\u6784\u9020 Object \u5BF9\u8C61\u3002\u53EF\u4F7F\u7528\u201C+\u201D\u6216\u201C-\u201D\u5BF9\u5143\u7D20\u8FDB\u884C\u589E\u51CF\u3002",
     "lpp.tooltip.construct.Function": "\u6784\u9020 Function \u5BF9\u8C61\u3002\u53EF\u4F7F\u7528\u201C+\u201D\u6216\u201C-\u201D\u5BF9\u53C2\u6570\u8FDB\u884C\u589E\u51CF\u3002",
+    "lpp.tooltip.construct.AsyncFunction": "\u6784\u9020\u5F02\u6B65 Function \u5BF9\u8C61\u3002\u53EF\u4F7F\u7528\u201C+\u201D\u6216\u201C-\u201D\u5BF9\u53C2\u6570\u8FDB\u884C\u589E\u51CF\u3002",
     "lpp.tooltip.operator.get": "\u83B7\u5F97\u5BF9\u8C61\u4E0B\u7684\u67D0\u4E2A\u6210\u5458\u3002",
     "lpp.tooltip.operator.binaryOp": "\u8FDB\u884C\u4E8C\u5143\u8FD0\u7B97\u3002",
     "lpp.tooltip.operator.unaryOp": "\u8FDB\u884C\u4E00\u5143\u8FD0\u7B97\u3002",
@@ -2242,6 +2786,20 @@
     Validator2.isInfo = isInfo;
   })(Validator || (Validator = {}));
 
+  // src/impl/boundarg.ts
+  var LppBoundArg = class {
+    /**
+     * Construct a bound arg for lpp.
+     * @param value
+     */
+    constructor(value) {
+      this.value = value;
+    }
+    toString() {
+      return "<Lpp BoundArg>";
+    }
+  };
+
   // src/impl/traceback/inspector.ts
   function Inspector(Blockly, vm, formatMessage, value) {
     function ExtendIcon(title, hideTitle, onShow, onHide) {
@@ -2283,7 +2841,7 @@
         subelem.append(Inspector(Blockly, vm, formatMessage, value3));
         return subelem;
       }
-      const metadata = value2 instanceof LppFunction && hasMetadata(value2);
+      const metadata = (value2 instanceof LppObject || value2 instanceof LppFunction) && hasMetadata(value2);
       const div = document.createElement("ul");
       div.classList.add("lpp-list");
       for (const [index, v] of value2.value.entries()) {
@@ -2292,7 +2850,7 @@
             keyValue(
               String(index),
               v ?? new LppConstant(null),
-              value2 instanceof LppArray
+              value2 instanceof LppArray || value2 instanceof LppBoundArg
             )
           );
       }
@@ -2370,7 +2928,7 @@
             "lpp-code lpp-inspector-string"
           );
       }
-    } else if (value instanceof LppArray || value instanceof LppObject || value instanceof LppFunction) {
+    } else if (value instanceof LppArray || value instanceof LppObject || value instanceof LppFunction || value instanceof LppBoundArg) {
       let v;
       const btn = ExtendIcon(
         formatMessage("lpp.tooltip.button.help.more"),
@@ -2397,10 +2955,12 @@
           "lpp-code"
         );
         code.style.fontStyle = "italic";
-      } else {
+      } else if (value instanceof LppObject) {
         code = dialog_exports.Text(value.value.size === 0 ? "{}" : "{...}", "lpp-code");
+      } else {
+        code = dialog_exports.Text(value.value.length === 0 ? "()" : "(...)", "lpp-code");
       }
-      if (Blockly && value instanceof LppFunction && hasMetadata(value) && value.metadata instanceof ScratchMetadata && value.metadata.sprite && vm.runtime.getTargetById(value.metadata.sprite)) {
+      if (Blockly && (value instanceof LppFunction || value instanceof LppObject) && hasMetadata(value) && value.metadata instanceof ScratchMetadata && value.metadata.sprite && vm.runtime.getTargetById(value.metadata.sprite)) {
         const workspace = Blockly.getMainWorkspace();
         const { sprite, blocks } = value.metadata;
         code.title = formatMessage("lpp.tooltip.button.scrollToBlockEnabled");
@@ -2855,10 +3415,9 @@
       return [
         {
           func: this.id,
+          // Turbowarp extension
           blockType: "button",
-          text: this.lazyText(),
-          onClick: () => {
-          }
+          text: this.lazyText()
         }
       ];
     }
@@ -2889,18 +3448,24 @@
         const res = {};
         if (typeof map === "function") {
           res.init = function(...args) {
+            if (!(this instanceof Blockly.Block)) {
+              return;
+            }
             prepatch(this);
             const fn = value.init(Blockly, this);
             return fn(...args);
           };
         } else {
-          for (const key2 of Object.keys(map)) {
-            res[key2] = function(...args) {
-              if (key2 === "init") {
+          for (const method of Object.keys(map)) {
+            res[method] = function(...args) {
+              if (!(this instanceof Blockly.Block)) {
+                return;
+              }
+              if (method === "init") {
                 prepatch(this);
               }
               const map2 = value.init(Blockly, this);
-              return map2[key2].apply(window, args);
+              return map2[method].apply(window, args);
             };
           }
         }
@@ -3171,7 +3736,7 @@
   })();
   var plusImage = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ij48cGF0aCBkPSJNMTggMTBoLTR2LTRjMC0xLjEwNC0uODk2LTItMi0ycy0yIC44OTYtMiAybC4wNzEgNGgtNC4wNzFjLTEuMTA0IDAtMiAuODk2LTIgMnMuODk2IDIgMiAybDQuMDcxLS4wNzEtLjA3MSA0LjA3MWMwIDEuMTA0Ljg5NiAyIDIgMnMyLS44OTYgMi0ydi00LjA3MWw0IC4wNzFjMS4xMDQgMCAyLS44OTYgMi0ycy0uODk2LTItMi0yeiIgZmlsbD0id2hpdGUiIC8+PC9zdmc+Cg==";
   var minusImage = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ij48cGF0aCBkPSJNMTggMTFoLTEyYy0xLjEwNCAwLTIgLjg5Ni0yIDJzLjg5NiAyIDIgMmgxMmMxLjEwNCAwIDItLjg5NiAyLTJzLS44OTYtMi0yLTJ6IiBmaWxsPSJ3aGl0ZSIgLz48L3N2Zz4K";
-  function defineExtension(color, runtime, formatMessage) {
+  function defineExtension(id, color, runtime, formatMessage) {
     const Plus = (Blockly, block) => {
       const FieldImageButton = initalizeField(Blockly);
       return new FieldImageButton(
@@ -3245,39 +3810,42 @@
         true
       );
     };
-    const updateButton = (Blockly, block) => {
+    const updateButton = (Blockly, block, minValue = 0, maxValue = Infinity) => {
       if (block.length !== void 0) {
         block.removeInput("MINUS", true);
         block.removeInput("PLUS", true);
         const start = block.inputList[0]?.name;
-        block.appendDummyInput("PLUS").appendField(Plus(Blockly, block));
-        if (start)
-          block.moveInputBefore("PLUS", start);
-        if (block.length > 0) {
+        if (block.length < maxValue) {
+          block.appendDummyInput("PLUS").appendField(Plus(Blockly, block));
+          if (start)
+            block.moveInputBefore("PLUS", start);
+        }
+        if (block.length > minValue) {
           block.appendDummyInput("MINUS").appendField(Minus(Blockly, block));
           if (start)
             block.moveInputBefore("MINUS", start);
         }
       }
     };
-    const cleanInputs = (block) => {
+    function cleanInputs(id2, targetInput) {
       const target = runtime.getEditingTarget();
-      const vmBlock = target?.blocks.getBlock(block.id);
-      if (!vmBlock || !target)
+      if (!target)
         return;
-      const usedInputs = new Set(block.inputList.map((i) => i.name));
-      const inputs = vmBlock.inputs;
+      const block = target.blocks.getBlock(id2);
+      if (!block)
+        return;
+      const inputs = block.inputs;
       for (const name of Object.keys(inputs)) {
         const input = inputs[name];
-        if (!usedInputs.has(name)) {
+        if (targetInput.includes(name)) {
           const blocks = target.blocks;
           blocks.deleteBlock(input.block);
           blocks.deleteBlock(input.shadow);
           delete inputs[name];
         }
       }
-    };
-    return new Extension("lpp", color).register(
+    }
+    return new Extension(id, color).register(
       /// Documentation
       new Button(
         "documentation",
@@ -3287,7 +3855,7 @@
       /// Builtin
       new Category(() => `#\uFE0F\u20E3 ${formatMessage("lpp.category.builtin")}`).register(
         "builtinType",
-        Reporter.Square((Blockly, block) => () => {
+        Reporter.Round((Blockly, block) => () => {
           block.setTooltip(formatMessage("lpp.tooltip.builtin.type"));
           block.appendDummyInput().appendField(
             new Blockly.FieldDropdown([
@@ -3304,7 +3872,7 @@
         })
       ).register(
         "builtinError",
-        Reporter.Square((Blockly, block) => () => {
+        Reporter.Round((Blockly, block) => () => {
           block.setTooltip(formatMessage("lpp.tooltip.builtin.error"));
           block.appendDummyInput().appendField(
             new Blockly.FieldDropdown([
@@ -3317,7 +3885,7 @@
         })
       ).register(
         "builtinUtility",
-        Reporter.Square((Blockly, block) => () => {
+        Reporter.Round((Blockly, block) => () => {
           block.setTooltip(formatMessage("lpp.tooltip.builtin.error"));
           block.appendDummyInput().appendField(
             new Blockly.FieldDropdown([
@@ -3332,7 +3900,7 @@
       /// Construct
       new Category(() => `\u{1F6A7} ${formatMessage("lpp.category.construct")}`).register(
         "constructLiteral",
-        Reporter.Square((Blockly, block) => () => {
+        Reporter.Round((Blockly, block) => () => {
           block.setTooltip(formatMessage("lpp.tooltip.construct.literal"));
           block.appendDummyInput().appendField(
             new Blockly.FieldDropdown([
@@ -3401,11 +3969,13 @@
                   block.moveInputBefore(`ARG_${i}`, "END");
                 }
               } else {
+                const removeList = [];
                 for (let i = length; i < block.length; i++) {
                   block.removeInput(`ARG_${i}`, true);
                   block.removeInput(`COMMA_${i}`, true);
+                  removeList.push(`ARG_${i}`, `COMMA_${i}`);
                 }
-                cleanInputs(block);
+                cleanInputs(block.id, removeList);
               }
               block.length = length;
               updateButton(Blockly, block);
@@ -3450,13 +4020,20 @@
                   block.moveInputBefore(`KEY_${i}`, `COLON_${i}`);
                 }
               } else {
+                const removeList = [];
                 for (let i = length; i < block.length; i++) {
                   block.removeInput(`KEY_${i}`, true);
                   block.removeInput(`COLON_${i}`, true);
                   block.removeInput(`VALUE_${i}`, true);
                   block.removeInput(`COMMA_${i}`, true);
+                  removeList.push(
+                    `KEY_${i}`,
+                    `COLON_${i}`,
+                    `VALUE_${i}`,
+                    `COMMA_${i}`
+                  );
                 }
-                cleanInputs(block);
+                cleanInputs(block.id, removeList);
               }
               block.length = length;
               updateButton(Blockly, block);
@@ -3501,11 +4078,66 @@
                   block.moveInputBefore(`ARG_${i}`, "END");
                 }
               } else {
+                const removeList = [];
                 for (let i = length; i < block.length; i++) {
                   block.removeInput(`ARG_${i}`, true);
                   block.removeInput(`COMMA_${i}`, true);
+                  removeList.push(`ARG_${i}`, `COMMA_${i}`);
                 }
-                cleanInputs(block);
+                cleanInputs(block.id, removeList);
+              }
+              block.length = length;
+              updateButton(Blockly, block);
+            }
+          }
+        }))
+      ).register(
+        "constructAsyncFunction",
+        Reporter.Square((Blockly, block) => ({
+          init() {
+            block.setTooltip(
+              formatMessage("lpp.tooltip.construct.AsyncFunction")
+            );
+            const property = block;
+            input_exports.Text(block, "BEGIN", [
+              formatMessage("lpp.block.construct.AsyncFunction"),
+              "("
+            ]);
+            input_exports.Text(block, "END", ")");
+            input_exports.Statement(block, "SUBSTACK");
+            property.length = 0;
+            updateButton(Blockly, property);
+          },
+          mutationToDom() {
+            const elem = document.createElement("mutation");
+            if (isMutableBlock(block)) {
+              elem.setAttribute("length", String(block.length));
+            }
+            return elem;
+          },
+          domToMutation(mutation) {
+            const length = parseInt(
+              mutation.getAttribute("length") ?? "0",
+              10
+            );
+            if (isMutableBlock(block)) {
+              if (length > block.length) {
+                for (let i = block.length; i < length; i++) {
+                  if (i > 0) {
+                    block.appendDummyInput(`COMMA_${i}`).appendField(",");
+                    block.moveInputBefore(`COMMA_${i}`, "END");
+                  }
+                  input_exports.String(block, `ARG_${i}`, "");
+                  block.moveInputBefore(`ARG_${i}`, "END");
+                }
+              } else {
+                const removeList = [];
+                for (let i = length; i < block.length; i++) {
+                  block.removeInput(`ARG_${i}`, true);
+                  block.removeInput(`COMMA_${i}`, true);
+                  removeList.push(`ARG_${i}`, `COMMA_${i}`);
+                }
+                cleanInputs(block.id, removeList);
               }
               block.length = length;
               updateButton(Blockly, block);
@@ -3516,39 +4148,92 @@
     ).register(
       new Category(() => `\u{1F522} ${formatMessage("lpp.category.operator")}`).register(
         "binaryOp",
-        Reporter.Square((Blockly, block) => () => {
-          block.setTooltip(formatMessage("lpp.tooltip.operator.binaryOp"));
-          input_exports.String(block, "lhs", "");
-          block.appendDummyInput().appendField(
-            new Blockly.FieldDropdown([
-              ["=", "="],
-              [".", "."],
-              ["+", "+"],
-              ["-", "-"],
-              ["*", "*"],
-              ["/", "/"],
-              ["%", "%"],
-              ["==", "=="],
-              ["!=", "!="],
-              [">", ">"],
-              ["<", "<"],
-              [">=", ">="],
-              ["<=", "<="],
-              ["&&", "&&"],
-              ["||", "||"],
-              ["<<", "<<"],
-              [">>", ">>"],
-              [">>>", ">>>"],
-              ["&", "&"],
-              ["|", "|"],
-              ["^", "^"],
-              ["instanceof", "instanceof"],
-              ["in", "in"]
-            ]),
-            "op"
-          );
-          input_exports.String(block, "rhs", "");
-        })
+        Reporter.Square((Blockly, block) => ({
+          init() {
+            block.setTooltip(formatMessage("lpp.tooltip.operator.binaryOp"));
+            block.appendDummyInput("END");
+            const property = block;
+            property.length = 0;
+            if (block.domToMutation && block.mutationToDom)
+              block.domToMutation(block.mutationToDom());
+            updateButton(Blockly, property, 2);
+          },
+          mutationToDom() {
+            const elem = document.createElement("mutation");
+            if (isMutableBlock(block)) {
+              elem.setAttribute("length", String(block.length));
+            }
+            return elem;
+          },
+          domToMutation(mutation) {
+            const length = Math.max(
+              2,
+              parseInt(mutation.getAttribute("length") ?? "0", 10)
+            );
+            if (isMutableBlock(block)) {
+              if (length > block.length) {
+                for (let i = block.length; i < length; i++) {
+                  if (i > 0) {
+                    block.appendDummyInput(`OP_${i}`).appendField(
+                      new Blockly.FieldDropdown([
+                        [".", "."],
+                        ["?.", "?."],
+                        ["**", "**"],
+                        ["*", "*"],
+                        ["/", "/"],
+                        ["+", "+"],
+                        ["%", "%"],
+                        ["-", "-"],
+                        ["<<", "<<"],
+                        [">>", ">>"],
+                        [">>>", ">>>"],
+                        ["<", "<"],
+                        ["<=", "<="],
+                        [">", ">"],
+                        [">=", ">="],
+                        ["in", "in"],
+                        ["instanceof", "instanceof"],
+                        ["==", "=="],
+                        ["!=", "!="],
+                        ["&", "&"],
+                        ["^", "^"],
+                        ["|", "|"],
+                        ["&&", "&&"],
+                        ["||", "||"],
+                        ["=", "="],
+                        [",", ","]
+                      ]),
+                      `OP_${i}`
+                    );
+                    const fields = runtime.getEditingTarget()?.blocks.getBlock(block.id)?.fields;
+                    if (fields)
+                      fields[`OP_${i}`] = {
+                        id: null,
+                        name: `OP_${i}`,
+                        value: "."
+                      };
+                    block.moveInputBefore(`OP_${i}`, "END");
+                  }
+                  input_exports.String(block, `ARG_${i}`, "");
+                  block.moveInputBefore(`ARG_${i}`, "END");
+                }
+              } else {
+                const removeList = [];
+                for (let i = length; i < block.length; i++) {
+                  block.removeInput(`ARG_${i}`, true);
+                  block.removeInput(`OP_${i}`, true);
+                  const fields = runtime.getEditingTarget()?.blocks.getBlock(block.id)?.fields;
+                  if (fields)
+                    delete fields[`OP_${i}`];
+                  removeList.push(`ARG_${i}`);
+                }
+                cleanInputs(block.id, removeList);
+              }
+              block.length = length;
+              updateButton(Blockly, block, 2);
+            }
+          }
+        }))
       ).register(
         "unaryOp",
         Reporter.Square((Blockly, block) => () => {
@@ -3559,6 +4244,7 @@
               ["-", "-"],
               ["!", "!"],
               ["~", "~"],
+              ["...", "..."],
               ["delete", "delete"],
               ["await", "await"],
               ["yield", "yield"],
@@ -3604,11 +4290,13 @@
                   block.moveInputBefore(`ARG_${i}`, "END");
                 }
               } else {
+                const removeList = [];
                 for (let i = length; i < block.length; i++) {
                   block.removeInput(`ARG_${i}`, true);
                   block.removeInput(`COMMA_${i}`, true);
+                  removeList.push(`ARG_${i}`, `COMMA_${i}`);
                 }
-                cleanInputs(block);
+                cleanInputs(block.id, removeList);
               }
               block.length = length;
               updateButton(Blockly, block);
@@ -3650,11 +4338,13 @@
                   block.moveInputBefore(`ARG_${i}`, "END");
                 }
               } else {
+                const removeList = [];
                 for (let i = length; i < block.length; i++) {
                   block.removeInput(`ARG_${i}`, true);
                   block.removeInput(`COMMA_${i}`, true);
+                  removeList.push(`ARG_${i}`, `COMMA_${i}`);
                 }
-                cleanInputs(block);
+                cleanInputs(block.id, removeList);
               }
               block.length = length;
               updateButton(Blockly, block);
@@ -3663,14 +4353,14 @@
         }))
       ).register(
         "self",
-        Reporter.Square((_, block) => () => {
+        Reporter.Round((_, block) => () => {
           block.setTooltip(formatMessage("lpp.tooltip.operator.self"));
           block.setCheckboxInFlyout(false);
           input_exports.Text(block, "LABEL", formatMessage("lpp.block.operator.self"));
         })
       ).register(
         "var",
-        Reporter.Square((_, block) => () => {
+        Reporter.Round((_, block) => () => {
           block.setTooltip(formatMessage("lpp.tooltip.operator.var"));
           input_exports.Text(block, "LABEL", formatMessage("lpp.block.operator.var"));
           input_exports.String(block, "name", "\u{1F43A}");
@@ -3770,23 +4460,46 @@
   // src/impl/typehint.ts
   function attachType() {
     function attachType2(fn, signature) {
-      const v = ensureValue(fn);
+      const v = asValue(fn);
       if (v instanceof LppFunction)
         attach(v, new TypeMetadata(signature));
     }
-    attachType2(Global.Function.get("prototype").get("apply"), ["self", "args"]);
+    attachType2(Global.Number, ["value?"]);
+    attachType2(Global.Boolean, ["value?"]);
+    attachType2(Global.String, ["value?"]);
+    attachType2(Global.Array, ["value?"]);
+    attachType2(Global.Object, ["value?"]);
+    attachType2(Global.Function, ["value?"]);
+    attachType2(Global.Array.get("prototype").get("map"), ["predict"]);
+    attachType2(Global.Array.get("prototype").get("every"), ["predict"]);
+    attachType2(Global.Array.get("prototype").get("any"), ["predict"]);
+    attachType2(Global.Array.get("prototype").get("slice"), ["start?", "end?"]);
+    attachType2(Global.Function.get("prototype").get("bind"), ["self"]);
     attachType2(Global.Function.get("deserialize"), ["obj"]);
     attachType2(Global.Function.get("serialize"), ["fn"]);
     attachType2(Global.Promise, ["executor"]);
     attachType2(Global.Promise.get("prototype").get("then"), [
-      "onFulfilled?",
-      "onRejected?"
+      "onfulfilled?",
+      "onrejected?"
     ]);
     attachType2(Global.Promise.get("resolve"), ["value?"]);
     attachType2(Global.Promise.get("reject"), ["reason?"]);
-    attachType2(Global.Promise.get("prototype").get("catch"), ["onRejected"]);
+    attachType2(Global.Promise.get("prototype").get("catch"), ["onrejected"]);
     attachType2(Global.JSON.get("parse"), ["json"]);
     attachType2(Global.JSON.get("stringify"), ["value"]);
+    attachType2(Global.Math.get("sin"), ["x"]);
+    attachType2(Global.Math.get("sinh"), ["x"]);
+    attachType2(Global.Math.get("asin"), ["x"]);
+    attachType2(Global.Math.get("asinh"), ["x"]);
+    attachType2(Global.Math.get("cos"), ["x"]);
+    attachType2(Global.Math.get("cosh"), ["x"]);
+    attachType2(Global.Math.get("acos"), ["x"]);
+    attachType2(Global.Math.get("acosh"), ["x"]);
+    attachType2(Global.Math.get("tan"), ["x"]);
+    attachType2(Global.Math.get("tanh"), ["x"]);
+    attachType2(Global.Math.get("atan"), ["x"]);
+    attachType2(Global.Math.get("atanh"), ["x"]);
+    attachType2(Global.Math.get("atan2"), ["x", "y"]);
   }
 
   // src/impl/promise.ts
@@ -4219,7 +4932,6 @@
   // src/index.ts
   (function(Scratch2) {
     const color = "#808080";
-    const lppVersion = "Technical Preview Snapshot #1 for Gandi IDE";
     if (Scratch2.extensions.unsandboxed === false) {
       throw new Error("lpp must be loaded in unsandboxed mode.");
     }
@@ -4233,6 +4945,10 @@
       return result;
     }
     class LppExtension {
+      /**
+       * Extension ID.
+       */
+      static id = "lpp";
       /**
        * Virtual machine instance.
        */
@@ -4273,6 +4989,7 @@
           throw new Error("lpp cannot get Virtual Machine instance.");
         this.vm = virtualMachine;
         this.extension = defineExtension(
+          LppExtension.id,
           color,
           this.vm.runtime,
           this.formatMessage.bind(this)
@@ -4335,8 +5052,9 @@
         };
         const _visualReport = runtime.visualReport;
         runtime.visualReport = (blockId, value) => {
-          const value2 = Wrapper.unwrap(value);
-          if ((value2 instanceof LppValue2 || value2 instanceof LppReference) && this.Blockly) {
+          const unwrappedValue = Wrapper.unwrap(value);
+          if ((unwrappedValue instanceof LppValue || unwrappedValue instanceof LppReference || unwrappedValue instanceof LppBoundArg) && this.Blockly) {
+            const actualValue = unwrappedValue instanceof LppBoundArg ? unwrappedValue : asValue(unwrappedValue);
             dialog_exports.show(
               this.Blockly,
               blockId,
@@ -4345,10 +5063,10 @@
                   this.Blockly,
                   this.vm,
                   this.formatMessage.bind(this),
-                  ensureValue(value2)
+                  actualValue
                 )
               ],
-              value2 instanceof LppConstant ? "center" : "left"
+              actualValue instanceof LppConstant ? "center" : "left"
             );
           } else {
             return _visualReport.call(runtime, blockId, value);
@@ -4362,7 +5080,7 @@
               const internalInstance = Object.values(valueElement).find(
                 (v) => typeof v === "object" && v !== null && Reflect.has(v, "stateNode")
               );
-              if (value instanceof LppValue2) {
+              if (value instanceof LppValue) {
                 const inspector = Inspector(
                   this.Blockly,
                   this.vm,
@@ -4416,8 +5134,8 @@
                 cache.value = void 0;
               } else if (monitorValue !== void 0) {
                 const unwrappedValue = Wrapper.unwrap(monitorValue);
-                if (unwrappedValue instanceof LppValue2 || unwrappedValue instanceof LppReference) {
-                  const actualValue = ensureValue(unwrappedValue);
+                if (unwrappedValue instanceof LppValue || unwrappedValue instanceof LppReference || unwrappedValue instanceof LppBoundArg) {
+                  const actualValue = unwrappedValue instanceof LppBoundArg ? unwrappedValue : asValue(unwrappedValue);
                   if (!cache || cache.value !== actualValue) {
                     requestAnimationFrame(() => {
                       const monitor = getMonitorById(id);
@@ -4462,10 +5180,16 @@
         }
         Global.Function.set(
           "serialize",
-          LppFunction.native(({ self, args }) => {
+          LppFunction.native(({ args }) => {
             const fn = args[0];
-            if (self !== Global.Function || !fn || !(fn instanceof LppFunction) || !hasMetadata(fn) || !(fn.metadata instanceof ScratchMetadata)) {
-              return raise(Global.IllegalInvocationError.construct([]));
+            if (!fn || !(fn instanceof LppFunction) || !hasMetadata(fn) || !(fn.metadata instanceof ScratchMetadata)) {
+              return async(function* () {
+                return raise(
+                  yield Global.IllegalInvocationError.construct(
+                    []
+                  )
+                );
+              });
             }
             const v = fn.metadata.blocks[0]?.getBlock(fn.metadata.blocks[1]);
             if (!v)
@@ -4481,21 +5205,21 @@
         );
         Global.Function.set(
           "deserialize",
-          LppFunction.native(({ self, args }) => {
-            if (self !== Global.Function) {
-              return raise(Global.IllegalInvocationError.construct([]));
-            }
+          LppFunction.native(({ args }) => {
             const val = ffi_exports.toObject(args[0] ?? new LppConstant(null));
             if (Validator.isInfo(val)) {
               const Blocks = runtime.flyoutBlocks.constructor;
               const blocks = new Blocks(runtime, true);
               deserializeBlock(blocks, val.script);
+              const blockId = val.script[val.block]?.id;
               const Target = runtime.getTargetForStage()?.constructor;
               if (!Target)
                 throw new Error("lpp: project is disposed");
               return new LppReturn(
                 attach(
-                  new LppFunction(this.executeScratch.bind(this, Target)),
+                  new LppFunction(
+                    (blockId === "constructAsyncFunction" ? this.executeScratchAsync : this.executeScratch).bind(this, Target)
+                  ),
                   new ScratchMetadata(
                     val.signature,
                     [blocks, val.block],
@@ -4506,9 +5230,13 @@
                 )
               );
             }
-            return raise(
-              Global.SyntaxError.construct([new LppConstant("Invalid value")])
-            );
+            return async(function* () {
+              return raise(
+                yield Global.SyntaxError.construct([
+                  new LppConstant("Invalid value")
+                ])
+              );
+            });
           })
         );
         attachType();
@@ -4516,9 +5244,9 @@
           Core: core_exports,
           Metadata: metadata_exports,
           Wrapper,
-          version: lppVersion
+          version
         };
-        console.groupCollapsed("\u{1F4AB} lpp", lppVersion);
+        console.groupCollapsed("\u{1F4AB} lpp", version);
         console.log("\u{1F31F}", this.formatMessage("lpp.about.summary"));
         console.log(
           "\u{1F916}",
@@ -4531,18 +5259,9 @@
           "-> https://afdian.net/a/FurryR"
         );
         console.group("\u{1F47E}", this.formatMessage("lpp.about.staff.1"));
-        console.log(
-          "\u{1F43A} @FurryR https://github.com/FurryR - Developer, Test, Translation, Documentation"
-        );
-        console.log(
-          "\u{1F914} @SimonShiki https://github.com/SimonShiki - Test, Technical support"
-        );
-        console.log("\u{1F604} @Nights https://github.com/Nightre - Technical support");
-        console.log("\u{1F524} @CST1229 https://github.com/CST1229 - Technical support");
-        console.log("\u2B50 @DilemmaGX https://github.com/DilemmaGX - Icon artist");
-        console.log(
-          "\u{1F43A} @VeroFess https://github.com/VeroFess - Technical support"
-        );
+        for (const v of developers) {
+          console.log(v);
+        }
         console.log("\u{1F970}", this.formatMessage("lpp.about.staff.2"));
         console.groupEnd();
         console.groupEnd();
@@ -4567,16 +5286,10 @@
         if (this.Blockly)
           this.extension.inject(this.Blockly);
         return {
-          id: "lpp",
+          id: LppExtension.id,
           name: this.formatMessage("lpp.name"),
           color1: color,
-          blocks: this.extension.export(),
-          menus: {
-            dummy: {
-              acceptReporters: false,
-              items: []
-            }
-          }
+          blocks: this.extension.export()
         };
       }
       /**
@@ -4587,12 +5300,12 @@
       }
       /**
        * Builtin types.
-       * @param param0 Function name.
+       * @param args Function name.
        * @returns Class.
        */
       builtinType(args, util) {
         this.util = util;
-        const instance = global.get(args.value);
+        const instance = Global[args.value];
         if (instance) {
           return new Wrapper(instance);
         }
@@ -4648,29 +5361,86 @@
        * @returns Result.
        */
       binaryOp(args, util) {
+        const { thread } = util;
         this.util = util;
-        try {
-          const lhs = Wrapper.unwrap(args.lhs);
-          const rhs = Wrapper.unwrap(args.rhs);
-          const res = (() => {
-            if (args.op === ".") {
-              if (lhs instanceof LppValue2 || lhs instanceof LppReference) {
+        class Operator {
+          constructor(value) {
+            this.value = value;
+          }
+          get priority() {
+            return (/* @__PURE__ */ new Map([
+              [".", 18],
+              ["?.", 18],
+              ["**", 14],
+              ["*", 13],
+              ["/", 13],
+              ["%", 13],
+              ["+", 12],
+              ["-", 12],
+              ["<<", 11],
+              [">>", 11],
+              [">>>", 11],
+              ["<", 10],
+              ["<=", 10],
+              [">", 10],
+              [">=", 10],
+              ["in", 10],
+              ["instanceof", 10],
+              ["==", 9],
+              ["!=", 9],
+              ["&", 8],
+              ["^", 7],
+              ["|", 6],
+              ["&&", 5],
+              ["||", 4],
+              ["=", 2],
+              [",", 1]
+            ])).get(this.value) ?? -1;
+          }
+        }
+        function intoRPN(input) {
+          const stack = [];
+          const result = [];
+          for (const value of input) {
+            if (!(value instanceof Operator)) {
+              result.push(value);
+            } else {
+              let op2;
+              while ((op2 = stack[stack.length - 1]) && op2.priority >= value.priority) {
+                result.push(op2);
+                stack.pop();
+              }
+              stack.push(value);
+            }
+          }
+          let op;
+          while (op = stack.pop()) {
+            result.push(op);
+          }
+          return result;
+        }
+        function evaluate(expr) {
+          function evaluateInternal(op, lhs, rhs) {
+            if (op === "." || op === "?.") {
+              if (lhs instanceof LppValue || lhs instanceof LppReference) {
+                if (lhs instanceof LppConstant && lhs.value === null && op === "?.")
+                  return new LppConstant(null);
                 if (typeof rhs === "string" || typeof rhs === "number") {
-                  return lhs.get(`${rhs}`);
-                } else if (rhs instanceof LppValue2 || rhs instanceof LppReference) {
-                  const n = ensureValue(rhs);
-                  if (n instanceof LppConstant && n.value !== null) {
-                    return lhs.get(n.toString());
-                  }
+                  const res2 = lhs.get(`${rhs}`);
+                  return op === "?." ? asValue(res2) : res2;
+                } else if (rhs instanceof LppValue || rhs instanceof LppReference) {
+                  const res2 = lhs.get(String(asValue(rhs)));
+                  return op === "?." ? asValue(res2) : res2;
                 }
                 throw new LppError("invalidIndex");
               }
               throw new LppError("syntaxError");
-            } else if ((lhs instanceof LppValue2 || lhs instanceof LppReference) && (rhs instanceof LppValue2 || rhs instanceof LppReference)) {
-              switch (args.op) {
+            } else if ((lhs instanceof LppValue || lhs instanceof LppReference) && (rhs instanceof LppValue || rhs instanceof LppReference)) {
+              switch (op) {
                 case "=":
                 case "+":
                 case "*":
+                case "**":
                 case "==":
                 case "!=":
                 case ">":
@@ -4689,11 +5459,11 @@
                 case "|":
                 case "^":
                 case "instanceof": {
-                  return lhs.calc(args.op, ensureValue(rhs));
+                  return lhs.calc(op, asValue(rhs));
                 }
                 case "in": {
-                  const left = ensureValue(lhs);
-                  const right = ensureValue(rhs);
+                  const left = asValue(lhs);
+                  const right = asValue(rhs);
                   if (!(left instanceof LppConstant && left.value !== null))
                     throw new LppError("invalidIndex");
                   return new LppConstant(right.has(left.toString()));
@@ -4703,7 +5473,41 @@
               }
             }
             throw new LppError("syntaxError");
-          })();
+          }
+          const stack = [];
+          for (const value of expr) {
+            if (value instanceof Operator) {
+              const rhs = stack.pop();
+              const lhs = stack.pop();
+              if (lhs !== void 0 && rhs !== void 0) {
+                stack.push(evaluateInternal(value.value, lhs, rhs));
+              } else
+                throw new Error("lpp: invalid expression");
+            } else
+              stack.push(value);
+          }
+          const res = stack.pop();
+          if (res === void 0)
+            throw new Error("lpp: invalid expression");
+          return res;
+        }
+        try {
+          const token = [];
+          const block = this.getActiveBlockInstance(args, thread);
+          const len = parseInt(this.getMutation(block)?.length ?? "0", 10);
+          for (let i = 0; i < len; i++) {
+            const op = args[`OP_${i}`];
+            const value = Wrapper.unwrap(args[`ARG_${i}`]);
+            if (typeof op === "string") {
+              token.push(new Operator(op));
+            }
+            token.push(
+              value instanceof LppValue || value instanceof LppReference || typeof value === "string" ? value : String(value)
+            );
+          }
+          const res = evaluate(intoRPN(token));
+          if (typeof res === "string")
+            throw new Error("lpp: invalid expression");
           return new Wrapper(res);
         } catch (e) {
           this.handleError(e);
@@ -4719,7 +5523,7 @@
         this.util = util;
         try {
           const value = Wrapper.unwrap(args.value);
-          if (!(value instanceof LppValue2 || value instanceof LppReference))
+          if (!(value instanceof LppValue || value instanceof LppReference))
             throw new LppError("syntaxError");
           const res = (() => {
             switch (args.op) {
@@ -4730,10 +5534,66 @@
               case "delete": {
                 return value.calc(args.op);
               }
+              case "...": {
+                if (!(value instanceof LppArray)) {
+                  throw new LppError("syntaxError");
+                }
+                return new LppBoundArg(value.value);
+              }
+              case "await": {
+                const thread = util.thread;
+                if (!thread.lpp)
+                  throw new LppError("useOutsideAsyncFunction");
+                const lpp = thread.lpp.unwind();
+                if (!(lpp instanceof LppAsyncFunctionContext))
+                  throw new LppError("useOutsideAsyncFunction");
+                const v = asValue(value);
+                const then = v.get("then");
+                let thenFn;
+                let thenSelf;
+                if (then instanceof LppReference) {
+                  if (!(then.value instanceof LppFunction))
+                    return v;
+                  thenFn = then.value;
+                  thenSelf = then.parent.deref() ?? new LppConstant(null);
+                } else {
+                  if (!(then instanceof LppFunction))
+                    return v;
+                  thenFn = then;
+                  thenSelf = new LppConstant(null);
+                }
+                lpp.detach();
+                return ImmediatePromise.sync(
+                  new ImmediatePromise((resolve) => {
+                    thenFn.apply(thenSelf, [
+                      new LppFunction((ctx) => {
+                        resolve(ctx.args[0] ?? new LppConstant(null));
+                        return new LppReturn(new LppConstant(null));
+                      }),
+                      new LppFunction((ctx) => {
+                        thread.lpp?.resolve(
+                          new LppException(ctx.args[0] ?? new LppConstant(null))
+                        );
+                        thread.stopThisScript();
+                        resolve(new LppConstant(null));
+                        return new LppReturn(new LppConstant(null));
+                      })
+                    ]);
+                  })
+                );
+              }
               default:
                 throw new Error("lpp: unknown operand");
             }
           })();
+          if (isPromise(res)) {
+            return this.asap(
+              res.then((val) => {
+                return new Wrapper(val);
+              }),
+              util.thread
+            );
+          }
           return new Wrapper(res);
         } catch (e) {
           this.handleError(e);
@@ -4756,26 +5616,33 @@
           const len = parseInt(this.getMutation(block)?.length ?? "0", 10);
           for (let i = 0; i < len; i++) {
             const value = Wrapper.unwrap(args[`ARG_${i}`]);
-            if (value instanceof LppValue2 || value instanceof LppReference)
-              actualArgs[i] = ensureValue(value);
+            if (value instanceof LppBoundArg)
+              actualArgs.push(
+                ...value.value.map((val) => val ?? new LppConstant(null))
+              );
+            else if (value instanceof LppValue || value instanceof LppReference)
+              actualArgs.push(asValue(value));
             else
               throw new LppError("syntaxError");
           }
-          if (!(fn instanceof LppValue2 || fn instanceof LppReference))
+          if (!(fn instanceof LppValue || fn instanceof LppReference))
             throw new LppError("syntaxError");
-          const func = ensureValue(fn);
+          const func = asValue(fn);
           const lppThread = thread;
           if (!(func instanceof LppFunction))
             throw new LppError("notCallable");
-          const res = func.apply(
-            fn instanceof LppReference ? fn.parent.deref() ?? new LppConstant(null) : lppThread.lpp?.unwind()?.self ?? new LppConstant(null),
-            actualArgs
-          );
           return this.asap(
-            withValue(
-              res,
-              (result) => new Wrapper(this.processApplyValue(result, thread))
-            ),
+            async(function* () {
+              return new Wrapper(
+                this.processApplyValue(
+                  yield func.apply(
+                    fn instanceof LppReference ? fn.parent.deref() ?? new LppConstant(null) : lppThread.lpp?.unwind()?.self ?? new LppConstant(null),
+                    actualArgs
+                  ),
+                  thread
+                )
+              );
+            }.bind(this)),
             thread
           );
         } catch (e) {
@@ -4799,22 +5666,26 @@
           const len = parseInt(this.getMutation(block)?.length ?? "0", 10);
           for (let i = 0; i < len; i++) {
             const value = Wrapper.unwrap(args[`ARG_${i}`]);
-            if (value instanceof LppValue2 || value instanceof LppReference)
-              actualArgs[i] = ensureValue(value);
+            if (value instanceof LppBoundArg)
+              actualArgs.push(
+                ...value.value.map((val) => val ?? new LppConstant(null))
+              );
+            else if (value instanceof LppValue || value instanceof LppReference)
+              actualArgs.push(asValue(value));
             else
               throw new LppError("syntaxError");
           }
-          if (!(fn instanceof LppValue2 || fn instanceof LppReference))
+          if (!(fn instanceof LppValue || fn instanceof LppReference))
             throw new LppError("syntaxError");
-          fn = ensureValue(fn);
-          if (!(fn instanceof LppFunction))
-            throw new LppError("notCallable");
-          const res = fn.construct(actualArgs);
+          fn = asValue(fn);
           return this.asap(
-            withValue(
-              res,
-              (result) => new Wrapper(this.processApplyValue(result, thread))
-            ),
+            async(function* () {
+              if (!(fn instanceof LppFunction))
+                throw new LppError("notCallable");
+              return new Wrapper(
+                this.processApplyValue(yield fn.construct(actualArgs), thread)
+              );
+            }.bind(this)),
             thread
           );
         } catch (e) {
@@ -4878,9 +5749,12 @@
           const len = parseInt(this.getMutation(block)?.length ?? "0", 10);
           for (let i = 0; i < len; i++) {
             const value = Wrapper.unwrap(args[`ARG_${i}`]);
-            if (!(value instanceof LppValue2 || value instanceof LppReference))
+            if (value instanceof LppBoundArg)
+              arr.value.push(...value.value);
+            else if (value instanceof LppValue || value instanceof LppReference)
+              arr.value.push(asValue(value));
+            else
               throw new LppError("syntaxError");
-            arr.value.push(ensureValue(value));
           }
           return new Wrapper(arr);
         } catch (e) {
@@ -4911,9 +5785,9 @@
               key = key.value.toString();
             } else
               throw new LppError("invalidIndex");
-            if (!(value instanceof LppValue2 || value instanceof LppReference))
+            if (!(value instanceof LppValue || value instanceof LppReference))
               throw new LppError("syntaxError");
-            obj.set(key, ensureValue(value));
+            obj.set(key, asValue(value));
           }
           return new Wrapper(obj);
         } catch (e) {
@@ -4962,6 +5836,47 @@
         }
       }
       /**
+       * Construct an asynchronous Function.
+       * @param args ID for finding where the function is.
+       * @param util Scratch util.
+       * @returns A function object.
+       */
+      constructAsyncFunction(args, util) {
+        try {
+          const { thread, target } = util;
+          this.util = util;
+          const Target = target.constructor;
+          const block = this.getActiveBlockInstance(args, thread);
+          const signature = [];
+          const len = parseInt(
+            block?.mutation?.length ?? "0",
+            10
+          );
+          for (let i = 0; i < len; i++) {
+            if (typeof args[`ARG_${i}`] !== "object")
+              signature[i] = String(args[`ARG_${i}`]);
+            else
+              throw new LppError("syntaxError");
+          }
+          const blocks = thread.target.blocks;
+          const lppThread = thread;
+          return new Wrapper(
+            attach(
+              new LppFunction(this.executeScratchAsync.bind(this, Target)),
+              new ScratchMetadata(
+                signature,
+                [blocks, block.id],
+                target.sprite.clones[0].id,
+                target.id,
+                lppThread.lpp
+              )
+            )
+          );
+        } catch (e) {
+          this.handleError(e);
+        }
+      }
+      /**
        * Get value of specified function variable.
        * @param args Variable name.
        * @param util Scratch util.
@@ -4991,14 +5906,57 @@
           const { thread } = util;
           this.util = util;
           value = Wrapper.unwrap(value);
-          if (!(value instanceof LppValue2 || value instanceof LppReference))
+          if (!(value instanceof LppValue || value instanceof LppReference))
             throw new LppError("syntaxError");
-          const val = ensureValue(value);
+          const val = asValue(value);
           const lppThread = thread;
           if (lppThread.lpp) {
-            const ctx = lppThread.lpp.unwind();
-            if (ctx instanceof LppFunctionContext) {
-              ctx.returnCallback(new LppReturn(val));
+            const lpp = lppThread.lpp.unwind();
+            if (lpp instanceof LppAsyncFunctionContext) {
+              const then = val.get("then");
+              let thenFn;
+              let thenSelf;
+              if (then instanceof LppReference) {
+                if (!(then.value instanceof LppFunction)) {
+                  lpp.detach();
+                  lpp.promise?.resolve(val);
+                  return thread.stopThisScript();
+                }
+                thenFn = then.value;
+                thenSelf = then.parent.deref() ?? new LppConstant(null);
+              } else {
+                if (!(then instanceof LppFunction)) {
+                  lpp.detach();
+                  lpp.promise?.resolve(val);
+                  return thread.stopThisScript();
+                }
+                thenFn = then;
+                thenSelf = new LppConstant(null);
+              }
+              lpp.detach();
+              return this.asap(
+                ImmediatePromise.sync(
+                  new ImmediatePromise((resolve) => {
+                    thenFn.apply(thenSelf, [
+                      new LppFunction((ctx) => {
+                        lpp.promise?.resolve(ctx.args[0] ?? new LppConstant(null));
+                        thread.stopThisScript();
+                        resolve();
+                        return new LppReturn(new LppConstant(null));
+                      }),
+                      new LppFunction((ctx) => {
+                        lpp.promise?.reject(ctx.args[0] ?? new LppConstant(null));
+                        thread.stopThisScript();
+                        resolve();
+                        return new LppReturn(new LppConstant(null));
+                      })
+                    ]);
+                  })
+                ),
+                util.thread
+              );
+            } else if (lpp instanceof LppFunctionContext) {
+              lpp.resolve(new LppReturn(val));
               return thread.stopThisScript();
             }
           }
@@ -5017,9 +5975,9 @@
           const { thread } = util;
           this.util = util;
           value = Wrapper.unwrap(value);
-          if (!(value instanceof LppValue2 || value instanceof LppReference))
+          if (!(value instanceof LppValue || value instanceof LppReference))
             throw new LppError("syntaxError");
-          const val = ensureValue(value);
+          const val = asValue(value);
           const result = new LppException(val);
           const lppThread = thread;
           result.pushStack(
@@ -5030,7 +5988,7 @@
             )
           );
           if (lppThread.lpp) {
-            lppThread.lpp.exceptionCallback(result);
+            lppThread.lpp.resolve(result);
             return thread.stopThisScript();
           }
           this.handleException(result);
@@ -5067,17 +6025,9 @@
                   parentThread.lpp ?? void 0,
                   (value) => {
                     if (parentThread.lpp) {
-                      parentThread.lpp.returnCallback(value);
-                      return scopeThread.stopThisScript();
+                      parentThread.lpp.resolve(value);
                     } else
                       throw new LppError("useOutsideFunction");
-                  },
-                  (value) => {
-                    if (parentThread.lpp) {
-                      parentThread.lpp.exceptionCallback(value);
-                      return thread.stopThisScript();
-                    }
-                    this.handleException(value);
                   }
                 );
                 resolve(controller.wait(scopeThread).then(() => void 0));
@@ -5122,50 +6072,42 @@
                 tryThread.lpp = new LppContext(
                   parentThread.lpp ?? void 0,
                   (value) => {
-                    if (parentThread.lpp) {
-                      parentThread.lpp.returnCallback(value);
-                      return tryThread.stopThisScript();
-                    } else
-                      throw new LppError("useOutsideFunction");
-                  },
-                  (value) => {
-                    triggered = true;
-                    if (!captureId) {
-                      resolve(void 0);
-                      return;
-                    }
-                    const GlobalError = global.get("Error");
-                    if (!(GlobalError instanceof LppFunction))
-                      throw new Error("lpp: not implemented");
-                    const error = value.value;
-                    if (error.instanceof(GlobalError)) {
-                      const traceback = new LppArray(
-                        value.stack.map((v) => new LppConstant(v.toString()))
-                      );
-                      error.set("stack", traceback);
-                    }
-                    dest.assign(error);
-                    const catchThread = controller.create(captureId, target);
-                    catchThread.lpp = new LppContext(
-                      parentThread.lpp ?? void 0,
-                      (value2) => {
-                        if (parentThread.lpp) {
-                          parentThread.lpp.returnCallback(value2);
-                          return thread.stopThisScript();
-                        } else
-                          throw new LppError("useOutsideFunction");
-                      },
-                      (value2) => {
-                        if (parentThread.lpp) {
-                          parentThread.lpp.exceptionCallback(value2);
-                          return thread.stopThisScript();
-                        }
-                        this.handleException(value2);
+                    if (value instanceof LppReturn) {
+                      if (parentThread.lpp) {
+                        parentThread.lpp.resolve(value);
+                      } else
+                        throw new LppError("useOutsideFunction");
+                    } else {
+                      triggered = true;
+                      if (!captureId) {
+                        resolve(void 0);
+                        return;
                       }
-                    );
-                    controller.wait(catchThread).then(() => {
-                      resolve(void 0);
-                    });
+                      const error = value.value;
+                      if (error.instanceof(Global.Error)) {
+                        const traceback = new LppArray(
+                          value.stack.map((v) => new LppConstant(v.toString()))
+                        );
+                        error.set("stack", traceback);
+                      }
+                      dest.assign(error);
+                      const catchThread = controller.create(captureId, target);
+                      catchThread.lpp = new LppContext(
+                        parentThread.lpp ?? void 0,
+                        (value2) => {
+                          if (parentThread.lpp) {
+                            parentThread.lpp.resolve(value2);
+                          } else {
+                            if (value2 instanceof LppReturn)
+                              throw new LppError("useOutsideFunction");
+                            this.handleException(value2);
+                          }
+                        }
+                      );
+                      controller.wait(catchThread).then(() => {
+                        resolve(void 0);
+                      });
+                    }
                   }
                 );
                 controller.wait(tryThread).then(() => {
@@ -5249,8 +6191,8 @@
             )
           );
           if (thread.lpp) {
-            thread.lpp.exceptionCallback(result);
-            return void thread.stopThisScript();
+            thread.lpp.resolve(result);
+            return new LppConstant(null);
           }
           this.handleException(result);
         }
@@ -5266,7 +6208,7 @@
         const id = thread.isCompiled ? thread.peekStack() : container._cache._executeCached[thread.peekStack()]?._ops?.find(
           (v) => args === v._argValues
         )?.id;
-        const block = id ? container.getBlock(id) ?? this.vm.runtime.flyoutBlocks.getBlock(id) : void 0;
+        const block = id ? container.getBlock(id) ?? this.vm.runtime.flyoutBlocks.getBlock(id) : this.vm.runtime.flyoutBlocks.getBlock(thread.peekStack());
         if (!block) {
           throw new Error("lpp: cannot get active block");
         }
@@ -5325,6 +6267,48 @@
         };
         return isPromise(res) ? new PromiseProxy(res, postProcess, postProcess) : res;
       }
+      executeScratchAsync(Target, ctx) {
+        if (hasMetadata(ctx.fn) && ctx.fn.metadata instanceof ScratchMetadata) {
+          const metadata = ctx.fn.metadata;
+          let target;
+          if (metadata.target)
+            target = this.vm.runtime.getTargetById(metadata.target);
+          if (!target)
+            target = this.createDummyTarget(Target, metadata.blocks[0]);
+          const id = metadata.blocks[0].getBlock(metadata.blocks[1])?.inputs.SUBSTACK?.block;
+          if (!id)
+            return new LppReturn(new LppConstant(null));
+          if (!this.util)
+            throw new Error("lpp: util used before initialization");
+          const controller = new ThreadController(
+            this.vm.runtime,
+            this.util
+          );
+          const thread = controller.create(id, target);
+          return ImmediatePromise.sync(
+            new ImmediatePromise((resolve) => {
+              const lpp = thread.lpp = new LppAsyncFunctionContext(
+                metadata.closure,
+                ctx.self ?? new LppConstant(null),
+                (val) => {
+                  resolve(val);
+                }
+              );
+              for (const [key, value] of metadata.signature.entries()) {
+                if (key < ctx.args.length)
+                  thread.lpp.closure.set(value, ctx.args[key]);
+                else
+                  thread.lpp.closure.set(value, new LppConstant(null));
+              }
+              controller.wait(thread).then(() => {
+                lpp.detach();
+                lpp.promise?.resolve(new LppConstant(null));
+              });
+            })
+          );
+        }
+        return new LppReturn(new LppConstant(null));
+      }
       executeScratch(Target, ctx) {
         if (hasMetadata(ctx.fn) && ctx.fn.metadata instanceof ScratchMetadata) {
           const metadata = ctx.fn.metadata;
@@ -5345,12 +6329,9 @@
           const thread = controller.create(id, target);
           return ImmediatePromise.sync(
             new ImmediatePromise((resolve) => {
-              thread.lpp = new LppFunctionContext(
+              const lpp = thread.lpp = new LppFunctionContext(
                 metadata.closure,
                 ctx.self ?? new LppConstant(null),
-                (val) => {
-                  resolve(val);
-                },
                 (val) => {
                   resolve(val);
                 }
@@ -5362,10 +6343,7 @@
                   thread.lpp.closure.set(value, new LppConstant(null));
               }
               controller.wait(thread).then(() => {
-                ;
-                thread?.lpp?.returnCallback(
-                  new LppReturn(new LppConstant(null))
-                );
+                lpp.resolve(new LppReturn(new LppConstant(null)));
               });
             })
           );
@@ -5396,7 +6374,7 @@
         info: {
           name: "lpp.name",
           description: "lpp.desc",
-          extensionId: "lpp",
+          extensionId: LppExtension.id,
           iconURL: icon_default,
           featured: true,
           disabled: false,
