@@ -404,8 +404,8 @@
     const negSep = (hide) => [/* 废弃 */];
 
     const rareHideAndSow = (type) => HideBlockType[type] || HideBlockType.rareBlock;
-
-    const expandMenuHideAndSow = (type) => HideBlockType[type] || HideBlockType.expandMenu;
+    // 由于设置面板停用，暂时显示全部积木
+    const expandMenuHideAndSow = (type) => HideBlockType[type] || false;
 
     const allCompare = () => [
         ...sep(expandMenuHideAndSow('bool')),
