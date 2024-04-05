@@ -7,7 +7,7 @@ import { OBJLoader } from './OBJLoader.js';
 import { OrbitControls } from './OrbitControls.js';
 import { MTLLoader } from './MTLLoader.js';
 import { GLTFLoader } from './GLTFLoader.js';
-// import {OBJLoader} from "https://cdn.jsdelivr.net/gh/MoreBugOfDog/cdn-file@TBS/file/OBJLoader.js";
+// import {OBJLoader} from 'https://cdn.jsdelivr.net/gh/MoreBugOfDog/cdn-file@TBS/file/OBJLoader.js';
 // import {OrbitControls} from 'https://cdn.jsdelivr.net/gh/MoreBugOfDog/cdn-file@TBS/file/OrbitControls.js';
 // import {MTLLoader} from 'https://cdn.jsdelivr.net/gh/MoreBugOfDog/cdn-file@TBS/file/MTLLoader.js';
 import WebGL from './WebGL.js';
@@ -25,8 +25,15 @@ const chen_RenderTheWorld_extensionId = 'RenderTheWorld';
 class RenderTheWorld {
 	constructor(runtime) {
 		this.runtime = runtime;
-		console.log(this.runtime);
-		this._draw = this.runtime.renderer.draw;
+		// console.log(this.runtime);
+		this.__draw = this.runtime.renderer.draw;
+		this.__resize = this.runtime.renderer.resize;
+
+		// 在项目结束时，恢复原生的渲染器的resize和draw方法
+		this.runtime.on('PROJECT_STOP_ALL', () => {
+			this.runtime.renderer.resize = this.__resize;
+			this.runtime.renderer.draw = this.__draw;
+		});
 
 		// console.log(this.runtime);
 
@@ -57,16 +64,20 @@ class RenderTheWorld {
 		this.objects = {};
 
 		// 原CCW显示canvas
-		//this._ccw = document.getElementsByClassName('gandi_stage_stage_1fD7k')[0].getElementsByTagName("canvas")[0];
+		//this._ccw = document.getElementsByClassName('gandi_stage_stage_1fD7k')[0].getElementsByTagName('canvas')[0];
 		this.scratch_canvas = this.runtime.renderer.canvas;
 		// threejs显示canvas
 		this.tc = null;
+		this.isTcShow = false;
 
 		this._formatMessage = runtime.getFormatMessage({
 			'zh-cn': {
 				'RenderTheWorld.name': '渲染世界',
+				'RenderTheWorld.fileListEmpty': '没有文件',
+				'RenderTheWorld.apidocs': '📖API文档',
 				'RenderTheWorld.objectLoadingCompleted': '当[name]对象加载完成时',
 				'RenderTheWorld.set3dState': '设置3D显示器状态为: [state]',
+				'RenderTheWorld.get3dState': '​3D显示器是显示的?',
 				'RenderTheWorld.3dState.display': '显示',
 				'RenderTheWorld.3dState.hidden': '隐藏',
 				'RenderTheWorld.init':
@@ -75,7 +86,7 @@ class RenderTheWorld {
 				'RenderTheWorld.Anti_Aliasing.disable': '禁用抗锯齿',
 				'RenderTheWorld.render': '渲染场景',
 				'RenderTheWorld.color_': '颜色: [R] [G] [B]',
-				'RenderTheWorld.tools': '工具',
+				'RenderTheWorld.tools': '🛠️工具',
 				'RenderTheWorld.YN.true': '能',
 				'RenderTheWorld.YN.false': '不能',
 				'RenderTheWorld.controlCamera':
@@ -83,8 +94,7 @@ class RenderTheWorld {
 				'RenderTheWorld.isWebGLAvailable': '兼容性检查',
 				'RenderTheWorld._isWebGLAvailable': '当前设备支持WebGL吗?',
 
-				'RenderTheWorld.objects': '物体',
-				'RenderTheWorld.objects': '物体',
+				'RenderTheWorld.objects': '🧸物体',
 				'RenderTheWorld.makeCube':
 					'创建或重置长方体: [name] 长[a] 宽[b] 高[h] 颜色: [color] 位置: x[x] y[y] z[z] [YN]投射阴影 [YN2]被投射阴影',
 				'RenderTheWorld.makeSphere':
@@ -92,9 +102,9 @@ class RenderTheWorld {
 				'RenderTheWorld.makePlane':
 					'创建或重置平面: [name] 长[a] 宽[b] 颜色: [color] 位置: x[x] y[y] z[z] [YN]投射阴影 [YN2]被投射阴影',
 				'RenderTheWorld.importOBJ':
-					'导入或重置OBJ模型: [name] OBJ模型网址: [objurl] MTL材质网址: [mtlurl] 位置: x[x] y[y] z[z] [YN]投射阴影 [YN2]被投射阴影',
+					'导入或重置OBJ模型: [name] OBJ模型文件: [objfile] MTL材质文件: [mtlfile] 位置: x[x] y[y] z[z] [YN]投射阴影 [YN2]被投射阴影',
 				'RenderTheWorld.importGLTF':
-					'导入或重置GLTF模型: [name] GLTF模型网址: [gltfurl] 位置: x[x] y[y] z[z] [YN]投射阴影 [YN2]被投射阴影',
+					'导入或重置GLTF模型: [name] GLTF模型文件: [gltffile] 位置: x[x] y[y] z[z] [YN]投射阴影 [YN2]被投射阴影',
 
 				'RenderTheWorld.rotationObject': '将物体: [name] 旋转: x[x] y[y] z[z]',
 				'RenderTheWorld.moveObject': '将物体: [name] 移动到: x[x] y[y] z[z]',
@@ -110,7 +120,7 @@ class RenderTheWorld {
 				'RenderTheWorld.xyz.y': 'y轴',
 				'RenderTheWorld.xyz.z': 'z轴',
 
-				'RenderTheWorld.lights': '光照',
+				'RenderTheWorld.lights': '🕯️光照',
 				'RenderTheWorld.setAmbientLightColor':
 					'设置环境光颜色: [color] 光照强度：[intensity]',
 				'RenderTheWorld.setHemisphereLightColor':
@@ -119,23 +129,26 @@ class RenderTheWorld {
 					'创建或重置点光源: [name] 颜色: [color] 光照强度: [intensity] 位置: x[x] y[y] z[z] 衰减量[decay] [YN]投射阴影',
 				'RenderTheWorld.deleteLight': '删除光源: [name]',
 
-				'RenderTheWorld.camera': '相机',
+				'RenderTheWorld.camera': '📷相机',
 				'RenderTheWorld.moveCamera': '将相机移动到x[x]y[y]z[z]',
 				'RenderTheWorld.rotationCamera': '将获取相机旋转: x[x] y[y] z[z]',
 				'RenderTheWorld.cameraLookAt': '让相机面向: x[x] y[y] z[z]',
 				'RenderTheWorld.getCameraPos': '获取相机[xyz]坐标',
 				'RenderTheWorld.getCameraRotation': '获取相机[xyz]的旋转角度',
 
-				'RenderTheWorld.fogs': '雾',
+				'RenderTheWorld.fogs': '🌫️雾',
 				'RenderTheWorld.enableFogEffect':
 					'启用雾效果并设置雾颜色为：[color] near[near] far[far]',
 				'RenderTheWorld.disableFogEffect': '禁用雾效果',
 			},
 			en: {
 				'RenderTheWorld.name': 'Render The World',
+				'RenderTheWorld.fileListEmpty': 'file list is empty',
+				'RenderTheWorld.apidocs': '📖API Docs',
 				'RenderTheWorld.objectLoadingCompleted':
 					'When [name] object loading is completed',
 				'RenderTheWorld.set3dState': 'Set the 3D display status to: [state]',
+				'RenderTheWorld.get3dState': 'The 3D display is show?',
 				'RenderTheWorld.3dState.display': 'display',
 				'RenderTheWorld.3dState.hidden': 'hidden',
 				'RenderTheWorld.init':
@@ -144,16 +157,16 @@ class RenderTheWorld {
 				'RenderTheWorld.Anti_Aliasing.disable': 'disable anti aliasing',
 				'RenderTheWorld.render': 'render',
 				'RenderTheWorld.color_': 'color: [R] [G] [B]',
-				'RenderTheWorld.tools': 'tools',
+				'RenderTheWorld.tools': '🛠️Tools',
 				'RenderTheWorld.YN.true': 'can',
-				'RenderTheWorld.YN.false': "can't",
+				'RenderTheWorld.YN.false': 'can\'t',
 				'RenderTheWorld.controlCamera':
 					'Mouse control camera: [yn1]right click drag [yn2] middle click zoom and [yn3] left click rotation',
 				'RenderTheWorld.isWebGLAvailable': 'compatibility check',
 				'RenderTheWorld._isWebGLAvailable':
 					'Does the current device support WebGL?',
 
-				'RenderTheWorld.objects': 'Objects',
+				'RenderTheWorld.objects': '🧸Objects',
 				'RenderTheWorld.makeCube':
 					'reset or make a Cube: [name] length[a] width[b] height[h] color: [color] position: x[x] y[y] z[z] [YN]cast shadows [YN2]shadow cast',
 				'RenderTheWorld.makeSphere':
@@ -161,19 +174,19 @@ class RenderTheWorld {
 				'RenderTheWorld.makePlane':
 					'reset or make a Plane: [name] length[a] width[b] color: [color] position: x[x] y[y] z[z] [YN]cast shadows [YN2]shadow cast',
 				'RenderTheWorld.importOBJ':
-					'reset or make a OBJ Model: [name] OBJ url: [objurl] MTL url: [mtlurl] position: x[x] y[y] z[z] [YN]cast shadows [YN2]shadow cast',
+					'reset or make a OBJ Model: [name] OBJ file: [objfile] MTL file: [mtlfile] position: x[x] y[y] z[z] [YN]cast shadows [YN2]shadow cast',
 				'RenderTheWorld.importGLTF':
-					'reset or make a GLTF Model: [name] GLTF url: [gltfurl] position: x[x] y[y] z[z] [YN]cast shadows [YN2]shadow cast',
+					'reset or make a GLTF Model: [name] GLTF file: [gltffile] position: x[x] y[y] z[z] [YN]cast shadows [YN2]shadow cast',
 
 				'RenderTheWorld.rotationObject':
 					'Object: [name] rotation: x[x] y[y] z[z]',
 				'RenderTheWorld.moveObject': 'Object: [name] go to: x[x] y[y] z[z]',
 				'RenderTheWorld.scaleObject': 'Object: [name] scale: x[x] y[y] z[z]',
 
-				'RenderTheWorld.getObjectPos': "get Object: [name]'s [xyz] pos",
+				'RenderTheWorld.getObjectPos': 'get Object: [name]\'s [xyz] pos',
 				'RenderTheWorld.getObjectRotation':
-					"get Object: [name]'s  [xyz] rotation",
-				'RenderTheWorld.getObjectScale': "get Object: [name]'s  [xyz] scale",
+					'get Object: [name]\'s  [xyz] rotation',
+				'RenderTheWorld.getObjectScale': 'get Object: [name]\'s  [xyz] scale',
 
 				'RenderTheWorld.deleteObject': 'delete object: [name]',
 
@@ -181,24 +194,24 @@ class RenderTheWorld {
 				'RenderTheWorld.xyz.y': 'y-axis',
 				'RenderTheWorld.xyz.z': 'z-axis',
 
-				'RenderTheWorld.lights': 'Lights',
+				'RenderTheWorld.lights': '🕯️Lights',
 				'RenderTheWorld.setAmbientLightColor':
-					"set AmbientLight's color: [color] intensity: [intensity]",
+					'set AmbientLight\'s color: [color] intensity: [intensity]',
 				'RenderTheWorld.setHemisphereLightColor':
-					"set HemisphereLight's skyColor: [skyColor] groundColor: [groundColor] intensity: [intensity]",
+					'set HemisphereLight\'s skyColor: [skyColor] groundColor: [groundColor] intensity: [intensity]',
 				'RenderTheWorld.makePointLight':
 					'reset or make a PointLight: [name] color: [color] intensity: [intensity] position: x[x] y[y] z[z] decay[decay] [YN]cast shadows',
 				'RenderTheWorld.deleteLight': 'delete ligth: [name]',
 
-				'RenderTheWorld.camera': 'Camera',
-				'RenderTheWorld.moveCamera': 'cmaera go to: x[x]y[y]z[z]',
-				'RenderTheWorld.rotationCamera': 'cmaera rotation: x[x]y[y]z[z]',
+				'RenderTheWorld.camera': '📷Camera',
+				'RenderTheWorld.moveCamera': 'camera go to: x[x]y[y]z[z]',
+				'RenderTheWorld.rotationCamera': 'camera rotation: x[x]y[y]z[z]',
 				'RenderTheWorld.cameraLookAt':
 					'Face the camera towards: x[x] y[y] z[z]',
-				'RenderTheWorld.getCameraPos': "get camera's [xyz] pos",
-				'RenderTheWorld.getCameraRotation': "get camera's  [xyz] rotation",
+				'RenderTheWorld.getCameraPos': 'get camera\'s [xyz] pos',
+				'RenderTheWorld.getCameraRotation': 'get camera\'s  [xyz] rotation',
 
-				'RenderTheWorld.fogs': 'Fog',
+				'RenderTheWorld.fogs': '🌫️Fog',
 				'RenderTheWorld.enableFogEffect':
 					'Enable fog effect and set fog color to: [color] near[near] far[far]',
 				'RenderTheWorld.disableFogEffect': 'Disable fog effect',
@@ -229,6 +242,11 @@ class RenderTheWorld {
 			color2: '#4A76FF',
 			color3: '#4A76FF',
 			blocks: [
+				{
+					blockType: 'button',
+					text: this.formatMessage('RenderTheWorld.apidocs'),
+					onClick: this.docs,
+				},
 				{
 					opcode: 'init',
 					blockType: 'command',
@@ -264,11 +282,19 @@ class RenderTheWorld {
 					},
 				},
 				{
+					opcode: 'get3dState',
+					blockType: 'Boolean',
+					text: this.formatMessage('RenderTheWorld.get3dState'),
+				},
+				{
 					opcode: 'render',
 					blockType: 'command',
 					text: this.formatMessage('RenderTheWorld.render'),
 				},
-				'---' + this.formatMessage('RenderTheWorld.objects'),
+				{
+					blockType: 'label',
+					text: this.formatMessage('RenderTheWorld.objects'),
+				},
 				{
 					opcode: 'makeCube',
 					blockType: 'command',
@@ -412,13 +438,13 @@ class RenderTheWorld {
 							type: 'string',
 							defaultValue: 'name',
 						},
-						objurl: {
+						objfile: {
 							type: 'string',
-							defaultValue: '',
+							menu: 'file_list',
 						},
-						mtlurl: {
+						mtlfile: {
 							type: 'string',
-							defaultValue: '',
+							menu: 'file_list',
 						},
 						x: {
 							type: 'number',
@@ -451,9 +477,9 @@ class RenderTheWorld {
 							type: 'string',
 							defaultValue: 'name',
 						},
-						gltfurl: {
+						gltffile: {
 							type: 'string',
-							defaultValue: '',
+							menu: 'file_list',
 						},
 						x: {
 							type: 'number',
@@ -602,7 +628,7 @@ class RenderTheWorld {
 						},
 					},
 				},
-				// "RenderTheWorld.objectLoadingCompleted": "When [name] object loading is completed",
+				// 'RenderTheWorld.objectLoadingCompleted': 'When [name] object loading is completed',
 				{
 					opcode: 'objectLoadingCompleted',
 					blockType: 'hat',
@@ -614,7 +640,10 @@ class RenderTheWorld {
 						},
 					},
 				},
-				'---' + this.formatMessage('RenderTheWorld.lights'),
+				{
+					blockType: 'label',
+					text: this.formatMessage('RenderTheWorld.lights'),
+				},
 				{
 					opcode: 'makePointLight',
 					blockType: 'command',
@@ -695,7 +724,10 @@ class RenderTheWorld {
 						},
 					},
 				},
-				'---' + this.formatMessage('RenderTheWorld.camera'),
+				{
+					blockType: 'label',
+					text: this.formatMessage('RenderTheWorld.camera'),
+				},
 				{
 					opcode: 'moveCamera',
 					blockType: 'command',
@@ -775,7 +807,10 @@ class RenderTheWorld {
 						},
 					},
 				},
-				'---' + this.formatMessage('RenderTheWorld.fogs'),
+				{
+					blockType: 'label',
+					text: this.formatMessage('RenderTheWorld.fogs'),
+				},
 				{
 					opcode: 'enableFogEffect',
 					blockType: 'command',
@@ -799,7 +834,10 @@ class RenderTheWorld {
 					blockType: 'command',
 					text: this.formatMessage('RenderTheWorld.disableFogEffect'),
 				},
-				'---' + this.formatMessage('RenderTheWorld.tools'),
+				{
+					blockType: 'label',
+					text: this.formatMessage('RenderTheWorld.tools'),
+				},
 				{
 					opcode: 'controlCamera',
 					blockType: 'command',
@@ -852,6 +890,9 @@ class RenderTheWorld {
 			],
 
 			menus: {
+				file_list: {
+					items: '__gandiAssetsJsonFileList',
+				},
 				xyz: {
 					acceptReporters: false,
 					items: [
@@ -911,6 +952,29 @@ class RenderTheWorld {
 			},
 		};
 	}
+	__gandiAssetsJsonFileList() {
+		const list = this.runtime
+		  .getGandiAssetsFileList('json')
+		  .map((item) => item.name);
+		if (list.length < 1) {
+		  list.push(this.formatMessage('RenderTheWorld.fileListEmpty'));
+		}
+	
+		return list;
+	}
+
+	getFileURL(filename) {
+		// console.log(this.runtime.getGandiAssetContent(filename));
+		return this.runtime.getGandiAssetContent(filename).encodeDataURI();
+	}
+
+	docs() {
+		let a = document.createElement('a');
+		a.href = 'https://learn.ccw.site/article/aa0cf6d0-6758-447a-96f5-8e5dfdbe14d6';
+		a.rel = 'noopener noreferrer';
+		a.target = '_blank';	
+		a.click();
+	}
 
 	/**
 	 * 兼容性检查
@@ -926,8 +990,8 @@ class RenderTheWorld {
 		return this.isWebglAvailable;
 	}
 
-	objectLoadingCompleted(args) {
-		if (Scratch.Cast.toString(args.name) in this.objects) {
+	objectLoadingCompleted({name}) {
+		if (Scratch.Cast.toString(name) in this.objects) {
 			return true;
 		} else {
 			return false;
@@ -960,11 +1024,11 @@ class RenderTheWorld {
 	 * @param {number} args.sizex
 	 * @param {string} args.Anti_Aliasing
 	 */
-	init(args) {
-		// this._ccw.style.display = "none";  // 隐藏原CCW显示canvas
+	init({color, sizex, sizey, Anti_Aliasing}) {
+		// this._ccw.style.display = 'none';  // 隐藏原CCW显示canvas
 
 		// 创建threejs显示canvas
-		//this._ccw = document.getElementsByClassName('gandi_stage_stage_1fD7k')[0].getElementsByTagName("canvas")[0];
+		//this._ccw = document.getElementsByClassName('gandi_stage_stage_1fD7k')[0].getElementsByTagName('canvas')[0];
 		if (
 			this.scratch_canvas.parentElement.getElementsByClassName('RenderTheWorld')
 				.length == 0
@@ -976,27 +1040,19 @@ class RenderTheWorld {
 
 		this.tc.style.display = 'block';
 
-		const originalResize = this.runtime.renderer.resize;
 		this.runtime.renderer.resize = (e, t) => {
-			originalResize.call(this.runtime.renderer, e, t);
+			this.__resize.call(this.runtime.renderer, e, t);
 			this._resize();
 		};
-
-		// 自动缩放
-		const observer = new ResizeObserver(callback);
-		observer.observe(this.scratch_canvas);
-		let _callback = (entries, observer) => {
-			entries.forEach((entry) => {
-				this._resize();
-			});
+		this.runtime.renderer.draw = () => {
+			if (!this.isTcShow) {
+				this.__draw.call(this.runtime.renderer);
+			}
 		};
-		function callback(entries, observer) {
-			_callback(entries, observer); // 用这种方式来使用“this”, 不知弱不弱。。。
-		}
 
 		let _antialias = false;
 		// 是否启动抗锯齿
-		if (Scratch.Cast.toString(args.Anti_Aliasing) == 'enable') {
+		if (Scratch.Cast.toString(Anti_Aliasing) == 'enable') {
 			_antialias = true;
 		}
 		this.renderer = new THREE.WebGLRenderer({
@@ -1007,13 +1063,13 @@ class RenderTheWorld {
 		this.renderer.shadowMap.enabled = true;
 		//this.renderer.setSize(this.tc.clientWidth, this.tc.clientHeight, false);
 		this.renderer.setSize(
-			Scratch.Cast.toNumber(args.sizex),
-			Scratch.Cast.toNumber(args.sizey),
+			Scratch.Cast.toNumber(sizex),
+			Scratch.Cast.toNumber(sizey),
 		);
 		this.renderer.outputColorSpace = THREE.SRGBColorSpace;
 
 		this.scene = new THREE.Scene(); // 创建场景
-		this.scene.background = new THREE.Color(Scratch.Cast.toNumber(args.color)); // 设置背景颜色
+		this.scene.background = new THREE.Color(Scratch.Cast.toNumber(color)); // 设置背景颜色
 
 		// 创建摄像机
 		this.fov = 40; // 视野范围
@@ -1057,16 +1113,20 @@ class RenderTheWorld {
 	 * 设置3d渲染器状态
 	 * @param {string} args.state
 	 */
-	set3dState(args) {
+	set3dState({state}) {
 		if (!this.tc) return;
 
-		if (Scratch.Cast.toString(args.state) === 'display') {
+		if (Scratch.Cast.toString(state) === 'display') {
 			this.tc.style.display = 'block';
-			this.runtime.renderer.draw = function () {};
+			this.isTcShow = true;
 		} else {
 			this.tc.style.display = 'none';
-			this.runtime.renderer.draw = this._draw;
+			this.isTcShow = false;
 		}
+	}
+
+	get3dState(args) {
+		return this.isTcShow;
 	}
 
 	_resize() {
@@ -1094,21 +1154,21 @@ class RenderTheWorld {
 	 * @param {string} args.YN
 	 * @param {string} args.YN2
 	 */
-	makeCube(args) {
+	makeCube({name, a, b, h, color, x, y, z, YN, YN2}) {
 		// 名称
-		let name = Scratch.Cast.toString(args.name);
+		name = Scratch.Cast.toString(name);
 		// 长方体
 		let geometry = new THREE.BoxGeometry(
-			Scratch.Cast.toNumber(args.a),
-			Scratch.Cast.toNumber(args.b),
-			Scratch.Cast.toNumber(args.h),
+			Scratch.Cast.toNumber(a),
+			Scratch.Cast.toNumber(b),
+			Scratch.Cast.toNumber(h),
 		);
 		// let material = new THREE.MeshPhongMaterial({
 		//     color: Scratch.Cast.toNumber(args.color),
 		// });
 		// 纹理
 		let material = new THREE.MeshLambertMaterial({
-			color: Scratch.Cast.toNumber(args.color),
+			color: Scratch.Cast.toNumber(color),
 		});
 		material.fog = true;
 
@@ -1118,14 +1178,14 @@ class RenderTheWorld {
 		}
 		this.objects[name] = new THREE.Mesh(geometry, material);
 		this.objects[name].position.set(
-			Scratch.Cast.toNumber(args.x),
-			Scratch.Cast.toNumber(args.y),
-			Scratch.Cast.toNumber(args.z),
+			Scratch.Cast.toNumber(x),
+			Scratch.Cast.toNumber(y),
+			Scratch.Cast.toNumber(z),
 		);
-		if (Scratch.Cast.toString(args.YN) == 'true') {
+		if (Scratch.Cast.toString(YN) == 'true') {
 			this.objects[name].castShadow = true;
 		}
-		if (Scratch.Cast.toString(args.YN2) == 'true') {
+		if (Scratch.Cast.toString(YN2) == 'true') {
 			this.objects[name].receiveShadow = true;
 		}
 		this.scene.add(this.objects[name]);
@@ -1152,21 +1212,21 @@ class RenderTheWorld {
 	 * @param {string} args.YN
 	 * @param {string} args.YN2
 	 */
-	makeSphere(args) {
+	makeSphere({name, radius, w, h, color, x, y, z, YN, YN2}) {
 		// 名称
-		let name = Scratch.Cast.toString(args.name);
+		name = Scratch.Cast.toString(name);
 		// 长方体
 		let geometry = new THREE.SphereGeometry(
-			Scratch.Cast.toNumber(args.radius),
-			Scratch.Cast.toNumber(args.w),
-			Scratch.Cast.toNumber(args.h),
+			Scratch.Cast.toNumber(radius),
+			Scratch.Cast.toNumber(w),
+			Scratch.Cast.toNumber(h),
 		);
 		// let material = new THREE.MeshPhongMaterial({
 		//     color: Scratch.Cast.toNumber(args.color),
 		// });
 		// 纹理
 		let material = new THREE.MeshLambertMaterial({
-			color: Scratch.Cast.toNumber(args.color),
+			color: Scratch.Cast.toNumber(color),
 		});
 		material.fog = true;
 
@@ -1176,14 +1236,14 @@ class RenderTheWorld {
 		}
 		this.objects[name] = new THREE.Mesh(geometry, material);
 		this.objects[name].position.set(
-			Scratch.Cast.toNumber(args.x),
-			Scratch.Cast.toNumber(args.y),
-			Scratch.Cast.toNumber(args.z),
+			Scratch.Cast.toNumber(x),
+			Scratch.Cast.toNumber(y),
+			Scratch.Cast.toNumber(z),
 		);
-		if (Scratch.Cast.toString(args.YN) == 'true') {
+		if (Scratch.Cast.toString(YN) == 'true') {
 			this.objects[name].castShadow = true;
 		}
-		if (Scratch.Cast.toString(args.YN2) == 'true') {
+		if (Scratch.Cast.toString(YN2) == 'true') {
 			this.objects[name].receiveShadow = true;
 		}
 		this.scene.add(this.objects[name]);
@@ -1209,20 +1269,20 @@ class RenderTheWorld {
 	 * @param {string} args.YN
 	 * @param {string} args.YN2
 	 */
-	makePlane(args) {
+	makePlane({name, a, b, color, x, y, z, YN, YN2}) {
 		// 名称
-		let name = Scratch.Cast.toString(args.name);
+		name = Scratch.Cast.toString(name);
 		// 长方体
 		let geometry = new THREE.PlaneGeometry(
-			Scratch.Cast.toNumber(args.a),
-			Scratch.Cast.toNumber(args.b),
+			Scratch.Cast.toNumber(a),
+			Scratch.Cast.toNumber(b),
 		);
 		// let material = new THREE.MeshPhongMaterial({
 		//     color: Scratch.Cast.toNumber(args.color),
 		// });
 		// 纹理
 		let material = new THREE.MeshLambertMaterial({
-			color: Scratch.Cast.toNumber(args.color),
+			color: Scratch.Cast.toNumber(color),
 		});
 		material.fog = true;
 
@@ -1232,14 +1292,14 @@ class RenderTheWorld {
 		}
 		this.objects[name] = new THREE.Mesh(geometry, material);
 		this.objects[name].position.set(
-			Scratch.Cast.toNumber(args.x),
-			Scratch.Cast.toNumber(args.y),
-			Scratch.Cast.toNumber(args.z),
+			Scratch.Cast.toNumber(x),
+			Scratch.Cast.toNumber(y),
+			Scratch.Cast.toNumber(z),
 		);
-		if (Scratch.Cast.toString(args.YN) == 'true') {
+		if (Scratch.Cast.toString(YN) == 'true') {
 			this.objects[name].castShadow = true;
 		}
-		if (Scratch.Cast.toString(args.YN2) == 'true') {
+		if (Scratch.Cast.toString(YN2) == 'true') {
 			this.objects[name].receiveShadow = true;
 		}
 		this.scene.add(this.objects[name]);
@@ -1256,17 +1316,18 @@ class RenderTheWorld {
 	/**
 	 * 导入或重置OBJ模型
 	 * @param {string} args.name
-	 * @param {string} args.objurl
-	 * @param {string} args.mtlurl
+	 * @param {string} args.objfile
+	 * @param {string} args.mtlfile
 	 * @param {number} args.x
 	 * @param {number} args.y
 	 * @param {number} args.z
 	 * @param {string} args.YN
 	 * @param {string} args.YN2
 	 */
-	importOBJ(args) {
+	importOBJ({name, objfile, mtlfile, x, y, z, YN, YN2}) {
+		if (objfile == '没有文件' || objfile == 'file list is empty') { return }
 		// 名称
-		let name = Scratch.Cast.toString(args.name);
+		name = Scratch.Cast.toString(name);
 		// 创建加载器
 		const objLoader = new OBJLoader();
 		const mtlLoader = new MTLLoader();
@@ -1275,29 +1336,29 @@ class RenderTheWorld {
 			this._deleteObject(this.objects[name]);
 		}
 		// 加载模型
-		mtlLoader.load(Scratch.Cast.toString(args.mtlurl), (mtl) => {
+		mtlLoader.load(this.getFileURL(Scratch.Cast.toString(mtlfile)), (mtl) => {
 			mtl.preload();
 			objLoader.setMaterials(mtl);
-			objLoader.load(Scratch.Cast.toString(args.objurl), (root) => {
-				// console.log("--------");
+			objLoader.load(this.getFileURL(Scratch.Cast.toString(objfile)), (root) => {
+				// console.log('--------');
 				// console.log(root);
-				// console.log("--------");
+				// console.log('--------');
 				this.objects[name] = root;
 				// this.objects[name].position.set(Scratch.Cast.toNumber(args.x), Scratch.Cast.toNumber(args.y), Scratch.Cast.toNumber(args.z));
-				this.objects[name].position.x = Scratch.Cast.toNumber(args.x);
-				this.objects[name].position.y = Scratch.Cast.toNumber(args.y);
-				this.objects[name].position.z = Scratch.Cast.toNumber(args.z);
-				if (Scratch.Cast.toString(args.YN) == 'true') {
+				this.objects[name].position.x = Scratch.Cast.toNumber(x);
+				this.objects[name].position.y = Scratch.Cast.toNumber(y);
+				this.objects[name].position.z = Scratch.Cast.toNumber(z);
+				if (Scratch.Cast.toString(YN) == 'true') {
 					this.objects[name].castShadow = true;
 				}
-				if (Scratch.Cast.toString(args.YN2) == 'true') {
+				if (Scratch.Cast.toString(YN2) == 'true') {
 					this.objects[name].receiveShadow = true;
 				}
 				for (let i = 0; i < this.objects[name].children.length; i++) {
-					if (Scratch.Cast.toString(args.YN) == 'true') {
+					if (Scratch.Cast.toString(YN) == 'true') {
 						this.objects[name].children[i].castShadow = true;
 					}
-					if (Scratch.Cast.toString(args.YN2) == 'true') {
+					if (Scratch.Cast.toString(YN2) == 'true') {
 						this.objects[name].children[i].receiveShadow = true;
 					}
 				}
@@ -1318,19 +1379,21 @@ class RenderTheWorld {
 	/**
 	 * 导入或重置GLTF模型
 	 * @param {string} args.name
-	 * @param {string} args.gltfurl
+	 * @param {string} args.gltffile
 	 * @param {number} args.x
 	 * @param {number} args.y
 	 * @param {number} args.z
 	 * @param {string} args.YN
 	 * @param {string} args.YN2
 	 */
-	importGLTF(args) {
+	importGLTF({name, gltffile, x, y, z, YN, YN2}) {
+		if (gltffile == '没有文件' || gltffile == 'file list is empty') { return }
+		// console.log(args.mtlfile, args);
 		// 名称
-		let name = Scratch.Cast.toString(args.name);
+		name = Scratch.Cast.toString(name);
 		// 创建加载器
 		const gltfLoader = new GLTFLoader();
-		const url = Scratch.Cast.toString(args.gltfurl);
+		const url = this.getFileURL(Scratch.Cast.toString(gltffile));
 		// 添加到场景
 		// console.log(name, name in this.objects);
 		if (name in this.objects) {
@@ -1340,20 +1403,20 @@ class RenderTheWorld {
 		gltfLoader.load(url, (gltf) => {
 			const root = gltf.scene;
 			this.objects[name] = root;
-			this.objects[name].position.x = Scratch.Cast.toNumber(args.x);
-			this.objects[name].position.y = Scratch.Cast.toNumber(args.y);
-			this.objects[name].position.z = Scratch.Cast.toNumber(args.z);
-			if (Scratch.Cast.toString(args.YN) == 'true') {
+			this.objects[name].position.x = Scratch.Cast.toNumber(x);
+			this.objects[name].position.y = Scratch.Cast.toNumber(y);
+			this.objects[name].position.z = Scratch.Cast.toNumber(z);
+			if (Scratch.Cast.toString(YN) == 'true') {
 				this.objects[name].castShadow = true;
 			}
-			if (Scratch.Cast.toString(args.YN2) == 'true') {
+			if (Scratch.Cast.toString(YN2) == 'true') {
 				this.objects[name].receiveShadow = true;
 			}
 			for (let i = 0; i < this.objects[name].children.length; i++) {
-				if (Scratch.Cast.toString(args.YN) == 'true') {
+				if (Scratch.Cast.toString(YN) == 'true') {
 					this.objects[name].children[i].castShadow = true;
 				}
-				if (Scratch.Cast.toString(args.YN2) == 'true') {
+				if (Scratch.Cast.toString(YN2) == 'true') {
 					this.objects[name].children[i].receiveShadow = true;
 				}
 			}
@@ -1374,49 +1437,49 @@ class RenderTheWorld {
 	 * 删除物体
 	 * @param {string} args.name
 	 */
-	deleteObject(args) {
-		let name = Scratch.Cast.toString(args.name);
+	deleteObject({name}) {
+		name = Scratch.Cast.toString(name);
 		if (name in this.objects) {
 			this._deleteObject(this.objects[name]);
 		}
 	}
 
-	rotationObject(args) {
-		let name = Scratch.Cast.toString(args.name);
+	rotationObject({name, x, y, z}) {
+		name = Scratch.Cast.toString(name);
 		if (name in this.objects) {
 			// 设置旋转角度
 			this.objects[name].rotation.set(
-				THREE.MathUtils.degToRad(Scratch.Cast.toNumber(args.x)),
-				THREE.MathUtils.degToRad(Scratch.Cast.toNumber(args.y)),
-				THREE.MathUtils.degToRad(Scratch.Cast.toNumber(args.z)),
+				THREE.MathUtils.degToRad(Scratch.Cast.toNumber(x)),
+				THREE.MathUtils.degToRad(Scratch.Cast.toNumber(y)),
+				THREE.MathUtils.degToRad(Scratch.Cast.toNumber(z)),
 			);
 		} else {
 			return;
 		}
 	}
 
-	moveObject(args) {
-		let name = Scratch.Cast.toString(args.name);
+	moveObject({name, x, y, z}) {
+		name = Scratch.Cast.toString(name);
 		if (name in this.objects) {
 			// 设置坐标
 			this.objects[name].position.set(
-				Scratch.Cast.toNumber(args.x),
-				Scratch.Cast.toNumber(args.y),
-				Scratch.Cast.toNumber(args.z),
+				Scratch.Cast.toNumber(x),
+				Scratch.Cast.toNumber(y),
+				Scratch.Cast.toNumber(z),
 			);
 		} else {
 			return;
 		}
 	}
 
-	scaleObject(args) {
-		let name = Scratch.Cast.toString(args.name);
+	scaleObject({name, x, y, z}) {
+		name = Scratch.Cast.toString(name);
 		if (name in this.objects) {
 			// 设置缩放
 			this.objects[name].scale.set(
-				Scratch.Cast.toNumber(args.x),
-				Scratch.Cast.toNumber(args.y),
-				Scratch.Cast.toNumber(args.z),
+				Scratch.Cast.toNumber(x),
+				Scratch.Cast.toNumber(y),
+				Scratch.Cast.toNumber(z),
 			);
 		} else {
 			return;
@@ -1428,10 +1491,10 @@ class RenderTheWorld {
 	 * @param {string} args.name
 	 * @param {string} args.xyz
 	 */
-	getObjectPos(args) {
-		let name = Scratch.Cast.toString(args.name);
+	getObjectPos({name, xyz}) {
+		name = Scratch.Cast.toString(name);
 		if (name in this.objects) {
-			switch (args.xyz) {
+			switch (Scratch.Cast.toString(xyz)) {
 				case 'x':
 					return this.objects[name].position.x;
 				case 'y':
@@ -1449,10 +1512,10 @@ class RenderTheWorld {
 	 * @param {string} args.name
 	 * @param {string} args.xyz
 	 */
-	getObjectRotation(args) {
-		let name = Scratch.Cast.toString(args.name);
+	getObjectRotation({name, xyz}) {
+		name = Scratch.Cast.toString(name);
 		if (name in this.objects) {
-			switch (Scratch.Cast.toString(args.xyz)) {
+			switch (Scratch.Cast.toString(xyz)) {
 				case 'x':
 					return THREE.MathUtils.radToDeg(this.objects[name].rotation.x);
 				case 'y':
@@ -1470,10 +1533,10 @@ class RenderTheWorld {
 	 * @param {string} args.name
 	 * @param {string} args.xyz
 	 */
-	getObjectScale(args) {
-		let name = Scratch.Cast.toString(args.name);
+	getObjectScale({name, xyz}) {
+		name = Scratch.Cast.toString(name);
 		if (name in this.objects) {
-			switch (args.xyz) {
+			switch (Scratch.Cast.toString(xyz)) {
 				case 'x':
 					return this.objects[name].scale.x;
 				case 'y':
@@ -1498,32 +1561,32 @@ class RenderTheWorld {
 	 * @param {number} args.decay
 	 * @param {string} args.YN
 	 */
-	makePointLight(args) {
-		let name = Scratch.Cast.toString(args.name);
+	makePointLight({name, color, intensity, x, y, z, decay, YN}) {
+		name = Scratch.Cast.toString(name);
 		// 创建点光源
 		if (name in this.lights) {
 			this._deleteObject(this.lights[name]);
 			this.lights[name].dispose();
 		}
 		this.lights[name] = new THREE.PointLight(
-			Scratch.Cast.toNumber(args.color),
-			Scratch.Cast.toNumber(args.intensity),
+			Scratch.Cast.toNumber(color),
+			Scratch.Cast.toNumber(intensity),
 			0,
-			Scratch.Cast.toNumber(args.decay),
+			Scratch.Cast.toNumber(decay),
 		); //创建光源
 		this.lights[name].position.set(
-			Scratch.Cast.toNumber(args.x),
-			Scratch.Cast.toNumber(args.y),
-			Scratch.Cast.toNumber(args.z),
+			Scratch.Cast.toNumber(x),
+			Scratch.Cast.toNumber(y),
+			Scratch.Cast.toNumber(z),
 		); //设置光源的位置
-		if (Scratch.Cast.toString(args.YN) == 'true') {
+		if (Scratch.Cast.toString(YN) == 'true') {
 			this.lights[name].castShadow = true;
 		}
 		this.scene.add(this.lights[name]); //在场景中添加光源
 	}
 
-	deleteLight(args) {
-		let name = Scratch.Cast.toString(args.name);
+	deleteLight({name}) {
+		name = Scratch.Cast.toString(name);
 
 		if (name in this.lights) {
 			this._deleteObject(this.lights[name]);
@@ -1535,12 +1598,12 @@ class RenderTheWorld {
 	 * @param {number} args.color
 	 * @param {number} args.intensity
 	 */
-	setAmbientLightColor(args) {
+	setAmbientLightColor({color, intensity}) {
 		// 设置环境光颜色
 		this.ambient_light.color = new THREE.Color(
-			Scratch.Cast.toNumber(args.color),
+			Scratch.Cast.toNumber(color),
 		);
-		this.ambient_light.intensity = Scratch.Cast.toNumber(args.intensity);
+		this.ambient_light.intensity = Scratch.Cast.toNumber(intensity);
 	}
 
 	/**
@@ -1549,15 +1612,15 @@ class RenderTheWorld {
 	 * @param {number} args.groundColor
 	 * @param {number} args.intensity
 	 */
-	setHemisphereLightColor(args) {
+	setHemisphereLightColor({skyColor, groundColor, intensity}) {
 		// 设置环境光颜色
 		this.hemisphere_light.color = new THREE.Color(
-			Scratch.Cast.toNumber(args.skyColor),
+			Scratch.Cast.toNumber(skyColor),
 		);
 		this.hemisphere_light.groundColor = new THREE.Color(
-			Scratch.Cast.toNumber(args.groundColor),
+			Scratch.Cast.toNumber(groundColor),
 		);
-		this.hemisphere_light.intensity = Scratch.Cast.toNumber(args.intensity);
+		this.hemisphere_light.intensity = Scratch.Cast.toNumber(intensity);
 	}
 
 	/**
@@ -1566,10 +1629,12 @@ class RenderTheWorld {
 	 * @param {number} args.y
 	 * @param {number} args.z
 	 */
-	moveCamera(args) {
-		this.camera.position.x = Scratch.Cast.toNumber(args.x);
-		this.camera.position.y = Scratch.Cast.toNumber(args.y);
-		this.camera.position.z = Scratch.Cast.toNumber(args.z);
+	moveCamera({x, y, z}) {
+		this.camera.position.set(
+			Scratch.Cast.toNumber(x),
+			Scratch.Cast.toNumber(y),
+			Scratch.Cast.toNumber(z),
+		);
 	}
 
 	/**
@@ -1578,15 +1643,11 @@ class RenderTheWorld {
 	 * @param {number} args.y
 	 * @param {number} args.z
 	 */
-	rotationCamera(args) {
-		this.camera.rotation.x = THREE.MathUtils.degToRad(
-			Scratch.Cast.toNumber(args.x),
-		);
-		this.camera.rotation.y = THREE.MathUtils.degToRad(
-			Scratch.Cast.toNumber(args.y),
-		);
-		this.camera.rotation.z = THREE.MathUtils.degToRad(
-			Scratch.Cast.toNumber(args.z),
+	rotationCamera({x, y, z}) {
+		this.camera.rotation.set(
+			THREE.MathUtils.degToRad(Scratch.Cast.toNumber(x)),
+			THREE.MathUtils.degToRad(Scratch.Cast.toNumber(y)),
+			THREE.MathUtils.degToRad(Scratch.Cast.toNumber(z)),
 		);
 	}
 
@@ -1596,11 +1657,11 @@ class RenderTheWorld {
 	 * @param {number} args.y
 	 * @param {number} args.z
 	 */
-	cameraLookAt(args) {
+	cameraLookAt({x, y, z}) {
 		this.camera.lookAt(
-			Scratch.Cast.toNumber(args.x),
-			Scratch.Cast.toNumber(args.y),
-			Scratch.Cast.toNumber(args.z),
+			Scratch.Cast.toNumber(x),
+			Scratch.Cast.toNumber(y),
+			Scratch.Cast.toNumber(z),
 		);
 	}
 
@@ -1608,9 +1669,9 @@ class RenderTheWorld {
 	 * 获取相机坐标
 	 * @param {string} args.xyz
 	 */
-	getCameraPos(args) {
+	getCameraPos({xyz}) {
 		// console.log(this.camera);
-		switch (Scratch.Cast.toString(args.xyz)) {
+		switch (Scratch.Cast.toString(xyz)) {
 			case 'x':
 				return this.camera.position.x;
 			case 'y':
@@ -1624,8 +1685,8 @@ class RenderTheWorld {
 	 * 获取相机旋转角度
 	 * @param {string} args.xyz
 	 */
-	getCameraRotation(args) {
-		switch (Scratch.Cast.toString(args.xyz)) {
+	getCameraRotation({xyz}) {
+		switch (Scratch.Cast.toString(xyz)) {
 			case 'x':
 				return THREE.MathUtils.radToDeg(this.camera.rotation.x);
 			case 'y':
@@ -1641,17 +1702,17 @@ class RenderTheWorld {
 	 * @param {string} args.yn2
 	 * @param {string} args.yn3
 	 */
-	controlCamera(args) {
+	controlCamera({yn1, yn2, yn3}) {
 		let enablePan = false;
 		let enableZoom = false;
 		let enableRotate = false;
-		if (args.yn1 == 'true') {
+		if (yn1 == 'true') {
 			enablePan = true;
 		}
-		if (args.yn2 == 'true') {
+		if (yn2 == 'true') {
 			enableZoom = true;
 		}
-		if (args.yn3 == 'true') {
+		if (yn3 == 'true') {
 			enableRotate = true;
 		}
 		// console.log(enablePan);
@@ -1669,11 +1730,11 @@ class RenderTheWorld {
 	 * @param {number} args.near
 	 * @param {number} args.far
 	 */
-	enableFogEffect(args) {
+	enableFogEffect({color, near, far}) {
 		this.scene.fog = new THREE.Fog(
-			Scratch.Cast.toNumber(args.color),
-			Scratch.Cast.toNumber(args.near),
-			Scratch.Cast.toNumber(args.far),
+			Scratch.Cast.toNumber(color),
+			Scratch.Cast.toNumber(near),
+			Scratch.Cast.toNumber(far),
 		);
 	}
 
@@ -1691,11 +1752,11 @@ class RenderTheWorld {
 	 * @param {number} args.B
 	 * @return {number}
 	 */
-	color_(args) {
+	color_({R, G, B}) {
 		return (
-			Scratch.Cast.toNumber(args.R) * 65536 +
-			Scratch.Cast.toNumber(args.G) * 256 +
-			Scratch.Cast.toNumber(args.B)
+			Math.min(Math.max(Scratch.Cast.toNumber(R), 0), 255) * 65536 +
+			Math.min(Math.max(Scratch.Cast.toNumber(G), 0), 255) * 256 +
+			Math.min(Math.max(Scratch.Cast.toNumber(B), 0), 255)
 		);
 	}
 }
@@ -1703,6 +1764,7 @@ class RenderTheWorld {
 window.tempExt = {
 	Extension: RenderTheWorld,
 	info: {
+		doc: 'https://learn.ccw.site/article/aa0cf6d0-6758-447a-96f5-8e5dfdbe14d6',
 		name: 'RenderTheWorld.name',
 		description: 'RenderTheWorld.descp',
 		extensionId: chen_RenderTheWorld_extensionId,
@@ -1712,6 +1774,12 @@ window.tempExt = {
 		disabled: false,
 		collaborator: '陈思翰 @ CCW',
 		collaboratorURL: 'https://www.ccw.site/student/643bb84051bc32279f0c3fa0',
+		collaboratorList: [
+			{
+				collaborator: '陈思翰 @ CCW',
+				collaboratorURL: 'https://www.ccw.site/student/643bb84051bc32279f0c3fa0',
+			},
+		  ],
 	},
 	l10n: {
 		'zh-cn': {
