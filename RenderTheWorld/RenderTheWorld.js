@@ -998,6 +998,12 @@ class RenderTheWorld {
 		}
 	}
 
+	isArray(arr) {
+		const toString = Object.prototype.toString
+		const isArray = Array.isArray || function (arg) { return toString.call(arg) === '[object Array]' }
+		return isArray(arr)
+	}
+
 	_deleteObject(model) {
 		if (model.type === 'Mesh') {
 			model.geometry.dispose();
@@ -1006,7 +1012,13 @@ class RenderTheWorld {
 			model.traverse((obj) => {
 				if (obj.type === 'Mesh') {
 					obj.geometry.dispose();
-					obj.material.dispose();
+					if (this.isArray(obj.material)) {
+						obj.material.forEach((mat) => {
+							mat.dispose();
+						});
+					} else {
+						obj.material.dispose();
+					}
 				}
 			});
 		}
