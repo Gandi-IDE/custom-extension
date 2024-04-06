@@ -21,19 +21,184 @@ import {
 const chen_RenderTheWorld_extensionId = 'RenderTheWorld';
 
 /** @typedef {string|number|boolean} SCarg 来自Scratch圆形框的参数，虽然这个框可能只能输入数字，但是可以放入变量，因此有可能获得数字、布尔和文本（极端情况下还有 null 或 undefined，需要同时处理 */
+/** 放在外面来装逼 */
+Scratch.translate.setup({
+	'zh-cn': {
+		'RenderTheWorld.name': '渲染世界',
+		'RenderTheWorld.fileListEmpty': '没有文件',
+		'RenderTheWorld.apidocs': '📖API文档',
+		'RenderTheWorld.objectLoadingCompleted': '当[name]对象加载完成时',
+		'RenderTheWorld.set3dState': '设置3D显示器状态为: [state]',
+		'RenderTheWorld.get3dState': '​3D显示器是显示的?',
+		'RenderTheWorld.3dState.display': '显示',
+		'RenderTheWorld.3dState.hidden': '隐藏',
+		'RenderTheWorld.init':
+			'初始化并设置背景颜色为[color] 大小[sizex]x[sizey]y [Anti_Aliasing]',
+		'RenderTheWorld.Anti_Aliasing.enable': '启用抗锯齿',
+		'RenderTheWorld.Anti_Aliasing.disable': '禁用抗锯齿',
+		'RenderTheWorld.render': '渲染场景',
+		'RenderTheWorld.color_': '颜色: [R] [G] [B]',
+		'RenderTheWorld.tools': '🛠️工具',
+		'RenderTheWorld.YN.true': '能',
+		'RenderTheWorld.YN.false': '不能',
+		'RenderTheWorld.controlCamera':
+			'鼠标控制相机：[yn1]右键拖拽 [yn2]中键缩放 [yn3]左键旋转',
+		'RenderTheWorld.isWebGLAvailable': '兼容性检查',
+		'RenderTheWorld._isWebGLAvailable': '当前设备支持WebGL吗?',
+
+		'RenderTheWorld.objects': '🧸物体',
+		'RenderTheWorld.makeCube':
+			'创建或重置长方体: [name] 长[a] 宽[b] 高[h] 颜色: [color] 位置: x[x] y[y] z[z] [YN]投射阴影 [YN2]被投射阴影',
+		'RenderTheWorld.makeSphere':
+			'创建或重置球体: [name] 半径[radius] 水平分段数[w] 垂直分段数[h] 颜色: [color] 位置: x[x] y[y] z[z] [YN]投射阴影 [YN2]被投射阴影',
+		'RenderTheWorld.makePlane':
+			'创建或重置平面: [name] 长[a] 宽[b] 颜色: [color] 位置: x[x] y[y] z[z] [YN]投射阴影 [YN2]被投射阴影',
+		'RenderTheWorld.importOBJ':
+			'导入或重置OBJ模型: [name] OBJ模型文件: [objfile] MTL材质文件: [mtlfile] 位置: x[x] y[y] z[z] [YN]投射阴影 [YN2]被投射阴影',
+		'RenderTheWorld.importGLTF':
+			'导入或重置GLTF模型: [name] GLTF模型文件: [gltffile] 位置: x[x] y[y] z[z] [YN]投射阴影 [YN2]被投射阴影',
+
+		'RenderTheWorld.rotationObject': '将物体: [name] 旋转: x[x] y[y] z[z]',
+		'RenderTheWorld.moveObject': '将物体: [name] 移动到: x[x] y[y] z[z]',
+		'RenderTheWorld.scaleObject': '将物体: [name] 缩放: x[x] y[y] z[z]',
+
+		'RenderTheWorld.getObjectPos': '获取物体: [name] 的[xyz]坐标',
+		'RenderTheWorld.getObjectRotation': '获取物体: [name] [xyz]的旋转角度',
+		'RenderTheWorld.getObjectScale': '获取物体: [name] [xyz]的缩放',
+
+		'RenderTheWorld.deleteObject': '删除物体: [name]',
+
+		'RenderTheWorld.xyz.x': 'x轴',
+		'RenderTheWorld.xyz.y': 'y轴',
+		'RenderTheWorld.xyz.z': 'z轴',
+
+		'RenderTheWorld.lights': '🕯️光照',
+		'RenderTheWorld.setAmbientLightColor':
+			'设置环境光颜色: [color] 光照强度：[intensity]',
+		'RenderTheWorld.setHemisphereLightColor':
+			'设置半球光天空颜色: [skyColor] 地面颜色: [groundColor] 光照强度：[intensity]',
+		'RenderTheWorld.makePointLight':
+			'创建或重置点光源: [name] 颜色: [color] 光照强度: [intensity] 位置: x[x] y[y] z[z] 衰减量[decay] [YN]投射阴影',
+		'RenderTheWorld.deleteLight': '删除光源: [name]',
+
+		'RenderTheWorld.camera': '📷相机',
+		'RenderTheWorld.moveCamera': '将相机移动到x[x]y[y]z[z]',
+		'RenderTheWorld.rotationCamera': '将获取相机旋转: x[x] y[y] z[z]',
+		'RenderTheWorld.cameraLookAt': '让相机面向: x[x] y[y] z[z]',
+		'RenderTheWorld.getCameraPos': '获取相机[xyz]坐标',
+		'RenderTheWorld.getCameraRotation': '获取相机[xyz]的旋转角度',
+
+		'RenderTheWorld.fogs': '🌫️雾',
+		'RenderTheWorld.enableFogEffect':
+			'启用雾效果并设置雾颜色为：[color] near[near] far[far]',
+		'RenderTheWorld.disableFogEffect': '禁用雾效果',
+	},
+	en: {
+		'RenderTheWorld.name': 'Render The World',
+		'RenderTheWorld.fileListEmpty': 'file list is empty',
+		'RenderTheWorld.apidocs': '📖API Docs',
+		'RenderTheWorld.objectLoadingCompleted':
+			'When [name] object loading is completed',
+		'RenderTheWorld.set3dState': 'Set the 3D display status to: [state]',
+		'RenderTheWorld.get3dState': 'The 3D display is show?',
+		'RenderTheWorld.3dState.display': 'display',
+		'RenderTheWorld.3dState.hidden': 'hidden',
+		'RenderTheWorld.init':
+			'init and set the background color to [color] size:[sizex]x[sizey]y [Anti_Aliasing]',
+		'RenderTheWorld.Anti_Aliasing.enable': 'enable anti aliasing',
+		'RenderTheWorld.Anti_Aliasing.disable': 'disable anti aliasing',
+		'RenderTheWorld.render': 'render',
+		'RenderTheWorld.color_': 'color: [R] [G] [B]',
+		'RenderTheWorld.tools': '🛠️Tools',
+		'RenderTheWorld.YN.true': 'can',
+		'RenderTheWorld.YN.false': 'can\'t',
+		'RenderTheWorld.controlCamera':
+			'Mouse control camera: [yn1]right click drag [yn2] middle click zoom and [yn3] left click rotation',
+		'RenderTheWorld.isWebGLAvailable': 'compatibility check',
+		'RenderTheWorld._isWebGLAvailable':
+			'Does the current device support WebGL?',
+
+		'RenderTheWorld.objects': '🧸Objects',
+		'RenderTheWorld.makeCube':
+			'reset or make a Cube: [name] length[a] width[b] height[h] color: [color] position: x[x] y[y] z[z] [YN]cast shadows [YN2]shadow cast',
+		'RenderTheWorld.makeSphere':
+			'reset or make a Sphere: [name] radius[radius] widthSegments[w] heightSegments[h] color: [color] position: x[x] y[y] z[z] [YN]cast shadows [YN2]shadow cast',
+		'RenderTheWorld.makePlane':
+			'reset or make a Plane: [name] length[a] width[b] color: [color] position: x[x] y[y] z[z] [YN]cast shadows [YN2]shadow cast',
+		'RenderTheWorld.importOBJ':
+			'reset or make a OBJ Model: [name] OBJ file: [objfile] MTL file: [mtlfile] position: x[x] y[y] z[z] [YN]cast shadows [YN2]shadow cast',
+		'RenderTheWorld.importGLTF':
+			'reset or make a GLTF Model: [name] GLTF file: [gltffile] position: x[x] y[y] z[z] [YN]cast shadows [YN2]shadow cast',
+
+		'RenderTheWorld.rotationObject':
+			'Object: [name] rotation: x[x] y[y] z[z]',
+		'RenderTheWorld.moveObject': 'Object: [name] go to: x[x] y[y] z[z]',
+		'RenderTheWorld.scaleObject': 'Object: [name] scale: x[x] y[y] z[z]',
+
+		'RenderTheWorld.getObjectPos': 'get Object: [name]\'s [xyz] pos',
+		'RenderTheWorld.getObjectRotation':
+			'get Object: [name]\'s  [xyz] rotation',
+		'RenderTheWorld.getObjectScale': 'get Object: [name]\'s  [xyz] scale',
+
+		'RenderTheWorld.deleteObject': 'delete object: [name]',
+
+		'RenderTheWorld.xyz.x': 'x-axis',
+		'RenderTheWorld.xyz.y': 'y-axis',
+		'RenderTheWorld.xyz.z': 'z-axis',
+
+		'RenderTheWorld.lights': '🕯️Lights',
+		'RenderTheWorld.setAmbientLightColor':
+			'set AmbientLight\'s color: [color] intensity: [intensity]',
+		'RenderTheWorld.setHemisphereLightColor':
+			'set HemisphereLight\'s skyColor: [skyColor] groundColor: [groundColor] intensity: [intensity]',
+		'RenderTheWorld.makePointLight':
+			'reset or make a PointLight: [name] color: [color] intensity: [intensity] position: x[x] y[y] z[z] decay[decay] [YN]cast shadows',
+		'RenderTheWorld.deleteLight': 'delete ligth: [name]',
+
+		'RenderTheWorld.camera': '📷Camera',
+		'RenderTheWorld.moveCamera': 'camera go to: x[x]y[y]z[z]',
+		'RenderTheWorld.rotationCamera': 'camera rotation: x[x]y[y]z[z]',
+		'RenderTheWorld.cameraLookAt':
+			'Face the camera towards: x[x] y[y] z[z]',
+		'RenderTheWorld.getCameraPos': 'get camera\'s [xyz] pos',
+		'RenderTheWorld.getCameraRotation': 'get camera\'s  [xyz] rotation',
+
+		'RenderTheWorld.fogs': '🌫️Fog',
+		'RenderTheWorld.enableFogEffect':
+			'Enable fog effect and set fog color to: [color] near[near] far[far]',
+		'RenderTheWorld.disableFogEffect': 'Disable fog effect',
+	},
+});
 
 class RenderTheWorld {
 	constructor(runtime) {
 		this.runtime = runtime;
 		// console.log(this.runtime);
-		this.__draw = this.runtime.renderer.draw;
-		this.__resize = this.runtime.renderer.resize;
+		const _draw = this.runtime.renderer.draw;
+        const _resize = this.runtime.renderer.resize;
+		this.runtime.renderer.resize = (pixelsWide, pixelsTall) => {
+			_resize.call(this.runtime.renderer, pixelsWide, pixelsTall);
+			if (this.tc) {
+				this.tc.style.width = String(pixelsWide) + 'px';
+		    	this.tc.style.height = String(pixelsTall) + 'px';
+			}
+		};
+		this.runtime.renderer.draw = () => {
+			if (!this.isTcShow) {
+				_draw.call(this.runtime.renderer);
+			} else if (this.dirty) {
+			        this.dirty = false; // TODO: 和 Scratch renderer 共用 dirty
+			        // this.dirty 是一个变量，每当场景变更（需要渲染）时就设置为 true
+			        this.renderer.render(this.scene, this.camera);
+			}
+		};
+		this.dirty = false;
 
 		// 在项目结束时，恢复原生的渲染器的resize和draw方法
-		this.runtime.on('PROJECT_STOP_ALL', () => {
-			this.runtime.renderer.resize = this.__resize;
-			this.runtime.renderer.draw = this.__draw;
-		});
+		// this.runtime.on('PROJECT_STOP_ALL', () => {
+		// 	this.runtime.renderer.resize = this.__resize;
+		// 	this.runtime.renderer.draw = this.__draw;
+		// });
 
 		// console.log(this.runtime);
 
@@ -65,158 +230,10 @@ class RenderTheWorld {
 
 		// 原CCW显示canvas
 		//this._ccw = document.getElementsByClassName('gandi_stage_stage_1fD7k')[0].getElementsByTagName('canvas')[0];
-		this.scratch_canvas = this.runtime.renderer.canvas;
+		this.scratchCanvas = this.runtime.renderer.canvas;
 		// threejs显示canvas
 		this.tc = null;
 		this.isTcShow = false;
-
-		this._formatMessage = runtime.getFormatMessage({
-			'zh-cn': {
-				'RenderTheWorld.name': '渲染世界',
-				'RenderTheWorld.fileListEmpty': '没有文件',
-				'RenderTheWorld.apidocs': '📖API文档',
-				'RenderTheWorld.objectLoadingCompleted': '当[name]对象加载完成时',
-				'RenderTheWorld.set3dState': '设置3D显示器状态为: [state]',
-				'RenderTheWorld.get3dState': '​3D显示器是显示的?',
-				'RenderTheWorld.3dState.display': '显示',
-				'RenderTheWorld.3dState.hidden': '隐藏',
-				'RenderTheWorld.init':
-					'初始化并设置背景颜色为[color] 大小[sizex]x[sizey]y [Anti_Aliasing]',
-				'RenderTheWorld.Anti_Aliasing.enable': '启用抗锯齿',
-				'RenderTheWorld.Anti_Aliasing.disable': '禁用抗锯齿',
-				'RenderTheWorld.render': '渲染场景',
-				'RenderTheWorld.color_': '颜色: [R] [G] [B]',
-				'RenderTheWorld.tools': '🛠️工具',
-				'RenderTheWorld.YN.true': '能',
-				'RenderTheWorld.YN.false': '不能',
-				'RenderTheWorld.controlCamera':
-					'鼠标控制相机：[yn1]右键拖拽 [yn2]中键缩放 [yn3]左键旋转',
-				'RenderTheWorld.isWebGLAvailable': '兼容性检查',
-				'RenderTheWorld._isWebGLAvailable': '当前设备支持WebGL吗?',
-
-				'RenderTheWorld.objects': '🧸物体',
-				'RenderTheWorld.makeCube':
-					'创建或重置长方体: [name] 长[a] 宽[b] 高[h] 颜色: [color] 位置: x[x] y[y] z[z] [YN]投射阴影 [YN2]被投射阴影',
-				'RenderTheWorld.makeSphere':
-					'创建或重置球体: [name] 半径[radius] 水平分段数[w] 垂直分段数[h] 颜色: [color] 位置: x[x] y[y] z[z] [YN]投射阴影 [YN2]被投射阴影',
-				'RenderTheWorld.makePlane':
-					'创建或重置平面: [name] 长[a] 宽[b] 颜色: [color] 位置: x[x] y[y] z[z] [YN]投射阴影 [YN2]被投射阴影',
-				'RenderTheWorld.importOBJ':
-					'导入或重置OBJ模型: [name] OBJ模型文件: [objfile] MTL材质文件: [mtlfile] 位置: x[x] y[y] z[z] [YN]投射阴影 [YN2]被投射阴影',
-				'RenderTheWorld.importGLTF':
-					'导入或重置GLTF模型: [name] GLTF模型文件: [gltffile] 位置: x[x] y[y] z[z] [YN]投射阴影 [YN2]被投射阴影',
-
-				'RenderTheWorld.rotationObject': '将物体: [name] 旋转: x[x] y[y] z[z]',
-				'RenderTheWorld.moveObject': '将物体: [name] 移动到: x[x] y[y] z[z]',
-				'RenderTheWorld.scaleObject': '将物体: [name] 缩放: x[x] y[y] z[z]',
-
-				'RenderTheWorld.getObjectPos': '获取物体: [name] 的[xyz]坐标',
-				'RenderTheWorld.getObjectRotation': '获取物体: [name] [xyz]的旋转角度',
-				'RenderTheWorld.getObjectScale': '获取物体: [name] [xyz]的缩放',
-
-				'RenderTheWorld.deleteObject': '删除物体: [name]',
-
-				'RenderTheWorld.xyz.x': 'x轴',
-				'RenderTheWorld.xyz.y': 'y轴',
-				'RenderTheWorld.xyz.z': 'z轴',
-
-				'RenderTheWorld.lights': '🕯️光照',
-				'RenderTheWorld.setAmbientLightColor':
-					'设置环境光颜色: [color] 光照强度：[intensity]',
-				'RenderTheWorld.setHemisphereLightColor':
-					'设置半球光天空颜色: [skyColor] 地面颜色: [groundColor] 光照强度：[intensity]',
-				'RenderTheWorld.makePointLight':
-					'创建或重置点光源: [name] 颜色: [color] 光照强度: [intensity] 位置: x[x] y[y] z[z] 衰减量[decay] [YN]投射阴影',
-				'RenderTheWorld.deleteLight': '删除光源: [name]',
-
-				'RenderTheWorld.camera': '📷相机',
-				'RenderTheWorld.moveCamera': '将相机移动到x[x]y[y]z[z]',
-				'RenderTheWorld.rotationCamera': '将获取相机旋转: x[x] y[y] z[z]',
-				'RenderTheWorld.cameraLookAt': '让相机面向: x[x] y[y] z[z]',
-				'RenderTheWorld.getCameraPos': '获取相机[xyz]坐标',
-				'RenderTheWorld.getCameraRotation': '获取相机[xyz]的旋转角度',
-
-				'RenderTheWorld.fogs': '🌫️雾',
-				'RenderTheWorld.enableFogEffect':
-					'启用雾效果并设置雾颜色为：[color] near[near] far[far]',
-				'RenderTheWorld.disableFogEffect': '禁用雾效果',
-			},
-			en: {
-				'RenderTheWorld.name': 'Render The World',
-				'RenderTheWorld.fileListEmpty': 'file list is empty',
-				'RenderTheWorld.apidocs': '📖API Docs',
-				'RenderTheWorld.objectLoadingCompleted':
-					'When [name] object loading is completed',
-				'RenderTheWorld.set3dState': 'Set the 3D display status to: [state]',
-				'RenderTheWorld.get3dState': 'The 3D display is show?',
-				'RenderTheWorld.3dState.display': 'display',
-				'RenderTheWorld.3dState.hidden': 'hidden',
-				'RenderTheWorld.init':
-					'init and set the background color to [color] size:[sizex]x[sizey]y [Anti_Aliasing]',
-				'RenderTheWorld.Anti_Aliasing.enable': 'enable anti aliasing',
-				'RenderTheWorld.Anti_Aliasing.disable': 'disable anti aliasing',
-				'RenderTheWorld.render': 'render',
-				'RenderTheWorld.color_': 'color: [R] [G] [B]',
-				'RenderTheWorld.tools': '🛠️Tools',
-				'RenderTheWorld.YN.true': 'can',
-				'RenderTheWorld.YN.false': 'can\'t',
-				'RenderTheWorld.controlCamera':
-					'Mouse control camera: [yn1]right click drag [yn2] middle click zoom and [yn3] left click rotation',
-				'RenderTheWorld.isWebGLAvailable': 'compatibility check',
-				'RenderTheWorld._isWebGLAvailable':
-					'Does the current device support WebGL?',
-
-				'RenderTheWorld.objects': '🧸Objects',
-				'RenderTheWorld.makeCube':
-					'reset or make a Cube: [name] length[a] width[b] height[h] color: [color] position: x[x] y[y] z[z] [YN]cast shadows [YN2]shadow cast',
-				'RenderTheWorld.makeSphere':
-					'reset or make a Sphere: [name] radius[radius] widthSegments[w] heightSegments[h] color: [color] position: x[x] y[y] z[z] [YN]cast shadows [YN2]shadow cast',
-				'RenderTheWorld.makePlane':
-					'reset or make a Plane: [name] length[a] width[b] color: [color] position: x[x] y[y] z[z] [YN]cast shadows [YN2]shadow cast',
-				'RenderTheWorld.importOBJ':
-					'reset or make a OBJ Model: [name] OBJ file: [objfile] MTL file: [mtlfile] position: x[x] y[y] z[z] [YN]cast shadows [YN2]shadow cast',
-				'RenderTheWorld.importGLTF':
-					'reset or make a GLTF Model: [name] GLTF file: [gltffile] position: x[x] y[y] z[z] [YN]cast shadows [YN2]shadow cast',
-
-				'RenderTheWorld.rotationObject':
-					'Object: [name] rotation: x[x] y[y] z[z]',
-				'RenderTheWorld.moveObject': 'Object: [name] go to: x[x] y[y] z[z]',
-				'RenderTheWorld.scaleObject': 'Object: [name] scale: x[x] y[y] z[z]',
-
-				'RenderTheWorld.getObjectPos': 'get Object: [name]\'s [xyz] pos',
-				'RenderTheWorld.getObjectRotation':
-					'get Object: [name]\'s  [xyz] rotation',
-				'RenderTheWorld.getObjectScale': 'get Object: [name]\'s  [xyz] scale',
-
-				'RenderTheWorld.deleteObject': 'delete object: [name]',
-
-				'RenderTheWorld.xyz.x': 'x-axis',
-				'RenderTheWorld.xyz.y': 'y-axis',
-				'RenderTheWorld.xyz.z': 'z-axis',
-
-				'RenderTheWorld.lights': '🕯️Lights',
-				'RenderTheWorld.setAmbientLightColor':
-					'set AmbientLight\'s color: [color] intensity: [intensity]',
-				'RenderTheWorld.setHemisphereLightColor':
-					'set HemisphereLight\'s skyColor: [skyColor] groundColor: [groundColor] intensity: [intensity]',
-				'RenderTheWorld.makePointLight':
-					'reset or make a PointLight: [name] color: [color] intensity: [intensity] position: x[x] y[y] z[z] decay[decay] [YN]cast shadows',
-				'RenderTheWorld.deleteLight': 'delete ligth: [name]',
-
-				'RenderTheWorld.camera': '📷Camera',
-				'RenderTheWorld.moveCamera': 'camera go to: x[x]y[y]z[z]',
-				'RenderTheWorld.rotationCamera': 'camera rotation: x[x]y[y]z[z]',
-				'RenderTheWorld.cameraLookAt':
-					'Face the camera towards: x[x] y[y] z[z]',
-				'RenderTheWorld.getCameraPos': 'get camera\'s [xyz] pos',
-				'RenderTheWorld.getCameraRotation': 'get camera\'s  [xyz] rotation',
-
-				'RenderTheWorld.fogs': '🌫️Fog',
-				'RenderTheWorld.enableFogEffect':
-					'Enable fog effect and set fog color to: [color] near[near] far[far]',
-				'RenderTheWorld.disableFogEffect': 'Disable fog effect',
-			},
-		});
 	}
 
 	/**
@@ -225,7 +242,7 @@ class RenderTheWorld {
 	 * @return {string}
 	 */
 	formatMessage(id) {
-		return this._formatMessage({
+		return Scratch.translate({
 			id,
 			default: id,
 			description: id,
@@ -795,6 +812,7 @@ class RenderTheWorld {
 							menu: 'xyz',
 						},
 					},
+					disableMonitor: true,
 				},
 				{
 					opcode: 'getCameraRotation',
@@ -806,6 +824,7 @@ class RenderTheWorld {
 							menu: 'xyz',
 						},
 					},
+					disableMonitor: true,
 				},
 				{
 					blockType: 'label',
@@ -957,9 +976,14 @@ class RenderTheWorld {
 		  .getGandiAssetsFileList('json')
 		  .map((item) => item.name);
 		if (list.length < 1) {
-		  list.push(this.formatMessage('RenderTheWorld.fileListEmpty'));
+		    return [
+				{
+				  text: this.formatMessage('RenderTheWorld.fileListEmpty'),
+				  value: 'fileListEmpty'
+				}
+			];
 		}
-	
+		
 		return list;
 	}
 
@@ -998,12 +1022,6 @@ class RenderTheWorld {
 		}
 	}
 
-	isArray(arr) {
-		const toString = Object.prototype.toString
-		const isArray = Array.isArray || function (arg) { return toString.call(arg) === '[object Array]' }
-		return isArray(arr)
-	}
-
 	_deleteObject(model) {
 		if (model.type === 'Mesh') {
 			model.geometry.dispose();
@@ -1012,7 +1030,7 @@ class RenderTheWorld {
 			model.traverse((obj) => {
 				if (obj.type === 'Mesh') {
 					obj.geometry.dispose();
-					if (this.isArray(obj.material)) {
+					if (Array.isArray(obj.material)) {
 						obj.material.forEach((mat) => {
 							mat.dispose();
 						});
@@ -1042,25 +1060,25 @@ class RenderTheWorld {
 		// 创建threejs显示canvas
 		//this._ccw = document.getElementsByClassName('gandi_stage_stage_1fD7k')[0].getElementsByTagName('canvas')[0];
 		if (
-			this.scratch_canvas.parentElement.getElementsByClassName('RenderTheWorld')
+			this.scratchCanvas.parentElement.getElementsByClassName('RenderTheWorld')
 				.length == 0
 		) {
 			this.tc = document.createElement('canvas');
 			this.tc.className = 'RenderTheWorld';
-			this.scratch_canvas.before(this.tc);
+			this.scratchCanvas.before(this.tc);
 		}
 
 		this.tc.style.display = 'block';
 
-		this.runtime.renderer.resize = (e, t) => {
-			this.__resize.call(this.runtime.renderer, e, t);
-			this._resize();
-		};
-		this.runtime.renderer.draw = () => {
-			if (!this.isTcShow) {
-				this.__draw.call(this.runtime.renderer);
-			}
-		};
+		// this.runtime.renderer.resize = (e, t) => {
+		// 	this.__resize.call(this.runtime.renderer, e, t);
+		// 	this._resize();
+		// };
+		// this.runtime.renderer.draw = () => {
+		// 	if (!this.isTcShow) {
+		// 		this.__draw.call(this.runtime.renderer);
+		// 	}
+		// };
 
 		let _antialias = false;
 		// 是否启动抗锯齿
@@ -1116,8 +1134,8 @@ class RenderTheWorld {
 		// console.log(this.scene);
 		// console.log(this.camera);
 
-		this.tc.style.width = this.scratch_canvas.style.width;
-		this.tc.style.height = this.scratch_canvas.style.height;
+		this.tc.style.width = this.scratchCanvas.style.width;
+		this.tc.style.height = this.scratchCanvas.style.height;
 		this.tc.style.display = 'none'; // 默认隐藏
 	}
 
@@ -1141,10 +1159,10 @@ class RenderTheWorld {
 		return this.isTcShow;
 	}
 
-	_resize() {
-		this.tc.style.width = this.scratch_canvas.style.width;
-		this.tc.style.height = this.scratch_canvas.style.height;
-	}
+	// _resize() {
+	// 	this.tc.style.width = this.scratchCanvas.style.width;
+	// 	this.tc.style.height = this.scratchCanvas.style.height;
+	// }
 
 	/**
 	 * 渲染，放在主循环里
@@ -1337,7 +1355,7 @@ class RenderTheWorld {
 	 * @param {string} args.YN2
 	 */
 	importOBJ({name, objfile, mtlfile, x, y, z, YN, YN2}) {
-		if (objfile == '没有文件' || objfile == 'file list is empty') { return }
+		if (objfile == 'fileListEmpty') { return }
 		// 名称
 		name = Scratch.Cast.toString(name);
 		// 创建加载器
@@ -1399,7 +1417,7 @@ class RenderTheWorld {
 	 * @param {string} args.YN2
 	 */
 	importGLTF({name, gltffile, x, y, z, YN, YN2}) {
-		if (gltffile == '没有文件' || gltffile == 'file list is empty') { return }
+		if (gltffile == 'fileListEmpty') { return }
 		// console.log(args.mtlfile, args);
 		// 名称
 		name = Scratch.Cast.toString(name);
@@ -1433,6 +1451,8 @@ class RenderTheWorld {
 				}
 			}
 			this.scene.add(this.objects[name]);
+			console.log(this.objects[name]);
+			console.log(this.scene);
 			this.runtime.startHatsWithParams(
 				chen_RenderTheWorld_extensionId + '_objectLoadingCompleted',
 				{
