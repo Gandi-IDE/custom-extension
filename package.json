@@ -1,0 +1,38 @@
+{
+  "name": "custom-extension",
+  "version": "1.0.0",
+  "description": "Custom extension repository for Gandi IDE.",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "check-format": "prettier . --check",
+    "format": "prettier . --write",
+    "lint": "eslint . --max-warnings=0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gandi-IDE/custom-extension.git"
+  },
+  "keywords": [
+    "scratch",
+    "extension",
+    "turbowarp",
+    "gandi",
+    "cocrea"
+  ],
+  "author": "all contributors",
+  "license": "LGPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/Gandi-IDE/custom-extension/issues"
+  },
+  "homepage": "https://github.com/Gandi-IDE/custom-extension#readme",
+  "devDependencies": {
+    "prettier": "^3.2.5"
+  },
+  "dependencies": {
+    "eslint": "^8.57.0"
+  }
+}
