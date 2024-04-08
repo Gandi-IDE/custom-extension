@@ -7,6 +7,8 @@ const witcat_fps_extensionId = "WitCatFPS";
 
 /** @typedef {string|number|boolean} SCarg 来自Scratch圆形框的参数，虽然这个框可能只能输入数字，但是可以放入变量，因此有可能获得数字、布尔和文本（极端情况下还有 null 或 undefined，需要同时处理 */
 
+let hacked = false;
+
 class WitCatFPS {
     constructor(runtime) {
         this.runtime = runtime;
@@ -22,6 +24,8 @@ class WitCatFPS {
         this.scfpsinterval = -1;
         /** Scratch fps 上一帧时间(计算瞬时fps) */
         this.scfpstime = 0;
+        /** Scratch deltaTime 本帧和上一帧时间差 */
+        this.scDeltaTime = 0;
 
         /** 浏览器 fps 开关 */
         this.webfpson = false;
@@ -38,9 +42,6 @@ class WitCatFPS {
         /** 浏览器 fps 每秒更新 setInterval 计时器 */
         this.webfpsinterval = -1;
 
-
-        /** 被挂钩的 runtime._step 函数 */
-        this.step = this.runtime._step;
         this._formatMessage = runtime.getFormatMessage({
             "zh-cn": {
                 "WitCatFPS.name": "[beta]白猫的FPS",
@@ -57,6 +58,7 @@ class WitCatFPS {
                 "WitCatFPS.type.2": "关闭",
                 "WitCatFPS.docs": "📖拓展教程",
                 "WitCatFPS.compute": "在帧率[fps]下的[num]",
+                "WitCatFPS.deltaTime": "帧时间差(ms)",
             },
             en: {
                 "WitCatFPS.name": "[beta]WitCat’s FPS",
@@ -73,6 +75,7 @@ class WitCatFPS {
                 "WitCatFPS.type.2": "disable",
                 "WitCatFPS.docs": "📖 Tutorial",
                 "WitCatFPS.compute": "the number[num]from[fps]",
+                "WitCatFPS.deltaTime": "delta time (ms)",
             }
         })
     }
@@ -168,6 +171,12 @@ class WitCatFPS {
                         }
                     },
                 },
+                {
+                    opcode: "deltaTime",
+                    blockType: "reporter",
+                    disableMonitor: true,
+                    text: this.formatMessage("WitCatFPS.deltaTime"),
+                },
             ],
             menus: {
                 type: [
@@ -258,15 +267,24 @@ class WitCatFPS {
         if (args.type == "true") {
             if (this.scfpson == false) {
                 this.scfpson = true;
-                this.scfpstime = Date.now();
-                let that = this;
-                this.runtime._step = function () {
-                    if (that.scfpson) {
-                        that.step.call(this);
-                        let timestamp = Date.now();
-                        that.scfpsn = 1000 / (timestamp - that.scfpstime);
-                        that.scfpstime = timestamp;
-                        that.scfpscnt++;
+                if (!hacked) {
+                    // 还没hack先hack
+                    hacked = true;
+                    this.scfpstime = Date.now();
+                    let that = this;
+                    const origStep = this.runtime._step;
+                    this.runtime._step = function () {
+                        // 开启FPS检测才执行
+                        if (that.scfpson) {
+                            // 根据和上一帧的时间差，计算FPS
+                            let timestamp = Date.now();
+                            that.scDeltaTime = timestamp - that.scfpstime;
+                            that.scfpsn = 1000 / that.scDeltaTime;
+                            that.scfpstime = timestamp;
+                            that.scfpscnt++;
+                        }
+                        // 执行原_stephan
+                        origStep.call(this);
                     }
                 }
                 this.scfpsinterval = setInterval(() => {
@@ -278,7 +296,6 @@ class WitCatFPS {
         else {
             if (this.scfpson == true) {
                 this.scfpson = false;
-                this.runtime._step = this.step;
                 clearInterval(this.scfpsinterval);
                 this.scfps = 0;
                 this.scfpsn = 0;
@@ -323,6 +340,14 @@ class WitCatFPS {
      */
     compute(args) {
         return Number(args.num) / (this.scfpsn / Number(args.fps));
+    }
+
+    /**
+     * 与上一帧的时间差（毫秒）
+     * @returns {number}
+     */
+    deltaTime() {
+        return this.scDeltaTime;
     }
 }
 
