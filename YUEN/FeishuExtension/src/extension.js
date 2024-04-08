@@ -10,7 +10,7 @@ export const extensionId = `${extensionNS}.feishu${
 }`;
 
 const { BlockType, ArgumentType } = window.Scratch;
-
+const timestamp = Date.now();
 export default class FeishuExtension {
   constructor(runtime) {
     this.runtime = runtime;
