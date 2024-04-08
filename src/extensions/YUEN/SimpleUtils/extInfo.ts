@@ -1,10 +1,3 @@
-/*
- * @Author: YUEN
- * @Date: 2023-02-06 20:52:52
- * @LastEditors: YUEN
- * @LastEditTime: 2023-02-09 18:50:59
- * @Description:
- */
 import zhCn from "./l10n/zh-cn.json";
 import en from "./l10n/en.json";
 import cover from "./assets/cover.png";
@@ -13,7 +6,7 @@ import ext from "./index";
 
 export const extensionNS = "YUEN";
 
-export const extensionId = `${extensionNS}.SimpleUtils`;
+export const extensionId = `${extensionNS}.SimpleUtils${DEPLOY_ENV && DEPLOY_ENV === 'dev' ? '1' : ''}`;
 
 const buildInfoL10n = (l10n: {
   name: string;

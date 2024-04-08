@@ -2,7 +2,7 @@
     "name": "系统工具",
     "desc": "实用的系统信息获取工具！",
     "docURL": "https://www.ccw.site/post/5e4fff4e-3556-4497-a453-a2480864d90d",
-    "get_client_info": "获取客户端信息 [TYPE]",
+    "get_client_info": "（⚠不推荐使用）获取客户端信息 [TYPE]",
     "json": "JSON",
     "browserName": "浏览器名称",
     "browserVersion": "浏览器版本",
@@ -10,7 +10,8 @@
     "osVersion": "系统版本",
     "deviceName": "设备型号",
     "CPU_Type": "CPU架构",
-    "is_online": "用户是否在线?",
+    "is_online": "连接到互联网了吗?",
+    "getUserAgent": "get UserAgent",
     "get_notif_perm": "拥有通知权限?",
     "ask_notif_perm": "请求通知权限",
     "notification": "发送通知 标题: [TITLE] 内容: [CONTENT] 图标: [ICON]",
@@ -26,5 +27,5 @@
     "content": "i like ccw",
     "icon": "https://m.ccw.site/community/images/logo-ccw.png",
     "saveJSON": "将客户端信息覆盖到列表 [listArgs]",
-    "set_value_for_list_lenght": "重复执行 [listArgs] 的项目数次，每次将 [variableArgs] 增加 [NUM]" 
+    "set_value_for_list_lenght": "重复执行 [listArgs] 的项目数次，每次将 [variableArgs] 增加 [NUM]"
 }

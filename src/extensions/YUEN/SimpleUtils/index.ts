@@ -1,8 +1,8 @@
 /*
  * @Author: YUEN
  * @Date: 2023-02-06 20:52:52
- * @LastEditors: YUEN
- * @LastEditTime: 2023-03-07 20:00:20
+ * @LastEditors: yuen619
+ * @LastEditTime: 2024-04-02 22:04:52
  * @Description:
  */
 import {
@@ -10,13 +10,13 @@ import {
   BlockUtil,
   ArgumentType,
   ReporterScope,
-} from "@cocrea/extension-kit";
-import { extensionId } from "./extInfo";
-import zhCn from "./l10n/zh-cn.json";
-import en from "./l10n/en.json";
+} from '@cocrea/extension-kit';
+import { extensionId } from './extInfo';
+import zhCn from './l10n/zh-cn.json';
+import en from './l10n/en.json';
 
-import cover from "./assets/cover.png";
-import blockIcon from "./assets/icon.png";
+import cover from './assets/cover.png';
+import blockIcon from './assets/icon.png';
 
 /** Scratch 参数类型 */
 type SCarg = string | number | boolean;
@@ -28,13 +28,13 @@ export default class SimpleUtils extends GandiExtension {
 
   override get localization() {
     return {
-      "zh-cn": zhCn,
+      'zh-cn': zhCn,
       en: en,
     };
   }
 
   override get documentURL(): string {
-    return "";
+    return '';
   }
 
   override get menuIconURI(): string {
@@ -51,15 +51,15 @@ export default class SimpleUtils extends GandiExtension {
 
   override get authorInfo() {
     return {
-      labelName: "YUEN",
-      username: "YUEN",
-      homepage: "https://www.ccw.site/student/236217560",
-      email: "3094249868@qq.com",
+      labelName: 'YUEN',
+      username: 'YUEN',
+      homepage: 'https://www.ccw.site/student/236217560',
+      email: '3094249868@qq.com',
     };
   }
 
   override get blockPrefix(): string {
-    return "";
+    return '';
   }
 
   override get deprecatedBlocksByOpcodes(): string[] {
@@ -92,107 +92,107 @@ export default class SimpleUtils extends GandiExtension {
    */
   client_info(TYPE: string): string {
     const userAgentObj = {
-      browserName: "", // 浏览器名称
-      browserVersion: "", // 浏览器版本
-      osName: "", // 操作系统名称
-      osVersion: "", // 操作系统版本
-      deviceName: "", // 设备名称
-      CPU_Type: "", // 兼容xigua-client
+      browserName: '', // 浏览器名称
+      browserVersion: '', // 浏览器版本
+      osName: '', // 操作系统名称
+      osVersion: '', // 操作系统版本
+      deviceName: '', // 设备名称
+      CPU_Type: '', // 兼容xigua-client
     };
 
     // Windows NT内核版本转常用版本
     const userAgentWindowsVrsion: { [key: string]: string } = {
-      "NT 5.1": "XP",
-      "NT 5.2": "XP",
-      "NT 6.0": "Vista",
-      "NT 6.1": "7",
-      "NT 6.2": "8",
-      "NT 6.3": "8.1",
-      "NT 6.4": "10",
-      "NT 10.0": "10/11",
+      'NT 5.1': 'XP',
+      'NT 5.2': 'XP',
+      'NT 6.0': 'Vista',
+      'NT 6.1': '7',
+      'NT 6.2': '8',
+      'NT 6.3': '8.1',
+      'NT 6.4': '10',
+      'NT 10.0': '10/11',
     };
     // 修复了之前兼容的问题 23/02/21
     const userAgent = navigator.userAgent;
     if (userAgent) {
-      const isOpera = userAgent.indexOf("Opera") > -1;
+      const isOpera = userAgent.indexOf('Opera') > -1;
       //判断是否Opera浏览器
       if (isOpera) {
-        userAgentObj.browserName = "Opera";
-        userAgentObj.browserVersion = userAgent?.split("Version/")?.[1] ?? "";
+        userAgentObj.browserName = 'Opera';
+        userAgentObj.browserVersion = userAgent?.split('Version/')?.[1] ?? '';
       }
       //判断是否IE浏览器
       if (
-        userAgent.indexOf("compatible") > -1 &&
-        userAgent.indexOf("MSIE") > -1 &&
+        userAgent.indexOf('compatible') > -1 &&
+        userAgent.indexOf('MSIE') > -1 &&
         !isOpera
       ) {
-        userAgentObj.browserName = "IE";
+        userAgentObj.browserName = 'IE';
         userAgentObj.browserVersion =
-          userAgent?.split("MSIE ")?.[1]?.split(" ")?.[1] ?? "";
+          userAgent?.split('MSIE ')?.[1]?.split(' ')?.[1] ?? '';
       }
       //判断是否Safari浏览器
-      if (userAgent.indexOf("Safari") > -1) {
-        userAgentObj.browserName = "Safari";
+      if (userAgent.indexOf('Safari') > -1) {
+        userAgentObj.browserName = 'Safari';
         /**
          * 230207已修复
          */
         userAgentObj.browserVersion =
-          userAgent?.split("Safari")?.[1]?.split(" ")?.[0] ?? "";
+          userAgent?.split('Safari')?.[1]?.split(' ')?.[0] ?? '';
       }
       //判断是否Firefox浏览器
-      if (userAgent.indexOf("Firefox") > -1) {
-        userAgentObj.browserName = "Firefox";
-        userAgentObj.browserVersion = userAgent?.split("Firefox/")?.[1] ?? "";
+      if (userAgent.indexOf('Firefox') > -1) {
+        userAgentObj.browserName = 'Firefox';
+        userAgentObj.browserVersion = userAgent?.split('Firefox/')?.[1] ?? '';
       }
       //判断是否Chrome浏览器
-      if (userAgent.indexOf("Chrome") > -1) {
-        userAgentObj.browserName = "Chrome";
+      if (userAgent.indexOf('Chrome') > -1) {
+        userAgentObj.browserName = 'Chrome';
         userAgentObj.browserVersion =
-          userAgent?.split("Chrome/")?.[1]?.split(" ")?.[0] ?? "";
+          userAgent?.split('Chrome/')?.[1]?.split(' ')?.[0] ?? '';
       }
 
       // is Edg
-      if (userAgent.indexOf("Edg") > -1) {
-        userAgentObj.browserName = "Edge";
+      if (userAgent.indexOf('Edg') > -1) {
+        userAgentObj.browserName = 'Edge';
         userAgentObj.browserVersion =
-          userAgent?.split("Edg/")?.[1]?.split(" ")?.[0] ?? "";
+          userAgent?.split('Edg/')?.[1]?.split(' ')?.[0] ?? '';
       }
 
       // is xigua-client
-      if (userAgent.indexOf("xigua-python") > -1) {
-        userAgentObj.browserName = "西瓜Python";
+      if (userAgent.indexOf('xigua-python') > -1) {
+        userAgentObj.browserName = '西瓜Python';
         userAgentObj.browserVersion =
-          userAgent?.split("xigua-python/")?.[1]?.split(" ")?.[0] ?? "";
+          userAgent?.split('xigua-python/')?.[1]?.split(' ')?.[0] ?? '';
         const winJV =
           userAgent
-            ?.split("Windows ")?.[1]
-            ?.split(")")?.[0]
-            ?.split("; ")?.[1] ?? "";
+            ?.split('Windows ')?.[1]
+            ?.split(')')?.[0]
+            ?.split('; ')?.[1] ?? '';
         // 兼容西瓜客户端
         userAgentObj.CPU_Type = winJV;
       }
 
-      if (userAgent.indexOf("xigua-scratch") > -1) {
-        userAgentObj.browserName = "西瓜Scratch";
+      if (userAgent.indexOf('xigua-scratch') > -1) {
+        userAgentObj.browserName = '西瓜Scratch';
         userAgentObj.browserVersion =
-          userAgent?.split("xigua-scratch/")?.[1]?.split(" ")?.[0] ?? "";
+          userAgent?.split('xigua-scratch/')?.[1]?.split(' ')?.[0] ?? '';
         const winJV =
           userAgent
-            ?.split("Windows ")?.[1]
-            ?.split(")")?.[0]
-            ?.split("; ")?.[1] ?? "";
+            ?.split('Windows ')?.[1]
+            ?.split(')')?.[0]
+            ?.split('; ')?.[1] ?? '';
         // 兼容西瓜客户端
         userAgentObj.CPU_Type = winJV;
       }
 
       //判断是否Windows
-      if (userAgent.indexOf("Windows") > -1) {
+      if (userAgent.indexOf('Windows') > -1) {
         const Version =
           userAgent
-            ?.split("Windows ")?.[1]
-            ?.split(")")?.[0]
-            ?.split("; ")?.[0] ?? "";
-        userAgentObj.osName = "Windows";
+            ?.split('Windows ')?.[1]
+            ?.split(')')?.[0]
+            ?.split('; ')?.[0] ?? '';
+        userAgentObj.osName = 'Windows';
         const VersionName = userAgentWindowsVrsion[Version];
         if (VersionName === undefined) {
           // 列表中找不到，直接使用 Version 的值
@@ -201,40 +201,40 @@ export default class SimpleUtils extends GandiExtension {
           userAgentObj.osVersion = VersionName;
         }
         // 设置设备名
-        userAgentObj.deviceName = "PC";
+        userAgentObj.deviceName = 'PC';
       }
 
-      if (userAgent.indexOf("Mac") > -1) {
+      if (userAgent.indexOf('Mac') > -1) {
         const Version =
-          userAgent?.split("Mac OS X ")?.[1]?.split(")")?.[0] ?? "";
-        userAgentObj.osName = "Mac OS X";
+          userAgent?.split('Mac OS X ')?.[1]?.split(')')?.[0] ?? '';
+        userAgentObj.osName = 'Mac OS X';
         userAgentObj.osVersion = Version;
         // 设置设备名
-        userAgentObj.deviceName = "PC";
+        userAgentObj.deviceName = 'PC';
       }
 
-      if (userAgent.indexOf("iPhone") > -1) {
+      if (userAgent.indexOf('iPhone') > -1) {
         const Version =
-          userAgent?.split("CPU iPhone OS")?.[1]?.split(" ")?.[0] ?? "";
-        userAgentObj.osName = "iPhone";
-        userAgentObj.osVersion = Version;
-
-        // 设置设备名
-        userAgentObj.deviceName = "Apple Device";
-      }
-
-      if (userAgent.indexOf("iPad") > -1) {
-        const Version =
-          userAgent?.split("iPad; CPU OS ")?.[1]?.split(" ")?.[0] ?? "";
-        userAgentObj.osName = "iPad";
+          userAgent?.split('CPU iPhone OS')?.[1]?.split(' ')?.[0] ?? '';
+        userAgentObj.osName = 'iPhone';
         userAgentObj.osVersion = Version;
 
         // 设置设备名
-        userAgentObj.deviceName = "Apple Device";
+        userAgentObj.deviceName = 'Apple Device';
       }
 
-      if (userAgent.indexOf("Android") > -1) {
-        const V = userAgent.split("Android ")?.[1]?.split(";")?.[0] ?? "";
+      if (userAgent.indexOf('iPad') > -1) {
+        const Version =
+          userAgent?.split('iPad; CPU OS ')?.[1]?.split(' ')?.[0] ?? '';
+        userAgentObj.osName = 'iPad';
+        userAgentObj.osVersion = Version;
+
+        // 设置设备名
+        userAgentObj.deviceName = 'Apple Device';
+      }
+
+      if (userAgent.indexOf('Android') > -1) {
+        const V = userAgent.split('Android ')?.[1]?.split(';')?.[0] ?? '';
         /**
          * userAgent.split("Android " + V)[1].split(")")[0].indexOf("; ") > -1
          * 默认是有厂商+版本的
@@ -243,12 +243,12 @@ export default class SimpleUtils extends GandiExtension {
          */
         const winD =
           userAgent
-            .split("Android " + V)?.[1]
-            ?.split(")")?.[0]
-            ?.indexOf("; ") ?? -1 > -1
-            ? userAgent.split("Android " + V + "; ")?.[1]?.split(")")?.[0] ?? ""
-            : "Android设备";
-        userAgentObj.osName = "Android";
+            .split('Android ' + V)?.[1]
+            ?.split(')')?.[0]
+            ?.indexOf('; ') ?? -1 > -1
+            ? userAgent.split('Android ' + V + '; ')?.[1]?.split(')')?.[0] ?? ''
+            : 'Android设备';
+        userAgentObj.osName = 'Android';
         userAgentObj.deviceName = winD;
         userAgentObj.osVersion = V;
       }
@@ -260,18 +260,22 @@ export default class SimpleUtils extends GandiExtension {
        * @param {*} TYPE
        * @return {*}
        */
-      if (TYPE == "json" || TYPE == "JSON") {
+      if (TYPE == 'json' || TYPE == 'JSON') {
         // 转换格式 Obj to String JSON
         const string = JSON.stringify(userAgentObj);
         return string;
       } else {
         // 这里比较难处理……
-        return userAgentObj[TYPE as keyof typeof userAgentObj] ?? "";
+        return userAgentObj[TYPE as keyof typeof userAgentObj] ?? '';
       }
     } else {
       // userAgent 用不了
-      return "";
+      return '';
     }
+  }
+
+  getUserAgent() {
+    return navigator.userAgent;
   }
 
   //dynamic menu function
@@ -289,15 +293,15 @@ export default class SimpleUtils extends GandiExtension {
       if (target.isOriginal) {
         const { name } = target.sprite;
         if (target.isStage) {
-          sprites.push({ text: "[舞台]", value: targetId });
+          sprites.push({ text: '[舞台]', value: targetId });
         } else {
-          sprites.push({ text: "[角色]" + name, value: targetId });
+          sprites.push({ text: '[角色]' + name, value: targetId });
         }
       }
     });
     if (sprites.length === 0) {
       // 这不可能发生
-      return [{ text: "-没有角色-", value: "empty" }];
+      return [{ text: '-没有角色-', value: 'empty' }];
     } else {
       return sprites;
     }
@@ -313,9 +317,9 @@ export default class SimpleUtils extends GandiExtension {
     let variable = this.runtime._stageTarget.variables;
     const variableList = [];
     Object.keys(variable).forEach(function (r) {
-      if (variable[r].type === "list") {
+      if (variable[r].type === 'list') {
         variableList.push({
-          text: "[所有角色]".concat(variable[r].name),
+          text: '[所有角色]'.concat(variable[r].name),
           value: variable[r].id,
         });
       }
@@ -323,16 +327,16 @@ export default class SimpleUtils extends GandiExtension {
     try {
       variable = this.runtime._editingTarget.variables;
     } catch (t) {
-      variable = "e";
+      variable = 'e';
     }
     if (
-      variable !== "e" &&
+      variable !== 'e' &&
       this.runtime._editingTarget !== this.runtime._stageTarget
     ) {
       Object.keys(variable).forEach(function (r) {
-        if (variable[r].type === "list") {
+        if (variable[r].type === 'list') {
           variableList.push({
-            text: "[当前角色]".concat(variable[r].name),
+            text: '[当前角色]'.concat(variable[r].name),
             value: variable[r].id,
           });
         }
@@ -340,8 +344,8 @@ export default class SimpleUtils extends GandiExtension {
     }
     if (variableList.length === 0) {
       variableList.push({
-        text: "-没有列表-",
-        value: "empty",
+        text: '-没有列表-',
+        value: 'empty',
       });
     }
     return variableList;
@@ -352,9 +356,9 @@ export default class SimpleUtils extends GandiExtension {
     let variable = this.runtime._stageTarget.variables;
     const variableList = [];
     Object.keys(variable).forEach(function (r) {
-      if (variable[r].type === "") {
+      if (variable[r].type === '') {
         variableList.push({
-          text: "[所有角色]".concat(variable[r].name),
+          text: '[所有角色]'.concat(variable[r].name),
           value: variable[r].id,
         });
       }
@@ -362,16 +366,16 @@ export default class SimpleUtils extends GandiExtension {
     try {
       variable = this.runtime._editingTarget.variables;
     } catch (t) {
-      variable = "e";
+      variable = 'e';
     }
     if (
-      variable !== "e" &&
+      variable !== 'e' &&
       this.runtime._editingTarget !== this.runtime._stageTarget
     ) {
       Object.keys(variable).forEach(function (r) {
-        if (variable[r].type === "") {
+        if (variable[r].type === '') {
           variableList.push({
-            text: "[当前角色]".concat(variable[r].name),
+            text: '[当前角色]'.concat(variable[r].name),
             value: variable[r].id,
           });
         }
@@ -379,8 +383,8 @@ export default class SimpleUtils extends GandiExtension {
     }
     if (variableList.length === 0) {
       variableList.push({
-        text: "-没有变量-",
-        value: "empty",
+        text: '-没有变量-',
+        value: 'empty',
       });
     }
     return variableList;
@@ -390,14 +394,14 @@ export default class SimpleUtils extends GandiExtension {
   // 统一异常，方便修复扩展报错
   extErr(e: Error) {
     const error = e.message;
-    const sub = "⚠⚠⚠报错";
+    const sub = '⚠⚠⚠报错';
     const bool = error.includes(sub);
     if (bool) {
-      console.error("[YUENExt] : ", e);
+      console.error('[YUENExt] : ', e);
       throw e;
       // throw new Error("[YUENExt] : ".concat(e.toString(x)));
     } else {
-      console.warn("[YUENExt] : ", e);
+      console.warn('[YUENExt] : ', e);
     }
   }
 
@@ -406,17 +410,17 @@ export default class SimpleUtils extends GandiExtension {
      * 获取设备信息
      * v1.0.0
      */
-    const info_type_menu = BlockUtil.createMenu("InfoMenu");
-    info_type_menu.items.push({ text: "json", value: "json" });
-    info_type_menu.items.push({ text: "browserName", value: "browserName" });
+    const info_type_menu = BlockUtil.createMenu('InfoMenu');
+    info_type_menu.items.push({ text: 'json', value: 'json' });
+    info_type_menu.items.push({ text: 'browserName', value: 'browserName' });
     info_type_menu.items.push({
-      text: "browserVersion",
-      value: "browserVersion",
+      text: 'browserVersion',
+      value: 'browserVersion',
     });
-    info_type_menu.items.push({ text: "osName", value: "osName" });
-    info_type_menu.items.push({ text: "osVersion", value: "osVersion" });
-    info_type_menu.items.push({ text: "deviceName", value: "deviceName" });
-    info_type_menu.items.push({ text: "CPU_Type", value: "CPU_Type" });
+    info_type_menu.items.push({ text: 'osName', value: 'osName' });
+    info_type_menu.items.push({ text: 'osVersion', value: 'osVersion' });
+    info_type_menu.items.push({ text: 'deviceName', value: 'deviceName' });
+    info_type_menu.items.push({ text: 'CPU_Type', value: 'CPU_Type' });
 
     //dynamic menu
     /**
@@ -430,19 +434,19 @@ export default class SimpleUtils extends GandiExtension {
     //   true
     // );
 
-    const listMenu = BlockUtil.createDynamicMenu("listMenu", "listMenu", true);
+    const listMenu = BlockUtil.createDynamicMenu('listMenu', 'listMenu', true);
 
     // 预留
     const variableMenu = BlockUtil.createDynamicMenu(
-      "variableMenu",
-      "variableMenu",
+      'variableMenu',
+      'variableMenu',
       true
     );
 
     // 获取设备信息
     const TYPE = BlockUtil.createArgument(
       ArgumentType.STRING,
-      "json",
+      'json',
       info_type_menu
     );
 
@@ -456,24 +460,24 @@ export default class SimpleUtils extends GandiExtension {
 
     const listArgs = BlockUtil.createArgument(
       ArgumentType.STRING,
-      "",
+      '',
       listMenu
     );
 
     const variableArgs = BlockUtil.createArgument(
       ArgumentType.STRING,
-      "",
+      '',
       variableMenu
     );
 
     // v1.0.0
     // Notification通知 标题，内容，图标
-    const TITLE = BlockUtil.createArgument(ArgumentType.STRING, "title");
-    const CONTENT = BlockUtil.createArgument(ArgumentType.STRING, "content");
-    const ICON = BlockUtil.createArgument(ArgumentType.STRING, "icon");
+    const TITLE = BlockUtil.createArgument(ArgumentType.STRING, 'title');
+    const CONTENT = BlockUtil.createArgument(ArgumentType.STRING, 'content');
+    const ICON = BlockUtil.createArgument(ArgumentType.STRING, 'icon');
 
     // 通用STRING Args
-    const CONTENT_1 = BlockUtil.createArgument(ArgumentType.STRING, "default");
+    const CONTENT_1 = BlockUtil.createArgument(ArgumentType.STRING, 'default');
 
     /**
      * 获取客户端信息
@@ -484,9 +488,14 @@ export default class SimpleUtils extends GandiExtension {
      */
     const GET_CLIENT_INFO = BlockUtil.createReporter();
     GET_CLIENT_INFO.setReporterScope(ReporterScope.GLOBAL);
-    GET_CLIENT_INFO.setOpcode("get_client_info");
-    GET_CLIENT_INFO.setText("get_client_info");
+    GET_CLIENT_INFO.setOpcode('get_client_info');
+    GET_CLIENT_INFO.setText('get_client_info');
     GET_CLIENT_INFO.setArguments({ TYPE });
+
+    const getUserAgent = BlockUtil.createReporter();
+    getUserAgent.setReporterScope(ReporterScope.GLOBAL);
+    getUserAgent.setOpcode('getUserAgent');
+    getUserAgent.setText('getUserAgent');
 
     /**
      * 将客户端信息保存(覆盖)到列表
@@ -494,51 +503,51 @@ export default class SimpleUtils extends GandiExtension {
      */
 
     const saveJSON = BlockUtil.createCommand();
-    saveJSON.setOpcode("saveJSON");
-    saveJSON.setText("saveJSON");
+    saveJSON.setOpcode('saveJSON');
+    saveJSON.setText('saveJSON');
     saveJSON.setArguments({ listArgs });
 
     // 通知 v1.0.0
     // 获取通知权限
     const get_notif_perm = BlockUtil.createBool();
-    get_notif_perm.setOpcode("get_notif_perm");
-    get_notif_perm.setText("get_notif_perm");
+    get_notif_perm.setOpcode('get_notif_perm');
+    get_notif_perm.setText('get_notif_perm');
     get_notif_perm.setArguments({});
 
     // 询问通知权限
     const ask_notif_perm = BlockUtil.createCommand();
-    ask_notif_perm.setOpcode("ask_notif_perm");
-    ask_notif_perm.setText("ask_notif_perm");
+    ask_notif_perm.setOpcode('ask_notif_perm');
+    ask_notif_perm.setText('ask_notif_perm');
     ask_notif_perm.setArguments({});
 
     // 发送通知
     const notification = BlockUtil.createCommand();
-    notification.setOpcode("Notification");
-    notification.setText("notification");
+    notification.setOpcode('Notification');
+    notification.setText('notification');
     notification.setArguments({ TITLE, CONTENT, ICON });
 
     // 是否联网 v1.0.0
     const IS_ONLINE = BlockUtil.createBool();
-    IS_ONLINE.setOpcode("is_online");
-    IS_ONLINE.setText("is_online");
+    IS_ONLINE.setOpcode('is_online');
+    IS_ONLINE.setText('is_online');
     IS_ONLINE.setArguments({});
 
     // 弹窗 v1.0.0
     const TOAST = BlockUtil.createCommand();
-    TOAST.setOpcode("alert");
-    TOAST.setText("alert");
+    TOAST.setOpcode('alert');
+    TOAST.setText('alert');
     TOAST.setArguments({ CONTENT_1 });
 
     // 运行环境 当前是编辑器还是发布页
     const IS_SEE_INSIDE = BlockUtil.createBool();
-    IS_SEE_INSIDE.setOpcode("is_see_inside");
-    IS_SEE_INSIDE.setText("is_see_inside");
+    IS_SEE_INSIDE.setOpcode('is_see_inside');
+    IS_SEE_INSIDE.setText('is_see_inside');
     IS_SEE_INSIDE.setArguments({});
 
     const DEPLOY_ENV = BlockUtil.createReporter();
     DEPLOY_ENV.setReporterScope(ReporterScope.GLOBAL);
-    DEPLOY_ENV.setOpcode("deploy_env");
-    DEPLOY_ENV.setText("deploy_env");
+    DEPLOY_ENV.setOpcode('deploy_env');
+    DEPLOY_ENV.setText('deploy_env');
     DEPLOY_ENV.setArguments({});
 
     // 详情看function注释
@@ -546,20 +555,21 @@ export default class SimpleUtils extends GandiExtension {
 
     const NUM = BlockUtil.createArgument(ArgumentType.NUMBER, 1);
     const set_value_for_list_lenght = BlockUtil.createLoop();
-    set_value_for_list_lenght.setOpcode("set_value_for_list_lenght");
-    set_value_for_list_lenght.setText("set_value_for_list_lenght");
+    set_value_for_list_lenght.setOpcode('set_value_for_list_lenght');
+    set_value_for_list_lenght.setText('set_value_for_list_lenght');
     set_value_for_list_lenght.setArguments({ listArgs, variableArgs, NUM });
 
     /**
      * 基础功能区
      */
-    this.addTextLabel("t.default");
+    this.addTextLabel('t.default');
 
     /**
      * 获取客户端信息
      * 保存客户端信息
      */
     this.addBlock(GET_CLIENT_INFO);
+    this.addBlock(getUserAgent);
     this.addBlock(saveJSON);
 
     /**
@@ -567,7 +577,7 @@ export default class SimpleUtils extends GandiExtension {
      * 用户是否在线
      * 运行环境
      */
-    this.addTextLabel("t.default.1");
+    this.addTextLabel('t.default.1');
     this.addBlock(IS_ONLINE);
     this.addBlock(IS_SEE_INSIDE);
     this.addBlock(DEPLOY_ENV);
@@ -577,7 +587,7 @@ export default class SimpleUtils extends GandiExtension {
      * 通知
      * 弹窗
      */
-    this.addTextLabel("t.default.2");
+    this.addTextLabel('t.default.2');
     this.addBlock(ask_notif_perm);
     this.addBlock(get_notif_perm);
     this.addBlock(notification);
@@ -588,7 +598,7 @@ export default class SimpleUtils extends GandiExtension {
      * 循环类
      * 判断类
      */
-    this.addTextLabel("t.default.3");
+    this.addTextLabel('t.default.3');
     this.addBlock(set_value_for_list_lenght);
   }
 
@@ -610,25 +620,25 @@ export default class SimpleUtils extends GandiExtension {
     const { listArgs, variableArgs, NUM } = args;
     let list = utils.target.lookupVariableById(listArgs);
     if (list === undefined) {
-      list = utils.target.lookupVariableByNameAndType(listArgs, "list");
+      list = utils.target.lookupVariableByNameAndType(listArgs, 'list');
     }
     if (list === undefined) {
-      this.extErr(new Error("⚠YUEN: set_value_for_list_lenght : list"));
+      this.extErr(new Error('⚠YUEN: set_value_for_list_lenght : list'));
       return;
     }
     const times = list.value.length;
     // variable 只需要获取一次
     let variable = utils.target.lookupVariableById(variableArgs);
     if (variable === undefined) {
-      variable = utils.target.lookupVariableByNameAndType(variableArgs, "");
+      variable = utils.target.lookupVariableByNameAndType(variableArgs, '');
     }
     if (variable === undefined) {
-      this.extErr(new Error("⚠YUEN: set_value_for_list_lenght : variable"));
+      this.extErr(new Error('⚠YUEN: set_value_for_list_lenght : variable'));
       return;
     }
 
     // Initialize loop
-    if (typeof utils.stackFrame.loopCounter === "undefined") {
+    if (typeof utils.stackFrame.loopCounter === 'undefined') {
       utils.stackFrame.loopCounter = times;
     }
     // Only execute once per frame.
@@ -655,19 +665,19 @@ export default class SimpleUtils extends GandiExtension {
      */
     const { listArgs } = args;
 
-    if ("empty" === listArgs) {
+    if ('empty' === listArgs) {
       this.extErr(
-        new Error("⚠YUEN: in saveJSON error fill list: list is not selected")
+        new Error('⚠YUEN: in saveJSON error fill list: list is not selected')
       );
       return;
     }
 
-    const client_info = JSON.parse(this.client_info("JSON"));
+    const client_info = JSON.parse(this.client_info('JSON'));
     const list: string[] = Object.values(client_info);
 
     let _ = utils.target.lookupVariableById(listArgs);
     if (_ === undefined) {
-      _ = utils.target.lookupVariableByNameAndType(listArgs, "list");
+      _ = utils.target.lookupVariableByNameAndType(listArgs, 'list');
     }
     if (_ !== undefined) {
       // 真的需要深拷贝？
@@ -698,7 +708,7 @@ export default class SimpleUtils extends GandiExtension {
    * dev：在编辑器内
    */
   deploy_env() {
-    return this.is_see_inside() ? "dev" : "prod";
+    return this.is_see_inside() ? 'dev' : 'prod';
   }
 
   /**
@@ -715,14 +725,14 @@ export default class SimpleUtils extends GandiExtension {
    */
   get_notif_perm(): boolean {
     const perm = Notification.permission;
-    return perm === "granted";
+    return perm === 'granted';
   }
   /**
    * 申请通知权限
    */
   async ask_notif_perm() {
     const perm = Notification.permission;
-    if (perm === "default") {
+    if (perm === 'default') {
       await Notification.requestPermission();
     }
   }
@@ -738,7 +748,7 @@ export default class SimpleUtils extends GandiExtension {
     // 不用担心，重复调用时浏览器只会询问一次
     await this.ask_notif_perm();
     let perm = Notification.permission;
-    if (perm !== "granted") {
+    if (perm !== 'granted') {
       console.warn(`YUEN: 还没有获取通知权限`);
       return;
     }

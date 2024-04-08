@@ -2,7 +2,7 @@
     "name": "System tools",
     "desc": "Useful tool for obtaining system information!",
     "docURL": "https://www.ccw.site/post/5e4fff4e-3556-4497-a453-a2480864d90d",
-    "get_client_info": "Get client information [TYPE]",
+    "get_client_info": "(⚠Not recommended for use) Get client information [TYPE]",
     "json": "JSON",
     "browserName": "browserName",
     "browserVersion": "browserVersion",
@@ -26,5 +26,6 @@
     "content": "i like COCREA",
     "icon": "https://cocrea.world/favicon-32x32.png",
     "saveJSON": "Fill client information in list [listArgs]",
-    "set_value_for_list_lenght": "Repeat the [listArgs] project several times, incrementing [variableArgs] by [NUM]"
+    "set_value_for_list_lenght": "Repeat the [listArgs] project several times, incrementing [variableArgs] by [NUM]",
+    "getUserAgent": "get UserAgent"
 }
