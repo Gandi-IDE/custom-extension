@@ -1,4 +1,5 @@
-import FeishuExtension, { Cover, extensionId, Icon } from './extension';
+import FeishuExtension from './extension';
+import { Cover, extensionId, Icon } from './constants';
 
 window.tempExt = {
   Extension: FeishuExtension,

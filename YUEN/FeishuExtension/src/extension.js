@@ -163,7 +163,7 @@ export default class FeishuExtension {
           _clonedBlocks.push({
             ...block,
             opcode:
-              beforeBlockType === block.blockType
+              beforeBlockType === blockTypes[i]
                 ? block.opcode
                 : block.opcode + blockTypes[i],
             blockType: blockTypes[i],
@@ -172,14 +172,13 @@ export default class FeishuExtension {
               : false,
           });
           this[
-            beforeBlockType === block.blockType
+            beforeBlockType === blockTypes[i]
               ? block.opcode
               : block.opcode + blockTypes[i]
           ] = this[block.opcode];
         }
       }
     });
-
     return _clonedBlocks;
   }
 
