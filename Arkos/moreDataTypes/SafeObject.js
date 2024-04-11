@@ -8,9 +8,9 @@ class SafeObject extends String {
      * 以 obj 作为值初始化 SafeObject
      * @param {object} obj 对象或数组
      */
-  constructor(obj = {}) {
+  constructor(obj = Object.create(null)) {
     super('<SafeObject>');
-    this.assign(typeof obj === 'object' ? obj : {});
+    this.assign(typeof obj === 'object' ? obj : Object.create(null));
   }
 
   /**

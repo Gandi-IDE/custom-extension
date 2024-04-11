@@ -1506,7 +1506,7 @@ class moreDataTypes {
    * @return {SafeObject}
    */
   getNewObject(args) {
-    const obj = {};
+    const obj = Object.create(null);
     for (let i = 0; ; i += 1) {
       const key = args[`ARG${i}`];
       if (key === undefined) return new SafeObject(obj);
@@ -1609,7 +1609,7 @@ class moreDataTypes {
       if (Array.isArray(obj)) {
         return new SafeObject([...obj]);
       }
-      return new SafeObject({ ...obj });
+      return new SafeObject(Object.assign(Object.create(null), obj));
     }
   }
 
