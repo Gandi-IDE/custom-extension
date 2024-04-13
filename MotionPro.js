@@ -47,6 +47,13 @@
                     'MotionPro.hideBlock': '隐藏不常用积木',
                     'MotionPro.showBlock?':'为了避免杂乱，少量积木被隐藏。\n是否要显示它们？',
 
+                    'MotionPro.location':'位置',
+                    'MotionPro.clockwise':'顺时针',
+                    'MotionPro.anticlockwise':'逆时针',
+                    'MotionPro.pointTowardsIt':'并朝向它',
+                    'MotionPro.rMenuMove':'向[a]移动[b]步所得[c]',
+                    'MotionPro.menuTurn':'旋转[a][b]度',
+                    'MotionPro.cmMenuTurnDegreeAround':'绕x:[x]y:[y]旋转[a][d]度并保持[r]距离',
                     'MotionPro.moveAB':'向[a]移动[b]步',
                     'MotionPro.moveABX':'向[a]移动[b]步所得x',
                     'MotionPro.moveABY':'向[a]移动[b]步所得y',
@@ -60,27 +67,33 @@
                     'MotionPro.moveX':'移动所得x',
                     'MotionPro.moveY':'移动所得y',
                     'MotionPro.turn':'旋转[i]',
+                    'MotionPro.turnDegreeAroundAndKeepDistance':'绕x:[x]y:[y]旋转[i][d]度并保持[r]距离',
                     'MotionPro.turnDegreeAround':'绕x:[x]y:[y]旋转[i][d]度',
 
+                    'MotionPro.distance':'距离',
+                    'MotionPro.direction':'方向',
+                    'MotionPro.rMenuDirectionToCoordinate':'到x:[x]y:[y]的[a]',
                     'MotionPro.rDirectionToCoordinate':'到x:[x]y:[y]的方向',
                     'MotionPro.cmDirectionToCoordinate':'面向x:[x]y:[y]',
-
                     'MotionPro.rDistanceToCoordinate':'到x:[x]y:[y]的距离',
                     'MotionPro.cmCoordinateAdd':'x,y各增加[x][y]',
 
                     'MotionPro.Setting':'设值',
-                    'MotionPro.cmChangeSpeed':'速度增加[a]',
-                    'MotionPro.cmSetSpeed':'速度设为[a]',
-                    'MotionPro.cmChangeDirection':'方向增加[a]',
-                    'MotionPro.cmSetDirection':'方向设为[a]',
-                    'MotionPro.cmSetDirectionToCoordinate':'方向设到x:[x]y:[y]',
-                    'MotionPro.cmChangeTurn':'旋转角度增加[a]',
-                    'MotionPro.cmSetTurn':'旋转角度设为[a]',
+                    'MotionPro.set':'设为',
+                    'MotionPro.plus':'增加',
+                    'MotionPro.cmMenuChange':'将[a][b][c]',
+                    'MotionPro.cmChangeSpeed':'将移动速度增加[a]',
+                    'MotionPro.cmSetSpeed':'将移动速度设为[a]',
+                    'MotionPro.cmChangeDirection':'将移动方向增加[a]',
+                    'MotionPro.cmSetDirection':'将移动方向设为[a]',
+                    'MotionPro.cmSetDirectionToCoordinate':'将移动方向设到x:[x]y:[y]',
+                    'MotionPro.cmChangeTurn':'将旋转角度增加[a]',
+                    'MotionPro.cmSetTurn':'将旋转角度设为[a]',
 
                     'MotionPro.Getting':'取值',
-                    'MotionPro.rSpeed':'速度',
-                    'MotionPro.rDirection':'方向',
-                    'MotionPro.rTurn':'旋转角度',
+                    'MotionPro.movementSpeed':'移动速度',
+                    'MotionPro.movementDirection':'移动方向',
+                    'MotionPro.rotationAngle':'旋转角度',
                     
                     'MotionPro.Tobecontinued':'未完待续'
                 },
@@ -92,6 +105,13 @@
                     'MotionPro.hideBlock': 'hide other blocks',
                     'MotionPro.showBlock?':'To avoid clutter, a few blocks are hidden.\n Do you want to show them?',
 
+                    'MotionPro.location':'location',
+                    'MotionPro.clockwise':'clockwise',
+                    'MotionPro.anticlockwise':'anticlockwise',
+                    'MotionPro.pointTowardsIt':'point towards it',
+                    'MotionPro.rMenuMove':'[c] after moving[b]steps in direction[a]',
+                    'MotionPro.menuTurn':'turn[b]degrees[a]',
+                    'MotionPro.cmMenuTurnDegreeAround':'turn[d]degrees[a]around x:[x]y:[y]and keep[r]distance',
                     'MotionPro.moveAB':'move[b]steps in direction[a]',
                     'MotionPro.moveABX':'x after moving[b]steps in direction[a]',
                     'MotionPro.moveABY':'y after moving[b]steps in direction[a]',
@@ -105,27 +125,33 @@
                     'MotionPro.moveX':'x after move',
                     'MotionPro.moveY':'y after move',
                     'MotionPro.turn':'turn[i]degrees',
+                    'MotionPro.turnDegreeAroundAndKeepDistance':'turn[i][d]degrees around x:[x]y:[y]and keep[r]distance',
                     'MotionPro.turnDegreeAround':'turn[i][d]degrees around x:[x]y:[y]',
 
+                    'MotionPro.distance':'distance',
+                    'MotionPro.direction':'direction',
+                    'MotionPro.rMenuDirectionToCoordinate':'[a]to x:[x]y:[y]',
                     'MotionPro.rDirectionToCoordinate':'direction to x:[x]y:[y]',
                     'MotionPro.cmDirectionToCoordinate':'point towards x:[x]y:[y]',
-
                     'MotionPro.rDistanceToCoordinate':'distance to x:[x]y:[y]',
                     'MotionPro.cmCoordinateAdd':'changed x and y by[x][y]',
 
                     'MotionPro.Setting':'Setting',
-                    'MotionPro.cmChangeSpeed':'change speed by[a]',
-                    'MotionPro.cmSetSpeed':'set speed to[a]',
-                    'MotionPro.cmChangeDirection':'change direction by[a]',
-                    'MotionPro.cmSetDirection':'set direction to[a]',
-                    'MotionPro.cmSetDirectionToCoordinate':'set direction to x:[x]y:[y]',
-                    'MotionPro.cmChangeTurn':'change rotation angle by[a]',
-                    'MotionPro.cmSetTurn':'set rotation angle to[a]degrees',
+                    'MotionPro.set':'set',
+                    'MotionPro.plus':'plus',
+                    'MotionPro.cmMenuChange':'[b][c]at[a]',
+                    'MotionPro.cmChangeSpeed':'change movement speed by[a]',
+                    'MotionPro.cmSetSpeed':'set movement speed to[a]',
+                    'MotionPro.cmChangeDirection':'change movement direction by[a]',
+                    'MotionPro.cmSetDirection':'set movement direction to[a]',
+                    'MotionPro.cmSetDirectionToCoordinate':'set movement direction to x:[x]y:[y]',
+                    'MotionPro.cmChangeTurn':'change movement rotation angle by[a]',
+                    'MotionPro.cmSetTurn':'set rotation movement angle to[a]degrees',
 
                     'MotionPro.Getting':'Getting',
-                    'MotionPro.rSpeed':'speed',
-                    'MotionPro.rDirection':'direction',
-                    'MotionPro.rTurn':'rotation angle',
+                    'MotionPro.movementSpeed':'movement speed',
+                    'MotionPro.movementDirection':'movement direction',
+                    'MotionPro.rotationAngle':'rotation angle',
 
                     
                     'MotionPro.Tobecontinued':'To be continued'
@@ -179,7 +205,6 @@
                             this.runtime.emit('TOOLBOX_EXTENSIONS_NEED_UPDATE')
                         }
                     },
-                    '---',
                     {
                         opcode: 'rTest',
                         blockType: 'reporter',
@@ -193,6 +218,103 @@
                         text:'test',
                         filter: ['sprite'],
                         hideFromPalette: 1
+                    },
+                    '---',
+                    {
+                        opcode: 'rMenuMove',
+                        blockType: 'reporter',
+                        text:this.formatMessage('MotionPro.rMenuMove'),
+                        arguments:{
+                            a:{
+                                menu:'variablemenuWithMovementDirection',
+                                defaultValue:Infinity
+                            },
+                            b:{
+                                menu:'variablemenuWithMovementSpeed',
+                                defaultValue:Infinity
+                            },
+                            c:{
+                                menu:'location',
+                                defaultValue:0
+                            }
+                        },
+                        filter: ['sprite']
+                    },
+                    {
+                        opcode: 'cmMenuMove',
+                        blockType: 'command',
+                        text:this.formatMessage('MotionPro.moveAB'),
+                        arguments:{
+                            a:{
+                                menu:'variablemenuWithMovementDirection',
+                                defaultValue:Infinity
+                            },
+                            b:{
+                                menu:'variablemenuWithMovementSpeed',
+                                defaultValue:Infinity
+                            }
+                        },
+                        filter: ['sprite']
+                    },
+                    {
+                        opcode: 'rMenuTurn',
+                        blockType: 'reporter',
+                        text:this.formatMessage('MotionPro.menuTurn'),
+                        arguments:{
+                            a:{
+                                menu:'clockwise',
+                                defaultValue:1
+                            },
+                            b:{
+                                menu:'variablemenuWithRotationAngle',
+                                defaultValue:Infinity
+                            }
+                        },
+                        filter: ['sprite']
+                    },
+                    {
+                        opcode: 'cmMenuTurn',
+                        blockType: 'command',
+                        text:this.formatMessage('MotionPro.menuTurn'),
+                        arguments:{
+                            a:{
+                                menu:'clockwise',
+                                defaultValue:1
+                            },
+                            b:{
+                                menu:'variablemenuWithRotationAngle',
+                                defaultValue:Infinity
+                            }
+                        },
+                        filter: ['sprite']
+                    },
+                    {
+                        opcode: 'cmMenuTurnDegreeAround',
+                        blockType: 'command',
+                        text:this.formatMessage('MotionPro.cmMenuTurnDegreeAround'),
+                        arguments:{
+                            a:{
+                                menu:'clockwise',
+                                defaultValue:1
+                            },
+                            x:{
+                                type:'string',
+                                defaultValue:23
+                            },
+                            y:{
+                                type:'string',
+                                defaultValue:33
+                            },
+                            d:{
+                                type:'string',
+                                defaultValue:33
+                            },
+                            r:{
+                                type:'string',
+                                defaultValue:33
+                            }
+                        },
+                        filter: ['sprite']
                     },
                     {
                         opcode: 'moveAB',
@@ -259,7 +381,8 @@
                                 defaultValue:24
                             }
                         },
-                        filter: ['sprite']
+                        filter: ['sprite'],
+                        hideFromPalette: this.hideExtraBlocks
                     },
                     {
                         opcode: 'rMoveA',
@@ -310,7 +433,8 @@
                                 defaultValue:23
                             }
                         },
-                        filter: ['sprite']
+                        filter: ['sprite'],
+                        hideFromPalette: this.hideExtraBlocks
                     },
                     {
                         opcode: 'rMoveB',
@@ -361,7 +485,8 @@
                                 defaultValue:24
                             }
                         },
-                        filter: ['sprite']
+                        filter: ['sprite'],
+                        hideFromPalette: this.hideExtraBlocks
                     },
                     {
                         opcode: 'rMove',
@@ -446,6 +571,64 @@
                         filter: ['sprite']
                     },
                     {
+                        opcode: 'cmTurnRightAroundAndKeepDistance',
+                        blockType: 'command',
+                        text:this.formatMessage('MotionPro.turnDegreeAroundAndKeepDistance'),
+                        arguments:{
+                            x:{
+                                type:'string',
+                                defaultValue:23
+                            },
+                            y:{
+                                type:'string',
+                                defaultValue:33
+                            },
+                            d:{
+                                type:'angle',
+                                defaultValue:33
+                            },
+                            i:{
+                                type:Scratch.ArgumentType.IMAGE,
+                                dataURI: turnrighticon,
+                            },
+                            r:{
+                                type:'string',
+                                defaultValue:33
+                            },
+                        },
+                        filter: ['sprite'],
+                        hideFromPalette: this.hideExtraBlocks
+                    },
+                    {
+                        opcode: 'cmTurnLeftAroundAndKeepDistance',
+                        blockType: 'command',
+                        text:this.formatMessage('MotionPro.turnDegreeAroundAndKeepDistance'),
+                        arguments:{
+                            x:{
+                                type:'string',
+                                defaultValue:23
+                            },
+                            y:{
+                                type:'string',
+                                defaultValue:33
+                            },
+                            d:{
+                                type:'angle',
+                                defaultValue:33
+                            },
+                            i:{
+                                type:Scratch.ArgumentType.IMAGE,
+                                dataURI: turnlefticon,
+                            },
+                            r:{
+                                type:'string',
+                                defaultValue:33
+                            },
+                        },
+                        filter: ['sprite'],
+                        hideFromPalette: this.hideExtraBlocks
+                    },
+                    {
                         opcode: 'cmTurnRightAround',
                         blockType: 'command',
                         text:this.formatMessage('MotionPro.turnDegreeAround'),
@@ -467,7 +650,8 @@
                                 dataURI: turnrighticon,
                             }
                         },
-                        filter: ['sprite']
+                        filter: ['sprite'],
+                        hideFromPalette: this.hideExtraBlocks
                     },
                     {
                         opcode: 'cmTurnLeftAround',
@@ -491,9 +675,30 @@
                                 dataURI: turnlefticon,
                             }
                         },
-                        filter: ['sprite']
+                        filter: ['sprite'],
+                        hideFromPalette: this.hideExtraBlocks
                     },
                     '---',
+                    {
+                        opcode: 'rMenuDirectionToCoordinate',
+                        blockType: 'reporter',
+                        text:this.formatMessage('MotionPro.rMenuDirectionToCoordinate'),
+                        arguments:{
+                            x:{
+                                type:'string',
+                                defaultValue:23
+                            },
+                            y:{
+                                type:'string',
+                                defaultValue:33
+                            },
+                            a:{
+                                menu:'distance',
+                                defaultValue:0
+                            }
+                        },
+                        filter: ['sprite']
+                    },
                     {
                         opcode: 'rDirectionToCoordinate',
                         blockType: 'reporter',
@@ -508,7 +713,8 @@
                                 defaultValue:33
                             }
                         },
-                        filter: ['sprite']
+                        filter: ['sprite'],
+                        hideFromPalette: this.hideExtraBlocks
                     },
                     {
                         opcode: 'cmDirectionToCoordinate',
@@ -526,7 +732,6 @@
                         },
                         filter: ['sprite']
                     },
-                    '---',
                     {
                         opcode: 'rDistanceToCoordinate',
                         blockType: 'reporter',
@@ -541,7 +746,8 @@
                                 defaultValue:33
                             }
                         },
-                        filter: ['sprite']
+                        filter: ['sprite'],
+                        hideFromPalette: this.hideExtraBlocks
                     },
                     {
                         opcode: 'cmCoordinateAdd',
@@ -564,6 +770,26 @@
                         text: this.formatMessage('MotionPro.Setting')
                     },
                     {
+                        opcode: 'cmMenuChange',
+                        blockType: 'command',
+                        text:this.formatMessage('MotionPro.cmMenuChange'),
+                        arguments:{
+                            a:{
+                                menu:'speed',
+                                defaultValue:0
+                            },
+                            b:{
+                                menu:'set',
+                                defaultValue:0
+                            },
+                            c:{
+                                type:'string',
+                                defaultValue:24
+                            }
+                        },
+                        filter: ['sprite']
+                    },
+                    {
                         opcode: 'cmChangeSpeed',
                         blockType: 'command',
                         text:this.formatMessage('MotionPro.cmChangeSpeed'),
@@ -573,7 +799,8 @@
                                 defaultValue:24
                             }
                         },
-                        filter: ['sprite']
+                        filter: ['sprite'],
+                        hideFromPalette: this.hideExtraBlocks
                     },
                     {
                         opcode: 'cmSetSpeed',
@@ -585,7 +812,8 @@
                                 defaultValue:24
                             }
                         },
-                        filter: ['sprite']
+                        filter: ['sprite'],
+                        hideFromPalette: this.hideExtraBlocks
                     },
                     {
                         opcode: 'cmChangeDirection',
@@ -597,7 +825,8 @@
                                 defaultValue:24
                             }
                         },
-                        filter: ['sprite']
+                        filter: ['sprite'],
+                        hideFromPalette: this.hideExtraBlocks
                     },
                     {
                         opcode: 'cmSetDirection',
@@ -609,7 +838,8 @@
                                 defaultValue:24
                             }
                         },
-                        filter: ['sprite']
+                        filter: ['sprite'],
+                        hideFromPalette: this.hideExtraBlocks
                     },
                     {
                         opcode: 'cmSetDirectionToCoordinate',
@@ -637,7 +867,8 @@
                                 defaultValue:24
                             }
                         },
-                        filter: ['sprite']
+                        filter: ['sprite'],
+                        hideFromPalette: this.hideExtraBlocks
                     },
                     {
                         opcode: 'cmSetTurn',
@@ -649,7 +880,8 @@
                                 defaultValue:24
                             }
                         },
-                        filter: ['sprite']
+                        filter: ['sprite'],
+                        hideFromPalette: this.hideExtraBlocks
                     },
                     {
                         blockType: Scratch.BlockType.LABEL,
@@ -664,19 +896,19 @@
                     {
                         opcode: 'rSpeed',
                         blockType: 'reporter',
-                        text:this.formatMessage('MotionPro.rSpeed'),
+                        text:this.formatMessage('MotionPro.movementSpeed'),
                         filter: ['sprite']
                     },
                     {
                         opcode: 'rDirection',
                         blockType: 'reporter',
-                        text:this.formatMessage('MotionPro.rDirection'),
+                        text:this.formatMessage('MotionPro.movementDirection'),
                         filter: ['sprite']
                     },
                     {
                         opcode: 'rTurn',
                         blockType: 'reporter',
-                        text:this.formatMessage('MotionPro.rTurn'),
+                        text:this.formatMessage('MotionPro.rotationAngle'),
                         filter: ['sprite']
                     },
                     {
@@ -685,10 +917,140 @@
                     }
                 ],
                 menus:{
+                    variablemenuWithMovementSpeed:{
+                        acceptReporters:true,
+                        items:'variablemenuWithMovementSpeed'
+                    },
+                    variablemenuWithMovementDirection:{
+                        acceptReporters:true,
+                        items:'variablemenuWithMovementDirection'
+                    },
+                    variablemenuWithRotationAngle:{
+                        acceptReporters:true,
+                        items:'variablemenuWithRotationAngle'
+                    },
+                    location:{
+                        acceptReporters:true,
+                        items:[
+                            {
+                                text: 'x', 
+                                value: 0
+                            },
+                            {
+                                text: 'y',
+                                value: 1
+                            },
+                            {
+                                text: this.formatMessage('MotionPro.location'), 
+                                value: 2
+                            }
+                        ]
+                    },
+                    clockwise:{
+                        acceptReporters:true,
+                        items:[
+                            {
+                                text: this.formatMessage('MotionPro.clockwise'), 
+                                value: 1
+                            },
+                            {
+                                text: this.formatMessage('MotionPro.anticlockwise'), 
+                                value: -1
+                            }
+                        ]
+                    },
+                    point:{
+                        acceptReporters:true,
+                        items:[
+                            {
+                                text: '', 
+                                value: 0
+                            },
+                            {
+                                text: this.formatMessage('MotionPro.pointTowardsIt'), 
+                                value: 1
+                            }
+                        ]
+                    },
+                    distance:{
+                        acceptReporters:true,
+                        items:[
+                            {
+                                text: this.formatMessage('MotionPro.direction'), 
+                                value: 0
+                            },
+                            {
+                                text: this.formatMessage('MotionPro.distance'), 
+                                value: 1
+                            }
+                        ]
+                    },
+                    speed:{
+                        acceptReporters:true,
+                        items:[
+                            {
+                                text: this.formatMessage('MotionPro.movementSpeed'), 
+                                value: 0
+                            },
+                            {
+                                text: this.formatMessage('MotionPro.movementDirection'), 
+                                value: 1
+                            },
+                            {
+                                text: this.formatMessage('MotionPro.rotationAngle'), 
+                                value: 2
+                            }
+                        ]
+                    },
+                    set:{
+                        acceptReporters:true,
+                        items:[
+                            {
+                                text: this.formatMessage('MotionPro.set'), 
+                                value: 0
+                            },
+                            {
+                                text: this.formatMessage('MotionPro.plus'), 
+                                value: 1
+                            }
+                        ]
+                    },
                 }
             }
         }
-
+        variablemenuWithMovementSpeed() {
+            return this.variablemenu(this.formatMessage('MotionPro.movementSpeed'))
+        }
+        variablemenuWithMovementDirection() {
+            return this.variablemenu(this.formatMessage('MotionPro.movementDirection'))
+        }
+        variablemenuWithRotationAngle() {
+            return this.variablemenu(this.formatMessage('MotionPro.rotationAngle'))
+        }
+        variablemenu(moreThings) {
+            const menus = [{text: moreThings,value:Infinity,}];
+            let { variables } = this.runtime._stageTarget
+            Object.keys(variables).forEach((variable) => {
+                if (variables[variable].type !== "list") {
+                    menus.push({
+                        text: variables[variable].name,
+                        value: variables[variable].id,
+                    })
+                }
+            })
+            if (this.runtime._editingTarget && this.runtime._editingTarget !== this.runtime._stageTarget) {
+                variables = this.runtime._editingTarget.variables
+                Object.keys(variables).forEach((variable) => {
+                    if (! variables[variable].type) {
+                        menus.push({
+                            text: `[PRIVATE] ${variables[variable].name}`,
+                            value: variables[variable].id,
+                        })
+                    }
+                })
+            }
+            return menus;
+        }
         docs() {
             let a = document.createElement('a');
             a.href = "https://learn.ccw.site/article/ded82bb8-3d48-43ea-872e-eb7d2dcbb7cf";
@@ -780,11 +1142,48 @@
             return NaN == NaN
         }
         cmTest(args,util){
-            util.target.stopAll();
+        }
+
+        rMenuMove(args,util){
+            const a = (typeof args.a == 'number' ? args.a==Infinity ? util.target[dt] : args.a : util.target.lookupVariableById(args.a)===undefined ? util.target.lookupVariableByNameAndType(args.a, '').value : util.target.lookupVariableById(args.a).value)*Math.PI/180
+            const b =typeof args.b == 'number' ? args.b==Infinity ? util.target[speed] : args.b : util.target.lookupVariableById(args.b)===undefined ? util.target.lookupVariableByNameAndType(args.b, '').value : util.target.lookupVariableById(args.b).value
+            switch(args.c){
+                case 0 :
+                    return util.target.x + b * Math.sin(a)
+                case 1 :
+                    return util.target.y + b * Math.cos(a)
+                default:
+                    return [util.target.x + b * Math.sin(a),util.target.y + b * Math.cos(a)]
+            }
+            
+        }
+        cmMenuMove(args,util){
+            const a = (typeof args.a == 'number' ? args.a==Infinity ? util.target[dt] : args.a : util.target.lookupVariableById(args.a)===undefined ? util.target.lookupVariableByNameAndType(args.a, '').value : util.target.lookupVariableById(args.a).value)*Math.PI/180
+            const b =typeof args.b == 'number' ? args.b==Infinity ? util.target[speed] : args.b : util.target.lookupVariableById(args.b)===undefined ? util.target.lookupVariableByNameAndType(args.b, '').value : util.target.lookupVariableById(args.b).value
+            util.target.setXY(util.target.x + b * Math.sin(a),util.target.y + b * Math.cos(a))
+        }
+        rMenuTurn(args,util){
+            return util.target.direction + args.a*(typeof args.b == 'number' ? args.b==Infinity ? util.target[turn] : args.b : util.target.lookupVariableById(args.b)===undefined ? util.target.lookupVariableByNameAndType(args.b, '').value : util.target.lookupVariableById(args.b).value)
+        }
+        cmMenuTurn(args,util){
+            util.target.setDirection(util.target.direction + args.a*(typeof args.b == 'number' ? args.b==Infinity ? util.target[turn] : args.b : util.target.lookupVariableById(args.b)===undefined ? util.target.lookupVariableByNameAndType(args.b, '').value : util.target.lookupVariableById(args.b).value))
+        }
+        cmMenuTurnDegreeAround(args,util){
+            var dx = util.target.x - args.x;
+            var dy = util.target.y - args.y;
+            if(args.r!==''){
+                const l = Math.atan(dx / dy) + (dy > 0 ? 0 : 1) * Math.PI;
+                dx = Math.sin(l)*args.r;
+                dy = Math.cos(l)*args.r
+            }
+            const t = args.a * args.d * Math.PI / 180;
+            const s = Math.sin(t);
+            const c = Math.cos(t);
+            util.target.setXY(dx*c+dy*s+args.x,dy*c-dx*s+args.y)
         }
         moveAB(args,util){
             const a = Math.PI*args.a/180
-            return (util.target.x + args.b * Math.sin(a)) + ',' + (util.target.y + args.b * Math.cos(a))
+            return [util.target.x + args.b * Math.sin(a),util.target.y + args.b * Math.cos(a)]
         }
         moveABX(args,util){
             return util.target.x + args.b * Math.sin(Math.PI*args.a/180)
@@ -798,7 +1197,7 @@
         }
         rMoveA(args,util){
             const a = Math.PI*args.a/180
-            return (util.target.x + util.target[speed] * Math.sin(a)) + ',' + (util.target.y + util.target[speed] * Math.cos(a))
+            return [util.target.x + util.target[speed] * Math.sin(a),util.target.y + util.target[speed] * Math.cos(a)]
         }
         rMoveAX(args,util){
             return util.target.x + util.target[speed] * Math.sin(Math.PI*args.a/180)
@@ -812,7 +1211,7 @@
         }
         rMoveB(args,util){
             const a = Math.PI*util.target[dt]/180
-            return (util.target.x + args.b * Math.sin(a)) + ',' + (util.target.y + args.b * Math.cos(a))
+            return [util.target.x + args.b * Math.sin(a),util.target.y + args.b * Math.cos(a)]
         }
         rMoveBX(args,util){
             return util.target.x + args.b * Math.sin(Math.PI*util.target[dt]/180)
@@ -826,7 +1225,7 @@
         }
         rMove(args,util){
             const a = Math.PI*util.target[dt]/180
-            return (util.target.x + util.target[speed] * Math.sin(a)) + ',' + (util.target.y + util.target[speed] * Math.cos(a))
+            return [util.target.x + util.target[speed] * Math.sin(a),util.target.y + util.target[speed] * Math.cos(a)]
         }
         rMoveX(args,util){
             return util.target.x + util.target[speed] * Math.sin(Math.PI*util.target[dt]/180)
@@ -850,25 +1249,51 @@
         cmTurnLeft(args,util){
             util.target.setDirection(util.target.direction - util.target[turn])
         }
+        cmTurnRightAroundAndKeepDistance(args,util){
+            const l = Math.atan((util.target.x - args.x) / (util.target.y - args.y)) + (util.target.y > args.y ? 0 : 1) * Math.PI;
+            const dx = Math.sin(l)*args.r;
+            const dy = Math.cos(l)*args.r;
+            const t = args.d * Math.PI / 180;
+            const s = Math.sin(t);
+            const c = Math.cos(t);
+            util.target.setXY(dx*c+dy*s+args.x,dy*c-dx*s+args.y) 
+        }
+        cmTurnLeftAroundAndKeepDistance(args,util){
+            const l = Math.atan((util.target.x - args.x) / (util.target.y - args.y)) + (util.target.y > args.y ? 0 : 1) * Math.PI;
+            const dx = Math.sin(l)*args.r;
+            const dy = Math.cos(l)*args.r;
+            const t = -args.d * Math.PI / 180;
+            const s = Math.sin(t);
+            const c = Math.cos(t);
+            util.target.setXY(dx*c+dy*s+args.x,dy*c-dx*s+args.y) 
+        }
         cmTurnRightAround(args,util){
             const dx = util.target.x - args.x;
             const dy = util.target.y - args.y;
-            const dr = dx/dy;
-            if (isNaN(dr))return;
-            const r = Math.sqrt(dx * dx + dy * dy);
-            const d = (-args.d-(dy > 0 ? 270 : 90))*Math.PI/180 - Math.atan(dr);
-            util.target.setXY(Math.cos(d)*r,Math.sin(d)*r)
+            const t = args.d * Math.PI / 180;
+            const s = Math.sin(t);
+            const c = Math.cos(t);
+            util.target.setXY(dx*c+dy*s+args.x,dy*c-dx*s+args.y) 
         }
         cmTurnLeftAround(args,util){
             const dx = util.target.x - args.x;
             const dy = util.target.y - args.y;
-            const dr = dx/dy;
-            if (isNaN(dr))return;
-            const r = Math.sqrt(dx * dx + dy * dy);
-            const d = (args.d-(dy > 0 ? 270 : 90))*Math.PI/180 - Math.atan(dr);
-            util.target.setXY(Math.cos(d)*r,Math.sin(d)*r)
+            const t = -args.d * Math.PI / 180;
+            const s = Math.sin(t);
+            const c = Math.cos(t);
+            util.target.setXY(dx*c+dy*s+args.x,dy*c-dx*s+args.y) 
         }
         
+        rMenuDirectionToCoordinate(args,util){
+            const dx = args.x - util.target.x;
+            const dy = args.y - util.target.y;
+            if(args.a)return Math.sqrt(dx * dx + dy * dy)
+            const dr = dx/dy
+            if (isNaN(dr))return;
+            if (dy > 0)return Math.atan(dr) / Math.PI * 180
+            if(dx > 0)return Math.atan(dr) / Math.PI * 180 + 180
+            return Math.atan(dr) / Math.PI * 180 - 180
+        }
         rDirectionToCoordinate(args,util){
             const dx = args.x - util.target.x;
             const dy = args.y - util.target.y;
@@ -880,9 +1305,8 @@
         }
         cmDirectionToCoordinate(args,util){
             const dy = util.target.y - args.y ;
-            util.target.setDirection(Math.atan((util.target.x - args.x) / (dy)) / Math.PI * 180 + (dy > 0 ? 180 : 0))
+            util.target.setDirection(Math.atan((util.target.x - args.x) / dy) / Math.PI * 180 + (dy > 0 ? 180 : 0))
         }
-
         rDistanceToCoordinate(args,util){
             const dx = util.target.x - args.x
             const dy = util.target.y - args.y
@@ -892,6 +1316,29 @@
             util.target.setXY(util.target.x + Number(args.x),util.target.y + Number(args.y))
         }
 
+        cmMenuChange(args,util){
+            if(args.b){
+                switch(args.a){
+                    case 0 :
+                        util.target[speed] += Number(args.c)
+                    case 1 :
+                        util.target[dt] += Number(args.c)
+                    default :
+                        util.target[turn] += Number(args.c)
+                }
+            }
+            else{
+                switch(args.a){
+                    case 0 :
+                        util.target[speed] = Number(args.c)
+                    case 1 :
+                        util.target[dt] = Number(args.c)
+                    default :
+                        util.target[turn] = Number(args.c)
+                }  
+            }
+            
+        }
         cmChangeSpeed(args,util){
             util.target[speed] += Number(args.a)
         }
