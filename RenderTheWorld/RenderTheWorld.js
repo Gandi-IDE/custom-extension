@@ -1137,6 +1137,7 @@ class RenderTheWorld {
 		this.tc.style.width = this.scratchCanvas.style.width;
 		this.tc.style.height = this.scratchCanvas.style.height;
 		this.tc.style.display = 'none'; // 默认隐藏
+		this.isTcShow = false;
 	}
 
 	/**
