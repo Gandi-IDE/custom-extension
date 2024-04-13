@@ -159,6 +159,7 @@
                     'OperatorsPro.bundefined':'[a]空值',
                     'OperatorsPro.bnotstrictlyequal':'[a]不全等[b]',
                     'OperatorsPro.bnotcontain':'[a]不含[b]',
+                    'OperatorsPro.rrandom':'0到1随机数',
                     'OperatorsPro.rLoopNum': '让[NUM]在[START]到[END]中循环',
                     'OperatorsPro.rMapOff': '映射[NUM]从[START1]~[END1]到[START2]~[END2]',
                     'OperatorsPro.rnearestmultiple':'[a]最近[b]倍数',
@@ -460,6 +461,7 @@
                     'OperatorsPro.bundefined':'[a]is undefined',
                     'OperatorsPro.bnotstrictlyequal':'[a]is not identically[b]',
                     'OperatorsPro.bnotcontain':'[a]does not contain[b]',
+                    'OperatorsPro.rrandom':'pick random 0 to 1',
                     'OperatorsPro.rLoopNum': '[NUM]loop in[START]to[END]',
                     'OperatorsPro.rMapOff': 'map[NUM]from[START1]~[END1]to[START2]~[END2]',
                     'OperatorsPro.rnearestmultiple':'multiple of[b]near[a]',
@@ -1398,6 +1400,12 @@
                             }
                         },
                         hideFromPalette: this.hideExtraBlocks
+                    },
+                    {
+                        opcode:'rrandom',
+                        blockType:'reporter',
+                        text:this.formatMessage('OperatorsPro.rrandom'),
+                        disableMonitor: true
                     },
                     {
                         opcode:'bnotequal',
@@ -5668,37 +5676,19 @@
         rmenuArrayremove(args){
             const a = args.b ? args.a : JSON.parse(args.a);
             const b = this.totype(args.c,args.d);
-            const n = args.e;
-            const w = []
+            const n = args.e
             if( typeof b == 'object' ){
                 const c = JSON.stringify(b)
-                for(const t of a){
-                    if(this.notequal(JSON.stringify(t),c,n))w.push(t)
-                }
+                return args.f ? a.filter(t => this.notequal(JSON.stringify(t),c,n)) : JSON.stringify(a.filter(t => this.notequal(JSON.stringify(t),c,n)))
             }
-            else{
-                for(const t of a){
-                    if(this.notequal(t,b,n))w.push(t)
-                }
-            }
-            return args.f ? w : JSON.stringify(w)
+            return args.f ? a.filter(t => this.notequal(t,b,n)) : JSON.stringify(a.filter(t => this.notequal(t,b,n)))
         }
         rmenuArrayremovenumber(args){
             const a = args.b ? args.a : JSON.parse(args.a);
             const b = this.totype(args.d,args.e);
-            const n = args.c;
-            const w = []
-            if(args.f){
-                for(const t of a){
-                    if(this.notcompare(t.length,b,n))w.push(t)
-                }
-            }
-            else{
-                for(const t of a){
-                    if(this.notcompare(t,b,n))w.push(t)
-                }
-            }
-            return args.g ? w : JSON.stringify(w)
+            const n = args.c
+            if(args.f)return args.g ? a.filter(t => this.notcompare(t.length,b,n)) : JSON.stringify(a.filter(t => this.notcompare(t.length,b,n)))
+            return args.g ? a.filter(t => this.notcompare(t,b,n)) : JSON.stringify(a.filter(t => this.notcompare(t,b,n)))
         }
         rmenuArrayremoveitem(args){
             return args.d ? (args.b ? args.a :JSON.parse(args.a)).toSpliced(Number(args.c), 1) : JSON.stringify((args.b ? args.a :JSON.parse(args.a)).toSpliced(Number(args.c), 1))
@@ -5935,6 +5925,9 @@
         rRoot({ NUM1, NUM2 }) {
             return Math.pow(Cast.toNumber(NUM2), 1 / Cast.toNumber(NUM1))
         }
+        rrandom(args){
+            return Math.random()
+        }
         bnotequal(args){
             return args.a != args.b
         }
@@ -6142,62 +6135,30 @@
             return JSON.parse(args.a).every(i => JSON.stringify(i) == args.b)
         }
         rArrayremovebignumber(args){        
-            let na=[]
-            for(const t of JSON.parse(args.a)){
-                if (t<=args.b)na.push(t)
-            }
-            return JSON.stringify(na)
+            return JSON.stringify(JSON.parse(args.a).filter(t => t<=args.b))
         }
         rArrayremovenotsmallnumber(args){
-            let na=[]
-            for(const t of JSON.parse(args.a)){
-                if (t<args.b)na.push(t)
-            }
-            return JSON.stringify(na)
+            return JSON.stringify(JSON.parse(args.a).filter(t => t<args.b))
         }
         rArrayremovesmallnumber(args){
-            let na=[]
-            for(const t of JSON.parse(args.a)){
-                if (t>=args.b)na.push(t)
-            }
-            return JSON.stringify(na)
+            return JSON.stringify(JSON.parse(args.a).filter(t => t>=args.b))
         }
         rArrayremovenotbignumber(args){
-            let na=[]
-            for(const t of JSON.parse(args.a)){
-                if (t>args.b)na.push(t)
-            }
-            return JSON.stringify(na)
+            return JSON.stringify(JSON.parse(args.a).filter(t => t>args.b))
         }
         rArrayremovenumber(args){
             const b = Number(args.b)
-            let na=[]
-            for(const t of JSON.parse(args.a)){
-                if (t!==b)na.push(t)
-            }
-            return JSON.stringify(na)
+            return JSON.stringify(JSON.parse(args.a).filter(t => t!==b))
         }
         rArrayremovestr(args){
-            let na=[];
             const b = String(args.b)
-            for(const t of JSON.parse(args.a)){
-                if (t!==b)na.push(t)
-            }
-            return JSON.stringify(na)
+            return JSON.stringify(JSON.parse(args.a).filter(t => t!==b))
         }
         rArrayremove(args){
-            let na=[]
-            for(const t of JSON.parse(args.a)){
-                if (t!=args.b)na.push(t)
-            }
-            return JSON.stringify(na)
+            return JSON.stringify(JSON.parse(args.a).filter(t => t!=args.b))
         }
         rArrayremoveJSON(args){
-            let na=[]
-            for(const t of JSON.parse(args.a)){
-                if (JSON.stringify(t)!=args.b)na.push(t)
-            }
-            return JSON.stringify(na)
+            return JSON.stringify(JSON.parse(args.a).filter(t => JSON.stringify(t)!=args.b))
         }
         rArrayremoveshift(args){
             let a = JSON.parse(args.a);
