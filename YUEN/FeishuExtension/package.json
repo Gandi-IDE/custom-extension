@@ -7,17 +7,18 @@
   "license": "MIT",
   "author": "yuen619 <en5991@outlook.com>",
   "scripts": {
-    "dev": "npm run build && webpack serve --mode development",
     "build": "npm run clean && webpack --config webpack.config.js",
     "build:pre": "npm run clean && cross-env DEPLOY_ENV=pre webpack --config webpack.config.js",
     "watch": "npm run clean && webpack --watch --progress",
     "watch:pre": "npm run clean && cross-env DEPLOY_ENV=pre webpack --watch --progress",
+    "lint": "eslint src/**/*.js",
     "clean": "rimraf ./dist"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
     "babel-loader": "^8.2.5",
     "copy-webpack-plugin": "^11.0.0",
+    "eslint": "^7.32.0",
     "css-loader": "^6.7.1",
     "file-loader": "^6.2.0",
     "rimraf": "^5.0.5",
