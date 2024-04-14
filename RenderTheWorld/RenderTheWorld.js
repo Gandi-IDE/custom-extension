@@ -26272,6 +26272,8 @@ void main() {
       "RenderTheWorld.setAmbientLightColor": "\u8BBE\u7F6E\u73AF\u5883\u5149\u989C\u8272: [color] \u5149\u7167\u5F3A\u5EA6\uFF1A[intensity]",
       "RenderTheWorld.setHemisphereLightColor": "\u8BBE\u7F6E\u534A\u7403\u5149\u5929\u7A7A\u989C\u8272: [skyColor] \u5730\u9762\u989C\u8272: [groundColor] \u5149\u7167\u5F3A\u5EA6\uFF1A[intensity]",
       "RenderTheWorld.makePointLight": "\u521B\u5EFA\u6216\u91CD\u7F6E\u70B9\u5149\u6E90: [name] \u989C\u8272: [color] \u5149\u7167\u5F3A\u5EA6: [intensity] \u4F4D\u7F6E: x[x] y[y] z[z] \u8870\u51CF\u91CF[decay] [YN]\u6295\u5C04\u9634\u5F71",
+      "RenderTheWorld.moveLight": "\u5C06\u5149\u6E90: [name] \u79FB\u52A8\u5230: x[x] y[y] z[z]",
+      "RenderTheWorld.getLightPos": "\u83B7\u53D6\u5149\u6E90: [name] \u7684[xyz]\u5750\u6807",
       "RenderTheWorld.deleteLight": "\u5220\u9664\u5149\u6E90: [name]",
       "RenderTheWorld.camera": "\u{1F4F7}\u76F8\u673A",
       "RenderTheWorld.moveCamera": "\u5C06\u76F8\u673A\u79FB\u52A8\u5230x[x]y[y]z[z]",
@@ -26323,6 +26325,8 @@ void main() {
       "RenderTheWorld.setAmbientLightColor": "set AmbientLight's color: [color] intensity: [intensity]",
       "RenderTheWorld.setHemisphereLightColor": "set HemisphereLight's skyColor: [skyColor] groundColor: [groundColor] intensity: [intensity]",
       "RenderTheWorld.makePointLight": "reset or make a PointLight: [name] color: [color] intensity: [intensity] position: x[x] y[y] z[z] decay[decay] [YN]cast shadows",
+      "RenderTheWorld.moveLight": "Light: [name] go to: x[x] y[y] z[z]",
+      "RenderTheWorld.getLightPos": "get Light: [name]'s [xyz] pos",
       "RenderTheWorld.deleteLight": "delete ligth: [name]",
       "RenderTheWorld.camera": "\u{1F4F7}Camera",
       "RenderTheWorld.moveCamera": "camera go to: x[x]y[y]z[z]",
@@ -26869,6 +26873,44 @@ void main() {
             }
           },
           {
+            opcode: "moveLight",
+            blockType: "command",
+            text: this.formatMessage("RenderTheWorld.moveLight"),
+            arguments: {
+              name: {
+                type: "string",
+                defaultValue: "name"
+              },
+              x: {
+                type: "number",
+                defaultValue: 0
+              },
+              y: {
+                type: "number",
+                defaultValue: 0
+              },
+              z: {
+                type: "number",
+                defaultValue: 0
+              }
+            }
+          },
+          {
+            opcode: "getLightPos",
+            blockType: "reporter",
+            text: this.formatMessage("RenderTheWorld.getLightPos"),
+            arguments: {
+              name: {
+                type: "string",
+                defaultValue: "name"
+              },
+              xyz: {
+                type: "string",
+                menu: "xyz"
+              }
+            }
+          },
+          {
             opcode: "deleteLight",
             blockType: "command",
             text: this.formatMessage("RenderTheWorld.deleteLight"),
@@ -27172,6 +27214,7 @@ void main() {
     }
     /**
      * 初始化
+     * @param {object} args
      * @param {number} args.color
      * @param {number} args.sizey
      * @param {number} args.sizex
@@ -27228,6 +27271,7 @@ void main() {
     }
     /**
      * 设置3d渲染器状态
+     * @param {object} args
      * @param {string} args.state
      */
     set3dState({ state }) {
@@ -27256,6 +27300,7 @@ void main() {
     }
     /**
      * 创建或重置长方体
+     * @param {object} args
      * @param {string} args.name
      * @param {number} args.a
      * @param {number} args.b
@@ -27293,7 +27338,6 @@ void main() {
       if (Scratch.Cast.toString(YN2) == "true") {
         this.objects[name].receiveShadow = true;
       }
-      this.scene.add(this.objects[name]);
       this.runtime.startHatsWithParams(
         chen_RenderTheWorld_extensionId + "_objectLoadingCompleted",
         {
@@ -27302,9 +27346,11 @@ void main() {
           }
         }
       );
+      this.scene.add(this.objects[name]);
     }
     /**
      * 创建或重置球体
+     * @param {object} args
      * @param {string} args.name
      * @param {number} args.radius
      * @param {number} args.w
@@ -27342,7 +27388,6 @@ void main() {
       if (Scratch.Cast.toString(YN2) == "true") {
         this.objects[name].receiveShadow = true;
       }
-      this.scene.add(this.objects[name]);
       this.runtime.startHatsWithParams(
         chen_RenderTheWorld_extensionId + "_objectLoadingCompleted",
         {
@@ -27351,9 +27396,11 @@ void main() {
           }
         }
       );
+      this.scene.add(this.objects[name]);
     }
     /**
      * 创建或重置平面
+     * @param {object} args
      * @param {string} args.name
      * @param {number} args.a
      * @param {number} args.b
@@ -27389,7 +27436,6 @@ void main() {
       if (Scratch.Cast.toString(YN2) == "true") {
         this.objects[name].receiveShadow = true;
       }
-      this.scene.add(this.objects[name]);
       this.runtime.startHatsWithParams(
         chen_RenderTheWorld_extensionId + "_objectLoadingCompleted",
         {
@@ -27398,9 +27444,11 @@ void main() {
           }
         }
       );
+      this.scene.add(this.objects[name]);
     }
     /**
      * 导入或重置OBJ模型
+     * @param {object} args
      * @param {string} args.name
      * @param {string} args.objfile
      * @param {string} args.mtlfile
@@ -27442,7 +27490,6 @@ void main() {
               this.objects[name].children[i].receiveShadow = true;
             }
           }
-          this.scene.add(this.objects[name]);
           this.runtime.startHatsWithParams(
             chen_RenderTheWorld_extensionId + "_objectLoadingCompleted",
             {
@@ -27451,11 +27498,14 @@ void main() {
               }
             }
           );
+          this.scene.add(this.objects[name]);
         });
       });
     }
     /**
      * 导入或重置GLTF模型
+     * @param {object} args
+     * @param {object} args
      * @param {string} args.name
      * @param {string} args.gltffile
      * @param {number} args.x
@@ -27494,9 +27544,6 @@ void main() {
             this.objects[name].children[i].receiveShadow = true;
           }
         }
-        this.scene.add(this.objects[name]);
-        console.log(this.objects[name]);
-        console.log(this.scene);
         this.runtime.startHatsWithParams(
           chen_RenderTheWorld_extensionId + "_objectLoadingCompleted",
           {
@@ -27505,10 +27552,14 @@ void main() {
             }
           }
         );
+        this.scene.add(this.objects[name]);
+        console.log(this.objects[name]);
+        console.log(this.scene);
       });
     }
     /**
      * 删除物体
+     * @param {object} args
      * @param {string} args.name
      */
     deleteObject({ name }) {
@@ -27555,6 +27606,7 @@ void main() {
     }
     /**
      * 获取物体坐标
+     * @param {object} args
      * @param {string} args.name
      * @param {string} args.xyz
      */
@@ -27575,6 +27627,7 @@ void main() {
     }
     /**
      * 获取物体旋转角度
+     * @param {object} args
      * @param {string} args.name
      * @param {string} args.xyz
      */
@@ -27595,6 +27648,7 @@ void main() {
     }
     /**
      * 获取物体缩放
+     * @param {object} args
      * @param {string} args.name
      * @param {string} args.xyz
      */
@@ -27616,6 +27670,7 @@ void main() {
     /**
      * 创建或重置点光源
      * [name] 颜色: [color] 光照强度: [intensity] 位置:x[x] y[y] z[z]
+     * @param {object} args
      * @param {string} args.name
      * @param {number} args.color
      * @param {number} args.intensity
@@ -27647,6 +27702,33 @@ void main() {
       }
       this.scene.add(this.lights[name]);
     }
+    moveLight({ name, x, y, z }) {
+      name = Scratch.Cast.toString(name);
+      if (name in this.lights) {
+        this.lights[name].position.set(
+          Scratch.Cast.toNumber(x),
+          Scratch.Cast.toNumber(y),
+          Scratch.Cast.toNumber(z)
+        );
+      } else {
+        return;
+      }
+    }
+    getLightPos({ name, xyz }) {
+      name = Scratch.Cast.toString(name);
+      if (name in this.lights) {
+        switch (Scratch.Cast.toString(xyz)) {
+          case "x":
+            return this.lights[name].position.x;
+          case "y":
+            return this.lights[name].position.y;
+          case "z":
+            return this.lights[name].position.z;
+        }
+      } else {
+        return;
+      }
+    }
     deleteLight({ name }) {
       name = Scratch.Cast.toString(name);
       if (name in this.lights) {
@@ -27655,6 +27737,7 @@ void main() {
     }
     /**
      * 设置环境光颜色
+     * @param {object} args
      * @param {number} args.color
      * @param {number} args.intensity
      */
@@ -27666,6 +27749,7 @@ void main() {
     }
     /**
      * 设置环境光颜色
+     * @param {object} args
      * @param {number} args.skyColor
      * @param {number} args.groundColor
      * @param {number} args.intensity
@@ -27681,6 +27765,7 @@ void main() {
     }
     /**
      * 移动相机
+     * @param {object} args
      * @param {number} args.x
      * @param {number} args.y
      * @param {number} args.z
@@ -27694,6 +27779,7 @@ void main() {
     }
     /**
      * 旋转相机
+     * @param {object} args
      * @param {number} args.x
      * @param {number} args.y
      * @param {number} args.z
@@ -27707,6 +27793,7 @@ void main() {
     }
     /**
      * 让相机面向
+     * @param {object} args
      * @param {number} args.x
      * @param {number} args.y
      * @param {number} args.z
@@ -27720,6 +27807,7 @@ void main() {
     }
     /**
      * 获取相机坐标
+     * @param {object} args
      * @param {string} args.xyz
      */
     getCameraPos({ xyz }) {
@@ -27734,6 +27822,7 @@ void main() {
     }
     /**
      * 获取相机旋转角度
+     * @param {object} args
      * @param {string} args.xyz
      */
     getCameraRotation({ xyz }) {
@@ -27748,6 +27837,7 @@ void main() {
     }
     /**
      * 鼠标控制相机
+     * @param {object} args
      * @param {string} args.yn1
      * @param {string} args.yn2
      * @param {string} args.yn3
@@ -27771,6 +27861,7 @@ void main() {
     }
     /**
      * 启用雾效果并设置雾颜色
+     * @param {object} args
      * @param {number} args.color
      * @param {number} args.near
      * @param {number} args.far
@@ -27790,6 +27881,7 @@ void main() {
     }
     /**
      * 处理颜色
+     * @param {object} args
      * @param {number} args.R
      * @param {number} args.G
      * @param {number} args.B
