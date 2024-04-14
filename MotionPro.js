@@ -70,6 +70,9 @@
                     'MotionPro.turnDegreeAroundAndKeepDistance':'绕x:[x]y:[y]旋转[i][d]度并保持[r]距离',
                     'MotionPro.turnDegreeAround':'绕x:[x]y:[y]旋转[i][d]度',
 
+                    'MotionPro.MoveAlongLine':'以速度[a]沿直线移到x:[x]y:[y]',
+                    'MotionPro.MoveAlongParabola':'以速度[a]沿[b]高抛物线移到x:[x]y:[y]',
+
                     'MotionPro.distance':'距离',
                     'MotionPro.direction':'方向',
                     'MotionPro.rMenuDirectionToCoordinate':'到x:[x]y:[y]的[a]',
@@ -127,6 +130,9 @@
                     'MotionPro.turn':'turn[i]degrees',
                     'MotionPro.turnDegreeAroundAndKeepDistance':'turn[i][d]degrees around x:[x]y:[y]and keep[r]distance',
                     'MotionPro.turnDegreeAround':'turn[i][d]degrees around x:[x]y:[y]',
+
+                    'MotionPro.MoveAlongLine':'move along line to x:[x]y:[y]in speed[a]',
+                    'MotionPro.MoveAlongParabola':'move along[b]-high parabola to x:[x]y:[y]in speed[a]',
 
                     'MotionPro.distance':'distance',
                     'MotionPro.direction':'direction',
@@ -680,6 +686,97 @@
                     },
                     '---',
                     {
+                        opcode: 'cmMoveAlongLine',
+                        blockType: 'command',
+                        text:this.formatMessage('MotionPro.MoveAlongLine'),
+                        arguments:{
+                            a:{
+                                type:'string',
+                                defaultValue:10
+                            },
+                            x:{
+                                type:'string',
+                                defaultValue:23
+                            },
+                            y:{
+                                type:'string',
+                                defaultValue:33
+                            }
+                        },
+                        filter: ['sprite']
+                    },
+                    {
+                        opcode: 'cnMoveAlongLine',
+                        blockType: 'conditional',
+                        text:[this.formatMessage('MotionPro.MoveAlongLine')],
+                        arguments:{
+                            a:{
+                                type:'string',
+                                defaultValue:10
+                            },
+                            x:{
+                                type:'string',
+                                defaultValue:23
+                            },
+                            y:{
+                                type:'string',
+                                defaultValue:33
+                            }
+                        },
+                        branchCount: 1,
+                        filter: ['sprite']
+                    },
+                    {
+                        opcode: 'cmMoveAlongParabola',
+                        blockType: 'command',
+                        text:this.formatMessage('MotionPro.MoveAlongParabola'),
+                        arguments:{
+                            a:{
+                                type:'string',
+                                defaultValue:10
+                            },
+                            b:{
+                                type:'string',
+                                defaultValue:10
+                            },
+                            x:{
+                                type:'string',
+                                defaultValue:23
+                            },
+                            y:{
+                                type:'string',
+                                defaultValue:33
+                            }
+                        },
+                        filter: ['sprite']
+                    },
+                    {
+                        opcode: 'cnMoveAlongParabola',
+                        blockType: 'conditional',
+                        text:[this.formatMessage('MotionPro.MoveAlongParabola')],
+                        arguments:{
+                            a:{
+                                type:'string',
+                                defaultValue:10
+                            },
+                            b:{
+                                type:'string',
+                                defaultValue:10
+                            },
+                            x:{
+                                type:'string',
+                                defaultValue:23
+                            },
+                            y:{
+                                type:'string',
+                                defaultValue:33
+                            }
+                        },
+                        branchCount: 1,
+                        filter: ['sprite']
+                    },
+                    '---',
+                    {
                         opcode: 'rMenuDirectionToCoordinate',
                         blockType: 'reporter',
                         text:this.formatMessage('MotionPro.rMenuDirectionToCoordinate'),
@@ -1169,17 +1266,17 @@
             util.target.setDirection(util.target.direction + args.a*(typeof args.b == 'number' ? args.b==Infinity ? util.target[turn] : args.b : util.target.lookupVariableById(args.b)===undefined ? util.target.lookupVariableByNameAndType(args.b, '').value : util.target.lookupVariableById(args.b).value))
         }
         cmMenuTurnDegreeAround(args,util){
-            var dx = util.target.x - args.x;
-            var dy = util.target.y - args.y;
+            var dx = util.target.x-args.x;
+            var dy = util.target.y-args.y;
             if(args.r!==''){
-                const l = Math.atan(dx / dy) + (dy > 0 ? 0 : 1) * Math.PI;
+                const l = Math.atan(dx / dy) + (dy<0) * Math.PI;
                 dx = Math.sin(l)*args.r;
                 dy = Math.cos(l)*args.r
             }
             const t = args.a * args.d * Math.PI / 180;
             const s = Math.sin(t);
             const c = Math.cos(t);
-            util.target.setXY(dx*c+dy*s+args.x,dy*c-dx*s+args.y)
+            util.target.setXY(dx*c+dy*s+Number(args.x),dy*c-dx*s+Number(args.y))
         }
         moveAB(args,util){
             const a = Math.PI*args.a/180
@@ -1250,38 +1347,157 @@
             util.target.setDirection(util.target.direction - util.target[turn])
         }
         cmTurnRightAroundAndKeepDistance(args,util){
-            const l = Math.atan((util.target.x - args.x) / (util.target.y - args.y)) + (util.target.y > args.y ? 0 : 1) * Math.PI;
+            const l = Math.atan((util.target.x-args.x) / (util.target.y-args.y)) + (args.y > util.target.y) * Math.PI;
             const dx = Math.sin(l)*args.r;
             const dy = Math.cos(l)*args.r;
             const t = args.d * Math.PI / 180;
             const s = Math.sin(t);
             const c = Math.cos(t);
-            util.target.setXY(dx*c+dy*s+args.x,dy*c-dx*s+args.y) 
+            util.target.setXY(dx*c+dy*s+Number(args.x),dy*c-dx*s+Number(args.y)) 
         }
         cmTurnLeftAroundAndKeepDistance(args,util){
-            const l = Math.atan((util.target.x - args.x) / (util.target.y - args.y)) + (util.target.y > args.y ? 0 : 1) * Math.PI;
+            const l = Math.atan((util.target.x-args.x) / (util.target.y-args.y)) + (args.y > util.target.y) * Math.PI;
             const dx = Math.sin(l)*args.r;
             const dy = Math.cos(l)*args.r;
             const t = -args.d * Math.PI / 180;
             const s = Math.sin(t);
             const c = Math.cos(t);
-            util.target.setXY(dx*c+dy*s+args.x,dy*c-dx*s+args.y) 
+            util.target.setXY(dx*c+dy*s+Number(args.x),dy*c-dx*s+Number(args.y))
         }
         cmTurnRightAround(args,util){
-            const dx = util.target.x - args.x;
-            const dy = util.target.y - args.y;
+            const dx = util.target.x-args.x;
+            const dy = util.target.y-args.y;
             const t = args.d * Math.PI / 180;
             const s = Math.sin(t);
             const c = Math.cos(t);
-            util.target.setXY(dx*c+dy*s+args.x,dy*c-dx*s+args.y) 
+            util.target.setXY(dx*c+dy*s+Number(args.x),dy*c-dx*s+Number(args.y))
         }
         cmTurnLeftAround(args,util){
-            const dx = util.target.x - args.x;
-            const dy = util.target.y - args.y;
+            const dx = util.target.x-args.x;
+            const dy = util.target.y-args.y;
             const t = -args.d * Math.PI / 180;
             const s = Math.sin(t);
             const c = Math.cos(t);
-            util.target.setXY(dx*c+dy*s+args.x,dy*c-dx*s+args.y) 
+            util.target.setXY(dx*c+dy*s+Number(args.x),dy*c-dx*s+Number(args.y))
+        }
+
+        cmMoveAlongLine(args,util){
+            const { stackFrame } = util;
+            const s = Number(args.a);
+            if (stackFrame.d === undefined) {
+                const dx = args.x-util.target.x;
+                const dy = args.y-util.target.y;
+                stackFrame.d = Math.sqrt(dx * dx + dy * dy);
+                stackFrame.x = util.target.x;
+                stackFrame.y = util.target.y;
+                stackFrame.ax = args.x;
+                stackFrame.ay = args.y;
+                const l = Math.atan(dx / dy) + (dy<0) * Math.PI;
+                stackFrame.sin = Math.sin(l);
+                stackFrame.cos = Math.cos(l);
+                stackFrame.md = s
+            } 
+            else {
+                stackFrame.md += s
+            }
+            if (s>stackFrame.d-stackFrame.md) {
+                util.target.setXY(stackFrame.ax,stackFrame.ay)
+                return
+            }
+            else{
+                util.target.setXY(stackFrame.x+stackFrame.sin*stackFrame.md,stackFrame.y+stackFrame.cos*stackFrame.md)
+            }
+            util.yield()
+        }
+        cnMoveAlongLine(args,util){
+            const { stackFrame } = util;
+            const s = Number(args.a);
+            if (stackFrame.d === undefined) {
+                const dx = args.x-util.target.x;
+                const dy = args.y-util.target.y;
+                stackFrame.d = Math.sqrt(dx * dx + dy * dy);
+                stackFrame.x = util.target.x;
+                stackFrame.y = util.target.y;
+                stackFrame.ax = args.x;
+                stackFrame.ay = args.y;
+                const l = Math.atan(dx / dy) + (dy<0) * Math.PI;
+                stackFrame.sin = Math.sin(l);
+                stackFrame.cos = Math.cos(l);
+                stackFrame.md = s
+            } 
+            else {
+                stackFrame.md += s
+            }
+            if (s>stackFrame.d-stackFrame.md) {
+                util.target.setXY(stackFrame.ax,stackFrame.ay)
+                return
+            }
+            else{
+                util.target.setXY(stackFrame.x+stackFrame.sin*stackFrame.md,stackFrame.y+stackFrame.cos*stackFrame.md)
+            }
+            util.startBranch(1,true)
+        }
+        cmMoveAlongParabola(args,util){
+            const { stackFrame } = util;
+            const s = Number(args.a);
+            if (stackFrame.d === undefined) {
+                const dx = args.x-util.target.x;
+                const dy = args.y-util.target.y;
+                const dd = dx * dx + dy * dy;
+                stackFrame.x = util.target.x;
+                stackFrame.y = util.target.y;
+                stackFrame.ax = args.x;
+                stackFrame.ay = args.y;
+                stackFrame.d = Math.sqrt(dd);
+                const l = Math.atan(dx / dy) + (dy<0) * Math.PI;
+                stackFrame.sin = Math.sin(l);
+                stackFrame.cos = Math.cos(l);
+                stackFrame.a = -args.b*4/dd;
+                stackFrame.mx = s
+            } 
+            else {
+                stackFrame.mx += s
+            }
+            stackFrame.my = stackFrame.a*stackFrame.mx*(stackFrame.mx-stackFrame.d)
+            if (s>stackFrame.d-stackFrame.mx) {
+                util.target.setXY(stackFrame.ax,stackFrame.ay)
+                return
+            }
+            else{
+                util.target.setXY(stackFrame.x+stackFrame.sin*stackFrame.mx-stackFrame.cos*stackFrame.my,stackFrame.y+stackFrame.cos*stackFrame.mx+stackFrame.sin*stackFrame.my)
+            }
+            util.yield()
+        }
+        cnMoveAlongParabola(args,util){
+            const { stackFrame } = util;
+            const s = Number(args.a);
+            if (stackFrame.d === undefined) {
+                const dx = args.x-util.target.x;
+                const dy = args.y-util.target.y;
+                const dd = dx * dx + dy * dy;
+                stackFrame.x = util.target.x;
+                stackFrame.y = util.target.y;
+                stackFrame.ax = args.x;
+                stackFrame.ay = args.y;
+                stackFrame.d = Math.sqrt(dd);
+                const l = Math.atan(dx / dy) + (dy<0) * Math.PI;
+                stackFrame.sin = Math.sin(l);
+                stackFrame.cos = Math.cos(l);
+                stackFrame.a = -args.b*4/dd;
+                stackFrame.mx = s
+            } 
+            else {
+                stackFrame.mx += s
+            }
+            stackFrame.my = stackFrame.a*stackFrame.mx*(stackFrame.mx-stackFrame.d)
+            if (s>stackFrame.d-stackFrame.mx) {
+                util.target.setXY(stackFrame.ax,stackFrame.ay)
+                return
+            }
+            else{
+                util.target.setXY(stackFrame.x+stackFrame.sin*stackFrame.mx-stackFrame.cos*stackFrame.my,stackFrame.y+stackFrame.cos*stackFrame.mx+stackFrame.sin*stackFrame.my)
+            }
+            util.startBranch(1,true)
         }
         
         rMenuDirectionToCoordinate(args,util){
@@ -1290,26 +1506,26 @@
             if(args.a)return Math.sqrt(dx * dx + dy * dy)
             const dr = dx/dy
             if (isNaN(dr))return;
-            if (dy > 0)return Math.atan(dr) / Math.PI * 180
-            if(dx > 0)return Math.atan(dr) / Math.PI * 180 + 180
-            return Math.atan(dr) / Math.PI * 180 - 180
+            if (dy>=0)return Math.atan(dr) / Math.PI * 180
+            if(dx<0)return Math.atan(dr) / Math.PI * 180 - 180
+            return Math.atan(dr) / Math.PI * 180 + 180
         }
         rDirectionToCoordinate(args,util){
             const dx = args.x - util.target.x;
             const dy = args.y - util.target.y;
             const dr = dx/dy
             if (isNaN(dr))return;
-            if (dy > 0)return Math.atan(dr) / Math.PI * 180
-            if(dx > 0)return Math.atan(dr) / Math.PI * 180 + 180
-            return Math.atan(dr) / Math.PI * 180 - 180
+            if (dy>=0)return Math.atan(dr) / Math.PI * 180
+            if(dx<0)return Math.atan(dr) / Math.PI * 180 - 180
+            return Math.atan(dr) / Math.PI * 180 + 180
         }
         cmDirectionToCoordinate(args,util){
-            const dy = util.target.y - args.y ;
-            util.target.setDirection(Math.atan((util.target.x - args.x) / dy) / Math.PI * 180 + (dy > 0 ? 180 : 0))
+            const dy = args.y-util.target.y ;
+            util.target.setDirection(Math.atan((args.x-util.target.x) / dy) / Math.PI * 180 + (dy<0 ? 180 : 0))
         }
         rDistanceToCoordinate(args,util){
-            const dx = util.target.x - args.x
-            const dy = util.target.y - args.y
+            const dx = args.x-util.target.x;
+            const dy = args.y-util.target.y
             return Math.sqrt(dx * dx + dy * dy)
         }
         cmCoordinateAdd(args,util){
@@ -1352,8 +1568,8 @@
             util.target[dt] = Number(args.a)
         }
         cmSetDirectionToCoordinate(args,util){
-            const dy = util.target.y - args.y ;
-            util.target[dt] = (Math.atan((util.target.x - args.x) / (dy)) / Math.PI * 180 + (dy > 0 ? 180 : 0))
+            const dy = args.y-util.target.y ;
+            util.target[dt] = (Math.atan((args.x-util.target.x) / (dy)) / Math.PI * 180 + (dy<0 ? 180 : 0))
         }
         cmChangeTurn(args,util){
             util.target[turn] += Number(args.a)
@@ -1363,7 +1579,7 @@
         }
 
         rXY(args,util){
-            return (util.target.x) + ',' + (util.target.y);
+            return [util.target.x,util.target.y];
         }
         rSpeed(args,util){
             return util.target[speed]
