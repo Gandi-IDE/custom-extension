@@ -32,8 +32,11 @@ export const INPUT_TYPES = {
   NUMBER: 'n',
   BOOLEAN: 'b',
 };
-
+let init = false;
 export const setExpandableBlocks = (expandableBlocks, runtime, fm) => {
+  // 避免上传作品时二次调用。只调用一次
+  if (init) return;
+  init = true;
   /**
    * 在Gandi编辑器获取scratchBlocks与获取VM的方法
    * 来自凌（FurryR） https://github.com/FurryR/lpp-scratch 的LPP扩展
@@ -230,8 +233,24 @@ export const setExpandableBlocks = (expandableBlocks, runtime, fm) => {
           const key = `${name}${i}`;
           if (!this.getInput(key)) return false;
           const input = targetBlock.inputs[key];
-          if (input && input.shadow) {
-            blocks.deleteBlock(input.shadow);
+          if (input) {
+            // blocks.deleteBlock(input.shadow);
+            if (input.block !== null) {
+              const blockInInput = blocks.getBlock(input.block);
+              blockInInput.topLevel = true;
+              blockInInput.parent = null;
+              blocks.moveBlock({
+                id: blockInInput.id,
+                oldParent: this.id,
+                oldInput: key,
+                newParent: undefined,
+                newInput: undefined,
+                // newCoordinate: e.newCoordinate
+              });
+            }
+            if (input.shadow !== null && input.shadow === input.block) {
+              blocks.deleteBlock(input.shadow);
+            }
           }
           toDel.push(key);
           this.removeInput(key);

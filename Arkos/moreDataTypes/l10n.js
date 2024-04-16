@@ -9,10 +9,11 @@ const l10n = {
   'tag.tempData': ['数据', 'Data'],
   'tag.tools': ['常用工具', 'Common Tools'],
   'tag.tempVar': ['临时数据', 'Temporary Data'],
-  'tag.complexData': [' 复杂数据类型', 'Complex Data'],
-  'tag.list': ['列表操作', 'List Operation'],
-  'tag.Advlist': ['高级列表操作', 'Advanced List Operation'],
-  'tag.object': ['对象操作', 'Object Operation'],
+  'tag.complexData': [' 列表/对象', 'List/Object'],
+  'tag.var': ['变量', 'Variable'],
+  'tag.list': ['列表专用', 'List Dedicated'],
+  // 'tag.Advlist': ['高级列表操作', 'Advanced List Operation'],
+  'tag.object': ['对象专用', 'Object Dedicated'],
   'tag.ScratchList': ['🐱原版列表', '🐱Scratch List'],
   'block.getScratchList': ['🗄️原版列表[NAME]', '🗄️Scratch list[NAME]'],
   'block.setScratchList': [
@@ -23,23 +24,27 @@ const l10n = {
     '该注释用于保存Arkos扩展信息\n你可以拖动/缩放这个注释。不建议直接编辑注释文字。可以删除这个注释来清除扩展配置信息',
     'Configuration for Arkos Extension(Inspired by TurboWarp)\nYou can move, resize, and minimize this comment, but better not edit it by hand. This comment can be deleted to remove the stored settings.',
   ],
-  'block.deleteAllTempData': ['清空所有数据', 'delete all data'],
+  'block.deleteAllTempData': ['删除所有数据', 'delete all data'],
   'block.getCountOfTempData': ['数据量', 'data count'],
-  'block.listAllData': ['已有数据名称', 'names of exsiting data'],
+  'block.listAllData': ['已有数据名称', 'names of existing data'],
   'block.delTempData': [
-    '删除名为[NAME]的数据',
-    'delete data with name[NAME]',
+    '删除数据名[NAME]',
+    'delete data named[NAME]',
   ],
   'block.ifTempDataExist': [
-    '存在名为[NAME]的数据？',
-    'data with name[NAME]exists?',
+    '存在数据名[NAME]？',
+    'data named[NAME]exists?',
   ],
   'defaultValue.dataName': ['数据', 'data'],
-  'defaultValue.listName': ['我的列表', 'my list'],
-  'defaultValue.objName': ['我的对象', 'my object'],
+  'defaultValue.listName': ['列表', 'list'],
+  'defaultValue.objName': ['对象', 'object'],
   'defaultValue.JSON': [
     '"姓名":"小明","年龄":"12","朋友":["埃米","泰拉"]',
     '"name":"Tera","age":"12","friends":["Amy","XiaoMing"]',
+  ],
+  'defaultValue.LIST': [
+    '[1,2,"苹果","香蕉"]',
+    '[1,2,"apple","banana"]',
   ],
   'defaultValue.dataNameOrObj': [
     '名称(或传入对象)',
@@ -54,7 +59,7 @@ const l10n = {
     'Hide Advanced Block',
   ],
 
-  'block.setTempData': ['将数据[NAME][OP][VALUE]', 'data[NAME][OP][VALUE]'],
+  'block.setTempData': ['数据名[NAME][OP][VALUE]', 'data named[NAME][OP][VALUE]'],
   'menu.op.set': ['设为', 'set to'],
   'menu.op.add': ['增加', 'change by'],
   'menu.op.insert': ['前插入', 'insert before'],
@@ -67,11 +72,11 @@ const l10n = {
   'menu.shallow': ['单层', 'shallow copy'],
   'menu.deep': ['完全', 'deep copy'],
 
-  'block.getTempData': ['数据[NAME]', 'data[NAME]'],
+  'block.getTempData': ['数据名[NAME]', 'data named[NAME]'],
   'menu.getOption.objectAllowed': ['值', 'value'],
   'menu.getOption.json': ['JSON', 'JSON'],
   'block.getObjFromJson': [
-    '🗄️将JSON[VALUE]解析为对象',
+    '🗄️[VALUE]解析为对象',
     '🗄️parse JSON [VALUE] to object',
   ],
   'block.newEmptyObjOrArray': [
@@ -95,10 +100,10 @@ const l10n = {
   ],
   'block.typeOf': ['[VALUE]的类型', 'type of [VALUE]'],
   'block.strictlyEqual': ['[A]就是[B]', '[A]is exactly[B]'],
-  'block.JSONOf': ['[VALUE]转换为JSON', 'convert object[VALUE] to JSON'],
+  'block.JSONOf': ['对象[VALUE]转JSON字符串', 'convert object[VALUE] to JSON'],
   'block.createOrClearList': [
-    '将数据(填名称)[NAME]设为空列表',
-    'set data with NAME[NAME] to an empty list',
+    '将数据[NAME]设为空列表',
+    'set data[NAME] to an empty list',
   ],
   'block.addItemToList': [
     '向列表[NAME_OR_OBJ]加入[VALUE]',
@@ -150,10 +155,10 @@ const l10n = {
     '列表[NAME_OR_OBJ]第[IDX]项[OP][VALUE]',
     'item [IDX] of list [NAME_OR_OBJ][OP][VALUE]',
   ],
-  // 'block.insertItemIntoList': [
-  //   '在列表[NAME_OR_OBJ]第[IDX]项前插入[VALUE]',
-  //   'insert [VALUE] at [IDX] of list [NAME_OR_OBJ]',
-  // ],
+  'block.insertItemIntoList': [
+    '在列表[NAME_OR_OBJ]第[IDX]项前插入[VALUE]',
+    'insert [VALUE] at [IDX] of list [NAME_OR_OBJ]',
+  ],
   'menu.value': ['值', 'value'],
   'block.delItemOfList': [
     '删除列表[NAME_OR_OBJ]第[IDX]项',
@@ -188,25 +193,25 @@ const l10n = {
     'item # of [VALUE] in list [NAME_OR_OBJ]',
   ],
   'block.createOrClearObject': [
-    '将数据(填名称)[NAME]设为空对象',
-    'set data with NAME[NAME]to an empty object',
+    '将数据[NAME]设为空对象',
+    'set data[NAME]to an empty object',
   ],
   'block.setPropOfObject': [
-    '对象[NAME_OR_OBJ]的[PROP][OP][VALUE]',
-    '[PROP] of object [NAME_OR_OBJ][OP][VALUE]',
+    '[NAME_OR_OBJ]的[PROP][OP][VALUE]',
+    '[PROP] of [NAME_OR_OBJ][OP][VALUE]',
   ],
   'block.setPropOfObjectAndReturn': [
-    '🗄️对象[OBJ]的[PROP][OP][VALUE]',
-    '🗄️[PROP] of object [OBJ][OP][VALUE]',
+    '🗄️[OBJ]的[PROP][OP][VALUE]',
+    '🗄️[PROP] of [OBJ][OP][VALUE]',
   ],
   'defaultValue.prop': ['属性', 'property'],
   'block.delPropOfObject': [
-    '删除对象[NAME_OR_OBJ]中名为[PROP]的内容',
-    'delete [PROP] of object [NAME_OR_OBJ]',
+    '删除[NAME_OR_OBJ]的[PROP]',
+    'delete [PROP] of [NAME_OR_OBJ]',
   ],
   'block.getPropOfObject': [
-    '对象[NAME_OR_OBJ]的[PROP]',
-    '[PROP] of object [NAME_OR_OBJ]',
+    '[NAME_OR_OBJ]的[PROP]',
+    '[PROP] of [NAME_OR_OBJ]',
   ],
   'block.getPropOfObjectByIdx': [
     '对象[NAME_OR_OBJ]第[IDX]项的[OPTION]',
@@ -232,12 +237,12 @@ const l10n = {
   'menu.values': ['属性值', 'values'],
   'menu.entries': [' [键, 值] 对', 'entries'],
   'block.sizeOfObject': [
-    '对象[NAME_OR_OBJ]中内容数',
-    'size of object [NAME_OR_OBJ]',
+    '[NAME_OR_OBJ]的内容数',
+    'size of [NAME_OR_OBJ]',
   ],
   'block.ifObjectPropExist': [
-    '对象[NAME_OR_OBJ]包含[PROP]？',
-    'object [NAME_OR_OBJ] has [PROP]?',
+    '[NAME_OR_OBJ]包含[PROP]？',
+    '[NAME_OR_OBJ] has [PROP]?',
   ],
 
   // tooltip
@@ -256,6 +261,10 @@ const l10n = {
         + '- string;\n'
         + '- boolean(true/false);\n'
         + '- undefined(nothing enter);',
+  ],
+  'tooltip.insertItemIntoList': [
+    '在列表的第 n 项前插入一个值。',
+    'Insert a value before the nth item of the list.',
   ],
   'tooltip.checkType': [
     '判断输入内容是否是列表/对象/列表或对象',
@@ -287,7 +296,7 @@ const l10n = {
   ],
   'tooltip.listAllData': [
     '列出所有已存在临时数据的名称，用逗号分隔。',
-    'List all the names of existing data, separated by commas.',
+    'List names of all existing data, separated by commas.',
   ],
   'tooltip.delTempData': [
     '删除指定名称的临时数据。',
@@ -305,16 +314,18 @@ const l10n = {
     '获取对应名称的数据',
     'Get data with the specified name.',
   ],
+  // \n- 以"🗄️"开头的积木暗示了这个积木会返回一个复杂对象（列表/对象）\n- 列表/对象和字符串不一样，是一个特殊的类型。当一个列表/对象在返回值中显示，通常\n会以“<SafeObject>”开头作为视觉上的提示。但并不意味者它实际以这串字符开头。\n
+  // \n- Blocks starting with "🗄️" indicate that they will return a complex object (i.e. list/object).\n- Lists/objects are special types distinct from strings. When a list/object is displayed in a return value, it is often\n visually indicated with a prefix like "<SafeObject>". However, this does not mean that they actually starts with those characters.\n
   'tooltip.getNewList': [
-    '创建一个列表。\n- 点击“+/-”号，增减列表内容。\n- 以"🗄️"开头的积木暗示了这个积木会返回一个复杂对象（列表/对象）\n- 列表/对象和字符串不一样，是一个特殊的类型。当一个列表/对象在返回值中显示，通常\n会以“<SafeObject>”开头作为视觉上的提示。但并不意味者它实际以这串字符开头。\n*鸣谢：感谢Nights/凌提供的可扩展积木！',
-    'Create a list.\n- Click the "+/-" button to add / remove list items.\n- Blocks starting with "🗄️" indicate that they will return a complex object (i.e. list/object).\n- Lists/objects are special types distinct from strings. When a list/object is displayed in a return value, it is often\n visually indicated with a prefix like "<SafeObject>". However, this does not mean that they actually starts with those characters.\n*Credits: Thanks Nights/FurryR for the extendible blocks!',
+    '创建一个列表。\n- 点击“+/-”号，增减列表内容。\n*鸣谢：感谢Nights/凌提供的可扩展积木！',
+    'Create a list.\n- Click the "+/-" button to add / remove list items.\n*Credits: Thanks Nights/FurryR for the extendible blocks!',
   ],
   'tooltip.createListWithLength': [
     '创建一个含有 n 个指定内容的列表\n- 可以用复杂对象作为项目创建列表（传入的对象会被完全复制）；\n- 通过嵌套使用可以创建多维列表，例如 4 x 3 的二维列表。',
     'Create a list with n specified items.\n- You can use list/object as items to create the list (the passed objects will be fully duplicated);\n- By nesting the use of this block, you can create N-D lists, such as a 4 x 3 two-dimensional list.',
   ],
   'tooltip.addItemToListAndReturn': [
-    '将内容加入列表，并返回该列表',
+    '将内容加入列表，并返回该列表本身',
     'Add item to list and return the list itself.',
   ],
   'tooltip.createOrClearList': [
@@ -360,7 +371,7 @@ const l10n = {
         + '- Merge and keep only the items in list 1 that are not in list 2.',
   ],
   'tooltip.slice': [
-    '获取列表A~B项（含A、B自己）\n- 可以使用负索引（例如-1是最后一项，-2是倒数第二项，以此类推）',
+    '获取列表A~B项（含A、B自己）\n- 可以使用负索引',
     'Get items from index A to index B (including A and B themselves)\n- Negative indices supported (e.g. -1 is the last item, -2 is the second-to-last item, etc.)',
   ],
   'tooltip.split': [
@@ -402,24 +413,24 @@ const l10n = {
     'Set the data with a specific name to an empty object.\nNote: You can also pass a object to empty it. However, passing a variable containing a non-object value will have no effect.',
   ],
   'tooltip.setPropOfObject': [
-    '设置对象的某个属性。\n- 当属性不存在时会自动创建;\n- 属性不能重复，同名属性会被后来设置的值覆盖。',
-    'Set/change a property of the object.\n- The property will be automatically created if it does not exist;\n- Properties with the same name will be overwritten.',
+    '修改列表/对象的内容。\n- 对于对象，填数据的名称。如果设置的数据不存在会自动创建；\n- 对于列表，使用从1开始的数字索引。支持负数索引（例如-1是最后一项，-2是倒数第二项，以此类推）',
+    'Set/change a property of the object.\n- For object, set property by name;\n- For list, use numerical indices starting from 1. Negative indices supported (e.g. -1 for the last item, -2 for the second-to-last item, etc.)',
   ],
   'tooltip.delPropOfObject': [
-    '删除对象中指定名称的的属性。',
-    'Remove the property with the specified name from the object.',
+    '删除列表中第 n 项，或删除对象中指定名称的内容。',
+    'Remove the nth item from the list, or property with the specified name from the object.',
   ],
   'tooltip.getPropOfObject': [
-    '获取对象中指定名称的属性。',
-    'Get property of the object with the specified name.',
+    '获取列表第 n 项，或者对象中指定名称的内容。\n- 对于对象，填数据的名称。\n- 对于列表，使用从1开始的数字索引。支持负数索引（例如-1是最后一项，-2是倒数第二项，以此类推）',
+    'Get item from a list or property from an object.\n- For object, get property by name;\n- For list, use numerical indices starting from 1. Negative indices supported (e.g. -1 for the last item, -2 for the second-to-last item, etc.)',
   ],
   'tooltip.sizeOfObject': [
-    '获取对象中属性的数量。',
-    'Get the number of properties in the object.',
+    '获取列表/对象中内容的数量。',
+    'Get the number of items/properties in the list/object.',
   ],
   'tooltip.ifObjectPropExist': [
-    '判断对象是否有某个名称的属性',
-    'Determine whether the object has a property with a specific name.',
+    '判断列表是否包含某个内容，或对象是否有某个名称的属性。',
+    'Determine whether the list has a certain thing, or if the object has a specific named property.',
   ],
   'tooltip.getPropOfObjectByIdx': [
     '获取对象的第n个属性的名称/值',
