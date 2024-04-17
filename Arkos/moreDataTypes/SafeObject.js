@@ -1,5 +1,5 @@
-const LIST_PREFIX = '<list> ';
-const OBJ_PREFIX = '<object> ';
+const LIST_PREFIX = '(list) ';
+const OBJ_PREFIX = '(object) ';
 const OLD_PREFIX = '<SafeObject> ';
 
 /**
