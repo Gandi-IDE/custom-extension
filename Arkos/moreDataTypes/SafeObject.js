@@ -1,5 +1,5 @@
-const LIST_PREFIX = '(list)  ';
-const OBJ_PREFIX = '(object)  ';
+const LIST_PREFIX = '<list> ';
+const OBJ_PREFIX = '<object> ';
 const OLD_PREFIX = '<SafeObject> ';
 
 /**
@@ -151,10 +151,10 @@ class SafeObject extends String {
      */
   static tryParseSafeObjectString(string) {
     let match;
-    if (string.startsWith(`${OBJ_PREFIX}{`)) {
+    if (string.startsWith(`${OBJ_PREFIX}`)) {
       match = [0, string.slice(OBJ_PREFIX.length)];
-    } else if (string.startsWith(`${LIST_PREFIX}[`)) {
-      match = [0, string.slice(OBJ_PREFIX.length)];
+    } else if (string.startsWith(`${LIST_PREFIX}`)) {
+      match = [0, string.slice(LIST_PREFIX.length)];
     } else if (string.startsWith(OLD_PREFIX)) {
       match = [0, string.slice(OLD_PREFIX.length)];
     }
