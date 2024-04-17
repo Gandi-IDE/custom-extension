@@ -1,3 +1,7 @@
+const LIST_PREFIX = '(list)  ';
+const OBJ_PREFIX = '(object)  ';
+const OLD_PREFIX = '<SafeObject> ';
+
 /**
  * 更适合Scratch体质的Object
  * - 继承String，避免object保存在作品中时出错（Inspired by Nights）
@@ -134,10 +138,10 @@ class SafeObject extends String {
      * @returns {string} 字符串表示
      */
   toString() {
-    // return `${
-    //   Array.isArray(this.value) ? LIST_NAME : OBJ_NAME
-    // }${SafeObject.stringify(this.value)}`;
-    return `<SafeObject> ${SafeObject.stringify(this.value)}`;
+    return `${
+      Array.isArray(this.value) ? LIST_PREFIX : OBJ_PREFIX
+    }${SafeObject.stringify(this.value)}`;
+    // return `<SafeObject> ${SafeObject.stringify(this.value)}`;
   }
 
   /**
@@ -146,9 +150,17 @@ class SafeObject extends String {
      * @returns {string | SafeObject} 转换结果（如果失败，返回原内容）
      */
   static tryParseSafeObjectString(string) {
+    let match;
+    if (string.startsWith(`${OBJ_PREFIX}{`)) {
+      match = [0, string.slice(OBJ_PREFIX.length)];
+    } else if (string.startsWith(`${LIST_PREFIX}[`)) {
+      match = [0, string.slice(OBJ_PREFIX.length)];
+    } else if (string.startsWith(OLD_PREFIX)) {
+      match = [0, string.slice(OLD_PREFIX.length)];
+    }
     // 使用正则表达式匹配 <SafeObject> {...}
-    let match = string.match(/<SafeObject>\s*(.+)$/);
-    if (!match) match = string.match(/<SafeObject\s+(.*?)>$/); // 匹配 <SafeObject {...}>
+    // let match = string.match(/<SafeObject>\s*(.+)$/);
+    // if (!match) match = string.match(/<SafeObject\s+(.*?)>$/); // 匹配 <SafeObject {...}>
 
     if (match) {
       // 提取匹配到的 JSON 字符串

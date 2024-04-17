@@ -128,7 +128,7 @@ class moreDataTypes {
 
   getInfo() {
     const blocks = [
-      // `---${this.fm('tag.tools')}`, // 工具
+      `---${this.fm('tag.tools')}`, // 工具
       // 获取某内容类型
       {
         opcode: 'typeOf',
@@ -261,7 +261,8 @@ class moreDataTypes {
           },
         },
       },
-      `---${this.fm('tag.var')}`, // 工具
+      '---',
+      // `---${this.fm('tag.var')}`, // 工具
       // 设置数据
       {
         opcode: 'setTempData',
@@ -299,19 +300,30 @@ class moreDataTypes {
           // },
         },
       },
-      `---${this.fm('tag.complexData')}`, // 返回一个空列表
+      `---${this.fm('tag.list')}`, // 列表
+      // 返回一个空列表
       {
         opcode: 'getNewList',
         blockType: Scratch.BlockType.REPORTER,
         disableMonitor: true,
         text: this.fm('block.getNewList'),
       },
-      // 返回一个空对象
+      // 返回一个N个NUM的列表
       {
-        opcode: 'getNewObject',
-        disableMonitor: true,
+        opcode: 'createListWithLength',
         blockType: Scratch.BlockType.REPORTER,
-        text: this.fm('block.getNewObject'),
+        disableMonitor: true,
+        text: this.fm('block.createListWithLength'),
+        arguments: {
+          N: {
+            type: Scratch.ArgumentType.NUMBER,
+            defaultValue: 10,
+          },
+          VALUE: {
+            type: Scratch.ArgumentType.STRING,
+            defaultValue: '0',
+          },
+        },
       },
       // 由JSON返回对象
       {
@@ -322,7 +334,7 @@ class moreDataTypes {
         arguments: {
           VALUE: {
             type: Scratch.ArgumentType.STRING,
-            defaultValue: `{${this.fm('defaultValue.JSON')}}`,
+            defaultValue: this.fm('defaultValue.LIST'),
           },
         },
       },
@@ -346,119 +358,7 @@ class moreDataTypes {
             + '</value>'
         + '</block>',
       },
-      {
-        opcode: 'setTempData',
-        blockType: Scratch.BlockType.XML,
-        xml: `<block type="${extensionId}_setTempData">`
-            + '<value name="NAME">'
-                + '<shadow type="text">'
-                    + `<field name="TEXT">${this.__dataNameOrObjMsg('data')}</field>`
-                + '</shadow>'
-            + '</value>'
-            + '<value name="OP">'
-                + `<shadow type="${extensionId}_DATA_SET_OPTION"></shadow>`
-            + '</value>'
-            + '<value name="VALUE">'
-                + '<shadow type="text">'
-                    + '<field name="TEXT">100</field>'
-                + '</shadow>'
-                + `<block type="${extensionId}_getNewObject"></block>`
-            + '</value>'
-        + '</block>',
-      },
       '---',
-      // 设置对象
-      {
-        opcode: 'setPropOfObject',
-        blockType: Scratch.BlockType.COMMAND,
-        text: this.fm('block.setPropOfObject'),
-        // isDynamic: true,
-        arguments: {
-          NAME_OR_OBJ: {
-            type: Scratch.ArgumentType.STRING,
-            defaultValue: this.__dataNameOrObjMsg('obj'),
-          },
-          PROP: {
-            type: Scratch.ArgumentType.STRING,
-            defaultValue: this.fm('defaultValue.prop'),
-          },
-          OP: {
-            type: Scratch.ArgumentType.STRING,
-            menu: 'ITEM_SET_OPTION',
-          },
-          VALUE: {
-            type: Scratch.ArgumentType.STRING,
-            defaultValue: this.fm('defaultValue.thing'),
-          },
-        },
-      },
-      // 删除对象名为xx的内容
-      {
-        opcode: 'delPropOfObject',
-        blockType: Scratch.BlockType.COMMAND,
-        text: this.fm('block.delPropOfObject'),
-        // isDynamic: true,
-        arguments: {
-          NAME_OR_OBJ: {
-            type: Scratch.ArgumentType.STRING,
-            defaultValue: this.__dataNameOrObjMsg('obj'),
-          },
-          PROP: {
-            type: Scratch.ArgumentType.STRING,
-            defaultValue: this.fm('defaultValue.prop'),
-          },
-        },
-      },
-      // '---',
-      // 获取对象名为XX的内容
-      {
-        opcode: 'getPropOfObject',
-        blockType: Scratch.BlockType.REPORTER,
-        disableMonitor: true,
-        text: this.fm('block.getPropOfObject'),
-        arguments: {
-          NAME_OR_OBJ: {
-            type: Scratch.ArgumentType.STRING,
-            defaultValue: this.__dataNameOrObjMsg('obj'),
-          },
-          PROP: {
-            type: Scratch.ArgumentType.STRING,
-            defaultValue: this.fm('defaultValue.prop'),
-          },
-        },
-      },
-      // 对象长度
-      {
-        opcode: 'sizeOfObject',
-        blockType: Scratch.BlockType.REPORTER,
-        disableMonitor: true,
-        text: this.fm('block.sizeOfObject'),
-        // isDynamic: true,
-        arguments: {
-          NAME_OR_OBJ: {
-            type: Scratch.ArgumentType.STRING,
-            defaultValue: this.__dataNameOrObjMsg('obj'),
-          },
-        },
-      },
-      // 对象属性是否存在
-      {
-        opcode: 'ifObjectPropExist',
-        blockType: Scratch.BlockType.BOOLEAN,
-        text: this.fm('block.ifObjectPropExist'),
-        // isDynamic: true,
-        arguments: {
-          NAME_OR_OBJ: {
-            type: Scratch.ArgumentType.STRING,
-            defaultValue: this.__dataNameOrObjMsg('obj'),
-          },
-          PROP: {
-            type: Scratch.ArgumentType.STRING,
-            defaultValue: this.fm('defaultValue.prop'),
-          },
-        },
-      },
-      `---${this.fm('tag.list')}`, // 列表
       // 向列表加入
       {
         opcode: 'addItemToList2',
@@ -499,6 +399,96 @@ class moreDataTypes {
           },
         },
       },
+      // // 设置列表
+      // {
+      //   opcode: 'setPropOfObject',
+      //   blockType: Scratch.BlockType.COMMAND,
+      //   text: this.fm('block.setPropOfObject'),
+      //   // isDynamic: true,
+      //   arguments: {
+      //     NAME_OR_OBJ: {
+      //       type: Scratch.ArgumentType.STRING,
+      //       defaultValue: this.__dataNameOrObjMsg('list'),
+      //     },
+      //     PROP: {
+      //       type: Scratch.ArgumentType.STRING,
+      //       defaultValue: '1',
+      //     },
+      //     OP: {
+      //       type: Scratch.ArgumentType.STRING,
+      //       menu: 'ITEM_SET_OPTION',
+      //     },
+      //     VALUE: {
+      //       type: Scratch.ArgumentType.STRING,
+      //       defaultValue: this.fm('defaultValue.thing'),
+      //     },
+      //   },
+      // },
+      // // 删除对象名为xx的内容
+      // {
+      //   opcode: 'delPropOfObject',
+      //   blockType: Scratch.BlockType.COMMAND,
+      //   text: this.fm('block.delPropOfObject'),
+      //   // isDynamic: true,
+      //   arguments: {
+      //     NAME_OR_OBJ: {
+      //       type: Scratch.ArgumentType.STRING,
+      //       defaultValue: this.__dataNameOrObjMsg('list'),
+      //     },
+      //     PROP: {
+      //       type: Scratch.ArgumentType.STRING,
+      //       defaultValue: '1',
+      //     },
+      //   },
+      // },
+      // // 获取对象名为XX的内容
+      // {
+      //   opcode: 'getPropOfObject',
+      //   blockType: Scratch.BlockType.REPORTER,
+      //   disableMonitor: true,
+      //   text: this.fm('block.getPropOfObject'),
+      //   arguments: {
+      //     NAME_OR_OBJ: {
+      //       type: Scratch.ArgumentType.STRING,
+      //       defaultValue: this.__dataNameOrObjMsg('list'),
+      //     },
+      //     PROP: {
+      //       type: Scratch.ArgumentType.STRING,
+      //       defaultValue: '1',
+      //     },
+      //   },
+      // },
+      // // 对象长度
+      // {
+      //   opcode: 'sizeOfObject',
+      //   blockType: Scratch.BlockType.REPORTER,
+      //   disableMonitor: true,
+      //   text: this.fm('block.sizeOfObject'),
+      //   // isDynamic: true,
+      //   arguments: {
+      //     NAME_OR_OBJ: {
+      //       type: Scratch.ArgumentType.STRING,
+      //       defaultValue: this.__dataNameOrObjMsg('list'),
+      //     },
+      //   },
+      // },
+      // // 对象属性是否存在
+      // {
+      //   opcode: 'ifObjectPropExist',
+      //   blockType: Scratch.BlockType.BOOLEAN,
+      //   text: this.fm('block.ifObjectPropExist'),
+      //   // isDynamic: true,
+      //   arguments: {
+      //     NAME_OR_OBJ: {
+      //       type: Scratch.ArgumentType.STRING,
+      //       defaultValue: this.__dataNameOrObjMsg('obj'),
+      //     },
+      //     PROP: {
+      //       type: Scratch.ArgumentType.STRING,
+      //       defaultValue: this.fm('defaultValue.thing'),
+      //     },
+      //   },
+      // },
       // 获取列表第一个xx的索引
       {
         opcode: 'getListItemIdxByItem',
@@ -517,29 +507,23 @@ class moreDataTypes {
           },
         },
       },
-      '---',
-      // 返回一个N个NUM的列表
       {
-        opcode: 'createListWithLength',
-        blockType: Scratch.BlockType.REPORTER,
-        disableMonitor: true,
-        text: this.fm('block.createListWithLength'),
-        arguments: {
-          N: {
-            type: Scratch.ArgumentType.NUMBER,
-            defaultValue: 10,
-          },
-          VALUE: {
-            type: Scratch.ArgumentType.STRING,
-            defaultValue: '0',
-          },
+        blockType: Scratch.BlockType.LABEL,
+        text: this.fm('tip'),
+      },
+      {
+        blockType: Scratch.BlockType.BUTTON,
+        text: this.showMoreListBlocks ? this.fm('button.hideMoreList') : this.fm('button.showMoreList'),
+        onClick: () => {
+          this.showMoreListBlocks = !this.showMoreListBlocks;
+          this.runtime.emit('TOOLBOX_EXTENSIONS_NEED_UPDATE');
         },
       },
       // 向列表加入(返回值版)
       {
         opcode: 'addItemToListAndReturn',
         blockType: Scratch.BlockType.REPORTER,
-        // hideFromPalette: true,
+        hideFromPalette: !this.showMoreListBlocks,
         text: this.fm('block.addItemToListAndReturn'),
         arguments: {
           OBJ: {
@@ -556,6 +540,7 @@ class moreDataTypes {
           },
         },
       },
+      /* ----------------------------弃用的列表积木↓------------------------------------*/
       // 创建空列表
       {
         opcode: 'createOrClearList',
@@ -682,10 +667,12 @@ class moreDataTypes {
           },
         },
       },
+      /* ----------------------------弃用的列表积木↑------------------------------------*/
       // 合并列表
       {
         opcode: 'mergeList',
         blockType: Scratch.BlockType.REPORTER,
+        hideFromPalette: !this.showMoreListBlocks,
         text: this.fm('block.mergeList'),
         arguments: {
           OP: {
@@ -706,6 +693,7 @@ class moreDataTypes {
       {
         opcode: 'slice',
         blockType: Scratch.BlockType.REPORTER,
+        hideFromPalette: !this.showMoreListBlocks,
         text: this.fm('block.slice'),
         arguments: {
           NAME_OR_OBJ: {
@@ -726,6 +714,7 @@ class moreDataTypes {
       {
         opcode: 'split',
         blockType: Scratch.BlockType.REPORTER,
+        hideFromPalette: !this.showMoreListBlocks,
         text: this.fm('block.split'),
         arguments: {
           CH: {
@@ -742,6 +731,7 @@ class moreDataTypes {
       {
         opcode: 'join',
         blockType: Scratch.BlockType.REPORTER,
+        hideFromPalette: !this.showMoreListBlocks,
         text: this.fm('block.join'),
         arguments: {
           CH: {
@@ -758,6 +748,7 @@ class moreDataTypes {
       {
         opcode: 'opList',
         blockType: Scratch.BlockType.COMMAND,
+        hideFromPalette: !this.showMoreListBlocks,
         text: this.fm('block.opList'),
         arguments: {
           NAME_OR_OBJ: {
@@ -774,6 +765,7 @@ class moreDataTypes {
       {
         opcode: 'sortListByProp',
         blockType: Scratch.BlockType.COMMAND,
+        hideFromPalette: !this.showMoreListBlocks,
         text: this.fm('block.sortListByProp'),
         arguments: {
           NAME_OR_OBJ: {
@@ -790,13 +782,198 @@ class moreDataTypes {
           },
         },
       },
-      `---${this.fm('tag.object')}`, // 对象
+      // ...(this.showMoreListBlocks ? [`---${this.fm('tag.ScratchList')}`] : []), // 原版列表操作
+      // 获取原版列表
+      {
+        opcode: 'getScratchList',
+        blockType: Scratch.BlockType.REPORTER,
+        disableMonitor: true,
+        hideFromPalette: !this.showMoreListBlocks,
+        text: this.fm('block.getScratchList'),
+        arguments: {
+          NAME: {
+            type: Scratch.ArgumentType.STRING,
+            menu: 'LIST_MENU',
+          },
+        },
+      },
+      // 设置原版列表
+      {
+        opcode: 'setScratchList',
+        blockType: Scratch.BlockType.COMMAND,
+        text: this.fm('block.setScratchList'),
+        hideFromPalette: !this.showMoreListBlocks,
+        arguments: {
+          NAME: {
+            type: Scratch.ArgumentType.STRING,
+            menu: 'LIST_MENU',
+          },
+          OBJ: {
+            type: Scratch.ArgumentType.STRING,
+            defaultValue: this.__dataNameOrObjMsg('list'),
+          },
+        },
+      },
+      `---${this.fm('tag.object')}`,
+      // 返回一个空对象
+      {
+        opcode: 'getNewObject',
+        disableMonitor: true,
+        blockType: Scratch.BlockType.REPORTER,
+        text: this.fm('block.getNewObject'),
+      },
+      // 由JSON返回对象
+      {
+        opcode: 'getObjFromJson',
+        blockType: Scratch.BlockType.REPORTER,
+        text: this.fm('block.getObjFromJson'),
+        // hideFromPalette: !this.enableNesting,
+        arguments: {
+          VALUE: {
+            type: Scratch.ArgumentType.STRING,
+            defaultValue: `{${this.fm('defaultValue.JSON')}}`,
+          },
+        },
+      },
+      {
+        opcode: 'setTempData',
+        blockType: Scratch.BlockType.XML,
+        xml: `<block type="${extensionId}_setTempData">`
+            + '<value name="NAME">'
+                + '<shadow type="text">'
+                    + `<field name="TEXT">${this.__dataNameOrObjMsg('data')}</field>`
+                + '</shadow>'
+            + '</value>'
+            + '<value name="OP">'
+                + `<shadow type="${extensionId}_DATA_SET_OPTION"></shadow>`
+            + '</value>'
+            + '<value name="VALUE">'
+                + '<shadow type="text">'
+                    + '<field name="TEXT">100</field>'
+                + '</shadow>'
+                + `<block type="${extensionId}_getNewObject"></block>`
+            + '</value>'
+        + '</block>',
+      },
+      '---',
+      // 设置对象
+      {
+        opcode: 'setPropOfObject',
+        blockType: Scratch.BlockType.COMMAND,
+        text: this.fm('block.setPropOfObject'),
+        // isDynamic: true,
+        arguments: {
+          NAME_OR_OBJ: {
+            type: Scratch.ArgumentType.STRING,
+            defaultValue: this.__dataNameOrObjMsg('obj'),
+          },
+          PROP: {
+            type: Scratch.ArgumentType.STRING,
+            defaultValue: this.fm('defaultValue.prop'),
+          },
+          OP: {
+            type: Scratch.ArgumentType.STRING,
+            menu: 'ITEM_SET_OPTION',
+          },
+          VALUE: {
+            type: Scratch.ArgumentType.STRING,
+            defaultValue: this.fm('defaultValue.thing'),
+          },
+        },
+      },
+      // 删除对象名为xx的内容
+      {
+        opcode: 'delPropOfObject',
+        blockType: Scratch.BlockType.COMMAND,
+        text: this.fm('block.delPropOfObject'),
+        // isDynamic: true,
+        arguments: {
+          NAME_OR_OBJ: {
+            type: Scratch.ArgumentType.STRING,
+            defaultValue: this.__dataNameOrObjMsg('obj'),
+          },
+          PROP: {
+            type: Scratch.ArgumentType.STRING,
+            defaultValue: this.fm('defaultValue.prop'),
+          },
+        },
+      },
+      // '---',
+      // 获取对象名为XX的内容
+      {
+        opcode: 'getPropOfObject',
+        blockType: Scratch.BlockType.REPORTER,
+        disableMonitor: true,
+        text: this.fm('block.getPropOfObject'),
+        arguments: {
+          NAME_OR_OBJ: {
+            type: Scratch.ArgumentType.STRING,
+            defaultValue: this.__dataNameOrObjMsg('obj'),
+          },
+          PROP: {
+            type: Scratch.ArgumentType.STRING,
+            defaultValue: this.fm('defaultValue.prop'),
+          },
+        },
+      },
+      // 对象长度
+      {
+        opcode: 'sizeOfObject',
+        blockType: Scratch.BlockType.REPORTER,
+        disableMonitor: true,
+        text: this.fm('block.sizeOfObject'),
+        // isDynamic: true,
+        arguments: {
+          NAME_OR_OBJ: {
+            type: Scratch.ArgumentType.STRING,
+            defaultValue: this.__dataNameOrObjMsg('obj'),
+          },
+        },
+      },
+      // 对象属性是否存在
+      {
+        opcode: 'ifObjectPropExist',
+        blockType: Scratch.BlockType.BOOLEAN,
+        text: this.fm('block.ifObjectPropExist'),
+        // isDynamic: true,
+        arguments: {
+          NAME_OR_OBJ: {
+            type: Scratch.ArgumentType.STRING,
+            defaultValue: this.__dataNameOrObjMsg('obj'),
+          },
+          PROP: {
+            type: Scratch.ArgumentType.STRING,
+            defaultValue: this.fm('defaultValue.prop'),
+          },
+        },
+      },
+      // 创建空对象
+      {
+        opcode: 'createOrClearObject',
+        blockType: Scratch.BlockType.COMMAND,
+        hideFromPalette: true, // 积木隐藏（这个积木的用法容易让人误会）
+        text: this.fm('block.createOrClearObject'),
+        arguments: {
+          NAME: {
+            type: Scratch.ArgumentType.STRING,
+            defaultValue: this.__dataNameOrObjMsg('data'),
+          },
+        },
+      },
+      {
+        blockType: Scratch.BlockType.BUTTON,
+        text: this.showMoreObjBlocks ? this.fm('button.hideMoreObj') : this.fm('button.showMoreObj'),
+        onClick: () => {
+          this.showMoreObjBlocks = !this.showMoreObjBlocks;
+          this.runtime.emit('TOOLBOX_EXTENSIONS_NEED_UPDATE');
+        },
+      },
       // 设置对象(并返回)
       {
         opcode: 'setPropOfObjectAndReturn',
         blockType: Scratch.BlockType.REPORTER,
         text: this.fm('block.setPropOfObjectAndReturn'),
-        // hideFromPalette: true,
+        hideFromPalette: !this.showMoreObjBlocks,
         arguments: {
           OBJ: {
             type: Scratch.ArgumentType.STRING,
@@ -816,25 +993,13 @@ class moreDataTypes {
           },
         },
       },
-      // 创建空对象
-      {
-        opcode: 'createOrClearObject',
-        blockType: Scratch.BlockType.COMMAND,
-        hideFromPalette: true, // 积木隐藏（这个积木的用法容易让人误会）
-        text: this.fm('block.createOrClearObject'),
-        arguments: {
-          NAME: {
-            type: Scratch.ArgumentType.STRING,
-            defaultValue: this.__dataNameOrObjMsg('data'),
-          },
-        },
-      },
       // 获取对象第n项的xx
       {
         opcode: 'getPropOfObjectByIdx',
         blockType: Scratch.BlockType.REPORTER,
         disableMonitor: true,
         text: this.fm('block.getPropOfObjectByIdx'),
+        hideFromPalette: !this.showMoreObjBlocks,
         // isDynamic: true,
         arguments: {
           NAME_OR_OBJ: {
@@ -855,6 +1020,7 @@ class moreDataTypes {
       {
         opcode: 'getAllProperties',
         blockType: Scratch.BlockType.REPORTER,
+        hideFromPalette: !this.showMoreObjBlocks,
         disableMonitor: true,
         text: this.fm('block.getAllProperties'),
         arguments: {
@@ -868,12 +1034,12 @@ class moreDataTypes {
           },
         },
       },
-      '---',
       // 合并对象
       {
         opcode: 'mergeObject',
         blockType: Scratch.BlockType.COMMAND,
         text: this.fm('block.mergeObject'),
+        hideFromPalette: !this.showMoreObjBlocks,
         arguments: {
           NAME_OR_OBJ: {
             type: Scratch.ArgumentType.STRING,
@@ -890,6 +1056,7 @@ class moreDataTypes {
         opcode: 'setProtoOfObj',
         blockType: Scratch.BlockType.COMMAND,
         text: this.fm('block.setProtoOfObj'),
+        hideFromPalette: !this.showMoreObjBlocks,
         arguments: {
           NAME_OR_OBJ: {
             type: Scratch.ArgumentType.STRING,
@@ -898,36 +1065,6 @@ class moreDataTypes {
           OBJ: {
             type: Scratch.ArgumentType.STRING,
             defaultValue: `${this.__dataNameOrObjMsg('obj')}2`,
-          },
-        },
-      },
-      `---${this.fm('tag.ScratchList')}`, // 原版列表操作
-      // 获取原版列表
-      {
-        opcode: 'getScratchList',
-        blockType: Scratch.BlockType.REPORTER,
-        disableMonitor: true,
-        text: this.fm('block.getScratchList'),
-        arguments: {
-          NAME: {
-            type: Scratch.ArgumentType.STRING,
-            menu: 'LIST_MENU',
-          },
-        },
-      },
-      // 设置原版列表
-      {
-        opcode: 'setScratchList',
-        blockType: Scratch.BlockType.COMMAND,
-        text: this.fm('block.setScratchList'),
-        arguments: {
-          NAME: {
-            type: Scratch.ArgumentType.STRING,
-            menu: 'LIST_MENU',
-          },
-          OBJ: {
-            type: Scratch.ArgumentType.STRING,
-            defaultValue: this.__dataNameOrObjMsg('list'),
           },
         },
       },
@@ -2088,11 +2225,12 @@ class moreDataTypes {
    * @param {*} OBJ 对象
    */
   mergeObject({ NAME_OR_OBJ, OBJ }) {
-    const obj2 = this.__getPureObjByNameOrObj(OBJ);
+    const obj2 = this.__getObjByNameOrObj(OBJ);
     if (!obj2) return;
-    const obj = this.__getPureObjByNameOrObj(NAME_OR_OBJ);
+    const obj = this.__getObjByNameOrObj(NAME_OR_OBJ);
     if (!obj) return;
-    Object.assign(obj, obj2);
+    if (Array.isArray) obj.push(...obj2);
+    else Object.assign(obj, obj2);
   }
 
   /**
