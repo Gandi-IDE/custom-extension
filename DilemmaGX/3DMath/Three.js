@@ -90,6 +90,8 @@ class Three {
 
                 'Three.block.newV3': '向量3D x:[x] y:[y] z:[z]',
                 'Three.block.newV3fromValue': '从[value]创建3D向量',
+                'Three.block.newV3fromDirection': '向量3D 长度[len]方向[yaw][pitch]',
+                'Three.block.newV2fromDirection': '向量2D 长度[len]方向[dir]',
                 'Three.block.getAxisOfV3': '向量[vector]的[axis]',
                 'Three.block.addV3': 'V3: [a] + [b]',
                 'Three.block.subV3': 'V3: [a] - [b]',
@@ -174,6 +176,8 @@ class Three {
                 'Three.block.cam3DsetRotationOnAxis': 'set camera rotation[rotator]to[a]and[cam]',
                 'Three.block.newV3': 'vector 3 x:[x] y:[y] z:[z]',
                 'Three.block.newV3fromValue': 'vector 3 from [value]',
+                'Three.block.newV3fromDirection': 'vector 3: length:[len]yaw:[yaw]pitch:[pitch]',
+                'Three.block.newV2fromDirection': 'vector 2: length:[len]direction:[dir]',
                 'Three.block.getAxisOfV3': 'get the [axis] axis of [vector]',
                 'Three.block.addV3': 'V3: [a] + [b]',
                 'Three.block.subV3': 'V3: [a] - [b]',
@@ -263,6 +267,17 @@ class Three {
                     x: { type: 'number', defaultValue: 0 },
                     y: { type: 'number', defaultValue: 0 },
                     z: { type: 'number', defaultValue: 0 },
+                },
+            },
+            {
+                disableMonitor: true,
+                opcode: 'newV3fromDirection',
+                blockType: 'reporter',
+                text: this.formatMessage('Three.block.newV3fromDirection'),
+                arguments: {
+                    yaw: { type: 'number', defaultValue: 45 },
+                    pitch: { type: 'number', defaultValue: 45 },
+                    len: { type: 'number', defaultValue: 10 },
                 },
             },
             {
@@ -436,6 +451,16 @@ class Three {
                 arguments: {
                     x: { type: 'number', defaultValue: 0 },
                     y: { type: 'number', defaultValue: 0 },
+                },
+            },
+            {
+                disableMonitor: true,
+                opcode: 'newV2fromDirection',
+                blockType: 'reporter',
+                text: this.formatMessage('Three.block.newV2fromDirection'),
+                arguments: {
+                    dir: { type: 'number', defaultValue: 45 },
+                    len: { type: 'number', defaultValue: 10 },
                 },
             },
             {
@@ -987,6 +1012,7 @@ class Three {
         let arr = null;
         let castToNumber = false; // 是否将array项转为number
         if (param instanceof SafeVector) arr = param.value;
+        else if (this.runtime.SafeObject && param instanceof this.runtime.SafeObject) arr = param.value;
         else if (Array.isArray(param)) arr = param;
         else if (typeof param === 'string' && param[0] === '[') {
             // 尝试解析为数组
@@ -1070,6 +1096,17 @@ class Three {
             return new SafeVector([v, v, v]);
         }
         return this.toSafeVector(value, 3);
+    }
+
+    newV3fromDirection({ yaw, pitch, len }) {
+        const yawRad = Cast.toNumber(yaw) * d2r;
+        const pitRad = Cast.toNumber(pitch) * d2r;
+        const mag = Cast.toNumber(len);
+        const y = mag * Math.sin(pitRad);
+        const d = mag * Math.cos(pitRad);
+        const x = d * Math.sin(yawRad);
+        const z = d * Math.cos(yawRad);
+        return new SafeVector([x, y, z]);
     }
 
     addV3(args) {
@@ -1262,6 +1299,12 @@ class Three {
             return new SafeVector([v, v]);
         }
         return this.toSafeVector(value, 2);
+    }
+
+    newV2fromDirection({ dir, len }) {
+        const direct = Cast.toNumber(dir) * d2r;
+        const mag = Cast.toNumber(len);
+        return new SafeVector([mag * Math.sin(direct), mag * Math.cos(direct)]);
     }
 
     getAxisOfV2(args) {
