@@ -60,8 +60,8 @@ class str_mani {
         'qxsckstrmani.endsWith': '[STR] 以 [STR2] 结尾？',//hide
         'qxsckstrmani.typeWith': '[STR] 以 [STR2] [TYPE] ？',
 
-        'qxsckstrmani.splittojson': '用 [STR2] 分割 [STR]，并返回json',
-        'qxsckstrmani.split': '用 [STR2] 分割 [STR]，并返回',
+        'qxsckstrmani.splittojson': '(旧)用 [STR2] 分割 [STR]',
+        'qxsckstrmani.split': '用 [STR2] 分割 [STR]',
         'qxsckstrmani.splitid': '用 [STR2] 分割 [STR]，并返回第 [ID] 项',
         'qxsckstrmani.splitlength': '用 [STR2] 分割 [STR] 后的项数',
 
@@ -136,8 +136,8 @@ class str_mani {
         'qxsckstrmani.endsWith': 'is [STR] end with [STR2] ?',//hide
         'qxsckstrmani.typeWith': 'is [STR] [TYPE] with [STR2] ?',
 
-        'qxsckstrmani.splittojson': 'split [STR] by [STR2] and return as JSON',
-        'qxsckstrmani.split': 'split [STR] by [STR2] and return',
+        'qxsckstrmani.splittojson': '(old)split [STR] by [STR2]',
+        'qxsckstrmani.split': 'split [STR] by [STR2]',
         'qxsckstrmani.splitid': 'split [STR] by [STR2] and return item [ID]',
         'qxsckstrmani.splitlength': 'split [STR] by [STR2] and return it length',
 
@@ -715,7 +715,7 @@ class str_mani {
         {
           opcode: 'splittojson',
           blockType: 'reporter',
-          text: this.formatMessage('qxsckstrmani.splittojson'),
+          text: this.formatMessage('qxsckstrmani.splittojson'),//已经忘记当时为什么会隐藏这个积木并写个新的反而有问题的，也改不回来了
           hideFromPalette: true,
           arguments: {
             STR: {
@@ -1258,7 +1258,7 @@ class str_mani {
   }
   split(args) {
     let str_=String(args.STR).split(String(args.STR2));
-    return '['+str_.map(value=>'"'+String(value)+'"').join(',')+']';
+    return JSON.stringify(str_);
   }
   splitid(args) {
     let str_=String(args.STR).split(String(args.STR2));
