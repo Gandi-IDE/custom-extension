@@ -142,6 +142,11 @@ class SafeObject extends String {
       Array.isArray(this.value) ? LIST_PREFIX : OBJ_PREFIX
     }${SafeObject.stringify(this.value)}`;
     // return `<SafeObject> ${SafeObject.stringify(this.value)}`;
+    // return SafeObject.stringify(this.value);
+  }
+
+  valueOf() {
+    return this.toString();
   }
 
   /**
@@ -158,6 +163,11 @@ class SafeObject extends String {
     } else if (string.startsWith(OLD_PREFIX)) {
       match = [0, string.slice(OLD_PREFIX.length)];
     }
+    // if (string[0] === '[' || string[0] === '{') {
+    //   match = [0, string];
+    // } else if (string.startsWith(OLD_PREFIX)) {
+    //   match = [0, string.slice(OLD_PREFIX.length)];
+    // }
     // 使用正则表达式匹配 <SafeObject> {...}
     // let match = string.match(/<SafeObject>\s*(.+)$/);
     // if (!match) match = string.match(/<SafeObject\s+(.*?)>$/); // 匹配 <SafeObject {...}>

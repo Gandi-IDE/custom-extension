@@ -11,8 +11,8 @@ const cover = 'https://m.ccw.site/user_projects_assets/40d3aa39d5101bd5df854cf3a
 const { Scratch } = window;
 const { Cast } = Scratch;
 
-const extensionId = 'moreDataTypes';
-// const extensionId = 'testttt';
+// const extensionId = 'moreDataTypes';
+const extensionId = 'testttt';
 
 /** 保存扩展配置的舞台注释的Id */
 const EXT_CONFIG_COMMENT_ID = '_ArkosExtensionConfig_';
@@ -39,6 +39,39 @@ const hackFun = (runtime) => {
       return origFun.call(this, blockInfo, categoryInfo);
     };
   }
+
+  // const visualShow = (value) => {
+  //   let v = value;
+  //   if (value instanceof SafeObject) {
+  //     // 仅修改提示内容，不影响实际值
+  //     if (Array.isArray(value.value)) v = '(list)  ';
+  //     else v = '(object)  ';
+  //     v += SafeObject.stringify(value);
+  //   }
+  //   return v;
+  // };
+
+  // const origVR = runtime.visualReport;
+  // runtime.visualReport = function (blockId, value) {
+  //   return origVR.call(this, blockId, visualShow(value));
+  // };
+
+  // const origRUM = runtime.requestUpdateMonitor;
+  // runtime.requestUpdateMonitor = function (monitor) {
+  //   console.log(monitor);
+  //   const entries = monitor?._root?.entries;
+  //   if (entries) {
+  //     const list = entries.find((l) => l[0] === 'value');
+  //     if (list) {
+  //       if (list[1] instanceof SafeObject) {
+  //         list[1] = visualShow(list[1]);
+  //       } else if (Array.isArray(list[1])) {
+  //         list[1] = list[1].map((v) => visualShow(v));
+  //       }
+  //     }
+  //   }
+  //   return origRUM.call(this, monitor);
+  // };
 };
 
 class moreDataTypes {
