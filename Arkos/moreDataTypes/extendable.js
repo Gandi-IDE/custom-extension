@@ -201,7 +201,9 @@ export const setExpandableBlocks = (expandableBlocks, runtime, fm) => {
 
       updateShape() {
         const getDefaultValue = (name, i) => {
+          if (this.opcode === 'ndList') return Math.max(3, 4 - i);
           let values = fm(this.values).split(',');
+          if (this.opcode === 'getProp') return values[0];
           if (this.opcode === 'obj') values = values.map((v) => v.split('='));
           const len = values.length;
           if (i > len - 1) {
@@ -214,9 +216,15 @@ export const setExpandableBlocks = (expandableBlocks, runtime, fm) => {
           return values[i];
         };
 
+        const moveInputAfter = (from, to) => {
+          this.moveInputBefore(from, to);
+          this.moveInputBefore(to, from);
+        };
+
         const addInput = (name, i, prefix = ', ') => {
-          if (!this.getInput(`${name}${i}`)) {
-            const input = this.appendValueInput(`${name}${i}`);
+          const key = `${name}${i}`;
+          if (!this.getInput(key)) {
+            const input = this.appendValueInput(key);
 
             if (this.argType === INPUT_TYPES.BOOLEAN) {
               input.setCheck('Boolean');
@@ -226,6 +234,14 @@ export const setExpandableBlocks = (expandableBlocks, runtime, fm) => {
             // s = string, b = boolean, n = number
             // 这个attachShadow_是来自scratch 自定义函数 的积木
             input.appendField(prefix);
+
+            if (this.opcode === 'getProp') {
+              const previousArg = i === 0 ? 'PROP' : `${name}${i - 1}`;
+              moveInputAfter(key, previousArg);
+            } else if (this.opcode === 'ndList') {
+              const previousArg = i === 0 ? 'N' : `${name}${i - 1}`;
+              moveInputAfter(key, previousArg);
+            }
           }
         };
         const toDel = [];
@@ -265,21 +281,33 @@ export const setExpandableBlocks = (expandableBlocks, runtime, fm) => {
         // 先记录现在的 mutation
         const oldExtraState = Blockly.Xml.domToText(this.mutationToDom(this));
         // 创建新的积木
-        this.inputList[0].fieldRow[2].setText(
-          fm(this.itemCount_ === 0 ? this.emptyText : this.text),
-        );
+        if (this.text) {
+          this.inputList[0].fieldRow[1].setText(
+            fm(this.itemCount_ === 0 ? this.emptyText : this.text),
+          );
+        }
         let i;
-        for (i = 0; i < this.itemCount_; i++) {
-          addInput('ARG', i, i > 0 ? ',' : '');
+        for (i = 0; i < this.itemCount_; i += 1) {
+          if (this.opcode === 'getProp' || this.opcode === 'ndList') {
+            addInput('ARG', i, fm(this.joinCh));
+          } else addInput('ARG', i, i > 0 ? ',' : '');
           if (this.opcode === 'obj') addInput('VALUE', i, '=');
         }
         // 将 + - 按钮移动到最右边
+        // if (this.opcode === 'getProp') {
+        //   // 找到最后一个参数位置
+        //   const key = this.itemCount_ === 0 ? 'PROP' : `ARG${this.itemCount_ - 1}`;
+        //   moveInputAfter('PLUS', key);
+        //   // this.moveInputBefore('PLUS', 'PROP');
+        // } else {
+        //   this.moveInputBefore('PLUS', null);
+        // }
         this.moveInputBefore('PLUS', null);
         if (this.itemCount_ === 0) {
           this.removeInput('MINUS');
         } else {
           if (!this.getInput('MINUS')) this.appendDummyInput('MINUS').appendField(new MinusButton());
-          this.moveInputBefore('MINUS', null);
+          moveInputAfter('MINUS', 'PLUS');
         }
         if (runtime._editingTarget) {
           // 移除 input 并记录
@@ -344,7 +372,13 @@ export const setExpandableBlocks = (expandableBlocks, runtime, fm) => {
         this.appendDummyInput('PLUS').appendField(this.plusButton);
         // this.appendDummyInput('MINUS')
         //   .appendField(this.minusButton);
-        [this.argType, this.opcode, this.emptyText, this.text, this.values] = info;
+        [this.argType, this.opcode, this.emptyText, this.text, this.values, this.joinCh] = info;
+        if (!this.joinCh) this.joinCh = ',';
+
+        // if (this.opcode === 'getProp') {
+        //   this.moveInputBefore('PLUS', 'PROP');
+        //   this.moveInputBefore('PROP', 'PLUS');
+        // }
       },
     };
   };

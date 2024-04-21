@@ -99,6 +99,9 @@ const l10n = {
   'block.createList': ['🗄️列表: ', '🗄️list: '],
   'block.createObj': ['🗄️对象: ', '🗄️object: '],
   'block.defaultList': ['苹果,香蕉,东西', 'apple,banana,thing'],
+  'block.defaultProps': ['子属性', 'sub-prop'],
+  'block.de': ['', ''],
+  'block.x': ['x', 'x'],
   'block.defaultObj': [
     '名称=小明,年龄=12,得分=100,朋友=泰拉,属性=东西',
     'name=Tera,age=12,score=100,property=thing',
@@ -209,14 +212,14 @@ const l10n = {
     '🗄️[OBJ]的[PROP][OP][VALUE]',
     '🗄️[PROP] of [OBJ][OP][VALUE]',
   ],
-  'defaultValue.prop': ['属性', 'property'],
+  'defaultValue.prop': ['属性', 'prop'],
   'block.delPropOfObject': [
     '删除[NAME_OR_OBJ]的[PROP]',
     'delete [PROP] of [NAME_OR_OBJ]',
   ],
   'block.getPropOfObject': [
     '[NAME_OR_OBJ]的[PROP]',
-    '[PROP] of [NAME_OR_OBJ]',
+    '[PROP]of[NAME_OR_OBJ]',
   ],
   'block.getPropOfObjectByIdx': [
     '对象[NAME_OR_OBJ]第[IDX]项的[OPTION]',
@@ -418,16 +421,16 @@ const l10n = {
     'Set the data with a specific name to an empty object.\nNote: You can also pass a object to empty it. However, passing a variable containing a non-object value will have no effect.',
   ],
   'tooltip.setPropOfObject': [
-    '修改列表/对象的内容。\n- 对于对象，填数据的名称。如果设置的数据不存在会自动创建；\n- 对于列表，使用从1开始的数字索引。支持负数索引（例如-1是最后一项，-2是倒数第二项，以此类推）',
-    'Set/change a property of the object.\n- For object, set property by name;\n- For list, use numerical indices starting from 1. Negative indices supported (e.g. -1 for the last item, -2 for the second-to-last item, etc.)',
+    '修改列表第 n 项，或修改对象名为...的内容。\n- 对于对象，填数据的名称。\n- 对于列表，填数字索引（从1开始，支持负数索引。例如-2是倒数第二项）\n- 点“+/-”访问嵌套的子对象的属性',
+    'Set/change a property of a list/object.\n- For object, set property by name;\n- For list, use numerical indices starting from 1. Negative indices supported (e.g. -1 for the last item, -2 for the second-to-last item, etc.)\nClick the "+/-" button to set prop of the nested sub-object.',
   ],
   'tooltip.delPropOfObject': [
     '删除列表中第 n 项，或删除对象中指定名称的内容。',
     'Remove the nth item from the list, or property with the specified name from the object.',
   ],
   'tooltip.getPropOfObject': [
-    '获取列表第 n 项，或者对象中指定名称的内容。\n- 对于对象，填数据的名称。\n- 对于列表，使用从1开始的数字索引。支持负数索引（例如-1是最后一项，-2是倒数第二项，以此类推）',
-    'Get item from a list or property from an object.\n- For object, get property by name;\n- For list, use numerical indices starting from 1. Negative indices supported (e.g. -1 for the last item, -2 for the second-to-last item, etc.)',
+    '获取列表第 n 项，或者对象中指定名称的内容。\n- 对于对象，填数据的名称。\n- 对于列表，使用从1开始的数字索引。支持负数索引（例如-2是倒数第二项）\n- 点“+/-”访问嵌套的子对象的属性',
+    'Get item from a list or property from an object.\n- For object, get property by name;\n- For list, use numerical indices starting from 1. Negative indices supported (e.g. -1 for the last item etc.)\nClick the "+/-" button to get prop of the nested sub-object.',
   ],
   'tooltip.sizeOfObject': [
     '获取列表/对象中内容的数量。',

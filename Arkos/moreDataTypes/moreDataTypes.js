@@ -11,8 +11,8 @@ const cover = 'https://m.ccw.site/user_projects_assets/40d3aa39d5101bd5df854cf3a
 const { Scratch } = window;
 const { Cast } = Scratch;
 
-// const extensionId = 'moreDataTypes';
-const extensionId = 'testttt';
+const extensionId = 'moreDataTypes';
+// const extensionId = 'test';
 
 /** 保存扩展配置的舞台注释的Id */
 const EXT_CONFIG_COMMENT_ID = '_ArkosExtensionConfig_';
@@ -117,6 +117,30 @@ class moreDataTypes {
           'block.getNewObject',
           'block.createObj',
           'block.defaultObj',
+        ],
+        [`${extensionId}_getPropOfObject`]: [
+          INPUT_TYPES.STRING,
+          'getProp',
+          null,
+          null,
+          'block.defaultProps',
+          'block.de',
+        ],
+        [`${extensionId}_setPropOfObject`]: [
+          INPUT_TYPES.STRING,
+          'getProp',
+          null,
+          null,
+          'block.defaultProps',
+          'block.de',
+        ],
+        [`${extensionId}_createListWithLength`]: [
+          INPUT_TYPES.STRING,
+          'ndList',
+          null,
+          null,
+          null,
+          'block.x',
         ],
       },
       this.runtime,
@@ -350,7 +374,7 @@ class moreDataTypes {
         arguments: {
           N: {
             type: Scratch.ArgumentType.NUMBER,
-            defaultValue: 10,
+            defaultValue: 5,
           },
           VALUE: {
             type: Scratch.ArgumentType.STRING,
@@ -546,7 +570,9 @@ class moreDataTypes {
       },
       {
         blockType: Scratch.BlockType.BUTTON,
-        text: this.showMoreListBlocks ? this.fm('button.hideMoreList') : this.fm('button.showMoreList'),
+        text: this.showMoreListBlocks
+          ? this.fm('button.hideMoreList')
+          : this.fm('button.showMoreList'),
         onClick: () => {
           this.showMoreListBlocks = !this.showMoreListBlocks;
           this.runtime.emit('TOOLBOX_EXTENSIONS_NEED_UPDATE');
@@ -914,12 +940,12 @@ class moreDataTypes {
           },
         },
       },
-      // 删除对象名为xx的内容
+      // 获取对象名为XX的内容
       {
-        opcode: 'delPropOfObject',
-        blockType: Scratch.BlockType.COMMAND,
-        text: this.fm('block.delPropOfObject'),
-        // isDynamic: true,
+        opcode: 'getPropOfObject',
+        blockType: Scratch.BlockType.REPORTER,
+        disableMonitor: true,
+        text: this.fm('block.getPropOfObject'),
         arguments: {
           NAME_OR_OBJ: {
             type: Scratch.ArgumentType.STRING,
@@ -931,13 +957,12 @@ class moreDataTypes {
           },
         },
       },
-      // '---',
-      // 获取对象名为XX的内容
+      // 删除对象名为xx的内容
       {
-        opcode: 'getPropOfObject',
-        blockType: Scratch.BlockType.REPORTER,
-        disableMonitor: true,
-        text: this.fm('block.getPropOfObject'),
+        opcode: 'delPropOfObject',
+        blockType: Scratch.BlockType.COMMAND,
+        text: this.fm('block.delPropOfObject'),
+        // isDynamic: true,
         arguments: {
           NAME_OR_OBJ: {
             type: Scratch.ArgumentType.STRING,
@@ -995,7 +1020,9 @@ class moreDataTypes {
       },
       {
         blockType: Scratch.BlockType.BUTTON,
-        text: this.showMoreObjBlocks ? this.fm('button.hideMoreObj') : this.fm('button.showMoreObj'),
+        text: this.showMoreObjBlocks
+          ? this.fm('button.hideMoreObj')
+          : this.fm('button.showMoreObj'),
         onClick: () => {
           this.showMoreObjBlocks = !this.showMoreObjBlocks;
           this.runtime.emit('TOOLBOX_EXTENSIONS_NEED_UPDATE');
@@ -1106,6 +1133,21 @@ class moreDataTypes {
       if (typeof block === 'object') {
         block.tooltip = this.fm(`tooltip.${block.opcode}`);
       }
+      // 添加小icon
+      if (
+        [
+          Scratch.BlockType.COMMAND,
+          Scratch.BlockType.REPORTER,
+          Scratch.BlockType.BOOLEAN,
+        ].includes(block.blockType)
+      ) {
+        block.text = `[IMG]${block.text}`;
+        if (!block.arguments) block.arguments = {};
+        block.arguments.IMG = {
+          type: Scratch.ArgumentType.IMAGE,
+          dataURI: icon,
+        };
+      }
     });
     return {
       id: extensionId, // 拓展id
@@ -1113,7 +1155,7 @@ class moreDataTypes {
       docsURI: this.fm('docsURI'),
       color1: '#DA4D16',
       menuIconURI: icon,
-      blockIconURI: icon,
+      // blockIconURI: icon,
       blocks,
       menus: {
         TYPE_MENU: [
@@ -1411,18 +1453,18 @@ class moreDataTypes {
       //   value: 'parse',
       // },
     ];
-      // if (this.enableNesting) {
-      //   menu.push(
-      //     {
-      //       text: this.fm('menu.op.shallowCopy'), // 浅拷贝
-      //       value: 'shallowCopy',
-      //     },
-      //     {
-      //       text: this.fm('menu.op.deepCopy'), // 深拷贝
-      //       value: 'deepCopy',
-      //     },
-      //   );
-      // }
+    // if (this.enableNesting) {
+    //   menu.push(
+    //     {
+    //       text: this.fm('menu.op.shallowCopy'), // 浅拷贝
+    //       value: 'shallowCopy',
+    //     },
+    //     {
+    //       text: this.fm('menu.op.deepCopy'), // 深拷贝
+    //       value: 'deepCopy',
+    //     },
+    //   );
+    // }
     return menu;
   }
 
@@ -1463,22 +1505,22 @@ class moreDataTypes {
         value: 'add',
       },
     ];
-      // if (this.enableNesting) {
-      //   menu.push(
-      //     {
-      //       text: this.fm('menu.op.parse_warning'), // 解析JSON
-      //       value: 'parse',
-      //     },
-      //     {
-      //       text: this.fm('menu.op.shallowCopy'), // 浅拷贝
-      //       value: 'shallowCopy',
-      //     },
-      //     {
-      //       text: this.fm('menu.op.deepCopy'), // 深拷贝
-      //       value: 'deepCopy',
-      //     },
-      //   );
-      // }
+    // if (this.enableNesting) {
+    //   menu.push(
+    //     {
+    //       text: this.fm('menu.op.parse_warning'), // 解析JSON
+    //       value: 'parse',
+    //     },
+    //     {
+    //       text: this.fm('menu.op.shallowCopy'), // 浅拷贝
+    //       value: 'shallowCopy',
+    //     },
+    //     {
+    //       text: this.fm('menu.op.deepCopy'), // 深拷贝
+    //       value: 'deepCopy',
+    //     },
+    //   );
+    // }
     return menu;
   }
 
@@ -1775,15 +1817,28 @@ class moreDataTypes {
    * @param {*} VALUE 内容
    * @return {SafeObject}
    */
-  createListWithLength({ N, VALUE }) {
-    const n = Cast.toNumber(N);
+  createListWithLength(args) {
+    const arg = [];
+    arg.push(Cast.toNumber(args.N));
+    for (let i = 0; ;i += 1) {
+      const a = args[`ARG${i}`];
+      if (a === undefined) break;
+      arg.push(a);
+    }
     let res;
+
+    // 最内层
     // 对于复杂类型，深拷贝复制
-    if (typeof VALUE === 'object' && VALUE !== null) {
-      res = Array.from({ length: n }, () => SafeObject.deepCopy(VALUE));
+    if (typeof args.VALUE === 'object' && args.VALUE !== null) {
+      res = Array.from({ length: arg.pop() }, () => SafeObject.deepCopy(args.VALUE));
     } else {
       // 普通类型
-      res = Array.from({ length: n }, () => VALUE);
+      res = Array.from({ length: arg.pop() }, () => args.VALUE);
+    }
+
+    while (arg.length) {
+      const arr = res;
+      res = Array.from({ length: arg.pop() }, () => SafeObject.deepCopy(arr));
     }
     return new SafeObject(res);
   }
@@ -1959,7 +2014,8 @@ class moreDataTypes {
       }
     }
     obj = SafeObject.getActualObject(obj);
-    if (typeof obj === 'object' && obj !== null) { // && !Array.isArray(obj)) {
+    if (typeof obj === 'object' && obj !== null) {
+      // && !Array.isArray(obj)) {
       return obj;
     }
     return false;
@@ -2090,9 +2146,7 @@ class moreDataTypes {
    * @param {number} IDX 第x项
    * @param {*} VALUE
    */
-  insertItemIntoList({
-    NAME_OR_OBJ, IDX, VALUE,
-  }) {
+  insertItemIntoList({ NAME_OR_OBJ, IDX, VALUE }) {
     const list = this.__getListByNameOrObj(NAME_OR_OBJ);
     if (!list) return;
     const idx = this._getActualIdx(IDX, list);
@@ -2211,15 +2265,15 @@ class moreDataTypes {
         case 'merge':
           res = list1.concat(list2);
           break;
-          // 并集
+        // 并集
         case 'union':
           res = [...new Set(list1.concat(list2))];
           break;
-          // 交集
+        // 交集
         case 'intersec':
           res = list1.filter((element) => list2.includes(element));
           break;
-          // 差集(list1有list2没有)
+        // 差集(list1有list2没有)
         case 'diff':
           res = list1.filter((element) => !list2.includes(element));
           break;
@@ -2361,25 +2415,33 @@ class moreDataTypes {
    * @param {string} OP 操作：set/ add
    * @param {*} VALUE
    */
-  setPropOfObject({
-    NAME_OR_OBJ, PROP, OP, VALUE,
-  }) {
-    const obj = this.__getObjByNameOrObj(NAME_OR_OBJ);
+  setPropOfObject(args) {
+    const obj1 = this.__getObjByNameOrObj(args.NAME_OR_OBJ);
+    const [obj, key] = this.__getDeepestObjAndProp(obj1, args, args.PROP);
     if (!obj) return;
-    if (Array.isArray(obj)) {
-      const idx = this._getActualIdx(PROP, obj);
-      if (idx < 0 || idx > obj.length) {
-        // 非数字的属性，直接记录
-        if (isNaN(PROP)) {
-          if (PROP === 'length') this.__setDataByOption(obj, PROP, OP, Math.max(0, Cast.toNumber(VALUE)));
-          this.__setDataByOption(obj, PROP, OP, VALUE);
-        }
-        return;
-      }
-      this.__setDataByOption(obj, idx, OP, VALUE);
-    } else {
-      this.__setDataByOption(obj, PROP, OP, VALUE);
-    }
+    this.__setDataByOption(obj, key, args.OP, args.VALUE);
+
+    // if (Array.isArray(obj)) {
+    //   const idx = this._getActualIdx(PROP, obj);
+    //   if (idx < 0 || idx > obj.length) {
+    //     // 非数字的属性，直接记录
+    //     if (isNaN(PROP)) {
+    //       if (PROP === 'length') {
+    //         this.__setDataByOption(
+    //           obj,
+    //           PROP,
+    //           OP,
+    //           Math.max(0, Cast.toNumber(VALUE)),
+    //         );
+    //       }
+    //       this.__setDataByOption(obj, PROP, OP, VALUE);
+    //     }
+    //     return;
+    //   }
+    //   this.__setDataByOption(obj, idx, OP, VALUE);
+    // } else {
+    //   this.__setDataByOption(obj, PROP, OP, VALUE);
+    // }
   }
 
   /**
@@ -2442,25 +2504,43 @@ class moreDataTypes {
   }
 
   /**
+   * 根据args读取多层对象
+   * @param {*} obj 对象
+   * @param {*} args 例如{ARG0:... ARG1:...}
+   * @param {*} firstArg 第一个参数key
+   * @returns {[object, key]} [最深层对象, 属性键]
+   */
+  __getDeepestObjAndProp(obj, args, firstArg) {
+    let parent = obj;
+    let key = firstArg;
+    for (let i = 0; ;i += 1) {
+      // 不是对象，失败，返回
+      if (typeof parent !== 'object' || parent === null) return [null, ''];
+      if (Array.isArray(parent) && !isNaN(key)) {
+        key = this._getActualIdx(key, parent);
+        if (key < 0 || key > parent.length) return [null, ''];
+      }
+      const nextKey = args[`ARG${i}`];
+      // 没有下一个键
+      if (nextKey === undefined) return [parent, key];
+      // 更新parent
+      parent = SafeObject.getActualObject(parent[key]);
+      key = nextKey;
+      // this.anythingToSCArg(parent);
+    }
+  }
+
+  /**
    * 获取对象名为XX的内容
    * @param {*} NAME_OR_OBJ 数据名或传入对象
    * @param {*} PROP 属性名
    * @param {string} OPTION  value/json
    * @returns {*}
    */
-  getPropOfObject({ NAME_OR_OBJ, PROP, OPTION }) {
-    const obj = this.__getObjByNameOrObj(NAME_OR_OBJ);
-    if (!obj) return '';
-    let idx = PROP;
-    if (Array.isArray(obj)) {
-      idx = this._getActualIdx(idx, obj);
-      if (idx < 0 || idx > obj.length - 1) {
-        // 非数字的属性
-        if (isNaN(PROP)) return this.__getDataByOption(obj[PROP], OPTION);
-        return '';
-      }
-    }
-    return this.__getDataByOption(obj[idx], OPTION);
+  getPropOfObject(args) {
+    const res = this.__getObjByNameOrObj(args.NAME_OR_OBJ);
+    const [obj, key] = this.__getDeepestObjAndProp(res, args, args.PROP);
+    return this.anythingToSCArg(obj && obj[key]);
   }
 
   /**
