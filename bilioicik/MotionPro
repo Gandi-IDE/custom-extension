@@ -70,16 +70,18 @@
                     'MotionPro.turnDegreeAroundAndKeepDistance':'绕x:[x]y:[y]旋转[i][d]度并保持[r]距离',
                     'MotionPro.turnDegreeAround':'绕x:[x]y:[y]旋转[i][d]度',
 
-                    'MotionPro.MoveAlongLine':'以速度[a]沿直线移到x:[x]y:[y]',
-                    'MotionPro.MoveAlongParabola':'以速度[a]沿[b]高抛物线移到x:[x]y:[y]',
+                    'MotionPro.moveAlongLine':'以速度[a]沿直线移到x:[x]y:[y]',
+                    'MotionPro.moveAlongParabola':'以速度[a]沿[b]高抛物线移到x:[x]y:[y]',
 
                     'MotionPro.distance':'距离',
                     'MotionPro.direction':'方向',
+                    'MotionPro.original':'原型',
                     'MotionPro.rMenuDirectionToCoordinate':'到x:[x]y:[y]的[a]',
                     'MotionPro.rDirectionToCoordinate':'到x:[x]y:[y]的方向',
                     'MotionPro.cmDirectionToCoordinate':'面向x:[x]y:[y]',
                     'MotionPro.rDistanceToCoordinate':'到x:[x]y:[y]的距离',
                     'MotionPro.cmCoordinateAdd':'x,y各增加[x][y]',
+                    'MotionPro.goToArray':'移到[a]作为[b]',
 
                     'MotionPro.Setting':'设值',
                     'MotionPro.set':'设为',
@@ -131,16 +133,18 @@
                     'MotionPro.turnDegreeAroundAndKeepDistance':'turn[i][d]degrees around x:[x]y:[y]and keep[r]distance',
                     'MotionPro.turnDegreeAround':'turn[i][d]degrees around x:[x]y:[y]',
 
-                    'MotionPro.MoveAlongLine':'move along line to x:[x]y:[y]in speed[a]',
-                    'MotionPro.MoveAlongParabola':'move along[b]-high parabola to x:[x]y:[y]in speed[a]',
+                    'MotionPro.moveAlongLine':'move along line to x:[x]y:[y]in speed[a]',
+                    'MotionPro.moveAlongParabola':'move along[b]-high parabola to x:[x]y:[y]in speed[a]',
 
                     'MotionPro.distance':'distance',
                     'MotionPro.direction':'direction',
+                    'MotionPro.original':'original',
                     'MotionPro.rMenuDirectionToCoordinate':'[a]to x:[x]y:[y]',
                     'MotionPro.rDirectionToCoordinate':'direction to x:[x]y:[y]',
                     'MotionPro.cmDirectionToCoordinate':'point towards x:[x]y:[y]',
                     'MotionPro.rDistanceToCoordinate':'distance to x:[x]y:[y]',
                     'MotionPro.cmCoordinateAdd':'changed x and y by[x][y]',
+                    'MotionPro.goToArray':'go to[a]as[b]',
 
                     'MotionPro.Setting':'Setting',
                     'MotionPro.set':'set',
@@ -232,12 +236,10 @@
                         text:this.formatMessage('MotionPro.rMenuMove'),
                         arguments:{
                             a:{
-                                menu:'variablemenuWithMovementDirection',
-                                defaultValue:Infinity
+                                menu:'variablemenuWithMovementDirection'
                             },
                             b:{
-                                menu:'variablemenuWithMovementSpeed',
-                                defaultValue:Infinity
+                                menu:'variablemenuWithMovementSpeed'
                             },
                             c:{
                                 menu:'location',
@@ -252,12 +254,10 @@
                         text:this.formatMessage('MotionPro.moveAB'),
                         arguments:{
                             a:{
-                                menu:'variablemenuWithMovementDirection',
-                                defaultValue:Infinity
+                                menu:'variablemenuWithMovementDirection'
                             },
                             b:{
-                                menu:'variablemenuWithMovementSpeed',
-                                defaultValue:Infinity
+                                menu:'variablemenuWithMovementSpeed'
                             }
                         },
                         filter: ['sprite']
@@ -272,8 +272,7 @@
                                 defaultValue:1
                             },
                             b:{
-                                menu:'variablemenuWithRotationAngle',
-                                defaultValue:Infinity
+                                menu:'variablemenuWithRotationAngle'
                             }
                         },
                         filter: ['sprite']
@@ -288,8 +287,7 @@
                                 defaultValue:1
                             },
                             b:{
-                                menu:'variablemenuWithRotationAngle',
-                                defaultValue:Infinity
+                                menu:'variablemenuWithRotationAngle'
                             }
                         },
                         filter: ['sprite']
@@ -688,7 +686,7 @@
                     {
                         opcode: 'cmMoveAlongLine',
                         blockType: 'command',
-                        text:this.formatMessage('MotionPro.MoveAlongLine'),
+                        text:this.formatMessage('MotionPro.moveAlongLine'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -708,7 +706,7 @@
                     {
                         opcode: 'cnMoveAlongLine',
                         blockType: 'conditional',
-                        text:[this.formatMessage('MotionPro.MoveAlongLine')],
+                        text:[this.formatMessage('MotionPro.moveAlongLine')],
                         arguments:{
                             a:{
                                 type:'string',
@@ -729,7 +727,7 @@
                     {
                         opcode: 'cmMoveAlongParabola',
                         blockType: 'command',
-                        text:this.formatMessage('MotionPro.MoveAlongParabola'),
+                        text:this.formatMessage('MotionPro.moveAlongParabola'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -753,7 +751,7 @@
                     {
                         opcode: 'cnMoveAlongParabola',
                         blockType: 'conditional',
-                        text:[this.formatMessage('MotionPro.MoveAlongParabola')],
+                        text:[this.formatMessage('MotionPro.moveAlongParabola')],
                         arguments:{
                             a:{
                                 type:'string',
@@ -860,6 +858,39 @@
                                 defaultValue:33
                             }
                         },
+                        filter: ['sprite']
+                    },
+                    {
+                        opcode: 'cmGoToArray',
+                        blockType: 'command',
+                        text:this.formatMessage('MotionPro.goToArray'),
+                        arguments:{
+                            a:{
+                                type:'string',
+                                defaultValue:'[[2,0],[0,8],[1,1],[0,2]]'
+                            },
+                            b:{
+                                menu:'JSON',
+                                defaultValue:0
+                            }
+                        },
+                        filter: ['sprite']
+                    },
+                    {
+                        opcode: 'cnGoToArray',
+                        blockType: 'conditional',
+                        text:[this.formatMessage('MotionPro.goToArray')],
+                        arguments:{
+                            a:{
+                                type:'string',
+                                defaultValue:'[[2,0],[0,8],[1,1],[0,2]]'
+                            },
+                            b:{
+                                menu:'JSON',
+                                defaultValue:0
+                            }
+                        },
+                        branchCount: 1,
                         filter: ['sprite']
                     },
                     {
@@ -1082,6 +1113,19 @@
                             }
                         ]
                     },
+                    JSON:{
+                        acceptReporters:true,
+                        items:[
+                            {
+                                text: 'JSON', 
+                                value: 0
+                            },
+                            {
+                                text: this.formatMessage('MotionPro.original'), 
+                                value: 1
+                            }
+                        ]
+                    },
                     speed:{
                         acceptReporters:true,
                         items:[
@@ -1125,7 +1169,7 @@
             return this.variablemenu(this.formatMessage('MotionPro.rotationAngle'))
         }
         variablemenu(moreThings) {
-            const menus = [{text: moreThings,value:Infinity,}];
+            const menus = [{text: moreThings,value:'',}];
             let { variables } = this.runtime._stageTarget
             Object.keys(variables).forEach((variable) => {
                 if (variables[variable].type !== "list") {
@@ -1242,8 +1286,8 @@
         }
 
         rMenuMove(args,util){
-            const a = (typeof args.a == 'number' ? args.a==Infinity ? util.target[dt] : args.a : util.target.lookupVariableById(args.a)===undefined ? util.target.lookupVariableByNameAndType(args.a, '').value : util.target.lookupVariableById(args.a).value)*Math.PI/180
-            const b =typeof args.b == 'number' ? args.b==Infinity ? util.target[speed] : args.b : util.target.lookupVariableById(args.b)===undefined ? util.target.lookupVariableByNameAndType(args.b, '').value : util.target.lookupVariableById(args.b).value
+            const a = (typeof args.a == 'string' ? args.a=='' ? util.target[dt] : util.target.lookupVariableById(args.a)===undefined ? util.target.lookupVariableByNameAndType(args.a, '').value : util.target.lookupVariableById(args.a).value : args.a)*Math.PI/180;
+            const b =typeof args.b == 'string' ? args.b=='' ? util.target[speed] : util.target.lookupVariableById(args.b)===undefined ? util.target.lookupVariableByNameAndType(args.b, '').value : util.target.lookupVariableById(args.b).value : args.b;
             switch(args.c){
                 case 0 :
                     return util.target.x + b * Math.sin(a)
@@ -1255,15 +1299,15 @@
             
         }
         cmMenuMove(args,util){
-            const a = (typeof args.a == 'number' ? args.a==Infinity ? util.target[dt] : args.a : util.target.lookupVariableById(args.a)===undefined ? util.target.lookupVariableByNameAndType(args.a, '').value : util.target.lookupVariableById(args.a).value)*Math.PI/180
-            const b =typeof args.b == 'number' ? args.b==Infinity ? util.target[speed] : args.b : util.target.lookupVariableById(args.b)===undefined ? util.target.lookupVariableByNameAndType(args.b, '').value : util.target.lookupVariableById(args.b).value
+            const a = (typeof args.a == 'string' ? args.a=='' ? util.target[dt] : util.target.lookupVariableById(args.a)===undefined ? util.target.lookupVariableByNameAndType(args.a, '').value : util.target.lookupVariableById(args.a).value : args.a)*Math.PI/180;
+            const b =typeof args.b == 'string' ? args.b=='' ? util.target[speed] : util.target.lookupVariableById(args.b)===undefined ? util.target.lookupVariableByNameAndType(args.b, '').value : util.target.lookupVariableById(args.b).value : args.b;
             util.target.setXY(util.target.x + b * Math.sin(a),util.target.y + b * Math.cos(a))
         }
         rMenuTurn(args,util){
-            return util.target.direction + args.a*(typeof args.b == 'number' ? args.b==Infinity ? util.target[turn] : args.b : util.target.lookupVariableById(args.b)===undefined ? util.target.lookupVariableByNameAndType(args.b, '').value : util.target.lookupVariableById(args.b).value)
+            return util.target.direction + args.a*(typeof args.b == 'string' ? args.b=='' ? util.target[turn] : util.target.lookupVariableById(args.b)===undefined ? util.target.lookupVariableByNameAndType(args.b, '').value : util.target.lookupVariableById(args.b).value : args.b)
         }
         cmMenuTurn(args,util){
-            util.target.setDirection(util.target.direction + args.a*(typeof args.b == 'number' ? args.b==Infinity ? util.target[turn] : args.b : util.target.lookupVariableById(args.b)===undefined ? util.target.lookupVariableByNameAndType(args.b, '').value : util.target.lookupVariableById(args.b).value))
+            util.target.setDirection(util.target.direction + args.a*(typeof args.b == 'string' ? args.b=='' ? util.target[turn] : util.target.lookupVariableById(args.b)===undefined ? util.target.lookupVariableByNameAndType(args.b, '').value : util.target.lookupVariableById(args.b).value : args.b))
         }
         cmMenuTurnDegreeAround(args,util){
             var dx = util.target.x-args.x;
@@ -1383,7 +1427,7 @@
 
         cmMoveAlongLine(args,util){
             const { stackFrame } = util;
-            const s = Number(args.a);
+            const s = Number(args.a)
             if (stackFrame.d === undefined) {
                 const dx = args.x-util.target.x;
                 const dy = args.y-util.target.y;
@@ -1411,7 +1455,7 @@
         }
         cnMoveAlongLine(args,util){
             const { stackFrame } = util;
-            const s = Number(args.a);
+            const s = Number(args.a)
             if (stackFrame.d === undefined) {
                 const dx = args.x-util.target.x;
                 const dy = args.y-util.target.y;
@@ -1439,7 +1483,7 @@
         }
         cmMoveAlongParabola(args,util){
             const { stackFrame } = util;
-            const s = Number(args.a);
+            const s = Number(args.a)
             if (stackFrame.d === undefined) {
                 const dx = args.x-util.target.x;
                 const dy = args.y-util.target.y;
@@ -1452,7 +1496,7 @@
                 const l = Math.atan(dx / dy) + (dy<0) * Math.PI;
                 stackFrame.sin = Math.sin(l);
                 stackFrame.cos = Math.cos(l);
-                stackFrame.a = -args.b*4/dd;
+                stackFrame.a = args.b*4/dd;
                 stackFrame.mx = s
             } 
             else {
@@ -1470,7 +1514,7 @@
         }
         cnMoveAlongParabola(args,util){
             const { stackFrame } = util;
-            const s = Number(args.a);
+            const s = Number(args.a)
             if (stackFrame.d === undefined) {
                 const dx = args.x-util.target.x;
                 const dy = args.y-util.target.y;
@@ -1483,7 +1527,7 @@
                 const l = Math.atan(dx / dy) + (dy<0) * Math.PI;
                 stackFrame.sin = Math.sin(l);
                 stackFrame.cos = Math.cos(l);
-                stackFrame.a = -args.b*4/dd;
+                stackFrame.a = args.b*4/dd;
                 stackFrame.mx = s
             } 
             else {
@@ -1531,14 +1575,48 @@
         cmCoordinateAdd(args,util){
             util.target.setXY(util.target.x + Number(args.x),util.target.y + Number(args.y))
         }
+        cmGoToArray(args,util){
+            const { stackFrame } = util
+            if (stackFrame.i === undefined) {
+                stackFrame.i = 0;
+                stackFrame.a = args.b ? args.a : JSON.parse(args.a);
+                stackFrame.l = stackFrame.a.length-1
+            } 
+            else {
+                stackFrame.i += 1
+            }
+            util.target.setXY(...stackFrame.a[stackFrame.i])
+            if (stackFrame.i==stackFrame.l) {
+                return
+            }
+            util.yield()
+        }
+        cnGoToArray(args,util){
+            const { stackFrame } = util
+            if (stackFrame.i === undefined) {
+                stackFrame.i = 0;
+                stackFrame.a = args.b ? args.a : JSON.parse(args.a);
+                stackFrame.l = stackFrame.a.length-1
+            } 
+            else {
+                stackFrame.i += 1
+            }
+            util.target.setXY(...stackFrame.a[stackFrame.i])
+            if (stackFrame.i==stackFrame.l) {
+                return
+            }
+            util.startBranch(1,true)
+        }
 
         cmMenuChange(args,util){
             if(args.b){
                 switch(args.a){
                     case 0 :
                         util.target[speed] += Number(args.c)
+                        return;
                     case 1 :
                         util.target[dt] += Number(args.c)
+                        return;
                     default :
                         util.target[turn] += Number(args.c)
                 }
@@ -1547,8 +1625,10 @@
                 switch(args.a){
                     case 0 :
                         util.target[speed] = Number(args.c)
+                        return;
                     case 1 :
                         util.target[dt] = Number(args.c)
+                        return;
                     default :
                         util.target[turn] = Number(args.c)
                 }  
