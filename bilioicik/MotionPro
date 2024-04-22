@@ -886,8 +886,7 @@
                                 defaultValue:'[[2,0],[0,8],[1,1],[0,2]]'
                             },
                             b:{
-                                menu:'JSON',
-                                defaultValue:0
+                                menu:'JSON'
                             }
                         },
                         branchCount: 1,
