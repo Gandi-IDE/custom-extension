@@ -706,7 +706,8 @@
                                 menu:'unusualword',
                                 defaultValue:true
                             }
-                        }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'rmenutotype',
@@ -721,7 +722,8 @@
                                 menu:'totype',
                                 defaultValue:0
                             }
-                        }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'rmenutypeof',
@@ -740,7 +742,8 @@
                                 menu:'confuse',
                                 defaultValue:0
                             }
-                        }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'bmenutypeof',
@@ -759,7 +762,8 @@
                                 menu:'array',
                                 defaultValue:'array'
                             }
-                        }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'rJSONtypeof',
@@ -825,7 +829,8 @@
                                 menu:'not',
                                 defaultValue:0
                             }
-                        }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'rmenuif',
@@ -847,7 +852,8 @@
                                 type:'string',
                                 defaultValue:this.formatMessage('OperatorsPro.no')
                             }
-                        }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'bmenuand',
@@ -872,7 +878,8 @@
                                 menu:'not',
                                 defaultValue:0
                             }
-                        }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'bmenuundefined',
@@ -890,7 +897,8 @@
                                 menu:'undefined',
                                 defaultValue:0
                             }
-                        }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'bmenuequal',
@@ -911,7 +919,8 @@
                                 menu:'essence',
                                 defaultValue:0
                             }
-                        }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'rreporter',
@@ -1296,7 +1305,8 @@
                                 menu:'tonumber',
                                 defaultValue:0
                             }
-                        }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'rmenutoonehundredeighty',
@@ -1315,7 +1325,8 @@
                                 menu:'onehundredeighty',
                                 defaultValue:0
                             }
-                        }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'rNegative',
@@ -1805,7 +1816,8 @@
                                 menu:'length',
                                 defaultValue:0
                             }
-                        }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'bmenuArrayhave',
@@ -1836,7 +1848,8 @@
                                 menu:'essence',
                                 defaultValue:0
                             }
-                        }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'bmenuArrayhavenumber',
@@ -1871,7 +1884,8 @@
                                 menu:'numericalvalue',
                                 defaultValue:0
                             }
-                        }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'rmenuArrayremove',
@@ -1902,7 +1916,8 @@
                                 menu:'string',
                                 defaultValue:0
                             }
-                        }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'rmenuArrayremovenumber',
@@ -1937,7 +1952,8 @@
                                 menu:'string',
                                 defaultValue:0
                             }
-                        }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'rmenuArrayremoveitem',
@@ -1960,7 +1976,8 @@
                                 menu:'string',
                                 defaultValue:0
                             }
-                        }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'rmenuArrayitem',
@@ -1983,7 +2000,8 @@
                                 menu:'string',
                                 defaultValue:0
                             }
-                        }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'rmenuArrayindex',
@@ -2014,7 +2032,8 @@
                                 menu:'essence',
                                 defaultValue:0
                             }
-                        }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'rmenuArrayindexnumber',
@@ -2049,7 +2068,8 @@
                                 menu:'numericalvalue',
                                 defaultValue:0
                             }
-                        }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'rmenuArrayinsert',
@@ -2084,7 +2104,8 @@
                                 menu:'string',
                                 defaultValue:0
                             }
-                        }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'rmenuArraycount',
@@ -2111,7 +2132,8 @@
                                 menu:'essence',
                                 defaultValue:0
                             }
-                        }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'rmenuArraycountnumber',
@@ -2142,7 +2164,8 @@
                                 menu:'numericalvalue',
                                 defaultValue:0
                             }
-                        }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'rmenuArraysort',
@@ -2165,7 +2188,8 @@
                                 menu:'string',
                                 defaultValue:0
                             }
-                        }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'rmenuObjectmember',
@@ -2188,7 +2212,8 @@
                                 menu:'string',
                                 defaultValue:0
                             }
-                        }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'rmenuObjectset',
@@ -2223,7 +2248,8 @@
                                 menu:'string',
                                 defaultValue:0
                             }
-                        }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'rmenuObjectkeys',
@@ -2246,7 +2272,8 @@
                                 menu:'string',
                                 defaultValue:0
                             }
-                        }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'rArrayremoveshift',
