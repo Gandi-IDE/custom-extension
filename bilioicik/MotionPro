@@ -246,7 +246,8 @@
                                 defaultValue:0
                             }
                         },
-                        filter: ['sprite']
+                        filter: ['sprite'],
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode: 'cmMenuMove',
@@ -260,7 +261,8 @@
                                 menu:'variablemenuWithMovementSpeed'
                             }
                         },
-                        filter: ['sprite']
+                        filter: ['sprite'],
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode: 'rMenuTurn',
@@ -275,7 +277,8 @@
                                 menu:'variablemenuWithRotationAngle'
                             }
                         },
-                        filter: ['sprite']
+                        filter: ['sprite'],
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode: 'cmMenuTurn',
@@ -290,7 +293,8 @@
                                 menu:'variablemenuWithRotationAngle'
                             }
                         },
-                        filter: ['sprite']
+                        filter: ['sprite'],
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode: 'cmMenuTurnDegreeAround',
@@ -318,7 +322,8 @@
                                 defaultValue:33
                             }
                         },
-                        filter: ['sprite']
+                        filter: ['sprite'],
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode: 'moveAB',
@@ -520,7 +525,8 @@
                         opcode: 'cmMove',
                         blockType: 'command',
                         text:this.formatMessage('MotionPro.move'),
-                        filter: ['sprite']
+                        filter: ['sprite'],
+                        hideFromPalette: this.hideExtraBlocks
                     },
                     {
                         opcode: 'rTurnRight',
@@ -560,7 +566,8 @@
                                 dataURI: turnrighticon,
                             }
                         },
-                        filter: ['sprite']
+                        filter: ['sprite'],
+                        hideFromPalette: this.hideExtraBlocks
                     },
                     {
                         opcode: 'cmTurnLeft',
@@ -572,7 +579,8 @@
                                 dataURI: turnlefticon,
                             }
                         },
-                        filter: ['sprite']
+                        filter: ['sprite'],
+                        hideFromPalette: this.hideExtraBlocks
                     },
                     {
                         opcode: 'cmTurnRightAroundAndKeepDistance',
@@ -792,7 +800,8 @@
                                 defaultValue:0
                             }
                         },
-                        filter: ['sprite']
+                        filter: ['sprite'],
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode: 'rDirectionToCoordinate',
@@ -874,7 +883,8 @@
                                 defaultValue:0
                             }
                         },
-                        filter: ['sprite']
+                        filter: ['sprite'],
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode: 'cnGoToArray',
@@ -890,7 +900,8 @@
                             }
                         },
                         branchCount: 1,
-                        filter: ['sprite']
+                        filter: ['sprite'],
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         blockType: Scratch.BlockType.LABEL,
@@ -914,7 +925,8 @@
                                 defaultValue:24
                             }
                         },
-                        filter: ['sprite']
+                        filter: ['sprite'],
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode: 'cmChangeSpeed',
