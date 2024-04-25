@@ -1648,7 +1648,7 @@ class WitCatInput {
 						clearTimeout(this.InputEnter);
 						this.InputEnter = setTimeout(() => {
 							this.InputEnter = false;
-						}, 30);
+						}, 300);
 					}
 				}
 			}
