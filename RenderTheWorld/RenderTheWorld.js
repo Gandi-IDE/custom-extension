@@ -26393,6 +26393,7 @@ void main() {
       return {
         id: chen_RenderTheWorld_extensionId,
         // 拓展id
+        docsURI: "https://learn.ccw.site/article/aa0cf6d0-6758-447a-96f5-8e5dfdbe14d6",
         name: this.formatMessage("RenderTheWorld.name"),
         // 拓展名
         blockIconURI: chen_RenderTheWorld_icon,
@@ -27275,8 +27276,9 @@ void main() {
      * @param {string} args.state
      */
     set3dState({ state }) {
-      if (!this.tc)
-        return;
+      if (!this.tc) {
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+      }
       if (Scratch.Cast.toString(state) === "display") {
         this.tc.style.display = "block";
         this.isTcShow = true;
@@ -27296,6 +27298,9 @@ void main() {
      * 渲染，放在主循环里
      */
     render(args) {
+      if (!this.tc) {
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+      }
       this.renderer.render(this.scene, this.camera);
     }
     /**
@@ -27313,6 +27318,9 @@ void main() {
      * @param {string} args.YN2
      */
     makeCube({ name, a, b, h, color, x, y, z, YN, YN2 }) {
+      if (!this.tc) {
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+      }
       name = Scratch.Cast.toString(name);
       let geometry = new BoxGeometry(
         Scratch.Cast.toNumber(a),
@@ -27363,6 +27371,9 @@ void main() {
      * @param {string} args.YN2
      */
     makeSphere({ name, radius, w, h, color, x, y, z, YN, YN2 }) {
+      if (!this.tc) {
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+      }
       name = Scratch.Cast.toString(name);
       let geometry = new SphereGeometry(
         Scratch.Cast.toNumber(radius),
@@ -27412,6 +27423,9 @@ void main() {
      * @param {string} args.YN2
      */
     makePlane({ name, a, b, color, x, y, z, YN, YN2 }) {
+      if (!this.tc) {
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+      }
       name = Scratch.Cast.toString(name);
       let geometry = new PlaneGeometry(
         Scratch.Cast.toNumber(a),
@@ -27459,6 +27473,9 @@ void main() {
      * @param {string} args.YN2
      */
     importOBJ({ name, objfile, mtlfile, x, y, z, YN, YN2 }) {
+      if (!this.tc) {
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+      }
       if (objfile == "fileListEmpty") {
         return;
       }
@@ -27515,6 +27532,9 @@ void main() {
      * @param {string} args.YN2
      */
     importGLTF({ name, gltffile, x, y, z, YN, YN2 }) {
+      if (!this.tc) {
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+      }
       if (gltffile == "fileListEmpty") {
         return;
       }
@@ -27563,12 +27583,18 @@ void main() {
      * @param {string} args.name
      */
     deleteObject({ name }) {
+      if (!this.tc) {
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+      }
       name = Scratch.Cast.toString(name);
       if (name in this.objects) {
         this._deleteObject(this.objects[name]);
       }
     }
     rotationObject({ name, x, y, z }) {
+      if (!this.tc) {
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+      }
       name = Scratch.Cast.toString(name);
       if (name in this.objects) {
         this.objects[name].rotation.set(
@@ -27581,6 +27607,9 @@ void main() {
       }
     }
     moveObject({ name, x, y, z }) {
+      if (!this.tc) {
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+      }
       name = Scratch.Cast.toString(name);
       if (name in this.objects) {
         this.objects[name].position.set(
@@ -27593,6 +27622,9 @@ void main() {
       }
     }
     scaleObject({ name, x, y, z }) {
+      if (!this.tc) {
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+      }
       name = Scratch.Cast.toString(name);
       if (name in this.objects) {
         this.objects[name].scale.set(
@@ -27681,6 +27713,9 @@ void main() {
      * @param {string} args.YN
      */
     makePointLight({ name, color, intensity, x, y, z, decay, YN }) {
+      if (!this.tc) {
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+      }
       name = Scratch.Cast.toString(name);
       if (name in this.lights) {
         this._deleteObject(this.lights[name]);
@@ -27703,6 +27738,9 @@ void main() {
       this.scene.add(this.lights[name]);
     }
     moveLight({ name, x, y, z }) {
+      if (!this.tc) {
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+      }
       name = Scratch.Cast.toString(name);
       if (name in this.lights) {
         this.lights[name].position.set(
@@ -27730,6 +27768,9 @@ void main() {
       }
     }
     deleteLight({ name }) {
+      if (!this.tc) {
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+      }
       name = Scratch.Cast.toString(name);
       if (name in this.lights) {
         this._deleteObject(this.lights[name]);
@@ -27742,6 +27783,9 @@ void main() {
      * @param {number} args.intensity
      */
     setAmbientLightColor({ color, intensity }) {
+      if (!this.tc) {
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+      }
       this.ambient_light.color = new Color(
         Scratch.Cast.toNumber(color)
       );
@@ -27755,6 +27799,9 @@ void main() {
      * @param {number} args.intensity
      */
     setHemisphereLightColor({ skyColor, groundColor, intensity }) {
+      if (!this.tc) {
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+      }
       this.hemisphere_light.color = new Color(
         Scratch.Cast.toNumber(skyColor)
       );
@@ -27771,6 +27818,9 @@ void main() {
      * @param {number} args.z
      */
     moveCamera({ x, y, z }) {
+      if (!this.tc) {
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+      }
       this.camera.position.set(
         Scratch.Cast.toNumber(x),
         Scratch.Cast.toNumber(y),
@@ -27785,6 +27835,9 @@ void main() {
      * @param {number} args.z
      */
     rotationCamera({ x, y, z }) {
+      if (!this.tc) {
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+      }
       this.camera.rotation.set(
         MathUtils.degToRad(Scratch.Cast.toNumber(x)),
         MathUtils.degToRad(Scratch.Cast.toNumber(y)),
@@ -27799,6 +27852,9 @@ void main() {
      * @param {number} args.z
      */
     cameraLookAt({ x, y, z }) {
+      if (!this.tc) {
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+      }
       this.camera.lookAt(
         Scratch.Cast.toNumber(x),
         Scratch.Cast.toNumber(y),
@@ -27867,6 +27923,9 @@ void main() {
      * @param {number} args.far
      */
     enableFogEffect({ color, near, far }) {
+      if (!this.tc) {
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+      }
       this.scene.fog = new Fog(
         Scratch.Cast.toNumber(color),
         Scratch.Cast.toNumber(near),
@@ -27877,6 +27936,9 @@ void main() {
      * 禁用雾效果
      */
     disableFogEffect(args) {
+      if (!this.tc) {
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+      }
       this.scene.fog = null;
     }
     /**
@@ -27894,7 +27956,6 @@ void main() {
   window.tempExt = {
     Extension: RenderTheWorld,
     info: {
-      doc: "https://learn.ccw.site/article/aa0cf6d0-6758-447a-96f5-8e5dfdbe14d6",
       name: "RenderTheWorld.name",
       description: "RenderTheWorld.descp",
       extensionId: chen_RenderTheWorld_extensionId,
