@@ -26788,7 +26788,6 @@ void main() {
               }
             }
           },
-          // 'RenderTheWorld.objectLoadingCompleted': 'When [name] object loading is completed',
           {
             opcode: "objectLoadingCompleted",
             blockType: "hat",
@@ -27176,6 +27175,7 @@ void main() {
     /**
      * 兼容性检查
      */
+    // @ts-ignore
     isWebGLAvailable(args) {
       this.isWebglAvailable = WebGL_default.isWebGLAvailable();
     }
@@ -27183,6 +27183,7 @@ void main() {
      * 兼容性
      * @return {boolean}
      */
+    // @ts-ignore
     _isWebGLAvailable(args) {
       return this.isWebglAvailable;
     }
@@ -27239,7 +27240,9 @@ void main() {
       this.renderer.setClearColor("#000000");
       this.renderer.shadowMap.enabled = true;
       this.renderer.setSize(
+        // @ts-ignore
         Scratch.Cast.toNumber(sizex),
+        // @ts-ignore
         Scratch.Cast.toNumber(sizey)
       );
       this.renderer.outputColorSpace = SRGBColorSpace;
@@ -27275,9 +27278,10 @@ void main() {
      * @param {object} args
      * @param {string} args.state
      */
+    // @ts-ignore
     set3dState({ state }) {
       if (!this.tc) {
-        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+        return "<span>\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01</span>";
       }
       if (Scratch.Cast.toString(state) === "display") {
         this.tc.style.display = "block";
@@ -27287,6 +27291,7 @@ void main() {
         this.isTcShow = false;
       }
     }
+    // @ts-ignore
     get3dState(args) {
       return this.isTcShow;
     }
@@ -27297,6 +27302,7 @@ void main() {
     /**
      * 渲染，放在主循环里
      */
+    // @ts-ignore
     render(args) {
       if (!this.tc) {
         return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
@@ -27317,17 +27323,22 @@ void main() {
      * @param {string} args.YN
      * @param {string} args.YN2
      */
+    // @ts-ignore
     makeCube({ name, a, b, h, color, x, y, z, YN, YN2 }) {
       if (!this.tc) {
         return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
       }
       name = Scratch.Cast.toString(name);
       let geometry = new BoxGeometry(
+        // @ts-ignore
         Scratch.Cast.toNumber(a),
+        // @ts-ignore
         Scratch.Cast.toNumber(b),
+        // @ts-ignore
         Scratch.Cast.toNumber(h)
       );
       let material = new MeshLambertMaterial({
+        // @ts-ignore
         color: Scratch.Cast.toNumber(color)
       });
       material.fog = true;
@@ -27336,8 +27347,11 @@ void main() {
       }
       this.objects[name] = new Mesh(geometry, material);
       this.objects[name].position.set(
+        // @ts-ignore
         Scratch.Cast.toNumber(x),
+        // @ts-ignore
         Scratch.Cast.toNumber(y),
+        // @ts-ignore
         Scratch.Cast.toNumber(z)
       );
       if (Scratch.Cast.toString(YN) == "true") {
@@ -27370,17 +27384,22 @@ void main() {
      * @param {string} args.YN
      * @param {string} args.YN2
      */
+    // @ts-ignore
     makeSphere({ name, radius, w, h, color, x, y, z, YN, YN2 }) {
       if (!this.tc) {
         return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
       }
       name = Scratch.Cast.toString(name);
       let geometry = new SphereGeometry(
+        // @ts-ignore
         Scratch.Cast.toNumber(radius),
+        // @ts-ignore
         Scratch.Cast.toNumber(w),
+        // @ts-ignore
         Scratch.Cast.toNumber(h)
       );
       let material = new MeshLambertMaterial({
+        // @ts-ignore
         color: Scratch.Cast.toNumber(color)
       });
       material.fog = true;
@@ -27389,8 +27408,11 @@ void main() {
       }
       this.objects[name] = new Mesh(geometry, material);
       this.objects[name].position.set(
+        // @ts-ignore
         Scratch.Cast.toNumber(x),
+        // @ts-ignore
         Scratch.Cast.toNumber(y),
+        // @ts-ignore
         Scratch.Cast.toNumber(z)
       );
       if (Scratch.Cast.toString(YN) == "true") {
@@ -27422,16 +27444,20 @@ void main() {
      * @param {string} args.YN
      * @param {string} args.YN2
      */
+    // @ts-ignore
     makePlane({ name, a, b, color, x, y, z, YN, YN2 }) {
       if (!this.tc) {
         return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
       }
       name = Scratch.Cast.toString(name);
       let geometry = new PlaneGeometry(
+        // @ts-ignore
         Scratch.Cast.toNumber(a),
+        // @ts-ignore
         Scratch.Cast.toNumber(b)
       );
       let material = new MeshLambertMaterial({
+        // @ts-ignore
         color: Scratch.Cast.toNumber(color)
       });
       material.fog = true;
@@ -27440,8 +27466,11 @@ void main() {
       }
       this.objects[name] = new Mesh(geometry, material);
       this.objects[name].position.set(
+        // @ts-ignore
         Scratch.Cast.toNumber(x),
+        // @ts-ignore
         Scratch.Cast.toNumber(y),
+        // @ts-ignore
         Scratch.Cast.toNumber(z)
       );
       if (Scratch.Cast.toString(YN) == "true") {
@@ -27472,6 +27501,7 @@ void main() {
      * @param {string} args.YN
      * @param {string} args.YN2
      */
+    // @ts-ignore
     importOBJ({ name, objfile, mtlfile, x, y, z, YN, YN2 }) {
       if (!this.tc) {
         return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
@@ -27531,6 +27561,7 @@ void main() {
      * @param {string} args.YN
      * @param {string} args.YN2
      */
+    // @ts-ignore
     importGLTF({ name, gltffile, x, y, z, YN, YN2 }) {
       if (!this.tc) {
         return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
@@ -27582,6 +27613,7 @@ void main() {
      * @param {object} args
      * @param {string} args.name
      */
+    // @ts-ignore
     deleteObject({ name }) {
       if (!this.tc) {
         return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
@@ -27591,6 +27623,7 @@ void main() {
         this._deleteObject(this.objects[name]);
       }
     }
+    // @ts-ignore
     rotationObject({ name, x, y, z }) {
       if (!this.tc) {
         return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
@@ -27598,14 +27631,18 @@ void main() {
       name = Scratch.Cast.toString(name);
       if (name in this.objects) {
         this.objects[name].rotation.set(
+          // @ts-ignore
           MathUtils.degToRad(Scratch.Cast.toNumber(x)),
+          // @ts-ignore
           MathUtils.degToRad(Scratch.Cast.toNumber(y)),
+          // @ts-ignore
           MathUtils.degToRad(Scratch.Cast.toNumber(z))
         );
       } else {
         return;
       }
     }
+    // @ts-ignore
     moveObject({ name, x, y, z }) {
       if (!this.tc) {
         return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
@@ -27613,14 +27650,18 @@ void main() {
       name = Scratch.Cast.toString(name);
       if (name in this.objects) {
         this.objects[name].position.set(
+          // @ts-ignore
           Scratch.Cast.toNumber(x),
+          // @ts-ignore
           Scratch.Cast.toNumber(y),
+          // @ts-ignore
           Scratch.Cast.toNumber(z)
         );
       } else {
         return;
       }
     }
+    // @ts-ignore
     scaleObject({ name, x, y, z }) {
       if (!this.tc) {
         return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
@@ -27628,8 +27669,11 @@ void main() {
       name = Scratch.Cast.toString(name);
       if (name in this.objects) {
         this.objects[name].scale.set(
+          // @ts-ignore
           Scratch.Cast.toNumber(x),
+          // @ts-ignore
           Scratch.Cast.toNumber(y),
+          // @ts-ignore
           Scratch.Cast.toNumber(z)
         );
       } else {
@@ -27663,6 +27707,7 @@ void main() {
      * @param {string} args.name
      * @param {string} args.xyz
      */
+    // @ts-ignore
     getObjectRotation({ name, xyz }) {
       name = Scratch.Cast.toString(name);
       if (name in this.objects) {
@@ -27712,6 +27757,7 @@ void main() {
      * @param {number} args.decay
      * @param {string} args.YN
      */
+    // @ts-ignore
     makePointLight({ name, color, intensity, x, y, z, decay, YN }) {
       if (!this.tc) {
         return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
@@ -27722,14 +27768,20 @@ void main() {
         this.lights[name].dispose();
       }
       this.lights[name] = new PointLight(
+        // @ts-ignore
         Scratch.Cast.toNumber(color),
+        // @ts-ignore
         Scratch.Cast.toNumber(intensity),
         0,
+        // @ts-ignore
         Scratch.Cast.toNumber(decay)
       );
       this.lights[name].position.set(
+        // @ts-ignore
         Scratch.Cast.toNumber(x),
+        // @ts-ignore
         Scratch.Cast.toNumber(y),
+        // @ts-ignore
         Scratch.Cast.toNumber(z)
       );
       if (Scratch.Cast.toString(YN) == "true") {
@@ -27737,6 +27789,7 @@ void main() {
       }
       this.scene.add(this.lights[name]);
     }
+    // @ts-ignore
     moveLight({ name, x, y, z }) {
       if (!this.tc) {
         return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
@@ -27744,8 +27797,11 @@ void main() {
       name = Scratch.Cast.toString(name);
       if (name in this.lights) {
         this.lights[name].position.set(
+          // @ts-ignore
           Scratch.Cast.toNumber(x),
+          // @ts-ignore
           Scratch.Cast.toNumber(y),
+          // @ts-ignore
           Scratch.Cast.toNumber(z)
         );
       } else {
@@ -27767,6 +27823,7 @@ void main() {
         return;
       }
     }
+    // @ts-ignore
     deleteLight({ name }) {
       if (!this.tc) {
         return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
@@ -27782,11 +27839,13 @@ void main() {
      * @param {number} args.color
      * @param {number} args.intensity
      */
+    // @ts-ignore
     setAmbientLightColor({ color, intensity }) {
       if (!this.tc) {
         return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
       }
       this.ambient_light.color = new Color(
+        // @ts-ignore
         Scratch.Cast.toNumber(color)
       );
       this.ambient_light.intensity = Scratch.Cast.toNumber(intensity);
@@ -27798,14 +27857,17 @@ void main() {
      * @param {number} args.groundColor
      * @param {number} args.intensity
      */
+    // @ts-ignore
     setHemisphereLightColor({ skyColor, groundColor, intensity }) {
       if (!this.tc) {
         return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
       }
       this.hemisphere_light.color = new Color(
+        // @ts-ignore
         Scratch.Cast.toNumber(skyColor)
       );
       this.hemisphere_light.groundColor = new Color(
+        // @ts-ignore
         Scratch.Cast.toNumber(groundColor)
       );
       this.hemisphere_light.intensity = Scratch.Cast.toNumber(intensity);
@@ -27817,13 +27879,17 @@ void main() {
      * @param {number} args.y
      * @param {number} args.z
      */
+    // @ts-ignore
     moveCamera({ x, y, z }) {
       if (!this.tc) {
         return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
       }
       this.camera.position.set(
+        // @ts-ignore
         Scratch.Cast.toNumber(x),
+        // @ts-ignore
         Scratch.Cast.toNumber(y),
+        // @ts-ignore
         Scratch.Cast.toNumber(z)
       );
     }
@@ -27834,13 +27900,17 @@ void main() {
      * @param {number} args.y
      * @param {number} args.z
      */
+    // @ts-ignore
     rotationCamera({ x, y, z }) {
       if (!this.tc) {
         return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
       }
       this.camera.rotation.set(
+        // @ts-ignore
         MathUtils.degToRad(Scratch.Cast.toNumber(x)),
+        // @ts-ignore
         MathUtils.degToRad(Scratch.Cast.toNumber(y)),
+        // @ts-ignore
         MathUtils.degToRad(Scratch.Cast.toNumber(z))
       );
     }
@@ -27851,13 +27921,17 @@ void main() {
      * @param {number} args.y
      * @param {number} args.z
      */
+    // @ts-ignore
     cameraLookAt({ x, y, z }) {
       if (!this.tc) {
         return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
       }
       this.camera.lookAt(
+        // @ts-ignore
         Scratch.Cast.toNumber(x),
+        // @ts-ignore
         Scratch.Cast.toNumber(y),
+        // @ts-ignore
         Scratch.Cast.toNumber(z)
       );
     }
@@ -27881,6 +27955,7 @@ void main() {
      * @param {object} args
      * @param {string} args.xyz
      */
+    // @ts-ignore
     getCameraRotation({ xyz }) {
       switch (Scratch.Cast.toString(xyz)) {
         case "x":
@@ -27922,19 +27997,24 @@ void main() {
      * @param {number} args.near
      * @param {number} args.far
      */
+    // @ts-ignore
     enableFogEffect({ color, near, far }) {
       if (!this.tc) {
         return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
       }
       this.scene.fog = new Fog(
+        // @ts-ignore
         Scratch.Cast.toNumber(color),
+        // @ts-ignore
         Scratch.Cast.toNumber(near),
+        // @ts-ignore
         Scratch.Cast.toNumber(far)
       );
     }
     /**
      * 禁用雾效果
      */
+    // @ts-ignore
     disableFogEffect(args) {
       if (!this.tc) {
         return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
@@ -27950,10 +28030,16 @@ void main() {
      * @return {number}
      */
     color_({ R, G, B }) {
-      return Math.min(Math.max(Scratch.Cast.toNumber(R), 0), 255) * 65536 + Math.min(Math.max(Scratch.Cast.toNumber(G), 0), 255) * 256 + Math.min(Math.max(Scratch.Cast.toNumber(B), 0), 255);
+      return (
+        // @ts-ignore
+        Math.min(Math.max(Scratch.Cast.toNumber(R), 0), 255) * 65536 + // @ts-ignore
+        Math.min(Math.max(Scratch.Cast.toNumber(G), 0), 255) * 256 + // @ts-ignore
+        Math.min(Math.max(Scratch.Cast.toNumber(B), 0), 255)
+      );
     }
   };
   window.tempExt = {
+    // @ts-ignore
     Extension: RenderTheWorld,
     info: {
       name: "RenderTheWorld.name",
