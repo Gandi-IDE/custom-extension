@@ -135,6 +135,9 @@
   var SIGNED_RED_RGTC1_Format = 36284;
   var RED_GREEN_RGTC2_Format = 36285;
   var SIGNED_RED_GREEN_RGTC2_Format = 36286;
+  var LoopOnce = 2200;
+  var LoopRepeat = 2201;
+  var LoopPingPong = 2202;
   var InterpolateDiscrete = 2300;
   var InterpolateLinear = 2301;
   var InterpolateSmooth = 2302;
@@ -142,6 +145,7 @@
   var ZeroSlopeEnding = 2401;
   var WrapAroundEnding = 2402;
   var NormalAnimationBlendMode = 2500;
+  var AdditiveAnimationBlendMode = 2501;
   var TrianglesDrawMode = 0;
   var TriangleStripDrawMode = 1;
   var TriangleFanDrawMode = 2;
@@ -21541,6 +21545,198 @@ void main() {
       scope.manager.itemStart(url);
     }
   };
+  var Clock = class {
+    constructor(autoStart = true) {
+      this.autoStart = autoStart;
+      this.startTime = 0;
+      this.oldTime = 0;
+      this.elapsedTime = 0;
+      this.running = false;
+    }
+    start() {
+      this.startTime = now();
+      this.oldTime = this.startTime;
+      this.elapsedTime = 0;
+      this.running = true;
+    }
+    stop() {
+      this.getElapsedTime();
+      this.running = false;
+      this.autoStart = false;
+    }
+    getElapsedTime() {
+      this.getDelta();
+      return this.elapsedTime;
+    }
+    getDelta() {
+      let diff = 0;
+      if (this.autoStart && !this.running) {
+        this.start();
+        return 0;
+      }
+      if (this.running) {
+        const newTime = now();
+        diff = (newTime - this.oldTime) / 1e3;
+        this.oldTime = newTime;
+        this.elapsedTime += diff;
+      }
+      return diff;
+    }
+  };
+  function now() {
+    return (typeof performance === "undefined" ? Date : performance).now();
+  }
+  var PropertyMixer = class {
+    constructor(binding, typeName, valueSize) {
+      this.binding = binding;
+      this.valueSize = valueSize;
+      let mixFunction, mixFunctionAdditive, setIdentity;
+      switch (typeName) {
+        case "quaternion":
+          mixFunction = this._slerp;
+          mixFunctionAdditive = this._slerpAdditive;
+          setIdentity = this._setAdditiveIdentityQuaternion;
+          this.buffer = new Float64Array(valueSize * 6);
+          this._workIndex = 5;
+          break;
+        case "string":
+        case "bool":
+          mixFunction = this._select;
+          mixFunctionAdditive = this._select;
+          setIdentity = this._setAdditiveIdentityOther;
+          this.buffer = new Array(valueSize * 5);
+          break;
+        default:
+          mixFunction = this._lerp;
+          mixFunctionAdditive = this._lerpAdditive;
+          setIdentity = this._setAdditiveIdentityNumeric;
+          this.buffer = new Float64Array(valueSize * 5);
+      }
+      this._mixBufferRegion = mixFunction;
+      this._mixBufferRegionAdditive = mixFunctionAdditive;
+      this._setIdentity = setIdentity;
+      this._origIndex = 3;
+      this._addIndex = 4;
+      this.cumulativeWeight = 0;
+      this.cumulativeWeightAdditive = 0;
+      this.useCount = 0;
+      this.referenceCount = 0;
+    }
+    // accumulate data in the 'incoming' region into 'accu<i>'
+    accumulate(accuIndex, weight) {
+      const buffer = this.buffer, stride = this.valueSize, offset = accuIndex * stride + stride;
+      let currentWeight = this.cumulativeWeight;
+      if (currentWeight === 0) {
+        for (let i = 0; i !== stride; ++i) {
+          buffer[offset + i] = buffer[i];
+        }
+        currentWeight = weight;
+      } else {
+        currentWeight += weight;
+        const mix = weight / currentWeight;
+        this._mixBufferRegion(buffer, offset, 0, mix, stride);
+      }
+      this.cumulativeWeight = currentWeight;
+    }
+    // accumulate data in the 'incoming' region into 'add'
+    accumulateAdditive(weight) {
+      const buffer = this.buffer, stride = this.valueSize, offset = stride * this._addIndex;
+      if (this.cumulativeWeightAdditive === 0) {
+        this._setIdentity();
+      }
+      this._mixBufferRegionAdditive(buffer, offset, 0, weight, stride);
+      this.cumulativeWeightAdditive += weight;
+    }
+    // apply the state of 'accu<i>' to the binding when accus differ
+    apply(accuIndex) {
+      const stride = this.valueSize, buffer = this.buffer, offset = accuIndex * stride + stride, weight = this.cumulativeWeight, weightAdditive = this.cumulativeWeightAdditive, binding = this.binding;
+      this.cumulativeWeight = 0;
+      this.cumulativeWeightAdditive = 0;
+      if (weight < 1) {
+        const originalValueOffset = stride * this._origIndex;
+        this._mixBufferRegion(
+          buffer,
+          offset,
+          originalValueOffset,
+          1 - weight,
+          stride
+        );
+      }
+      if (weightAdditive > 0) {
+        this._mixBufferRegionAdditive(buffer, offset, this._addIndex * stride, 1, stride);
+      }
+      for (let i = stride, e = stride + stride; i !== e; ++i) {
+        if (buffer[i] !== buffer[i + stride]) {
+          binding.setValue(buffer, offset);
+          break;
+        }
+      }
+    }
+    // remember the state of the bound property and copy it to both accus
+    saveOriginalState() {
+      const binding = this.binding;
+      const buffer = this.buffer, stride = this.valueSize, originalValueOffset = stride * this._origIndex;
+      binding.getValue(buffer, originalValueOffset);
+      for (let i = stride, e = originalValueOffset; i !== e; ++i) {
+        buffer[i] = buffer[originalValueOffset + i % stride];
+      }
+      this._setIdentity();
+      this.cumulativeWeight = 0;
+      this.cumulativeWeightAdditive = 0;
+    }
+    // apply the state previously taken via 'saveOriginalState' to the binding
+    restoreOriginalState() {
+      const originalValueOffset = this.valueSize * 3;
+      this.binding.setValue(this.buffer, originalValueOffset);
+    }
+    _setAdditiveIdentityNumeric() {
+      const startIndex = this._addIndex * this.valueSize;
+      const endIndex = startIndex + this.valueSize;
+      for (let i = startIndex; i < endIndex; i++) {
+        this.buffer[i] = 0;
+      }
+    }
+    _setAdditiveIdentityQuaternion() {
+      this._setAdditiveIdentityNumeric();
+      this.buffer[this._addIndex * this.valueSize + 3] = 1;
+    }
+    _setAdditiveIdentityOther() {
+      const startIndex = this._origIndex * this.valueSize;
+      const targetIndex = this._addIndex * this.valueSize;
+      for (let i = 0; i < this.valueSize; i++) {
+        this.buffer[targetIndex + i] = this.buffer[startIndex + i];
+      }
+    }
+    // mix functions
+    _select(buffer, dstOffset, srcOffset, t, stride) {
+      if (t >= 0.5) {
+        for (let i = 0; i !== stride; ++i) {
+          buffer[dstOffset + i] = buffer[srcOffset + i];
+        }
+      }
+    }
+    _slerp(buffer, dstOffset, srcOffset, t) {
+      Quaternion.slerpFlat(buffer, dstOffset, buffer, dstOffset, buffer, srcOffset, t);
+    }
+    _slerpAdditive(buffer, dstOffset, srcOffset, t, stride) {
+      const workOffset = this._workIndex * stride;
+      Quaternion.multiplyQuaternionsFlat(buffer, workOffset, buffer, dstOffset, buffer, srcOffset);
+      Quaternion.slerpFlat(buffer, dstOffset, buffer, dstOffset, buffer, workOffset, t);
+    }
+    _lerp(buffer, dstOffset, srcOffset, t, stride) {
+      const s = 1 - t;
+      for (let i = 0; i !== stride; ++i) {
+        const j = dstOffset + i;
+        buffer[j] = buffer[j] * s + buffer[srcOffset + i] * t;
+      }
+    }
+    _lerpAdditive(buffer, dstOffset, srcOffset, t, stride) {
+      for (let i = 0; i !== stride; ++i) {
+        const j = dstOffset + i;
+        buffer[j] = buffer[j] + buffer[srcOffset + i] * t;
+      }
+    }
+  };
   var _RESERVED_CHARS_RE = "\\[\\]\\.:\\/";
   var _reservedRe = new RegExp("[" + _RESERVED_CHARS_RE + "]", "g");
   var _wordChar = "[^" + _RESERVED_CHARS_RE + "]";
@@ -21920,7 +22116,733 @@ void main() {
       PropertyBinding.prototype._setValue_fromArray_setMatrixWorldNeedsUpdate
     ]
   ];
+  var AnimationAction = class {
+    constructor(mixer, clip, localRoot = null, blendMode = clip.blendMode) {
+      this._mixer = mixer;
+      this._clip = clip;
+      this._localRoot = localRoot;
+      this.blendMode = blendMode;
+      const tracks = clip.tracks, nTracks = tracks.length, interpolants = new Array(nTracks);
+      const interpolantSettings = {
+        endingStart: ZeroCurvatureEnding,
+        endingEnd: ZeroCurvatureEnding
+      };
+      for (let i = 0; i !== nTracks; ++i) {
+        const interpolant = tracks[i].createInterpolant(null);
+        interpolants[i] = interpolant;
+        interpolant.settings = interpolantSettings;
+      }
+      this._interpolantSettings = interpolantSettings;
+      this._interpolants = interpolants;
+      this._propertyBindings = new Array(nTracks);
+      this._cacheIndex = null;
+      this._byClipCacheIndex = null;
+      this._timeScaleInterpolant = null;
+      this._weightInterpolant = null;
+      this.loop = LoopRepeat;
+      this._loopCount = -1;
+      this._startTime = null;
+      this.time = 0;
+      this.timeScale = 1;
+      this._effectiveTimeScale = 1;
+      this.weight = 1;
+      this._effectiveWeight = 1;
+      this.repetitions = Infinity;
+      this.paused = false;
+      this.enabled = true;
+      this.clampWhenFinished = false;
+      this.zeroSlopeAtStart = true;
+      this.zeroSlopeAtEnd = true;
+    }
+    // State & Scheduling
+    play() {
+      this._mixer._activateAction(this);
+      return this;
+    }
+    stop() {
+      this._mixer._deactivateAction(this);
+      return this.reset();
+    }
+    reset() {
+      this.paused = false;
+      this.enabled = true;
+      this.time = 0;
+      this._loopCount = -1;
+      this._startTime = null;
+      return this.stopFading().stopWarping();
+    }
+    isRunning() {
+      return this.enabled && !this.paused && this.timeScale !== 0 && this._startTime === null && this._mixer._isActiveAction(this);
+    }
+    // return true when play has been called
+    isScheduled() {
+      return this._mixer._isActiveAction(this);
+    }
+    startAt(time) {
+      this._startTime = time;
+      return this;
+    }
+    setLoop(mode, repetitions) {
+      this.loop = mode;
+      this.repetitions = repetitions;
+      return this;
+    }
+    // Weight
+    // set the weight stopping any scheduled fading
+    // although .enabled = false yields an effective weight of zero, this
+    // method does *not* change .enabled, because it would be confusing
+    setEffectiveWeight(weight) {
+      this.weight = weight;
+      this._effectiveWeight = this.enabled ? weight : 0;
+      return this.stopFading();
+    }
+    // return the weight considering fading and .enabled
+    getEffectiveWeight() {
+      return this._effectiveWeight;
+    }
+    fadeIn(duration) {
+      return this._scheduleFading(duration, 0, 1);
+    }
+    fadeOut(duration) {
+      return this._scheduleFading(duration, 1, 0);
+    }
+    crossFadeFrom(fadeOutAction, duration, warp) {
+      fadeOutAction.fadeOut(duration);
+      this.fadeIn(duration);
+      if (warp) {
+        const fadeInDuration = this._clip.duration, fadeOutDuration = fadeOutAction._clip.duration, startEndRatio = fadeOutDuration / fadeInDuration, endStartRatio = fadeInDuration / fadeOutDuration;
+        fadeOutAction.warp(1, startEndRatio, duration);
+        this.warp(endStartRatio, 1, duration);
+      }
+      return this;
+    }
+    crossFadeTo(fadeInAction, duration, warp) {
+      return fadeInAction.crossFadeFrom(this, duration, warp);
+    }
+    stopFading() {
+      const weightInterpolant = this._weightInterpolant;
+      if (weightInterpolant !== null) {
+        this._weightInterpolant = null;
+        this._mixer._takeBackControlInterpolant(weightInterpolant);
+      }
+      return this;
+    }
+    // Time Scale Control
+    // set the time scale stopping any scheduled warping
+    // although .paused = true yields an effective time scale of zero, this
+    // method does *not* change .paused, because it would be confusing
+    setEffectiveTimeScale(timeScale) {
+      this.timeScale = timeScale;
+      this._effectiveTimeScale = this.paused ? 0 : timeScale;
+      return this.stopWarping();
+    }
+    // return the time scale considering warping and .paused
+    getEffectiveTimeScale() {
+      return this._effectiveTimeScale;
+    }
+    setDuration(duration) {
+      this.timeScale = this._clip.duration / duration;
+      return this.stopWarping();
+    }
+    syncWith(action) {
+      this.time = action.time;
+      this.timeScale = action.timeScale;
+      return this.stopWarping();
+    }
+    halt(duration) {
+      return this.warp(this._effectiveTimeScale, 0, duration);
+    }
+    warp(startTimeScale, endTimeScale, duration) {
+      const mixer = this._mixer, now2 = mixer.time, timeScale = this.timeScale;
+      let interpolant = this._timeScaleInterpolant;
+      if (interpolant === null) {
+        interpolant = mixer._lendControlInterpolant();
+        this._timeScaleInterpolant = interpolant;
+      }
+      const times = interpolant.parameterPositions, values = interpolant.sampleValues;
+      times[0] = now2;
+      times[1] = now2 + duration;
+      values[0] = startTimeScale / timeScale;
+      values[1] = endTimeScale / timeScale;
+      return this;
+    }
+    stopWarping() {
+      const timeScaleInterpolant = this._timeScaleInterpolant;
+      if (timeScaleInterpolant !== null) {
+        this._timeScaleInterpolant = null;
+        this._mixer._takeBackControlInterpolant(timeScaleInterpolant);
+      }
+      return this;
+    }
+    // Object Accessors
+    getMixer() {
+      return this._mixer;
+    }
+    getClip() {
+      return this._clip;
+    }
+    getRoot() {
+      return this._localRoot || this._mixer._root;
+    }
+    // Interna
+    _update(time, deltaTime, timeDirection, accuIndex) {
+      if (!this.enabled) {
+        this._updateWeight(time);
+        return;
+      }
+      const startTime = this._startTime;
+      if (startTime !== null) {
+        const timeRunning = (time - startTime) * timeDirection;
+        if (timeRunning < 0 || timeDirection === 0) {
+          deltaTime = 0;
+        } else {
+          this._startTime = null;
+          deltaTime = timeDirection * timeRunning;
+        }
+      }
+      deltaTime *= this._updateTimeScale(time);
+      const clipTime = this._updateTime(deltaTime);
+      const weight = this._updateWeight(time);
+      if (weight > 0) {
+        const interpolants = this._interpolants;
+        const propertyMixers = this._propertyBindings;
+        switch (this.blendMode) {
+          case AdditiveAnimationBlendMode:
+            for (let j = 0, m = interpolants.length; j !== m; ++j) {
+              interpolants[j].evaluate(clipTime);
+              propertyMixers[j].accumulateAdditive(weight);
+            }
+            break;
+          case NormalAnimationBlendMode:
+          default:
+            for (let j = 0, m = interpolants.length; j !== m; ++j) {
+              interpolants[j].evaluate(clipTime);
+              propertyMixers[j].accumulate(accuIndex, weight);
+            }
+        }
+      }
+    }
+    _updateWeight(time) {
+      let weight = 0;
+      if (this.enabled) {
+        weight = this.weight;
+        const interpolant = this._weightInterpolant;
+        if (interpolant !== null) {
+          const interpolantValue = interpolant.evaluate(time)[0];
+          weight *= interpolantValue;
+          if (time > interpolant.parameterPositions[1]) {
+            this.stopFading();
+            if (interpolantValue === 0) {
+              this.enabled = false;
+            }
+          }
+        }
+      }
+      this._effectiveWeight = weight;
+      return weight;
+    }
+    _updateTimeScale(time) {
+      let timeScale = 0;
+      if (!this.paused) {
+        timeScale = this.timeScale;
+        const interpolant = this._timeScaleInterpolant;
+        if (interpolant !== null) {
+          const interpolantValue = interpolant.evaluate(time)[0];
+          timeScale *= interpolantValue;
+          if (time > interpolant.parameterPositions[1]) {
+            this.stopWarping();
+            if (timeScale === 0) {
+              this.paused = true;
+            } else {
+              this.timeScale = timeScale;
+            }
+          }
+        }
+      }
+      this._effectiveTimeScale = timeScale;
+      return timeScale;
+    }
+    _updateTime(deltaTime) {
+      const duration = this._clip.duration;
+      const loop = this.loop;
+      let time = this.time + deltaTime;
+      let loopCount = this._loopCount;
+      const pingPong = loop === LoopPingPong;
+      if (deltaTime === 0) {
+        if (loopCount === -1)
+          return time;
+        return pingPong && (loopCount & 1) === 1 ? duration - time : time;
+      }
+      if (loop === LoopOnce) {
+        if (loopCount === -1) {
+          this._loopCount = 0;
+          this._setEndings(true, true, false);
+        }
+        handle_stop: {
+          if (time >= duration) {
+            time = duration;
+          } else if (time < 0) {
+            time = 0;
+          } else {
+            this.time = time;
+            break handle_stop;
+          }
+          if (this.clampWhenFinished)
+            this.paused = true;
+          else
+            this.enabled = false;
+          this.time = time;
+          this._mixer.dispatchEvent({
+            type: "finished",
+            action: this,
+            direction: deltaTime < 0 ? -1 : 1
+          });
+        }
+      } else {
+        if (loopCount === -1) {
+          if (deltaTime >= 0) {
+            loopCount = 0;
+            this._setEndings(true, this.repetitions === 0, pingPong);
+          } else {
+            this._setEndings(this.repetitions === 0, true, pingPong);
+          }
+        }
+        if (time >= duration || time < 0) {
+          const loopDelta = Math.floor(time / duration);
+          time -= duration * loopDelta;
+          loopCount += Math.abs(loopDelta);
+          const pending = this.repetitions - loopCount;
+          if (pending <= 0) {
+            if (this.clampWhenFinished)
+              this.paused = true;
+            else
+              this.enabled = false;
+            time = deltaTime > 0 ? duration : 0;
+            this.time = time;
+            this._mixer.dispatchEvent({
+              type: "finished",
+              action: this,
+              direction: deltaTime > 0 ? 1 : -1
+            });
+          } else {
+            if (pending === 1) {
+              const atStart = deltaTime < 0;
+              this._setEndings(atStart, !atStart, pingPong);
+            } else {
+              this._setEndings(false, false, pingPong);
+            }
+            this._loopCount = loopCount;
+            this.time = time;
+            this._mixer.dispatchEvent({
+              type: "loop",
+              action: this,
+              loopDelta
+            });
+          }
+        } else {
+          this.time = time;
+        }
+        if (pingPong && (loopCount & 1) === 1) {
+          return duration - time;
+        }
+      }
+      return time;
+    }
+    _setEndings(atStart, atEnd, pingPong) {
+      const settings = this._interpolantSettings;
+      if (pingPong) {
+        settings.endingStart = ZeroSlopeEnding;
+        settings.endingEnd = ZeroSlopeEnding;
+      } else {
+        if (atStart) {
+          settings.endingStart = this.zeroSlopeAtStart ? ZeroSlopeEnding : ZeroCurvatureEnding;
+        } else {
+          settings.endingStart = WrapAroundEnding;
+        }
+        if (atEnd) {
+          settings.endingEnd = this.zeroSlopeAtEnd ? ZeroSlopeEnding : ZeroCurvatureEnding;
+        } else {
+          settings.endingEnd = WrapAroundEnding;
+        }
+      }
+    }
+    _scheduleFading(duration, weightNow, weightThen) {
+      const mixer = this._mixer, now2 = mixer.time;
+      let interpolant = this._weightInterpolant;
+      if (interpolant === null) {
+        interpolant = mixer._lendControlInterpolant();
+        this._weightInterpolant = interpolant;
+      }
+      const times = interpolant.parameterPositions, values = interpolant.sampleValues;
+      times[0] = now2;
+      values[0] = weightNow;
+      times[1] = now2 + duration;
+      values[1] = weightThen;
+      return this;
+    }
+  };
   var _controlInterpolantsResultBuffer = new Float32Array(1);
+  var AnimationMixer = class extends EventDispatcher {
+    constructor(root) {
+      super();
+      this._root = root;
+      this._initMemoryManager();
+      this._accuIndex = 0;
+      this.time = 0;
+      this.timeScale = 1;
+    }
+    _bindAction(action, prototypeAction) {
+      const root = action._localRoot || this._root, tracks = action._clip.tracks, nTracks = tracks.length, bindings = action._propertyBindings, interpolants = action._interpolants, rootUuid = root.uuid, bindingsByRoot = this._bindingsByRootAndName;
+      let bindingsByName = bindingsByRoot[rootUuid];
+      if (bindingsByName === void 0) {
+        bindingsByName = {};
+        bindingsByRoot[rootUuid] = bindingsByName;
+      }
+      for (let i = 0; i !== nTracks; ++i) {
+        const track = tracks[i], trackName = track.name;
+        let binding = bindingsByName[trackName];
+        if (binding !== void 0) {
+          ++binding.referenceCount;
+          bindings[i] = binding;
+        } else {
+          binding = bindings[i];
+          if (binding !== void 0) {
+            if (binding._cacheIndex === null) {
+              ++binding.referenceCount;
+              this._addInactiveBinding(binding, rootUuid, trackName);
+            }
+            continue;
+          }
+          const path = prototypeAction && prototypeAction._propertyBindings[i].binding.parsedPath;
+          binding = new PropertyMixer(
+            PropertyBinding.create(root, trackName, path),
+            track.ValueTypeName,
+            track.getValueSize()
+          );
+          ++binding.referenceCount;
+          this._addInactiveBinding(binding, rootUuid, trackName);
+          bindings[i] = binding;
+        }
+        interpolants[i].resultBuffer = binding.buffer;
+      }
+    }
+    _activateAction(action) {
+      if (!this._isActiveAction(action)) {
+        if (action._cacheIndex === null) {
+          const rootUuid = (action._localRoot || this._root).uuid, clipUuid = action._clip.uuid, actionsForClip = this._actionsByClip[clipUuid];
+          this._bindAction(
+            action,
+            actionsForClip && actionsForClip.knownActions[0]
+          );
+          this._addInactiveAction(action, clipUuid, rootUuid);
+        }
+        const bindings = action._propertyBindings;
+        for (let i = 0, n = bindings.length; i !== n; ++i) {
+          const binding = bindings[i];
+          if (binding.useCount++ === 0) {
+            this._lendBinding(binding);
+            binding.saveOriginalState();
+          }
+        }
+        this._lendAction(action);
+      }
+    }
+    _deactivateAction(action) {
+      if (this._isActiveAction(action)) {
+        const bindings = action._propertyBindings;
+        for (let i = 0, n = bindings.length; i !== n; ++i) {
+          const binding = bindings[i];
+          if (--binding.useCount === 0) {
+            binding.restoreOriginalState();
+            this._takeBackBinding(binding);
+          }
+        }
+        this._takeBackAction(action);
+      }
+    }
+    // Memory manager
+    _initMemoryManager() {
+      this._actions = [];
+      this._nActiveActions = 0;
+      this._actionsByClip = {};
+      this._bindings = [];
+      this._nActiveBindings = 0;
+      this._bindingsByRootAndName = {};
+      this._controlInterpolants = [];
+      this._nActiveControlInterpolants = 0;
+      const scope = this;
+      this.stats = {
+        actions: {
+          get total() {
+            return scope._actions.length;
+          },
+          get inUse() {
+            return scope._nActiveActions;
+          }
+        },
+        bindings: {
+          get total() {
+            return scope._bindings.length;
+          },
+          get inUse() {
+            return scope._nActiveBindings;
+          }
+        },
+        controlInterpolants: {
+          get total() {
+            return scope._controlInterpolants.length;
+          },
+          get inUse() {
+            return scope._nActiveControlInterpolants;
+          }
+        }
+      };
+    }
+    // Memory management for AnimationAction objects
+    _isActiveAction(action) {
+      const index = action._cacheIndex;
+      return index !== null && index < this._nActiveActions;
+    }
+    _addInactiveAction(action, clipUuid, rootUuid) {
+      const actions = this._actions, actionsByClip = this._actionsByClip;
+      let actionsForClip = actionsByClip[clipUuid];
+      if (actionsForClip === void 0) {
+        actionsForClip = {
+          knownActions: [action],
+          actionByRoot: {}
+        };
+        action._byClipCacheIndex = 0;
+        actionsByClip[clipUuid] = actionsForClip;
+      } else {
+        const knownActions = actionsForClip.knownActions;
+        action._byClipCacheIndex = knownActions.length;
+        knownActions.push(action);
+      }
+      action._cacheIndex = actions.length;
+      actions.push(action);
+      actionsForClip.actionByRoot[rootUuid] = action;
+    }
+    _removeInactiveAction(action) {
+      const actions = this._actions, lastInactiveAction = actions[actions.length - 1], cacheIndex = action._cacheIndex;
+      lastInactiveAction._cacheIndex = cacheIndex;
+      actions[cacheIndex] = lastInactiveAction;
+      actions.pop();
+      action._cacheIndex = null;
+      const clipUuid = action._clip.uuid, actionsByClip = this._actionsByClip, actionsForClip = actionsByClip[clipUuid], knownActionsForClip = actionsForClip.knownActions, lastKnownAction = knownActionsForClip[knownActionsForClip.length - 1], byClipCacheIndex = action._byClipCacheIndex;
+      lastKnownAction._byClipCacheIndex = byClipCacheIndex;
+      knownActionsForClip[byClipCacheIndex] = lastKnownAction;
+      knownActionsForClip.pop();
+      action._byClipCacheIndex = null;
+      const actionByRoot = actionsForClip.actionByRoot, rootUuid = (action._localRoot || this._root).uuid;
+      delete actionByRoot[rootUuid];
+      if (knownActionsForClip.length === 0) {
+        delete actionsByClip[clipUuid];
+      }
+      this._removeInactiveBindingsForAction(action);
+    }
+    _removeInactiveBindingsForAction(action) {
+      const bindings = action._propertyBindings;
+      for (let i = 0, n = bindings.length; i !== n; ++i) {
+        const binding = bindings[i];
+        if (--binding.referenceCount === 0) {
+          this._removeInactiveBinding(binding);
+        }
+      }
+    }
+    _lendAction(action) {
+      const actions = this._actions, prevIndex = action._cacheIndex, lastActiveIndex = this._nActiveActions++, firstInactiveAction = actions[lastActiveIndex];
+      action._cacheIndex = lastActiveIndex;
+      actions[lastActiveIndex] = action;
+      firstInactiveAction._cacheIndex = prevIndex;
+      actions[prevIndex] = firstInactiveAction;
+    }
+    _takeBackAction(action) {
+      const actions = this._actions, prevIndex = action._cacheIndex, firstInactiveIndex = --this._nActiveActions, lastActiveAction = actions[firstInactiveIndex];
+      action._cacheIndex = firstInactiveIndex;
+      actions[firstInactiveIndex] = action;
+      lastActiveAction._cacheIndex = prevIndex;
+      actions[prevIndex] = lastActiveAction;
+    }
+    // Memory management for PropertyMixer objects
+    _addInactiveBinding(binding, rootUuid, trackName) {
+      const bindingsByRoot = this._bindingsByRootAndName, bindings = this._bindings;
+      let bindingByName = bindingsByRoot[rootUuid];
+      if (bindingByName === void 0) {
+        bindingByName = {};
+        bindingsByRoot[rootUuid] = bindingByName;
+      }
+      bindingByName[trackName] = binding;
+      binding._cacheIndex = bindings.length;
+      bindings.push(binding);
+    }
+    _removeInactiveBinding(binding) {
+      const bindings = this._bindings, propBinding = binding.binding, rootUuid = propBinding.rootNode.uuid, trackName = propBinding.path, bindingsByRoot = this._bindingsByRootAndName, bindingByName = bindingsByRoot[rootUuid], lastInactiveBinding = bindings[bindings.length - 1], cacheIndex = binding._cacheIndex;
+      lastInactiveBinding._cacheIndex = cacheIndex;
+      bindings[cacheIndex] = lastInactiveBinding;
+      bindings.pop();
+      delete bindingByName[trackName];
+      if (Object.keys(bindingByName).length === 0) {
+        delete bindingsByRoot[rootUuid];
+      }
+    }
+    _lendBinding(binding) {
+      const bindings = this._bindings, prevIndex = binding._cacheIndex, lastActiveIndex = this._nActiveBindings++, firstInactiveBinding = bindings[lastActiveIndex];
+      binding._cacheIndex = lastActiveIndex;
+      bindings[lastActiveIndex] = binding;
+      firstInactiveBinding._cacheIndex = prevIndex;
+      bindings[prevIndex] = firstInactiveBinding;
+    }
+    _takeBackBinding(binding) {
+      const bindings = this._bindings, prevIndex = binding._cacheIndex, firstInactiveIndex = --this._nActiveBindings, lastActiveBinding = bindings[firstInactiveIndex];
+      binding._cacheIndex = firstInactiveIndex;
+      bindings[firstInactiveIndex] = binding;
+      lastActiveBinding._cacheIndex = prevIndex;
+      bindings[prevIndex] = lastActiveBinding;
+    }
+    // Memory management of Interpolants for weight and time scale
+    _lendControlInterpolant() {
+      const interpolants = this._controlInterpolants, lastActiveIndex = this._nActiveControlInterpolants++;
+      let interpolant = interpolants[lastActiveIndex];
+      if (interpolant === void 0) {
+        interpolant = new LinearInterpolant(
+          new Float32Array(2),
+          new Float32Array(2),
+          1,
+          _controlInterpolantsResultBuffer
+        );
+        interpolant.__cacheIndex = lastActiveIndex;
+        interpolants[lastActiveIndex] = interpolant;
+      }
+      return interpolant;
+    }
+    _takeBackControlInterpolant(interpolant) {
+      const interpolants = this._controlInterpolants, prevIndex = interpolant.__cacheIndex, firstInactiveIndex = --this._nActiveControlInterpolants, lastActiveInterpolant = interpolants[firstInactiveIndex];
+      interpolant.__cacheIndex = firstInactiveIndex;
+      interpolants[firstInactiveIndex] = interpolant;
+      lastActiveInterpolant.__cacheIndex = prevIndex;
+      interpolants[prevIndex] = lastActiveInterpolant;
+    }
+    // return an action for a clip optionally using a custom root target
+    // object (this method allocates a lot of dynamic memory in case a
+    // previously unknown clip/root combination is specified)
+    clipAction(clip, optionalRoot, blendMode) {
+      const root = optionalRoot || this._root, rootUuid = root.uuid;
+      let clipObject = typeof clip === "string" ? AnimationClip.findByName(root, clip) : clip;
+      const clipUuid = clipObject !== null ? clipObject.uuid : clip;
+      const actionsForClip = this._actionsByClip[clipUuid];
+      let prototypeAction = null;
+      if (blendMode === void 0) {
+        if (clipObject !== null) {
+          blendMode = clipObject.blendMode;
+        } else {
+          blendMode = NormalAnimationBlendMode;
+        }
+      }
+      if (actionsForClip !== void 0) {
+        const existingAction = actionsForClip.actionByRoot[rootUuid];
+        if (existingAction !== void 0 && existingAction.blendMode === blendMode) {
+          return existingAction;
+        }
+        prototypeAction = actionsForClip.knownActions[0];
+        if (clipObject === null)
+          clipObject = prototypeAction._clip;
+      }
+      if (clipObject === null)
+        return null;
+      const newAction = new AnimationAction(this, clipObject, optionalRoot, blendMode);
+      this._bindAction(newAction, prototypeAction);
+      this._addInactiveAction(newAction, clipUuid, rootUuid);
+      return newAction;
+    }
+    // get an existing action
+    existingAction(clip, optionalRoot) {
+      const root = optionalRoot || this._root, rootUuid = root.uuid, clipObject = typeof clip === "string" ? AnimationClip.findByName(root, clip) : clip, clipUuid = clipObject ? clipObject.uuid : clip, actionsForClip = this._actionsByClip[clipUuid];
+      if (actionsForClip !== void 0) {
+        return actionsForClip.actionByRoot[rootUuid] || null;
+      }
+      return null;
+    }
+    // deactivates all previously scheduled actions
+    stopAllAction() {
+      const actions = this._actions, nActions = this._nActiveActions;
+      for (let i = nActions - 1; i >= 0; --i) {
+        actions[i].stop();
+      }
+      return this;
+    }
+    // advance the time and update apply the animation
+    update(deltaTime) {
+      deltaTime *= this.timeScale;
+      const actions = this._actions, nActions = this._nActiveActions, time = this.time += deltaTime, timeDirection = Math.sign(deltaTime), accuIndex = this._accuIndex ^= 1;
+      for (let i = 0; i !== nActions; ++i) {
+        const action = actions[i];
+        action._update(time, deltaTime, timeDirection, accuIndex);
+      }
+      const bindings = this._bindings, nBindings = this._nActiveBindings;
+      for (let i = 0; i !== nBindings; ++i) {
+        bindings[i].apply(accuIndex);
+      }
+      return this;
+    }
+    // Allows you to seek to a specific time in an animation.
+    setTime(timeInSeconds) {
+      this.time = 0;
+      for (let i = 0; i < this._actions.length; i++) {
+        this._actions[i].time = 0;
+      }
+      return this.update(timeInSeconds);
+    }
+    // return this mixer's root target object
+    getRoot() {
+      return this._root;
+    }
+    // free all resources specific to a particular clip
+    uncacheClip(clip) {
+      const actions = this._actions, clipUuid = clip.uuid, actionsByClip = this._actionsByClip, actionsForClip = actionsByClip[clipUuid];
+      if (actionsForClip !== void 0) {
+        const actionsToRemove = actionsForClip.knownActions;
+        for (let i = 0, n = actionsToRemove.length; i !== n; ++i) {
+          const action = actionsToRemove[i];
+          this._deactivateAction(action);
+          const cacheIndex = action._cacheIndex, lastInactiveAction = actions[actions.length - 1];
+          action._cacheIndex = null;
+          action._byClipCacheIndex = null;
+          lastInactiveAction._cacheIndex = cacheIndex;
+          actions[cacheIndex] = lastInactiveAction;
+          actions.pop();
+          this._removeInactiveBindingsForAction(action);
+        }
+        delete actionsByClip[clipUuid];
+      }
+    }
+    // free all resources specific to a particular root target object
+    uncacheRoot(root) {
+      const rootUuid = root.uuid, actionsByClip = this._actionsByClip;
+      for (const clipUuid in actionsByClip) {
+        const actionByRoot = actionsByClip[clipUuid].actionByRoot, action = actionByRoot[rootUuid];
+        if (action !== void 0) {
+          this._deactivateAction(action);
+          this._removeInactiveAction(action);
+        }
+      }
+      const bindingsByRoot = this._bindingsByRootAndName, bindingByName = bindingsByRoot[rootUuid];
+      if (bindingByName !== void 0) {
+        for (const trackName in bindingByName) {
+          const binding = bindingByName[trackName];
+          binding.restoreOriginalState();
+          this._removeInactiveBinding(binding);
+        }
+      }
+    }
+    // remove a targeted clip from the cache
+    uncacheAction(clip, optionalRoot) {
+      const action = this.existingAction(clip, optionalRoot);
+      if (action !== null) {
+        this._deactivateAction(action);
+        this._removeInactiveAction(action);
+      }
+    }
+  };
   var Spherical = class {
     constructor(radius = 1, phi = 0, theta = 0) {
       this.radius = radius;
@@ -26258,6 +27180,11 @@ void main() {
       "RenderTheWorld.makePlane": "\u521B\u5EFA\u6216\u91CD\u7F6E\u5E73\u9762: [name] \u957F[a] \u5BBD[b] \u989C\u8272: [color] \u4F4D\u7F6E: x[x] y[y] z[z] [YN]\u6295\u5C04\u9634\u5F71 [YN2]\u88AB\u6295\u5C04\u9634\u5F71",
       "RenderTheWorld.importOBJ": "\u5BFC\u5165\u6216\u91CD\u7F6EOBJ\u6A21\u578B: [name] OBJ\u6A21\u578B\u6587\u4EF6: [objfile] MTL\u6750\u8D28\u6587\u4EF6: [mtlfile] \u4F4D\u7F6E: x[x] y[y] z[z] [YN]\u6295\u5C04\u9634\u5F71 [YN2]\u88AB\u6295\u5C04\u9634\u5F71",
       "RenderTheWorld.importGLTF": "\u5BFC\u5165\u6216\u91CD\u7F6EGLTF\u6A21\u578B: [name] GLTF\u6A21\u578B\u6587\u4EF6: [gltffile] \u4F4D\u7F6E: x[x] y[y] z[z] [YN]\u6295\u5C04\u9634\u5F71 [YN2]\u88AB\u6295\u5C04\u9634\u5F71",
+      "RenderTheWorld.playAnimation": "\u542F\u52A8\u6A21\u578B: [name] \u7684\u52A8\u753B[animationName]",
+      "RenderTheWorld.stopAnimation": "\u7ED3\u675F\u6A21\u578B: [name] \u7684\u52A8\u753B[animationName]",
+      "RenderTheWorld.updateAnimation": "\u63A8\u8FDB\u6A21\u578B: [name] \u7684\u52A8\u753B [time]\u6BEB\u79D2 \u5E76\u66F4\u65B0",
+      "RenderTheWorld.updateAnimation2": "\u81EA\u52A8\u63A8\u8FDB\u6A21\u578B: [name] \u7684\u52A8\u753B\u5E76\u66F4\u65B0",
+      "RenderTheWorld.getAnimation": "\u83B7\u53D6\u6A21\u578B: [name] \u7684\u6240\u6709\u52A8\u753B",
       "RenderTheWorld.rotationObject": "\u5C06\u7269\u4F53: [name] \u65CB\u8F6C: x[x] y[y] z[z]",
       "RenderTheWorld.moveObject": "\u5C06\u7269\u4F53: [name] \u79FB\u52A8\u5230: x[x] y[y] z[z]",
       "RenderTheWorld.scaleObject": "\u5C06\u7269\u4F53: [name] \u7F29\u653E: x[x] y[y] z[z]",
@@ -26311,6 +27238,11 @@ void main() {
       "RenderTheWorld.makePlane": "reset or make a Plane: [name] length[a] width[b] color: [color] position: x[x] y[y] z[z] [YN]cast shadows [YN2]shadow cast",
       "RenderTheWorld.importOBJ": "reset or make a OBJ Model: [name] OBJ file: [objfile] MTL file: [mtlfile] position: x[x] y[y] z[z] [YN]cast shadows [YN2]shadow cast",
       "RenderTheWorld.importGLTF": "reset or make a GLTF Model: [name] GLTF file: [gltffile] position: x[x] y[y] z[z] [YN]cast shadows [YN2]shadow cast",
+      "RenderTheWorld.playAnimation": "start Object: [name]'s Animation [animationName]",
+      "RenderTheWorld.stopAnimation": "stop Object: [name]'s Animation [animationName]",
+      "RenderTheWorld.updateAnimation": "advance Object: [name]'s animation [time] millisecond and update it",
+      "RenderTheWorld.updateAnimation2": "automatically advance Object: [name]'s animation and update it",
+      "RenderTheWorld.getAnimation": "Get Object: [name]'s all animations",
       "RenderTheWorld.rotationObject": "Object: [name] rotation: x[x] y[y] z[z]",
       "RenderTheWorld.moveObject": "Object: [name] go to: x[x] y[y] z[z]",
       "RenderTheWorld.scaleObject": "Object: [name] scale: x[x] y[y] z[z]",
@@ -26373,9 +27305,12 @@ void main() {
       this.hemisphere_light = null;
       this.lights = {};
       this.objects = {};
+      this.animations = {};
       this.scratchCanvas = this.runtime.renderer.canvas;
       this.tc = null;
       this.isTcShow = false;
+      this.clock = null;
+      this._clock = 0;
     }
     /**
      * 翻译
@@ -26450,6 +27385,59 @@ void main() {
             opcode: "render",
             blockType: "command",
             text: this.formatMessage("RenderTheWorld.render")
+          },
+          {
+            blockType: "label",
+            text: this.formatMessage("RenderTheWorld.tools")
+          },
+          {
+            opcode: "controlCamera",
+            blockType: "command",
+            text: this.formatMessage("RenderTheWorld.controlCamera"),
+            hideFromPalette: true,
+            arguments: {
+              yn1: {
+                type: "string",
+                menu: "YN"
+              },
+              yn2: {
+                type: "string",
+                menu: "YN"
+              },
+              yn3: {
+                type: "string",
+                menu: "YN"
+              }
+            }
+          },
+          {
+            opcode: "color_",
+            blockType: "reporter",
+            text: this.formatMessage("RenderTheWorld.color_"),
+            arguments: {
+              R: {
+                type: "number",
+                defaultValue: 255
+              },
+              G: {
+                type: "number",
+                defaultValue: 255
+              },
+              B: {
+                type: "number",
+                defaultValue: 255
+              }
+            }
+          },
+          {
+            opcode: "isWebGLAvailable",
+            blockType: "command",
+            text: this.formatMessage("RenderTheWorld.isWebGLAvailable")
+          },
+          {
+            opcode: "_isWebGLAvailable",
+            blockType: "Boolean",
+            text: this.formatMessage("RenderTheWorld._isWebGLAvailable")
           },
           {
             blockType: "label",
@@ -26663,6 +27651,7 @@ void main() {
               }
             }
           },
+          "---",
           {
             opcode: "deleteObject",
             blockType: "command",
@@ -26788,10 +27777,81 @@ void main() {
               }
             }
           },
+          "---",
+          {
+            opcode: "playAnimation",
+            blockType: "command",
+            text: this.formatMessage("RenderTheWorld.playAnimation"),
+            arguments: {
+              name: {
+                type: "string",
+                defaultValue: "name"
+              },
+              animationName: {
+                type: "string",
+                defaultValue: "animationName"
+              }
+            }
+          },
+          {
+            opcode: "stopAnimation",
+            blockType: "command",
+            text: this.formatMessage("RenderTheWorld.stopAnimation"),
+            arguments: {
+              name: {
+                type: "string",
+                defaultValue: "name"
+              },
+              animationName: {
+                type: "string",
+                defaultValue: "animationName"
+              }
+            }
+          },
+          {
+            opcode: "updateAnimation2",
+            blockType: "command",
+            text: this.formatMessage("RenderTheWorld.updateAnimation2"),
+            arguments: {
+              name: {
+                type: "string",
+                defaultValue: "name"
+              }
+            }
+          },
+          {
+            opcode: "updateAnimation",
+            blockType: "command",
+            text: this.formatMessage("RenderTheWorld.updateAnimation"),
+            arguments: {
+              name: {
+                type: "string",
+                defaultValue: "name"
+              },
+              time: {
+                type: "number",
+                defaultValue: "1"
+              }
+            }
+          },
+          {
+            opcode: "getAnimation",
+            blockType: "reporter",
+            text: this.formatMessage("RenderTheWorld.getAnimation"),
+            arguments: {
+              name: {
+                type: "string",
+                defaultValue: "name"
+              }
+            },
+            disableMonitor: true
+          },
+          "---",
           {
             opcode: "objectLoadingCompleted",
             blockType: "hat",
             text: this.formatMessage("RenderTheWorld.objectLoadingCompleted"),
+            shouldRestartExistingThreads: false,
             arguments: {
               name: {
                 type: "ccw_hat_parameter",
@@ -26872,6 +27932,7 @@ void main() {
               }
             }
           },
+          "---",
           {
             opcode: "moveLight",
             blockType: "command",
@@ -26910,6 +27971,7 @@ void main() {
               }
             }
           },
+          "---",
           {
             opcode: "deleteLight",
             blockType: "command",
@@ -26982,6 +28044,7 @@ void main() {
               }
             }
           },
+          "---",
           {
             opcode: "getCameraPos",
             blockType: "reporter",
@@ -27032,59 +28095,6 @@ void main() {
             opcode: "disableFogEffect",
             blockType: "command",
             text: this.formatMessage("RenderTheWorld.disableFogEffect")
-          },
-          {
-            blockType: "label",
-            text: this.formatMessage("RenderTheWorld.tools")
-          },
-          {
-            opcode: "controlCamera",
-            blockType: "command",
-            text: this.formatMessage("RenderTheWorld.controlCamera"),
-            hideFromPalette: true,
-            arguments: {
-              yn1: {
-                type: "string",
-                menu: "YN"
-              },
-              yn2: {
-                type: "string",
-                menu: "YN"
-              },
-              yn3: {
-                type: "string",
-                menu: "YN"
-              }
-            }
-          },
-          {
-            opcode: "color_",
-            blockType: "reporter",
-            text: this.formatMessage("RenderTheWorld.color_"),
-            arguments: {
-              R: {
-                type: "number",
-                defaultValue: 255
-              },
-              G: {
-                type: "number",
-                defaultValue: 255
-              },
-              B: {
-                type: "number",
-                defaultValue: 255
-              }
-            }
-          },
-          {
-            opcode: "isWebGLAvailable",
-            blockType: "command",
-            text: this.formatMessage("RenderTheWorld.isWebGLAvailable")
-          },
-          {
-            opcode: "_isWebGLAvailable",
-            blockType: "Boolean",
-            text: this.formatMessage("RenderTheWorld._isWebGLAvailable")
           }
         ],
         menus: {
@@ -27162,6 +28172,9 @@ void main() {
       }
       return list;
     }
+    /**
+    * @param {string} filename
+    */
     getFileURL(filename) {
       return this.runtime.getGandiAssetContent(filename).encodeDataURI();
     }
@@ -27173,16 +28186,18 @@ void main() {
       a.click();
     }
     /**
-     * 兼容性检查
-     */
+    * 兼容性检查
+    * @param {object} args
+    */
     // @ts-ignore
     isWebGLAvailable(args) {
       this.isWebglAvailable = WebGL_default.isWebGLAvailable();
     }
     /**
-     * 兼容性
-     * @return {boolean}
-     */
+       * 兼容性
+    * @param {object} args
+       * @return {boolean}
+       */
     // @ts-ignore
     _isWebGLAvailable(args) {
       return this.isWebglAvailable;
@@ -27194,6 +28209,9 @@ void main() {
         return false;
       }
     }
+    /**
+    * @param {object} model
+    */
     _deleteObject(model) {
       if (model.type === "Mesh") {
         model.geometry.dispose();
@@ -27215,6 +28233,20 @@ void main() {
       this.scene.remove(model);
     }
     /**
+     * @param {string} name
+     */
+    releaseDuplicates(name) {
+      if (name in this.objects) {
+        if (name in this.animations) {
+          if (this.animations[name].mixer) {
+            this.animations[name].mixer.stopAllAction();
+          }
+          this.animations[name] = {};
+        }
+        this._deleteObject(this.objects[name]);
+      }
+    }
+    /**
      * 初始化
      * @param {object} args
      * @param {number} args.color
@@ -27223,6 +28255,11 @@ void main() {
      * @param {string} args.Anti_Aliasing
      */
     init({ color, sizex, sizey, Anti_Aliasing }) {
+      this.clock = new Clock();
+      this._clock = 0;
+      this.objects = {};
+      this.lights = {};
+      this.animations = {};
       if (this.scratchCanvas.parentElement.getElementsByClassName("RenderTheWorld").length == 0) {
         this.tc = document.createElement("canvas");
         this.tc.className = "RenderTheWorld";
@@ -27252,12 +28289,7 @@ void main() {
       this.aspect = this.tc.clientWidth / this.tc.clientHeight;
       this.near = 0.1;
       this.far = 1e3;
-      this.camera = new PerspectiveCamera(
-        this.fov,
-        this.aspect,
-        this.near,
-        this.far
-      );
+      this.camera = new PerspectiveCamera(this.fov, this.aspect, this.near, this.far);
       this.controls = new OrbitControls(this.camera, this.renderer.domElement);
       this.controls.enablePan = false;
       this.controls.enableZoom = false;
@@ -27281,7 +28313,7 @@ void main() {
     // @ts-ignore
     set3dState({ state }) {
       if (!this.tc) {
-        return "<span>\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01</span>";
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
       }
       if (Scratch.Cast.toString(state) === "display") {
         this.tc.style.display = "block";
@@ -27307,6 +28339,7 @@ void main() {
       if (!this.tc) {
         return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
       }
+      this._clock = this.clock.getDelta();
       this.renderer.render(this.scene, this.camera);
     }
     /**
@@ -27342,9 +28375,7 @@ void main() {
         color: Scratch.Cast.toNumber(color)
       });
       material.fog = true;
-      if (name in this.objects) {
-        this._deleteObject(this.objects[name]);
-      }
+      this.releaseDuplicates(name);
       this.objects[name] = new Mesh(geometry, material);
       this.objects[name].position.set(
         // @ts-ignore
@@ -27360,14 +28391,11 @@ void main() {
       if (Scratch.Cast.toString(YN2) == "true") {
         this.objects[name].receiveShadow = true;
       }
-      this.runtime.startHatsWithParams(
-        chen_RenderTheWorld_extensionId + "_objectLoadingCompleted",
-        {
-          parameters: {
-            name
-          }
+      this.runtime.startHatsWithParams(chen_RenderTheWorld_extensionId + "_objectLoadingCompleted", {
+        parameters: {
+          name
         }
-      );
+      });
       this.scene.add(this.objects[name]);
     }
     /**
@@ -27403,9 +28431,7 @@ void main() {
         color: Scratch.Cast.toNumber(color)
       });
       material.fog = true;
-      if (name in this.objects) {
-        this._deleteObject(this.objects[name]);
-      }
+      this.releaseDuplicates(name);
       this.objects[name] = new Mesh(geometry, material);
       this.objects[name].position.set(
         // @ts-ignore
@@ -27421,14 +28447,11 @@ void main() {
       if (Scratch.Cast.toString(YN2) == "true") {
         this.objects[name].receiveShadow = true;
       }
-      this.runtime.startHatsWithParams(
-        chen_RenderTheWorld_extensionId + "_objectLoadingCompleted",
-        {
-          parameters: {
-            name
-          }
+      this.runtime.startHatsWithParams(chen_RenderTheWorld_extensionId + "_objectLoadingCompleted", {
+        parameters: {
+          name
         }
-      );
+      });
       this.scene.add(this.objects[name]);
     }
     /**
@@ -27461,9 +28484,7 @@ void main() {
         color: Scratch.Cast.toNumber(color)
       });
       material.fog = true;
-      if (name in this.objects) {
-        this._deleteObject(this.objects[name]);
-      }
+      this.releaseDuplicates(name);
       this.objects[name] = new Mesh(geometry, material);
       this.objects[name].position.set(
         // @ts-ignore
@@ -27479,14 +28500,11 @@ void main() {
       if (Scratch.Cast.toString(YN2) == "true") {
         this.objects[name].receiveShadow = true;
       }
-      this.runtime.startHatsWithParams(
-        chen_RenderTheWorld_extensionId + "_objectLoadingCompleted",
-        {
-          parameters: {
-            name
-          }
+      this.runtime.startHatsWithParams(chen_RenderTheWorld_extensionId + "_objectLoadingCompleted", {
+        parameters: {
+          name
         }
-      );
+      });
       this.scene.add(this.objects[name]);
     }
     /**
@@ -27512,9 +28530,7 @@ void main() {
       name = Scratch.Cast.toString(name);
       const objLoader = new OBJLoader();
       const mtlLoader = new MTLLoader();
-      if (name in this.objects) {
-        this._deleteObject(this.objects[name]);
-      }
+      this.releaseDuplicates(name);
       mtlLoader.load(this.getFileURL(Scratch.Cast.toString(mtlfile)), (mtl) => {
         mtl.preload();
         objLoader.setMaterials(mtl);
@@ -27537,14 +28553,11 @@ void main() {
               this.objects[name].children[i].receiveShadow = true;
             }
           }
-          this.runtime.startHatsWithParams(
-            chen_RenderTheWorld_extensionId + "_objectLoadingCompleted",
-            {
-              parameters: {
-                name
-              }
+          this.runtime.startHatsWithParams(chen_RenderTheWorld_extensionId + "_objectLoadingCompleted", {
+            parameters: {
+              name
             }
-          );
+          });
           this.scene.add(this.objects[name]);
         });
       });
@@ -27572,11 +28585,16 @@ void main() {
       name = Scratch.Cast.toString(name);
       const gltfLoader = new GLTFLoader();
       const url = this.getFileURL(Scratch.Cast.toString(gltffile));
-      if (name in this.objects) {
-        this._deleteObject(this.objects[name]);
-      }
+      this.releaseDuplicates(name);
       gltfLoader.load(url, (gltf) => {
         const root = gltf.scene;
+        let mixer = new AnimationMixer(root);
+        let clips = gltf.animations;
+        this.animations[name] = {
+          mixer,
+          clips,
+          action: {}
+        };
         this.objects[name] = root;
         this.objects[name].position.x = Scratch.Cast.toNumber(x);
         this.objects[name].position.y = Scratch.Cast.toNumber(y);
@@ -27595,18 +28613,95 @@ void main() {
             this.objects[name].children[i].receiveShadow = true;
           }
         }
-        this.runtime.startHatsWithParams(
-          chen_RenderTheWorld_extensionId + "_objectLoadingCompleted",
-          {
-            parameters: {
-              name
-            }
+        this.runtime.startHatsWithParams(chen_RenderTheWorld_extensionId + "_objectLoadingCompleted", {
+          parameters: {
+            name
           }
-        );
+        });
         this.scene.add(this.objects[name]);
-        console.log(this.objects[name]);
-        console.log(this.scene);
       });
+    }
+    /**
+     * 启动动画
+     * @param {object} args
+     * @param {string} args.name
+     * @param {string} args.animationName
+     */
+    // @ts-ignore
+    playAnimation({ name, animationName }) {
+      if (!this.tc) {
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+      }
+      name = Scratch.Cast.toString(name);
+      animationName = Scratch.Cast.toString(animationName);
+      if (name in this.animations && this.animations[name].mixer) {
+        const cilp = AnimationClip.findByName(this.animations[name].clips, animationName);
+        if (!cilp) {
+          return "\u26A0\uFE0F\u6CA1\u6709\u52A8\u753B \u201C" + animationName + "\u201D \uFF0C\u8BF7\u6838\u5B9E\u6A21\u578B\u7684\u52A8\u753B\u540D\u79F0\uFF01";
+        }
+        this.animations[name].action[animationName] = this.animations[name].mixer.clipAction(cilp);
+        this.animations[name].action[animationName].play();
+      }
+    }
+    /**
+     * 停止动画
+     * @param {object} args
+     * @param {string} args.name
+     * @param {string} args.animationName
+     */
+    // @ts-ignore
+    stopAnimation({ name, animationName }) {
+      if (!this.tc) {
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+      }
+      name = Scratch.Cast.toString(name);
+      animationName = Scratch.Cast.toString(animationName);
+      if (name in this.animations) {
+        if (animationName in this.animations[name].action) {
+          this.animations[name].action[animationName].stop();
+        }
+      }
+    }
+    /**
+     * 推进并更新动画
+     * @param {object} args
+     * @param {string} args.name
+     * @param {number} args.time
+     */
+    // @ts-ignore
+    updateAnimation({ name, time }) {
+      if (!this.tc) {
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+      }
+      name = Scratch.Cast.toString(name);
+      time = Scratch.Cast.toNumber(time);
+      if (name in this.animations && this.animations[name].mixer) {
+        this.animations[name].mixer.update(time / 1e3);
+      }
+    }
+    updateAnimation2({ name }) {
+      return this.updateAnimation({ name, time: this._clock * 1e3 });
+    }
+    /**
+     * 获取物体所有的动画
+     * @param {object} args
+     * @param {string} args.name
+     */
+    // @ts-ignore
+    getAnimation({ name }) {
+      if (!this.tc) {
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+      }
+      name = Scratch.Cast.toString(name);
+      if (name in this.animations && this.animations[name].clips) {
+        const clips = [];
+        for (let i = 0; i < this.animations[name].clips.length; i++) {
+          clips.push(this.animations[name].clips[i].name);
+        }
+        return JSON.stringify(clips);
+      } else {
+        return "[]";
+      }
     }
     /**
      * 删除物体
@@ -27619,9 +28714,7 @@ void main() {
         return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
       }
       name = Scratch.Cast.toString(name);
-      if (name in this.objects) {
-        this._deleteObject(this.objects[name]);
-      }
+      this.releaseDuplicates(name);
     }
     // @ts-ignore
     rotationObject({ name, x, y, z }) {
@@ -27941,6 +29034,9 @@ void main() {
      * @param {string} args.xyz
      */
     getCameraPos({ xyz }) {
+      if (!this.camera) {
+        return;
+      }
       switch (Scratch.Cast.toString(xyz)) {
         case "x":
           return this.camera.position.x;
@@ -27957,6 +29053,9 @@ void main() {
      */
     // @ts-ignore
     getCameraRotation({ xyz }) {
+      if (!this.camera) {
+        return;
+      }
       switch (Scratch.Cast.toString(xyz)) {
         case "x":
           return MathUtils.radToDeg(this.camera.rotation.x);
