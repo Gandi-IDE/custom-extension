@@ -27171,7 +27171,8 @@ void main() {
       "RenderTheWorld.tools": "\u{1F6E0}\uFE0F\u5DE5\u5177",
       "RenderTheWorld.YN.true": "\u80FD",
       "RenderTheWorld.YN.false": "\u4E0D\u80FD",
-      "RenderTheWorld.controlCamera": "\u9F20\u6807\u63A7\u5236\u76F8\u673A\uFF1A[yn1]\u53F3\u952E\u62D6\u62FD [yn2]\u4E2D\u952E\u7F29\u653E [yn3]\u5DE6\u952E\u65CB\u8F6C",
+      "RenderTheWorld.YN2.yes": "\u6709",
+      "RenderTheWorld.YN2.no": "\u6CA1\u6709",
       "RenderTheWorld.isWebGLAvailable": "\u517C\u5BB9\u6027\u68C0\u67E5",
       "RenderTheWorld._isWebGLAvailable": "\u5F53\u524D\u8BBE\u5907\u652F\u6301WebGL\u5417?",
       "RenderTheWorld.objects": "\u{1F9F8}\u7269\u4F53",
@@ -27196,9 +27197,10 @@ void main() {
       "RenderTheWorld.xyz.y": "y\u8F74",
       "RenderTheWorld.xyz.z": "z\u8F74",
       "RenderTheWorld.lights": "\u{1F56F}\uFE0F\u5149\u7167",
-      "RenderTheWorld.setAmbientLightColor": "\u8BBE\u7F6E\u73AF\u5883\u5149\u989C\u8272: [color] \u5149\u7167\u5F3A\u5EA6\uFF1A[intensity]",
-      "RenderTheWorld.setHemisphereLightColor": "\u8BBE\u7F6E\u534A\u7403\u5149\u5929\u7A7A\u989C\u8272: [skyColor] \u5730\u9762\u989C\u8272: [groundColor] \u5149\u7167\u5F3A\u5EA6\uFF1A[intensity]",
+      "RenderTheWorld.setAmbientLightColor": "\u8BBE\u7F6E\u73AF\u5883\u5149\u989C\u8272: [color] \u5149\u7167\u5F3A\u5EA6: [intensity]",
+      "RenderTheWorld.setHemisphereLightColor": "\u8BBE\u7F6E\u534A\u7403\u5149\u5929\u7A7A\u989C\u8272: [skyColor] \u5730\u9762\u989C\u8272: [groundColor] \u5149\u7167\u5F3A\u5EA6: [intensity]",
       "RenderTheWorld.makePointLight": "\u521B\u5EFA\u6216\u91CD\u7F6E\u70B9\u5149\u6E90: [name] \u989C\u8272: [color] \u5149\u7167\u5F3A\u5EA6: [intensity] \u4F4D\u7F6E: x[x] y[y] z[z] \u8870\u51CF\u91CF[decay] [YN]\u6295\u5C04\u9634\u5F71",
+      "RenderTheWorld.setLightMapSize": "\u8BBE\u7F6E\u5149\u6E90: [name] \u7684\u9634\u5F71\u7EB9\u7406\u5206\u8FA8\u7387\u4E3A: x[xsize] y[ysize]",
       "RenderTheWorld.moveLight": "\u5C06\u5149\u6E90: [name] \u79FB\u52A8\u5230: x[x] y[y] z[z]",
       "RenderTheWorld.getLightPos": "\u83B7\u53D6\u5149\u6E90: [name] \u7684[xyz]\u5750\u6807",
       "RenderTheWorld.deleteLight": "\u5220\u9664\u5149\u6E90: [name]",
@@ -27208,8 +27210,13 @@ void main() {
       "RenderTheWorld.cameraLookAt": "\u8BA9\u76F8\u673A\u9762\u5411: x[x] y[y] z[z]",
       "RenderTheWorld.getCameraPos": "\u83B7\u53D6\u76F8\u673A[xyz]\u5750\u6807",
       "RenderTheWorld.getCameraRotation": "\u83B7\u53D6\u76F8\u673A[xyz]\u7684\u65CB\u8F6C\u89D2\u5EA6",
+      "RenderTheWorld.setControlState": "\u9F20\u6807[YN]\u63A7\u5236\u76F8\u673A",
+      "RenderTheWorld.mouseCanControlCamera": "\u9F20\u6807\u80FD\u63A7\u5236\u76F8\u673A\u5417?",
+      "RenderTheWorld.controlCamera": "\u9F20\u6807\u63A7\u5236\u76F8\u673A: [yn1]\u53F3\u952E\u62D6\u62FD [yn2]\u4E2D\u952E\u7F29\u653E [yn3]\u5DE6\u952E\u65CB\u8F6C",
+      "RenderTheWorld.setControlCameraDamping": "\u9F20\u6807\u63A7\u5236\u76F8\u673A: [YN2] \u60EF\u6027",
+      "RenderTheWorld.setControlCameraDampingNum": "\u8BBE\u7F6E\u9F20\u6807\u63A7\u5236\u76F8\u673A\u7684\u60EF\u6027\u7CFB\u6570[num]",
       "RenderTheWorld.fogs": "\u{1F32B}\uFE0F\u96FE",
-      "RenderTheWorld.enableFogEffect": "\u542F\u7528\u96FE\u6548\u679C\u5E76\u8BBE\u7F6E\u96FE\u989C\u8272\u4E3A\uFF1A[color] near[near] far[far]",
+      "RenderTheWorld.enableFogEffect": "\u542F\u7528\u96FE\u6548\u679C\u5E76\u8BBE\u7F6E\u96FE\u989C\u8272\u4E3A: [color] near[near] far[far]",
       "RenderTheWorld.disableFogEffect": "\u7981\u7528\u96FE\u6548\u679C"
     },
     en: {
@@ -27229,7 +27236,8 @@ void main() {
       "RenderTheWorld.tools": "\u{1F6E0}\uFE0FTools",
       "RenderTheWorld.YN.true": "can",
       "RenderTheWorld.YN.false": "can't",
-      "RenderTheWorld.controlCamera": "Mouse control camera: [yn1]right click drag [yn2] middle click zoom and [yn3] left click rotation",
+      "RenderTheWorld.YN2.yes": "yes",
+      "RenderTheWorld.YN2.no": "no",
       "RenderTheWorld.isWebGLAvailable": "compatibility check",
       "RenderTheWorld._isWebGLAvailable": "Does the current device support WebGL?",
       "RenderTheWorld.objects": "\u{1F9F8}Objects",
@@ -27257,6 +27265,7 @@ void main() {
       "RenderTheWorld.setAmbientLightColor": "set AmbientLight's color: [color] intensity: [intensity]",
       "RenderTheWorld.setHemisphereLightColor": "set HemisphereLight's skyColor: [skyColor] groundColor: [groundColor] intensity: [intensity]",
       "RenderTheWorld.makePointLight": "reset or make a PointLight: [name] color: [color] intensity: [intensity] position: x[x] y[y] z[z] decay[decay] [YN]cast shadows",
+      "RenderTheWorld.setLightMapSize": "set Light: [name]'s shadow texture resolution x[xsize] y[ysize]",
       "RenderTheWorld.moveLight": "Light: [name] go to: x[x] y[y] z[z]",
       "RenderTheWorld.getLightPos": "get Light: [name]'s [xyz] pos",
       "RenderTheWorld.deleteLight": "delete ligth: [name]",
@@ -27266,6 +27275,11 @@ void main() {
       "RenderTheWorld.cameraLookAt": "Face the camera towards: x[x] y[y] z[z]",
       "RenderTheWorld.getCameraPos": "get camera's [xyz] pos",
       "RenderTheWorld.getCameraRotation": "get camera's  [xyz] rotation",
+      "RenderTheWorld.setControlState": "Mouse [YN] control camera",
+      "RenderTheWorld.mouseCanControlCamera": "Mouse can control camera?",
+      "RenderTheWorld.controlCamera": "Mouse control camera: [yn1]right click drag [yn2] middle click zoom and [yn3] left click rotation",
+      "RenderTheWorld.setControlCameraDamping": "Mouse control camera: [YN2] Damping",
+      "RenderTheWorld.setControlCameraDampingNum": "set the damping coefficient of mouse controlled camera [num]",
       "RenderTheWorld.fogs": "\u{1F32B}\uFE0FFog",
       "RenderTheWorld.enableFogEffect": "Enable fog effect and set fog color to: [color] near[near] far[far]",
       "RenderTheWorld.disableFogEffect": "Disable fog effect"
@@ -27389,26 +27403,6 @@ void main() {
           {
             blockType: "label",
             text: this.formatMessage("RenderTheWorld.tools")
-          },
-          {
-            opcode: "controlCamera",
-            blockType: "command",
-            text: this.formatMessage("RenderTheWorld.controlCamera"),
-            hideFromPalette: true,
-            arguments: {
-              yn1: {
-                type: "string",
-                menu: "YN"
-              },
-              yn2: {
-                type: "string",
-                menu: "YN"
-              },
-              yn3: {
-                type: "string",
-                menu: "YN"
-              }
-            }
           },
           {
             opcode: "color_",
@@ -27934,6 +27928,25 @@ void main() {
           },
           "---",
           {
+            opcode: "setLightMapSize",
+            blockType: "command",
+            text: this.formatMessage("RenderTheWorld.setLightMapSize"),
+            arguments: {
+              name: {
+                type: "string",
+                defaultValue: "name"
+              },
+              xsize: {
+                type: "number",
+                defaultValue: 512
+              },
+              ysize: {
+                type: "number",
+                defaultValue: 512
+              }
+            }
+          },
+          {
             opcode: "moveLight",
             blockType: "command",
             text: this.formatMessage("RenderTheWorld.moveLight"),
@@ -28069,6 +28082,66 @@ void main() {
             },
             disableMonitor: true
           },
+          "---",
+          {
+            opcode: "setControlState",
+            blockType: "command",
+            text: this.formatMessage("RenderTheWorld.setControlState"),
+            hideFromPalette: false,
+            arguments: {
+              YN: {
+                type: "string",
+                menu: "YN"
+              }
+            }
+          },
+          {
+            opcode: "mouseCanControlCamera",
+            blockType: "Boolean",
+            text: this.formatMessage("RenderTheWorld.mouseCanControlCamera")
+          },
+          {
+            opcode: "controlCamera",
+            blockType: "command",
+            text: this.formatMessage("RenderTheWorld.controlCamera"),
+            hideFromPalette: false,
+            arguments: {
+              yn1: {
+                type: "string",
+                menu: "YN"
+              },
+              yn2: {
+                type: "string",
+                menu: "YN"
+              },
+              yn3: {
+                type: "string",
+                menu: "YN"
+              }
+            }
+          },
+          {
+            opcode: "setControlCameraDamping",
+            blockType: "command",
+            text: this.formatMessage("RenderTheWorld.setControlCameraDamping"),
+            arguments: {
+              YN2: {
+                type: "string",
+                menu: "YN2"
+              }
+            }
+          },
+          {
+            opcode: "setControlCameraDampingNum",
+            blockType: "command",
+            text: this.formatMessage("RenderTheWorld.setControlCameraDampingNum"),
+            arguments: {
+              num: {
+                type: "number",
+                defaultValue: 0.05
+              }
+            }
+          },
           {
             blockType: "label",
             text: this.formatMessage("RenderTheWorld.fogs")
@@ -28144,6 +28217,19 @@ void main() {
               }
             ]
           },
+          YN2: {
+            acceptReporters: false,
+            items: [
+              {
+                text: this.formatMessage("RenderTheWorld.YN2.yes"),
+                value: "yes"
+              },
+              {
+                text: this.formatMessage("RenderTheWorld.YN2.no"),
+                value: "no"
+              }
+            ]
+          },
           "3dState": {
             acceptReporters: false,
             items: [
@@ -28190,7 +28276,7 @@ void main() {
     * @param {object} args
     */
     // @ts-ignore
-    isWebGLAvailable(args) {
+    isWebGLAvailable({}) {
       this.isWebglAvailable = WebGL_default.isWebGLAvailable();
     }
     /**
@@ -28199,7 +28285,7 @@ void main() {
        * @return {boolean}
        */
     // @ts-ignore
-    _isWebGLAvailable(args) {
+    _isWebGLAvailable({}) {
       return this.isWebglAvailable;
     }
     objectLoadingCompleted({ name }) {
@@ -28291,11 +28377,12 @@ void main() {
       this.far = 1e3;
       this.camera = new PerspectiveCamera(this.fov, this.aspect, this.near, this.far);
       this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+      this.controls.enabled = false;
+      this.controls.enableDamping = false;
       this.controls.enablePan = false;
       this.controls.enableZoom = false;
       this.controls.enableRotate = false;
       this.controls.update();
-      this.controls.addEventListener("change", this.render);
       this.ambient_light = new AmbientLight(0);
       this.scene.add(this.ambient_light);
       this.hemisphere_light = new HemisphereLight(0, 0);
@@ -28341,6 +28428,9 @@ void main() {
       }
       this._clock = this.clock.getDelta();
       this.renderer.render(this.scene, this.camera);
+      if (this.controls.enableDamping) {
+        this.controls.update();
+      }
     }
     /**
      * 创建或重置长方体
@@ -28541,17 +28631,19 @@ void main() {
           this.objects[name].position.z = Scratch.Cast.toNumber(z);
           if (Scratch.Cast.toString(YN) == "true") {
             this.objects[name].castShadow = true;
+            this.objects[name].traverse(function(node) {
+              if (node.isMesh) {
+                node.castShadow = true;
+              }
+            });
           }
           if (Scratch.Cast.toString(YN2) == "true") {
             this.objects[name].receiveShadow = true;
-          }
-          for (let i = 0; i < this.objects[name].children.length; i++) {
-            if (Scratch.Cast.toString(YN) == "true") {
-              this.objects[name].children[i].castShadow = true;
-            }
-            if (Scratch.Cast.toString(YN2) == "true") {
-              this.objects[name].children[i].receiveShadow = true;
-            }
+            this.objects[name].traverse(function(node) {
+              if (node.isMesh) {
+                node.receiveShadow = true;
+              }
+            });
           }
           this.runtime.startHatsWithParams(chen_RenderTheWorld_extensionId + "_objectLoadingCompleted", {
             parameters: {
@@ -28588,6 +28680,7 @@ void main() {
       this.releaseDuplicates(name);
       gltfLoader.load(url, (gltf) => {
         const root = gltf.scene;
+        console.log(gltf);
         let mixer = new AnimationMixer(root);
         let clips = gltf.animations;
         this.animations[name] = {
@@ -28601,17 +28694,19 @@ void main() {
         this.objects[name].position.z = Scratch.Cast.toNumber(z);
         if (Scratch.Cast.toString(YN) == "true") {
           this.objects[name].castShadow = true;
+          this.objects[name].traverse(function(node) {
+            if (node.isMesh) {
+              node.castShadow = true;
+            }
+          });
         }
         if (Scratch.Cast.toString(YN2) == "true") {
           this.objects[name].receiveShadow = true;
-        }
-        for (let i = 0; i < this.objects[name].children.length; i++) {
-          if (Scratch.Cast.toString(YN) == "true") {
-            this.objects[name].children[i].castShadow = true;
-          }
-          if (Scratch.Cast.toString(YN2) == "true") {
-            this.objects[name].children[i].receiveShadow = true;
-          }
+          this.objects[name].traverse(function(node) {
+            if (node.isMesh) {
+              node.receiveShadow = true;
+            }
+          });
         }
         this.runtime.startHatsWithParams(chen_RenderTheWorld_extensionId + "_objectLoadingCompleted", {
           parameters: {
@@ -28882,6 +28977,16 @@ void main() {
       }
       this.scene.add(this.lights[name]);
     }
+    setLightMapSize({ name, xsize, ysize }) {
+      if (!this.tc) {
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+      }
+      name = Scratch.Cast.toString(name);
+      if (name in this.lights) {
+        this.lights[name].shadow.mapSize.width = Scratch.Cast.toNumber(xsize);
+        this.lights[name].shadow.mapSize.height = Scratch.Cast.toNumber(ysize);
+      }
+    }
     // @ts-ignore
     moveLight({ name, x, y, z }) {
       if (!this.tc) {
@@ -28977,14 +29082,16 @@ void main() {
       if (!this.tc) {
         return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
       }
-      this.camera.position.set(
-        // @ts-ignore
-        Scratch.Cast.toNumber(x),
-        // @ts-ignore
-        Scratch.Cast.toNumber(y),
-        // @ts-ignore
-        Scratch.Cast.toNumber(z)
-      );
+      if (!this.controls.enabled) {
+        this.camera.position.set(
+          // @ts-ignore
+          Scratch.Cast.toNumber(x),
+          // @ts-ignore
+          Scratch.Cast.toNumber(y),
+          // @ts-ignore
+          Scratch.Cast.toNumber(z)
+        );
+      }
     }
     /**
      * 旋转相机
@@ -28998,14 +29105,16 @@ void main() {
       if (!this.tc) {
         return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
       }
-      this.camera.rotation.set(
-        // @ts-ignore
-        MathUtils.degToRad(Scratch.Cast.toNumber(x)),
-        // @ts-ignore
-        MathUtils.degToRad(Scratch.Cast.toNumber(y)),
-        // @ts-ignore
-        MathUtils.degToRad(Scratch.Cast.toNumber(z))
-      );
+      if (!this.controls.enabled) {
+        this.camera.rotation.set(
+          // @ts-ignore
+          MathUtils.degToRad(Scratch.Cast.toNumber(x)),
+          // @ts-ignore
+          MathUtils.degToRad(Scratch.Cast.toNumber(y)),
+          // @ts-ignore
+          MathUtils.degToRad(Scratch.Cast.toNumber(z))
+        );
+      }
     }
     /**
      * 让相机面向
@@ -29019,14 +29128,16 @@ void main() {
       if (!this.tc) {
         return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
       }
-      this.camera.lookAt(
-        // @ts-ignore
-        Scratch.Cast.toNumber(x),
-        // @ts-ignore
-        Scratch.Cast.toNumber(y),
-        // @ts-ignore
-        Scratch.Cast.toNumber(z)
-      );
+      if (!this.controls.enabled) {
+        this.camera.lookAt(
+          // @ts-ignore
+          Scratch.Cast.toNumber(x),
+          // @ts-ignore
+          Scratch.Cast.toNumber(y),
+          // @ts-ignore
+          Scratch.Cast.toNumber(z)
+        );
+      }
     }
     /**
      * 获取相机坐标
@@ -29072,7 +29183,11 @@ void main() {
      * @param {string} args.yn2
      * @param {string} args.yn3
      */
+    // @ts-ignore
     controlCamera({ yn1, yn2, yn3 }) {
+      if (!this.tc) {
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+      }
       let enablePan = false;
       let enableZoom = false;
       let enableRotate = false;
@@ -29088,6 +29203,53 @@ void main() {
       this.controls.enablePan = enablePan;
       this.controls.enableZoom = enableZoom;
       this.controls.enableRotate = enableRotate;
+      this.controls.update();
+    }
+    // @ts-ignore
+    setControlState({ YN }) {
+      if (!this.tc) {
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+      }
+      if (Scratch.Cast.toString(YN) == "true") {
+        this.controls.enabled = true;
+      } else {
+        this.controls.enabled = false;
+      }
+      this.controls.update();
+    }
+    mouseCanControlCamera({}) {
+      if (!this.tc) {
+        return false;
+      }
+      return this.controls.enabled;
+    }
+    /**
+     * 启用/禁用鼠标控制相机惯性
+     * @param {object} args
+     * @param {string} args.YN2
+     */
+    // @ts-ignore
+    setControlCameraDamping({ YN2 }) {
+      if (!this.tc) {
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+      }
+      if (Scratch.Cast.toString(YN2) == "yes") {
+        this.controls.enableDamping = true;
+      } else {
+        this.controls.enableDamping = false;
+      }
+    }
+    /**
+     * 获取鼠标控制相机惯性状态
+     * @param {object} args
+     * @param {number} args.num
+     */
+    // @ts-ignore
+    setControlCameraDampingNum({ num }) {
+      if (!this.tc) {
+        return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+      }
+      this.controls.dampingFactor = Scratch.Cast.toNumber(num);
     }
     /**
      * 启用雾效果并设置雾颜色
