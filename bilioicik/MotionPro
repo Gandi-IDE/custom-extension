@@ -41,8 +41,6 @@
             this._formatMessage = runtime.getFormatMessage({
                 "zh-cn": {
                     'MotionPro.Motion':'运动',
-                    'MotionPro.docs':'文档',
-                    'MotionPro.tip':'⚠仅支持编译模式',
                     'MotionPro.showBlock': '显示不常用积木',
                     'MotionPro.hideBlock': '隐藏不常用积木',
                     'MotionPro.showBlock?':'为了避免杂乱，少量积木被隐藏。\n是否要显示它们？',
@@ -104,10 +102,8 @@
                 },
                 en: {
                     'MotionPro.Motion':'Motion',
-                    'MotionPro.docs':'documentation',
-                    'MotionPro.tip':'⚠only Compile Mode',
-                    'MotionPro.showBlock': 'show other blocks',
-                    'MotionPro.hideBlock': 'hide other blocks',
+                    'MotionPro.showBlock': 'Show Other Blocks',
+                    'MotionPro.hideBlock': 'Hide Other Blocks',
                     'MotionPro.showBlock?':'To avoid clutter, a few blocks are hidden.\n Do you want to show them?',
 
                     'MotionPro.location':'location',
@@ -177,6 +173,7 @@
         }
         getInfo(){
             return{
+                docsURI:'https://learn.ccw.site/article/ded82bb8-3d48-43ea-872e-eb7d2dcbb7cf',
                 id:MotionProextensionId,
                 name:this.formatMessage('MotionPro.Motion'),
                 blockIconURI:'',
@@ -184,15 +181,6 @@
                 color1:'#4c97ff',
                 color2:'#a5caff',
                 blocks:[
-                    {
-                        blockType: "button",
-                        text: this.formatMessage('MotionPro.docs'),
-                        onClick: this.docs
-                    },
-                    {
-                        blockType: Scratch.BlockType.LABEL,
-                        text: this.formatMessage('MotionPro.tip')
-                    },
                     {
                         blockType: 'button',
                         hideFromPalette: !this.hideExtraBlocks,
@@ -314,7 +302,7 @@
                                 defaultValue:33
                             },
                             d:{
-                                type:'string',
+                                type:'angle',
                                 defaultValue:33
                             },
                             r:{
@@ -1202,13 +1190,6 @@
                 })
             }
             return menus;
-        }
-        docs() {
-            let a = document.createElement('a');
-            a.href = "https://learn.ccw.site/article/ded82bb8-3d48-43ea-872e-eb7d2dcbb7cf";
-            a.rel = "noopener noreferrer";
-            a.target = "blank";
-            a.click()
         }
         findExtConfigComment() {
             const stage = this.runtime.getTargetForStage();
