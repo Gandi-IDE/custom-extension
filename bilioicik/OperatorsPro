@@ -27,8 +27,6 @@
             this._formatMessage = runtime.getFormatMessage({
                 "zh-cn": {
                     'OperatorsPro.Operators':'运算',
-                    'OperatorsPro.docs':'文档',
-                    'OperatorsPro.tip':'⚠仅支持编译模式',
                     'OperatorsPro.showBlock': '显示不常用积木',
                     'OperatorsPro.hideBlock': '隐藏不常用积木',
                     'OperatorsPro.showBlock?':'为了避免杂乱，少量积木被隐藏。\n是否要显示它们？',
@@ -329,10 +327,8 @@
                 },
                 en: {
                     'OperatorsPro.Operators':'Operators',
-                    'OperatorsPro.docs':'documentation',
-                    'OperatorsPro.tip':'⚠only Compile Mode',
-                    'OperatorsPro.showBlock': 'show other blocks',
-                    'OperatorsPro.hideBlock': 'hide other blocks',
+                    'OperatorsPro.showBlock': 'Show Other Blocks',
+                    'OperatorsPro.hideBlock': 'Hide Other Blocks',
                     'OperatorsPro.showBlock?':'To avoid clutter, a few blocks are hidden.\n Do you want to show them?',
     
                     'OperatorsPro.true':'true',
@@ -640,6 +636,7 @@
         }
         getInfo(){
             return{
+                docsURI:'https://learn.ccw.site/article/306d54d0-b83a-43f3-ba84-bd41a7183239',
                 id:OperatorsProextensionId,
                 name:this.formatMessage('OperatorsPro.Operators'),
                 blockIconURI:'',
@@ -647,15 +644,6 @@
                 color1:'#59c059',
                 color2:'#8bbf8b',
                 blocks:[
-                    {
-                        blockType: "button",
-                        text: this.formatMessage('OperatorsPro.docs'),
-                        onClick: this.docs
-                    },
-                    {
-                        blockType: Scratch.BlockType.LABEL,
-                        text: this.formatMessage('OperatorsPro.tip')
-                    },
                     {
                         blockType: 'button',
                         hideFromPalette: !this.hideExtraBlocks,
@@ -5268,14 +5256,6 @@
                     }
                 }
             }
-        }
-    
-        docs() {
-            let a = document.createElement('a');
-            a.href = "https://learn.ccw.site/article/306d54d0-b83a-43f3-ba84-bd41a7183239";
-            a.rel = "noopener noreferrer";
-            a.target = "blank";
-            a.click()
         }
         findExtConfigComment() {
             const stage = this.runtime.getTargetForStage();
