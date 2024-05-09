@@ -232,6 +232,14 @@ const l10n = {
     '将数据[NAME]设为空对象',
     'set data[NAME]to an empty object',
   ],
+  'block.clear': [
+    '清空[NAME]中的内容',
+    'clear contents of[NAME]',
+  ],
+  'tooltip.clear': [
+    '删除某个已有对象/列表中的所有内容',
+    'clear all contents of the object/list',
+  ],
   'block.setPropOfObject': [
     '[NAME_OR_OBJ]的[PROP][OP][VALUE]',
     '[PROP] of [NAME_OR_OBJ][OP][VALUE]',

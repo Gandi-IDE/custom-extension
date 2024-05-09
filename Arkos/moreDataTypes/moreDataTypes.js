@@ -950,6 +950,19 @@ class moreDataTypes {
           },
         },
       },
+      // 创建空对象
+      {
+        opcode: 'clear',
+        blockType: Scratch.BlockType.COMMAND,
+        hideFromPalette: !this.showMoreObjBlocks,
+        text: this.fm('block.clear'),
+        arguments: {
+          NAME: {
+            type: Scratch.ArgumentType.STRING,
+            defaultValue: this.__dataNameOrObjMsg('obj'),
+          },
+        },
+      },
       // 合并对象
       {
         opcode: 'mergeObject',
@@ -2119,6 +2132,21 @@ class moreDataTypes {
       return;
     }
     this.tempData.value[Cast.toString(NAME)] = new SafeObject();
+  }
+
+  clear({ NAME }) {
+    const obj = this.__getObjByNameOrObj(NAME);
+    if (!obj) return;
+    if (Array.isArray(obj)) {
+      // 清空传入的列表
+      obj.length = 0;
+      return;
+    }
+    // 清空传入的对象
+    Object.keys(obj).forEach((key) => {
+      delete obj[key];
+    });
+    // this.tempData.value[Cast.toString(NAME)] = new SafeObject();
   }
 
   /**
