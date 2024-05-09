@@ -39,8 +39,11 @@ class SafeObject extends String {
      * @returns {SafeObject} SafeObject
      */
   static parse(string) {
+    return JSON.parse(string, (key, value) => SafeObject.toSafeObject(value));
+  }
+
+  static simpleParse(string) {
     return SafeObject.toSafeObject(JSON.parse(string)); // reviver疑似性能开销较大，故取消
-    // return JSON.parse(string, (key, value) => SafeObject.toSafeObject(value));
   }
 
   /**
@@ -145,9 +148,9 @@ class SafeObject extends String {
     return SafeObject.stringify(this.value);
   }
 
-  // valueOf() {
-  //   return this.toString();
-  // }
+  valueOf() {
+    return this.toString();
+  }
 
   /**
      * 尝试匹配形如 <SafeObject> {"a": 1, "b": 2} 的字符串，转为SafeObject对象

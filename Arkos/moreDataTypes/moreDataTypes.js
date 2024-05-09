@@ -1826,7 +1826,7 @@ class moreDataTypes {
       case 'parse': {
         try {
           if (typeof VALUE !== 'string') return false;
-          const parsed = SafeObject.parse(VALUE);
+          const parsed = SafeObject.simpleParse(VALUE);
           if (typeof parsed !== 'object' || parsed === null) return false;
           obj[prop] = parsed;
         } catch (e) {
@@ -1876,7 +1876,7 @@ class moreDataTypes {
   getObjFromJson({ VALUE }) {
     try {
       if (typeof VALUE !== 'string') return '';
-      const obj = SafeObject.parse(VALUE);
+      const obj = SafeObject.simpleParse(VALUE);
       // if (typeof obj !== "object" || obj === null) return '';
       return this.anythingToSCArg(obj);
     } catch (e) {
@@ -2139,7 +2139,7 @@ class moreDataTypes {
         if (this.inputJSONAllowed && (str[0] === '{' || str[0] === '[')) {
           // 尝试以JSON解析
           try {
-            obj = SafeObject.parse(str);
+            obj = SafeObject.simpleParse(str);
           } catch (e) {
             return false;
           }
