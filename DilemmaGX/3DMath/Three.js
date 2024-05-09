@@ -3,7 +3,7 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable max-len */
 /* eslint indent: ["error", 4] */
-// Originated from 3DMath by @David-Orangemoon
+// Originated from 3DMath by @David-Orangemoon：https://github.com/David-Orangemoon
 // Reformated by @DilemmaGX and @Arkos
 
 const ext_id = 'DilemmaGX.3dm';
@@ -79,6 +79,7 @@ class Three {
 
         this._formatMessage = runtime.getFormatMessage({
             'zh-cn': {
+                'Three.credit': '✨原作者：David-Orangemoon, 非常感谢!',
                 'Three.extensionName': '三',
 
                 'Three.label.Vector3': '三维向量',
@@ -88,10 +89,10 @@ class Three {
                 'Three.label.Camera': '相机',
                 'Three.label.Sprite3D': '角色',
 
-                'Three.block.newV3': '向量3D x:[x] y:[y] z:[z]',
+                'Three.block.newV3': '3D向量 x:[x] y:[y] z:[z]',
                 'Three.block.newV3fromValue': '从[value]创建3D向量',
-                'Three.block.newV3fromDirection': '向量3D 长度[len]方向[yaw][pitch]',
-                'Three.block.newV2fromDirection': '向量2D 长度[len]方向[dir]',
+                'Three.block.newV3fromDirection': '3D向量 长度[len]方向[yaw][pitch]',
+                'Three.block.newV2fromDirection': '2D向量 长度[len]方向[dir]',
                 'Three.block.getAxisOfV3': '向量[vector]的[axis]',
                 'Three.block.addV3': 'V3: [a] + [b]',
                 'Three.block.subV3': 'V3: [a] - [b]',
@@ -106,8 +107,8 @@ class Three {
                 'Three.block.rotateAroundPointV3': '将向量[a]绕[b]点旋转偏航x:[yaw]俯仰y:[pitch]滚动z:[roll]',
                 'Three.block.rotateAroundCenterV3': '将向量[a]绕中心点旋转偏航x:[yaw]俯仰y:[pitch]滚动z:[roll]',
                 'Three.block.relativeCameraV3': '向量[a]相对相机的坐标',
-                'Three.block.newV2': '向量2D x:[x] y:[y]',
-                'Three.block.newV2fromValue': '从[value]创建向量2D',
+                'Three.block.newV2': '2D向量 x:[x] y:[y]',
+                'Three.block.newV2fromValue': '从[value]创建2D向量',
                 'Three.block.getAxisOfV2': '向量[vector]的[axis]',
                 'Three.block.project2DFromCam': '从相机将[a]投影到2D',
                 'Three.block.project2DFromPos': '从相机位置：[b]方向：偏航[yaw]俯仰[pitch]滚动[roll]，将[a]投影到2D',
@@ -159,9 +160,11 @@ class Three {
                 'Three.menu.yaw': '偏航',
                 'Three.menu.pitch': '俯仰',
                 'Three.menu.roll': '滚动',
+                'Three.menu.dir': '方向',
             },
 
             en: {
+                'Three.credit': '✨Originally by David-Orangemoon, thanks for his contribution!',
                 'Three.extensionName': 'Three',
 
                 'Three.label.Vector3': '3D Vector',
@@ -172,52 +175,52 @@ class Three {
                 'Three.label.Sprite3D': 'Character',
 
                 'Three.block.relativeCameraV3': 'V3: convert world [a] to camera-relative coordinates',
-                'Three.block.cam3DsetPositionOnAxis': 'set camera[axis]to[a]and[cam]',
-                'Three.block.cam3DsetRotationOnAxis': 'set camera rotation[rotator]to[a]and[cam]',
+                'Three.block.cam3DsetPositionOnAxis': 'set camera[axis]to[a]',
+                'Three.block.cam3DsetRotationOnAxis': 'set camera rotation[rotator]to[a]',
                 'Three.block.newV3': 'vector 3 x:[x] y:[y] z:[z]',
                 'Three.block.newV3fromValue': 'vector 3 from [value]',
                 'Three.block.newV3fromDirection': 'vector 3: length:[len]yaw:[yaw]pitch:[pitch]',
                 'Three.block.newV2fromDirection': 'vector 2: length:[len]direction:[dir]',
-                'Three.block.getAxisOfV3': 'get the [axis] axis of [vector]',
+                'Three.block.getAxisOfV3': '[axis] of [vector]',
                 'Three.block.addV3': 'V3: [a] + [b]',
                 'Three.block.subV3': 'V3: [a] - [b]',
                 'Three.block.mulV3': 'V3: [a] * [b]',
                 'Three.block.divV3': 'V3: [a] / [b]',
                 'Three.block.normV3': 'V3: nomalize[a]',
                 'Three.block.normV2': 'V2: nomalize[a]',
-                'Three.block.dotProductOfV3': 'V3: product between [a] and [b]',
-                'Three.block.crossProductOfV3': 'V3: product between [a] and [b]',
-                'Three.block.magnitudeV3': 'V3: of [a]',
-                'Three.block.distanceV3': 'V3: between [a] and [b]',
-                'Three.block.rotateAroundPointV3': 'V3: [a] around [b] by yaw:[yaw] pitch:[pitch], and roll:[roll]',
-                'Three.block.rotateAroundCenterV3': 'V3: [a] around the center by yaw:[yaw] pitch:[pitch], and roll:[roll]',
+                'Three.block.dotProductOfV3': 'V3: dot product [a] ⋅ [b]',
+                'Three.block.crossProductOfV3': 'V3: cross product [a] × [b]',
+                'Three.block.magnitudeV3': 'V3: length of [a]',
+                'Three.block.distanceV3': 'V3: distance between [a] and [b]',
+                'Three.block.rotateAroundPointV3': 'V3: rotate[a] around [b] by yaw:[yaw] pitch:[pitch], and roll:[roll]',
+                'Three.block.rotateAroundCenterV3': 'V3: rotate[a] around the center by yaw:[yaw] pitch:[pitch], and roll:[roll]',
                 'Three.block.newV2': 'vector 2 x:[x] y:[y]',
                 'Three.block.newV2fromValue': 'vector 2 from [value]',
-                'Three.block.getAxisOfV2': 'V2: the [axis] axis of [vector]',
+                'Three.block.getAxisOfV2': 'V2: [axis] of [vector]',
                 'Three.block.project2DFromCam': 'get projected [a] to 2D from camera',
                 'Three.block.project2DFromPos': 'get projected [a] to 2D from [b] yaw:[yaw] pitch:[pitch] roll:[roll]',
                 'Three.block.addV2': 'V2: [a] + [b]',
                 'Three.block.subV2': 'V2: [a] - [b]',
                 'Three.block.mulV2': 'V2: [a] * [b]',
                 'Three.block.divV2': 'V2: [a] / [b]',
-                'Three.block.dotProductOfV2': 'V2: product between [a] and [b]',
-                'Three.block.crossProductOfV2': 'V2: product between [a] and [b]',
-                'Three.block.magnitudeV2': 'V2: of [a]',
-                'Three.block.distanceV2': 'V2: between [a] and [b]',
-                'Three.block.rotateAroundPointV2': 'V2: [a] around [b] by [yaw] degrees',
-                'Three.block.rotateAroundCenterV2': 'V2: [a] around the center by [yaw] degrees',
-                'Three.block.cam3DsetPosition': 'set camera position to [a]and[cam]',
-                'Three.block.cam3DchangePosition': 'change camera position by [a]and[cam]',
-                'Three.block.cam3DchangePositionOnAxis': 'change camera [axis] by [a]and[cam]',
+                'Three.block.dotProductOfV2': 'V2: dot product [a] ⋅ [b]',
+                'Three.block.crossProductOfV2': 'V2: cross product [a] × [b]',
+                'Three.block.magnitudeV2': 'V2: length of [a]',
+                'Three.block.distanceV2': 'V2: distance between [a] and [b]',
+                'Three.block.rotateAroundPointV2': 'V2: rotate [a] around [b] by [yaw] degrees',
+                'Three.block.rotateAroundCenterV2': 'V2: rotate[a] around the center by [yaw] degrees',
+                'Three.block.cam3DsetPosition': 'set camera position to [a]',
+                'Three.block.cam3DchangePosition': 'change camera position by [a]',
+                'Three.block.cam3DchangePositionOnAxis': 'change camera [axis] by [a]',
                 'Three.block.cam3DgetPosition': 'camera position',
-                'Three.block.cam3DsetRotation': 'set camera rotation to [a]and[cam]',
+                'Three.block.cam3DsetRotation': 'set camera rotation to [a]',
                 'Three.block.cam3DgetOnePosition': 'camera[a]',
                 'Three.block.cam3DgetOneRotation': 'camera[a]',
-                'Three.block.cam3DchangeRotation': 'change camera rotation by [a]and[cam]',
-                'Three.block.cam3DchangeRotationOnAxis': 'change camera [rotator] by [a]and[cam]',
+                'Three.block.cam3DchangeRotation': 'change camera rotation by [a]',
+                'Three.block.cam3DchangeRotationOnAxis': 'change camera [rotator] by [a]',
                 'Three.block.cam3DgetRotation': 'camera rotation',
-                'Three.block.setFov': 'set FOV to [dist]and[cam]',
-                'Three.block.changeFov': 'change FOV by [dist]and[cam]',
+                'Three.block.setFov': 'set FOV to [dist]',
+                'Three.block.changeFov': 'change FOV by [dist]',
                 'Three.block.getFov': 'FOV',
                 'Three.block.spr3DsetPosition': 'set my position to [a]and[move]',
                 'Three.block.spr3DsetPositionComponent': 'set my [component] to [a]and[move]',
@@ -242,6 +245,7 @@ class Three {
                 'Three.menu.yaw': 'yaw',
                 'Three.menu.pitch': 'pitch',
                 'Three.menu.roll': 'roll',
+                'Three.menu.dir': 'direction',
             },
         });
     }
@@ -257,6 +261,7 @@ class Three {
     getInfo() {
         const blocks = [
             // #3D Vector Math#
+            `---${this.formatMessage('Three.credit')}`,
             `---${this.formatMessage('Three.label.Vector3')}`,
             {
                 disableMonitor: true,
@@ -944,6 +949,7 @@ class Three {
                     items: [
                         { text: 'x', value: '0' },
                         { text: 'y', value: '1' },
+                        { text: this.formatMessage('Three.menu.dir'), value: 'dir' },
                     ],
                     acceptReporters: true,
                 },
@@ -971,6 +977,8 @@ class Three {
                         { text: 'xy', value: '3' },
                         { text: 'yz', value: '4' },
                         { text: 'xz', value: '5' },
+                        { text: this.formatMessage('Three.menu.yaw'), value: '6' },
+                        { text: this.formatMessage('Three.menu.pitch'), value: '7' },
                     ],
                     acceptReporters: true,
                 },
@@ -1064,13 +1072,23 @@ class Three {
 
     __get3DAxis(vector, axis) {
         if (axis > 2) {
+            const [x, y, z] = vector;
             switch (axis) {
             case 3:
-                return new SafeVector([vector[0], vector[1]]);
+                return new SafeVector([x, y]);
             case 4:
-                return new SafeVector([vector[1], vector[2]]);
+                return new SafeVector([y, z]);
             case 5:
-                return new SafeVector([vector[0], vector[2]]);
+                return new SafeVector([x, z]);
+            case 6: {
+                // 偏航
+                return Math.atan2(x, z) * (180 / Math.PI);
+            }
+            case 7: {
+                // 俯仰
+                const d = Math.sqrt(x * x + z * z);
+                return Math.atan2(y, d) * (180 / Math.PI);
+            }
             default:
                 return 0;
             }
@@ -1314,6 +1332,9 @@ class Three {
     getAxisOfV2New({ axis, vector }) {
         const vec = this.getArrayFromParam(vector);
         if (!vec) return 0;
+        if (axis === 'dir') {
+            return Math.atan2(vec[0], vec[1]) / d2r;
+        }
         const axi = Cast.toNumber(axis);
         return vec[axi] ?? 0;
     }
