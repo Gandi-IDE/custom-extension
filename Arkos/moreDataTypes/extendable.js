@@ -27,43 +27,48 @@ const plusImage = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5
   + 'MwIDEuMTA0Ljg5NiAyIDIgMnMyLS44OTYgMi0ydi00LjA3MWw0IC4wNzFjMS4xMDQgMCAyLS'
   + '44OTYgMi0ycy0uODk2LTItMi0yeiIgZmlsbD0id2hpdGUiIC8+PC9zdmc+Cg==';
 
+const smallIcon = true;
+const btnSize = 16;
+
 export const INPUT_TYPES = {
   STRING: 's',
   NUMBER: 'n',
   BOOLEAN: 'b',
 };
+
+/**
+ * 在Gandi编辑器获取scratchBlocks与获取VM的方法
+ * 来自凌（FurryR） https://github.com/FurryR/lpp-scratch 的LPP扩展
+ */
+const hijack = (fn) => {
+  const _orig = Function.prototype.apply;
+  Function.prototype.apply = (thisArg) => thisArg;
+  const result = fn();
+  Function.prototype.apply = _orig;
+  return result;
+};
+
+/**
+ * 获取 ScratchBlocks 和 VM 实例
+ * @returns {{ScratchBlocks, vm}}
+ */
+export const getScratchBlocksAndVM = (runtime) => {
+  function getEvent(e) {
+    return e instanceof Array ? e[e.length - 1] : e;
+  }
+  const { vm } = hijack(getEvent(runtime._events.QUESTION)).props;
+  return {
+    scratchBlocks: hijack(getEvent(vm._events.EXTENSION_ADDED))
+      ?.ScratchBlocks,
+    vm,
+  };
+};
+
 let init = false;
 export const setExpandableBlocks = (expandableBlocks, runtime, fm) => {
   // 避免上传作品时二次调用。只调用一次
   if (init) return;
   init = true;
-  /**
-   * 在Gandi编辑器获取scratchBlocks与获取VM的方法
-   * 来自凌（FurryR） https://github.com/FurryR/lpp-scratch 的LPP扩展
-   */
-  const hijack = (fn) => {
-    const _orig = Function.prototype.apply;
-    Function.prototype.apply = (thisArg) => thisArg;
-    const result = fn();
-    Function.prototype.apply = _orig;
-    return result;
-  };
-
-  /**
-   * 获取 ScratchBlocks 和 VM 实例
-   * @returns {{ScratchBlocks, vm}}
-   */
-  const getScratchBlocksAndVM = (runtime) => {
-    function getEvent(e) {
-      return e instanceof Array ? e[e.length - 1] : e;
-    }
-    const { vm } = hijack(getEvent(runtime._events.QUESTION)).props;
-    return {
-      scratchBlocks: hijack(getEvent(vm._events.EXTENSION_ADDED))
-        ?.ScratchBlocks,
-      vm,
-    };
-  };
 
   /**
    * 创建按钮
@@ -74,7 +79,7 @@ export const setExpandableBlocks = (expandableBlocks, runtime, fm) => {
     // 按钮
     class FieldButton extends Blockly.FieldImage {
       constructor(src) {
-        super(src, 18, 18, undefined, false);
+        super(src, btnSize, btnSize, undefined, false);
         this.initialized = false;
       }
 
@@ -203,7 +208,7 @@ export const setExpandableBlocks = (expandableBlocks, runtime, fm) => {
         const getDefaultValue = (name, i) => {
           if (this.opcode === 'ndList') return Math.max(3, 4 - i);
           let values = fm(this.values).split(',');
-          if (this.opcode === 'getProp') return values[0];
+          if (this.opcode === 'getProp' || this.opcode === 'addItem') return values[0];
           if (this.opcode === 'obj') values = values.map((v) => v.split('='));
           const len = values.length;
           if (i > len - 1) {
@@ -240,6 +245,9 @@ export const setExpandableBlocks = (expandableBlocks, runtime, fm) => {
               moveInputAfter(key, previousArg);
             } else if (this.opcode === 'ndList') {
               const previousArg = i === 0 ? 'N' : `${name}${i - 1}`;
+              moveInputAfter(key, previousArg);
+            } else if (this.opcode === 'addItem') {
+              const previousArg = i === 0 ? 'NAME_OR_OBJ' : `${name}${i - 1}`;
               moveInputAfter(key, previousArg);
             }
           }
@@ -282,13 +290,13 @@ export const setExpandableBlocks = (expandableBlocks, runtime, fm) => {
         const oldExtraState = Blockly.Xml.domToText(this.mutationToDom(this));
         // 创建新的积木
         if (this.text) {
-          this.inputList[0].fieldRow[1].setText(
+          this.inputList[0].fieldRow[2 - smallIcon].setText(
             fm(this.itemCount_ === 0 ? this.emptyText : this.text),
           );
         }
         let i;
         for (i = 0; i < this.itemCount_; i += 1) {
-          if (this.opcode === 'getProp' || this.opcode === 'ndList') {
+          if (this.opcode === 'getProp' || this.opcode === 'ndList' || this.opcode === 'addItem') {
             addInput('ARG', i, fm(this.joinCh));
           } else addInput('ARG', i, i > 0 ? ',' : '');
           if (this.opcode === 'obj') addInput('VALUE', i, '=');

@@ -138,16 +138,16 @@ class SafeObject extends String {
      * @returns {string} 字符串表示
      */
   toString() {
-    return `${
-      Array.isArray(this.value) ? LIST_PREFIX : OBJ_PREFIX
-    }${SafeObject.stringify(this.value)}`;
+    // return `${
+    //   Array.isArray(this.value) ? LIST_PREFIX : OBJ_PREFIX
+    // }${SafeObject.stringify(this.value)}`;
     // return `<SafeObject> ${SafeObject.stringify(this.value)}`;
-    // return SafeObject.stringify(this.value);
+    return SafeObject.stringify(this.value);
   }
 
-  valueOf() {
-    return this.toString();
-  }
+  // valueOf() {
+  //   return this.toString();
+  // }
 
   /**
      * 尝试匹配形如 <SafeObject> {"a": 1, "b": 2} 的字符串，转为SafeObject对象

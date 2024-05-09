@@ -6,13 +6,41 @@ const l10n = {
   ],
   'name.list': ['（列表）', '(list) '],
   'name.object': ['（对象）', '(object) '],
+  'tag.config': ['⚙️ 扩展设置（会通过舞台注释保存在作品中）', '⚙️ Settings (will be saved in stage\'s comment)'],
+  'block.setAutoCreate': ['设置的对象不存在时自动创建[ON]', 'auto create when object not exist[ON]'],
+  'tooltip.setAutoCreate': [
+    '（默认关闭）当设置对象属性时，对象不存在，是否自动创建对象。\n注意：传入积木(如原版变量积木)如果本身不是对象，无法自动改变值为对象。',
+    '(Off by default) Whether to create the object automatically when the object to set dose not exist.\nNote: It cannot change non-object content of input block to object.',
+  ],
+  'block.setShowPrefix': ['返回值显示前缀[ON]', 'show prefix[ON]'],
+  'tooltip.setShowPrefix': [
+    '（默认开启）是否在返回值/变量显示器中，显示 (list) 或 (object) 前缀作为对象类型的提示\n注：类型提示不影响实际的值，只作为视觉上的提示。',
+    '(On by default) Whether to use \'(list)\' or \'(object)\' prefixes in the return value bubble/variable monitor as a hint for the object type.\nNote: The type hint does not affect the actual value, only as a visual hint.',
+  ],
+  'block.allowInputJSON': ['允许传入JSON[ON]', 'allow JSON input[ON]'],
+  'tooltip.allowInputJSON': [
+    '（默认开启）对于接受对象的参数，是否允许直接输入JSON字符串。\n例如：开启后，允许直接用长度积木读取JSON\'[1,2,3]\'的长度为3；否则，JSON\'[1,2,3]\'会当成普通字符串处理。',
+    '(On by default) Whether JSON strings can be directly input for arguments expecting an object.\nFor instance, if enabled, the "size of" block can directly read the length of JSON \'[1,2,3]\' as 3; otherwise the JSON \'[1,2,3]\' will be treated as a string, not an object.',
+  ],
+  'block.indexStart': ['列表索引从[IDX]开始', 'list index start from [IDX]'],
+  'tooltip.indexStart': [
+    '列表索引从 0 开始还是从 1 开始（默认为1，和 Scratch 列表一致）',
+    'Set the list index to start from 0 or 1 (default is 1, consistent with Scratch\'s list convention)',
+  ],
+  'block.pop': ['从[LIST]弹出第[IDX]项', 'pop item[IDX] from [LIST]'],
+  'tooltip.pop': [
+    '从列表弹出某一项，并返回。\n支持负数索引，如-1表示最后一项。',
+    'Pop nth item from list and return the item.\nNegative index supported (e.g. -1 for the last item)',
+  ],
+  'menu.on': ['开启', 'On'],
+  'menu.off': ['关闭', 'Off'],
   'tag.tempData': ['数据', 'Data'],
   'tag.tools': ['常用工具', 'Common Tools'],
   'tag.tempVar': ['临时数据', 'Temporary Data'],
   'tag.complexData': [' 对象', 'Object'],
   'tag.var': ['变量', 'Variable'],
   'tag.list': ['列表', 'List'],
-  tip: ['(部分列表积木合并到了对象积木中)', '(Some list blocks are merged into object blocks)'],
+  tip: ['注：列表读/写积木合并到了对象积木中', 'Note: Read/Write blocks for list are merged into object blocks.'],
   // 'tag.Advlist': ['高级列表操作', 'Advanced List Operation'],
   'tag.object': ['对象', 'Object'],
   'tag.ScratchList': ['🐱原版列表', '🐱Scratch List'],
@@ -26,18 +54,18 @@ const l10n = {
   'button.hideMoreList': ['隐藏下方列表积木', 'Hide Extra List Blocks'],
   'button.hideMoreObj': ['隐藏下方对象积木', 'Hide Extra Object Blocks'],
   'config.tip': [
-    '该注释用于保存Arkos扩展信息\n你可以拖动/缩放这个注释。不建议直接编辑注释文字。可以删除这个注释来清除扩展配置信息',
-    'Configuration for Arkos Extension(Inspired by TurboWarp)\nYou can move, resize, and minimize this comment, but better not edit it by hand. This comment can be deleted to remove the stored settings.',
+    '该注释用于保存高级数据结构扩展信息\n可以删除这个注释来清除扩展配置信息',
+    'Configuration for Advanced Data Structure Extension(Inspired by TurboWarp)\nCan be deleted to remove the stored settings.',
   ],
   'block.deleteAllTempData': ['删除所有数据', 'delete all data'],
   'block.getCountOfTempData': ['数据量', 'data count'],
   'block.listAllData': ['已有数据名称', 'names of existing data'],
   'block.delTempData': [
-    '删除数据名[NAME]',
+    '删除名为[NAME]的数据',
     'delete data named[NAME]',
   ],
   'block.ifTempDataExist': [
-    '存在数据名[NAME]？',
+    '存在名为[NAME]的数据？',
     'data named[NAME]exists?',
   ],
   'defaultValue.dataName': ['数据', 'data'],
@@ -64,7 +92,7 @@ const l10n = {
     'Hide Advanced Block',
   ],
 
-  'block.setTempData': ['数据名[NAME][OP][VALUE]', 'data named[NAME][OP][VALUE]'],
+  'block.setTempData': ['名为[NAME]的数据[OP][VALUE]', 'data named[NAME][OP][VALUE]'],
   'menu.op.set': ['设为', 'set to'],
   'menu.op.add': ['增加', 'change by'],
   'menu.op.insert': ['前插入', 'insert before'],
@@ -77,7 +105,7 @@ const l10n = {
   'menu.shallow': ['单层', 'shallow copy'],
   'menu.deep': ['完全', 'deep copy'],
 
-  'block.getTempData': ['数据名[NAME]', 'data named[NAME]'],
+  'block.getTempData': ['名为[NAME]的数据', 'data named[NAME]'],
   'menu.getOption.objectAllowed': ['值', 'value'],
   'menu.getOption.json': ['JSON', 'JSON'],
   'block.getObjFromJson': [
@@ -128,8 +156,8 @@ const l10n = {
   ],
 
   'block.mergeObject': [
-    '给对象[NAME_OR_OBJ]追加🗄️对象[OBJ]里的属性(已有属性则覆盖)',
-    'copy 🗄️object[OBJ] properties to object[NAME_OR_OBJ] (overwrite existing properties)',
+    '给[NAME_OR_OBJ]追加🗄️[OBJ]里的内容',
+    'add contents of🗄️[OBJ] to [NAME_OR_OBJ]',
   ],
   'block.opList': ['将列表[NAME_OR_OBJ][OP]', '[OP]list[NAME_OR_OBJ]'],
   'menu.shuffle': ['打乱', 'shuffle'],
@@ -143,16 +171,16 @@ const l10n = {
   ],
 
   'block.addItemToList2': [
-    '向列表[NAME_OR_OBJ][OP][VALUE]',
-    '[VALUE][OP]list[NAME_OR_OBJ]',
+    '向[NAME_OR_OBJ][OP][VALUE]',
+    '[VALUE][OP][NAME_OR_OBJ]',
   ],
   'menu.addTo': ['加入', 'add to'],
   'menu.removeFrom': ['移除', 'remove from'],
   'menu.ifNotExistsaddTo': ['(如果不存在)加入', '(if not exists) add to'],
 
   'block.addItemToListAndReturn': [
-    '🗄️向列表[OBJ][OP][VALUE]',
-    '🗄️[VALUE][OP]list[OBJ]',
+    '🗄️向列表[OBJ][OP][VALUE]并返回',
+    '🗄️[VALUE][OP]list[OBJ]and return',
   ],
   'block.createListWithLength': [
     '🗄️含[N]个[VALUE]的列表',
@@ -209,8 +237,8 @@ const l10n = {
     '[PROP] of [NAME_OR_OBJ][OP][VALUE]',
   ],
   'block.setPropOfObjectAndReturn': [
-    '🗄️[OBJ]的[PROP][OP][VALUE]',
-    '🗄️[PROP] of [OBJ][OP][VALUE]',
+    '🗄️[OBJ]的[PROP][OP][VALUE]并返回',
+    '🗄️[PROP] of [OBJ][OP][VALUE]and return',
   ],
   'defaultValue.prop': ['属性', 'prop'],
   'block.delPropOfObject': [
@@ -315,8 +343,8 @@ const l10n = {
     'Determine if the data with certain name exists.',
   ],
   'tooltip.setTempData': [
-    '将数据设为/增加某个值。\n- 当指定名字的数据不存在，会自动创建；\n- 可以传入列表/对象来让数据指向一个复杂对象。',
-    'Set or add a value to a data.\nIf the data with the specified name does not exist, it will be automatically created.\n- You can pass in a list/object to make the data point to a complex object.',
+    '将特定名称的数据设为或增加某个值。当指定名字的数据不存在，会自动创建。',
+    'Set or add a value to the data with specified name, automatically created if not exists.',
   ],
   'tooltip.getTempData': [
     '获取对应名称的数据',
@@ -421,7 +449,7 @@ const l10n = {
     'Set the data with a specific name to an empty object.\nNote: You can also pass a object to empty it. However, passing a variable containing a non-object value will have no effect.',
   ],
   'tooltip.setPropOfObject': [
-    '修改列表第 n 项，或修改对象名为...的内容。\n- 对于对象，填数据的名称。\n- 对于列表，填数字索引（从1开始，支持负数索引。例如-2是倒数第二项）\n- 点“+/-”访问嵌套的子对象的属性',
+    '修改列表第 n 项，或修改对象特定名称的内容。\n- 第一个空可以直接填临时数据名称，也可以传入一个列表/对象；\n- 对于对象，填数据的名称。\n- 对于列表，填数字索引（从1开始，支持负数索引。例如-2是倒数第二项）\n- 点“+/-”访问嵌套的子对象的属性',
     'Set/change a property of a list/object.\n- For object, set property by name;\n- For list, use numerical indices starting from 1. Negative indices supported (e.g. -1 for the last item, -2 for the second-to-last item, etc.)\nClick the "+/-" button to set prop of the nested sub-object.',
   ],
   'tooltip.delPropOfObject': [
@@ -449,20 +477,18 @@ const l10n = {
     'Get all property names/values/[key, value] pairs of the object. Return a list.',
   ],
   'tooltip.mergeObject': [
-    '将另一个对象的所有属性复制一份，添加给当前对象。\n- 已存在的属性将被覆盖。\n- 复制属性时，如果属性是对象，则只会复制对象的引用，不会复制对象本身（即单层拷贝）。',
-    'Copy all properties from another object to the current object.\n- Existing properties will be overwritten.\n- When copying properties, if a property is an object, only the reference to the object will be copied, not the object itself (i.e., shallow copy).',
+    '将一个对象中的内容复制一份到另一个对象。\n- 也可用于列表，将一个列表中的内容加到另一个列表的末尾',
+    'Copy the contents of one object to another.\n- Can also be used for lists, to append the contents of one list to the end of another list.',
   ],
   'tooltip.setProtoOfObj': [
     '（实验性功能）将一个对象的“原型”设为另一个对象：\n'
-        + '- 读取对象属性时，如果属性不存在，则会读取原型的属性值；\n'
-        + '- 可以让多个对象指向同一个原型，实现共享相同的属性。\n'
-        + '- 对象设置属性时，只会修改自己的值，而不会修改原型的值。当对象拥有和原型一样的属性时，优先读取自己的属性值。\n'
-        + '- 对象的原型也可以拥有原型，形成原型链。注意设置原型链时不能形成环，否则原型设置失败。',
+        + '- 当读取对象的属性不存在时，如果该对象有原型，则读取原型的属性。\n'
+        + '- 通过将多个对象指向同一个“原型”，实现共享通用的属性。\n'
+        + '- 例如：将“苹果”、“香蕉”的原型设为“水果”，然后在“水果”中设置苹果和香蕉通用的属性。\n',
     '(Experimental) Set the "prototype" of an object to another object:\n'
-        + '- When reading a property that does not exsit of an object, it will read from the prototype of the object;\n'
-        + '- Multiple objects can be pointed to the same prototype, enabling them to share the same properties.\n'
-        + "- When setting a property for an object, only its own value will be modified, and the prototype's value will not be changed. When an object has the same property as its prototype, its own property will be read first.\n"
-        + "- An object's prototype can also have a prototype, forming a prototype chain. Note that when setting the prototype chain, a loop cannot be formed, otherwise the prototype setting will fail.",
+        + '- When reading something non-existing in an object, it will read from the prototype of the object;\n'
+        + '- Multiple objects can be pointed to the same prototype, enabling them to share common props\n'
+        + '- For instance, set the prototype of "apple" and "banana" to "fruit", and set common props of apple and banana in "fruit".',
   ],
   'tooltip.getScratchList': [
     '获取原版 Scratch 列表。\n可以将它传给列表相关积木来实现操作原版列表！',
