@@ -9,8 +9,8 @@ const l10n = {
   'tag.config': ['⚙️ 扩展设置（会通过舞台注释保存在作品中）', '⚙️ Settings (will be saved in stage\'s comment)'],
   'block.setAutoCreate': ['设置的对象不存在时自动创建[ON]', 'auto create when object not exist[ON]'],
   'tooltip.setAutoCreate': [
-    '（默认关闭）当设置对象属性时，对象不存在，是否自动创建对象。\n注意：传入积木(如原版变量积木)如果本身不是对象，无法自动改变值为对象。',
-    '(Off by default) Whether to create the object automatically when the object to set dose not exist.\nNote: It cannot change non-object content of input block to object.',
+    '（默认关闭）当设置对象属性时，对象不存在，是否自动创建对象。',
+    '(Off by default) Whether to create the object automatically when the object to set dose not exist.',
   ],
   'block.setShowPrefix': ['返回值显示前缀[ON]', 'show prefix[ON]'],
   'tooltip.setShowPrefix': [
@@ -27,22 +27,27 @@ const l10n = {
     '列表索引从 0 开始还是从 1 开始（默认为1，和 Scratch 列表一致）',
     'Set the list index to start from 0 or 1 (default is 1, consistent with Scratch\'s list convention)',
   ],
+  'block.setCase': ['列表查找区分大小写[ON]', 'case sensitive [ON] for list searches'],
+  'tooltip.setCase': [
+    '（默认关闭）查找列表内容时，是否区分大小写。\n- 例如，关闭大小写区分时，判断列表 ["a","b","c"] 包含 A 将返回true',
+    '(Off by default) Whether to be case-sensitive when searching for content in the list.\n- For example, with case sensitivity turned off, checking if the list ["a","b","c"] contains "A" will return true.',
+  ],
   'block.pop': ['从[LIST]弹出第[IDX]项', 'pop item[IDX] from [LIST]'],
   'tooltip.pop': [
     '从列表弹出某一项，并返回。\n支持负数索引，如-1表示最后一项。',
-    'Pop nth item from list and return the item.\nNegative index supported (e.g. -1 for the last item)',
+    'Pop nth item from list and return the item.\nNegative indices supported (e.g. -1 for the last item)',
   ],
   'menu.on': ['开启', 'On'],
   'menu.off': ['关闭', 'Off'],
   'tag.tempData': ['数据', 'Data'],
-  'tag.tools': ['常用工具', 'Common Tools'],
-  'tag.tempVar': ['临时数据', 'Temporary Data'],
-  'tag.complexData': [' 对象', 'Object'],
+  'tag.tools': ['🔧常用工具', '🔧Common Tools'],
+  'tag.tempVar': ['💾临时数据', '💾Temporary Data'],
+  'tag.complexData': ['🗄️对象/列表', '🗄️Object/List'],
   'tag.var': ['变量', 'Variable'],
-  'tag.list': ['列表', 'List'],
+  'tag.list': ['📃列表专用', '📃List Dedicated'],
+  'tag.object': ['对象专用', 'Object Dedicated'],
   tip: ['注：列表读/写积木合并到了对象积木中', 'Note: Read/Write blocks for list are merged into object blocks.'],
   // 'tag.Advlist': ['高级列表操作', 'Advanced List Operation'],
-  'tag.object': ['对象', 'Object'],
   'tag.ScratchList': ['🐱原版列表', '🐱Scratch List'],
   'block.getScratchList': ['🗄️原版列表[NAME]', '🗄️Scratch list[NAME]'],
   'block.setScratchList': [
@@ -93,6 +98,11 @@ const l10n = {
   ],
 
   'block.setTempData': ['名为[NAME]的数据[OP][VALUE]', 'data named[NAME][OP][VALUE]'],
+  'block.createObjFromKeyValue': ['🗄️根据键[KEYS]值[VALUES]列表创建对象', '🗄️create object from lists of keys[KEYS]values[VALUES]'],
+  'tooltip.createObjFromKeyValue': [
+    '根据键（属性）列表和值列表创建对象',
+    'Create an object from a list of keys (properties) and a list of values',
+  ],
   'menu.op.set': ['设为', 'set to'],
   'menu.op.add': ['增加', 'change by'],
   'menu.op.insert': ['前插入', 'insert before'],
@@ -124,8 +134,8 @@ const l10n = {
   'menu.emptyObj': ['空对象', 'empty object'],
   'block.getNewList': ['🗄️空列表', '🗄️ empty list'],
   'block.getNewObject': ['🗄️空对象', '🗄️ empty object'],
-  'block.createList': ['🗄️列表: ', '🗄️list: '],
-  'block.createObj': ['🗄️对象: ', '🗄️object: '],
+  'block.createList': ['🗄️列表', '🗄️list'],
+  'block.createObj': ['🗄️对象', '🗄️object'],
   'block.defaultList': ['苹果,香蕉,东西', 'apple,banana,thing'],
   'block.defaultProps': ['子属性', 'sub-prop'],
   'block.de': ['', ''],
@@ -171,7 +181,7 @@ const l10n = {
   ],
 
   'block.addItemToList2': [
-    '向[NAME_OR_OBJ][OP][VALUE]',
+    '将[VALUE][OP][NAME_OR_OBJ]',
     '[VALUE][OP][NAME_OR_OBJ]',
   ],
   'menu.addTo': ['加入', 'add to'],
@@ -179,7 +189,7 @@ const l10n = {
   'menu.ifNotExistsaddTo': ['(如果不存在)加入', '(if not exists) add to'],
 
   'block.addItemToListAndReturn': [
-    '🗄️向列表[OBJ][OP][VALUE]并返回',
+    '🗄️将[VALUE][OP][OBJ]并返回',
     '🗄️[VALUE][OP]list[OBJ]and return',
   ],
   'block.createListWithLength': [
@@ -213,7 +223,7 @@ const l10n = {
     'list [NAME_OR_OBJ] contains [VALUE]?',
   ],
   'block.split': [
-    '🗄️以[CH]切割[STR]并返回列表',
+    '🗄️以[CH]切割[STR]为列表',
     '🗄️split[STR]by[CH]as a list',
   ],
   'block.slice': [
@@ -221,12 +231,20 @@ const l10n = {
     'get items [A]~[B]from list[NAME_OR_OBJ]',
   ],
   'block.join': [
-    '用[CH]连接列表[NAME_OR_OBJ]',
-    'join list[NAME_OR_OBJ] with[CH]',
+    '用[CH]连接列表[NAME_OR_OBJ]为字符串',
+    'join list[NAME_OR_OBJ] with[CH] as a string',
   ],
   'block.getListItemIdxByItem': [
     '列表[NAME_OR_OBJ]中第一个[VALUE]的编号',
     'item # of [VALUE] in list [NAME_OR_OBJ]',
+  ],
+  'block.indexOf': [
+    '列表[NAME_OR_OBJ]中[VALUE]第[N]次出现的位置',
+    'item # of [N]th occurrence of [VALUE] in [NAME_OR_OBJ]',
+  ],
+  'tooltip.indexOf': [
+    '获取内容在列表中第[N]次出现时的位置。\n支持负数，-1表示最后一次出现的位置，以此类推。',
+    'Get position of the [N]th occurrence of content in the list.\n- Supports negative indices. For instance, -1 represents the the last occurrence.',
   ],
   'block.createOrClearObject': [
     '将数据[NAME]设为空对象',
@@ -266,8 +284,8 @@ const l10n = {
   'menu.conInfo.objValue': ['内容', 'content'],
   'menu.conInfo.json': ['JSON', 'JSON'],
   'block.getAllProperties': [
-    '🗄️对象[NAME_OR_OBJ]的所有[OPTION]',
-    '🗄️get all[OPTION] of object [NAME_OR_OBJ]',
+    '🗄️对象[NAME_OR_OBJ]的所有[OPTION]的列表',
+    '🗄️get [OPTION] list of object [NAME_OR_OBJ]',
   ],
   'block.setProtoOfObj': [
     '⚠️对象[NAME_OR_OBJ]的原型设为🗄️[OBJ]',
@@ -277,8 +295,8 @@ const l10n = {
     '检测到循环的原型链。原型关系不能形成一个环！',
     'A circular prototype chain detected. Prototype relationships cannot form a loop!',
   ],
-  'menu.keys': ['属性名', 'keys'],
-  'menu.values': ['属性值', 'values'],
+  'menu.keys': ['键', 'keys'],
+  'menu.values': ['值', 'values'],
   'menu.entries': [' [键, 值] 对', 'entries'],
   'block.sizeOfObject': [
     '[NAME_OR_OBJ]的内容数',
@@ -477,12 +495,12 @@ const l10n = {
     'Determine whether the list has a certain thing, or if the object has a specific named property.',
   ],
   'tooltip.getPropOfObjectByIdx': [
-    '获取对象的第n个属性的名称/值',
-    'Get the name/value of the nth property of the object.',
+    '获取对象的第n个属性的键(属性)/值',
+    'Get the key/value of the nth property of the object.',
   ],
   'tooltip.getAllProperties': [
-    '获取对象的所有属性名/属性值/[键,值]对。返回一个列表。',
-    'Get all property names/values/[key, value] pairs of the object. Return a list.',
+    '获取对象的所有键(属性)列表/值列表/[键,值]对列表。',
+    'Get list of keys(properties)/values/[key, value] pairs of the object.',
   ],
   'tooltip.mergeObject': [
     '将一个对象中的内容复制一份到另一个对象。\n- 也可用于列表，将一个列表中的内容加到另一个列表的末尾',
