@@ -197,7 +197,7 @@ class EasyEmojis {
   }
   async load() {
     try {
-      const response = await fetch('https://unpkg.com/emoji.json@15.1.0/emoji.json');
+      const response = await fetch('https://unpkg.com/@angelofana/emoji-json@15.1.1/emoji-array.json');
       console.log('response: ', response);
       const data = await response.json();
       emoji = data;
