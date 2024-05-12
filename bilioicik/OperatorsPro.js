@@ -142,6 +142,7 @@
                     'OperatorsPro.bJSONtypeof':'JSON[a]类型为[b]',
                     'OperatorsPro.bCheckType':'[INPUT]是[MODE]',
     
+                    'OperatorsPro.Logic':'逻辑',
                     'OperatorsPro.StringsandNumbers':'字符串和数字',
                     'OperatorsPro.rif': '若[a]则[b]否则[c]',
                     'OperatorsPro.band': '[a]与[b]',
@@ -442,6 +443,7 @@
                     'OperatorsPro.bJSONtypeof':'type of[a]as JSON is[b]',
                     'OperatorsPro.bCheckType':'[INPUT]is[MODE]',
     
+                    'OperatorsPro.Logic':'Logic',
                     'OperatorsPro.StringsandNumbers':'Strings and Numbers',
                     'OperatorsPro.rif': 'if[a]then[b]else[c]',
                     'OperatorsPro.band': '[a]and[b]',
@@ -781,6 +783,7 @@
                         },
                         hideFromPalette: this.hideExtraBlocks
                     },
+                    '---',
                     {
                         opcode: 'bCheckType',
                         blockType:'Boolean',
@@ -795,11 +798,10 @@
                                 defaultValue: 'number'
                             }
                         },
-                        hideFromPalette: this.hideExtraBlocks
                     },
                     {
                         blockType: Scratch.BlockType.LABEL,
-                        text: this.formatMessage('OperatorsPro.StringsandNumbers')
+                        text: this.formatMessage('OperatorsPro.Logic')
                     },
                     {
                         opcode:'bmenuToBoolean',
@@ -864,47 +866,6 @@
                             },
                             e:{
                                 menu:'not',
-                                defaultValue:0
-                            }
-                        },
-                        hideFromPalette: ! this.hideExtraBlocks
-                    },
-                    {
-                        opcode:'bmenuundefined',
-                        blockType:'Boolean',
-                        text:this.formatMessage('OperatorsPro.bmenuundefined'),
-                        arguments:{
-                            a:{
-                                type:'string'
-                            },
-                            b:{
-                                menu:'roughly',
-                                defaultValue:0
-                            },
-                            c:{
-                                menu:'undefined',
-                                defaultValue:0
-                            }
-                        },
-                        hideFromPalette: ! this.hideExtraBlocks
-                    },
-                    {
-                        opcode:'bmenuequal',
-                        blockType:'Boolean',
-                        text:this.formatMessage('OperatorsPro.bmenuequal'),
-                        arguments:{
-                            a:{
-                                type:'string'
-                            },
-                            b:{
-                                menu:'notequal',
-                                defaultValue:0
-                            },
-                            c:{
-                                type:'string'
-                            },
-                            d:{
-                                menu:'essence',
                                 defaultValue:0
                             }
                         },
@@ -1043,6 +1004,10 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
+                        blockType: Scratch.BlockType.LABEL,
+                        text: this.formatMessage('OperatorsPro.StringsandNumbers')
+                    },
+                    {
                         opcode:'rjoin',
                         blockType:'reporter',
                         text:'[a][b][c]',
@@ -1157,6 +1122,26 @@
                             }
                         }
                     },
+                    '---',
+                    {
+                        opcode:'bmenuundefined',
+                        blockType:'Boolean',
+                        text:this.formatMessage('OperatorsPro.bmenuundefined'),
+                        arguments:{
+                            a:{
+                                type:'string'
+                            },
+                            b:{
+                                menu:'roughly',
+                                defaultValue:0
+                            },
+                            c:{
+                                menu:'undefined',
+                                defaultValue:0
+                            }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
+                    },
                     {
                         opcode:'rdefault',
                         blockType:'reporter',
@@ -1179,6 +1164,29 @@
                         blockType:'Boolean',
                         text: this.formatMessage('OperatorsPro.bundefined'),
                         hideFromPalette: this.hideExtraBlocks
+                    },
+                    '---',
+                    {
+                        opcode:'bmenuequal',
+                        blockType:'Boolean',
+                        text:this.formatMessage('OperatorsPro.bmenuequal'),
+                        arguments:{
+                            a:{
+                                type:'string'
+                            },
+                            b:{
+                                menu:'notequal',
+                                defaultValue:0
+                            },
+                            c:{
+                                type:'string'
+                            },
+                            d:{
+                                menu:'essence',
+                                defaultValue:0
+                            }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode: 'bCompare',
@@ -1276,46 +1284,7 @@
                         },
                         hideFromPalette: this.hideExtraBlocks
                     },
-                    {
-                        opcode:'rmenurad',
-                        blockType:'reporter',
-                        text:this.formatMessage('OperatorsPro.rmenurad'),
-                        arguments:{
-                            a:{
-                                menu:'sin',
-                                defaultValue:'sin'
-                            },
-                            b:{
-                                type:'string',
-                                defaultValue:24
-                            },
-                            c:{
-                                menu:'tonumber',
-                                defaultValue:0
-                            }
-                        },
-                        hideFromPalette: ! this.hideExtraBlocks
-                    },
-                    {
-                        opcode:'rmenutoonehundredeighty',
-                        blockType:'reporter',
-                        text:this.formatMessage('OperatorsPro.rmenutoonehundredeighty'),
-                        arguments:{
-                            a:{
-                                type:'string',
-                                defaultValue:666
-                            },
-                            b:{
-                                menu:'tonumber',
-                                defaultValue:0
-                            },
-                            c:{
-                                menu:'onehundredeighty',
-                                defaultValue:0
-                            }
-                        },
-                        hideFromPalette: ! this.hideExtraBlocks
-                    },
+                    '---',
                     {
                         opcode:'rNegative',
                         blockType:'reporter',
@@ -1420,6 +1389,7 @@
                         },
                         hideFromPalette: this.hideExtraBlocks
                     },
+                    '---',
                     {
                         opcode: 'rLoopNum',
                         blockType:'reporter',
@@ -1588,6 +1558,47 @@
                             }
                         },
                         hideFromPalette: this.hideExtraBlocks
+                    },
+                    '---',
+                    {
+                        opcode:'rmenurad',
+                        blockType:'reporter',
+                        text:this.formatMessage('OperatorsPro.rmenurad'),
+                        arguments:{
+                            a:{
+                                menu:'sin',
+                                defaultValue:'sin'
+                            },
+                            b:{
+                                type:'string',
+                                defaultValue:24
+                            },
+                            c:{
+                                menu:'tonumber',
+                                defaultValue:0
+                            }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
+                    },
+                    {
+                        opcode:'rmenutoonehundredeighty',
+                        blockType:'reporter',
+                        text:this.formatMessage('OperatorsPro.rmenutoonehundredeighty'),
+                        arguments:{
+                            a:{
+                                type:'string',
+                                defaultValue:666
+                            },
+                            b:{
+                                menu:'tonumber',
+                                defaultValue:0
+                            },
+                            c:{
+                                menu:'onehundredeighty',
+                                defaultValue:0
+                            }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'rradsin',
@@ -1788,162 +1799,6 @@
                         text: this.formatMessage('OperatorsPro.ArrayandObject')
                     },
                     {
-                        opcode:'rmenuArraylength',
-                        blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rmenuArraylength'),
-                        arguments:{
-                            a:{
-                                type:'string',
-                                defaultValue:'[1,1,4,5,1,4]'
-                            },
-                            b:{
-                                menu:'JSON',
-                                defaultValue:0
-                            },
-                            c:{
-                                menu:'length',
-                                defaultValue:0
-                            }
-                        },
-                        hideFromPalette: ! this.hideExtraBlocks
-                    },
-                    {
-                        opcode:'bmenuArrayhave',
-                        blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bmenuArrayhave'),
-                        arguments:{
-                            a:{
-                                type:'string',
-                                defaultValue:'[1,1,4,5,1,4]'
-                            },
-                            b:{
-                                menu:'JSON',
-                                defaultValue:0
-                            },
-                            c:{
-                                menu:'contains',
-                                defaultValue:0
-                            },
-                            d:{
-                                type:'string',
-                                defaultValue:1
-                            },
-                            e:{
-                                menu:'totype',
-                                defaultValue:0
-                            },
-                            f:{
-                                menu:'essence',
-                                defaultValue:0
-                            }
-                        },
-                        hideFromPalette: ! this.hideExtraBlocks
-                    },
-                    {
-                        opcode:'bmenuArrayhavenumber',
-                        blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bmenuArrayhavenumber'),
-                        arguments:{
-                            a:{
-                                type:'string',
-                                defaultValue:'[1,1,4,5,1,4]'
-                            },
-                            b:{
-                                menu:'JSON',
-                                defaultValue:0
-                            },
-                            c:{
-                                menu:'contains',
-                                defaultValue:0
-                            },
-                            d:{
-                                menu:'compare',
-                                defaultValue:0
-                            },
-                            e:{
-                                type:'string',
-                                defaultValue:1
-                            },
-                            f:{
-                                menu:'tonumber',
-                                defaultValue:0
-                            },
-                            g:{
-                                menu:'numericalvalue',
-                                defaultValue:0
-                            }
-                        },
-                        hideFromPalette: ! this.hideExtraBlocks
-                    },
-                    {
-                        opcode:'rmenuArrayremove',
-                        blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rmenuArrayremove'),
-                        arguments:{
-                            a:{
-                                type:'string',
-                                defaultValue:'[1,1,4,5,1,4]'
-                            },
-                            b:{
-                                menu:'JSON',
-                                defaultValue:0
-                            },
-                            c:{
-                                type:'string',
-                                defaultValue:1
-                            },
-                            d:{
-                                menu:'totype',
-                                defaultValue:0
-                            },
-                            e:{
-                                menu:'essence',
-                                defaultValue:0
-                            },
-                            f:{
-                                menu:'string',
-                                defaultValue:0
-                            }
-                        },
-                        hideFromPalette: ! this.hideExtraBlocks
-                    },
-                    {
-                        opcode:'rmenuArrayremovenumber',
-                        blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rmenuArrayremovenumber'),
-                        arguments:{
-                            a:{
-                                type:'string',
-                                defaultValue:'[1,1,4,5,1,4]'
-                            },
-                            b:{
-                                menu:'JSON',
-                                defaultValue:0
-                            },
-                            c:{
-                                menu:'compare',
-                                defaultValue:0
-                            },
-                            d:{
-                                type:'string',
-                                defaultValue:1
-                            },
-                            e:{
-                                menu:'tonumber',
-                                defaultValue:0
-                            },
-                            f:{
-                                menu:'numericalvalue',
-                                defaultValue:0
-                            },
-                            g:{
-                                menu:'string',
-                                defaultValue:0
-                            }
-                        },
-                        hideFromPalette: ! this.hideExtraBlocks
-                    },
-                    {
                         opcode:'rmenuArrayremoveitem',
                         blockType:'reporter',
                         text: this.formatMessage('OperatorsPro.rmenuArrayremoveitem'),
@@ -1959,302 +1814,6 @@
                             c:{
                                 type:'string',
                                 defaultValue:1
-                            },
-                            d:{
-                                menu:'string',
-                                defaultValue:0
-                            }
-                        },
-                        hideFromPalette: ! this.hideExtraBlocks
-                    },
-                    {
-                        opcode:'rmenuArrayitem',
-                        blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rmenuArrayitem'),
-                        arguments:{
-                            a:{
-                                type:'string',
-                                defaultValue:'[1,1,4,5,1,4]'
-                            },
-                            b:{
-                                menu:'JSON',
-                                defaultValue:0
-                            },
-                            c:{
-                                type:'string',
-                                defaultValue:1
-                            },
-                            d:{
-                                menu:'string',
-                                defaultValue:0
-                            }
-                        },
-                        hideFromPalette: ! this.hideExtraBlocks
-                    },
-                    {
-                        opcode:'rmenuArrayindex',
-                        blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rmenuArrayindex'),
-                        arguments:{
-                            a:{
-                                type:'string',
-                                defaultValue:'[1,1,4,5,1,4]'
-                            },
-                            b:{
-                                menu:'JSON',
-                                defaultValue:0
-                            },
-                            c:{
-                                menu:'first',
-                                defaultValue:0
-                            },
-                            d:{
-                                type:'string',
-                                defaultValue:1
-                            },
-                            e:{
-                                menu:'totype',
-                                defaultValue:0
-                            },
-                            f:{
-                                menu:'essence',
-                                defaultValue:0
-                            }
-                        },
-                        hideFromPalette: ! this.hideExtraBlocks
-                    },
-                    {
-                        opcode:'rmenuArrayindexnumber',
-                        blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rmenuArrayindexnumber'),
-                        arguments:{
-                            a:{
-                                type:'string',
-                                defaultValue:'[1,1,4,5,1,4]'
-                            },
-                            b:{
-                                menu:'JSON',
-                                defaultValue:0
-                            },
-                            c:{
-                                menu:'first',
-                                defaultValue:0
-                            },
-                            d:{
-                                menu:'compare',
-                                defaultValue:0
-                            },
-                            e:{
-                                type:'string',
-                                defaultValue:1
-                            },
-                            f:{
-                                menu:'tonumber',
-                                defaultValue:0
-                            },
-                            g:{
-                                menu:'numericalvalue',
-                                defaultValue:0
-                            }
-                        },
-                        hideFromPalette: ! this.hideExtraBlocks
-                    },
-                    {
-                        opcode:'rmenuArrayinsert',
-                        blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rmenuArrayinsert'),
-                        arguments:{
-                            a:{
-                                type:'string',
-                                defaultValue:'[1,1,4,5,1,4]'
-                            },
-                            b:{
-                                menu:'JSON',
-                                defaultValue:0
-                            },
-                            c:{
-                                type:'string',
-                                defaultValue:1
-                            },
-                            d:{
-                                menu:'insert',
-                                defaultValue:0
-                            },
-                            e:{
-                                type:'string',
-                                defaultValue:1
-                            },
-                            f:{
-                                menu:'totype',
-                                defaultValue:0
-                            },
-                            g:{
-                                menu:'string',
-                                defaultValue:0
-                            }
-                        },
-                        hideFromPalette: ! this.hideExtraBlocks
-                    },
-                    {
-                        opcode:'rmenuArraycount',
-                        blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rmenuArraycount'),
-                        arguments:{
-                            a:{
-                                type:'string',
-                                defaultValue:'[1,1,4,5,1,4]'
-                            },
-                            b:{
-                                menu:'JSON',
-                                defaultValue:0
-                            },
-                            c:{
-                                type:'string',
-                                defaultValue:1
-                            },
-                            d:{
-                                menu:'totype',
-                                defaultValue:0
-                            },
-                            e:{
-                                menu:'essence',
-                                defaultValue:0
-                            }
-                        },
-                        hideFromPalette: ! this.hideExtraBlocks
-                    },
-                    {
-                        opcode:'rmenuArraycountnumber',
-                        blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rmenuArraycountnumber'),
-                        arguments:{
-                            a:{
-                                type:'string',
-                                defaultValue:'[1,1,4,5,1,4]'
-                            },
-                            b:{
-                                menu:'JSON',
-                                defaultValue:0
-                            },
-                            c:{
-                                menu:'compare',
-                                defaultValue:0
-                            },
-                            d:{
-                                type:'string',
-                                defaultValue:1
-                            },
-                            e:{
-                                menu:'tonumber',
-                                defaultValue:0
-                            },
-                            f:{
-                                menu:'numericalvalue',
-                                defaultValue:0
-                            }
-                        },
-                        hideFromPalette: ! this.hideExtraBlocks
-                    },
-                    {
-                        opcode:'rmenuArraysort',
-                        blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rmenuArraysort'),
-                        arguments:{
-                            a:{
-                                type:'string',
-                                defaultValue:'[1,1,4,5,1,4]'
-                            },
-                            b:{
-                                menu:'JSON',
-                                defaultValue:0
-                            },
-                            c:{
-                                menu:'descending',
-                                defaultValue:0
-                            },
-                            d:{
-                                menu:'string',
-                                defaultValue:0
-                            }
-                        },
-                        hideFromPalette: ! this.hideExtraBlocks
-                    },
-                    {
-                        opcode:'rmenuObjectmember',
-                        blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rmenuObjectmember'),
-                        arguments:{
-                            a:{
-                                type:'string',
-                                defaultValue:'{"a":0}'
-                            },
-                            b:{
-                                menu:'JSON',
-                                defaultValue:0
-                            },
-                            c:{
-                                type:'string',
-                                defaultValue:'a'
-                            },
-                            d:{
-                                menu:'string',
-                                defaultValue:0
-                            }
-                        },
-                        hideFromPalette: ! this.hideExtraBlocks
-                    },
-                    {
-                        opcode:'rmenuObjectset',
-                        blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rmenuObjectset'),
-                        arguments:{
-                            a:{
-                                type:'string',
-                                defaultValue:'{"a":0}'
-                            },
-                            b:{
-                                menu:'JSON',
-                                defaultValue:0
-                            },
-                            c:{
-                                type:'string',
-                                defaultValue:'b'
-                            },
-                            d:{
-                                menu:'set',
-                                defaultValue:0
-                            },
-                            e:{
-                                type:'string',
-                                defaultValue:1
-                            },
-                            f:{
-                                menu:'totype',
-                                defaultValue:0
-                            },
-                            g:{
-                                menu:'string',
-                                defaultValue:0
-                            }
-                        },
-                        hideFromPalette: ! this.hideExtraBlocks
-                    },
-                    {
-                        opcode:'rmenuObjectkeys',
-                        blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rmenuObjectkeys'),
-                        arguments:{
-                            a:{
-                                type:'string',
-                                defaultValue:'{"a":0}'
-                            },
-                            b:{
-                                menu:'JSON',
-                                defaultValue:0
-                            },
-                            c:{
-                                menu:'keys',
-                                defaultValue:0
                             },
                             d:{
                                 menu:'string',
@@ -2356,6 +1915,38 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
+                        opcode:'rmenuArrayremove',
+                        blockType:'reporter',
+                        text: this.formatMessage('OperatorsPro.rmenuArrayremove'),
+                        arguments:{
+                            a:{
+                                type:'string',
+                                defaultValue:'[1,1,4,5,1,4]'
+                            },
+                            b:{
+                                menu:'JSON',
+                                defaultValue:0
+                            },
+                            c:{
+                                type:'string',
+                                defaultValue:1
+                            },
+                            d:{
+                                menu:'totype',
+                                defaultValue:0
+                            },
+                            e:{
+                                menu:'essence',
+                                defaultValue:0
+                            },
+                            f:{
+                                menu:'string',
+                                defaultValue:0
+                            }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
+                    },
+                    {
                         opcode:'rArrayremoveJSON',
                         blockType:'reporter',
                         text: this.formatMessage('OperatorsPro.rArrayremoveJSON'),
@@ -2386,6 +1977,42 @@
                             }
                         },
                         hideFromPalette: this.hideExtraBlocks
+                    },
+                    {
+                        opcode:'rmenuArrayremovenumber',
+                        blockType:'reporter',
+                        text: this.formatMessage('OperatorsPro.rmenuArrayremovenumber'),
+                        arguments:{
+                            a:{
+                                type:'string',
+                                defaultValue:'[1,1,4,5,1,4]'
+                            },
+                            b:{
+                                menu:'JSON',
+                                defaultValue:0
+                            },
+                            c:{
+                                menu:'compare',
+                                defaultValue:0
+                            },
+                            d:{
+                                type:'string',
+                                defaultValue:1
+                            },
+                            e:{
+                                menu:'tonumber',
+                                defaultValue:0
+                            },
+                            f:{
+                                menu:'numericalvalue',
+                                defaultValue:0
+                            },
+                            g:{
+                                menu:'string',
+                                defaultValue:0
+                            }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'rArrayremovebignumber',
@@ -2482,6 +2109,42 @@
                             }
                         },
                         hideFromPalette: this.hideExtraBlocks
+                    },
+                    {
+                        opcode:'rmenuArrayinsert',
+                        blockType:'reporter',
+                        text: this.formatMessage('OperatorsPro.rmenuArrayinsert'),
+                        arguments:{
+                            a:{
+                                type:'string',
+                                defaultValue:'[1,1,4,5,1,4]'
+                            },
+                            b:{
+                                menu:'JSON',
+                                defaultValue:0
+                            },
+                            c:{
+                                type:'string',
+                                defaultValue:1
+                            },
+                            d:{
+                                menu:'insert',
+                                defaultValue:0
+                            },
+                            e:{
+                                type:'string',
+                                defaultValue:1
+                            },
+                            f:{
+                                menu:'totype',
+                                defaultValue:0
+                            },
+                            g:{
+                                menu:'string',
+                                defaultValue:0
+                            }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'rArrayunshiftJSON',
@@ -3243,6 +2906,31 @@
                         },
                         hideFromPalette: this.hideExtraBlocks
                     },
+                    '---',
+                    {
+                        opcode:'rmenuArrayitem',
+                        blockType:'reporter',
+                        text: this.formatMessage('OperatorsPro.rmenuArrayitem'),
+                        arguments:{
+                            a:{
+                                type:'string',
+                                defaultValue:'[1,1,4,5,1,4]'
+                            },
+                            b:{
+                                menu:'JSON',
+                                defaultValue:0
+                            },
+                            c:{
+                                type:'string',
+                                defaultValue:1
+                            },
+                            d:{
+                                menu:'string',
+                                defaultValue:0
+                            }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
+                    },
                     {
                         opcode:'rArrayshiftJSON',
                         blockType:'reporter',
@@ -3358,6 +3046,74 @@
                             }
                         },
                         hideFromPalette: this.hideExtraBlocks
+                    },
+                    {
+                        opcode:'rmenuArrayindex',
+                        blockType:'reporter',
+                        text: this.formatMessage('OperatorsPro.rmenuArrayindex'),
+                        arguments:{
+                            a:{
+                                type:'string',
+                                defaultValue:'[1,1,4,5,1,4]'
+                            },
+                            b:{
+                                menu:'JSON',
+                                defaultValue:0
+                            },
+                            c:{
+                                menu:'first',
+                                defaultValue:0
+                            },
+                            d:{
+                                type:'string',
+                                defaultValue:1
+                            },
+                            e:{
+                                menu:'totype',
+                                defaultValue:0
+                            },
+                            f:{
+                                menu:'essence',
+                                defaultValue:0
+                            }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
+                    },
+                    {
+                        opcode:'rmenuArrayindexnumber',
+                        blockType:'reporter',
+                        text: this.formatMessage('OperatorsPro.rmenuArrayindexnumber'),
+                        arguments:{
+                            a:{
+                                type:'string',
+                                defaultValue:'[1,1,4,5,1,4]'
+                            },
+                            b:{
+                                menu:'JSON',
+                                defaultValue:0
+                            },
+                            c:{
+                                menu:'first',
+                                defaultValue:0
+                            },
+                            d:{
+                                menu:'compare',
+                                defaultValue:0
+                            },
+                            e:{
+                                type:'string',
+                                defaultValue:1
+                            },
+                            f:{
+                                menu:'tonumber',
+                                defaultValue:0
+                            },
+                            g:{
+                                menu:'numericalvalue',
+                                defaultValue:0
+                            }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'rArrayindexJSON',
@@ -3616,6 +3372,34 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
+                        opcode:'rmenuArraycount',
+                        blockType:'reporter',
+                        text: this.formatMessage('OperatorsPro.rmenuArraycount'),
+                        arguments:{
+                            a:{
+                                type:'string',
+                                defaultValue:'[1,1,4,5,1,4]'
+                            },
+                            b:{
+                                menu:'JSON',
+                                defaultValue:0
+                            },
+                            c:{
+                                type:'string',
+                                defaultValue:1
+                            },
+                            d:{
+                                menu:'totype',
+                                defaultValue:0
+                            },
+                            e:{
+                                menu:'essence',
+                                defaultValue:0
+                            }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
+                    },
+                    {
                         opcode:'rArraycountJSON',
                         blockType:'reporter',
                         text: this.formatMessage('OperatorsPro.rArraycountJSON'),
@@ -3646,6 +3430,38 @@
                             }
                         },
                         hideFromPalette: this.hideExtraBlocks
+                    },
+                    {
+                        opcode:'rmenuArraycountnumber',
+                        blockType:'reporter',
+                        text: this.formatMessage('OperatorsPro.rmenuArraycountnumber'),
+                        arguments:{
+                            a:{
+                                type:'string',
+                                defaultValue:'[1,1,4,5,1,4]'
+                            },
+                            b:{
+                                menu:'JSON',
+                                defaultValue:0
+                            },
+                            c:{
+                                menu:'compare',
+                                defaultValue:0
+                            },
+                            d:{
+                                type:'string',
+                                defaultValue:1
+                            },
+                            e:{
+                                menu:'tonumber',
+                                defaultValue:0
+                            },
+                            f:{
+                                menu:'numericalvalue',
+                                defaultValue:0
+                            }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'rArraycountbignumber',
@@ -3744,6 +3560,26 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
+                        opcode:'rmenuArraylength',
+                        blockType:'reporter',
+                        text: this.formatMessage('OperatorsPro.rmenuArraylength'),
+                        arguments:{
+                            a:{
+                                type:'string',
+                                defaultValue:'[1,1,4,5,1,4]'
+                            },
+                            b:{
+                                menu:'JSON',
+                                defaultValue:0
+                            },
+                            c:{
+                                menu:'length',
+                                defaultValue:0
+                            }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
+                    },
+                    {
                         opcode:'rArraylength',
                         blockType:'reporter',
                         text: this.formatMessage('OperatorsPro.rArraylength'),
@@ -3816,6 +3652,30 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
+                        opcode:'rmenuArraysort',
+                        blockType:'reporter',
+                        text: this.formatMessage('OperatorsPro.rmenuArraysort'),
+                        arguments:{
+                            a:{
+                                type:'string',
+                                defaultValue:'[1,1,4,5,1,4]'
+                            },
+                            b:{
+                                menu:'JSON',
+                                defaultValue:0
+                            },
+                            c:{
+                                menu:'descending',
+                                defaultValue:0
+                            },
+                            d:{
+                                menu:'string',
+                                defaultValue:0
+                            }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
+                    },
+                    {
                         opcode:'rArraysortnaturalOrder',
                         blockType:'reporter',
                         text: this.formatMessage('OperatorsPro.rArraysortnaturalOrder'),
@@ -3852,6 +3712,38 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
+                        opcode:'bmenuArrayhave',
+                        blockType:'Boolean',
+                        text: this.formatMessage('OperatorsPro.bmenuArrayhave'),
+                        arguments:{
+                            a:{
+                                type:'string',
+                                defaultValue:'[1,1,4,5,1,4]'
+                            },
+                            b:{
+                                menu:'JSON',
+                                defaultValue:0
+                            },
+                            c:{
+                                menu:'contains',
+                                defaultValue:0
+                            },
+                            d:{
+                                type:'string',
+                                defaultValue:1
+                            },
+                            e:{
+                                menu:'totype',
+                                defaultValue:0
+                            },
+                            f:{
+                                menu:'essence',
+                                defaultValue:0
+                            }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
+                    },
+                    {
                         opcode:'bArrayhaveJSON',
                         blockType:'Boolean',
                         text: this.formatMessage('OperatorsPro.bArrayhaveJSON'),
@@ -3882,6 +3774,42 @@
                             }
                         },
                         hideFromPalette: this.hideExtraBlocks
+                    },
+                    {
+                        opcode:'bmenuArrayhavenumber',
+                        blockType:'Boolean',
+                        text: this.formatMessage('OperatorsPro.bmenuArrayhavenumber'),
+                        arguments:{
+                            a:{
+                                type:'string',
+                                defaultValue:'[1,1,4,5,1,4]'
+                            },
+                            b:{
+                                menu:'JSON',
+                                defaultValue:0
+                            },
+                            c:{
+                                menu:'contains',
+                                defaultValue:0
+                            },
+                            d:{
+                                menu:'compare',
+                                defaultValue:0
+                            },
+                            e:{
+                                type:'string',
+                                defaultValue:1
+                            },
+                            f:{
+                                menu:'tonumber',
+                                defaultValue:0
+                            },
+                            g:{
+                                menu:'numericalvalue',
+                                defaultValue:0
+                            }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'bArrayhavebignumber',
@@ -4107,6 +4035,7 @@
                         },
                         hideFromPalette: this.hideExtraBlocks
                     },
+                    '---',
                     {
                         opcode:'bArrayequal',
                         blockType:'Boolean',
@@ -4163,6 +4092,7 @@
                         },
                         hideFromPalette: this.hideExtraBlocks
                     },
+                    '---',
                     {
                         opcode:'rObjectremove',
                         blockType:'reporter',
@@ -4194,6 +4124,43 @@
                             }
                         },
                         hideFromPalette: this.hideExtraBlocks
+                    },
+                    '---',
+                    {
+                        opcode:'rmenuObjectset',
+                        blockType:'reporter',
+                        text: this.formatMessage('OperatorsPro.rmenuObjectset'),
+                        arguments:{
+                            a:{
+                                type:'string',
+                                defaultValue:'{"a":0}'
+                            },
+                            b:{
+                                menu:'JSON',
+                                defaultValue:0
+                            },
+                            c:{
+                                type:'string',
+                                defaultValue:'b'
+                            },
+                            d:{
+                                menu:'set',
+                                defaultValue:0
+                            },
+                            e:{
+                                type:'string',
+                                defaultValue:1
+                            },
+                            f:{
+                                menu:'totype',
+                                defaultValue:0
+                            },
+                            g:{
+                                menu:'string',
+                                defaultValue:0
+                            }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'rObjectputkeyJSON',
@@ -4310,6 +4277,31 @@
                             }
                         },
                         hideFromPalette: this.hideExtraBlocks
+                    },
+                    '---',
+                    {
+                        opcode:'rmenuObjectmember',
+                        blockType:'reporter',
+                        text: this.formatMessage('OperatorsPro.rmenuObjectmember'),
+                        arguments:{
+                            a:{
+                                type:'string',
+                                defaultValue:'{"a":0}'
+                            },
+                            b:{
+                                menu:'JSON',
+                                defaultValue:0
+                            },
+                            c:{
+                                type:'string',
+                                defaultValue:'a'
+                            },
+                            d:{
+                                menu:'string',
+                                defaultValue:0
+                            }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
                         opcode:'rObjectvalueJSON',
@@ -4536,6 +4528,30 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
+                        opcode:'rmenuObjectkeys',
+                        blockType:'reporter',
+                        text: this.formatMessage('OperatorsPro.rmenuObjectkeys'),
+                        arguments:{
+                            a:{
+                                type:'string',
+                                defaultValue:'{"a":0}'
+                            },
+                            b:{
+                                menu:'JSON',
+                                defaultValue:0
+                            },
+                            c:{
+                                menu:'keys',
+                                defaultValue:0
+                            },
+                            d:{
+                                menu:'string',
+                                defaultValue:0
+                            }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
+                    },
+                    {
                         opcode:'rObjectlength',
                         blockType:'reporter',
                         text: this.formatMessage('OperatorsPro.rObjectlength'),
@@ -4643,6 +4659,7 @@
                         },
                         hideFromPalette: this.hideExtraBlocks
                     },
+                    '---',
                     {
                         opcode:'bObjectclear',
                         blockType:'Boolean',
