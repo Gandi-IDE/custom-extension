@@ -11,7 +11,15 @@
     const OperatorsProextensionId = "OperatorsPro";
     
     const EXTCONFIGCOMMENTID = '_ExtensionConfig_';
-    
+
+    const falseList1 = [0,false,undefined,null,'','0','false','undefined','null'];
+
+    const falseList2 = [0,false,undefined,null,''];
+
+    const nullList1 = [undefined,null,'undefined','null',''];
+
+    const nullList2 = [undefined,null,''];
+
     class OperatorsPro{
         static extCount = 0;
         constructor(runtime) {
@@ -5447,9 +5455,9 @@
                 case 0 :
                     return args.c ? args.a : ! args.a
                 case 1 :
-                    return args.c ? ! [0,false,undefined,null,''].includes(args.a) : [0,false,undefined,null,''].includes(args.a)
+                    return args.c ? ! falseList2.includes(args.a) : falseList2.includes(args.a)
                 default :
-                    return args.c ? ! [0,false,undefined,null,'','0','false','undefined','null'].includes(args.a) : [0,false,undefined,null,'','0','false','undefined','null'].includes(args.a)
+                    return args.c ? ! falseList1.includes(args.a) : falseList1.includes(args.a)
             }
         }
         rmenuif(args){
@@ -5457,9 +5465,9 @@
                 case 0 :
                     return args.a ? args.c : args.d
                 case 1 :
-                    return [0,false,undefined,null,''].includes(args.a) ? args.d : args.c
+                    return falseList2.includes(args.a) ? args.d : args.c
                 default :
-                    return [0,false,undefined,null,'','0','false','undefined','null'].includes(args.a) ? args.d : args.c
+                    return falseList1.includes(args.a) ? args.d : args.c
             }
         }
         bmenuand(args){
@@ -5468,26 +5476,26 @@
                     case 0 :
                         return args.e ? args.a && args.b : !(args.a && args.b)
                     case 1 :
-                        return args.e ? !( [0,false,undefined,null,''].includes(args.a) || [0,false,undefined,null,''].includes(args.c) ) : [0,false,undefined,null,''].includes(args.a) || [0,false,undefined,null,''].includes(args.c)
+                        return args.e ? !( falseList2.includes(args.a) || falseList2.includes(args.c) ) : falseList2.includes(args.a) || falseList2.includes(args.c)
                     default :
-                        return args.e ? !( [0,false,undefined,null,'','0','false','undefined','null'].includes(args.a) || [0,false,undefined,null,'','0','false','undefined','null'].includes(args.c) ) : [0,false,undefined,null,'','0','false','undefined','null'].includes(args.a) || [0,false,undefined,null,'','0','false','undefined','null'].includes(args.c)
+                        return args.e ? !( falseList1.includes(args.a) || falseList1.includes(args.c) ) : falseList1.includes(args.a) || falseList1.includes(args.c)
                 }
             }
             switch(args.d){
                 case 0 :
                     return args.e ? args.a || args.b : !(args.a || args.b)
                 case 1 :
-                    return args.e ? !( [0,false,undefined,null,''].includes(args.a) && [0,false,undefined,null,''].includes(args.c) ) : [0,false,undefined,null,''].includes(args.a) && [0,false,undefined,null,''].includes(args.c)
+                    return args.e ? !( falseList2.includes(args.a) && falseList2.includes(args.c) ) : falseList2.includes(args.a) && falseList2.includes(args.c)
                 default :
-                    return args.e ? !( [0,false,undefined,null,'','0','false','undefined','null'].includes(args.a) && [0,false,undefined,null,'','0','false','undefined','null'].includes(args.c) ) : [0,false,undefined,null,'','0','false','undefined','null'].includes(args.a) && [0,false,undefined,null,'','0','false','undefined','null'].includes(args.c)
+                    return args.e ? !( falseList1.includes(args.a) && falseList1.includes(args.c) ) : falseList1.includes(args.a) && falseList1.includes(args.c)
             }
         }
         bmenuundefined(args){
             if (args.b){
-                if([undefined,null,''].includes(args.a)) return args.c ? false :true
+                if(nullList2.includes(args.a)) return args.c ? false :true
                 return args.c ? true : false
             }
-            if([undefined,null,'undefined','null',''].includes(args.a)) return args.c ? false :true
+            if(nullList1.includes(args.a)) return args.c ? false :true
             return args.c ? true : false
         }
         equal(a,b,c){
@@ -5601,9 +5609,9 @@
                 case 1 :
                     return a
                 case 2 :
-                    return ! [0,false,undefined,null,''].includes(a)
+                    return ! falseList2.includes(a)
                 case 3 :
-                    return ! [0,false,undefined,null,'','0','false','undefined','null'].includes(a)
+                    return ! falseList1.includes(a)
                 case 4 :
                     return Number(a)
                 case 5 :
@@ -5875,13 +5883,13 @@
             return args.a
         }
         bToBoolean(args){
-            return ! [0,false,undefined,null,'','0','false','undefined','null'].includes(args.a)
+            return ! falseList1.includes(args.a)
         }
         rif(args){
             return args.a ? args.b : args.c
         }
         rifToBoolean(args){
-            return [0,false,undefined,null,'','0','false','undefined','null'].includes(args.a) ? args.c : args.b
+            return falseList1.includes(args.a) ? args.c : args.b
         }
         band(args){
             return args.a && args.b
@@ -5893,13 +5901,13 @@
             return ! args.a
         }
         bandToBoolean(args){
-            return ! ([0,false,undefined,null,'','0','false','undefined','null'].includes(args.a) || [0,false,undefined,null,'','0','false','undefined','null'].includes(args.b))
+            return ! (falseList1.includes(args.a) || falseList1.includes(args.b))
         }
         borToBoolean(args){
-            return ! ([0,false,undefined,null,'','0','false','undefined','null'].includes(args.a) && [0,false,undefined,null,'','0','false','undefined','null'].includes(args.b))
+            return ! (falseList1.includes(args.a) && falseList1.includes(args.b))
         }
         bnotToBoolean(args){
-            return [0,false,undefined,null,'','0','false','undefined','null'].includes(args.a)
+            return falseList1.includes(args.a)
         }
         rjoin(args){
             return String(args.a)+String(args.b)+String(args.c)
@@ -5928,14 +5936,14 @@
             return a.replace(args.c,'')
         }
         rdefault(args){
-            if ([undefined,null,'undefined','null',''].includes(args.a)) return args.b
+            if (nullList1.includes(args.a)) return args.b
             return args.a
         }
         bdefined(args){
-            return ! [undefined,null,'undefined','null',''].includes(args.a)
+            return ! nullList1.includes(args.a)
         }
         bundefined(args){
-            return [undefined,null,'undefined','null',''].includes(args.a)
+            return nullList1.includes(args.a)
         }
         bnotstrictlyequal(args){
             return args.a !== args.b
