@@ -12,6 +12,10 @@
 
     const EXTCONFIGCOMMENTID = '_ExtensionConfig_';
 
+    const falseList1 = [0,false,undefined,null,'','0','false','undefined','null'];
+
+    const falseList2 = [0,false,undefined,null,''];
+
     class ControlPro{
         static extCount = 0;
         constructor(runtime) {
@@ -42,12 +46,19 @@
                     'ControlPro.hideBlock': '隐藏不常用积木',
                     'ControlPro.showBlock?':'为了避免杂乱，少量积木被隐藏。\n是否要显示它们？',
 
+                    'ControlPro.as':'作为',
+                    'ControlPro.to':'转为',
+                    'ControlPro.asOriginal':'作为原型',
+                    'ControlPro.asBoolean':'作为布尔值',
+                    'ControlPro.toBoolean':'转为布尔值',
+
                     'ControlPro.Branch':'一些支路',
                     'ControlPro.times':'次',
                     'ControlPro.seconds':'秒',
                     'ControlPro.while':'当',
                     'ControlPro.until':'直到',
                     'ControlPro.cmMenuWait':'等待[a][b][c][d]',
+                    'ControlPro.cmMenuWaitBoolean':'等待[a][b][c][d][e]布尔值',
                     'ControlPro.cmWait':'等待[a]次',
                     'ControlPro.cmWaitWhile':'等待[a]次当[b]',
                     'ControlPro.cmWaitWhileNot':'等待[a]次直到[b]',
@@ -55,6 +66,7 @@
                     'ControlPro.cmWaitSecondsWhileNot':'等待[a]秒直到[b]',
 
                     'ControlPro.cnMenuRepeat':'循环[a][b][c][d]',
+                    'ControlPro.cnMenuRepeatBoolean':'循环[a][b][c][d][e]布尔值',
                     'ControlPro.cnRepeatWhile':'循环[a]次当[b]',
                     'ControlPro.cnRepeatWhileNot':'循环[a]次直到[b]',
                     'ControlPro.cnRepeatSeconds':'循环[a]秒',
@@ -98,12 +110,19 @@
                     'ControlPro.hideBlock': 'Hide Other Blocks',
                     'ControlPro.showBlock?':'To avoid clutter, a few blocks are hidden.\n Do you want to show them?',
 
+                    'ControlPro.as':'as',
+                    'ControlPro.to':'to',
+                    'ControlPro.asOriginal':'as original',
+                    'ControlPro.asBoolean':'as boolean',
+                    'ControlPro.toBoolean':'to boolean',
+
                     'ControlPro.Branch':'Branch',
                     'ControlPro.times':'times',
                     'ControlPro.seconds':'seconds',
                     'ControlPro.while':'while',
                     'ControlPro.until':'until',
                     'ControlPro.cmMenuWait':'wait[a][b][c][d]',
+                    'ControlPro.cmMenuWaitBoolean':'wait[a][b][c][d][e]boolean',
                     'ControlPro.cmWait':'wait[a]times',
                     'ControlPro.cmWaitWhile':'wait[a]times while[b]',
                     'ControlPro.cmWaitWhileNot':'wait[a]times until[b]',
@@ -111,6 +130,7 @@
                     'ControlPro.cmWaitSecondsWhileNot':'wait[a]seconds until[b]',
 
                     'ControlPro.cnMenuRepeat':'repeat for[a][b][c][d]',
+                    'ControlPro.cnMenuRepeatBoolean':'repeat for[a][b][c][d][e]boolean',
                     'ControlPro.cnRepeatWhileNot':'repeat[a]until[b]',
                     'ControlPro.cnRepeatSeconds':'repeat for[a]seconds',
                     'ControlPro.cnRepeatSecondsWhile':'repeat for[a]seconds while[b]',
@@ -220,11 +240,35 @@
                             },
                             b:{
                                 menu:'times',
-                                defaultValue:0
+                                defaultValue:1
                             },
                             c:{
                                 menu:'while',
-                                defaultValue:0
+                                defaultValue:1
+                            }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
+                    },
+                    {
+                        opcode: 'cmMenuWaitBoolean',
+                        blockType: 'command',
+                        text:this.formatMessage('ControlPro.cmMenuWaitBoolean'),
+                        arguments:{
+                            a:{
+                                type:'string',
+                                defaultValue:233
+                            },
+                            b:{
+                                menu:'times',
+                                defaultValue:1
+                            },
+                            c:{
+                                menu:'while',
+                                defaultValue:1
+                            },
+                            e:{
+                                menu:'as',
+                                defaultValue:1
                             }
                         },
                         hideFromPalette: ! this.hideExtraBlocks
@@ -301,11 +345,35 @@
                             },
                             b:{
                                 menu:'times',
-                                defaultValue:0
+                                defaultValue:1
                             },
                             c:{
                                 menu:'while',
-                                defaultValue:0
+                                defaultValue:1
+                            }
+                        },
+                        hideFromPalette: ! this.hideExtraBlocks
+                    },
+                    {
+                        opcode: 'cnMenuRepeatBoolean',
+                        blockType: 'conditional',
+                        text:[this.formatMessage('ControlPro.cnMenuRepeatBoolean')],
+                        arguments:{
+                            a:{
+                                type:'string',
+                                defaultValue:233
+                            },
+                            b:{
+                                menu:'times',
+                                defaultValue:1
+                            },
+                            c:{
+                                menu:'while',
+                                defaultValue:1
+                            },
+                            e:{
+                                menu:'as',
+                                defaultValue:1
                             }
                         },
                         hideFromPalette: ! this.hideExtraBlocks
@@ -401,10 +469,15 @@
                         opcode: 'cnMenuIf',
                         blockType: 'conditional',
                         branchCount: 1,
-                        text:['[a][b]'],
+                        text:['[a][b][c]'],
                         arguments:{
                             a:{
-                                menu:'if'
+                                menu:'if',
+                                defaultValue: 3
+                            },
+                            c:{
+                                menu:'toBoolean',
+                                defaultValue: 2
                             }
                         },
                         hideFromPalette: ! this.hideExtraBlocks
@@ -456,7 +529,8 @@
                         text:[this.formatMessage('ControlPro.cnMenuIfReference'),'2','3','4','5','6','7','8','9','10','11','12','13','14','15','16'],
                         arguments:{
                             a:{
-                                menu:'run'
+                                menu:'run',
+                                defaultValue: 1
                             },
                             b:{
                                 type:'string',
@@ -515,7 +589,8 @@
                         text:[this.formatMessage('ControlPro.cnMenuIfReference')].concat(this.branchSurface),
                         arguments:{
                             a:{
-                                menu:'run'
+                                menu:'run',
+                                defaultValue: 1
                             },
                             b:{
                                 type:'string',
@@ -556,6 +631,36 @@
                     }
                 ],
                 menus:{
+                    toBoolean:{
+                        acceptReporters:true,
+                        items:[
+                            {
+                                text: this.formatMessage('ControlPro.asOriginal'), 
+                                value:0
+                            },
+                            {
+                                text: this.formatMessage('ControlPro.asBoolean'), 
+                                value:1
+                            },
+                            {
+                                text: this.formatMessage('ControlPro.toBoolean'), 
+                                value:2
+                            }
+                        ]
+                    },
+                    as:{
+                        acceptReporters:true,
+                        items:[
+                            {
+                                text: this.formatMessage('ControlPro.as'), 
+                                value:0
+                            },
+                            {
+                                text: this.formatMessage('ControlPro.to'), 
+                                value:1
+                            }
+                        ]
+                    },
                     times: {
                         acceptReporters:true,
                         items:[
@@ -705,15 +810,29 @@
         }
 
         isDefinedStrictly(a){
-            ! [0,false,undefined,null,'','0','false','undefined','null'].includes(a)
+            ! falseList1.includes(a)
         }
         isUndefinedStrictly(a){
-            [0,false,undefined,null,'','0','false','undefined','null'].includes(a)
+            falseList1.includes(a)
         }
 
+        isFalse(a,b){
+            if(b)return falseList1.includes(a);
+            return falseList2.includes(a)
+        }
+        toBooleanNot(a,b){
+            switch(b){
+                case 0 :
+                    return a;
+                case 1 :
+                    return falseList2.includes(a);
+                default :
+                    return falseList1.includes(a)
+            }
+        }
         cmMenuWait(args, util){
             if(args.b){
-                if ([0,false,undefined,null,'','0','false','undefined','null'].includes(args.d) == args.c) {
+                if (args.c ? ! args.d: args.d) {
                     if (util.stackTimerNeedsInit()) {
                         util.startStackTimer(Math.max(0, 1000*args.a));
                         this.runtime.requestRedraw();
@@ -734,7 +853,36 @@
                 else {
                     stackFrame.i += 1;
                 }
-                if (stackFrame.i > stackFrame.n || ! [0,false,undefined,null,'','0','false','undefined','null'].includes(args.d) == args.c) {
+                if (stackFrame.i > stackFrame.n || args.c ? args.d: ! args.d) {
+                    return;
+                }
+                util.yield()
+            }
+        }
+        cmMenuWaitBoolean(args, util){
+            if(args.b){
+                if (this.isFalse(args.d,args.e) == args.c) {
+                    if (util.stackTimerNeedsInit()) {
+                        util.startStackTimer(Math.max(0, 1000*args.a));
+                        this.runtime.requestRedraw();
+                        util.yield();
+                        return;
+                    }
+                    if (!util.stackTimerFinished()) {
+                        util.yield()
+                    }
+                }
+            }
+            else{
+                const { stackFrame } = util;
+                if (typeof stackFrame.i === "undefined") {
+                    stackFrame.n = Math.round(Number(args.a));
+                    stackFrame.i = 1;
+                } 
+                else {
+                    stackFrame.i += 1;
+                }
+                if (stackFrame.i > stackFrame.n || ! this.isFalse(args.d,args.e) == args.c) {
                     return;
                 }
                 util.yield()
@@ -763,7 +911,7 @@
             else {
                 stackFrame.i += 1;
             }
-            if (stackFrame.i > stackFrame.n || [0,false,undefined,null,'','0','false','undefined','null'].includes(args.b)) {
+            if (stackFrame.i > stackFrame.n || falseList1.includes(args.b)) {
                 return;
             }
             util.yield()
@@ -777,13 +925,13 @@
             else {
                 stackFrame.i += 1;
             }
-            if (stackFrame.i > stackFrame.n || (! [0,false,undefined,null,'','0','false','undefined','null'].includes(args.b))) {
+            if (stackFrame.i > stackFrame.n || (! falseList1.includes(args.b))) {
                 return;
             }
             util.yield()
         }
         cmWaitSecondsWhile(args, util){
-            if (! [0,false,undefined,null,'','0','false','undefined','null'].includes(args.b)) {
+            if (! falseList1.includes(args.b)) {
                 if (util.stackTimerNeedsInit()) {
                     util.startStackTimer(Math.max(0, 1000*args.a));
                     this.runtime.requestRedraw();
@@ -796,7 +944,7 @@
             }
         }
         cmWaitSecondsWhileNot(args, util){
-            if ([0,false,undefined,null,'','0','false','undefined','null'].includes(args.b)) {
+            if (falseList1.includes(args.b)) {
                 if (util.stackTimerNeedsInit()) {
                     util.startStackTimer(Math.max(0, 1000*args.a));
                     this.runtime.requestRedraw();
@@ -811,7 +959,7 @@
         
         cnMenuRepeat(args, util){
             if(args.b){
-                if ([0,false,undefined,null,'','0','false','undefined','null'].includes(args.d) == args.c) {
+                if (args.c ? ! args.d: args.d) {
                     if (util.stackTimerNeedsInit()) {
                         util.startStackTimer(Math.max(0, 1000*args.a));
                         this.runtime.requestRedraw();
@@ -832,7 +980,36 @@
                 else {
                     stackFrame.i += 1;
                 }
-                if (stackFrame.i > stackFrame.n || ! [0,false,undefined,null,'','0','false','undefined','null'].includes(args.d) == args.c) {
+                if (stackFrame.i > stackFrame.n || args.c ? args.d: ! args.d) {
+                    return;
+                }
+                util.startBranch(1,true)
+            }
+        }
+        cnMenuRepeatBoolean(args, util){
+            if(args.b){
+                if (this.isFalse(args.d,args.e) == args.c) {
+                    if (util.stackTimerNeedsInit()) {
+                        util.startStackTimer(Math.max(0, 1000*args.a));
+                        this.runtime.requestRedraw();
+                        util.startBranch(1,true);
+                        return;
+                    }
+                    if (!util.stackTimerFinished()) {
+                        util.startBranch(1,true)
+                    }
+                }
+            }
+            else{
+                const { stackFrame } = util;
+                if (typeof stackFrame.i === "undefined") {
+                    stackFrame.n = Math.round(Number(args.a));
+                    stackFrame.i = 1;
+                } 
+                else {
+                    stackFrame.i += 1;
+                }
+                if (stackFrame.i > stackFrame.n || ! this.isFalse(args.d,args.e) == args.c) {
                     return;
                 }
                 util.startBranch(1,true)
@@ -847,7 +1024,7 @@
             else {
                 stackFrame.i += 1;
             }
-            if (stackFrame.i > stackFrame.n || [0,false,undefined,null,'','0','false','undefined','null'].includes(args.b)) {
+            if (stackFrame.i > stackFrame.n || falseList1.includes(args.b)) {
                 return;
             }
             util.startBranch(1,true)
@@ -861,7 +1038,7 @@
             else {
                 stackFrame.i += 1;
             }
-            if (stackFrame.i > stackFrame.n || (! [0,false,undefined,null,'','0','false','undefined','null'].includes(args.b))) {
+            if (stackFrame.i > stackFrame.n || (! falseList1.includes(args.b))) {
                 return;
             }
             util.startBranch(1,true)
@@ -878,7 +1055,7 @@
             }
         }
         cnRepeatSecondsWhile(args, util){
-            if (! [0,false,undefined,null,'','0','false','undefined','null'].includes(args.b)) {
+            if (! falseList1.includes(args.b)) {
                 if (util.stackTimerNeedsInit()) {
                     util.startStackTimer(Math.max(0, 1000*args.a));
                     this.runtime.requestRedraw();
@@ -891,7 +1068,7 @@
             }
         }
         cnRepeatSecondsWhileNot(args, util){
-            if ([0,false,undefined,null,'','0','false','undefined','null'].includes(args.b)) {
+            if (falseList1.includes(args.b)) {
                 if (util.stackTimerNeedsInit()) {
                     util.startStackTimer(Math.max(0, 1000*args.a));
                     this.runtime.requestRedraw();
@@ -915,67 +1092,71 @@
             if (stackFrame.i > stackFrame.n) {
                 return;
             }
-            util.startBranch(1+[0,false,undefined,null,'','0','false','undefined','null'].includes(args.b),true)
+            util.startBranch(1+falseList1.includes(args.b),true)
         }
         cnForeverIfElse(args, util){
-            util.startBranch(1+[0,false,undefined,null,'','0','false','undefined','null'].includes(args.a),true)
+            util.startBranch(1+falseList1.includes(args.a),true)
         }
         cnMenuIf(args, util){
             switch(args.a){
                 case 0 :
-                    if (! [0,false,undefined,null,'','0','false','undefined','null'].includes(args.b))util.startBranch()
+                    if (! this.toBooleanNot(args.b,args.c))util.startBranch();
+                    return;
                 case 1 :
-                    if ([0,false,undefined,null,'','0','false','undefined','null'].includes(args.b))util.startBranch()
+                    if (this.toBooleanNot(args.b,args.c))util.startBranch();
+                    return;
                 case 2 :
-                    if (! [0,false,undefined,null,'','0','false','undefined','null'].includes(args.b))util.startBranch(1,true)
+                    if (! this.toBooleanNot(args.b,args.c))util.startBranch(1,true);
+                    return;
                 default :
-                    if ([0,false,undefined,null,'','0','false','undefined','null'].includes(args.b))util.startBranch(1,true)
+                    if (this.toBooleanNot(args.b,args.c))util.startBranch(1,true);
+                    return;
             }
         }
         cnIf(args, util){
-            if (! [0,false,undefined,null,'','0','false','undefined','null'].includes(args.a))util.startBranch()
+            if (! falseList1.includes(args.a))util.startBranch()
         }
         cnIfNot(args, util){
-            if ([0,false,undefined,null,'','0','false','undefined','null'].includes(args.a))util.startBranch()
+            if (falseList1.includes(args.a))util.startBranch()
         }
         cnIfElse(args, util){
-            util.startBranch(1+[0,false,undefined,null,'','0','false','undefined','null'].includes(args.a))
+            util.startBranch(1+falseList1.includes(args.a))
         }
         cnWhile(args, util){
-            if (! [0,false,undefined,null,'','0','false','undefined','null'].includes(args.a))util.startBranch(1,true)
+            if (! falseList1.includes(args.a))util.startBranch(1,true)
         }
         cnWhileNot(args, util){
-            if ([0,false,undefined,null,'','0','false','undefined','null'].includes(args.a))util.startBranch(1,true)
+            if (falseList1.includes(args.a))util.startBranch(1,true)
         }
         
         cnMenuIfReferenceSixteen(args, util){
-            if (! [0,false,undefined,null,'','0','false','undefined','null'].includes(args.b)){
+            if (! falseList1.includes(args.b)){
                 util.startBranch(Number(args.b),args.a)
             }
         }
         cnIfReferenceSixteen(args, util){
-            if (! [0,false,undefined,null,'','0','false','undefined','null'].includes(args.a)){
+            if (! falseList1.includes(args.a)){
                 util.startBranch(Number(args.a))
             }
         }
         cnWhileReferenceSixteen(args, util){
-            if (! [0,false,undefined,null,'','0','false','undefined','null'].includes(args.a)){
+            if (! falseList1.includes(args.a)){
                 util.startBranch(Number(args.a),true)
             }
         }
 
         cnMenuIfReference(args, util){
-            if (! [0,false,undefined,null,'','0','false','undefined','null'].includes(args.b)){
+            if (! falseList1.includes(args.b)){
                 util.startBranch(Number(args.b),args.a)
             }
         }
         cnIfReference(args, util){
-            if (! [0,false,undefined,null,'','0','false','undefined','null'].includes(args.a)){
+            if (! falseList1.includes(args.a)){
                 util.startBranch(Number(args.a))
             }
         }
         cnWhileReference(args, util){
-            if (! [0,false,undefined,null,'','0','false','undefined','null'].includes(args.a)){
+            if (! falseList1.includes(args.a)){
                 util.startBranch(Number(args.a),true)
             }
         }
