@@ -777,7 +777,7 @@ window.tempExt = {
     },
     'en': {
       'qxsckeasystruct.name': 'Easy struct',
-      'qxsckeasystruct.description': 'Some blocks of use easy struct.',
+      'qxsckeasystruct.description': 'Some blocks about easy struct.',
     },
   },
 }
