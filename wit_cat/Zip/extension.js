@@ -304,7 +304,7 @@ export default class WitCatZip {
      */
     docs() {
         let a = document.createElement('a');
-        a.href = "https://www.ccw.site/post/d6d96e80-3f58-4a19-b7e6-c567d3a6a583";
+        a.href = "https://learn.ccw.site/article/f69e3c2e-9f35-4fe3-81bb-076385b1dd3d";
         a.rel = "noopener noreferrer";
         a.target = "_blank";
         a.click();
