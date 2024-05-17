@@ -34,11 +34,206 @@
             }
             this._formatMessage = runtime.getFormatMessage({
                 "zh-cn": {
+                    'OperatorsPro.rmenutypeof':'[a]作为[b]类型，[c]数组和对象',
+                    'OperatorsPro.bmenutypeof':'[a]作为[b]类型为[c]',
+                    'OperatorsPro.rJSONtypeof':'JSON[a]类型',
+                    'OperatorsPro.bJSONtypeof':'JSON[a]类型为[b]',
+                    'OperatorsPro.bmenuToBoolean':'[a][b]时[c]',
+                    'OperatorsPro.rmenuif':'若[a][b]则[c]否则[d]',
+                    'OperatorsPro.bmenuand':'[a][b][c][d]时[e]',
+                    'OperatorsPro.rif': '若[a]则[b]否则[c]',
+                    'OperatorsPro.band': '[a]与[b]',
+                    'OperatorsPro.bor': '[a]或[b]',
+                    'OperatorsPro.bnot': '[a]不成立',
+                    'OperatorsPro.rpadstart':'[a]插入[b]使长度为[c]',
+                    'OperatorsPro.rpadend':'[a]加入[b]使长度为[c]',
+                    'OperatorsPro.rremove':'[a]去除[b]',
+                    'OperatorsPro.rinterchange':'[a]字符[b]互换[c]',
+                    'OperatorsPro.rreplaceexcept':'[a]字符[b]排除[c]替换为[d]',
+                    'OperatorsPro.bmenuundefined':'[a][b]是[c]',
+                    'OperatorsPro.rdefault':'[a]空值则[b]',
+                    'OperatorsPro.bdefined':'[a]有值',
+                    'OperatorsPro.bundefined':'[a]空值',
+                    'OperatorsPro.bmenuequal':'[a][b][c]，因为它们的[d]',
+                    'OperatorsPro.bnotstrictlyequal':'[a]不全等[b]',
+                    'OperatorsPro.bnotcontain':'[a]不含[b]',
+                    'OperatorsPro.rrandom':'0到1随机数',
+                    'OperatorsPro.rnearestmultiple':'[a]最近[b]倍数',
+                    'OperatorsPro.rmod':'[a]/[b]余数',
+                    'OperatorsPro.rround':'[a]四舍五入[b]位',
+                    'OperatorsPro.rrintfromto':'[a]四舍五入，从[b]位至[c]位',
+                    'OperatorsPro.rrinttotimes':'[a]四舍五入，从[b]位往前[c]次',
+                    'OperatorsPro.rrinttimesto':'[a]四舍五入，往前[b]次至[c]位',
+                    'OperatorsPro.rPI':'[i]保留[a]位',
+                    'OperatorsPro.rmenurad':'弧度制[a][b][c]',
+                    'OperatorsPro.rmenutoonehundredeighty':'[a][b]在[c]角度中',
+                    'OperatorsPro.rradsin':'弧度制sin[a]',
+                    'OperatorsPro.rradcos':'弧度制cos[a]',
+                    'OperatorsPro.rradtan':'弧度制tan[a]',
+                    'OperatorsPro.rradasin':'弧度制asin[a]',
+                    'OperatorsPro.rradacos':'弧度制acos[a]',
+                    'OperatorsPro.rradatan':'弧度制atan[a]',
+                    'OperatorsPro.rtoonehundredeighty':'[a]在-180~180角度中',
+                    'OperatorsPro.rtothreehundredsixty':'[a]在0~360角度中',
+                    'OperatorsPro.raddto':'[a]增加[b]至[c]',
+                    'OperatorsPro.rmenuArrayremoveitem':'[a]作为[b]删除第[c]项，返回[d]',
+                    'OperatorsPro.rArrayremoveshift':'[a]删除首项',
+                    'OperatorsPro.rArrayremovepop':'[a]删除末项',
+                    'OperatorsPro.rArrayremoveitem':'[a]删除第[b]项',
+                    'OperatorsPro.rArrayremoveitems':'[a]删除第[b]项',
+                    'OperatorsPro.rArrayremoveitemtoitem':'[a]删除第[b]至[c]项',
+                    'OperatorsPro.rArrayreserveitem':'[a]保留第[b]项',
+                    'OperatorsPro.rmenuArrayremove':'[a]作为[b]删除[c][d]，因为[e]，返回[f]',
+                    'OperatorsPro.rArrayremoveJSON':'[a]删除所有JSON[b]',
+                    'OperatorsPro.rArrayremovestr':'[a]删除所有"[b]"',
+                    'OperatorsPro.rmenuArrayremovenumber':'[a]作为[b]删除[c][d][e]，因为[f]，返回[g]',
+                    'OperatorsPro.rArrayremovebignumber':'[a]删除数>[b]',
+                    'OperatorsPro.rArrayremovenotsmallnumber':'[a]删除数≥[b]',
+                    'OperatorsPro.rArrayremovesmallnumber':'[a]删除数<[b]',
+                    'OperatorsPro.rArrayremovenotbignumber':'[a]删除数≤[b]',
+                    'OperatorsPro.rArrayremovenumber':'[a]删除所有数[b]',
+                    'OperatorsPro.rArrayremove':'[a]删除所有[b]',
+                    'OperatorsPro.rmenuArrayinsert':'[a]作为[b]第[c]项[d][e][f],返回[g]',
+                    'OperatorsPro.rArrayunshiftJSON':'[a]加入JSON[b]到开头',
+                    'OperatorsPro.rArrayunshiftstr':'[a]加入"[b]"到开头',
+                    'OperatorsPro.rArrayunshiftnumber':'[a]加入数[b]到开头',
+                    'OperatorsPro.rArrayunshift':'[a]加入[b]到开头',
+                    'OperatorsPro.rArraypushJSON':'[a]加入JSON[b]到末尾',
+                    'OperatorsPro.rArraypushstr':'[a]加入"[b]"到末尾',
+                    'OperatorsPro.rArraypushnumber':'[a]加入数[b]到末尾',
+                    'OperatorsPro.rArraypush':'[a]加入[b]到末尾',
+                    'OperatorsPro.rArrayinsertJSON':'[a]插入JSON[b]到[c]项',
+                    'OperatorsPro.rArrayinsertstr':'[a]插入"[b]"到[c]项',
+                    'OperatorsPro.rArrayinsertnumber':'[a]插入数[b]到[c]项',
+                    'OperatorsPro.rArrayinsert':'[a]插入[b]到[c]项',
+                    'OperatorsPro.rArrayinsertJSONindextoindex':'[a]插入JSON[b]到[c]至[d]项',
+                    'OperatorsPro.rArrayinsertstrindextoindex':'[a]插入"[b]"到[c]至[d]项',
+                    'OperatorsPro.rArrayinsertnumberindextoindex':'[a]插入数[b]到[c]至[d]项',
+                    'OperatorsPro.rArrayinsertindextoindex':'[a]插入[b]到[c]至[d]项',
+                    'OperatorsPro.rArraymove':'[a]第[b]项移到第[c]项',
+                    'OperatorsPro.rArrayreplaceJSON':'[a]第[b]项设为JSON[c]',
+                    'OperatorsPro.rArrayreplacestr':'[a]第[b]项设为"[c]"',
+                    'OperatorsPro.rArrayreplacenumber':'[a]第[b]项设为数[c]',
+                    'OperatorsPro.rArrayreplace':'[a]第[b]项设为[c]',
+                    'OperatorsPro.rArrayreplaceindexesJSON':'[a]第[b]项设为JSON[c]',
+                    'OperatorsPro.rArrayreplaceindexesstr':'[a]第[b]项设为"[c]"',
+                    'OperatorsPro.rArrayreplaceindexesnumber':'[a]第[b]项设为数[c]',
+                    'OperatorsPro.rArrayreplaceindexes':'[a]第[b]项设为[c]',
+                    'OperatorsPro.rArrayreplaceindextoindexJSON':'[a]第[b]到[c]项设为JSON[d]',
+                    'OperatorsPro.rArrayreplaceindextoindexstr':'[a]第[b]到[c]项设为"[d]"',
+                    'OperatorsPro.rArrayreplaceindextoindexnumber':'[a]第[b]到[c]项设为数[d]',
+                    'OperatorsPro.rArrayreplaceindextoindex':'[a]第[b]到[c]项设为[d]',
+                    'OperatorsPro.rArrayinterchange':'[a]第[b]项与第[c]项互换',
+                    'OperatorsPro.rArrayplusindex':'[a]第[b]项增加[c]',
+                    'OperatorsPro.rArrayplusindextoindex':'[a]第[b]到[c]项增加[d]',
+                    'OperatorsPro.rArrayplus':'[a]各项增加[b]',
+                    'OperatorsPro.rmenuArrayitem':'[a]作为[b]第[c]项，返回[d]',
+                    'OperatorsPro.rArrayshiftJSON':'[a]首项转JSON',
+                    'OperatorsPro.rArrayshift':'[a]首项',
+                    'OperatorsPro.rArraypopJSON':'[a]末项转JSON',
+                    'OperatorsPro.rArraypop':'[a]末项',
+                    'OperatorsPro.rArrayitemJSON':'[a]第[b]项转JSON',
+                    'OperatorsPro.rArrayitem':'[a]第[b]项',
+                    'OperatorsPro.rArrayitems':'[a]第[b]项',
+                    'OperatorsPro.rArrayitemtoitem':'[a]第[b]至[c]项',
+                    'OperatorsPro.rmenuArrayindex':'[a]作为[b][c][d][e]的编号，因为[f]',
+                    'OperatorsPro.rmenuArrayindexnumber':'[a]作为[b][c][d][e][f]的编号，因为[g]',
+                    'OperatorsPro.rArrayindexJSON':'[a]第一JSON[b]编号',
+                    'OperatorsPro.rArrayindexstr':'[a]第一"[b]"编号',
+                    'OperatorsPro.rArrayfindIndexbignumber':'[a]第一数>[b]编号',
+                    'OperatorsPro.rArrayfindIndexnotsmallnumber':'[a]第一数≥[b]编号',
+                    'OperatorsPro.rArrayfindIndexsmallnumber':'[a]第一数<[b]编号',
+                    'OperatorsPro.rArrayfindIndexnotbignumber':'[a]第一数≤[b]编号',
+                    'OperatorsPro.rArrayindexnumber':'[a]第一数[b]编号',
+                    'OperatorsPro.rArrayindex':'[a]第一[b]编号',
+                    'OperatorsPro.rArraylastindexJSON':'[a]最后一JSON[b]编号',
+                    'OperatorsPro.rArraylastindexstr':'[a]最后一"[b]"编号',
+                    'OperatorsPro.rArraylastindexnumber':'[a]最后一数[b]编号',
+                    'OperatorsPro.rArraylastindex':'[a]最后一[b]编号',
+                    'OperatorsPro.rArrayallindexJSON':'[a]所有JSON[b]编号',
+                    'OperatorsPro.rArrayallindexstr':'[a]所有"[b]"编号',
+                    'OperatorsPro.rArrayallindexnumber':'[a]所有数[b]编号',
+                    'OperatorsPro.rArrayallindex':'[a]所有[b]编号',
+                    'OperatorsPro.rmenuArraycount':'[a]作为[b]中[c][d]的数量，因为[e]',
+                    'OperatorsPro.rArraycountJSON':'[a]JSON[b]数量',
+                    'OperatorsPro.rArraycountstr':'[a]"[b]"数量',
+                    'OperatorsPro.rmenuArraycountnumber':'[a]作为[b]中[c][d][e]的数量，因为[f]',
+                    'OperatorsPro.rArraycountbignumber':'[a]数>[b]数量',
+                    'OperatorsPro.rArraycountnotsmallnumber':'[a]数≥[b]数量',
+                    'OperatorsPro.rArraycountsmallnumber':'[a]数<[b]数量',
+                    'OperatorsPro.rArraycountnotbignumber':'[a]数≤[b]数量',
+                    'OperatorsPro.rArraycountnumber':'[a]数[b]数量',
+                    'OperatorsPro.rArraycount':'[a][b]数量',
+                    'OperatorsPro.rmenuArraylength':'[a]作为[b][c]',
+                    'OperatorsPro.rArraylength':'[a]元素量',
+                    'OperatorsPro.rArraysum':'[a]之和',
+                    'OperatorsPro.rArrayproduct':'[a]之积',
+                    'OperatorsPro.rArrayaverage':'[a]平均数',
+                    'OperatorsPro.rArraymax':'[a]最大值',
+                    'OperatorsPro.rArraymin':'[a]最小值',
+                    'OperatorsPro.rmenuArraysort':'[a]作为[b][c]排序，返回[d]',
+                    'OperatorsPro.rArraysortnaturalOrder':'[a]顺序排序',
+                    'OperatorsPro.rArraysortreverseOrder':'[a]倒序排序',
+                    'OperatorsPro.rArrayreverse':'[a]反转',
+                    'OperatorsPro.bmenuArrayhave':'[a]作为[b][c][d][e]，因为[f]',
+                    'OperatorsPro.bArrayhaveJSON':'[a]包含JSON[b]',
+                    'OperatorsPro.bArrayhavestr':'[a]包含"[b]"',
+                    'OperatorsPro.bmenuArrayhavenumber':'[a]作为[b][c][d][e][f]，因为[g]',
+                    'OperatorsPro.bArrayhavebignumber':'[a]包含数>[b]',
+                    'OperatorsPro.bArrayhavenotsmallnumber':'[a]包含数≥[b]',
+                    'OperatorsPro.bArrayhavesmallnumber':'[a]包含数<[b]',
+                    'OperatorsPro.bArrayhavenotbignumber':'[a]包含数≤[b]',
+                    'OperatorsPro.bArrayhavenumber':'[a]包含数[b]',
+                    'OperatorsPro.bArrayhave':'[a]包含[b]',
+                    'OperatorsPro.bArraybeJSON':'[a]只含JSON[b]',
+                    'OperatorsPro.bArraybestr':'[a]只含"[b]"',
+                    'OperatorsPro.bArraybebignumber':'[a]只含数>[b]',
+                    'OperatorsPro.bArraybenotsmallnumber':'[a]只含数≥[b]',
+                    'OperatorsPro.bArraybesmallnumber':'[a]只含数<[b]',
+                    'OperatorsPro.bArraybenotbignumber':'[a]只含数≤[b]',
+                    'OperatorsPro.bArraybenumber':'[a]只含数[b]',
+                    'OperatorsPro.bArraybe':'[a]只含[b]',
+                    'OperatorsPro.bArraystrictlyequal':'[a]全等[b]',
+                    'OperatorsPro.bArrayclear':'[a]无元素',
+                    'OperatorsPro.bisArray':'[a]是数组',
+                    'OperatorsPro.rObjectremove':'[a]删除键[b]',
+                    'OperatorsPro.rObjectremovekeys':'[a]删除键[b]',
+                    'OperatorsPro.rmenuObjectset':'[a]作为[b]成员[c][d][e][f]，返回[g]',
+                    'OperatorsPro.rObjectputkeyJSON':'[a]键[b]值设为JSON[c]',
+                    'OperatorsPro.rObjectputkeystr':'[a]键[b]值设为"[c]"',
+                    'OperatorsPro.rObjectputkeynumber':'[a]键[b]值设为数[c]',
+                    'OperatorsPro.rObjectputkey':'[a]键[b]值设为[c]',
+                    'OperatorsPro.rObjectpluskey':'[a]键[b]值增加[c]',
+                    'OperatorsPro.rObjectplus':'[a]值增加[b]',
+                    'OperatorsPro.rmenuObjectmember':'[a]作为[b]成员[c]，返回[d]',
+                    'OperatorsPro.rObjectvalueJSON':'[a]键[b]的值转JSON',
+                    'OperatorsPro.rObjectvalue':'[a]键[b]的值',
+                    'OperatorsPro.rObjectkeyJSON':'[a]第一值JSON[b]键',
+                    'OperatorsPro.rObjectkeystr':'[a]第一值"[b]"键',
+                    'OperatorsPro.rObjectkeynumber':'[a]第一值=[b]键',
+                    'OperatorsPro.rObjectkey':'[a]第一值[b]键',
+                    'OperatorsPro.rObjectlastkeyJSON':'[a]最后一值JSON[b]键',
+                    'OperatorsPro.rObjectlastkeystr':'[a]最后一值"[b]"键',
+                    'OperatorsPro.rObjectlastkeynumber':'[a]最后一值=[b]键',
+                    'OperatorsPro.rObjectlastkey':'[a]最后一值[b]键',
+                    'OperatorsPro.rObjectallkeyJSON':'[a]所有值JSON[b]键',
+                    'OperatorsPro.rObjectallkeystr':'[a]所有值"[b]"键',
+                    'OperatorsPro.rObjectallkeynumber':'[a]所有值=[b]键',
+                    'OperatorsPro.rObjectallkey':'[a]所有值[b]键',
+                    'OperatorsPro.rmenuObjectkeys':'[a]作为[b]所有[c]，返回[d]',
+                    'OperatorsPro.rObjectlength':'[a]键值量',
+                    'OperatorsPro.rObjectkeys':'[a]所有键',
+                    'OperatorsPro.rObjectvalues':'[a]所有值',
+                    'OperatorsPro.rObjectentries':'[a]所有数据',
+                    'OperatorsPro.rObjectfromentries':'[a]数据转对象',
+                    'OperatorsPro.rObjectputAll':'[a][b]合并',
+                    'OperatorsPro.bObjecthasownproperty':'[a]包含键[b]',
+                    'OperatorsPro.bObjectclear':'[a]无键值',
+                    'OperatorsPro.bisObject':'[a]是对象',
                     'OperatorsPro.Operators':'运算',
                     'OperatorsPro.showBlock': '显示不常用积木',
                     'OperatorsPro.hideBlock': '隐藏不常用积木',
                     'OperatorsPro.showBlock?':'为了避免杂乱，少量积木被隐藏。\n是否要显示它们？',
-    
                     'OperatorsPro.true':'是',
                     'OperatorsPro.false':'否',
                     'OperatorsPro.asoriginal':'作为原型',
@@ -55,7 +250,6 @@
                     'OperatorsPro.roughly':'大致上',
                     'OperatorsPro.strictly':'严格上',
                     'OperatorsPro.defined':'有值',
-                    
                     'OperatorsPro.essence':'本质',
                     'OperatorsPro.content':'内容',
                     'OperatorsPro.type':'类型',
@@ -63,15 +257,12 @@
                     'OperatorsPro.essenceandcase':'本质和大小写',
                     'OperatorsPro.contentandcase':'内容和大小写',
                     'OperatorsPro.contentandtypeandcase':'内容和类型和大小写',
-                    
-    
                     'OperatorsPro.original':'原型',
                     'OperatorsPro.confuse':'混淆',
                     'OperatorsPro.distinguish':'区分',
                     'OperatorsPro.array':'数组',
                     'OperatorsPro.object':'对象',
                     'OperatorsPro.value':'值',
-    
                     'OperatorsPro.lengthof':'的长度',
                     'OperatorsPro.sumof':'的和',
                     'OperatorsPro.productof':'的积',
@@ -93,7 +284,6 @@
                     'OperatorsPro.keys':'键',
                     'OperatorsPro.values':'值',
                     'OperatorsPro.datas':'数据',
-    
                     'OperatorsPro.TYPE_NUMBER': '数字',
                     'OperatorsPro.TYPE_POSITIVE_NUMBER': '正数',
                     'OperatorsPro.TYPE_NEGATIVE_NUMBER': '负数',
@@ -114,232 +304,220 @@
                     'OperatorsPro.arrayorobject':'数组或对象',
                     'OperatorsPro.string':'字符串',
                     'OperatorsPro.undefined':'空值',
-    
                     'OperatorsPro.hello':'你好',
                     'OperatorsPro.yes':'是',
                     'OperatorsPro.no':'否',
-    
-                    'OperatorsPro.bmenuToBoolean':'[a][b]时[c]',
-                    'OperatorsPro.rmenuif':'若[a][b]则[c]否则[d]',
-                    'OperatorsPro.bmenuand':'[a][b][c][d]时[e]',
-                    'OperatorsPro.bmenuundefined':'[a][b]是[c]',
-                    'OperatorsPro.bmenuequal':'[a][b][c]，因为它们的[d]',
-                    'OperatorsPro.rmenurad':'弧度制[a][b][c]',
-                    'OperatorsPro.rmenutoonehundredeighty':'[a][b]在[c]角度中',
-                    'OperatorsPro.rmenutypeof':'[a]作为[b]类型，[c]数组和对象',
-                    'OperatorsPro.bmenutypeof':'[a]作为[b]类型为[c]',
-                    'OperatorsPro.rmenuArraylength':'[a]作为[b][c]',
-                    'OperatorsPro.bmenuArrayhave':'[a]作为[b][c][d][e]，因为[f]',
-                    'OperatorsPro.bmenuArrayhavenumber':'[a]作为[b][c][d][e][f]，因为[g]',
-                    'OperatorsPro.rmenuArrayremove':'[a]作为[b]删除[c][d]，因为[e]，返回[f]',
-                    'OperatorsPro.rmenuArrayremovenumber':'[a]作为[b]删除[c][d][e]，因为[f]，返回[g]',
-                    'OperatorsPro.rmenuArrayremoveitem':'[a]作为[b]删除第[c]项，返回[d]',
-                    'OperatorsPro.rmenuArrayitem':'[a]作为[b]第[c]项，返回[d]',
-                    'OperatorsPro.rmenuArrayinsert':'[a]作为[b]第[c]项[d][e][f],返回[g]',
-                    'OperatorsPro.rmenuArrayindex':'[a]作为[b][c][d][e]的编号，因为[f]',
-                    'OperatorsPro.rmenuArrayindexnumber':'[a]作为[b][c][d][e][f]的编号，因为[g]',
-                    'OperatorsPro.rmenuArraycount':'[a]作为[b]中[c][d]的数量，因为[e]',
-                    'OperatorsPro.rmenuArraycountnumber':'[a]作为[b]中[c][d][e]的数量，因为[f]',
-                    'OperatorsPro.rmenuArraysort':'[a]作为[b][c]排序，返回[d]',
-                    'OperatorsPro.rmenuObjectmember':'[a]作为[b]成员[c]，返回[d]',
-                    'OperatorsPro.rmenuObjectset':'[a]作为[b]成员[c][d][e][f]，返回[g]',
-                    'OperatorsPro.rmenuObjectkeys':'[a]作为[b]所有[c]，返回[d]',
-    
                     'OperatorsPro.Types':'类型',
-                    'OperatorsPro.rJSONtypeof':'JSON[a]类型',
-                    'OperatorsPro.bJSONtypeof':'JSON[a]类型为[b]',
                     'OperatorsPro.bCheckType':'[INPUT]是[MODE]',
-    
                     'OperatorsPro.Logic':'逻辑',
                     'OperatorsPro.StringsandNumbers':'字符串和数字',
-                    'OperatorsPro.rif': '若[a]则[b]否则[c]',
-                    'OperatorsPro.band': '[a]与[b]',
-                    'OperatorsPro.bor': '[a]或[b]',
-                    'OperatorsPro.bnot': '[a]不成立',
-                    'OperatorsPro.rpadstart':'[a]插入[b]使长度为[c]',
-                    'OperatorsPro.rpadend':'[a]加入[b]使长度为[c]',
-                    'OperatorsPro.rremove':'[a]去除[b]',
-                    'OperatorsPro.rinterchange':'[a]字符[b]互换[c]',
-                    'OperatorsPro.rreplaceexcept':'[a]字符[b]排除[c]替换为[d]',
-                    'OperatorsPro.rdefault':'[a]空值则[b]',
-                    'OperatorsPro.bdefined':'[a]有值',
-                    'OperatorsPro.bundefined':'[a]空值',
-                    'OperatorsPro.bnotstrictlyequal':'[a]不全等[b]',
-                    'OperatorsPro.bnotcontain':'[a]不含[b]',
-                    'OperatorsPro.rrandom':'0到1随机数',
                     'OperatorsPro.rLoopNum': '让[NUM]在[START]到[END]中循环',
                     'OperatorsPro.rMapOff': '映射[NUM]从[START1]~[END1]到[START2]~[END2]',
-                    'OperatorsPro.rnearestmultiple':'[a]最近[b]倍数',
-                    'OperatorsPro.rmod':'[a]/[b]余数',
-                    'OperatorsPro.rround':'[a]四舍五入[b]位',
-                    'OperatorsPro.rrintfromto':'[a]四舍五入，从[b]位至[c]位',
-                    'OperatorsPro.rrinttotimes':'[a]四舍五入，从[b]位往前[c]次',
-                    'OperatorsPro.rrinttimesto':'[a]四舍五入，往前[b]次至[c]位',
-                    'OperatorsPro.rPI':'[i]保留[a]位',
-                    'OperatorsPro.rradsin':'弧度制sin[a]',
-                    'OperatorsPro.rradcos':'弧度制cos[a]',
-                    'OperatorsPro.rradtan':'弧度制tan[a]',
-                    'OperatorsPro.rradasin':'弧度制asin[a]',
-                    'OperatorsPro.rradacos':'弧度制acos[a]',
-                    'OperatorsPro.rradatan':'弧度制atan[a]',
-                    'OperatorsPro.rtoonehundredeighty':'[a]在-180~180角度中',
-                    'OperatorsPro.rtothreehundredsixty':'[a]在0~360角度中',
-                    'OperatorsPro.raddto':'[a]增加[b]至[c]',
-    
                     'OperatorsPro.ArrayandObject':'数组与对象',
-    
-                    'OperatorsPro.rArrayunshiftnumber':'[a]加入数[b]到开头',
-                    'OperatorsPro.rArraypushnumber':'[a]加入数[b]到末尾',
-                    'OperatorsPro.rArrayinsertnumber':'[a]插入数[b]到[c]项',
-                    'OperatorsPro.rArrayinsertnumberindextoindex':'[a]插入数[b]到[c]至[d]项',
-                    'OperatorsPro.rArrayreplacenumber':'[a]第[b]项设为数[c]',
-                    'OperatorsPro.rArrayreplaceindexesnumber':'[a]第[b]项设为数[c]',
-                    'OperatorsPro.rArrayreplaceindextoindexnumber':'[a]第[b]到[c]项设为数[d]',
-    
-                    'OperatorsPro.bArraystrictlyequal':'[a]全等[b]',
-                    'OperatorsPro.rArraysum':'[a]之和',
-                    'OperatorsPro.rArrayproduct':'[a]之积',
-                    'OperatorsPro.rArrayaverage':'[a]平均数',
-                    'OperatorsPro.rArraymax':'[a]最大值',
-                    'OperatorsPro.rArraymin':'[a]最小值',
-                    'OperatorsPro.bArrayhavebignumber':'[a]包含数>[b]',
-                    'OperatorsPro.bArrayhavenotsmallnumber':'[a]包含数≥[b]',
-                    'OperatorsPro.bArrayhavesmallnumber':'[a]包含数<[b]',
-                    'OperatorsPro.bArrayhavenotbignumber':'[a]包含数≤[b]',
-                    'OperatorsPro.bArrayhavenumber':'[a]包含数[b]',
-                    'OperatorsPro.bArrayhavestr':'[a]包含"[b]"',
-                    'OperatorsPro.bArrayhave':'[a]包含[b]',
-                    'OperatorsPro.bArrayhaveJSON':'[a]包含JSON[b]',
-                    'OperatorsPro.bArraybebignumber':'[a]只含数>[b]',
-                    'OperatorsPro.bArraybenotsmallnumber':'[a]只含数≥[b]',
-                    'OperatorsPro.bArraybesmallnumber':'[a]只含数<[b]',
-                    'OperatorsPro.bArraybenotbignumber':'[a]只含数≤[b]',
-                    'OperatorsPro.bArraybenumber':'[a]只含数[b]',
-                    'OperatorsPro.bArraybestr':'[a]只含"[b]"',
-                    'OperatorsPro.bArraybe':'[a]只含[b]',
-                    'OperatorsPro.bArraybeJSON':'[a]只含JSON[b]',
-                    'OperatorsPro.rArrayremovebignumber':'[a]删除数>[b]',
-                    'OperatorsPro.rArrayremovenotsmallnumber':'[a]删除数≥[b]',
-                    'OperatorsPro.rArrayremovesmallnumber':'[a]删除数<[b]',
-                    'OperatorsPro.rArrayremovenotbignumber':'[a]删除数≤[b]',
-                    'OperatorsPro.rArrayremovenumber':'[a]删除所有数[b]',
-                    'OperatorsPro.rArrayremovestr':'[a]删除所有"[b]"',
-                    'OperatorsPro.rArrayremove':'[a]删除所有[b]',
-                    'OperatorsPro.rArrayremoveJSON':'[a]删除所有JSON[b]',
-                    'OperatorsPro.rArrayremoveshift':'[a]删除首项',
-                    'OperatorsPro.rArrayremovepop':'[a]删除末项',
-                    'OperatorsPro.rArrayremoveitem':'[a]删除第[b]项',
-                    'OperatorsPro.rArrayremoveitems':'[a]删除第[b]项',
-                    'OperatorsPro.rArrayremoveitemtoitem':'[a]删除第[b]至[c]项',
-                    'OperatorsPro.rArrayreserveitem':'[a]保留第[b]项',
-                    'OperatorsPro.rArrayshift':'[a]首项',
-                    'OperatorsPro.rArraypop':'[a]末项',
-                    'OperatorsPro.rArrayitem':'[a]第[b]项',
-                    'OperatorsPro.rArrayitems':'[a]第[b]项',
-                    'OperatorsPro.rArrayshiftJSON':'[a]首项转JSON',
-                    'OperatorsPro.rArraypopJSON':'[a]末项转JSON',
-                    'OperatorsPro.rArrayitemJSON':'[a]第[b]项转JSON',
-                    'OperatorsPro.rArrayitemtoitem':'[a]第[b]至[c]项',
-                    'OperatorsPro.rArrayunshift':'[a]加入[b]到开头',
-                    'OperatorsPro.rArraypush':'[a]加入[b]到末尾',
-                    'OperatorsPro.rArrayinsert':'[a]插入[b]到[c]项',
-                    'OperatorsPro.rArrayinsertindextoindex':'[a]插入[b]到[c]至[d]项',
-                    'OperatorsPro.rArrayunshiftstr':'[a]加入"[b]"到开头',
-                    'OperatorsPro.rArraypushstr':'[a]加入"[b]"到末尾',
-                    'OperatorsPro.rArrayinsertstr':'[a]插入"[b]"到[c]项',
-                    'OperatorsPro.rArrayinsertstrindextoindex':'[a]插入"[b]"到[c]至[d]项',
-                    'OperatorsPro.rArrayunshiftJSON':'[a]加入JSON[b]到开头',
-                    'OperatorsPro.rArraypushJSON':'[a]加入JSON[b]到末尾',
-                    'OperatorsPro.rArrayinsertJSON':'[a]插入JSON[b]到[c]项',
-                    'OperatorsPro.rArrayinsertJSONindextoindex':'[a]插入JSON[b]到[c]至[d]项',
-                    'OperatorsPro.rArraymove':'[a]第[b]项移到第[c]项',
-                    'OperatorsPro.rArrayinterchange':'[a]第[b]项与第[c]项互换',
-                    'OperatorsPro.rArrayreplace':'[a]第[b]项设为[c]',
-                    'OperatorsPro.rArrayreplaceindexes':'[a]第[b]项设为[c]',
-                    'OperatorsPro.rArrayreplaceindextoindex':'[a]第[b]到[c]项设为[d]',
-                    'OperatorsPro.rArrayreplacestr':'[a]第[b]项设为"[c]"',
-                    'OperatorsPro.rArrayreplaceindexesstr':'[a]第[b]项设为"[c]"',
-                    'OperatorsPro.rArrayreplaceindextoindexstr':'[a]第[b]到[c]项设为"[d]"',
-                    'OperatorsPro.rArrayreplaceJSON':'[a]第[b]项设为JSON[c]',
-                    'OperatorsPro.rArrayreplaceindexesJSON':'[a]第[b]项设为JSON[c]',
-                    'OperatorsPro.rArrayreplaceindextoindexJSON':'[a]第[b]到[c]项设为JSON[d]',
-                    'OperatorsPro.rArrayplusindex':'[a]第[b]项增加[c]',
-                    'OperatorsPro.rArrayplusindextoindex':'[a]第[b]到[c]项增加[d]',
-                    'OperatorsPro.rArrayplus':'[a]各项增加[b]',
-                    'OperatorsPro.rArrayindex':'[a]第一[b]编号',
-                    'OperatorsPro.rArrayindexnumber':'[a]第一数[b]编号',
-                    'OperatorsPro.rArrayindexstr':'[a]第一"[b]"编号',
-                    'OperatorsPro.rArrayindexJSON':'[a]第一JSON[b]编号',
-                    'OperatorsPro.rArraylastindex':'[a]最后一[b]编号',
-                    'OperatorsPro.rArraylastindexnumber':'[a]最后一数[b]编号',
-                    'OperatorsPro.rArraylastindexstr':'[a]最后一"[b]"编号',
-                    'OperatorsPro.rArraylastindexJSON':'[a]最后一JSON[b]编号',
-                    'OperatorsPro.rArrayallindex':'[a]所有[b]编号',
-                    'OperatorsPro.rArrayallindexnumber':'[a]所有数[b]编号',
-                    'OperatorsPro.rArrayallindexstr':'[a]所有"[b]"编号',
-                    'OperatorsPro.rArrayallindexJSON':'[a]所有JSON[b]编号',
-                    'OperatorsPro.rArrayfindIndexbignumber':'[a]第一数>[b]编号',
-                    'OperatorsPro.rArrayfindIndexnotsmallnumber':'[a]第一数≥[b]编号',
-                    'OperatorsPro.rArrayfindIndexsmallnumber':'[a]第一数<[b]编号',
-                    'OperatorsPro.rArrayfindIndexnotbignumber':'[a]第一数≤[b]编号',
-                    'OperatorsPro.rArraycountbignumber':'[a]数>[b]数量',
-                    'OperatorsPro.rArraycountnotsmallnumber':'[a]数≥[b]数量',
-                    'OperatorsPro.rArraycountsmallnumber':'[a]数<[b]数量',
-                    'OperatorsPro.rArraycountnotbignumber':'[a]数≤[b]数量',
-                    'OperatorsPro.rArraycountnumber':'[a]数[b]数量',
-                    'OperatorsPro.rArraycountstr':'[a]"[b]"数量',
-                    'OperatorsPro.rArraycount':'[a][b]数量',
-                    'OperatorsPro.rArraycountJSON':'[a]JSON[b]数量',
-                    'OperatorsPro.rArraysortnaturalOrder':'[a]顺序排序',
-                    'OperatorsPro.rArraysortreverseOrder':'[a]倒序排序',
-                    'OperatorsPro.rArrayreverse':'[a]反转',
-                    'OperatorsPro.bArrayclear':'[a]无元素',
-                    'OperatorsPro.rArraylength':'[a]元素量',
-                    'OperatorsPro.bisArray':'[a]是数组',
-    
-                    'OperatorsPro.rObjectkeynumber':'[a]第一值=[b]键',
-                    'OperatorsPro.rObjectlastkeynumber':'[a]最后一值=[b]键',
-                    'OperatorsPro.rObjectallkeynumber':'[a]所有值=[b]键',
-    
-                    'OperatorsPro.rObjectvalue':'[a]键[b]的值',
-                    'OperatorsPro.rObjectvalueJSON':'[a]键[b]的值转JSON',
-                    'OperatorsPro.rObjectkey':'[a]第一值[b]键',
-                    'OperatorsPro.rObjectlastkey':'[a]最后一值[b]键',
-                    'OperatorsPro.rObjectallkey':'[a]所有值[b]键',
-                    'OperatorsPro.rObjectkeystr':'[a]第一值"[b]"键',
-                    'OperatorsPro.rObjectlastkeystr':'[a]最后一值"[b]"键',
-                    'OperatorsPro.rObjectallkeystr':'[a]所有值"[b]"键',
-                    'OperatorsPro.rObjectkeyJSON':'[a]第一值JSON[b]键',
-                    'OperatorsPro.rObjectlastkeyJSON':'[a]最后一值JSON[b]键',
-                    'OperatorsPro.rObjectallkeyJSON':'[a]所有值JSON[b]键',
-                    'OperatorsPro.rObjectputkey':'[a]键[b]值设为[c]',
-                    'OperatorsPro.rObjectputkeynumber':'[a]键[b]值设为数[c]',
-                    'OperatorsPro.rObjectputkeystr':'[a]键[b]值设为"[c]"',
-                    'OperatorsPro.rObjectputkeyJSON':'[a]键[b]值设为JSON[c]',
-                    'OperatorsPro.rObjectpluskey':'[a]键[b]值增加[c]',
-                    'OperatorsPro.rObjectplus':'[a]值增加[b]',
-                    'OperatorsPro.rObjectputAll':'[a][b]合并',
-                    'OperatorsPro.rObjectremove':'[a]删除键[b]',
-                    'OperatorsPro.rObjectremovekeys':'[a]删除键[b]',
-                    'OperatorsPro.rObjectkeys':'[a]所有键',
-                    'OperatorsPro.rObjectvalues':'[a]所有值',
-                    'OperatorsPro.rObjectentries':'[a]所有数据',
-                    'OperatorsPro.rObjectfromentries':'[a]数据转对象',
-                    'OperatorsPro.bObjecthasownproperty':'[a]包含键[b]',
-                    'OperatorsPro.bObjectclear':'[a]无键值',
-                    'OperatorsPro.rObjectlength':'[a]键值量',
-                    'OperatorsPro.bisObject':'[a]是对象',
-    
                     'OperatorsPro.More':'更多',
-    
                     'OperatorsPro.Tobecontinued':'未完待续'
                 },
                 en: {
-                    'OperatorsPro.Operators':'Operators',
+                    'OperatorsPro.rmenutypeof':'type of[a]as[b],[c]Object and Array',
+                    'OperatorsPro.bmenutypeof':'type of[a]as[b]is[c]',
+                    'OperatorsPro.rJSONtypeof':'type of[a]as JSON',
+                    'OperatorsPro.bJSONtypeof':'type of[a]as JSON is[b]',
+                    'OperatorsPro.bmenuToBoolean':'[c][a][b]',
+                    'OperatorsPro.rmenuif':'if[a][b]then[c]else[d]',
+                    'OperatorsPro.bmenuand':'[e][a][b][c][d]',
+                    'OperatorsPro.rif': 'if[a]then[b]else[c]',
+                    'OperatorsPro.band': '[a]and[b]',
+                    'OperatorsPro.bor': '[a]or[b]',
+                    'OperatorsPro.bnot': 'not[a]',
+                    'OperatorsPro.rpadstart':'[a]inserts[b]to let length be[c]',
+                    'OperatorsPro.rpadend':'[a]joins[b]to let length be[c]',
+                    'OperatorsPro.rremove':'remove[b]from[a]',
+                    'OperatorsPro.rinterchange':'[a]interchanges[b]and[c]',
+                    'OperatorsPro.rreplaceexcept':'replace[b]except[c]in[a]with[d]',
+                    'OperatorsPro.bmenuundefined':'[a]is[b][c]',
+                    'OperatorsPro.rdefault':'[a],default=[b]',
+                    'OperatorsPro.bdefined':'[a]is defined',
+                    'OperatorsPro.bundefined':'[a]is undefined',
+                    'OperatorsPro.bmenuequal':'[a][b][c],because of their[d]',
+                    'OperatorsPro.bnotstrictlyequal':'[a]is not identically[b]',
+                    'OperatorsPro.bnotcontain':'[a]does not contain[b]',
+                    'OperatorsPro.rrandom':'pick random 0 to 1',
+                    'OperatorsPro.rnearestmultiple':'multiple of[b]near[a]',
+                    'OperatorsPro.rmod':'[a]mod[b]',
+                    'OperatorsPro.rround':'round[a]to[b]decimal places',
+                    'OperatorsPro.rrintfromto':'round[a]from[b]to[c]decimal places',
+                    'OperatorsPro.rrinttotimes':'round[a]to[b]decimal places,round it[c]times',
+                    'OperatorsPro.rrinttimesto':'round[a][b]times to[c]decimal places',
+                    'OperatorsPro.rPI':'round[i]to[a]decimal places',
+                    'OperatorsPro.rmenurad':'[a][b][c]in rad',
+                    'OperatorsPro.rmenutoonehundredeighty':'[a][b]changes into[c]',
+                    'OperatorsPro.rradsin':'sin[a]in rad',
+                    'OperatorsPro.rradcos':'cos[a]in rad',
+                    'OperatorsPro.rradtan':'tan[a]in rad',
+                    'OperatorsPro.rradasin':'asin[a]in rad',
+                    'OperatorsPro.rradacos':'acos[a]in rad',
+                    'OperatorsPro.rradatan':'atan[a]in rad',
+                    'OperatorsPro.rtoonehundredeighty':'[a]changes into -180~180',
+                    'OperatorsPro.rtothreehundredsixty':'[a]changes into 0~360',
+                    'OperatorsPro.raddto':'[a]add[b]to[c]',
+                    'OperatorsPro.rmenuArrayremoveitem':'delete item[c]of[a]as[b],return[d]',
+                    'OperatorsPro.rArrayremoveshift':'[a]delete the first item',
+                    'OperatorsPro.rArrayremovepop':'[a]delete the last item',
+                    'OperatorsPro.rArrayremoveitem':'delete item[b]of[a]',
+                    'OperatorsPro.rArrayremoveitems':'delete items[b]of[a]',
+                    'OperatorsPro.rArrayremoveitemtoitem':'delete item from[b]to[c]of[a]',
+                    'OperatorsPro.rArrayreserveitem':'reserve item[b]of[a]',
+                    'OperatorsPro.rmenuArrayremove':'all[c][d]delete from[a]as[b],because of[e],return[f]',
+                    'OperatorsPro.rArrayremoveJSON':'all JSON[b]delete from[a]',
+                    'OperatorsPro.rArrayremovestr':'all "[b]" delete from[a]',
+                    'OperatorsPro.rmenuArrayremovenumber':'all[c][d][e]delete from[a]as[b],because of[f],return[g]',
+                    'OperatorsPro.rArrayremovebignumber':'number>[b]delete from[a]',
+                    'OperatorsPro.rArrayremovenotsmallnumber':'number≥[b]delete from[a]',
+                    'OperatorsPro.rArrayremovesmallnumber':'number<[b]delete from[a]',
+                    'OperatorsPro.rArrayremovenotbignumber':'number≤[b]delete from[a]',
+                    'OperatorsPro.rArrayremovenumber':'all number[b]delete from[a]',
+                    'OperatorsPro.rArrayremove':'all[b]delete from[a]',
+                    'OperatorsPro.rmenuArrayinsert':'[d][e][f]at item[c]of[a]as[b],return[g]',
+                    'OperatorsPro.rArrayunshiftJSON':'[a]inserts JSON[b]at the first one',
+                    'OperatorsPro.rArrayunshiftstr':'[a]inserts "[b]" at the first one',
+                    'OperatorsPro.rArrayunshiftnumber':'[a]inserts number[b]at the first one',
+                    'OperatorsPro.rArrayunshift':'[a]inserts[b]at the first one',
+                    'OperatorsPro.rArraypushJSON':'[a]inserts JSON[b]at the last one',
+                    'OperatorsPro.rArraypushstr':'[a]inserts "[b]" at the last one',
+                    'OperatorsPro.rArraypushnumber':'[a]inserts number[b]at the last one',
+                    'OperatorsPro.rArraypush':'[a]inserts[b]at the last one',
+                    'OperatorsPro.rArrayinsertJSON':'[a]inserts JSON[b]at[c]',
+                    'OperatorsPro.rArrayinsertstr':'[a]inserts "[b]" at[c]',
+                    'OperatorsPro.rArrayinsertnumber':'[a]inserts number[b]at[c]',
+                    'OperatorsPro.rArrayinsert':'[a]inserts[b]at[c]',
+                    'OperatorsPro.rArrayinsertJSONindextoindex':'[a]inserts JSON[b]from[c]to[d]',
+                    'OperatorsPro.rArrayinsertstrindextoindex':'[a]inserts "[b]" from[c]to[d]',
+                    'OperatorsPro.rArrayinsertnumberindextoindex':'[a]inserts number[b]from[c]to[d]',
+                    'OperatorsPro.rArrayinsertindextoindex':'[a]inserts[b]from[c]to[d]',
+                    'OperatorsPro.rArraymove':'[a]item[b]move to[c]',
+                    'OperatorsPro.rArrayreplaceJSON':'set item[b]of[a]to JSON[c]',
+                    'OperatorsPro.rArrayreplacestr':'set item[b]of[a]to "[c]"',
+                    'OperatorsPro.rArrayreplacenumber':'set item[b]of[a]to number[c]',
+                    'OperatorsPro.rArrayreplace':'set item[b]of[a]to[c]',
+                    'OperatorsPro.rArrayreplaceindexesJSON':'set items[b]of[a]to JSON[c]',
+                    'OperatorsPro.rArrayreplaceindexesstr':'set items[b]of[a]to "[c]"',
+                    'OperatorsPro.rArrayreplaceindexesnumber':'set items[b]of[a]to number[c]',
+                    'OperatorsPro.rArrayreplaceindexes':'set items[b]of[a]to[c]',
+                    'OperatorsPro.rArrayreplaceindextoindexJSON':'set item from[b]to[c]of[a]to JSON[d]',
+                    'OperatorsPro.rArrayreplaceindextoindexstr':'set item from[b]to[c]of[a]to "[d]"',
+                    'OperatorsPro.rArrayreplaceindextoindexnumber':'set item from[b]to[c]of[a]to number[d]',
+                    'OperatorsPro.rArrayreplaceindextoindex':'set item from[b]to[c]of[a]to[d]',
+                    'OperatorsPro.rArrayinterchange':'[a]interchanges item[b]and item[c]',
+                    'OperatorsPro.rArrayplusindex':'change by[c]at[b]of[a]',
+                    'OperatorsPro.rArrayplusindextoindex':'change by[d]from[b]to[c]of[a]',
+                    'OperatorsPro.rArrayplus':'change by[b]at every item of[a]',
+                    'OperatorsPro.rmenuArrayitem':'item[c]of[a]as[b],return[d]',
+                    'OperatorsPro.rArrayshiftJSON':'the first item as JSON of[a]',
+                    'OperatorsPro.rArrayshift':'the first item of[a]',
+                    'OperatorsPro.rArraypopJSON':'the last item as JSON of[a]',
+                    'OperatorsPro.rArraypop':'the last item of[a]',
+                    'OperatorsPro.rArrayitemJSON':'item[b]as JSON of[a]',
+                    'OperatorsPro.rArrayitem':'item[b]of[a]',
+                    'OperatorsPro.rArrayitems':'items[b]of[a]',
+                    'OperatorsPro.rArrayitemtoitem':'item from[b]to[c]of[a]',
+                    'OperatorsPro.rmenuArrayindex':'[c][d][e]in[a]as[b],because of[f]',
+                    'OperatorsPro.rmenuArrayindexnumber':'[c][d][e][f]in[a]as[b],because of[g]',
+                    'OperatorsPro.rArrayindexJSON':'the first JSON[b]in[a]',
+                    'OperatorsPro.rArrayindexstr':'the first "[b]" in[a]',
+                    'OperatorsPro.rArrayfindIndexbignumber':'the first number>[b]in[a]',
+                    'OperatorsPro.rArrayfindIndexnotsmallnumber':'the first number≥[b]in[a]',
+                    'OperatorsPro.rArrayfindIndexsmallnumber':'the first number<[b]in[a]',
+                    'OperatorsPro.rArrayfindIndexnotbignumber':'the first number≤[b]in[a]',
+                    'OperatorsPro.rArrayindexnumber':'the first number[b]in[a]',
+                    'OperatorsPro.rArrayindex':'the first[b]in[a]',
+                    'OperatorsPro.rArraylastindexJSON':'the last JSON[b]in[a]',
+                    'OperatorsPro.rArraylastindexstr':'the last "[b]" in[a]',
+                    'OperatorsPro.rArraylastindexnumber':'the last number[b]in[a]',
+                    'OperatorsPro.rArraylastindex':'the last[b]in[a]',
+                    'OperatorsPro.rArrayallindexJSON':'all JSON[b]in[a]',
+                    'OperatorsPro.rArrayallindexstr':'all "[b]" in[a]',
+                    'OperatorsPro.rArrayallindexnumber':'all number[b]in[a]',
+                    'OperatorsPro.rArrayallindex':'all[b]in[a]',
+                    'OperatorsPro.rmenuArraycount':'count[c][d]in[a]as[b],because of[e]',
+                    'OperatorsPro.rArraycountJSON':'count JSON[b]in[a]',
+                    'OperatorsPro.rArraycountstr':'count "[b]" in[a]',
+                    'OperatorsPro.rmenuArraycountnumber':'count[c][d][e]in[a]as[b],because of[f]',
+                    'OperatorsPro.rArraycountbignumber':'count number>[b]in[a]',
+                    'OperatorsPro.rArraycountnotsmallnumber':'count number≥[b]in[a]',
+                    'OperatorsPro.rArraycountsmallnumber':'count number<[b]in[a]',
+                    'OperatorsPro.rArraycountnotbignumber':'count number≤[b]in[a]',
+                    'OperatorsPro.rArraycountnumber':'count number[b]in[a]',
+                    'OperatorsPro.rArraycount':'count[b]in[a]',
+                    'OperatorsPro.rmenuArraylength':'[c][a]as[b]',
+                    'OperatorsPro.rArraylength':'length of[a]',
+                    'OperatorsPro.rArraysum':'sum of[a]',
+                    'OperatorsPro.rArrayproduct':'product of[a]',
+                    'OperatorsPro.rArrayaverage':'average of[a]',
+                    'OperatorsPro.rArraymax':'max[a]',
+                    'OperatorsPro.rArraymin':'min[a]',
+                    'OperatorsPro.rmenuArraysort':'sort[a]as[b]by[c],return[d]',
+                    'OperatorsPro.rArraysortnaturalOrder':'sort[a]by ascending',
+                    'OperatorsPro.rArraysortreverseOrder':'sort[a]by descending',
+                    'OperatorsPro.rArrayreverse':'reverse[a]',
+                    'OperatorsPro.bmenuArrayhave':'[a]as[b][c][d][e],because of[f]',
+                    'OperatorsPro.bArrayhaveJSON':'[a]contains JSON[b]',
+                    'OperatorsPro.bArrayhavestr':'[a]contains "[b]"',
+                    'OperatorsPro.bmenuArrayhavenumber':'[a]as[b][c][d][e][f],because of[g]',
+                    'OperatorsPro.bArrayhavebignumber':'[a]contains number>[b]',
+                    'OperatorsPro.bArrayhavenotsmallnumber':'[a]contains number≥[b]',
+                    'OperatorsPro.bArrayhavesmallnumber':'[a]contains number<[b]',
+                    'OperatorsPro.bArrayhavenotbignumber':'[a]contains number≤[b]',
+                    'OperatorsPro.bArrayhavenumber':'[a]contains number[b]',
+                    'OperatorsPro.bArrayhave':'[a]contains[b]',
+                    'OperatorsPro.bArraybeJSON':'[a]only contains SJON[b]',
+                    'OperatorsPro.bArraybestr':'[a]only contains "[b]"',
+                    'OperatorsPro.bArraybebignumber':'[a]only contains number>[b]',
+                    'OperatorsPro.bArraybenotsmallnumber':'[a]only contains number≥[b]',
+                    'OperatorsPro.bArraybesmallnumber':'[a]only contains number<[b]',
+                    'OperatorsPro.bArraybenotbignumber':'[a]only contains number≤[b]',
+                    'OperatorsPro.bArraybenumber':'[a]only contains number[b]',
+                    'OperatorsPro.bArraybe':'[a]only contains[b]',
+                    'OperatorsPro.bArraystrictlyequal':'[a]is identically[b]',
+                    'OperatorsPro.bArrayclear':'[a]has nothing',
+                    'OperatorsPro.bisArray':'[a]is Array',
+                    'OperatorsPro.rObjectremove':'delete key[b]from[a]',
+                    'OperatorsPro.rObjectremovekeys':'delete keys[b]from[a]',
+                    'OperatorsPro.rmenuObjectset':'[d][e][f]at member[c]of[a]as[b],return[g]',
+                    'OperatorsPro.rObjectputkeyJSON':'set[b]in[a]to JSON[c]',
+                    'OperatorsPro.rObjectputkeystr':'set[b]in[a]to"[c]"',
+                    'OperatorsPro.rObjectputkeynumber':'set number[b]in[a]to[c]',
+                    'OperatorsPro.rObjectputkey':'set[b]in[a]to[c]',
+                    'OperatorsPro.rObjectpluskey':'value of key[b]change by[c]in[a]',
+                    'OperatorsPro.rObjectplus':'values change by[b]in[a]',
+                    'OperatorsPro.rmenuObjectmember':'member[c]of[a]as[b],return[d]',
+                    'OperatorsPro.rObjectvalueJSON':'value as JSON of key[b]in[a]',
+                    'OperatorsPro.rObjectvalue':'value of key[b]in[a]',
+                    'OperatorsPro.rObjectkeyJSON':'key of the first value JSON[b]in[a]',
+                    'OperatorsPro.rObjectkeystr':'key of the first value "[b]" in[a]',
+                    'OperatorsPro.rObjectkeynumber':'key of the first value=[b]in[a]',
+                    'OperatorsPro.rObjectkey':'key of the first value[b]in[a]',
+                    'OperatorsPro.rObjectlastkeyJSON':'key of the last value JSON[b]in[a]',
+                    'OperatorsPro.rObjectlastkeystr':'key of the last value "[b]" in[a]',
+                    'OperatorsPro.rObjectlastkeynumber':'key of the last value=[b]in[a]',
+                    'OperatorsPro.rObjectlastkey':'key of the last value[b]in[a]',
+                    'OperatorsPro.rObjectallkeyJSON':'keys of value JSON[b]in[a]',
+                    'OperatorsPro.rObjectallkeystr':'keys of value "[b]" in[a]',
+                    'OperatorsPro.rObjectallkeynumber':'keys of value=[b]in[a]',
+                    'OperatorsPro.rObjectallkey':'keys of value[b]in[a]',
+                    'OperatorsPro.rmenuObjectkeys':'[c]of[a]as[b],return[d]',
+                    'OperatorsPro.rObjectlength':'length of[a]',
+                    'OperatorsPro.rObjectkeys':'keys of[a]',
+                    'OperatorsPro.rObjectvalues':'values of[a]',
+                    'OperatorsPro.rObjectentries':'data of[a]',
+                    'OperatorsPro.rObjectfromentries':'[a]as Object',
+                    'OperatorsPro.rObjectputAll':'concat[a][b]',
+                    'OperatorsPro.bObjecthasownproperty':'[a]contians key[b]',
+                    'OperatorsPro.bObjectclear':'[a]has nothing',
+                    'OperatorsPro.bisObject':'[a]is Object',
+	                'OperatorsPro.Operators':'Operators',
                     'OperatorsPro.showBlock': 'Show Other Blocks',
                     'OperatorsPro.hideBlock': 'Hide Other Blocks',
                     'OperatorsPro.showBlock?':'To avoid clutter, a few blocks are hidden.\n Do you want to show them?',
-    
                     'OperatorsPro.true':'true',
                     'OperatorsPro.false':'false',
                     'OperatorsPro.asoriginal':'as original',
@@ -356,7 +534,6 @@
                     'OperatorsPro.roughly':'roughly',
                     'OperatorsPro.strictly':'strictly',
                     'OperatorsPro.defined':'defined',
-                    
                     'OperatorsPro.essence':'essence',
                     'OperatorsPro.content':'content',
                     'OperatorsPro.type':'type',
@@ -364,14 +541,12 @@
                     'OperatorsPro.essenceandcase':'essence and case',
                     'OperatorsPro.contentandcase':'content and case',
                     'OperatorsPro.contentandtypeandcase':'content and type and case',
-    
                     'OperatorsPro.original':'original',
                     'OperatorsPro.confuse':'confuse',
                     'OperatorsPro.distinguish':'distinguish',
                     'OperatorsPro.array':'Array',
                     'OperatorsPro.object':'Object',
                     'OperatorsPro.value':'value',
-    
                     'OperatorsPro.lengthof':'length of',
                     'OperatorsPro.sumof':'sum of',
                     'OperatorsPro.productof':'product of',
@@ -393,7 +568,6 @@
                     'OperatorsPro.keys':'keys',
                     'OperatorsPro.values':'values',
                     'OperatorsPro.datas':'datas',
-    
                     'OperatorsPro.TYPE_NUMBER': 'number',
                     'OperatorsPro.TYPE_POSITIVE_NUMBER': 'positive number',
                     'OperatorsPro.TYPE_NEGATIVE_NUMBER': 'negative number',
@@ -414,225 +588,17 @@
                     'OperatorsPro.arrayorobject':'Array or Object',
                     'OperatorsPro.string':'string',
                     'OperatorsPro.undefined':'undefined',
-    
                     'OperatorsPro.hello':'hello',
                     'OperatorsPro.yes':'yes',
                     'OperatorsPro.no':'no',
-    
-                    'OperatorsPro.bmenuToBoolean':'[c][a][b]',
-                    'OperatorsPro.rmenuif':'if[a][b]then[c]else[d]',
-                    'OperatorsPro.bmenuand':'[e][a][b][c][d]',
-                    'OperatorsPro.bmenuundefined':'[a]is[b][c]',
-                    'OperatorsPro.bmenuequal':'[a][b][c],because of their[d]',
-                    'OperatorsPro.rmenurad':'[a][b][c]in rad',
-                    'OperatorsPro.rmenutoonehundredeighty':'[a][b]changes into[c]',
-                    'OperatorsPro.rmenutypeof':'type of[a]as[b],[c]Object and Array',
-                    'OperatorsPro.bmenutypeof':'type of[a]as[b]is[c]',
-                    'OperatorsPro.rArraymenu':'[c]of[a][b]',
-                    'OperatorsPro.rmenuArraylength':'[c][a]as[b]',
-                    'OperatorsPro.bmenuArrayhave':'[a]as[b][c][d][e],because of[f]',
-                    'OperatorsPro.bmenuArrayhavenumber':'[a]as[b][c][d][e][f],because of[g]',
-                    'OperatorsPro.rmenuArrayremove':'all[c][d]delete from[a]as[b],because of[e],return[f]',
-                    'OperatorsPro.rmenuArrayremovenumber':'all[c][d][e]delete from[a]as[b],because of[f],return[g]',
-                    'OperatorsPro.rmenuArrayremoveitem':'delete item[c]of[a]as[b],return[d]',
-                    'OperatorsPro.rmenuArrayitem':'item[c]of[a]as[b],return[d]',
-                    'OperatorsPro.rmenuArrayinsert':'[d][e][f]at item[c]of[a]as[b],return[g]',
-                    'OperatorsPro.rmenuArrayindex':'[c][d][e]in[a]as[b],because of[f]',
-                    'OperatorsPro.rmenuArrayindexnumber':'[c][d][e][f]in[a]as[b],because of[g]',
-                    'OperatorsPro.rmenuArraycount':'count[c][d]in[a]as[b],because of[e]',
-                    'OperatorsPro.rmenuArraycountnumber':'count[c][d][e]in[a]as[b],because of[f]',
-                    'OperatorsPro.rmenuArraysort':'sort[a]as[b]by[c],return[d]',
-                    'OperatorsPro.rmenuObjectmember':'member[c]of[a]as[b],return[d]',
-                    'OperatorsPro.rmenuObjectset':'[d][e][f]at member[c]of[a]as[b],return[g]',
-                    'OperatorsPro.rmenuObjectkeys':'[c]of[a]as[b],return[d]',
-    
                     'OperatorsPro.Types':'Types',
-                    'OperatorsPro.rJSONtypeof':'type of[a]as JSON',
-                    'OperatorsPro.bJSONtypeof':'type of[a]as JSON is[b]',
                     'OperatorsPro.bCheckType':'[INPUT]is[MODE]',
-    
                     'OperatorsPro.Logic':'Logic',
                     'OperatorsPro.StringsandNumbers':'Strings and Numbers',
-                    'OperatorsPro.rif': 'if[a]then[b]else[c]',
-                    'OperatorsPro.band': '[a]and[b]',
-                    'OperatorsPro.bor': '[a]or[b]',
-                    'OperatorsPro.bnot': 'not[a]',
-                    'OperatorsPro.rpadstart':'[a]inserts[b]to let length be[c]',
-                    'OperatorsPro.rpadend':'[a]joins[b]to let length be[c]',
-                    'OperatorsPro.rremove':'remove[b]from[a]',
-                    'OperatorsPro.rinterchange':'[a]interchanges[b]and[c]',
-                    'OperatorsPro.rreplaceexcept':'replace[b]except[c]in[a]with[d]',
-                    'OperatorsPro.rdefault':'[a],default=[b]',
-                    'OperatorsPro.bdefined':'[a]is defined',
-                    'OperatorsPro.bundefined':'[a]is undefined',
-                    'OperatorsPro.bnotstrictlyequal':'[a]is not identically[b]',
-                    'OperatorsPro.bnotcontain':'[a]does not contain[b]',
-                    'OperatorsPro.rrandom':'pick random 0 to 1',
                     'OperatorsPro.rLoopNum': '[NUM]loop in[START]to[END]',
                     'OperatorsPro.rMapOff': 'map[NUM]from[START1]~[END1]to[START2]~[END2]',
-                    'OperatorsPro.rnearestmultiple':'multiple of[b]near[a]',
-                    'OperatorsPro.rmod':'[a]mod[b]',
-                    'OperatorsPro.rround':'round[a]to[b]decimal places',
-                    'OperatorsPro.rrintfromto':'round[a]from[b]to[c]decimal places',
-                    'OperatorsPro.rrinttotimes':'round[a]to[b]decimal places,round it[c]times',
-                    'OperatorsPro.rrinttimesto':'round[a][b]times to[c]decimal places',
-                    'OperatorsPro.rPI':'round[i]to[a]decimal places',
-                    'OperatorsPro.rradsin':'sin[a]in rad',
-                    'OperatorsPro.rradcos':'cos[a]in rad',
-                    'OperatorsPro.rradtan':'tan[a]in rad',
-                    'OperatorsPro.rradasin':'asin[a]in rad',
-                    'OperatorsPro.rradacos':'acos[a]in rad',
-                    'OperatorsPro.rradatan':'atan[a]in rad',
-                    'OperatorsPro.rtoonehundredeighty':'[a]changes into -180~180',
-                    'OperatorsPro.rtothreehundredsixty':'[a]changes into 0~360',
-                    'OperatorsPro.raddto':'[a]add[b]to[c]',
-    
                     'OperatorsPro.ArrayandObject':'Array andy Object',
-    
-                    'OperatorsPro.rArrayunshiftnumber':'[a]inserts number[b]at the first one',
-                    'OperatorsPro.rArraypushnumber':'[a]inserts number[b]at the last one',
-                    'OperatorsPro.rArrayinsertnumber':'[a]inserts number[b]at[c]',
-                    'OperatorsPro.rArrayinsertnumberindextoindex':'[a]inserts number[b]from[c]to[d]',
-                    'OperatorsPro.rArrayreplacenumber':'set item[b]of[a]to number[c]',
-                    'OperatorsPro.rArrayreplaceindexesnumber':'set items[b]of[a]to number[c]',
-                    'OperatorsPro.rArrayreplaceindextoindexnumber':'set item from[b]to[c]of[a]to number[d]',
-    
-                    'OperatorsPro.bArraystrictlyequal':'[a]is identically[b]',
-                    'OperatorsPro.rArraysum':'sum of[a]',
-                    'OperatorsPro.rArrayproduct':'product of[a]',
-                    'OperatorsPro.rArrayaverage':'average of[a]',
-                    'OperatorsPro.rArraymax':'max[a]',
-                    'OperatorsPro.rArraymin':'min[a]',
-                    'OperatorsPro.bArrayhavebignumber':'[a]contains number>[b]',
-                    'OperatorsPro.bArrayhavenotsmallnumber':'[a]contains number≥[b]',
-                    'OperatorsPro.bArrayhavesmallnumber':'[a]contains number<[b]',
-                    'OperatorsPro.bArrayhavenotbignumber':'[a]contains number≤[b]',
-                    'OperatorsPro.bArrayhavenumber':'[a]contains number[b]',
-                    'OperatorsPro.bArrayhavestr':'[a]contains "[b]"',
-                    'OperatorsPro.bArrayhave':'[a]contains[b]',
-                    'OperatorsPro.bArrayhaveJSON':'[a]contains JSON[b]',
-                    'OperatorsPro.bArraybebignumber':'[a]only contains number>[b]',
-                    'OperatorsPro.bArraybenotsmallnumber':'[a]only contains number≥[b]',
-                    'OperatorsPro.bArraybesmallnumber':'[a]only contains number<[b]',
-                    'OperatorsPro.bArraybenotbignumber':'[a]only contains number≤[b]',
-                    'OperatorsPro.bArraybenumber':'[a]only contains number[b]',
-                    'OperatorsPro.bArraybestr':'[a]only contains "[b]"',
-                    'OperatorsPro.bArraybe':'[a]only contains[b]',
-                    'OperatorsPro.bArraybeJSON':'[a]only contains SJON[b]',
-                    'OperatorsPro.rArrayremovebignumber':'number>[b]delete from[a]',
-                    'OperatorsPro.rArrayremovenotsmallnumber':'number≥[b]delete from[a]',
-                    'OperatorsPro.rArrayremovesmallnumber':'number<[b]delete from[a]',
-                    'OperatorsPro.rArrayremovenotbignumber':'number≤[b]delete from[a]',
-                    'OperatorsPro.rArrayremovenumber':'all number[b]delete from[a]',
-                    'OperatorsPro.rArrayremovestr':'all "[b]" delete from[a]',
-                    'OperatorsPro.rArrayremove':'all[b]delete from[a]',
-                    'OperatorsPro.rArrayremoveJSON':'all JSON[b]delete from[a]',
-                    'OperatorsPro.rArrayremoveshift':'[a]delete the first item',
-                    'OperatorsPro.rArrayremovepop':'[a]delete the last item',
-                    'OperatorsPro.rArrayremoveitem':'delete item[b]of[a]',
-                    'OperatorsPro.rArrayremoveitems':'delete items[b]of[a]',
-                    'OperatorsPro.rArrayremoveitemtoitem':'delete item from[b]to[c]of[a]',
-                    'OperatorsPro.rArrayreserveitem':'reserve item[b]of[a]',
-                    'OperatorsPro.rArrayshift':'the first item of[a]',
-                    'OperatorsPro.rArraypop':'the last item of[a]',
-                    'OperatorsPro.rArrayitem':'item[b]of[a]',
-                    'OperatorsPro.rArrayitems':'items[b]of[a]',
-                    'OperatorsPro.rArrayshiftJSON':'the first item as JSON of[a]',
-                    'OperatorsPro.rArraypopJSON':'the last item as JSON of[a]',
-                    'OperatorsPro.rArrayitemJSON':'item[b]as JSON of[a]',
-                    'OperatorsPro.rArrayitemtoitem':'item from[b]to[c]of[a]',
-                    'OperatorsPro.rArrayunshift':'[a]inserts[b]at the first one',
-                    'OperatorsPro.rArraypush':'[a]inserts[b]at the last one',
-                    'OperatorsPro.rArrayinsert':'[a]inserts[b]at[c]',
-                    'OperatorsPro.rArrayinsertindextoindex':'[a]inserts[b]from[c]to[d]',
-                    'OperatorsPro.rArrayunshiftstr':'[a]inserts "[b]" at the first one',
-                    'OperatorsPro.rArraypushstr':'[a]inserts "[b]" at the last one',
-                    'OperatorsPro.rArrayinsertstr':'[a]inserts "[b]" at[c]',
-                    'OperatorsPro.rArrayinsertstrindextoindex':'[a]inserts "[b]" from[c]to[d]',
-                    'OperatorsPro.rArrayunshiftJSON':'[a]inserts JSON[b]at the first one',
-                    'OperatorsPro.rArraypushJSON':'[a]inserts JSON[b]at the last one',
-                    'OperatorsPro.rArrayinsertJSON':'[a]inserts JSON[b]at[c]',
-                    'OperatorsPro.rArrayinsertJSONindextoindex':'[a]inserts JSON[b]from[c]to[d]',
-                    'OperatorsPro.rArraymove':'[a]item[b]move to[c]',
-                    'OperatorsPro.rArrayinterchange':'[a]interchanges item[b]and item[c]',
-                    'OperatorsPro.rArrayreplace':'set item[b]of[a]to[c]',
-                    'OperatorsPro.rArrayreplaceindexes':'set items[b]of[a]to[c]',
-                    'OperatorsPro.rArrayreplaceindextoindex':'set item from[b]to[c]of[a]to[d]',
-                    'OperatorsPro.rArrayreplacestr':'set item[b]of[a]to "[c]"',
-                    'OperatorsPro.rArrayreplaceindexesstr':'set items[b]of[a]to "[c]"',
-                    'OperatorsPro.rArrayreplaceindextoindexstr':'set item from[b]to[c]of[a]to "[d]"',
-                    'OperatorsPro.rArrayreplaceJSON':'set item[b]of[a]to JSON[c]',
-                    'OperatorsPro.rArrayreplaceindexesJSON':'set items[b]of[a]to JSON[c]',
-                    'OperatorsPro.rArrayreplaceindextoindexJSON':'set item from[b]to[c]of[a]to JSON[d]',
-                    'OperatorsPro.rArrayplusindex':'change by[c]at[b]of[a]',
-                    'OperatorsPro.rArrayplusindextoindex':'change by[d]from[b]to[c]of[a]',
-                    'OperatorsPro.rArrayplus':'change by[b]at every item of[a]',
-                    'OperatorsPro.rArrayindex':'the first[b]in[a]',
-                    'OperatorsPro.rArrayindexnumber':'the first number[b]in[a]',
-                    'OperatorsPro.rArrayindexstr':'the first "[b]" in[a]',
-                    'OperatorsPro.rArrayindexJSON':'the first JSON[b]in[a]',
-                    'OperatorsPro.rArraylastindex':'the last[b]in[a]',
-                    'OperatorsPro.rArraylastindexnumber':'the last number[b]in[a]',
-                    'OperatorsPro.rArraylastindexstr':'the last "[b]" in[a]',
-                    'OperatorsPro.rArraylastindexJSON':'the last JSON[b]in[a]',
-                    'OperatorsPro.rArrayallindex':'all[b]in[a]',
-                    'OperatorsPro.rArrayallindexnumber':'all number[b]in[a]',
-                    'OperatorsPro.rArrayallindexstr':'all "[b]" in[a]',
-                    'OperatorsPro.rArrayallindexJSON':'all JSON[b]in[a]',
-                    'OperatorsPro.rArrayfindIndexbignumber':'the first number>[b]in[a]',
-                    'OperatorsPro.rArrayfindIndexnotsmallnumber':'the first number≥[b]in[a]',
-                    'OperatorsPro.rArrayfindIndexsmallnumber':'the first number<[b]in[a]',
-                    'OperatorsPro.rArrayfindIndexnotbignumber':'the first number≤[b]in[a]',
-                    'OperatorsPro.rArraycountbignumber':'count number>[b]in[a]',
-                    'OperatorsPro.rArraycountnotsmallnumber':'count number≥[b]in[a]',
-                    'OperatorsPro.rArraycountsmallnumber':'count number<[b]in[a]',
-                    'OperatorsPro.rArraycountnotbignumber':'count number≤[b]in[a]',
-                    'OperatorsPro.rArraycountnumber':'count number[b]in[a]',
-                    'OperatorsPro.rArraycountstr':'count "[b]" in[a]',
-                    'OperatorsPro.rArraycount':'count[b]in[a]',
-                    'OperatorsPro.rArraycountJSON':'count JSON[b]in[a]',
-                    'OperatorsPro.rArraysortnaturalOrder':'sort[a]by ascending',
-                    'OperatorsPro.rArraysortreverseOrder':'sort[a]by descending',
-                    'OperatorsPro.rArrayreverse':'reverse[a]',
-                    'OperatorsPro.bArrayclear':'[a]has nothing',
-                    'OperatorsPro.rArraylength':'length of[a]',
-                    'OperatorsPro.bisArray':'[a]is Array',
-    
-                    'OperatorsPro.rObjectkeynumber':'key of the first value=[b]in[a]',
-                    'OperatorsPro.rObjectlastkeynumber':'key of the last value=[b]in[a]',
-                    'OperatorsPro.rObjectallkeynumber':'keys of value=[b]in[a]',
-    
-                    'OperatorsPro.rObjectvalue':'value of key[b]in[a]',
-                    'OperatorsPro.rObjectvalueJSON':'value as JSON of key[b]in[a]',
-                    'OperatorsPro.rObjectkey':'key of the first value[b]in[a]',
-                    'OperatorsPro.rObjectlastkey':'key of the last value[b]in[a]',
-                    'OperatorsPro.rObjectallkey':'keys of value[b]in[a]',
-                    'OperatorsPro.rObjectkeystr':'key of the first value "[b]" in[a]',
-                    'OperatorsPro.rObjectlastkeystr':'key of the last value "[b]" in[a]',
-                    'OperatorsPro.rObjectallkeystr':'keys of value "[b]" in[a]',
-                    'OperatorsPro.rObjectkeyJSON':'key of the first value JSON[b]in[a]',
-                    'OperatorsPro.rObjectlastkeyJSON':'key of the last value JSON[b]in[a]',
-                    'OperatorsPro.rObjectallkeyJSON':'keys of value JSON[b]in[a]',
-                    'OperatorsPro.rObjectputkey':'set[b]in[a]to[c]',
-                    'OperatorsPro.rObjectputkeynumber':'set number[b]in[a]to[c]',
-                    'OperatorsPro.rObjectputkeystr':'set[b]in[a]to"[c]"',
-                    'OperatorsPro.rObjectputkeyJSON':'set[b]in[a]to JSON[c]',
-                    'OperatorsPro.rObjectpluskey':'value of key[b]change by[c]in[a]',
-                    'OperatorsPro.rObjectplus':'values change by[b]in[a]',
-                    'OperatorsPro.rObjectputAll':'concat[a][b]',
-                    'OperatorsPro.rObjectremove':'delete key[b]from[a]',
-                    'OperatorsPro.rObjectremovekeys':'delete keys[b]from[a]',
-                    'OperatorsPro.rObjectkeys':'keys of[a]',
-                    'OperatorsPro.rObjectvalues':'values of[a]',
-                    'OperatorsPro.rObjectentries':'data of[a]',
-                    'OperatorsPro.rObjectfromentries':'[a]as Object',
-                    'OperatorsPro.bObjecthasownproperty':'[a]contians key[b]',
-                    'OperatorsPro.bObjectclear':'[a]has nothing',
-                    'OperatorsPro.rObjectlength':'length of[a]',
-                    'OperatorsPro.bisObject':'[a]is Object',
-    
                     'OperatorsPro.More':'More',
-                    
                     'OperatorsPro.Tobecontinued':'To be continued'
                 }
             })
@@ -5360,23 +5326,49 @@
         rtest(args,util){
             return Object.isObject({})
         }
-        _isPrime = (number) => {
-            if (number <= 1) return false
-            if (number <= 3) return true
-            if (number % 2 === 0 || number % 3 === 0) return false
-            let i = 5
-            while (i * i <= number) {
-                if (number % i === 0 || number % (i + 2) === 0) return false
-                i += 6
+        rmenuunusualword(args){
+            if (typeof args.a == 'string'){
+                switch(args.a){
+                    case 'true' :
+                        return true
+                    case 'false' :
+                        return false
+                    case 'Infinity' :
+                        return Infinity
+                    case 'NaN' :
+                        return NaN
+                    case 'null' :
+                        return null
+                    default :
+                        return undefined
+                }
             }
-            return true
+            return args.a
         }
-        _isComposite = (number) => {
-            if (number <= 1) return false
-            for (let i = 2; i <= Math.sqrt(number); i++) {
-                if (number % i === 0) return true
+        rmenutotype(args){
+            return this.totype(args.a,args.b)
+        }
+        rmenutypeof(args){
+            if (args.b){
+                const a = JSON.parse(args.a)
+                return args.c && Array.isArray(a) ? 'array' : typeof a
             }
-            return false
+            return typeof args.a
+        }
+        bmenutypeof(args){
+            if (args.b){
+                const a = JSON.parse(args.a)
+                if(args.c==='array')return Array.isArray(a)
+                if(args.c==='array or object')return typeof a === 'object'
+                return typeof a === args.c
+            }
+            return typeof args.a === args.c
+        }
+        rJSONtypeof(args){
+            return typeof JSON.parse(args.a)
+        }
+        bJSONtypeof(args){
+            return typeof JSON.parse(args.a) == args.b
         }
         bCheckType({ INPUT, MODE }) {
             INPUT = String(INPUT);
@@ -5406,48 +5398,6 @@
                     return INPUT === 'true' || INPUT === 'false'
                 default:
                     return false
-            }
-        }
-        _compare(arg1, arg2, symbol) {
-            switch(symbol){
-                case 'equalNegative' :
-                    return Cast.compare(arg1, -arg2) === 0
-                case 'EqualPON' :
-                    return Cast.compare(arg1, -arg2) === 0 || Cast.compare(arg1, arg2) === 0
-                case 'approximatelyEqual' :
-                    return Math.abs(arg1 - arg2) <= 0.5
-                case 'vertical' :
-                    return ((arg1 - (arg2 - 90)) % 180) === 0
-                default:
-                    return ((arg1 - arg2) % 180) === 0
-            }
-        }
-        bCompare({ OPERAND1, OPERAND2, SYMBOL }) {
-            return this._compare(OPERAND1, OPERAND2, SYMBOL)
-        }
-        bContinuousCompare({ OPERAND1, OPERAND2, OPERAND3, SYMBOL1, SYMBOL2 }) {
-            const result1 = this._compare(OPERAND1, OPERAND2, SYMBOL1);
-            const result2 = this._compare(OPERAND2, OPERAND3, SYMBOL2)
-            return result1 && result2
-        }
-        bApproximatelyEqual({ OPERAND1, OPERAND2, NUM }) {
-            OPERAND1 = Cast.toNumber(OPERAND1);
-            OPERAND2 = Cast.toNumber(OPERAND2);
-            NUM = Cast.toNumber(NUM)
-            return Math.abs(OPERAND1 - OPERAND2) <= NUM
-        }
-        bLogicGateOperation({ OPERAND1, OPERAND2, SYMBOL }) {
-            const operand1 = Cast.toBoolean(OPERAND1)
-            const operand2 = Cast.toBoolean(OPERAND2)
-            switch(SYMBOL){
-                case 'nand' :
-                    return !(operand1 && operand2)
-                case 'nor' :
-                    return !(operand1 || operand2)
-                case 'xor' :
-                    return operand1 !== operand2
-                default:
-                    return operand1 === operand2
             }
         }
         bmenuToBoolean(args){
@@ -5490,6 +5440,79 @@
                     return args.e ? !( falseList1.includes(args.a) && falseList1.includes(args.c) ) : falseList1.includes(args.a) && falseList1.includes(args.c)
             }
         }
+        rreporter(args){
+            return args.a
+        }
+        rboolean(args){
+            return args.a
+        }
+        bToBoolean(args){
+            return ! falseList1.includes(args.a)
+        }
+        rif(args){
+            return args.a ? args.b : args.c
+        }
+        rifToBoolean(args){
+            return falseList1.includes(args.a) ? args.c : args.b
+        }
+        band(args){
+            return args.a && args.b
+        }
+        bandToBoolean(args){
+            return ! (falseList1.includes(args.a) || falseList1.includes(args.b))
+        }
+        bor(args){
+            return args.a || args.b
+        }
+        borToBoolean(args){
+            return ! (falseList1.includes(args.a) && falseList1.includes(args.b))
+        }
+        bnot(args){
+            return ! args.a
+        }
+        bnotToBoolean(args){
+            return falseList1.includes(args.a)
+        }
+        bLogicGateOperation({ OPERAND1, OPERAND2, SYMBOL }) {
+            const operand1 = Cast.toBoolean(OPERAND1)
+            const operand2 = Cast.toBoolean(OPERAND2)
+            switch(SYMBOL){
+                case 'nand' :
+                    return !(operand1 && operand2)
+                case 'nor' :
+                    return !(operand1 || operand2)
+                case 'xor' :
+                    return operand1 !== operand2
+                default:
+                    return operand1 === operand2
+            }
+        }
+        rjoin(args){
+            return String(args.a)+String(args.b)+String(args.c)
+        }
+        rpadstart(args){
+            return args.a.padStart(args.c,args.b)
+        }
+        rpadend(args){
+            return args.a.padEnd(args.c,args.b)
+        }
+        rremove(args){
+            return args.a.replaceAll(args.b,'')
+        }
+        rinterchange(args){
+            let a =''
+            for(const t of String(args.a).split(args.b)){
+                a+=args.c+t.replaceAll(args.c,args.b)
+            }
+            return a.replace(args.c,'')
+        }
+        rreplaceexcept(args){
+            let a =''
+            for(const t of String(args.a).split(args.c)){
+                a+=args.c+t.replaceAll(args.b,args.d)
+            }
+            return a.replace(args.c,'')
+        }
         bmenuundefined(args){
             if (args.b){
                 if(nullList2.includes(args.a)) return args.c ? false :true
@@ -5498,44 +5521,116 @@
             if(nullList1.includes(args.a)) return args.c ? false :true
             return args.c ? true : false
         }
-        equal(a,b,c){
-            switch(c){
-                case 0 :
-                    return (typeof a == 'string' ? a.toLowerCase() : a) == (typeof b == 'string' ? b.toLowerCase() : b)
-                case 1 :
-                    return String(a).toLowerCase() == String(b).toLowerCase()
-                case 2 :
-                    return typeof a == typeof b
-                case 3 :
-                    return (typeof a == 'string' ? a.toLowerCase() : a) === (typeof b == 'string' ? b.toLowerCase() : b)
-                case 4 :
-                    return a == b
-                case 5 :
-                    return Object.is(a,b)
-                default :
-                    return a === b
-            }
+        rdefault(args){
+            if (nullList1.includes(args.a)) return args.b
+            return args.a
         }
-        notequal(a,b,c){
-            switch(c){
-                case 0 :
-                    return (typeof a == 'string' ? a.toLowerCase() : a) != (typeof b == 'string' ? b.toLowerCase() : b)
-                case 1 :
-                    return String(a).toLowerCase() != String(b).toLowerCase()
-                case 2 :
-                    return typeof a != typeof b
-                case 3 :
-                    return (typeof a == 'string' ? a.toLowerCase() : a) !== (typeof b == 'string' ? b.toLowerCase() : b)
-                case 4 :
-                    return a != b
-                case 5 :
-                    return ! Object.is(a,b)
-                default :
-                    return a !== b
-            }
+        bdefined(args){
+            return ! nullList1.includes(args.a)
+        }
+        bundefined(args){
+            return nullList1.includes(args.a)
         }
         bmenuequal(args){
             return args.b ? this.equal(args.a,args.c,args.d) : this.notequal(args.a,args.c,args.d)
+        }
+        bCompare({ OPERAND1, OPERAND2, SYMBOL }) {
+            return this._compare(OPERAND1, OPERAND2, SYMBOL)
+        }
+        bContinuousCompare({ OPERAND1, OPERAND2, OPERAND3, SYMBOL1, SYMBOL2 }) {
+            const result1 = this._compare(OPERAND1, OPERAND2, SYMBOL1);
+            const result2 = this._compare(OPERAND2, OPERAND3, SYMBOL2)
+            return result1 && result2
+        }
+        bApproximatelyEqual({ OPERAND1, OPERAND2, NUM }) {
+            OPERAND1 = Cast.toNumber(OPERAND1);
+            OPERAND2 = Cast.toNumber(OPERAND2);
+            NUM = Cast.toNumber(NUM)
+            return Math.abs(OPERAND1 - OPERAND2) <= NUM
+        }
+        bnotstrictlyequal(args){
+            return args.a !== args.b
+        }
+        bnotcontain(args){
+            return ! args.a.includes(args.b)
+        }
+        rNegative({ NUM }) {
+            return 0 - Cast.toNumber(NUM)
+        }
+        rsign(args){
+            return Math.floor(Math.random()*2) ? args.a : 0-args.a
+        }
+        raddition(args){
+            return Number(args.a)+Number(args.b)+Number(args.c)
+        }
+        radditionmultiplication(args){
+            return (Number(args.a)+Number(args.b))*args.c
+        }
+        rExponent({ NUM1, NUM2 }) {
+            return Cast.toNumber(NUM1) ** Cast.toNumber(NUM2)
+        }
+        rRoot({ NUM1, NUM2 }) {
+            return Math.pow(Cast.toNumber(NUM2), 1 / Cast.toNumber(NUM1))
+        }
+        rrandom(args){
+            return Math.random()
+        }
+        bnotequal(args){
+            return args.a != args.b
+        }
+        rLoopNum({ NUM, START, END }) {
+            let num = Cast.toNumber(NUM);
+            let start = Cast.toNumber(START);
+            let end = Cast.toNumber(END);
+            let range_num = end - start + 1;
+            let result = ((num - start) % range_num + range_num) % range_num + start
+            if (result > end) {
+                result -= range_num
+            }
+            return result
+        }
+        rMapOff({ NUM, START1, END1, START2, END2 }) {
+            NUM = Cast.toNumber(NUM);
+            START1 = Cast.toNumber(START1);
+            END1 = Cast.toNumber(END1);
+            START2 = Cast.toNumber(START2);
+            END2 = Cast.toNumber(END2)
+            return ((NUM - START1) / (END1 - START1)) * (END2 - START2) + START2
+        }
+        rnearestmultiple(args){
+            return Math.round(args.a/args.b)*args.b
+        }
+        rmod(args){
+            return args.a % args.b
+        }
+        rround(args) {
+            return (Number(args.a)).toFixed(args.b)
+        }
+        rrintfromto(args){
+            let a = Number(args.a);
+            const b = args.b-args.c
+            for (let i = 0; i <= b; i++){
+                a=Number(a.toFixed(args.b-i))
+            }
+            return a
+        }
+        rrinttotimes(args){
+            let a = Number(args.a)
+            for (let i = 0; i <= args.c; i++){
+                a=Number(a.toFixed(args.b-i))
+            }
+            return a
+        }
+        rrinttimesto(args){
+            let a = Number(args.a);
+            const b = Number(args.b)+Number(args.c)
+            for (let i = 0; i <= args.b; i++){
+                a=Number(a.toFixed(b-i))
+            }
+            return a
+        }
+        rPI(args){
+            return Math.PI.toFixed(args.a)
         }
         rmenurad(args){
             let b
@@ -5583,127 +5678,93 @@
             const b = a % 360
             return b+(b > -180 ? (b > 180 ? -360 : 0) : 360)
         }
-        rmenuunusualword(args){
-            if (typeof args.a == 'string'){
-                switch(args.a){
-                    case 'true' :
-                        return true
-                    case 'false' :
-                        return false
-                    case 'Infinity' :
-                        return Infinity
-                    case 'NaN' :
-                        return NaN
-                    case 'null' :
-                        return null
-                    default :
-                        return undefined
-                }
+        rradsin(args){
+            return Math.sin(args.a)
+        }
+        rradcos(args){
+            return Math.cos(args.a)
+        }
+        rradtan(args){
+            return Math.tan(args.a)
+        }
+        rradasin(args){
+            return Math.asin(args.a)
+        }
+        rradacos(args){
+            return Math.acos(args.a)
+        }
+        rradatan(args){
+            return Math.atan(args.a)
+        }
+        rsinmultiplication(args){
+            return Math.sin(args.b)*Math.PI/180*args.a
+        }
+        rcosmultiplication(args){
+            return Math.cos(args.b)*Math.PI/180*args.a
+        }
+        rtanmultiplication(args){
+            return Math.tan(args.b)*Math.PI/180*args.a
+        }
+        rasindivision(args){
+            return Math.asin(args.a/args.b)/Math.PI*180
+        }
+        racosdivision(args){
+            return Math.acos(args.a/args.b)/Math.PI*180
+        }
+        ratandivision(args){
+            return Math.atan(args.a/args.b)/Math.PI*180
+        }
+        rtoonehundredeighty(args){
+            const a = args.a % 360
+            return a+(a > -180 ? (a > 180 ? -360 : 0) : 360)
+        }
+        rtothreehundredsixty(args){
+            let a = Number(args.a)
+            while (a < 0){
+                a+=360
             }
-            return args.a
+            return a % 360
         }
-        totype(a,b){
-            switch(b){
-                case 0 :
-                    return JSON.parse(a)
-                case 1 :
-                    return a
-                case 2 :
-                    return ! falseList2.includes(a)
-                case 3 :
-                    return ! falseList1.includes(a)
-                case 4 :
-                    return Number(a)
-                case 5 :
-                    return Cast.toNumber(a)
-                default:
-                    return String(a)
+        raddto(args){
+            const a = Number(args.a);
+            const b = Number(args.b);
+            const c = args.c;
+            let list = [];
+            let i = a + b
+            while (i < c){
+                list.push(i)
+                i += b
             }
+            return list
         }
-        rmenutotype(args){
-            return this.totype(args.a,args.b)
+        rmenuArrayremoveitem(args){
+            return args.d ? (args.b ? args.a :JSON.parse(args.a)).toSpliced(Number(args.c), 1) : JSON.stringify((args.b ? args.a :JSON.parse(args.a)).toSpliced(Number(args.c), 1))
         }
-        rmenutypeof(args){
-            if (args.b){
-                const a = JSON.parse(args.a)
-                return args.c && Array.isArray(a) ? 'array' : typeof a
+        rArrayremoveshift(args){
+            let a = JSON.parse(args.a);
+            a.shift()
+            return JSON.stringify(a)
+        }
+        rArrayremovepop(args){
+            let a = JSON.parse(args.a);
+            a.pop()
+            return JSON.stringify(a)
+        }
+        rArrayremoveitem(args){
+            return JSON.stringify(JSON.parse(args.a).toSpliced(Number(args.b), 1))
+        }
+        rArrayremoveitems(args){
+            let a = JSON.parse(args.a)
+            for(const t of JSON.parse(args.b).sort(function(a,b){return b-a})){
+                a.splice(Number(t), 1)
             }
-            return typeof args.a
+            return JSON.stringify(a)
         }
-        bmenutypeof(args){
-            if (args.b){
-                const a = JSON.parse(args.a)
-                if(args.c==='array')return Array.isArray(a)
-                if(args.c==='array or object')return typeof a === 'object'
-                return typeof a === args.c
-            }
-            return typeof args.a === args.c
+        rArrayremoveitemtoitem(args){
+            return JSON.stringify(JSON.parse(args.a).toSpliced(Number(args.b), args.c-args.b))
         }
-        rmenuArraylength(args){
-            const a = args.b ? args.a : JSON.parse(args.a)
-            switch(args.c){
-                case 0 :
-                    return a.length
-                case 1 :
-                    return a.reduce((a, b) => a + b)
-                case 2 :
-                    return a.reduce((a, b) => a * b)
-                case 3 :
-                    return a.reduce((a, b) => a + b) / a.length
-                case 4 :
-                    return Math.max(...a)
-                default:
-                    return Math.min(...a)
-            }
-        }
-        compare(a,b,c){
-            switch(c){
-                case 0 :
-                    return a != b
-                case 1 :
-                    return a == b
-                case 2 :
-                    return a >= b
-                case 3 :
-                    return a > b
-                case 4 :
-                    return a <= b
-                default :
-                    return a < b
-            }
-        }
-        notcompare(a,b,c){
-            switch(c){
-                case 0 :
-                    return a == b
-                case 1 :
-                    return a != b
-                case 2 :
-                    return a < b
-                case 3 :
-                    return a <= b
-                case 4 :
-                    return a > b
-                default :
-                    return a >= b
-            }
-        }
-        bmenuArrayhave(args){
-            const a = args.b ? args.a : JSON.parse(args.a);
-            const b = this.totype(args.d,args.e);
-            const n = args.f
-            if( typeof b == 'object' ){
-                const c = JSON.stringify(b)
-                return args.c ? a.every(i => this.equal(JSON.stringify(i),c,n)) : a.some(i => this.equal(JSON.stringify(i),c,n))
-            }
-            return args.c ? a.every(i => this.equal(i,b,n)) : a.some(i => this.equal(i,b,n))
-        }
-        bmenuArrayhavenumber(args){
-            const a = args.b ? args.a : JSON.parse(args.a);
-            const b = this.totype(args.e,args.f);
-            const n = args.d
-            if(args.g)return args.c ? a.every(i => this.compare(i.length,b,n)) : a.some(i => this.compare(i.length,b,n))
-            return args.c ? a.every(i => this.compare(i,b,n)) : a.some(i => this.compare(i,b,n))
+        rArrayreserveitem(args){
+            return JSON.stringify(JSON.parse(args.a).splice(Number(args.b), 1))
         }
         rmenuArrayremove(args){
             const a = args.b ? args.a : JSON.parse(args.a);
@@ -5715,6 +5776,13 @@
             }
             return args.f ? a.filter(t => this.notequal(t,b,n)) : JSON.stringify(a.filter(t => this.notequal(t,b,n)))
         }
+        rArrayremoveJSON(args){
+            return JSON.stringify(JSON.parse(args.a).filter(t => JSON.stringify(t)!=args.b))
+        }
+        rArrayremovestr(args){
+            const b = String(args.b)
+            return JSON.stringify(JSON.parse(args.a).filter(t => t!==b))
+        }
         rmenuArrayremovenumber(args){
             const a = args.b ? args.a : JSON.parse(args.a);
             const b = this.totype(args.d,args.e);
@@ -5722,11 +5790,24 @@
             if(args.f)return args.g ? a.filter(t => this.notcompare(t.length,b,n)) : JSON.stringify(a.filter(t => this.notcompare(t.length,b,n)))
             return args.g ? a.filter(t => this.notcompare(t,b,n)) : JSON.stringify(a.filter(t => this.notcompare(t,b,n)))
         }
-        rmenuArrayremoveitem(args){
-            return args.d ? (args.b ? args.a :JSON.parse(args.a)).toSpliced(Number(args.c), 1) : JSON.stringify((args.b ? args.a :JSON.parse(args.a)).toSpliced(Number(args.c), 1))
+        rArrayremovebignumber(args){        
+            return JSON.stringify(JSON.parse(args.a).filter(t => t<=args.b))
         }
-        rmenuArrayitem(args){
-            return args.d ? (args.b ? args.a :JSON.parse(args.a)).at(args.c) : JSON.stringify((args.b ? args.a :JSON.parse(args.a)).at(args.c))
+        rArrayremovenotsmallnumber(args){
+            return JSON.stringify(JSON.parse(args.a).filter(t => t<args.b))
+        }
+        rArrayremovesmallnumber(args){
+            return JSON.stringify(JSON.parse(args.a).filter(t => t>=args.b))
+        }
+        rArrayremovenotbignumber(args){
+            return JSON.stringify(JSON.parse(args.a).filter(t => t>args.b))
+        }
+        rArrayremovenumber(args){
+            const b = Number(args.b)
+            return JSON.stringify(JSON.parse(args.a).filter(t => t!==b))
+        }
+        rArrayremove(args){
+            return JSON.stringify(JSON.parse(args.a).filter(t => t!=args.b))
         }
         rmenuArrayinsert(args){
             const a = args.b ? args.a : JSON.parse(args.a);
@@ -5739,6 +5820,257 @@
                 default :
                     return args.g ? a.with(args.c,a.at(args.c)+b) : JSON.stringify(a.with(args.c,a.at(args.c)+b))
             }
+        }
+        rArrayunshiftJSON(args){
+            let a = JSON.parse(args.a);
+            a.unshift(JSON.parse(args.b))
+            return JSON.stringify(a)
+        }
+        rArrayunshiftstr(args){
+            let a = JSON.parse(args.a);
+            a.unshift(String(args.b))
+            return JSON.stringify(a)
+        }
+        rArrayunshiftnumber(args){
+            let a = JSON.parse(args.a);
+            a.unshift(Number(args.b))
+            return JSON.stringify(a)
+        }
+        rArrayunshift(args){
+            let a = JSON.parse(args.a);
+            a.unshift(args.b)
+            return JSON.stringify(a)
+        }
+        rArraypushJSON(args){
+            let a = JSON.parse(args.a);
+            a.push(JSON.parse(args.b))
+            return JSON.stringify(a)
+        }
+        rArraypushstr(args){
+            let a = JSON.parse(args.a);
+            a.push(String(args.b))
+            return JSON.stringify(a)
+        }
+        rArraypushnumber(args){
+            let a = JSON.parse(args.a);
+            a.push(Number(args.b))
+            return JSON.stringify(a)
+        }
+        rArraypush(args){
+            let a = JSON.parse(args.a);
+            a.push(args.b)
+            return JSON.stringify(a)
+        }
+        rArrayinsertJSON(args){
+            return JSON.stringify(JSON.parse(args.a).toSpliced(args.c,0,JSON.parse(args.b)))
+        }
+        rArrayinsertstr(args){
+            return JSON.stringify(JSON.parse(args.a).toSpliced(args.c,0,String(args.b)))
+        }
+        rArrayinsertnumber(args){
+            return JSON.stringify(JSON.parse(args.a).toSpliced(args.c,0,Number(args.b)))
+        }
+        rArrayinsert(args){
+            return JSON.stringify(JSON.parse(args.a).toSpliced(args.c,0,args.b))
+        }
+        rArrayinsertJSONindexes(args){
+            let a = JSON.parse(args.a);
+            const b =JSON.parse(args.b)
+            for(const t of JSON.parse(args.c).sort(function(a,b){return b-a})){
+                a.splice(t,0,b)
+            }
+            return JSON.stringify(a)
+        }
+        rArrayinsertstrindexes(args){
+            let a = JSON.parse(args.a);
+            const b = String(args.b)
+            for(const t of JSON.parse(args.c).sort(function(a,b){return b-a})){
+                a.splice(t,0,b)
+            }
+            return JSON.stringify(a)
+        }
+        rArrayinsertnumberindexes(args){
+            let a = JSON.parse(args.a);
+            const b = Number(args.b)
+            for(const t of JSON.parse(args.c).sort(function(a,b){return b-a})){
+                a.splice(t,0,b)
+            }
+            return JSON.stringify(a)
+        }
+        rArrayinsertindexes(args){
+            let a = JSON.parse(args.a);
+            const b = args.b
+            for(const t of JSON.parse(args.c).sort(function(a,b){return b-a})){
+                a.splice(t,0,b)
+            }
+            return JSON.stringify(a)
+        }
+        rArrayinsertJSONindextoindex(args){
+            let a = JSON.parse(args.a);
+            const b =JSON.parse(args.b);
+            const c = Number(args.c)
+            for(let i = 0; i < args.d-c; i++){
+                a.splice(c+i,0,b)
+            }
+            return JSON.stringify(a)
+        }
+        rArrayinsertstrindextoindex(args){
+            let a = JSON.parse(args.a);
+            const b = String(args.b);
+            const c = Number(args.c)
+            for(let i = 0; i < args.d-c; i++){
+                a.splice(c+i,0,b)
+            }
+            return JSON.stringify(a)
+        }
+        rArrayinsertnumberindextoindex(args){
+            let a = JSON.parse(args.a);
+            const b = Number(args.b);
+            const c = Number(args.c)
+            for(let i = 0; i < args.d-c; i++){
+                a.splice(c+i,0,b)
+            }
+            return JSON.stringify(a)
+        }
+        rArrayinsertindextoindex(args){
+            let a = JSON.parse(args.a);
+            const b = args.b;
+            const c = Number(args.c)
+            for(let i = 0; i < args.d-c; i++){
+                a.splice(c+i,0,b)
+            }
+            return JSON.stringify(a)
+        }
+        rArraymove(args){
+            const a = JSON.parse(args.a)
+            return args.b>args.c ? JSON.stringify(a.toSpliced(args.b,1).toSpliced(args.c,0,a.at(args.b))) : JSON.stringify(a.toSpliced(args.c,0,args.b).toSpliced(args.b,a.at(args.b)))
+        }
+        rArrayreplaceJSON(args){
+            return JSON.stringify(JSON.parse(args.a).with(args.b,JSON.parse(args.c)))
+        }
+        rArrayreplacestr(args){
+            return JSON.stringify(JSON.parse(args.a).with(args.b,String(args.c)))
+        }
+        rArrayreplacenumber(args){
+            return JSON.stringify(JSON.parse(args.a).with(args.b,args.c))
+        }
+        rArrayreplace(args){
+            return JSON.stringify(JSON.parse(args.a).with(args.b,args.c))
+        }
+        rArrayreplaceindexesJSON(args){
+            let a = JSON.parse(args.a);
+            const c = JSON.parse(args.c)
+            for(const t of JSON.parse(args.b)){
+                a=a.with(t,c)
+            }
+            return JSON.stringify(a)
+        }
+        rArrayreplaceindexesstr(args){
+            let a = JSON.parse(args.a)
+            const c = String(args.c)
+            for(const t of JSON.parse(args.b)){
+                a=a.with(t,c)
+            }
+            return JSON.stringify(a)
+        }
+        rArrayreplaceindexesnumber(args){
+            let a = JSON.parse(args.a);
+            const c = Number(args.c)
+            for(const t of JSON.parse(args.b)){
+                a=a.with(t,c)
+            }
+            return JSON.stringify(a)
+        }
+        rArrayreplaceindexes(args){
+            let a = JSON.parse(args.a);
+            const c = args.c
+            for(const t of JSON.parse(args.b)){
+                a=a.with(t,c)
+            }
+            return JSON.stringify(a)
+        }
+        rArrayreplaceindextoindexJSON(args){
+            let a = JSON.parse(args.a);
+            a.fill(JSON.parse(args.d),args.b,args.c)
+            return JSON.stringify(a)
+        }
+        rArrayreplaceindextoindexstr(args){
+            let a = JSON.parse(args.a);
+            a.fill(String(args.d),args.b,args.c)
+            return JSON.stringify(a)
+        }
+        rArrayreplaceindextoindexnumber(args){
+            let a = JSON.parse(args.a);
+            a.fill(Number(args.d),args.b,args.c)
+            return JSON.stringify(a)
+        }
+        rArrayreplaceindextoindex(args){
+            let a = JSON.parse(args.a);
+            a.fill(args.d,args.b,args.c)
+            return JSON.stringify(a)
+        }
+        rArrayinterchange(args){
+            const a = JSON.parse(args.a)
+            return JSON.stringify(a.with(args.b,a.at(args.c)).with(args.c,a.at(args.b)))
+        }
+        rArrayplusindex(args){
+            let a = JSON.parse(args.a);
+            a=a.with(args.b,a.at(args.b)+Number(args.c))
+            return JSON.stringify(a)
+        }
+        rArrayplusindexes(args){
+            let a = JSON.parse(args.a);
+            const b = JSON.parse(args.b);
+            const c = Number(args.c)
+            for(const t of b){
+                a=a.with(t,a.at(t)+c)
+            }
+            return JSON.stringify(a)
+        }
+        rArrayplusindextoindex(args){
+            let a = JSON.parse(args.a);
+            const b = Number(args.b);
+            const d = Number(args.d)
+            for(let i = 0; i < args.c-b; i++){
+                a=a.with(b+i,a.at(b+i)+d)
+            }
+            return JSON.stringify(a)
+        }
+        rArrayplus(args){
+            const b = Number(args.b)
+            return JSON.stringify(JSON.parse(args.a).map(t => t+b))
+        }
+        rmenuArrayitem(args){
+            return args.d ? (args.b ? args.a :JSON.parse(args.a)).at(args.c) : JSON.stringify((args.b ? args.a :JSON.parse(args.a)).at(args.c))
+        }
+        rArrayshiftJSON(args){
+            return JSON.stringify(JSON.parse(args.a).shift())
+        }
+        rArrayshift(args){
+            return JSON.parse(args.a).shift()
+        }
+        rArraypopJSON(args){
+            return JSON.stringify(JSON.parse(args.a).pop())
+        }
+        rArraypop(args){
+            return JSON.parse(args.a).pop()
+        }
+        rArrayitemJSON(args){
+            return JSON.stringify(JSON.parse(args.a).at(args.b))
+        }
+        rArrayitem(args){
+            return JSON.parse(args.a).at(args.b)
+        }
+        rArrayitems(args){
+            const a = JSON.parse(args.a);
+            let c = []
+            for(const t of JSON.parse(args.b)){
+                c.push(a.at(t))
+            }
+            return JSON.stringify(c)
+        }
+        rArrayitemtoitem(args){
+            return JSON.stringify(JSON.parse(args.a).slice(args.b,args.c))
         }
         rmenuArrayindex(args){
             const a = args.b ? args.a : JSON.parse(args.a);
@@ -5807,6 +6139,73 @@
                 }
             }
         }
+        rArrayindexJSON(args){
+            return JSON.parse(args.a).indexOf(JSON.parse(args.b))
+        }
+        rArrayindexstr(args){
+            return JSON.parse(args.a).indexOf(String(args.b))
+        }
+        rArrayfindIndexbignumber(args){
+            return JSON.parse(args.a).findIndex(i => i > args.b)
+        }
+        rArrayfindIndexnotsmallnumber(args){
+            return JSON.parse(args.a).findIndex(i => i >= args.b)
+        }
+        rArrayfindIndexsmallnumber(args){
+            return JSON.parse(args.a).findIndex(i => i < args.b)
+        }
+        rArrayfindIndexnotbignumber(args){
+            return JSON.parse(args.a).findIndex(i => i <= args.b)
+        }
+        rArrayindexnumber(args){
+            return JSON.parse(args.a).indexOf(Number(args.b))
+        }
+        rArrayindex(args){
+            return JSON.parse(args.a).indexOf(args.b)
+        }
+        rArraylastindexJSON(args){
+            return JSON.parse(args.a).lastIndexOf(JSON.parse(args.b))
+        }
+        rArraylastindexstr(args){
+            return JSON.parse(args.a).lastIndexOf(String(args.b))
+        }
+        rArraylastindexnumber(args){
+            return JSON.parse(args.a).lastIndexOf(Number(args.b))
+        }
+        rArraylastindex(args){
+            return JSON.parse(args.a).lastIndexOf(args.b)
+        }
+        rArrayallindexJSON(args){
+            let idx = []
+            JSON.parse(args.a).forEach((t,i)=>{
+                if(JSON.stringify(t)==args.b)idx.push(i)
+            })
+            return JSON.stringify(idx)
+        }
+        rArrayallindexstr(args){
+            let idx = [];
+            const b = String(args.b)
+            JSON.parse(args.a).forEach((t,i)=>{
+                if(t===b)idx.push(i)
+            })
+            return JSON.stringify(idx)
+        }
+        rArrayallindexnumber(args){
+            const b = Number(args.b);
+            let idx = []
+            JSON.parse(args.a).forEach((t,i)=>{
+                if(t===b)idx.push(i)
+            })
+            return JSON.stringify(idx)
+        }
+        rArrayallindex(args){
+            const b = args.b;
+            let idx = []
+            JSON.parse(args.a).forEach((t,i)=>{
+                if(t===b)idx.push(i)
+            })
+            return JSON.stringify(idx)
+        }
         rmenuArraycount(args){
             const a = args.b ? args.a : JSON.parse(args.a);
             const b = this.totype(args.c,args.d);
@@ -5826,6 +6225,21 @@
                 return i
             }
         }
+        rArraycountJSON(args){
+            let c = 0
+            for(const t of JSON.parse(args.a)){
+                if(JSON.stringify(t)==args.b)c+=1
+            }
+            return c
+        }
+        rArraycountstr(args){
+            let c = 0;
+            const b = String(args.b)
+            for(const t of JSON.parse(args.a)){
+                if(t===b)c+=1
+            }
+            return c
+        }
         rmenuArraycountnumber(args){
             const a = args.b ? args.a : JSON.parse(args.a);
             const b = this.totype(args.d,args.e);
@@ -5843,698 +6257,6 @@
                 }
                 return i
             }
-        }
-        rmenuArraysort(args){
-            const a = args.b ? args.a :JSON.parse(args.a);
-            a.sort(Scratch.Cast.compare)
-            if(args.c)return args.d ? a : JSON.stringify(a)
-            a.reverse()
-            return args.d ? a : JSON.stringify(a)
-        }
-        rmenuObjectmember(args){
-            return args.d ? (args.b ? args.a :JSON.parse(args.a))[args.c] : JSON.stringify((args.b ? args.a :JSON.parse(args.a))[args.c])
-        }
-        rmenuObjectset(args){
-            const a = args.b ? args.a : JSON.parse(args.a);
-            const b = this.totype(args.e,args.f)
-            if(args.d){
-                a[args.c] += b
-            }
-            else{
-                a[args.c] = b
-            }
-            return args.g ? a : JSON.stringify(a)
-        }
-        rmenuObjectkeys(args){
-            const a = args.b ? args.a : JSON.parse(args.a)
-            switch(args.c){
-                case 0 :
-                    return args.d ? Object.keys(a) : JSON.stringify(Object.keys(a))
-                case 1 :
-                    return args.d ? Object.values(a) : JSON.stringify(Object.values(a))
-                default:
-                    return args.d ? Object.entries(a) : JSON.stringify(Object.entries(a))
-            }
-        }
-        rreporter(args){
-            return args.a
-        }
-        rboolean(args){
-            return args.a
-        }
-        bToBoolean(args){
-            return ! falseList1.includes(args.a)
-        }
-        rif(args){
-            return args.a ? args.b : args.c
-        }
-        rifToBoolean(args){
-            return falseList1.includes(args.a) ? args.c : args.b
-        }
-        band(args){
-            return args.a && args.b
-        }
-        bor(args){
-            return args.a || args.b
-        }
-        bnot(args){
-            return ! args.a
-        }
-        bandToBoolean(args){
-            return ! (falseList1.includes(args.a) || falseList1.includes(args.b))
-        }
-        borToBoolean(args){
-            return ! (falseList1.includes(args.a) && falseList1.includes(args.b))
-        }
-        bnotToBoolean(args){
-            return falseList1.includes(args.a)
-        }
-        rjoin(args){
-            return String(args.a)+String(args.b)+String(args.c)
-        }
-        rpadstart(args){
-            return args.a.padStart(args.c,args.b)
-        }
-        rpadend(args){
-            return args.a.padEnd(args.c,args.b)
-        }
-        rremove(args){
-            return args.a.replaceAll(args.b,'')
-        }
-        rinterchange(args){
-            let a =''
-            for(const t of String(args.a).split(args.b)){
-                a+=args.c+t.replaceAll(args.c,args.b)
-            }
-            return a.replace(args.c,'')
-        }
-        rreplaceexcept(args){
-            let a =''
-            for(const t of String(args.a).split(args.c)){
-                a+=args.c+t.replaceAll(args.b,args.d)
-            }
-            return a.replace(args.c,'')
-        }
-        rdefault(args){
-            if (nullList1.includes(args.a)) return args.b
-            return args.a
-        }
-        bdefined(args){
-            return ! nullList1.includes(args.a)
-        }
-        bundefined(args){
-            return nullList1.includes(args.a)
-        }
-        bnotstrictlyequal(args){
-            return args.a !== args.b
-        }
-        bnotcontain(args){
-            return ! args.a.includes(args.b)
-        }
-        rExponent({ NUM1, NUM2 }) {
-            return Cast.toNumber(NUM1) ** Cast.toNumber(NUM2)
-        }
-        rRoot({ NUM1, NUM2 }) {
-            return Math.pow(Cast.toNumber(NUM2), 1 / Cast.toNumber(NUM1))
-        }
-        rrandom(args){
-            return Math.random()
-        }
-        bnotequal(args){
-            return args.a != args.b
-        }
-        rLoopNum({ NUM, START, END }) {
-            let num = Cast.toNumber(NUM);
-            let start = Cast.toNumber(START);
-            let end = Cast.toNumber(END);
-            let range_num = end - start + 1;
-            let result = ((num - start) % range_num + range_num) % range_num + start
-            if (result > end) {
-                result -= range_num
-            }
-            return result
-        }
-        rMapOff({ NUM, START1, END1, START2, END2 }) {
-            NUM = Cast.toNumber(NUM);
-            START1 = Cast.toNumber(START1);
-            END1 = Cast.toNumber(END1);
-            START2 = Cast.toNumber(START2);
-            END2 = Cast.toNumber(END2)
-            return ((NUM - START1) / (END1 - START1)) * (END2 - START2) + START2
-        }
-        rNegative({ NUM }) {
-            return 0 - Cast.toNumber(NUM)
-        }
-        rsign(args){
-            return Math.floor(Math.random()*2) ? args.a : 0-args.a
-        }
-        raddition(args){
-            return Number(args.a)+Number(args.b)+Number(args.c)
-        }
-        radditionmultiplication(args){
-            return (Number(args.a)+Number(args.b))*args.c
-        }
-        rmod(args){
-            return args.a % args.b
-        }
-        rnearestmultiple(args){
-            return Math.round(args.a/args.b)*args.b
-        }
-        rround(args) {
-            return (Number(args.a)).toFixed(args.b)
-        }
-        rrintfromto(args){
-            let a = Number(args.a);
-            const b = args.b-args.c
-            for (let i = 0; i <= b; i++){
-                a=Number(a.toFixed(args.b-i))
-            }
-            return a
-        }
-        rrinttotimes(args){
-            let a = Number(args.a)
-            for (let i = 0; i <= args.c; i++){
-                a=Number(a.toFixed(args.b-i))
-            }
-            return a
-        }
-        rrinttimesto(args){
-            let a = Number(args.a);
-            const b = Number(args.b)+Number(args.c)
-            for (let i = 0; i <= args.b; i++){
-                a=Number(a.toFixed(b-i))
-            }
-            return a
-        }
-        rPI(args){
-            return Math.PI.toFixed(args.a)
-        }
-        rradsin(args){
-            return Math.sin(args.a)
-        }
-        rradcos(args){
-            return Math.cos(args.a)
-        }
-        rradtan(args){
-            return Math.tan(args.a)
-        }
-        rradasin(args){
-            return Math.asin(args.a)
-        }
-        rradacos(args){
-            return Math.acos(args.a)
-        }
-        rradatan(args){
-            return Math.atan(args.a)
-        }
-        rsinmultiplication(args){
-            return Math.sin(args.b)*Math.PI/180*args.a
-        }
-        rcosmultiplication(args){
-            return Math.cos(args.b)*Math.PI/180*args.a
-        }
-        rtanmultiplication(args){
-            return Math.tan(args.b)*Math.PI/180*args.a
-        }
-        rasindivision(args){
-            return Math.asin(args.a/args.b)/Math.PI*180
-        }
-        racosdivision(args){
-            return Math.acos(args.a/args.b)/Math.PI*180
-        }
-        ratandivision(args){
-            return Math.atan(args.a/args.b)/Math.PI*180
-        }
-        rtoonehundredeighty(args){
-            const a = args.a % 360
-            return a+(a > -180 ? (a > 180 ? -360 : 0) : 360)
-        }
-        rtothreehundredsixty(args){
-            let a = Number(args.a)
-            while (a < 0){
-                a+=360
-            }
-            return a % 360
-        }
-        raddto(args){
-            const a = Number(args.a);
-            const b = Number(args.b);
-            const c = args.c;
-            let list = [];
-            let i = a + b
-            while (i < c){
-                list.push(i)
-                i += b
-            }
-            return list
-        }
-        rJSONtypeof(args){
-            return typeof JSON.parse(args.a)
-        }
-        bJSONtypeof(args){
-            return typeof JSON.parse(args.a) == args.b
-        }
-        bArrayequal(args){
-            return JSON.stringify(JSON.parse(args.a).sort(Scratch.Cast.compare))==JSON.stringify(JSON.parse(args.b).sort(Scratch.Cast.compare))
-        }
-        bArraystrictlyequal(args){
-            return JSON.stringify(JSON.parse(args.a).sort(Scratch.Cast.compare))===JSON.stringify(JSON.parse(args.b).sort(Scratch.Cast.compare))
-        }
-        rArraysum(args){
-            return JSON.parse(args.a).reduce((a, b) => a + b)
-        }
-        rArrayproduct(args){
-            return JSON.parse(args.a).reduce((a, b) => a * b)
-        }
-        rArrayaverage(args){
-            const a = JSON.parse(args.a);
-            const sum = a.reduce((a, b) => a + b);
-            return sum / a.length
-        }
-        rArraymax(args){
-            return Math.max(...(JSON.parse(args.a)))
-        }
-        rArraymin(args){
-            return Math.min(...(JSON.parse(args.a)))
-        }
-        bArrayhavebignumber(args){
-            return JSON.parse(args.a).some(i => i > args.b)
-        }
-        bArrayhavenotsmallnumber(args){
-            return JSON.parse(args.a).some(i => i >= args.b)
-        }
-        bArrayhavesmallnumber(args){
-            return JSON.parse(args.a).some(i => i < args.b)
-        }
-        bArrayhavenotbignumber(args){
-            return JSON.parse(args.a).some(i => i <= args.b)
-        }
-        bArrayhavenumber(args){
-            return JSON.parse(args.a).includes(Number(args.b))
-        }
-        bArrayhavestr(args){
-            return JSON.parse(args.a).includes(String(args.b))
-        }
-        bArrayhave(args){
-            return JSON.parse(args.a).some(i => i == args.b)
-        }
-        bArrayhaveJSON(args){
-            return JSON.parse(args.a).some(i => JSON.stringify(i) == args.b)
-        }
-        bArraybebignumber(args){
-            return JSON.parse(args.a).every(i => i > args.b)
-        }
-        bArraybenotsmallnumber(args){
-            return JSON.parse(args.a).every(i => i >= args.b)
-        }
-        bArraybesmallnumber(args){
-            return JSON.parse(args.a).every(i => i < args.b)
-        }
-        bArraybenotbignumber(args){
-            return JSON.parse(args.a).every(i => i <= args.b)
-        }
-        bArraybenumber(args){
-            return JSON.parse(args.a).every(i => i === Number(args.b))
-        }
-        bArraybestr(args){
-            const b = String(args.b)
-            return JSON.parse(args.a).every(i => i === b)
-        }
-        bArraybe(args){
-            return JSON.parse(args.a).every(i => i == args.b)
-        }
-        bArraybeJSON(args){
-            return JSON.parse(args.a).every(i => JSON.stringify(i) == args.b)
-        }
-        rArrayremovebignumber(args){        
-            return JSON.stringify(JSON.parse(args.a).filter(t => t<=args.b))
-        }
-        rArrayremovenotsmallnumber(args){
-            return JSON.stringify(JSON.parse(args.a).filter(t => t<args.b))
-        }
-        rArrayremovesmallnumber(args){
-            return JSON.stringify(JSON.parse(args.a).filter(t => t>=args.b))
-        }
-        rArrayremovenotbignumber(args){
-            return JSON.stringify(JSON.parse(args.a).filter(t => t>args.b))
-        }
-        rArrayremovenumber(args){
-            const b = Number(args.b)
-            return JSON.stringify(JSON.parse(args.a).filter(t => t!==b))
-        }
-        rArrayremovestr(args){
-            const b = String(args.b)
-            return JSON.stringify(JSON.parse(args.a).filter(t => t!==b))
-        }
-        rArrayremove(args){
-            return JSON.stringify(JSON.parse(args.a).filter(t => t!=args.b))
-        }
-        rArrayremoveJSON(args){
-            return JSON.stringify(JSON.parse(args.a).filter(t => JSON.stringify(t)!=args.b))
-        }
-        rArrayremoveshift(args){
-            let a = JSON.parse(args.a);
-            a.shift()
-            return JSON.stringify(a)
-        }
-        rArrayremovepop(args){
-            let a = JSON.parse(args.a);
-            a.pop()
-            return JSON.stringify(a)
-        }
-        rArrayremoveitem(args){
-            return JSON.stringify(JSON.parse(args.a).toSpliced(Number(args.b), 1))
-        }
-        rArrayremoveitems(args){
-            let a = JSON.parse(args.a)
-            for(const t of JSON.parse(args.b).sort(function(a,b){return b-a})){
-                a.splice(Number(t), 1)
-            }
-            return JSON.stringify(a)
-        }
-        rArrayremoveitemtoitem(args){
-            return JSON.stringify(JSON.parse(args.a).toSpliced(Number(args.b), args.c-args.b))
-        }
-        rArrayreserveitem(args){
-            return JSON.stringify(JSON.parse(args.a).splice(Number(args.b), 1))
-        }
-        rArrayshift(args){
-            return JSON.parse(args.a).shift()
-        }
-        rArraypop(args){
-            return JSON.parse(args.a).pop()
-        }
-        rArrayitem(args){
-            return JSON.parse(args.a).at(args.b)
-        }
-        rArrayshiftJSON(args){
-            return JSON.stringify(JSON.parse(args.a).shift())
-        }
-        rArraypopJSON(args){
-            return JSON.stringify(JSON.parse(args.a).pop())
-        }
-        rArrayitemJSON(args){
-            return JSON.stringify(JSON.parse(args.a).at(args.b))
-        }
-        rArrayitems(args){
-            const a = JSON.parse(args.a);
-            let c = []
-            for(const t of JSON.parse(args.b)){
-                c.push(a.at(t))
-            }
-            return JSON.stringify(c)
-        }
-        rArrayitemtoitem(args){
-            return JSON.stringify(JSON.parse(args.a).slice(args.b,args.c))
-        }
-        rArrayunshift(args){
-            let a = JSON.parse(args.a);
-            a.unshift(args.b)
-            return JSON.stringify(a)
-        }
-        rArraypush(args){
-            let a = JSON.parse(args.a);
-            a.push(args.b)
-            return JSON.stringify(a)
-        }
-        rArrayinsert(args){
-            return JSON.stringify(JSON.parse(args.a).toSpliced(args.c,0,args.b))
-        }
-        rArrayinsertindexes(args){
-            let a = JSON.parse(args.a);
-            const b = args.b
-            for(const t of JSON.parse(args.c).sort(function(a,b){return b-a})){
-                a.splice(t,0,b)
-            }
-            return JSON.stringify(a)
-        }
-        rArrayinsertindextoindex(args){
-            let a = JSON.parse(args.a);
-            const b = args.b;
-            const c = Number(args.c)
-            for(let i = 0; i < args.d-c; i++){
-                a.splice(c+i,0,b)
-            }
-            return JSON.stringify(a)
-        }
-        rArrayunshiftnumber(args){
-            let a = JSON.parse(args.a);
-            a.unshift(Number(args.b))
-            return JSON.stringify(a)
-        }
-        rArraypushnumber(args){
-            let a = JSON.parse(args.a);
-            a.push(Number(args.b))
-            return JSON.stringify(a)
-        }
-        rArrayinsertnumber(args){
-            return JSON.stringify(JSON.parse(args.a).toSpliced(args.c,0,Number(args.b)))
-        }
-        rArrayinsertnumberindexes(args){
-            let a = JSON.parse(args.a);
-            const b = Number(args.b)
-            for(const t of JSON.parse(args.c).sort(function(a,b){return b-a})){
-                a.splice(t,0,b)
-            }
-            return JSON.stringify(a)
-        }
-        rArrayinsertnumberindextoindex(args){
-            let a = JSON.parse(args.a);
-            const b = Number(args.b);
-            const c = Number(args.c)
-            for(let i = 0; i < args.d-c; i++){
-                a.splice(c+i,0,b)
-            }
-            return JSON.stringify(a)
-        }
-        rArrayunshiftstr(args){
-            let a = JSON.parse(args.a);
-            a.unshift(String(args.b))
-            return JSON.stringify(a)
-        }
-        rArraypushstr(args){
-            let a = JSON.parse(args.a);
-            a.push(String(args.b))
-            return JSON.stringify(a)
-        }
-        rArrayinsertstr(args){
-            return JSON.stringify(JSON.parse(args.a).toSpliced(args.c,0,String(args.b)))
-        }
-        rArrayinsertstrindexes(args){
-            let a = JSON.parse(args.a);
-            const b = String(args.b)
-            for(const t of JSON.parse(args.c).sort(function(a,b){return b-a})){
-                a.splice(t,0,b)
-            }
-            return JSON.stringify(a)
-        }
-        rArrayinsertstrindextoindex(args){
-            let a = JSON.parse(args.a);
-            const b = String(args.b);
-            const c = Number(args.c)
-            for(let i = 0; i < args.d-c; i++){
-                a.splice(c+i,0,b)
-            }
-            return JSON.stringify(a)
-        }
-        rArrayunshiftJSON(args){
-            let a = JSON.parse(args.a);
-            a.unshift(JSON.parse(args.b))
-            return JSON.stringify(a)
-        }
-        rArraypushJSON(args){
-            let a = JSON.parse(args.a);
-            a.push(JSON.parse(args.b))
-            return JSON.stringify(a)
-        }
-        rArrayinsertJSON(args){
-            return JSON.stringify(JSON.parse(args.a).toSpliced(args.c,0,JSON.parse(args.b)))
-        }
-        rArrayinsertJSONindexes(args){
-            let a = JSON.parse(args.a);
-            const b =JSON.parse(args.b)
-            for(const t of JSON.parse(args.c).sort(function(a,b){return b-a})){
-                a.splice(t,0,b)
-            }
-            return JSON.stringify(a)
-        }
-        rArrayinsertJSONindextoindex(args){
-            let a = JSON.parse(args.a);
-            const b =JSON.parse(args.b);
-            const c = Number(args.c)
-            for(let i = 0; i < args.d-c; i++){
-                a.splice(c+i,0,b)
-            }
-            return JSON.stringify(a)
-        }
-        rArraymove(args){
-            const a = JSON.parse(args.a)
-            return args.b>args.c ? JSON.stringify(a.toSpliced(args.b,1).toSpliced(args.c,0,a.at(args.b))) : JSON.stringify(a.toSpliced(args.c,0,args.b).toSpliced(args.b,a.at(args.b)))
-        }
-        rArrayinterchange(args){
-            const a = JSON.parse(args.a)
-            return JSON.stringify(a.with(args.b,a.at(args.c)).with(args.c,a.at(args.b)))
-        }
-        rArrayreplace(args){
-            return JSON.stringify(JSON.parse(args.a).with(args.b,args.c))
-        }
-        rArrayreplaceindexes(args){
-            let a = JSON.parse(args.a);
-            const c = args.c
-            for(const t of JSON.parse(args.b)){
-                a=a.with(t,c)
-            }
-            return JSON.stringify(a)
-        }
-        rArrayreplaceindextoindex(args){
-            let a = JSON.parse(args.a);
-            a.fill(args.d,args.b,args.c)
-            return JSON.stringify(a)
-        }
-        rArrayreplacenumber(args){
-            return JSON.stringify(JSON.parse(args.a).with(args.b,args.c))
-        }
-        rArrayreplaceindexesnumber(args){
-            let a = JSON.parse(args.a);
-            const c = Number(args.c)
-            for(const t of JSON.parse(args.b)){
-                a=a.with(t,c)
-            }
-            return JSON.stringify(a)
-        }
-        rArrayreplaceindextoindexnumber(args){
-            let a = JSON.parse(args.a);
-            a.fill(Number(args.d),args.b,args.c)
-            return JSON.stringify(a)
-        }
-        rArrayreplacestr(args){
-            return JSON.stringify(JSON.parse(args.a).with(args.b,String(args.c)))
-        }
-        rArrayreplaceindexesstr(args){
-            let a = JSON.parse(args.a)
-            const c = String(args.c)
-            for(const t of JSON.parse(args.b)){
-                a=a.with(t,c)
-            }
-            return JSON.stringify(a)
-        }
-        rArrayreplaceindextoindexstr(args){
-            let a = JSON.parse(args.a);
-            a.fill(String(args.d),args.b,args.c)
-            return JSON.stringify(a)
-        }
-        rArrayreplaceJSON(args){
-            return JSON.stringify(JSON.parse(args.a).with(args.b,JSON.parse(args.c)))
-        }
-        rArrayreplaceindexesJSON(args){
-            let a = JSON.parse(args.a);
-            const c = JSON.parse(args.c)
-            for(const t of JSON.parse(args.b)){
-                a=a.with(t,c)
-            }
-            return JSON.stringify(a)
-        }
-        rArrayreplaceindextoindexJSON(args){
-            let a = JSON.parse(args.a);
-            a.fill(JSON.parse(args.d),args.b,args.c)
-            return JSON.stringify(a)
-        }
-        rArrayplusindex(args){
-            let a = JSON.parse(args.a);
-            a=a.with(args.b,a.at(args.b)+Number(args.c))
-            return JSON.stringify(a)
-        }
-        rArrayplusindexes(args){
-            let a = JSON.parse(args.a);
-            const b = JSON.parse(args.b);
-            const c = Number(args.c)
-            for(const t of b){
-                a=a.with(t,a.at(t)+c)
-            }
-            return JSON.stringify(a)
-        }
-        rArrayplusindextoindex(args){
-            let a = JSON.parse(args.a);
-            const b = Number(args.b);
-            const d = Number(args.d)
-            for(let i = 0; i < args.c-b; i++){
-                a=a.with(b+i,a.at(b+i)+d)
-            }
-            return JSON.stringify(a)
-        }
-        rArrayplus(args){
-            const b = Number(args.b)
-            return JSON.stringify(JSON.parse(args.a).map(t => t+b))
-        }
-        rArrayminus(args){
-            return JSON.stringify(JSON.parse(args.a).map(t => t-args.b))
-        }
-        rArrayindex(args){
-            return JSON.parse(args.a).indexOf(args.b)
-        }
-        rArrayindexnumber(args){
-            return JSON.parse(args.a).indexOf(Number(args.b))
-        }
-        rArrayindexstr(args){
-            return JSON.parse(args.a).indexOf(String(args.b))
-        }
-        rArrayindexJSON(args){
-            return JSON.parse(args.a).indexOf(JSON.parse(args.b))
-        }
-        rArraylastindex(args){
-            return JSON.parse(args.a).lastIndexOf(args.b)
-        }
-        rArraylastindexnumber(args){
-            return JSON.parse(args.a).lastIndexOf(Number(args.b))
-        }
-        rArraylastindexstr(args){
-            return JSON.parse(args.a).lastIndexOf(String(args.b))
-        }
-        rArraylastindexJSON(args){
-            return JSON.parse(args.a).lastIndexOf(JSON.parse(args.b))
-        }
-        rArrayallindex(args){
-            const b = args.b;
-            let idx = []
-            JSON.parse(args.a).forEach((t,i)=>{
-                if(t===b)idx.push(i)
-            })
-            return JSON.stringify(idx)
-        }
-        rArrayallindexnumber(args){
-            const b = Number(args.b);
-            let idx = []
-            JSON.parse(args.a).forEach((t,i)=>{
-                if(t===b)idx.push(i)
-            })
-            return JSON.stringify(idx)
-        }
-        rArrayallindexstr(args){
-            let idx = [];
-            const b = String(args.b)
-            JSON.parse(args.a).forEach((t,i)=>{
-                if(t===b)idx.push(i)
-            })
-            return JSON.stringify(idx)
-        }
-        rArrayallindexJSON(args){
-            let idx = []
-            JSON.parse(args.a).forEach((t,i)=>{
-                if(JSON.stringify(t)==args.b)idx.push(i)
-            })
-            return JSON.stringify(idx)
-        }
-        rArrayfindIndexbignumber(args){
-            return JSON.parse(args.a).findIndex(i => i > args.b)
-        }
-        rArrayfindIndexnotsmallnumber(args){
-            return JSON.parse(args.a).findIndex(i => i >= args.b)
-        }
-        rArrayfindIndexsmallnumber(args){
-            return JSON.parse(args.a).findIndex(i => i < args.b)
-        }
-        rArrayfindIndexnotbignumber(args){
-            return JSON.parse(args.a).findIndex(i => i <= args.b)
         }
         rArraycountbignumber(args){
             const b =Number(args.b);
@@ -6576,14 +6298,6 @@
             }
             return c
         }
-        rArraycountstr(args){
-            let c = 0;
-            const b = String(args.b)
-            for(const t of JSON.parse(args.a)){
-                if(t===b)c+=1
-            }
-            return c
-        }
         rArraycount(args){
             let c = 0
             for(const t of JSON.parse(args.a)){
@@ -6591,12 +6305,49 @@
             }
             return c
         }
-        rArraycountJSON(args){
-            let c = 0
-            for(const t of JSON.parse(args.a)){
-                if(JSON.stringify(t)==args.b)c+=1
+        rmenuArraylength(args){
+            const a = args.b ? args.a : JSON.parse(args.a)
+            switch(args.c){
+                case 0 :
+                    return a.length
+                case 1 :
+                    return a.reduce((a, b) => a + b)
+                case 2 :
+                    return a.reduce((a, b) => a * b)
+                case 3 :
+                    return a.reduce((a, b) => a + b) / a.length
+                case 4 :
+                    return Math.max(...a)
+                default:
+                    return Math.min(...a)
             }
-            return c
+        }
+        rArraylength(args){
+            return JSON.parse(args.a).length
+        }
+        rArraysum(args){
+            return JSON.parse(args.a).reduce((a, b) => a + b)
+        }
+        rArrayproduct(args){
+            return JSON.parse(args.a).reduce((a, b) => a * b)
+        }
+        rArrayaverage(args){
+            const a = JSON.parse(args.a);
+            const sum = a.reduce((a, b) => a + b);
+            return sum / a.length
+        }
+        rArraymax(args){
+            return Math.max(...(JSON.parse(args.a)))
+        }
+        rArraymin(args){
+            return Math.min(...(JSON.parse(args.a)))
+        }
+        rmenuArraysort(args){
+            const a = args.b ? args.a :JSON.parse(args.a);
+            a.sort(Scratch.Cast.compare)
+            if(args.c)return args.d ? a : JSON.stringify(a)
+            a.reverse()
+            return args.d ? a : JSON.stringify(a)
         }
         rArraysortnaturalOrder(args){
             return JSON.stringify(JSON.parse(args.a).sort(Scratch.Cast.compare))
@@ -6607,117 +6358,110 @@
         rArrayreverse(args){
             return JSON.stringify(JSON.parse(args.a).reverse())
         }
+        bmenuArrayhave(args){
+            const a = args.b ? args.a : JSON.parse(args.a);
+            const b = this.totype(args.d,args.e);
+            const n = args.f
+            if( typeof b == 'object' ){
+                const c = JSON.stringify(b)
+                return args.c ? a.every(i => this.equal(JSON.stringify(i),c,n)) : a.some(i => this.equal(JSON.stringify(i),c,n))
+            }
+            return args.c ? a.every(i => this.equal(i,b,n)) : a.some(i => this.equal(i,b,n))
+        }
+        bArrayhaveJSON(args){
+            return JSON.parse(args.a).some(i => JSON.stringify(i) == args.b)
+        }
+        bArrayhavestr(args){
+            return JSON.parse(args.a).includes(String(args.b))
+        }
+        bmenuArrayhavenumber(args){
+            const a = args.b ? args.a : JSON.parse(args.a);
+            const b = this.totype(args.e,args.f);
+            const n = args.d
+            if(args.g)return args.c ? a.every(i => this.compare(i.length,b,n)) : a.some(i => this.compare(i.length,b,n))
+            return args.c ? a.every(i => this.compare(i,b,n)) : a.some(i => this.compare(i,b,n))
+        }
+        bArrayhavebignumber(args){
+            return JSON.parse(args.a).some(i => i > args.b)
+        }
+        bArrayhavenotsmallnumber(args){
+            return JSON.parse(args.a).some(i => i >= args.b)
+        }
+        bArrayhavesmallnumber(args){
+            return JSON.parse(args.a).some(i => i < args.b)
+        }
+        bArrayhavenotbignumber(args){
+            return JSON.parse(args.a).some(i => i <= args.b)
+        }
+        bArrayhavenumber(args){
+            return JSON.parse(args.a).includes(Number(args.b))
+        }
+        bArrayhave(args){
+            return JSON.parse(args.a).some(i => i == args.b)
+        }
+        bArraybeJSON(args){
+            return JSON.parse(args.a).every(i => JSON.stringify(i) == args.b)
+        }
+        bArraybestr(args){
+            const b = String(args.b)
+            return JSON.parse(args.a).every(i => i === b)
+        }
+        bArraybebignumber(args){
+            return JSON.parse(args.a).every(i => i > args.b)
+        }
+        bArraybenotsmallnumber(args){
+            return JSON.parse(args.a).every(i => i >= args.b)
+        }
+        bArraybesmallnumber(args){
+            return JSON.parse(args.a).every(i => i < args.b)
+        }
+        bArraybenotbignumber(args){
+            return JSON.parse(args.a).every(i => i <= args.b)
+        }
+        bArraybenumber(args){
+            return JSON.parse(args.a).every(i => i === Number(args.b))
+        }
+        bArraybe(args){
+            return JSON.parse(args.a).every(i => i == args.b)
+        }
+        bArrayequal(args){
+            return JSON.stringify(JSON.parse(args.a).sort(Scratch.Cast.compare))==JSON.stringify(JSON.parse(args.b).sort(Scratch.Cast.compare))
+        }
+        bArraystrictlyequal(args){
+            return JSON.stringify(JSON.parse(args.a).sort(Scratch.Cast.compare))===JSON.stringify(JSON.parse(args.b).sort(Scratch.Cast.compare))
+        }
         bArrayclear(args){
             return args.a == '[]'
-        }
-        rArraylength(args){
-            return JSON.parse(args.a).length
         }
         bisArray(args){
             return Array.isArray(JSON.parse(args.a))
         }
-        rObjectvalue(args){
-            return JSON.parse(args.a)[args.b]
-        }
-        rObjectvalueJSON(args){
-            return JSON.stringify(JSON.parse(args.a)[args.b])
-        }
-        rObjectkey(args){
-            const a = JSON.parse(args.a);
-            const keys = Object.keys(a);
-            const values = Object.values(a)
-            return keys[values.indexOf(args.b)]
-        }
-        rObjectlastkey(args){
-            const a = JSON.parse(args.a);
-            const keys = Object.keys(a);
-            const values = Object.values(a)
-            return keys[values.lastIndexOf(args.b)]
-        }
-        rObjectallkey(args){
-            const a = JSON.parse(args.a);
-            const b = args.b;
-            const keys = Object.keys(a);
-            let key = []
-            Object.values(a).forEach((t,i)=>{
-                if(t===b)key.push(keys[i])
-            })
-            return JSON.stringify(key)
-        }
-        rObjectkeynumber(args){
-            const a = JSON.parse(args.a);
-            const keys = Object.keys(a);
-            const values = Object.values(a)
-            return keys[values.indexOf(Number(args.b))]
-        }
-        rObjectlastkeynumber(args){
-            const a = JSON.parse(args.a);
-            const keys = Object.keys(a);
-            const values = Object.values(a)
-            return keys[values.lastIndexOf(Number(args.b))]
-        }
-        rObjectallkeynumber(args){
-            const a = JSON.parse(args.a);
-            const b =Number(args.b);
-            const keys = Object.keys(a);
-            let key = []
-            Object.values(a).forEach((t,i)=>{
-                if(t===b)key.push(keys[i])
-            })
-            return JSON.stringify(key)
-        }
-        rObjectkeystr(args){
-            const a = JSON.parse(args.a);
-            const keys = Object.keys(a);
-            const values = Object.values(a)
-            return keys[values.indexOf(String(args.b))]
-        }
-        rObjectlastkeystr(args){
-            const a = JSON.parse(args.a);
-            const keys = Object.keys(a);
-            const values = Object.values(a)
-            return keys[values.lastIndexOf(String(args.b))]
-        }
-        rObjectallkeystr(args){
-            const a = JSON.parse(args.a);
-            const b = String(args.b);
-            const keys = Object.keys(a);
-            let key = []
-            Object.values(a).forEach((t,i)=>{
-                if(t===b)key.push(keys[i])
-            })
-            return JSON.stringify(key)
-        }
-        rObjectkeyJSON(args){
-            const a = JSON.parse(args.a);
-            const keys = Object.keys(a);
-            const values = Object.values(a)
-            return keys[values.indexOf(JSON.parse(args.b))]
-        }
-        rObjectlastkeyJSON(args){
-            const a = JSON.parse(args.a);
-            const keys = Object.keys(a);
-            const values = Object.values(a)
-            return keys[values.lastIndexOf(JSON.parse(args.b))]
-        }
-        rObjectallkeyJSON(args){
-            const a = JSON.parse(args.a);
-            const b =JSON.parse(args.b);
-            const keys = Object.keys(a);
-            let key = []
-            Object.values(a).forEach((t,i)=>{
-                if(t===b)key.push(keys[i])
-            })
-            return JSON.stringify(key)
-        }
-        rObjectputkey(args){
+        rObjectremove(args){
             let a=JSON.parse(args.a);
-            a[args.b]=args.c
+            delete a[args.b]
             return JSON.stringify(a)
         }
-        rObjectputkeynumber(args){
+        rObjectremovekeys(args){
+            let a=JSON.parse(args.a)
+            for(const t of JSON.parse(args.b)){
+                delete a[t]
+            }
+            return JSON.stringify(a)
+        }
+        rmenuObjectset(args){
+            const a = args.b ? args.a : JSON.parse(args.a);
+            const b = this.totype(args.e,args.f)
+            if(args.d){
+                a[args.c] += b
+            }
+            else{
+                a[args.c] = b
+            }
+            return args.g ? a : JSON.stringify(a)
+        }
+        rObjectputkeyJSON(args){
             let a=JSON.parse(args.a);
-            a[args.b]=Number(args.c)
+            a[args.b]=JSON.parse(args.c)
             return JSON.stringify(a)
         }
         rObjectputkeystr(args){
@@ -6725,9 +6469,14 @@
             a[args.b]=String(args.c)
             return JSON.stringify(a)
         }
-        rObjectputkeyJSON(args){
+        rObjectputkeynumber(args){
             let a=JSON.parse(args.a);
-            a[args.b]=JSON.parse(args.c)
+            a[args.b]=Number(args.c)
+            return JSON.stringify(a)
+        }
+        rObjectputkey(args){
+            let a=JSON.parse(args.a);
+            a[args.b]=args.c
             return JSON.stringify(a)
         }
         rObjectpluskey(args){
@@ -6742,6 +6491,129 @@
                 a[t] += b
             }
             return JSON.stringify(a)
+        }
+        rmenuObjectmember(args){
+            return args.d ? (args.b ? args.a :JSON.parse(args.a))[args.c] : JSON.stringify((args.b ? args.a :JSON.parse(args.a))[args.c])
+        }
+        rObjectvalueJSON(args){
+            return JSON.stringify(JSON.parse(args.a)[args.b])
+        }
+        rObjectvalue(args){
+            return JSON.parse(args.a)[args.b]
+        }
+        rObjectkeyJSON(args){
+            const a = JSON.parse(args.a);
+            const keys = Object.keys(a);
+            const values = Object.values(a)
+            return keys[values.indexOf(JSON.parse(args.b))]
+        }
+        rObjectkeystr(args){
+            const a = JSON.parse(args.a);
+            const keys = Object.keys(a);
+            const values = Object.values(a)
+            return keys[values.indexOf(String(args.b))]
+        }
+        rObjectkeynumber(args){
+            const a = JSON.parse(args.a);
+            const keys = Object.keys(a);
+            const values = Object.values(a)
+            return keys[values.indexOf(Number(args.b))]
+        }
+        rObjectkey(args){
+            const a = JSON.parse(args.a);
+            const keys = Object.keys(a);
+            const values = Object.values(a)
+            return keys[values.indexOf(args.b)]
+        }
+        rObjectlastkeyJSON(args){
+            const a = JSON.parse(args.a);
+            const keys = Object.keys(a);
+            const values = Object.values(a)
+            return keys[values.lastIndexOf(JSON.parse(args.b))]
+        }
+        rObjectlastkeystr(args){
+            const a = JSON.parse(args.a);
+            const keys = Object.keys(a);
+            const values = Object.values(a)
+            return keys[values.lastIndexOf(String(args.b))]
+        }
+        rObjectlastkeynumber(args){
+            const a = JSON.parse(args.a);
+            const keys = Object.keys(a);
+            const values = Object.values(a)
+            return keys[values.lastIndexOf(Number(args.b))]
+        }
+        rObjectlastkey(args){
+            const a = JSON.parse(args.a);
+            const keys = Object.keys(a);
+            const values = Object.values(a)
+            return keys[values.lastIndexOf(args.b)]
+        }
+        rObjectallkeyJSON(args){
+            const a = JSON.parse(args.a);
+            const b =JSON.parse(args.b);
+            const keys = Object.keys(a);
+            let key = []
+            Object.values(a).forEach((t,i)=>{
+                if(t===b)key.push(keys[i])
+            })
+            return JSON.stringify(key)
+        }
+        rObjectallkeystr(args){
+            const a = JSON.parse(args.a);
+            const b = String(args.b);
+            const keys = Object.keys(a);
+            let key = []
+            Object.values(a).forEach((t,i)=>{
+                if(t===b)key.push(keys[i])
+            })
+            return JSON.stringify(key)
+        }
+        rObjectallkeynumber(args){
+            const a = JSON.parse(args.a);
+            const b =Number(args.b);
+            const keys = Object.keys(a);
+            let key = []
+            Object.values(a).forEach((t,i)=>{
+                if(t===b)key.push(keys[i])
+            })
+            return JSON.stringify(key)
+        }
+        rObjectallkey(args){
+            const a = JSON.parse(args.a);
+            const b = args.b;
+            const keys = Object.keys(a);
+            let key = []
+            Object.values(a).forEach((t,i)=>{
+                if(t===b)key.push(keys[i])
+            })
+            return JSON.stringify(key)
+        }
+        rmenuObjectkeys(args){
+            const a = args.b ? args.a : JSON.parse(args.a)
+            switch(args.c){
+                case 0 :
+                    return args.d ? Object.keys(a) : JSON.stringify(Object.keys(a))
+                case 1 :
+                    return args.d ? Object.values(a) : JSON.stringify(Object.values(a))
+                default:
+                    return args.d ? Object.entries(a) : JSON.stringify(Object.entries(a))
+            }
+        }
+        rObjectlength(args){
+            return Object.keys(JSON.parse(args.a)).length
+        }
+        rObjectkeys(args){
+            return JSON.stringify(Object.keys(JSON.parse(args.a)))
+        }
+        rObjectvalues(args){
+            return JSON.stringify(Object.values(JSON.parse(args.a)))
+        }
+        rObjectentries(args){
+            return JSON.stringify(Object.entries(JSON.parse(args.a)))
+        }
+        rObjectfromentries(args){
+            return JSON.stringify(Object.fromEntries(JSON.parse(args.a)))
         }
         rObjectputAll(args){
             return JSON.stringify(Object.assign(JSON.parse(args.b),JSON.parse(args.a)))
@@ -6759,42 +6631,135 @@
             }
             return JSON.stringify(a)
         }
-        rObjectremove(args){
-            let a=JSON.parse(args.a);
-            delete a[args.b]
-            return JSON.stringify(a)
-        }
-        rObjectremovekeys(args){
-            let a=JSON.parse(args.a)
-            for(const t of JSON.parse(args.b)){
-                delete a[t]
-            }
-            return JSON.stringify(a)
-        }
-        rObjectkeys(args){
-            return JSON.stringify(Object.keys(JSON.parse(args.a)))
-        }
-        rObjectvalues(args){
-            return JSON.stringify(Object.values(JSON.parse(args.a)))
-        }
-        rObjectentries(args){
-            return JSON.stringify(Object.entries(JSON.parse(args.a)))
-        }
-        rObjectfromentries(args){
-            return JSON.stringify(Object.fromEntries(JSON.parse(args.a)))
-        }
         bObjecthasownproperty(args){
             return JSON.parse(args.a).hasOwnProperty(args.b)
         }
         bObjectclear(args){
             return args.a == '{}'
         }
-        rObjectlength(args){
-            return Object.keys(JSON.parse(args.a)).length
-        }
         bisObject(args){
             const a = JSON.parse(args.a)
             return ! Array.isArray(a) && typeof a == 'object'
+        }
+
+
+        _isPrime = (number) => {
+            if (number <= 1) return false
+            if (number <= 3) return true
+            if (number % 2 === 0 || number % 3 === 0) return false
+            let i = 5
+            while (i * i <= number) {
+                if (number % i === 0 || number % (i + 2) === 0) return false
+                i += 6
+            }
+            return true
+        }
+        _isComposite = (number) => {
+            if (number <= 1) return false
+            for (let i = 2; i <= Math.sqrt(number); i++) {
+                if (number % i === 0) return true
+            }
+            return false
+        }
+        _compare(arg1, arg2, symbol) {
+            switch(symbol){
+                case 'equalNegative' :
+                    return Cast.compare(arg1, -arg2) === 0
+                case 'EqualPON' :
+                    return Cast.compare(arg1, -arg2) === 0 || Cast.compare(arg1, arg2) === 0
+                case 'approximatelyEqual' :
+                    return Math.abs(arg1 - arg2) <= 0.5
+                case 'vertical' :
+                    return ((arg1 - (arg2 - 90)) % 180) === 0
+                default:
+                    return ((arg1 - arg2) % 180) === 0
+            }
+        }
+        equal(a,b,c){
+            switch(c){
+                case 0 :
+                    return (typeof a == 'string' ? a.toLowerCase() : a) == (typeof b == 'string' ? b.toLowerCase() : b)
+                case 1 :
+                    return String(a).toLowerCase() == String(b).toLowerCase()
+                case 2 :
+                    return typeof a == typeof b
+                case 3 :
+                    return (typeof a == 'string' ? a.toLowerCase() : a) === (typeof b == 'string' ? b.toLowerCase() : b)
+                case 4 :
+                    return a == b
+                case 5 :
+                    return Object.is(a,b)
+                default :
+                    return a === b
+            }
+        }
+        notequal(a,b,c){
+            switch(c){
+                case 0 :
+                    return (typeof a == 'string' ? a.toLowerCase() : a) != (typeof b == 'string' ? b.toLowerCase() : b)
+                case 1 :
+                    return String(a).toLowerCase() != String(b).toLowerCase()
+                case 2 :
+                    return typeof a != typeof b
+                case 3 :
+                    return (typeof a == 'string' ? a.toLowerCase() : a) !== (typeof b == 'string' ? b.toLowerCase() : b)
+                case 4 :
+                    return a != b
+                case 5 :
+                    return ! Object.is(a,b)
+                default :
+                    return a !== b
+            }
+        }
+        totype(a,b){
+            switch(b){
+                case 0 :
+                    return JSON.parse(a)
+                case 1 :
+                    return a
+                case 2 :
+                    return ! falseList2.includes(a)
+                case 3 :
+                    return ! falseList1.includes(a)
+                case 4 :
+                    return Number(a)
+                case 5 :
+                    return Cast.toNumber(a)
+                default:
+                    return String(a)
+            }
+        }
+        compare(a,b,c){
+            switch(c){
+                case 0 :
+                    return a != b
+                case 1 :
+                    return a == b
+                case 2 :
+                    return a >= b
+                case 3 :
+                    return a > b
+                case 4 :
+                    return a <= b
+                default :
+                    return a < b
+            }
+        }
+        notcompare(a,b,c){
+            switch(c){
+                case 0 :
+                    return a == b
+                case 1 :
+                    return a != b
+                case 2 :
+                    return a < b
+                case 3 :
+                    return a <= b
+                case 4 :
+                    return a > b
+                default :
+                    return a >= b
+            }
         }
     }
     
