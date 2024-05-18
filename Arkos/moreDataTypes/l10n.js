@@ -185,7 +185,7 @@ const l10n = {
   ],
 
   'block.addItemToList2': [
-    '将[VALUE][OP][NAME_OR_OBJ]',
+    '向[NAME_OR_OBJ][OP][VALUE]',
     '[VALUE][OP][NAME_OR_OBJ]',
   ],
   'menu.addTo': ['加入', 'add to'],
@@ -193,7 +193,7 @@ const l10n = {
   'menu.ifNotExistsaddTo': ['(如果不存在)加入', '(if not exists) add to'],
 
   'block.addItemToListAndReturn': [
-    '🗄️将[VALUE][OP][OBJ]并返回',
+    '🗄️向[OBJ][OP][VALUE]并返回',
     '🗄️[VALUE][OP]list[OBJ]and return',
   ],
   'block.createListWithLength': [
