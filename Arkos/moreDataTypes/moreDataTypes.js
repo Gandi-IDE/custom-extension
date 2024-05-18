@@ -990,6 +990,28 @@ class moreDataTypes {
           },
         },
       },
+      // 获取对象键对应值
+      {
+        opcode: 'getSubObject',
+        blockType: Scratch.BlockType.REPORTER,
+        hideFromPalette: !this.showMoreObjBlocks,
+        disableMonitor: true,
+        text: this.fm('block.getSubObject'),
+        arguments: {
+          OBJ: {
+            type: Scratch.ArgumentType.STRING,
+            defaultValue: '{"a":1,"b":2,"c":3}',
+          },
+          TYPE: {
+            type: Scratch.ArgumentType.STRING,
+            menu: 'VALUES_OR_OBJ',
+          },
+          KEYS: {
+            type: Scratch.ArgumentType.STRING,
+            defaultValue: '["a","b"]',
+          },
+        },
+      },
       // 清空
       {
         opcode: 'clear',
@@ -1436,6 +1458,16 @@ class moreDataTypes {
           {
             text: this.fm('menu.descSort'),
             value: 'desc',
+          },
+        ],
+        VALUES_OR_OBJ: [
+          {
+            text: this.fm('menu.subObj'),
+            value: 'obj',
+          },
+          {
+            text: this.fm('menu.values'),
+            value: 'v',
           },
         ],
         KEYS_OR_VALUES_OR_ENTRIES: [
@@ -2915,6 +2947,22 @@ class moreDataTypes {
     if (OPTION === 'name') return key;
 
     return this.__getDataByOption(obj[key], OPTION);
+  }
+
+  getSubObject({ OBJ, TYPE, KEYS }) {
+    let obj = this.__getObjByNameOrObj(OBJ);
+    if (!obj) obj = Object.create(null);
+    let keys = this.__getListByNameOrObj(KEYS);
+    if (!keys) keys = [];
+    const isGettingObj = TYPE === 'obj';
+    const res = isGettingObj ? Object.create(null) : [];
+    keys.forEach((key) => {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        if (isGettingObj) res[key] = obj[key];
+        else res.push(obj[key]);
+      }
+    });
+    return SafeObject.toSafeObject(res);
   }
 
   /**

@@ -63,6 +63,10 @@ const l10n = {
     'Configuration for Advanced Data Structure Extension(Inspired by TurboWarp)\nCan be deleted to remove the stored settings.',
   ],
   'block.deleteAllTempData': ['删除所有数据', 'delete all data'],
+  'block.getSubObject': ['🗄️根据键[KEYS]获取[OBJ]的[TYPE]', '🗄️get [TYPE] from [OBJ] by keys[KEYS]'],
+  'menu.values': ['值列表', 'values'],
+  'menu.subObj': ['子对象', 'sub-object'],
+  'tooltip.getSubObject': ['根据键(属性)列表，从对象中获取值/子对象。', 'Get the values/object from an object based on a list of keys (properties).'],
   'block.getCountOfTempData': ['数据量', 'data count'],
   'block.listAllData': ['已有数据名称', 'names of existing data'],
   'block.delTempData': [
