@@ -1244,7 +1244,7 @@ class str_mani {
   }
   split(args) {
     let str_ = String(args.STR).split(String(args.STR2));
-    return '[' + str_.map(value => '"' + String(value) + '"').join(',') + ']';
+    return JSON.stringify(str_);
   }
   splitid(args) {
     let str_ = String(args.STR).split(String(args.STR2));
