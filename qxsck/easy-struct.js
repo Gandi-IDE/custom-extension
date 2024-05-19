@@ -586,15 +586,15 @@ class easyStruct {
       if(type_==='length') return this.structs[name].length;
       else if(type_==='members'){
         let members=this.structs[name];
-        return '['+members.map(value=>'"'+String(value)+'"').join(',')+']';
+        return JSON.stringify(members);
       }
     }else return '';
   }
   getData(args){
     let type_=String(args.TYPE);
-    if(type_==='structTypes') return '['+Object.keys(this.structs).map(value=>'"'+String(value)+'"').join(',')+']';
-    else if(type_==='structs') return '['+Object.keys(this.useStructs).map(value=>'"'+String(value)+'"').join(',')+']';
-    else if(type_==='structLists') return '['+Object.keys(this.useStructLists).map(value=>'"'+String(value)+'"').join(',')+']';
+    if(type_==='structTypes') return JSON.stringify(Object.keys(this.structs));
+    else if(type_==='structs') return  JSON.stringify(Object.keys(this.useStructs));
+    else if(type_==='structLists') return JSON.stringify(Object.keys(this.useStructLists));
     else return '';
   }
   deleteData(args){
