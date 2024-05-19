@@ -119,7 +119,7 @@ class dataAnalysis {
     }
     this.minimumFunc=function(numbers_,type){
       let numbers=this.getData(numbers_,type);
-      console.log(numbers);
+      //console.log(numbers);
       return Math.min(...numbers);
     }
     this.medianFunc=function(numbers_,type){
