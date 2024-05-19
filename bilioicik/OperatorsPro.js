@@ -34,202 +34,202 @@
             }
             this._formatMessage = runtime.getFormatMessage({
                 "zh-cn": {
-                    'OperatorsPro.rmenutypeof':'[a]作为[b]类型，[c]数组和对象',
-                    'OperatorsPro.bmenutypeof':'[a]作为[b]类型为[c]',
-                    'OperatorsPro.rJSONtypeof':'JSON[a]类型',
-                    'OperatorsPro.bJSONtypeof':'JSON[a]类型为[b]',
-                    'OperatorsPro.bmenuToBoolean':'[a][b]时[c]',
-                    'OperatorsPro.rmenuif':'若[a][b]则[c]否则[d]',
-                    'OperatorsPro.bmenuand':'[a][b][c][d]时[e]',
-                    'OperatorsPro.rif': '若[a]则[b]否则[c]',
-                    'OperatorsPro.band': '[a]与[b]',
-                    'OperatorsPro.bor': '[a]或[b]',
-                    'OperatorsPro.bnot': '[a]不成立',
-                    'OperatorsPro.rpadstart':'[a]插入[b]使长度为[c]',
-                    'OperatorsPro.rpadend':'[a]加入[b]使长度为[c]',
-                    'OperatorsPro.rremove':'[a]去除[b]',
-                    'OperatorsPro.rinterchange':'[a]字符[b]互换[c]',
-                    'OperatorsPro.rreplaceexcept':'[a]字符[b]排除[c]替换为[d]',
-                    'OperatorsPro.bmenuundefined':'[a][b]是[c]',
-                    'OperatorsPro.rdefault':'[a]空值则[b]',
-                    'OperatorsPro.bdefined':'[a]有值',
-                    'OperatorsPro.bundefined':'[a]空值',
-                    'OperatorsPro.bmenuequal':'[a][b][c]，因为它们的[d]',
-                    'OperatorsPro.bnotstrictlyequal':'[a]不全等[b]',
-                    'OperatorsPro.bnotcontain':'[a]不含[b]',
-                    'OperatorsPro.rrandom':'0到1随机数',
-                    'OperatorsPro.rnearestmultiple':'[a]最近[b]倍数',
-                    'OperatorsPro.rmod':'[a]/[b]余数',
-                    'OperatorsPro.rround':'[a]四舍五入[b]位',
-                    'OperatorsPro.rrintfromto':'[a]四舍五入，从[b]位至[c]位',
-                    'OperatorsPro.rrinttotimes':'[a]四舍五入，从[b]位往前[c]次',
-                    'OperatorsPro.rrinttimesto':'[a]四舍五入，往前[b]次至[c]位',
+                    'OperatorsPro.rMenuTypeof':'[a]作为[b]类型，[c]数组和对象',
+                    'OperatorsPro.bMenuTypeof':'[a]作为[b]类型为[c]',
+                    'OperatorsPro.rJSONTypeof':'JSON[a]类型',
+                    'OperatorsPro.bJSONTypeof':'JSON[a]类型为[b]',
+                    'OperatorsPro.bMenuToBoolean':'[a][b]时[c]',
+                    'OperatorsPro.rMenuIf':'若[a][b]则[c]否则[d]',
+                    'OperatorsPro.bMenuAnd':'[a][b][c][d]时[e]',
+                    'OperatorsPro.rIf': '若[a]则[b]否则[c]',
+                    'OperatorsPro.bAnd': '[a]与[b]',
+                    'OperatorsPro.bOr': '[a]或[b]',
+                    'OperatorsPro.bNot': '[a]不成立',
+                    'OperatorsPro.rPadStart':'[a]插入[b]使长度为[c]',
+                    'OperatorsPro.rPadEnd':'[a]加入[b]使长度为[c]',
+                    'OperatorsPro.rRemove':'[a]去除[b]',
+                    'OperatorsPro.rInterchange':'[a]字符[b]互换[c]',
+                    'OperatorsPro.rReplaceExcept':'[a]字符[b]排除[c]替换为[d]',
+                    'OperatorsPro.bMenuUndefined':'[a][b]是[c]',
+                    'OperatorsPro.rDefault':'[a]空值则[b]',
+                    'OperatorsPro.bDefined':'[a]有值',
+                    'OperatorsPro.bUndefined':'[a]空值',
+                    'OperatorsPro.bMenuEqual':'[a][b][c]，因为它们的[d]',
+                    'OperatorsPro.bNotstrictlyequal':'[a]不全等[b]',
+                    'OperatorsPro.bNotcontain':'[a]不含[b]',
+                    'OperatorsPro.rRandom':'0到1随机数',
+                    'OperatorsPro.rNearestMultiple':'[a]最近[b]倍数',
+                    'OperatorsPro.rMod':'[a]/[b]余数',
+                    'OperatorsPro.rRound':'[a]四舍五入[b]位',
+                    'OperatorsPro.rRintFromTo':'[a]四舍五入，从[b]位至[c]位',
+                    'OperatorsPro.rRintToTimes':'[a]四舍五入，从[b]位往前[c]次',
+                    'OperatorsPro.rRintTimesTo':'[a]四舍五入，往前[b]次至[c]位',
                     'OperatorsPro.rPI':'[i]保留[a]位',
-                    'OperatorsPro.rmenurad':'弧度制[a][b][c]',
-                    'OperatorsPro.rmenutoonehundredeighty':'[a][b]在[c]角度中',
-                    'OperatorsPro.rradsin':'弧度制sin[a]',
-                    'OperatorsPro.rradcos':'弧度制cos[a]',
-                    'OperatorsPro.rradtan':'弧度制tan[a]',
-                    'OperatorsPro.rradasin':'弧度制asin[a]',
-                    'OperatorsPro.rradacos':'弧度制acos[a]',
-                    'OperatorsPro.rradatan':'弧度制atan[a]',
-                    'OperatorsPro.rtoonehundredeighty':'[a]在-180~180角度中',
-                    'OperatorsPro.rtothreehundredsixty':'[a]在0~360角度中',
-                    'OperatorsPro.raddto':'[a]增加[b]至[c]',
-                    'OperatorsPro.rmenuArrayremoveitem':'[a]作为[b]删除第[c]项，返回[d]',
-                    'OperatorsPro.rArrayremoveshift':'[a]删除首项',
-                    'OperatorsPro.rArrayremovepop':'[a]删除末项',
-                    'OperatorsPro.rArrayremoveitem':'[a]删除第[b]项',
-                    'OperatorsPro.rArrayremoveitems':'[a]删除第[b]项',
-                    'OperatorsPro.rArrayremoveitemtoitem':'[a]删除第[b]至[c]项',
-                    'OperatorsPro.rArrayreserveitem':'[a]保留第[b]项',
-                    'OperatorsPro.rmenuArrayremove':'[a]作为[b]删除[c][d]，因为[e]，返回[f]',
-                    'OperatorsPro.rArrayremoveJSON':'[a]删除所有JSON[b]',
-                    'OperatorsPro.rArrayremovestr':'[a]删除所有"[b]"',
-                    'OperatorsPro.rmenuArrayremovenumber':'[a]作为[b]删除[c][d][e]，因为[f]，返回[g]',
-                    'OperatorsPro.rArrayremovebignumber':'[a]删除数>[b]',
-                    'OperatorsPro.rArrayremovenotsmallnumber':'[a]删除数≥[b]',
-                    'OperatorsPro.rArrayremovesmallnumber':'[a]删除数<[b]',
-                    'OperatorsPro.rArrayremovenotbignumber':'[a]删除数≤[b]',
-                    'OperatorsPro.rArrayremovenumber':'[a]删除所有数[b]',
-                    'OperatorsPro.rArrayremove':'[a]删除所有[b]',
-                    'OperatorsPro.rmenuArrayinsert':'[a]作为[b]第[c]项[d][e][f],返回[g]',
-                    'OperatorsPro.rArrayunshiftJSON':'[a]加入JSON[b]到开头',
-                    'OperatorsPro.rArrayunshiftstr':'[a]加入"[b]"到开头',
-                    'OperatorsPro.rArrayunshiftnumber':'[a]加入数[b]到开头',
-                    'OperatorsPro.rArrayunshift':'[a]加入[b]到开头',
-                    'OperatorsPro.rArraypushJSON':'[a]加入JSON[b]到末尾',
-                    'OperatorsPro.rArraypushstr':'[a]加入"[b]"到末尾',
-                    'OperatorsPro.rArraypushnumber':'[a]加入数[b]到末尾',
-                    'OperatorsPro.rArraypush':'[a]加入[b]到末尾',
-                    'OperatorsPro.rArrayinsertJSON':'[a]插入JSON[b]到[c]项',
-                    'OperatorsPro.rArrayinsertstr':'[a]插入"[b]"到[c]项',
-                    'OperatorsPro.rArrayinsertnumber':'[a]插入数[b]到[c]项',
-                    'OperatorsPro.rArrayinsert':'[a]插入[b]到[c]项',
-                    'OperatorsPro.rArrayinsertJSONindextoindex':'[a]插入JSON[b]到[c]至[d]项',
-                    'OperatorsPro.rArrayinsertstrindextoindex':'[a]插入"[b]"到[c]至[d]项',
-                    'OperatorsPro.rArrayinsertnumberindextoindex':'[a]插入数[b]到[c]至[d]项',
-                    'OperatorsPro.rArrayinsertindextoindex':'[a]插入[b]到[c]至[d]项',
-                    'OperatorsPro.rArraymove':'[a]第[b]项移到第[c]项',
-                    'OperatorsPro.rArrayreplaceJSON':'[a]第[b]项设为JSON[c]',
-                    'OperatorsPro.rArrayreplacestr':'[a]第[b]项设为"[c]"',
-                    'OperatorsPro.rArrayreplacenumber':'[a]第[b]项设为数[c]',
-                    'OperatorsPro.rArrayreplace':'[a]第[b]项设为[c]',
-                    'OperatorsPro.rArrayreplaceindexesJSON':'[a]第[b]项设为JSON[c]',
-                    'OperatorsPro.rArrayreplaceindexesstr':'[a]第[b]项设为"[c]"',
-                    'OperatorsPro.rArrayreplaceindexesnumber':'[a]第[b]项设为数[c]',
-                    'OperatorsPro.rArrayreplaceindexes':'[a]第[b]项设为[c]',
-                    'OperatorsPro.rArrayreplaceindextoindexJSON':'[a]第[b]到[c]项设为JSON[d]',
-                    'OperatorsPro.rArrayreplaceindextoindexstr':'[a]第[b]到[c]项设为"[d]"',
-                    'OperatorsPro.rArrayreplaceindextoindexnumber':'[a]第[b]到[c]项设为数[d]',
-                    'OperatorsPro.rArrayreplaceindextoindex':'[a]第[b]到[c]项设为[d]',
-                    'OperatorsPro.rArrayinterchange':'[a]第[b]项与第[c]项互换',
-                    'OperatorsPro.rArrayplusindex':'[a]第[b]项增加[c]',
-                    'OperatorsPro.rArrayplusindextoindex':'[a]第[b]到[c]项增加[d]',
-                    'OperatorsPro.rArrayplus':'[a]各项增加[b]',
-                    'OperatorsPro.rmenuArrayitem':'[a]作为[b]第[c]项，返回[d]',
-                    'OperatorsPro.rArrayshiftJSON':'[a]首项转JSON',
-                    'OperatorsPro.rArrayshift':'[a]首项',
-                    'OperatorsPro.rArraypopJSON':'[a]末项转JSON',
-                    'OperatorsPro.rArraypop':'[a]末项',
-                    'OperatorsPro.rArrayitemJSON':'[a]第[b]项转JSON',
-                    'OperatorsPro.rArrayitem':'[a]第[b]项',
-                    'OperatorsPro.rArrayitems':'[a]第[b]项',
-                    'OperatorsPro.rArrayitemtoitem':'[a]第[b]至[c]项',
-                    'OperatorsPro.rmenuArrayindex':'[a]作为[b][c][d][e]的编号，因为[f]',
-                    'OperatorsPro.rmenuArrayindexnumber':'[a]作为[b][c][d][e][f]的编号，因为[g]',
-                    'OperatorsPro.rArrayindexJSON':'[a]第一JSON[b]编号',
-                    'OperatorsPro.rArrayindexstr':'[a]第一"[b]"编号',
-                    'OperatorsPro.rArrayfindIndexbignumber':'[a]第一数>[b]编号',
-                    'OperatorsPro.rArrayfindIndexnotsmallnumber':'[a]第一数≥[b]编号',
-                    'OperatorsPro.rArrayfindIndexsmallnumber':'[a]第一数<[b]编号',
-                    'OperatorsPro.rArrayfindIndexnotbignumber':'[a]第一数≤[b]编号',
-                    'OperatorsPro.rArrayindexnumber':'[a]第一数[b]编号',
-                    'OperatorsPro.rArrayindex':'[a]第一[b]编号',
-                    'OperatorsPro.rArraylastindexJSON':'[a]最后一JSON[b]编号',
-                    'OperatorsPro.rArraylastindexstr':'[a]最后一"[b]"编号',
-                    'OperatorsPro.rArraylastindexnumber':'[a]最后一数[b]编号',
-                    'OperatorsPro.rArraylastindex':'[a]最后一[b]编号',
-                    'OperatorsPro.rArrayallindexJSON':'[a]所有JSON[b]编号',
-                    'OperatorsPro.rArrayallindexstr':'[a]所有"[b]"编号',
-                    'OperatorsPro.rArrayallindexnumber':'[a]所有数[b]编号',
-                    'OperatorsPro.rArrayallindex':'[a]所有[b]编号',
-                    'OperatorsPro.rmenuArraycount':'[a]作为[b]中[c][d]的数量，因为[e]',
-                    'OperatorsPro.rArraycountJSON':'[a]JSON[b]数量',
-                    'OperatorsPro.rArraycountstr':'[a]"[b]"数量',
-                    'OperatorsPro.rmenuArraycountnumber':'[a]作为[b]中[c][d][e]的数量，因为[f]',
-                    'OperatorsPro.rArraycountbignumber':'[a]数>[b]数量',
-                    'OperatorsPro.rArraycountnotsmallnumber':'[a]数≥[b]数量',
-                    'OperatorsPro.rArraycountsmallnumber':'[a]数<[b]数量',
-                    'OperatorsPro.rArraycountnotbignumber':'[a]数≤[b]数量',
-                    'OperatorsPro.rArraycountnumber':'[a]数[b]数量',
-                    'OperatorsPro.rArraycount':'[a][b]数量',
-                    'OperatorsPro.rmenuArraylength':'[a]作为[b][c]',
-                    'OperatorsPro.rArraylength':'[a]元素量',
-                    'OperatorsPro.rArraysum':'[a]之和',
-                    'OperatorsPro.rArrayproduct':'[a]之积',
-                    'OperatorsPro.rArrayaverage':'[a]平均数',
-                    'OperatorsPro.rArraymax':'[a]最大值',
-                    'OperatorsPro.rArraymin':'[a]最小值',
-                    'OperatorsPro.rmenuArraysort':'[a]作为[b][c]排序，返回[d]',
-                    'OperatorsPro.rArraysortnaturalOrder':'[a]顺序排序',
-                    'OperatorsPro.rArraysortreverseOrder':'[a]倒序排序',
-                    'OperatorsPro.rArrayreverse':'[a]反转',
-                    'OperatorsPro.bmenuArrayhave':'[a]作为[b][c][d][e]，因为[f]',
-                    'OperatorsPro.bArrayhaveJSON':'[a]包含JSON[b]',
-                    'OperatorsPro.bArrayhavestr':'[a]包含"[b]"',
-                    'OperatorsPro.bmenuArrayhavenumber':'[a]作为[b][c][d][e][f]，因为[g]',
-                    'OperatorsPro.bArrayhavebignumber':'[a]包含数>[b]',
-                    'OperatorsPro.bArrayhavenotsmallnumber':'[a]包含数≥[b]',
-                    'OperatorsPro.bArrayhavesmallnumber':'[a]包含数<[b]',
-                    'OperatorsPro.bArrayhavenotbignumber':'[a]包含数≤[b]',
-                    'OperatorsPro.bArrayhavenumber':'[a]包含数[b]',
-                    'OperatorsPro.bArrayhave':'[a]包含[b]',
-                    'OperatorsPro.bArraybeJSON':'[a]只含JSON[b]',
-                    'OperatorsPro.bArraybestr':'[a]只含"[b]"',
-                    'OperatorsPro.bArraybebignumber':'[a]只含数>[b]',
-                    'OperatorsPro.bArraybenotsmallnumber':'[a]只含数≥[b]',
-                    'OperatorsPro.bArraybesmallnumber':'[a]只含数<[b]',
-                    'OperatorsPro.bArraybenotbignumber':'[a]只含数≤[b]',
-                    'OperatorsPro.bArraybenumber':'[a]只含数[b]',
-                    'OperatorsPro.bArraybe':'[a]只含[b]',
-                    'OperatorsPro.bArraystrictlyequal':'[a]全等[b]',
-                    'OperatorsPro.bArrayclear':'[a]无元素',
-                    'OperatorsPro.bisArray':'[a]是数组',
-                    'OperatorsPro.rObjectremove':'[a]删除键[b]',
-                    'OperatorsPro.rObjectremovekeys':'[a]删除键[b]',
-                    'OperatorsPro.rmenuObjectset':'[a]作为[b]成员[c][d][e][f]，返回[g]',
-                    'OperatorsPro.rObjectputkeyJSON':'[a]键[b]值设为JSON[c]',
-                    'OperatorsPro.rObjectputkeystr':'[a]键[b]值设为"[c]"',
-                    'OperatorsPro.rObjectputkeynumber':'[a]键[b]值设为数[c]',
-                    'OperatorsPro.rObjectputkey':'[a]键[b]值设为[c]',
-                    'OperatorsPro.rObjectpluskey':'[a]键[b]值增加[c]',
-                    'OperatorsPro.rObjectplus':'[a]值增加[b]',
-                    'OperatorsPro.rmenuObjectmember':'[a]作为[b]成员[c]，返回[d]',
-                    'OperatorsPro.rObjectvalueJSON':'[a]键[b]的值转JSON',
-                    'OperatorsPro.rObjectvalue':'[a]键[b]的值',
-                    'OperatorsPro.rObjectkeyJSON':'[a]第一值JSON[b]键',
-                    'OperatorsPro.rObjectkeystr':'[a]第一值"[b]"键',
-                    'OperatorsPro.rObjectkeynumber':'[a]第一值=[b]键',
-                    'OperatorsPro.rObjectkey':'[a]第一值[b]键',
-                    'OperatorsPro.rObjectlastkeyJSON':'[a]最后一值JSON[b]键',
-                    'OperatorsPro.rObjectlastkeystr':'[a]最后一值"[b]"键',
-                    'OperatorsPro.rObjectlastkeynumber':'[a]最后一值=[b]键',
-                    'OperatorsPro.rObjectlastkey':'[a]最后一值[b]键',
-                    'OperatorsPro.rObjectallkeyJSON':'[a]所有值JSON[b]键',
-                    'OperatorsPro.rObjectallkeystr':'[a]所有值"[b]"键',
-                    'OperatorsPro.rObjectallkeynumber':'[a]所有值=[b]键',
-                    'OperatorsPro.rObjectallkey':'[a]所有值[b]键',
-                    'OperatorsPro.rmenuObjectkeys':'[a]作为[b]所有[c]，返回[d]',
-                    'OperatorsPro.rObjectlength':'[a]键值量',
-                    'OperatorsPro.rObjectkeys':'[a]所有键',
-                    'OperatorsPro.rObjectvalues':'[a]所有值',
-                    'OperatorsPro.rObjectentries':'[a]所有数据',
-                    'OperatorsPro.rObjectfromentries':'[a]数据转对象',
-                    'OperatorsPro.rObjectputAll':'[a][b]合并',
-                    'OperatorsPro.bObjecthasownproperty':'[a]包含键[b]',
-                    'OperatorsPro.bObjectclear':'[a]无键值',
-                    'OperatorsPro.bisObject':'[a]是对象',
+                    'OperatorsPro.rMenuRad':'弧度制[a][b][c]',
+                    'OperatorsPro.rMenuToOneHundredEighty':'[a][b]在[c]角度中',
+                    'OperatorsPro.rRadSin':'弧度制sin[a]',
+                    'OperatorsPro.rRadCos':'弧度制cos[a]',
+                    'OperatorsPro.rRadTan':'弧度制tan[a]',
+                    'OperatorsPro.rRadAsin':'弧度制asin[a]',
+                    'OperatorsPro.rRadAcos':'弧度制acos[a]',
+                    'OperatorsPro.rRadAtan':'弧度制atan[a]',
+                    'OperatorsPro.rToOneHundredEighty':'[a]在-180~180角度中',
+                    'OperatorsPro.rToThreeHundredSixty':'[a]在0~360角度中',
+                    'OperatorsPro.rAddTo':'[a]增加[b]至[c]',
+                    'OperatorsPro.rMenuArrayRemoveItem':'[a]作为[b]删除第[c]项，返回[d]',
+                    'OperatorsPro.rArrayRemoveShift':'[a]删除首项',
+                    'OperatorsPro.rArrayRemovePop':'[a]删除末项',
+                    'OperatorsPro.rArrayRemoveItem':'[a]删除第[b]项',
+                    'OperatorsPro.rArrayRemoveItems':'[a]删除第[b]项',
+                    'OperatorsPro.rArrayRemoveItemtoitem':'[a]删除第[b]至[c]项',
+                    'OperatorsPro.rArrayReserveItem':'[a]保留第[b]项',
+                    'OperatorsPro.rMenuArrayRemove':'[a]作为[b]删除[c][d]，因为[e]，返回[f]',
+                    'OperatorsPro.rArrayRemoveJSON':'[a]删除所有JSON[b]',
+                    'OperatorsPro.rArrayRemoveStr':'[a]删除所有"[b]"',
+                    'OperatorsPro.rMenuArrayRemovenumber':'[a]作为[b]删除[c][d][e]，因为[f]，返回[g]',
+                    'OperatorsPro.rArrayRemoveBigNumber':'[a]删除数>[b]',
+                    'OperatorsPro.rArrayRemoveNotSmallNumber':'[a]删除数≥[b]',
+                    'OperatorsPro.rArrayRemoveSmallNumber':'[a]删除数<[b]',
+                    'OperatorsPro.rArrayRemoveNotBigNumber':'[a]删除数≤[b]',
+                    'OperatorsPro.rArrayRemoveNumber':'[a]删除所有数[b]',
+                    'OperatorsPro.rArrayRemove':'[a]删除所有[b]',
+                    'OperatorsPro.rMenuArrayInsert':'[a]作为[b]第[c]项[d][e][f],返回[g]',
+                    'OperatorsPro.rArrayUnshiftJSON':'[a]加入JSON[b]到开头',
+                    'OperatorsPro.rArrayUnshiftStr':'[a]加入"[b]"到开头',
+                    'OperatorsPro.rArrayUnshiftNumber':'[a]加入数[b]到开头',
+                    'OperatorsPro.rArrayUnshift':'[a]加入[b]到开头',
+                    'OperatorsPro.rArrayPushJSON':'[a]加入JSON[b]到末尾',
+                    'OperatorsPro.rArrayPushStr':'[a]加入"[b]"到末尾',
+                    'OperatorsPro.rArrayPushNumber':'[a]加入数[b]到末尾',
+                    'OperatorsPro.rArrayPush':'[a]加入[b]到末尾',
+                    'OperatorsPro.rArrayInsertJSON':'[a]插入JSON[b]到[c]项',
+                    'OperatorsPro.rArrayInsertStr':'[a]插入"[b]"到[c]项',
+                    'OperatorsPro.rArrayInsertNumber':'[a]插入数[b]到[c]项',
+                    'OperatorsPro.rArrayInsert':'[a]插入[b]到[c]项',
+                    'OperatorsPro.rArrayInsertJSONindextoindex':'[a]插入JSON[b]到[c]至[d]项',
+                    'OperatorsPro.rArrayInsertStrindextoindex':'[a]插入"[b]"到[c]至[d]项',
+                    'OperatorsPro.rArrayInsertNumberindextoindex':'[a]插入数[b]到[c]至[d]项',
+                    'OperatorsPro.rArrayInsertindextoindex':'[a]插入[b]到[c]至[d]项',
+                    'OperatorsPro.rArrayMove':'[a]第[b]项移到第[c]项',
+                    'OperatorsPro.rArrayReplaceJSON':'[a]第[b]项设为JSON[c]',
+                    'OperatorsPro.rArrayReplaceStr':'[a]第[b]项设为"[c]"',
+                    'OperatorsPro.rArrayReplaceNumber':'[a]第[b]项设为数[c]',
+                    'OperatorsPro.rArrayReplace':'[a]第[b]项设为[c]',
+                    'OperatorsPro.rArrayReplaceindexesJSON':'[a]第[b]项设为JSON[c]',
+                    'OperatorsPro.rArrayReplaceindexesstr':'[a]第[b]项设为"[c]"',
+                    'OperatorsPro.rArrayReplaceindexesnumber':'[a]第[b]项设为数[c]',
+                    'OperatorsPro.rArrayReplaceindexes':'[a]第[b]项设为[c]',
+                    'OperatorsPro.rArrayReplaceindextoindexJSON':'[a]第[b]到[c]项设为JSON[d]',
+                    'OperatorsPro.rArrayReplaceindextoindexstr':'[a]第[b]到[c]项设为"[d]"',
+                    'OperatorsPro.rArrayReplaceindextoindexnumber':'[a]第[b]到[c]项设为数[d]',
+                    'OperatorsPro.rArrayReplaceindextoindex':'[a]第[b]到[c]项设为[d]',
+                    'OperatorsPro.rArrayInterchange':'[a]第[b]项与第[c]项互换',
+                    'OperatorsPro.rArrayPlusIndex':'[a]第[b]项增加[c]',
+                    'OperatorsPro.rArrayPlusIndextoindex':'[a]第[b]到[c]项增加[d]',
+                    'OperatorsPro.rArrayPlus':'[a]各项增加[b]',
+                    'OperatorsPro.rMenuArrayItem':'[a]作为[b]第[c]项，返回[d]',
+                    'OperatorsPro.rArrayShiftJSON':'[a]首项转JSON',
+                    'OperatorsPro.rArrayShift':'[a]首项',
+                    'OperatorsPro.rArrayPopJSON':'[a]末项转JSON',
+                    'OperatorsPro.rArrayPop':'[a]末项',
+                    'OperatorsPro.rArrayItemJSON':'[a]第[b]项转JSON',
+                    'OperatorsPro.rArrayItem':'[a]第[b]项',
+                    'OperatorsPro.rArrayItems':'[a]第[b]项',
+                    'OperatorsPro.rArrayItemtoitem':'[a]第[b]至[c]项',
+                    'OperatorsPro.rMenuArrayIndex':'[a]作为[b][c][d][e]的编号，因为[f]',
+                    'OperatorsPro.rMenuArrayIndexnumber':'[a]作为[b][c][d][e][f]的编号，因为[g]',
+                    'OperatorsPro.rArrayIndexJSON':'[a]第一JSON[b]编号',
+                    'OperatorsPro.rArrayIndexStr':'[a]第一"[b]"编号',
+                    'OperatorsPro.rArrayFindIndexBigNumber':'[a]第一数>[b]编号',
+                    'OperatorsPro.rArrayFindIndexNotSmallNumber':'[a]第一数≥[b]编号',
+                    'OperatorsPro.rArrayFindIndexSmallNumber':'[a]第一数<[b]编号',
+                    'OperatorsPro.rArrayFindIndexNotBigNumber':'[a]第一数≤[b]编号',
+                    'OperatorsPro.rArrayIndexNumber':'[a]第一数[b]编号',
+                    'OperatorsPro.rArrayIndex':'[a]第一[b]编号',
+                    'OperatorsPro.rArrayLastIndexJSON':'[a]最后一JSON[b]编号',
+                    'OperatorsPro.rArrayLastIndexStr':'[a]最后一"[b]"编号',
+                    'OperatorsPro.rArrayLastIndexNumber':'[a]最后一数[b]编号',
+                    'OperatorsPro.rArrayLastIndex':'[a]最后一[b]编号',
+                    'OperatorsPro.rArrayAllIndexJSON':'[a]所有JSON[b]编号',
+                    'OperatorsPro.rArrayAllIndexStr':'[a]所有"[b]"编号',
+                    'OperatorsPro.rArrayAllIndexNumber':'[a]所有数[b]编号',
+                    'OperatorsPro.rArrayAllIndex':'[a]所有[b]编号',
+                    'OperatorsPro.rMenuArrayCount':'[a]作为[b]中[c][d]的数量，因为[e]',
+                    'OperatorsPro.rArrayCountJSON':'[a]JSON[b]数量',
+                    'OperatorsPro.rArrayCountStr':'[a]"[b]"数量',
+                    'OperatorsPro.rMenuArrayCountnumber':'[a]作为[b]中[c][d][e]的数量，因为[f]',
+                    'OperatorsPro.rArrayCountBigNumber':'[a]数>[b]数量',
+                    'OperatorsPro.rArrayCountNotSmallNumber':'[a]数≥[b]数量',
+                    'OperatorsPro.rArrayCountSmallNumber':'[a]数<[b]数量',
+                    'OperatorsPro.rArrayCountNotBigNumber':'[a]数≤[b]数量',
+                    'OperatorsPro.rArrayCountNumber':'[a]数[b]数量',
+                    'OperatorsPro.rArrayCount':'[a][b]数量',
+                    'OperatorsPro.rMenuArrayLength':'[a]作为[b][c]',
+                    'OperatorsPro.rArrayLength':'[a]元素量',
+                    'OperatorsPro.rArraySum':'[a]之和',
+                    'OperatorsPro.rArrayProduct':'[a]之积',
+                    'OperatorsPro.rArrayAverage':'[a]平均数',
+                    'OperatorsPro.rArrayMax':'[a]最大值',
+                    'OperatorsPro.rArrayMin':'[a]最小值',
+                    'OperatorsPro.rMenuArraySort':'[a]作为[b][c]排序，返回[d]',
+                    'OperatorsPro.rArraySortNaturalOrder':'[a]顺序排序',
+                    'OperatorsPro.rArraySortReverseOrder':'[a]倒序排序',
+                    'OperatorsPro.rArrayReverse':'[a]反转',
+                    'OperatorsPro.bMenuArrayHave':'[a]作为[b][c][d][e]，因为[f]',
+                    'OperatorsPro.bArrayHaveJSON':'[a]包含JSON[b]',
+                    'OperatorsPro.bArrayHaveStr':'[a]包含"[b]"',
+                    'OperatorsPro.bMenuArrayHavenumber':'[a]作为[b][c][d][e][f]，因为[g]',
+                    'OperatorsPro.bArrayHaveBigNumber':'[a]包含数>[b]',
+                    'OperatorsPro.bArrayHaveNotSmallNumber':'[a]包含数≥[b]',
+                    'OperatorsPro.bArrayHaveSmallNumber':'[a]包含数<[b]',
+                    'OperatorsPro.bArrayHaveNotBigNumber':'[a]包含数≤[b]',
+                    'OperatorsPro.bArrayHaveNumber':'[a]包含数[b]',
+                    'OperatorsPro.bArrayHave':'[a]包含[b]',
+                    'OperatorsPro.bArrayBeJSON':'[a]只含JSON[b]',
+                    'OperatorsPro.bArrayBeStr':'[a]只含"[b]"',
+                    'OperatorsPro.bArrayBeBigNumber':'[a]只含数>[b]',
+                    'OperatorsPro.bArrayBeNotSmallNumber':'[a]只含数≥[b]',
+                    'OperatorsPro.bArrayBeSmallNumber':'[a]只含数<[b]',
+                    'OperatorsPro.bArrayBeNotBigNumber':'[a]只含数≤[b]',
+                    'OperatorsPro.bArrayBeNumber':'[a]只含数[b]',
+                    'OperatorsPro.bArrayBe':'[a]只含[b]',
+                    'OperatorsPro.bArrayStrictlyEqual':'[a]全等[b]',
+                    'OperatorsPro.bArrayClear':'[a]无元素',
+                    'OperatorsPro.bIsArray':'[a]是数组',
+                    'OperatorsPro.rObjectRemove':'[a]删除键[b]',
+                    'OperatorsPro.rObjectRemovekeys':'[a]删除键[b]',
+                    'OperatorsPro.rMenuObjectSet':'[a]作为[b]成员[c][d][e][f]，返回[g]',
+                    'OperatorsPro.rObjectPutKeyJSON':'[a]键[b]值设为JSON[c]',
+                    'OperatorsPro.rObjectPutKeyStr':'[a]键[b]值设为"[c]"',
+                    'OperatorsPro.rObjectPutKeyNumber':'[a]键[b]值设为数[c]',
+                    'OperatorsPro.rObjectPutKey':'[a]键[b]值设为[c]',
+                    'OperatorsPro.rObjectPlusKey':'[a]键[b]值增加[c]',
+                    'OperatorsPro.rObjectPlus':'[a]值增加[b]',
+                    'OperatorsPro.rMenuObjectMember':'[a]作为[b]成员[c]，返回[d]',
+                    'OperatorsPro.rObjectValueJSON':'[a]键[b]的值转JSON',
+                    'OperatorsPro.rObjectValue':'[a]键[b]的值',
+                    'OperatorsPro.rObjectKeyJSON':'[a]第一值JSON[b]键',
+                    'OperatorsPro.rObjectKeyStr':'[a]第一值"[b]"键',
+                    'OperatorsPro.rObjectKeyNumber':'[a]第一值=[b]键',
+                    'OperatorsPro.rObjectKey':'[a]第一值[b]键',
+                    'OperatorsPro.rObjectLastKeyJSON':'[a]最后一值JSON[b]键',
+                    'OperatorsPro.rObjectLastKeyStr':'[a]最后一值"[b]"键',
+                    'OperatorsPro.rObjectLastKeyNumber':'[a]最后一值=[b]键',
+                    'OperatorsPro.rObjectLastKey':'[a]最后一值[b]键',
+                    'OperatorsPro.rObjectAllKeyJSON':'[a]所有值JSON[b]键',
+                    'OperatorsPro.rObjectAllKeyStr':'[a]所有值"[b]"键',
+                    'OperatorsPro.rObjectAllKeyNumber':'[a]所有值=[b]键',
+                    'OperatorsPro.rObjectAllKey':'[a]所有值[b]键',
+                    'OperatorsPro.rMenuObjectKeys':'[a]作为[b]所有[c]，返回[d]',
+                    'OperatorsPro.rObjectLength':'[a]键值量',
+                    'OperatorsPro.rObjectKeys':'[a]所有键',
+                    'OperatorsPro.rObjectValues':'[a]所有值',
+                    'OperatorsPro.rObjectEntries':'[a]所有数据',
+                    'OperatorsPro.rObjectFromEntries':'[a]数据转对象',
+                    'OperatorsPro.rObjectPutAll':'[a][b]合并',
+                    'OperatorsPro.bObjectHasOwnProperty':'[a]包含键[b]',
+                    'OperatorsPro.bObjectClear':'[a]无键值',
+                    'OperatorsPro.bIsObject':'[a]是对象',
                     'OperatorsPro.Operators':'运算',
                     'OperatorsPro.showBlock': '显示不常用积木',
                     'OperatorsPro.hideBlock': '隐藏不常用积木',
@@ -318,202 +318,202 @@
                     'OperatorsPro.Tobecontinued':'未完待续'
                 },
                 en: {
-                    'OperatorsPro.rmenutypeof':'type of[a]as[b],[c]Object and Array',
-                    'OperatorsPro.bmenutypeof':'type of[a]as[b]is[c]',
-                    'OperatorsPro.rJSONtypeof':'type of[a]as JSON',
-                    'OperatorsPro.bJSONtypeof':'type of[a]as JSON is[b]',
-                    'OperatorsPro.bmenuToBoolean':'[c][a][b]',
-                    'OperatorsPro.rmenuif':'if[a][b]then[c]else[d]',
-                    'OperatorsPro.bmenuand':'[e][a][b][c][d]',
-                    'OperatorsPro.rif': 'if[a]then[b]else[c]',
-                    'OperatorsPro.band': '[a]and[b]',
-                    'OperatorsPro.bor': '[a]or[b]',
-                    'OperatorsPro.bnot': 'not[a]',
-                    'OperatorsPro.rpadstart':'[a]inserts[b]to let length be[c]',
-                    'OperatorsPro.rpadend':'[a]joins[b]to let length be[c]',
-                    'OperatorsPro.rremove':'remove[b]from[a]',
-                    'OperatorsPro.rinterchange':'[a]interchanges[b]and[c]',
-                    'OperatorsPro.rreplaceexcept':'replace[b]except[c]in[a]with[d]',
-                    'OperatorsPro.bmenuundefined':'[a]is[b][c]',
-                    'OperatorsPro.rdefault':'[a],default=[b]',
-                    'OperatorsPro.bdefined':'[a]is defined',
-                    'OperatorsPro.bundefined':'[a]is undefined',
-                    'OperatorsPro.bmenuequal':'[a][b][c],because of their[d]',
-                    'OperatorsPro.bnotstrictlyequal':'[a]is not identically[b]',
-                    'OperatorsPro.bnotcontain':'[a]does not contain[b]',
-                    'OperatorsPro.rrandom':'pick random 0 to 1',
-                    'OperatorsPro.rnearestmultiple':'multiple of[b]near[a]',
-                    'OperatorsPro.rmod':'[a]mod[b]',
-                    'OperatorsPro.rround':'round[a]to[b]decimal places',
-                    'OperatorsPro.rrintfromto':'round[a]from[b]to[c]decimal places',
-                    'OperatorsPro.rrinttotimes':'round[a]to[b]decimal places,round it[c]times',
-                    'OperatorsPro.rrinttimesto':'round[a][b]times to[c]decimal places',
+                    'OperatorsPro.rMenuTypeof':'type of[a]as[b],[c]Object and Array',
+                    'OperatorsPro.bMenuTypeof':'type of[a]as[b]is[c]',
+                    'OperatorsPro.rJSONTypeof':'type of[a]as JSON',
+                    'OperatorsPro.bJSONTypeof':'type of[a]as JSON is[b]',
+                    'OperatorsPro.bMenuToBoolean':'[c][a][b]',
+                    'OperatorsPro.rMenuIf':'if[a][b]then[c]else[d]',
+                    'OperatorsPro.bMenuAnd':'[e][a][b][c][d]',
+                    'OperatorsPro.rIf': 'if[a]then[b]else[c]',
+                    'OperatorsPro.bAnd': '[a]and[b]',
+                    'OperatorsPro.bOr': '[a]or[b]',
+                    'OperatorsPro.bNot': 'not[a]',
+                    'OperatorsPro.rPadStart':'[a]inserts[b]to let length be[c]',
+                    'OperatorsPro.rPadEnd':'[a]joins[b]to let length be[c]',
+                    'OperatorsPro.rRemove':'remove[b]from[a]',
+                    'OperatorsPro.rInterchange':'[a]interchanges[b]and[c]',
+                    'OperatorsPro.rReplaceExcept':'replace[b]except[c]in[a]with[d]',
+                    'OperatorsPro.bMenuUndefined':'[a]is[b][c]',
+                    'OperatorsPro.rDefault':'[a],default=[b]',
+                    'OperatorsPro.bDefined':'[a]is defined',
+                    'OperatorsPro.bUndefined':'[a]is undefined',
+                    'OperatorsPro.bMenuEqual':'[a][b][c],because of their[d]',
+                    'OperatorsPro.bNotstrictlyequal':'[a]is not identically[b]',
+                    'OperatorsPro.bNotcontain':'[a]does not contain[b]',
+                    'OperatorsPro.rRandom':'pick random 0 to 1',
+                    'OperatorsPro.rNearestMultiple':'multiple of[b]near[a]',
+                    'OperatorsPro.rMod':'[a]mod[b]',
+                    'OperatorsPro.rRound':'round[a]to[b]decimal places',
+                    'OperatorsPro.rRintFromTo':'round[a]from[b]to[c]decimal places',
+                    'OperatorsPro.rRintToTimes':'round[a]to[b]decimal places,round it[c]times',
+                    'OperatorsPro.rRintTimesTo':'round[a][b]times to[c]decimal places',
                     'OperatorsPro.rPI':'round[i]to[a]decimal places',
-                    'OperatorsPro.rmenurad':'[a][b][c]in rad',
-                    'OperatorsPro.rmenutoonehundredeighty':'[a][b]changes into[c]',
-                    'OperatorsPro.rradsin':'sin[a]in rad',
-                    'OperatorsPro.rradcos':'cos[a]in rad',
-                    'OperatorsPro.rradtan':'tan[a]in rad',
-                    'OperatorsPro.rradasin':'asin[a]in rad',
-                    'OperatorsPro.rradacos':'acos[a]in rad',
-                    'OperatorsPro.rradatan':'atan[a]in rad',
-                    'OperatorsPro.rtoonehundredeighty':'[a]changes into -180~180',
-                    'OperatorsPro.rtothreehundredsixty':'[a]changes into 0~360',
-                    'OperatorsPro.raddto':'[a]add[b]to[c]',
-                    'OperatorsPro.rmenuArrayremoveitem':'delete item[c]of[a]as[b],return[d]',
-                    'OperatorsPro.rArrayremoveshift':'[a]delete the first item',
-                    'OperatorsPro.rArrayremovepop':'[a]delete the last item',
-                    'OperatorsPro.rArrayremoveitem':'delete item[b]of[a]',
-                    'OperatorsPro.rArrayremoveitems':'delete items[b]of[a]',
-                    'OperatorsPro.rArrayremoveitemtoitem':'delete item from[b]to[c]of[a]',
-                    'OperatorsPro.rArrayreserveitem':'reserve item[b]of[a]',
-                    'OperatorsPro.rmenuArrayremove':'all[c][d]delete from[a]as[b],because of[e],return[f]',
-                    'OperatorsPro.rArrayremoveJSON':'all JSON[b]delete from[a]',
-                    'OperatorsPro.rArrayremovestr':'all "[b]" delete from[a]',
-                    'OperatorsPro.rmenuArrayremovenumber':'all[c][d][e]delete from[a]as[b],because of[f],return[g]',
-                    'OperatorsPro.rArrayremovebignumber':'number>[b]delete from[a]',
-                    'OperatorsPro.rArrayremovenotsmallnumber':'number≥[b]delete from[a]',
-                    'OperatorsPro.rArrayremovesmallnumber':'number<[b]delete from[a]',
-                    'OperatorsPro.rArrayremovenotbignumber':'number≤[b]delete from[a]',
-                    'OperatorsPro.rArrayremovenumber':'all number[b]delete from[a]',
-                    'OperatorsPro.rArrayremove':'all[b]delete from[a]',
-                    'OperatorsPro.rmenuArrayinsert':'[d][e][f]at item[c]of[a]as[b],return[g]',
-                    'OperatorsPro.rArrayunshiftJSON':'[a]inserts JSON[b]at the first one',
-                    'OperatorsPro.rArrayunshiftstr':'[a]inserts "[b]" at the first one',
-                    'OperatorsPro.rArrayunshiftnumber':'[a]inserts number[b]at the first one',
-                    'OperatorsPro.rArrayunshift':'[a]inserts[b]at the first one',
-                    'OperatorsPro.rArraypushJSON':'[a]inserts JSON[b]at the last one',
-                    'OperatorsPro.rArraypushstr':'[a]inserts "[b]" at the last one',
-                    'OperatorsPro.rArraypushnumber':'[a]inserts number[b]at the last one',
-                    'OperatorsPro.rArraypush':'[a]inserts[b]at the last one',
-                    'OperatorsPro.rArrayinsertJSON':'[a]inserts JSON[b]at[c]',
-                    'OperatorsPro.rArrayinsertstr':'[a]inserts "[b]" at[c]',
-                    'OperatorsPro.rArrayinsertnumber':'[a]inserts number[b]at[c]',
-                    'OperatorsPro.rArrayinsert':'[a]inserts[b]at[c]',
-                    'OperatorsPro.rArrayinsertJSONindextoindex':'[a]inserts JSON[b]from[c]to[d]',
-                    'OperatorsPro.rArrayinsertstrindextoindex':'[a]inserts "[b]" from[c]to[d]',
-                    'OperatorsPro.rArrayinsertnumberindextoindex':'[a]inserts number[b]from[c]to[d]',
-                    'OperatorsPro.rArrayinsertindextoindex':'[a]inserts[b]from[c]to[d]',
-                    'OperatorsPro.rArraymove':'[a]item[b]move to[c]',
-                    'OperatorsPro.rArrayreplaceJSON':'set item[b]of[a]to JSON[c]',
-                    'OperatorsPro.rArrayreplacestr':'set item[b]of[a]to "[c]"',
-                    'OperatorsPro.rArrayreplacenumber':'set item[b]of[a]to number[c]',
-                    'OperatorsPro.rArrayreplace':'set item[b]of[a]to[c]',
-                    'OperatorsPro.rArrayreplaceindexesJSON':'set items[b]of[a]to JSON[c]',
-                    'OperatorsPro.rArrayreplaceindexesstr':'set items[b]of[a]to "[c]"',
-                    'OperatorsPro.rArrayreplaceindexesnumber':'set items[b]of[a]to number[c]',
-                    'OperatorsPro.rArrayreplaceindexes':'set items[b]of[a]to[c]',
-                    'OperatorsPro.rArrayreplaceindextoindexJSON':'set item from[b]to[c]of[a]to JSON[d]',
-                    'OperatorsPro.rArrayreplaceindextoindexstr':'set item from[b]to[c]of[a]to "[d]"',
-                    'OperatorsPro.rArrayreplaceindextoindexnumber':'set item from[b]to[c]of[a]to number[d]',
-                    'OperatorsPro.rArrayreplaceindextoindex':'set item from[b]to[c]of[a]to[d]',
-                    'OperatorsPro.rArrayinterchange':'[a]interchanges item[b]and item[c]',
-                    'OperatorsPro.rArrayplusindex':'change by[c]at[b]of[a]',
-                    'OperatorsPro.rArrayplusindextoindex':'change by[d]from[b]to[c]of[a]',
-                    'OperatorsPro.rArrayplus':'change by[b]at every item of[a]',
-                    'OperatorsPro.rmenuArrayitem':'item[c]of[a]as[b],return[d]',
-                    'OperatorsPro.rArrayshiftJSON':'the first item as JSON of[a]',
-                    'OperatorsPro.rArrayshift':'the first item of[a]',
-                    'OperatorsPro.rArraypopJSON':'the last item as JSON of[a]',
-                    'OperatorsPro.rArraypop':'the last item of[a]',
-                    'OperatorsPro.rArrayitemJSON':'item[b]as JSON of[a]',
-                    'OperatorsPro.rArrayitem':'item[b]of[a]',
-                    'OperatorsPro.rArrayitems':'items[b]of[a]',
-                    'OperatorsPro.rArrayitemtoitem':'item from[b]to[c]of[a]',
-                    'OperatorsPro.rmenuArrayindex':'[c][d][e]in[a]as[b],because of[f]',
-                    'OperatorsPro.rmenuArrayindexnumber':'[c][d][e][f]in[a]as[b],because of[g]',
-                    'OperatorsPro.rArrayindexJSON':'the first JSON[b]in[a]',
-                    'OperatorsPro.rArrayindexstr':'the first "[b]" in[a]',
-                    'OperatorsPro.rArrayfindIndexbignumber':'the first number>[b]in[a]',
-                    'OperatorsPro.rArrayfindIndexnotsmallnumber':'the first number≥[b]in[a]',
-                    'OperatorsPro.rArrayfindIndexsmallnumber':'the first number<[b]in[a]',
-                    'OperatorsPro.rArrayfindIndexnotbignumber':'the first number≤[b]in[a]',
-                    'OperatorsPro.rArrayindexnumber':'the first number[b]in[a]',
-                    'OperatorsPro.rArrayindex':'the first[b]in[a]',
-                    'OperatorsPro.rArraylastindexJSON':'the last JSON[b]in[a]',
-                    'OperatorsPro.rArraylastindexstr':'the last "[b]" in[a]',
-                    'OperatorsPro.rArraylastindexnumber':'the last number[b]in[a]',
-                    'OperatorsPro.rArraylastindex':'the last[b]in[a]',
-                    'OperatorsPro.rArrayallindexJSON':'all JSON[b]in[a]',
-                    'OperatorsPro.rArrayallindexstr':'all "[b]" in[a]',
-                    'OperatorsPro.rArrayallindexnumber':'all number[b]in[a]',
-                    'OperatorsPro.rArrayallindex':'all[b]in[a]',
-                    'OperatorsPro.rmenuArraycount':'count[c][d]in[a]as[b],because of[e]',
-                    'OperatorsPro.rArraycountJSON':'count JSON[b]in[a]',
-                    'OperatorsPro.rArraycountstr':'count "[b]" in[a]',
-                    'OperatorsPro.rmenuArraycountnumber':'count[c][d][e]in[a]as[b],because of[f]',
-                    'OperatorsPro.rArraycountbignumber':'count number>[b]in[a]',
-                    'OperatorsPro.rArraycountnotsmallnumber':'count number≥[b]in[a]',
-                    'OperatorsPro.rArraycountsmallnumber':'count number<[b]in[a]',
-                    'OperatorsPro.rArraycountnotbignumber':'count number≤[b]in[a]',
-                    'OperatorsPro.rArraycountnumber':'count number[b]in[a]',
-                    'OperatorsPro.rArraycount':'count[b]in[a]',
-                    'OperatorsPro.rmenuArraylength':'[c][a]as[b]',
-                    'OperatorsPro.rArraylength':'length of[a]',
-                    'OperatorsPro.rArraysum':'sum of[a]',
-                    'OperatorsPro.rArrayproduct':'product of[a]',
-                    'OperatorsPro.rArrayaverage':'average of[a]',
-                    'OperatorsPro.rArraymax':'max[a]',
-                    'OperatorsPro.rArraymin':'min[a]',
-                    'OperatorsPro.rmenuArraysort':'sort[a]as[b]by[c],return[d]',
-                    'OperatorsPro.rArraysortnaturalOrder':'sort[a]by ascending',
-                    'OperatorsPro.rArraysortreverseOrder':'sort[a]by descending',
-                    'OperatorsPro.rArrayreverse':'reverse[a]',
-                    'OperatorsPro.bmenuArrayhave':'[a]as[b][c][d][e],because of[f]',
-                    'OperatorsPro.bArrayhaveJSON':'[a]contains JSON[b]',
-                    'OperatorsPro.bArrayhavestr':'[a]contains "[b]"',
-                    'OperatorsPro.bmenuArrayhavenumber':'[a]as[b][c][d][e][f],because of[g]',
-                    'OperatorsPro.bArrayhavebignumber':'[a]contains number>[b]',
-                    'OperatorsPro.bArrayhavenotsmallnumber':'[a]contains number≥[b]',
-                    'OperatorsPro.bArrayhavesmallnumber':'[a]contains number<[b]',
-                    'OperatorsPro.bArrayhavenotbignumber':'[a]contains number≤[b]',
-                    'OperatorsPro.bArrayhavenumber':'[a]contains number[b]',
-                    'OperatorsPro.bArrayhave':'[a]contains[b]',
-                    'OperatorsPro.bArraybeJSON':'[a]only contains SJON[b]',
-                    'OperatorsPro.bArraybestr':'[a]only contains "[b]"',
-                    'OperatorsPro.bArraybebignumber':'[a]only contains number>[b]',
-                    'OperatorsPro.bArraybenotsmallnumber':'[a]only contains number≥[b]',
-                    'OperatorsPro.bArraybesmallnumber':'[a]only contains number<[b]',
-                    'OperatorsPro.bArraybenotbignumber':'[a]only contains number≤[b]',
-                    'OperatorsPro.bArraybenumber':'[a]only contains number[b]',
-                    'OperatorsPro.bArraybe':'[a]only contains[b]',
-                    'OperatorsPro.bArraystrictlyequal':'[a]is identically[b]',
-                    'OperatorsPro.bArrayclear':'[a]has nothing',
-                    'OperatorsPro.bisArray':'[a]is Array',
-                    'OperatorsPro.rObjectremove':'delete key[b]from[a]',
-                    'OperatorsPro.rObjectremovekeys':'delete keys[b]from[a]',
-                    'OperatorsPro.rmenuObjectset':'[d][e][f]at member[c]of[a]as[b],return[g]',
-                    'OperatorsPro.rObjectputkeyJSON':'set[b]in[a]to JSON[c]',
-                    'OperatorsPro.rObjectputkeystr':'set[b]in[a]to"[c]"',
-                    'OperatorsPro.rObjectputkeynumber':'set number[b]in[a]to[c]',
-                    'OperatorsPro.rObjectputkey':'set[b]in[a]to[c]',
-                    'OperatorsPro.rObjectpluskey':'value of key[b]change by[c]in[a]',
-                    'OperatorsPro.rObjectplus':'values change by[b]in[a]',
-                    'OperatorsPro.rmenuObjectmember':'member[c]of[a]as[b],return[d]',
-                    'OperatorsPro.rObjectvalueJSON':'value as JSON of key[b]in[a]',
-                    'OperatorsPro.rObjectvalue':'value of key[b]in[a]',
-                    'OperatorsPro.rObjectkeyJSON':'key of the first value JSON[b]in[a]',
-                    'OperatorsPro.rObjectkeystr':'key of the first value "[b]" in[a]',
-                    'OperatorsPro.rObjectkeynumber':'key of the first value=[b]in[a]',
-                    'OperatorsPro.rObjectkey':'key of the first value[b]in[a]',
-                    'OperatorsPro.rObjectlastkeyJSON':'key of the last value JSON[b]in[a]',
-                    'OperatorsPro.rObjectlastkeystr':'key of the last value "[b]" in[a]',
-                    'OperatorsPro.rObjectlastkeynumber':'key of the last value=[b]in[a]',
-                    'OperatorsPro.rObjectlastkey':'key of the last value[b]in[a]',
-                    'OperatorsPro.rObjectallkeyJSON':'keys of value JSON[b]in[a]',
-                    'OperatorsPro.rObjectallkeystr':'keys of value "[b]" in[a]',
-                    'OperatorsPro.rObjectallkeynumber':'keys of value=[b]in[a]',
-                    'OperatorsPro.rObjectallkey':'keys of value[b]in[a]',
-                    'OperatorsPro.rmenuObjectkeys':'[c]of[a]as[b],return[d]',
-                    'OperatorsPro.rObjectlength':'length of[a]',
-                    'OperatorsPro.rObjectkeys':'keys of[a]',
-                    'OperatorsPro.rObjectvalues':'values of[a]',
-                    'OperatorsPro.rObjectentries':'data of[a]',
-                    'OperatorsPro.rObjectfromentries':'[a]as Object',
-                    'OperatorsPro.rObjectputAll':'concat[a][b]',
-                    'OperatorsPro.bObjecthasownproperty':'[a]contians key[b]',
-                    'OperatorsPro.bObjectclear':'[a]has nothing',
-                    'OperatorsPro.bisObject':'[a]is Object',
+                    'OperatorsPro.rMenuRad':'[a][b][c]in rad',
+                    'OperatorsPro.rMenuToOneHundredEighty':'[a][b]changes into[c]',
+                    'OperatorsPro.rRadSin':'sin[a]in rad',
+                    'OperatorsPro.rRadCos':'cos[a]in rad',
+                    'OperatorsPro.rRadTan':'tan[a]in rad',
+                    'OperatorsPro.rRadAsin':'asin[a]in rad',
+                    'OperatorsPro.rRadAcos':'acos[a]in rad',
+                    'OperatorsPro.rRadAtan':'atan[a]in rad',
+                    'OperatorsPro.rToOneHundredEighty':'[a]changes into -180~180',
+                    'OperatorsPro.rToThreeHundredSixty':'[a]changes into 0~360',
+                    'OperatorsPro.rAddTo':'[a]add[b]to[c]',
+                    'OperatorsPro.rMenuArrayRemoveItem':'delete item[c]of[a]as[b],return[d]',
+                    'OperatorsPro.rArrayRemoveShift':'[a]delete the first item',
+                    'OperatorsPro.rArrayRemovePop':'[a]delete the last item',
+                    'OperatorsPro.rArrayRemoveItem':'delete item[b]of[a]',
+                    'OperatorsPro.rArrayRemoveItems':'delete items[b]of[a]',
+                    'OperatorsPro.rArrayRemoveItemtoitem':'delete item from[b]to[c]of[a]',
+                    'OperatorsPro.rArrayReserveItem':'reserve item[b]of[a]',
+                    'OperatorsPro.rMenuArrayRemove':'all[c][d]delete from[a]as[b],because of[e],return[f]',
+                    'OperatorsPro.rArrayRemoveJSON':'all JSON[b]delete from[a]',
+                    'OperatorsPro.rArrayRemoveStr':'all "[b]" delete from[a]',
+                    'OperatorsPro.rMenuArrayRemovenumber':'all[c][d][e]delete from[a]as[b],because of[f],return[g]',
+                    'OperatorsPro.rArrayRemoveBigNumber':'number>[b]delete from[a]',
+                    'OperatorsPro.rArrayRemoveNotSmallNumber':'number≥[b]delete from[a]',
+                    'OperatorsPro.rArrayRemoveSmallNumber':'number<[b]delete from[a]',
+                    'OperatorsPro.rArrayRemoveNotBigNumber':'number≤[b]delete from[a]',
+                    'OperatorsPro.rArrayRemoveNumber':'all number[b]delete from[a]',
+                    'OperatorsPro.rArrayRemove':'all[b]delete from[a]',
+                    'OperatorsPro.rMenuArrayInsert':'[d][e][f]at item[c]of[a]as[b],return[g]',
+                    'OperatorsPro.rArrayUnshiftJSON':'[a]inserts JSON[b]at the first one',
+                    'OperatorsPro.rArrayUnshiftStr':'[a]inserts "[b]" at the first one',
+                    'OperatorsPro.rArrayUnshiftNumber':'[a]inserts number[b]at the first one',
+                    'OperatorsPro.rArrayUnshift':'[a]inserts[b]at the first one',
+                    'OperatorsPro.rArrayPushJSON':'[a]inserts JSON[b]at the last one',
+                    'OperatorsPro.rArrayPushStr':'[a]inserts "[b]" at the last one',
+                    'OperatorsPro.rArrayPushNumber':'[a]inserts number[b]at the last one',
+                    'OperatorsPro.rArrayPush':'[a]inserts[b]at the last one',
+                    'OperatorsPro.rArrayInsertJSON':'[a]inserts JSON[b]at[c]',
+                    'OperatorsPro.rArrayInsertStr':'[a]inserts "[b]" at[c]',
+                    'OperatorsPro.rArrayInsertNumber':'[a]inserts number[b]at[c]',
+                    'OperatorsPro.rArrayInsert':'[a]inserts[b]at[c]',
+                    'OperatorsPro.rArrayInsertJSONindextoindex':'[a]inserts JSON[b]from[c]to[d]',
+                    'OperatorsPro.rArrayInsertStrindextoindex':'[a]inserts "[b]" from[c]to[d]',
+                    'OperatorsPro.rArrayInsertNumberindextoindex':'[a]inserts number[b]from[c]to[d]',
+                    'OperatorsPro.rArrayInsertindextoindex':'[a]inserts[b]from[c]to[d]',
+                    'OperatorsPro.rArrayMove':'[a]item[b]move to[c]',
+                    'OperatorsPro.rArrayReplaceJSON':'set item[b]of[a]to JSON[c]',
+                    'OperatorsPro.rArrayReplaceStr':'set item[b]of[a]to "[c]"',
+                    'OperatorsPro.rArrayReplaceNumber':'set item[b]of[a]to number[c]',
+                    'OperatorsPro.rArrayReplace':'set item[b]of[a]to[c]',
+                    'OperatorsPro.rArrayReplaceindexesJSON':'set items[b]of[a]to JSON[c]',
+                    'OperatorsPro.rArrayReplaceindexesstr':'set items[b]of[a]to "[c]"',
+                    'OperatorsPro.rArrayReplaceindexesnumber':'set items[b]of[a]to number[c]',
+                    'OperatorsPro.rArrayReplaceindexes':'set items[b]of[a]to[c]',
+                    'OperatorsPro.rArrayReplaceindextoindexJSON':'set item from[b]to[c]of[a]to JSON[d]',
+                    'OperatorsPro.rArrayReplaceindextoindexstr':'set item from[b]to[c]of[a]to "[d]"',
+                    'OperatorsPro.rArrayReplaceindextoindexnumber':'set item from[b]to[c]of[a]to number[d]',
+                    'OperatorsPro.rArrayReplaceindextoindex':'set item from[b]to[c]of[a]to[d]',
+                    'OperatorsPro.rArrayInterchange':'[a]interchanges item[b]and item[c]',
+                    'OperatorsPro.rArrayPlusIndex':'change by[c]at[b]of[a]',
+                    'OperatorsPro.rArrayPlusIndextoindex':'change by[d]from[b]to[c]of[a]',
+                    'OperatorsPro.rArrayPlus':'change by[b]at every item of[a]',
+                    'OperatorsPro.rMenuArrayItem':'item[c]of[a]as[b],return[d]',
+                    'OperatorsPro.rArrayShiftJSON':'the first item as JSON of[a]',
+                    'OperatorsPro.rArrayShift':'the first item of[a]',
+                    'OperatorsPro.rArrayPopJSON':'the last item as JSON of[a]',
+                    'OperatorsPro.rArrayPop':'the last item of[a]',
+                    'OperatorsPro.rArrayItemJSON':'item[b]as JSON of[a]',
+                    'OperatorsPro.rArrayItem':'item[b]of[a]',
+                    'OperatorsPro.rArrayItems':'items[b]of[a]',
+                    'OperatorsPro.rArrayItemtoitem':'item from[b]to[c]of[a]',
+                    'OperatorsPro.rMenuArrayIndex':'[c][d][e]in[a]as[b],because of[f]',
+                    'OperatorsPro.rMenuArrayIndexnumber':'[c][d][e][f]in[a]as[b],because of[g]',
+                    'OperatorsPro.rArrayIndexJSON':'the first JSON[b]in[a]',
+                    'OperatorsPro.rArrayIndexStr':'the first "[b]" in[a]',
+                    'OperatorsPro.rArrayFindIndexBigNumber':'the first number>[b]in[a]',
+                    'OperatorsPro.rArrayFindIndexNotSmallNumber':'the first number≥[b]in[a]',
+                    'OperatorsPro.rArrayFindIndexSmallNumber':'the first number<[b]in[a]',
+                    'OperatorsPro.rArrayFindIndexNotBigNumber':'the first number≤[b]in[a]',
+                    'OperatorsPro.rArrayIndexNumber':'the first number[b]in[a]',
+                    'OperatorsPro.rArrayIndex':'the first[b]in[a]',
+                    'OperatorsPro.rArrayLastIndexJSON':'the last JSON[b]in[a]',
+                    'OperatorsPro.rArrayLastIndexStr':'the last "[b]" in[a]',
+                    'OperatorsPro.rArrayLastIndexNumber':'the last number[b]in[a]',
+                    'OperatorsPro.rArrayLastIndex':'the last[b]in[a]',
+                    'OperatorsPro.rArrayAllIndexJSON':'all JSON[b]in[a]',
+                    'OperatorsPro.rArrayAllIndexStr':'all "[b]" in[a]',
+                    'OperatorsPro.rArrayAllIndexNumber':'all number[b]in[a]',
+                    'OperatorsPro.rArrayAllIndex':'all[b]in[a]',
+                    'OperatorsPro.rMenuArrayCount':'count[c][d]in[a]as[b],because of[e]',
+                    'OperatorsPro.rArrayCountJSON':'count JSON[b]in[a]',
+                    'OperatorsPro.rArrayCountStr':'count "[b]" in[a]',
+                    'OperatorsPro.rMenuArrayCountnumber':'count[c][d][e]in[a]as[b],because of[f]',
+                    'OperatorsPro.rArrayCountBigNumber':'count number>[b]in[a]',
+                    'OperatorsPro.rArrayCountNotSmallNumber':'count number≥[b]in[a]',
+                    'OperatorsPro.rArrayCountSmallNumber':'count number<[b]in[a]',
+                    'OperatorsPro.rArrayCountNotBigNumber':'count number≤[b]in[a]',
+                    'OperatorsPro.rArrayCountNumber':'count number[b]in[a]',
+                    'OperatorsPro.rArrayCount':'count[b]in[a]',
+                    'OperatorsPro.rMenuArrayLength':'[c][a]as[b]',
+                    'OperatorsPro.rArrayLength':'length of[a]',
+                    'OperatorsPro.rArraySum':'sum of[a]',
+                    'OperatorsPro.rArrayProduct':'product of[a]',
+                    'OperatorsPro.rArrayAverage':'average of[a]',
+                    'OperatorsPro.rArrayMax':'max[a]',
+                    'OperatorsPro.rArrayMin':'min[a]',
+                    'OperatorsPro.rMenuArraySort':'sort[a]as[b]by[c],return[d]',
+                    'OperatorsPro.rArraySortNaturalOrder':'sort[a]by ascending',
+                    'OperatorsPro.rArraySortReverseOrder':'sort[a]by descending',
+                    'OperatorsPro.rArrayReverse':'reverse[a]',
+                    'OperatorsPro.bMenuArrayHave':'[a]as[b][c][d][e],because of[f]',
+                    'OperatorsPro.bArrayHaveJSON':'[a]contains JSON[b]',
+                    'OperatorsPro.bArrayHaveStr':'[a]contains "[b]"',
+                    'OperatorsPro.bMenuArrayHavenumber':'[a]as[b][c][d][e][f],because of[g]',
+                    'OperatorsPro.bArrayHaveBigNumber':'[a]contains number>[b]',
+                    'OperatorsPro.bArrayHaveNotSmallNumber':'[a]contains number≥[b]',
+                    'OperatorsPro.bArrayHaveSmallNumber':'[a]contains number<[b]',
+                    'OperatorsPro.bArrayHaveNotBigNumber':'[a]contains number≤[b]',
+                    'OperatorsPro.bArrayHaveNumber':'[a]contains number[b]',
+                    'OperatorsPro.bArrayHave':'[a]contains[b]',
+                    'OperatorsPro.bArrayBeJSON':'[a]only contains SJON[b]',
+                    'OperatorsPro.bArrayBeStr':'[a]only contains "[b]"',
+                    'OperatorsPro.bArrayBeBigNumber':'[a]only contains number>[b]',
+                    'OperatorsPro.bArrayBeNotSmallNumber':'[a]only contains number≥[b]',
+                    'OperatorsPro.bArrayBeSmallNumber':'[a]only contains number<[b]',
+                    'OperatorsPro.bArrayBeNotBigNumber':'[a]only contains number≤[b]',
+                    'OperatorsPro.bArrayBeNumber':'[a]only contains number[b]',
+                    'OperatorsPro.bArrayBe':'[a]only contains[b]',
+                    'OperatorsPro.bArrayStrictlyEqual':'[a]is identically[b]',
+                    'OperatorsPro.bArrayClear':'[a]has nothing',
+                    'OperatorsPro.bIsArray':'[a]is Array',
+                    'OperatorsPro.rObjectRemove':'delete key[b]from[a]',
+                    'OperatorsPro.rObjectRemovekeys':'delete keys[b]from[a]',
+                    'OperatorsPro.rMenuObjectSet':'[d][e][f]at member[c]of[a]as[b],return[g]',
+                    'OperatorsPro.rObjectPutKeyJSON':'set[b]in[a]to JSON[c]',
+                    'OperatorsPro.rObjectPutKeyStr':'set[b]in[a]to"[c]"',
+                    'OperatorsPro.rObjectPutKeyNumber':'set number[b]in[a]to[c]',
+                    'OperatorsPro.rObjectPutKey':'set[b]in[a]to[c]',
+                    'OperatorsPro.rObjectPlusKey':'value of key[b]change by[c]in[a]',
+                    'OperatorsPro.rObjectPlus':'values change by[b]in[a]',
+                    'OperatorsPro.rMenuObjectMember':'member[c]of[a]as[b],return[d]',
+                    'OperatorsPro.rObjectValueJSON':'value as JSON of key[b]in[a]',
+                    'OperatorsPro.rObjectValue':'value of key[b]in[a]',
+                    'OperatorsPro.rObjectKeyJSON':'key of the first value JSON[b]in[a]',
+                    'OperatorsPro.rObjectKeyStr':'key of the first value "[b]" in[a]',
+                    'OperatorsPro.rObjectKeyNumber':'key of the first value=[b]in[a]',
+                    'OperatorsPro.rObjectKey':'key of the first value[b]in[a]',
+                    'OperatorsPro.rObjectLastKeyJSON':'key of the last value JSON[b]in[a]',
+                    'OperatorsPro.rObjectLastKeyStr':'key of the last value "[b]" in[a]',
+                    'OperatorsPro.rObjectLastKeyNumber':'key of the last value=[b]in[a]',
+                    'OperatorsPro.rObjectLastKey':'key of the last value[b]in[a]',
+                    'OperatorsPro.rObjectAllKeyJSON':'keys of value JSON[b]in[a]',
+                    'OperatorsPro.rObjectAllKeyStr':'keys of value "[b]" in[a]',
+                    'OperatorsPro.rObjectAllKeyNumber':'keys of value=[b]in[a]',
+                    'OperatorsPro.rObjectAllKey':'keys of value[b]in[a]',
+                    'OperatorsPro.rMenuObjectKeys':'[c]of[a]as[b],return[d]',
+                    'OperatorsPro.rObjectLength':'length of[a]',
+                    'OperatorsPro.rObjectKeys':'keys of[a]',
+                    'OperatorsPro.rObjectValues':'values of[a]',
+                    'OperatorsPro.rObjectEntries':'data of[a]',
+                    'OperatorsPro.rObjectFromEntries':'[a]as Object',
+                    'OperatorsPro.rObjectPutAll':'concat[a][b]',
+                    'OperatorsPro.bObjectHasOwnProperty':'[a]contians key[b]',
+                    'OperatorsPro.bObjectClear':'[a]has nothing',
+                    'OperatorsPro.bIsObject':'[a]is Object',
 	                'OperatorsPro.Operators':'Operators',
                     'OperatorsPro.showBlock': 'Show Other Blocks',
                     'OperatorsPro.hideBlock': 'Hide Other Blocks',
@@ -643,7 +643,7 @@
                         }
                     },
                     {
-                        opcode:'rtest',
+                        opcode:'rTest',
                         blockType:'reporter',
                         text:'test[a][b]',
                         arguments:{
@@ -661,7 +661,7 @@
                         text: this.formatMessage('OperatorsPro.Types')
                     },
                     {
-                        opcode:'rmenuunusualword',
+                        opcode:'rMenuUnusualWord',
                         blockType:'reporter',
                         text: '[a]',
                         disableMonitor: true,
@@ -674,7 +674,7 @@
                         hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
-                        opcode:'rmenutotype',
+                        opcode:'rMenuToType',
                         blockType:'reporter',
                         text: '[a][b]',
                         arguments:{
@@ -690,9 +690,9 @@
                         hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
-                        opcode:'rmenutypeof',
+                        opcode:'rMenuTypeof',
                         blockType:'reporter',
-                        text:this.formatMessage('OperatorsPro.rmenutypeof'),
+                        text:this.formatMessage('OperatorsPro.rMenuTypeof'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -710,9 +710,9 @@
                         hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
-                        opcode:'bmenutypeof',
+                        opcode:'bMenuTypeof',
                         blockType:'Boolean',
-                        text:this.formatMessage('OperatorsPro.bmenutypeof'),
+                        text:this.formatMessage('OperatorsPro.bMenuTypeof'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -730,9 +730,9 @@
                         hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
-                        opcode:'rJSONtypeof',
+                        opcode:'rJSONTypeof',
                         blockType:'reporter',
-                        text:this.formatMessage('OperatorsPro.rJSONtypeof'),
+                        text:this.formatMessage('OperatorsPro.rJSONTypeof'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -742,9 +742,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'bJSONtypeof',
+                        opcode:'bJSONTypeof',
                         blockType:'Boolean',
-                        text:this.formatMessage('OperatorsPro.bJSONtypeof'),
+                        text:this.formatMessage('OperatorsPro.bJSONTypeof'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -778,9 +778,9 @@
                         text: this.formatMessage('OperatorsPro.Logic')
                     },
                     {
-                        opcode:'bmenuToBoolean',
+                        opcode:'bMenuToBoolean',
                         blockType:'Boolean',
-                        text:this.formatMessage('OperatorsPro.bmenuToBoolean'),
+                        text:this.formatMessage('OperatorsPro.bMenuToBoolean'),
                         arguments:{
                             a:{
                                 type:'string'
@@ -797,9 +797,9 @@
                         hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
-                        opcode:'rmenuif',
+                        opcode:'rMenuIf',
                         blockType:'reporter',
-                        text:this.formatMessage('OperatorsPro.rmenuif'),
+                        text:this.formatMessage('OperatorsPro.rMenuIf'),
                         arguments:{
                             a:{
                                 type:'string'
@@ -820,9 +820,9 @@
                         hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
-                        opcode:'bmenuand',
+                        opcode:'bMenuAnd',
                         blockType:'Boolean',
-                        text:this.formatMessage('OperatorsPro.bmenuand'),
+                        text:this.formatMessage('OperatorsPro.bMenuAnd'),
                         arguments:{
                             a:{
                                 type:'string'
@@ -846,7 +846,7 @@
                         hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
-                        opcode:'rreporter',
+                        opcode:'rReporter',
                         blockType:'reporter',
                         text:'[a]',
                         arguments:{
@@ -858,7 +858,7 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rboolean',
+                        opcode:'rBoolean',
                         blockType:'Boolean',
                         text:'[a]',
                         arguments:{
@@ -875,9 +875,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rif',
+                        opcode:'rIf',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rif'),
+                        text: this.formatMessage('OperatorsPro.rIf'),
                         arguments:{
                             a:{
                                 type:'string'
@@ -894,9 +894,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rifToBoolean',
+                        opcode:'rIfToBoolean',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rif'),
+                        text: this.formatMessage('OperatorsPro.rIf'),
                         arguments:{
                             b:{
                                 type:'string',
@@ -910,9 +910,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'band',
+                        opcode:'bAnd',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.band'),
+                        text: this.formatMessage('OperatorsPro.bAnd'),
                         arguments:{
                             a:{
                                 type:'string'
@@ -924,15 +924,15 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'bandToBoolean',
+                        opcode:'bAndToBoolean',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.band'),
+                        text: this.formatMessage('OperatorsPro.bAnd'),
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'bor',
+                        opcode:'bOr',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bor'),
+                        text: this.formatMessage('OperatorsPro.bOr'),
                         arguments:{
                             a:{
                                 type:'string'
@@ -944,15 +944,15 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'borToBoolean',
+                        opcode:'bOrToBoolean',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bor'),
+                        text: this.formatMessage('OperatorsPro.bOr'),
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'bnot',
+                        opcode:'bNot',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bnot'),
+                        text: this.formatMessage('OperatorsPro.bNot'),
                         arguments:{
                             a:{
                                 type:'string'
@@ -961,9 +961,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'bnotToBoolean',
+                        opcode:'bNotToBoolean',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bnot'),
+                        text: this.formatMessage('OperatorsPro.bNot'),
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
@@ -982,7 +982,7 @@
                         text: this.formatMessage('OperatorsPro.StringsandNumbers')
                     },
                     {
-                        opcode:'rjoin',
+                        opcode:'rJoin',
                         blockType:'reporter',
                         text:'[a][b][c]',
                         arguments:{
@@ -1002,9 +1002,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rpadstart',
+                        opcode:'rPadStart',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rpadstart'),
+                        text: this.formatMessage('OperatorsPro.rPadStart'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -1021,9 +1021,9 @@
                         }
                     },
                     {
-                        opcode:'rpadend',
+                        opcode:'rPadEnd',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rpadend'),
+                        text: this.formatMessage('OperatorsPro.rPadEnd'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -1040,9 +1040,9 @@
                         }
                     },
                     {
-                        opcode:'rremove',
+                        opcode:'rRemove',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rremove'),
+                        text: this.formatMessage('OperatorsPro.rRemove'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -1055,9 +1055,9 @@
                         }
                     },
                     {
-                        opcode:'rinterchange',
+                        opcode:'rInterchange',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rinterchange'),
+                        text: this.formatMessage('OperatorsPro.rInterchange'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -1074,9 +1074,9 @@
                         }
                     },
                     {
-                        opcode:'rreplaceexcept',
+                        opcode:'rReplaceExcept',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rreplaceexcept'),
+                        text: this.formatMessage('OperatorsPro.rReplaceExcept'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -1098,9 +1098,9 @@
                     },
                     '---',
                     {
-                        opcode:'bmenuundefined',
+                        opcode:'bMenuUndefined',
                         blockType:'Boolean',
-                        text:this.formatMessage('OperatorsPro.bmenuundefined'),
+                        text:this.formatMessage('OperatorsPro.bMenuUndefined'),
                         arguments:{
                             a:{
                                 type:'string'
@@ -1117,9 +1117,9 @@
                         hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
-                        opcode:'rdefault',
+                        opcode:'rDefault',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rdefault'),
+                        text: this.formatMessage('OperatorsPro.rDefault'),
                         arguments:{
                             b:{
                                 type:'string'
@@ -1128,22 +1128,22 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'bdefined',
+                        opcode:'bDefined',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bdefined'),
+                        text: this.formatMessage('OperatorsPro.bDefined'),
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'bundefined',
+                        opcode:'bUndefined',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bundefined'),
+                        text: this.formatMessage('OperatorsPro.bUndefined'),
                         hideFromPalette: this.hideExtraBlocks
                     },
                     '---',
                     {
-                        opcode:'bmenuequal',
+                        opcode:'bMenuEqual',
                         blockType:'Boolean',
-                        text:this.formatMessage('OperatorsPro.bmenuequal'),
+                        text:this.formatMessage('OperatorsPro.bMenuEqual'),
                         arguments:{
                             a:{
                                 type:'string'
@@ -1227,9 +1227,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'bnotstrictlyequal',
+                        opcode:'bNotstrictlyequal',
                         blockType:'Boolean',
-                        text:this.formatMessage('OperatorsPro.bnotstrictlyequal'),
+                        text:this.formatMessage('OperatorsPro.bNotstrictlyequal'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -1243,9 +1243,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'bnotcontain',
+                        opcode:'bNotcontain',
                         blockType:'Boolean',
-                        text:this.formatMessage('OperatorsPro.bnotcontain'),
+                        text:this.formatMessage('OperatorsPro.bNotcontain'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -1271,7 +1271,7 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rsign',
+                        opcode:'rSign',
                         blockType:'reporter',
                         text:'±[a]',
                         arguments:{
@@ -1282,7 +1282,7 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'raddition',
+                        opcode:'rAddition',
                         blockType:'reporter',
                         text:'[a]+[b]+[c]',
                         arguments:{
@@ -1299,7 +1299,7 @@
                         hideFromPalette: this.hideExtraBlocks
                     }, 
                     {
-                        opcode:'radditionmultiplication',
+                        opcode:'rAdditionmultiplication',
                         blockType:'reporter',
                         text:'([a]+[b])*[c]',
                         arguments:{
@@ -1344,13 +1344,13 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rrandom',
+                        opcode:'rRandom',
                         blockType:'reporter',
-                        text:this.formatMessage('OperatorsPro.rrandom'),
+                        text:this.formatMessage('OperatorsPro.rRandom'),
                         disableMonitor: true
                     },
                     {
-                        opcode:'bnotequal',
+                        opcode:'bNotequal',
                         blockType:'Boolean',
                         text:'[a]≠[b]',
                         arguments:{
@@ -1413,9 +1413,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rnearestmultiple',
+                        opcode:'rNearestMultiple',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rnearestmultiple'),
+                        text: this.formatMessage('OperatorsPro.rNearestMultiple'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -1428,9 +1428,9 @@
                         }
                     },
                     {
-                        opcode:'rmod',
+                        opcode:'rMod',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rmod'),
+                        text: this.formatMessage('OperatorsPro.rMod'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -1443,9 +1443,9 @@
                         }
                     }, 
                     {
-                        opcode:'rround',
+                        opcode:'rRound',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rround'),
+                        text: this.formatMessage('OperatorsPro.rRound'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -1459,29 +1459,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     }, 
                     {
-                        opcode:'rrintfromto',
+                        opcode:'rRintFromTo',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rrintfromto'),
-                        arguments:{
-                            a:{
-                                type:'string',
-                                defaultValue:3.1415926
-                            },
-                            b:{
-                                type:'string',
-                                defaultValue:6
-                            },
-                            c:{
-                                type:'string',
-                                defaultValue:3
-                            }
-                        },
-                        hideFromPalette: this.hideExtraBlocks
-                    }, 
-                    {
-                        opcode:'rrinttotimes',
-                        blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rrinttotimes'),
+                        text: this.formatMessage('OperatorsPro.rRintFromTo'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -1499,9 +1479,29 @@
                         hideFromPalette: this.hideExtraBlocks
                     }, 
                     {
-                        opcode:'rrinttimesto',
+                        opcode:'rRintToTimes',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rrinttimesto'),
+                        text: this.formatMessage('OperatorsPro.rRintToTimes'),
+                        arguments:{
+                            a:{
+                                type:'string',
+                                defaultValue:3.1415926
+                            },
+                            b:{
+                                type:'string',
+                                defaultValue:6
+                            },
+                            c:{
+                                type:'string',
+                                defaultValue:3
+                            }
+                        },
+                        hideFromPalette: this.hideExtraBlocks
+                    }, 
+                    {
+                        opcode:'rRintTimesTo',
+                        blockType:'reporter',
+                        text: this.formatMessage('OperatorsPro.rRintTimesTo'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -1535,9 +1535,9 @@
                     },
                     '---',
                     {
-                        opcode:'rmenurad',
+                        opcode:'rMenuRad',
                         blockType:'reporter',
-                        text:this.formatMessage('OperatorsPro.rmenurad'),
+                        text:this.formatMessage('OperatorsPro.rMenuRad'),
                         arguments:{
                             a:{
                                 menu:'sin',
@@ -1555,9 +1555,9 @@
                         hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
-                        opcode:'rmenutoonehundredeighty',
+                        opcode:'rMenuToOneHundredEighty',
                         blockType:'reporter',
-                        text:this.formatMessage('OperatorsPro.rmenutoonehundredeighty'),
+                        text:this.formatMessage('OperatorsPro.rMenuToOneHundredEighty'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -1575,9 +1575,9 @@
                         hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
-                        opcode:'rradsin',
+                        opcode:'rRadSin',
                         blockType:'reporter',
-                        text:this.formatMessage('OperatorsPro.rradsin'),
+                        text:this.formatMessage('OperatorsPro.rRadSin'),
                         arguments:{
                             a:{
                                 type:'string'
@@ -1586,9 +1586,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rradcos',
+                        opcode:'rRadCos',
                         blockType:'reporter',
-                        text:this.formatMessage('OperatorsPro.rradcos'),
+                        text:this.formatMessage('OperatorsPro.rRadCos'),
                         arguments:{
                             a:{
                                 type:'string'
@@ -1597,9 +1597,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rradtan',
+                        opcode:'rRadTan',
                         blockType:'reporter',
-                        text:this.formatMessage('OperatorsPro.rradtan'),
+                        text:this.formatMessage('OperatorsPro.rRadTan'),
                         arguments:{
                             a:{
                                 type:'string'
@@ -1608,9 +1608,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rradasin',
+                        opcode:'rRadAsin',
                         blockType:'reporter',
-                        text:this.formatMessage('OperatorsPro.rradasin'),
+                        text:this.formatMessage('OperatorsPro.rRadAsin'),
                         arguments:{
                             a:{
                                 type:'string'
@@ -1619,9 +1619,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rradacos',
+                        opcode:'rRadAcos',
                         blockType:'reporter',
-                        text:this.formatMessage('OperatorsPro.rradacos'),
+                        text:this.formatMessage('OperatorsPro.rRadAcos'),
                         arguments:{
                             a:{
                                 type:'string'
@@ -1630,9 +1630,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rradatan',
+                        opcode:'rRadAtan',
                         blockType:'reporter',
-                        text:this.formatMessage('OperatorsPro.rradatan'),
+                        text:this.formatMessage('OperatorsPro.rRadAtan'),
                         arguments:{
                             a:{
                                 type:'string'
@@ -1641,7 +1641,7 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rsinmultiplication',
+                        opcode:'rSinMultiplication',
                         blockType:'reporter',
                         text:'[a]*sin[b]',
                         arguments:{
@@ -1655,7 +1655,7 @@
                         hideFromPalette: this.hideExtraBlocks
                     }, 
                     {
-                        opcode:'rcosmultiplication',
+                        opcode:'rCosMultiplication',
                         blockType:'reporter',
                         text:'[a]*cos[b]',
                         arguments:{
@@ -1669,7 +1669,7 @@
                         hideFromPalette: this.hideExtraBlocks
                     }, 
                     {
-                        opcode:'rtanmultiplication',
+                        opcode:'rTanMultiplication',
                         blockType:'reporter',
                         text:'[a]*tan[b]',
                         arguments:{
@@ -1683,7 +1683,7 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rasindivision',
+                        opcode:'rAsinDivision',
                         blockType:'reporter',
                         text:'asin[a]/[b]',
                         arguments:{
@@ -1697,7 +1697,7 @@
                         hideFromPalette: this.hideExtraBlocks
                     }, 
                     {
-                        opcode:'racosdivision',
+                        opcode:'rAcosDivision',
                         blockType:'reporter',
                         text:'acos[a]/[b]',
                         arguments:{
@@ -1711,7 +1711,7 @@
                         hideFromPalette: this.hideExtraBlocks
                     }, 
                     {
-                        opcode:'ratandivision',
+                        opcode:'rAtanDivision',
                         blockType:'reporter',
                         text:'atan[a]/[b]',
                         arguments:{
@@ -1725,9 +1725,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rtoonehundredeighty',
+                        opcode:'rToOneHundredEighty',
                         blockType:'reporter',
-                        text:this.formatMessage('OperatorsPro.rtoonehundredeighty'),
+                        text:this.formatMessage('OperatorsPro.rToOneHundredEighty'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -1737,9 +1737,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rtothreehundredsixty',
+                        opcode:'rToThreeHundredSixty',
                         blockType:'reporter',
-                        text:this.formatMessage('OperatorsPro.rtothreehundredsixty'),
+                        text:this.formatMessage('OperatorsPro.rToThreeHundredSixty'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -1749,9 +1749,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'raddto',
+                        opcode:'rAddTo',
                         blockType:'reporter',
-                        text:this.formatMessage('OperatorsPro.raddto'),
+                        text:this.formatMessage('OperatorsPro.rAddTo'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -1773,9 +1773,9 @@
                         text: this.formatMessage('OperatorsPro.ArrayandObject')
                     },
                     {
-                        opcode:'rmenuArrayremoveitem',
+                        opcode:'rMenuArrayRemoveItem',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rmenuArrayremoveitem'),
+                        text: this.formatMessage('OperatorsPro.rMenuArrayRemoveItem'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -1797,9 +1797,9 @@
                         hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayremoveshift',
+                        opcode:'rArrayRemoveShift',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayremoveshift'),
+                        text: this.formatMessage('OperatorsPro.rArrayRemoveShift'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -1809,9 +1809,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayremovepop',
+                        opcode:'rArrayRemovePop',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayremovepop'),
+                        text: this.formatMessage('OperatorsPro.rArrayRemovePop'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -1821,9 +1821,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayremoveitem',
+                        opcode:'rArrayRemoveItem',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayremoveitem'),
+                        text: this.formatMessage('OperatorsPro.rArrayRemoveItem'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -1837,9 +1837,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayremoveitems',
+                        opcode:'rArrayRemoveItems',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayremoveitems'),
+                        text: this.formatMessage('OperatorsPro.rArrayRemoveItems'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -1853,9 +1853,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayremoveitemtoitem',
+                        opcode:'rArrayRemoveItemtoitem',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayremoveitemtoitem'),
+                        text: this.formatMessage('OperatorsPro.rArrayRemoveItemtoitem'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -1873,9 +1873,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayreserveitem',
+                        opcode:'rArrayReserveItem',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayreserveitem'),
+                        text: this.formatMessage('OperatorsPro.rArrayReserveItem'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -1889,9 +1889,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rmenuArrayremove',
+                        opcode:'rMenuArrayRemove',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rmenuArrayremove'),
+                        text: this.formatMessage('OperatorsPro.rMenuArrayRemove'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -1921,9 +1921,9 @@
                         hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayremoveJSON',
+                        opcode:'rArrayRemoveJSON',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayremoveJSON'),
+                        text: this.formatMessage('OperatorsPro.rArrayRemoveJSON'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -1937,9 +1937,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayremovestr',
+                        opcode:'rArrayRemoveStr',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayremovestr'),
+                        text: this.formatMessage('OperatorsPro.rArrayRemoveStr'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -1953,9 +1953,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rmenuArrayremovenumber',
+                        opcode:'rMenuArrayRemovenumber',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rmenuArrayremovenumber'),
+                        text: this.formatMessage('OperatorsPro.rMenuArrayRemovenumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -1989,9 +1989,9 @@
                         hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayremovebignumber',
+                        opcode:'rArrayRemoveBigNumber',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayremovebignumber'),
+                        text: this.formatMessage('OperatorsPro.rArrayRemoveBigNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2005,9 +2005,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayremovenotsmallnumber',
+                        opcode:'rArrayRemoveNotSmallNumber',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayremovenotsmallnumber'),
+                        text: this.formatMessage('OperatorsPro.rArrayRemoveNotSmallNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2021,9 +2021,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayremovesmallnumber',
+                        opcode:'rArrayRemoveSmallNumber',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayremovesmallnumber'),
+                        text: this.formatMessage('OperatorsPro.rArrayRemoveSmallNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2037,9 +2037,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayremovenotbignumber',
+                        opcode:'rArrayRemoveNotBigNumber',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayremovenotbignumber'),
+                        text: this.formatMessage('OperatorsPro.rArrayRemoveNotBigNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2053,9 +2053,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayremovenumber',
+                        opcode:'rArrayRemoveNumber',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayremovenumber'),
+                        text: this.formatMessage('OperatorsPro.rArrayRemoveNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2069,9 +2069,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayremove',
+                        opcode:'rArrayRemove',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayremove'),
+                        text: this.formatMessage('OperatorsPro.rArrayRemove'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2085,9 +2085,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rmenuArrayinsert',
+                        opcode:'rMenuArrayInsert',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rmenuArrayinsert'),
+                        text: this.formatMessage('OperatorsPro.rMenuArrayInsert'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2121,9 +2121,9 @@
                         hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayunshiftJSON',
+                        opcode:'rArrayUnshiftJSON',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayunshiftJSON'),
+                        text: this.formatMessage('OperatorsPro.rArrayUnshiftJSON'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2137,9 +2137,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayunshiftstr',
+                        opcode:'rArrayUnshiftStr',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayunshiftstr'),
+                        text: this.formatMessage('OperatorsPro.rArrayUnshiftStr'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2153,9 +2153,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayunshiftnumber',
+                        opcode:'rArrayUnshiftNumber',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayunshiftnumber'),
+                        text: this.formatMessage('OperatorsPro.rArrayUnshiftNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2169,9 +2169,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayunshift',
+                        opcode:'rArrayUnshift',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayunshift'),
+                        text: this.formatMessage('OperatorsPro.rArrayUnshift'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2185,9 +2185,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArraypushJSON',
+                        opcode:'rArrayPushJSON',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArraypushJSON'),
+                        text: this.formatMessage('OperatorsPro.rArrayPushJSON'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2201,9 +2201,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArraypushstr',
+                        opcode:'rArrayPushStr',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArraypushstr'),
+                        text: this.formatMessage('OperatorsPro.rArrayPushStr'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2217,9 +2217,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArraypushnumber',
+                        opcode:'rArrayPushNumber',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArraypushnumber'),
+                        text: this.formatMessage('OperatorsPro.rArrayPushNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2233,9 +2233,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArraypush',
+                        opcode:'rArrayPush',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArraypush'),
+                        text: this.formatMessage('OperatorsPro.rArrayPush'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2249,29 +2249,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayinsertJSON',
+                        opcode:'rArrayInsertJSON',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayinsertJSON'),
-                        arguments:{
-                            a:{
-                                type:'string',
-                                defaultValue: '[1,"1",4,5,1,4,"fun","k"]'
-                            },
-                            b:{
-                                type:'string',
-                                defaultValue:114514
-                            },
-                            c:{
-                                type:'string',
-                                defaultValue:1
-                            }
-                        },
-                        hideFromPalette: this.hideExtraBlocks
-                    },
-                    {
-                        opcode:'rArrayinsertstr',
-                        blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayinsertstr'),
+                        text: this.formatMessage('OperatorsPro.rArrayInsertJSON'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2289,9 +2269,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayinsertnumber',
+                        opcode:'rArrayInsertStr',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayinsertnumber'),
+                        text: this.formatMessage('OperatorsPro.rArrayInsertStr'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2309,9 +2289,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayinsert',
+                        opcode:'rArrayInsertNumber',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayinsert'),
+                        text: this.formatMessage('OperatorsPro.rArrayInsertNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2329,9 +2309,29 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayinsertJSONindexes',
+                        opcode:'rArrayInsert',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayinsertJSON'),
+                        text: this.formatMessage('OperatorsPro.rArrayInsert'),
+                        arguments:{
+                            a:{
+                                type:'string',
+                                defaultValue: '[1,"1",4,5,1,4,"fun","k"]'
+                            },
+                            b:{
+                                type:'string',
+                                defaultValue:114514
+                            },
+                            c:{
+                                type:'string',
+                                defaultValue:1
+                            }
+                        },
+                        hideFromPalette: this.hideExtraBlocks
+                    },
+                    {
+                        opcode:'rArrayInsertJSONindexes',
+                        blockType:'reporter',
+                        text: this.formatMessage('OperatorsPro.rArrayInsertJSON'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2349,9 +2349,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayinsertstrindexes',
+                        opcode:'rArrayInsertStrindexes',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayinsertstr'),
+                        text: this.formatMessage('OperatorsPro.rArrayInsertStr'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2369,9 +2369,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayinsertnumberindexes',
+                        opcode:'rArrayInsertNumberindexes',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayinsertnumber'),
+                        text: this.formatMessage('OperatorsPro.rArrayInsertNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2389,9 +2389,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayinsertindexes',
+                        opcode:'rArrayInsertindexes',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayinsert'),
+                        text: this.formatMessage('OperatorsPro.rArrayInsert'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2409,9 +2409,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayinsertJSONindextoindex',
+                        opcode:'rArrayInsertJSONindextoindex',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayinsertJSONindextoindex'),
+                        text: this.formatMessage('OperatorsPro.rArrayInsertJSONindextoindex'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2433,9 +2433,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayinsertstrindextoindex',
+                        opcode:'rArrayInsertStrindextoindex',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayinsertstrindextoindex'),
+                        text: this.formatMessage('OperatorsPro.rArrayInsertStrindextoindex'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2457,9 +2457,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayinsertnumberindextoindex',
+                        opcode:'rArrayInsertNumberindextoindex',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayinsertnumberindextoindex'),
+                        text: this.formatMessage('OperatorsPro.rArrayInsertNumberindextoindex'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2481,9 +2481,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayinsertindextoindex',
+                        opcode:'rArrayInsertindextoindex',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayinsertindextoindex'),
+                        text: this.formatMessage('OperatorsPro.rArrayInsertindextoindex'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2505,9 +2505,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArraymove',
+                        opcode:'rArrayMove',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArraymove'),
+                        text: this.formatMessage('OperatorsPro.rArrayMove'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2525,9 +2525,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayreplaceJSON',
+                        opcode:'rArrayReplaceJSON',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayreplaceJSON'),
+                        text: this.formatMessage('OperatorsPro.rArrayReplaceJSON'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2545,9 +2545,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayreplacestr',
+                        opcode:'rArrayReplaceStr',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayreplacestr'),
+                        text: this.formatMessage('OperatorsPro.rArrayReplaceStr'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2565,9 +2565,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayreplacenumber',
+                        opcode:'rArrayReplaceNumber',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayreplacenumber'),
+                        text: this.formatMessage('OperatorsPro.rArrayReplaceNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2585,9 +2585,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayreplace',
+                        opcode:'rArrayReplace',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayreplace'),
+                        text: this.formatMessage('OperatorsPro.rArrayReplace'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2605,9 +2605,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayreplaceindexesJSON',
+                        opcode:'rArrayReplaceindexesJSON',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayreplaceindexesJSON'),
+                        text: this.formatMessage('OperatorsPro.rArrayReplaceindexesJSON'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2625,9 +2625,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayreplaceindexesstr',
+                        opcode:'rArrayReplaceindexesstr',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayreplaceindexesstr'),
+                        text: this.formatMessage('OperatorsPro.rArrayReplaceindexesstr'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2645,9 +2645,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayreplaceindexesnumber',
+                        opcode:'rArrayReplaceindexesnumber',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayreplaceindexesnumber'),
+                        text: this.formatMessage('OperatorsPro.rArrayReplaceindexesnumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2665,9 +2665,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayreplaceindexes',
+                        opcode:'rArrayReplaceindexes',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayreplaceindexes'),
+                        text: this.formatMessage('OperatorsPro.rArrayReplaceindexes'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2685,9 +2685,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayreplaceindextoindexJSON',
+                        opcode:'rArrayReplaceindextoindexJSON',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayreplaceindextoindexJSON'),
+                        text: this.formatMessage('OperatorsPro.rArrayReplaceindextoindexJSON'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2709,9 +2709,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayreplaceindextoindexstr',
+                        opcode:'rArrayReplaceindextoindexstr',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayreplaceindextoindexstr'),
+                        text: this.formatMessage('OperatorsPro.rArrayReplaceindextoindexstr'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2733,9 +2733,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayreplaceindextoindexnumber',
+                        opcode:'rArrayReplaceindextoindexnumber',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayreplaceindextoindexnumber'),
+                        text: this.formatMessage('OperatorsPro.rArrayReplaceindextoindexnumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2757,9 +2757,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayreplaceindextoindex',
+                        opcode:'rArrayReplaceindextoindex',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayreplaceindextoindex'),
+                        text: this.formatMessage('OperatorsPro.rArrayReplaceindextoindex'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2781,9 +2781,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayinterchange',
+                        opcode:'rArrayInterchange',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayinterchange'),
+                        text: this.formatMessage('OperatorsPro.rArrayInterchange'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2801,9 +2801,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayplusindex',
+                        opcode:'rArrayPlusIndex',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayplusindex'),
+                        text: this.formatMessage('OperatorsPro.rArrayPlusIndex'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2821,9 +2821,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayplusindexes',
+                        opcode:'rArrayPlusIndexes',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayplusindex'),
+                        text: this.formatMessage('OperatorsPro.rArrayPlusIndex'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2841,9 +2841,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayplusindextoindex',
+                        opcode:'rArrayPlusIndextoindex',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayplusindextoindex'),
+                        text: this.formatMessage('OperatorsPro.rArrayPlusIndextoindex'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2865,9 +2865,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayplus',
+                        opcode:'rArrayPlus',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayplus'),
+                        text: this.formatMessage('OperatorsPro.rArrayPlus'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2882,9 +2882,9 @@
                     },
                     '---',
                     {
-                        opcode:'rmenuArrayitem',
+                        opcode:'rMenuArrayItem',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rmenuArrayitem'),
+                        text: this.formatMessage('OperatorsPro.rMenuArrayItem'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2906,9 +2906,9 @@
                         hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayshiftJSON',
+                        opcode:'rArrayShiftJSON',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayshiftJSON'),
+                        text: this.formatMessage('OperatorsPro.rArrayShiftJSON'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2918,9 +2918,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayshift',
+                        opcode:'rArrayShift',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayshift'),
+                        text: this.formatMessage('OperatorsPro.rArrayShift'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2930,9 +2930,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArraypopJSON',
+                        opcode:'rArrayPopJSON',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArraypopJSON'),
+                        text: this.formatMessage('OperatorsPro.rArrayPopJSON'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2942,9 +2942,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArraypop',
+                        opcode:'rArrayPop',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArraypop'),
+                        text: this.formatMessage('OperatorsPro.rArrayPop'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2954,9 +2954,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayitemJSON',
+                        opcode:'rArrayItemJSON',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayitemJSON'),
+                        text: this.formatMessage('OperatorsPro.rArrayItemJSON'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2970,9 +2970,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayitem',
+                        opcode:'rArrayItem',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayitem'),
+                        text: this.formatMessage('OperatorsPro.rArrayItem'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -2986,9 +2986,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayitems',
+                        opcode:'rArrayItems',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayitems'),
+                        text: this.formatMessage('OperatorsPro.rArrayItems'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3002,9 +3002,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayitemtoitem',
+                        opcode:'rArrayItemtoitem',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayitemtoitem'),
+                        text: this.formatMessage('OperatorsPro.rArrayItemtoitem'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3022,9 +3022,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rmenuArrayindex',
+                        opcode:'rMenuArrayIndex',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rmenuArrayindex'),
+                        text: this.formatMessage('OperatorsPro.rMenuArrayIndex'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3054,9 +3054,9 @@
                         hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
-                        opcode:'rmenuArrayindexnumber',
+                        opcode:'rMenuArrayIndexnumber',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rmenuArrayindexnumber'),
+                        text: this.formatMessage('OperatorsPro.rMenuArrayIndexnumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3090,9 +3090,9 @@
                         hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayindexJSON',
+                        opcode:'rArrayIndexJSON',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayindexJSON'),
+                        text: this.formatMessage('OperatorsPro.rArrayIndexJSON'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3106,9 +3106,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayindexstr',
+                        opcode:'rArrayIndexStr',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayindexstr'),
+                        text: this.formatMessage('OperatorsPro.rArrayIndexStr'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3122,9 +3122,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayfindIndexbignumber',
+                        opcode:'rArrayFindIndexBigNumber',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayfindIndexbignumber'),
+                        text: this.formatMessage('OperatorsPro.rArrayFindIndexBigNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3138,9 +3138,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayfindIndexnotsmallnumber',
+                        opcode:'rArrayFindIndexNotSmallNumber',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayfindIndexnotsmallnumber'),
+                        text: this.formatMessage('OperatorsPro.rArrayFindIndexNotSmallNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3154,9 +3154,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayfindIndexsmallnumber',
+                        opcode:'rArrayFindIndexSmallNumber',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayfindIndexsmallnumber'),
+                        text: this.formatMessage('OperatorsPro.rArrayFindIndexSmallNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3170,9 +3170,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayfindIndexnotbignumber',
+                        opcode:'rArrayFindIndexNotBigNumber',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayfindIndexnotbignumber'),
+                        text: this.formatMessage('OperatorsPro.rArrayFindIndexNotBigNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3186,9 +3186,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayindexnumber',
+                        opcode:'rArrayIndexNumber',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayindexnumber'),
+                        text: this.formatMessage('OperatorsPro.rArrayIndexNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3202,9 +3202,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayindex',
+                        opcode:'rArrayIndex',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayindex'),
+                        text: this.formatMessage('OperatorsPro.rArrayIndex'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3218,9 +3218,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArraylastindexJSON',
+                        opcode:'rArrayLastIndexJSON',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArraylastindexJSON'),
+                        text: this.formatMessage('OperatorsPro.rArrayLastIndexJSON'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3234,9 +3234,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArraylastindexstr',
+                        opcode:'rArrayLastIndexStr',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArraylastindexstr'),
+                        text: this.formatMessage('OperatorsPro.rArrayLastIndexStr'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3250,9 +3250,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArraylastindexnumber',
+                        opcode:'rArrayLastIndexNumber',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArraylastindexnumber'),
+                        text: this.formatMessage('OperatorsPro.rArrayLastIndexNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3266,9 +3266,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArraylastindex',
+                        opcode:'rArrayLastIndex',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArraylastindex'),
+                        text: this.formatMessage('OperatorsPro.rArrayLastIndex'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3282,9 +3282,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayallindexJSON',
+                        opcode:'rArrayAllIndexJSON',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayallindexJSON'),
+                        text: this.formatMessage('OperatorsPro.rArrayAllIndexJSON'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3298,9 +3298,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayallindexstr',
+                        opcode:'rArrayAllIndexStr',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayallindexstr'),
+                        text: this.formatMessage('OperatorsPro.rArrayAllIndexStr'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3314,9 +3314,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayallindexnumber',
+                        opcode:'rArrayAllIndexNumber',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayallindexnumber'),
+                        text: this.formatMessage('OperatorsPro.rArrayAllIndexNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3330,9 +3330,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayallindex',
+                        opcode:'rArrayAllIndex',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayallindex'),
+                        text: this.formatMessage('OperatorsPro.rArrayAllIndex'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3346,9 +3346,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rmenuArraycount',
+                        opcode:'rMenuArrayCount',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rmenuArraycount'),
+                        text: this.formatMessage('OperatorsPro.rMenuArrayCount'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3374,9 +3374,9 @@
                         hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArraycountJSON',
+                        opcode:'rArrayCountJSON',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArraycountJSON'),
+                        text: this.formatMessage('OperatorsPro.rArrayCountJSON'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3390,9 +3390,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArraycountstr',
+                        opcode:'rArrayCountStr',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArraycountstr'),
+                        text: this.formatMessage('OperatorsPro.rArrayCountStr'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3406,9 +3406,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rmenuArraycountnumber',
+                        opcode:'rMenuArrayCountnumber',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rmenuArraycountnumber'),
+                        text: this.formatMessage('OperatorsPro.rMenuArrayCountnumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3438,9 +3438,9 @@
                         hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArraycountbignumber',
+                        opcode:'rArrayCountBigNumber',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArraycountbignumber'),
+                        text: this.formatMessage('OperatorsPro.rArrayCountBigNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3454,9 +3454,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArraycountnotsmallnumber',
+                        opcode:'rArrayCountNotSmallNumber',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArraycountnotsmallnumber'),
+                        text: this.formatMessage('OperatorsPro.rArrayCountNotSmallNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3470,9 +3470,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArraycountsmallnumber',
+                        opcode:'rArrayCountSmallNumber',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArraycountsmallnumber'),
+                        text: this.formatMessage('OperatorsPro.rArrayCountSmallNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3486,9 +3486,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArraycountnotbignumber',
+                        opcode:'rArrayCountNotBigNumber',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArraycountnotbignumber'),
+                        text: this.formatMessage('OperatorsPro.rArrayCountNotBigNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3502,9 +3502,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArraycountnumber',
+                        opcode:'rArrayCountNumber',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArraycountnumber'),
+                        text: this.formatMessage('OperatorsPro.rArrayCountNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3518,9 +3518,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArraycount',
+                        opcode:'rArrayCount',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArraycount'),
+                        text: this.formatMessage('OperatorsPro.rArrayCount'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3534,9 +3534,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rmenuArraylength',
+                        opcode:'rMenuArrayLength',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rmenuArraylength'),
+                        text: this.formatMessage('OperatorsPro.rMenuArrayLength'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3554,9 +3554,9 @@
                         hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArraylength',
+                        opcode:'rArrayLength',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArraylength'),
+                        text: this.formatMessage('OperatorsPro.rArrayLength'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3566,9 +3566,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArraysum',
+                        opcode:'rArraySum',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArraysum'),
+                        text: this.formatMessage('OperatorsPro.rArraySum'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3578,9 +3578,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayproduct',
+                        opcode:'rArrayProduct',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayproduct'),
+                        text: this.formatMessage('OperatorsPro.rArrayProduct'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3590,9 +3590,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayaverage',
+                        opcode:'rArrayAverage',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayaverage'),
+                        text: this.formatMessage('OperatorsPro.rArrayAverage'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3602,9 +3602,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArraymax',
+                        opcode:'rArrayMax',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArraymax'),
+                        text: this.formatMessage('OperatorsPro.rArrayMax'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3614,9 +3614,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArraymin',
+                        opcode:'rArrayMin',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArraymin'),
+                        text: this.formatMessage('OperatorsPro.rArrayMin'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3626,9 +3626,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rmenuArraysort',
+                        opcode:'rMenuArraySort',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rmenuArraysort'),
+                        text: this.formatMessage('OperatorsPro.rMenuArraySort'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3650,9 +3650,9 @@
                         hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArraysortnaturalOrder',
+                        opcode:'rArraySortNaturalOrder',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArraysortnaturalOrder'),
+                        text: this.formatMessage('OperatorsPro.rArraySortNaturalOrder'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3662,9 +3662,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArraysortreverseOrder',
+                        opcode:'rArraySortReverseOrder',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArraysortreverseOrder'),
+                        text: this.formatMessage('OperatorsPro.rArraySortReverseOrder'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3674,9 +3674,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rArrayreverse',
+                        opcode:'rArrayReverse',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rArrayreverse'),
+                        text: this.formatMessage('OperatorsPro.rArrayReverse'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3686,9 +3686,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'bmenuArrayhave',
+                        opcode:'bMenuArrayHave',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bmenuArrayhave'),
+                        text: this.formatMessage('OperatorsPro.bMenuArrayHave'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3718,9 +3718,9 @@
                         hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
-                        opcode:'bArrayhaveJSON',
+                        opcode:'bArrayHaveJSON',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bArrayhaveJSON'),
+                        text: this.formatMessage('OperatorsPro.bArrayHaveJSON'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3734,9 +3734,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'bArrayhavestr',
+                        opcode:'bArrayHaveStr',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bArrayhavestr'),
+                        text: this.formatMessage('OperatorsPro.bArrayHaveStr'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3750,9 +3750,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'bmenuArrayhavenumber',
+                        opcode:'bMenuArrayHavenumber',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bmenuArrayhavenumber'),
+                        text: this.formatMessage('OperatorsPro.bMenuArrayHavenumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3786,9 +3786,9 @@
                         hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
-                        opcode:'bArrayhavebignumber',
+                        opcode:'bArrayHaveBigNumber',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bArrayhavebignumber'),
+                        text: this.formatMessage('OperatorsPro.bArrayHaveBigNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3802,9 +3802,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'bArrayhavenotsmallnumber',
+                        opcode:'bArrayHaveNotSmallNumber',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bArrayhavenotsmallnumber'),
+                        text: this.formatMessage('OperatorsPro.bArrayHaveNotSmallNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3818,9 +3818,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'bArrayhavesmallnumber',
+                        opcode:'bArrayHaveSmallNumber',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bArrayhavesmallnumber'),
+                        text: this.formatMessage('OperatorsPro.bArrayHaveSmallNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3834,9 +3834,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'bArrayhavenotbignumber',
+                        opcode:'bArrayHaveNotBigNumber',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bArrayhavenotbignumber'),
+                        text: this.formatMessage('OperatorsPro.bArrayHaveNotBigNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3850,9 +3850,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'bArrayhavenumber',
+                        opcode:'bArrayHaveNumber',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bArrayhavenumber'),
+                        text: this.formatMessage('OperatorsPro.bArrayHaveNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3866,9 +3866,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'bArrayhave',
+                        opcode:'bArrayHave',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bArrayhave'),
+                        text: this.formatMessage('OperatorsPro.bArrayHave'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3882,9 +3882,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'bArraybeJSON',
+                        opcode:'bArrayBeJSON',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bArraybeJSON'),
+                        text: this.formatMessage('OperatorsPro.bArrayBeJSON'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3898,9 +3898,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'bArraybestr',
+                        opcode:'bArrayBeStr',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bArraybestr'),
+                        text: this.formatMessage('OperatorsPro.bArrayBeStr'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3914,9 +3914,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'bArraybebignumber',
+                        opcode:'bArrayBeBigNumber',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bArraybebignumber'),
+                        text: this.formatMessage('OperatorsPro.bArrayBeBigNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3930,9 +3930,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'bArraybenotsmallnumber',
+                        opcode:'bArrayBeNotSmallNumber',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bArraybenotsmallnumber'),
+                        text: this.formatMessage('OperatorsPro.bArrayBeNotSmallNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3946,9 +3946,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'bArraybesmallnumber',
+                        opcode:'bArrayBeSmallNumber',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bArraybesmallnumber'),
+                        text: this.formatMessage('OperatorsPro.bArrayBeSmallNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3962,9 +3962,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'bArraybenotbignumber',
+                        opcode:'bArrayBeNotBigNumber',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bArraybenotbignumber'),
+                        text: this.formatMessage('OperatorsPro.bArrayBeNotBigNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3978,9 +3978,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'bArraybenumber',
+                        opcode:'bArrayBeNumber',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bArraybenumber'),
+                        text: this.formatMessage('OperatorsPro.bArrayBeNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -3994,9 +3994,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'bArraybe',
+                        opcode:'bArrayBe',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bArraybe'),
+                        text: this.formatMessage('OperatorsPro.bArrayBe'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4011,7 +4011,7 @@
                     },
                     '---',
                     {
-                        opcode:'bArrayequal',
+                        opcode:'bArrayEqual',
                         blockType:'Boolean',
                         text: '[a]=[b]',
                         arguments:{
@@ -4027,9 +4027,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'bArraystrictlyequal',
+                        opcode:'bArrayStrictlyEqual',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bArraystrictlyequal'),
+                        text: this.formatMessage('OperatorsPro.bArrayStrictlyEqual'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4043,9 +4043,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'bArrayclear',
+                        opcode:'bArrayClear',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bArrayclear'),
+                        text: this.formatMessage('OperatorsPro.bArrayClear'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4055,9 +4055,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'bisArray',
+                        opcode:'bIsArray',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bisArray'),
+                        text: this.formatMessage('OperatorsPro.bIsArray'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4068,9 +4068,9 @@
                     },
                     '---',
                     {
-                        opcode:'rObjectremove',
+                        opcode:'rObjectRemove',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rObjectremove'),
+                        text: this.formatMessage('OperatorsPro.rObjectRemove'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4084,9 +4084,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rObjectremovekeys',
+                        opcode:'rObjectRemovekeys',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rObjectremovekeys'),
+                        text: this.formatMessage('OperatorsPro.rObjectRemovekeys'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4101,9 +4101,9 @@
                     },
                     '---',
                     {
-                        opcode:'rmenuObjectset',
+                        opcode:'rMenuObjectSet',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rmenuObjectset'),
+                        text: this.formatMessage('OperatorsPro.rMenuObjectSet'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4137,9 +4137,9 @@
                         hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
-                        opcode:'rObjectputkeyJSON',
+                        opcode:'rObjectPutKeyJSON',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rObjectputkeyJSON'),
+                        text: this.formatMessage('OperatorsPro.rObjectPutKeyJSON'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4157,9 +4157,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rObjectputkeystr',
+                        opcode:'rObjectPutKeyStr',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rObjectputkeystr'),
+                        text: this.formatMessage('OperatorsPro.rObjectPutKeyStr'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4177,9 +4177,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rObjectputkeynumber',
+                        opcode:'rObjectPutKeyNumber',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rObjectputkeynumber'),
+                        text: this.formatMessage('OperatorsPro.rObjectPutKeyNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4197,9 +4197,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rObjectputkey',
+                        opcode:'rObjectPutKey',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rObjectputkey'),
+                        text: this.formatMessage('OperatorsPro.rObjectPutKey'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4217,9 +4217,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rObjectpluskey',
+                        opcode:'rObjectPlusKey',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rObjectpluskey'),
+                        text: this.formatMessage('OperatorsPro.rObjectPlusKey'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4237,9 +4237,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rObjectplus',
+                        opcode:'rObjectPlus',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rObjectplus'),
+                        text: this.formatMessage('OperatorsPro.rObjectPlus'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4254,9 +4254,9 @@
                     },
                     '---',
                     {
-                        opcode:'rmenuObjectmember',
+                        opcode:'rMenuObjectMember',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rmenuObjectmember'),
+                        text: this.formatMessage('OperatorsPro.rMenuObjectMember'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4278,9 +4278,9 @@
                         hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
-                        opcode:'rObjectvalueJSON',
+                        opcode:'rObjectValueJSON',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rObjectvalueJSON'),
+                        text: this.formatMessage('OperatorsPro.rObjectValueJSON'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4294,9 +4294,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rObjectvalue',
+                        opcode:'rObjectValue',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rObjectvalue'),
+                        text: this.formatMessage('OperatorsPro.rObjectValue'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4310,9 +4310,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rObjectkeyJSON',
+                        opcode:'rObjectKeyJSON',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rObjectkeyJSON'),
+                        text: this.formatMessage('OperatorsPro.rObjectKeyJSON'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4326,9 +4326,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rObjectkeystr',
+                        opcode:'rObjectKeyStr',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rObjectkeystr'),
+                        text: this.formatMessage('OperatorsPro.rObjectKeyStr'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4342,9 +4342,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rObjectkeynumber',
+                        opcode:'rObjectKeyNumber',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rObjectkeynumber'),
+                        text: this.formatMessage('OperatorsPro.rObjectKeyNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4358,9 +4358,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rObjectkey',
+                        opcode:'rObjectKey',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rObjectkey'),
+                        text: this.formatMessage('OperatorsPro.rObjectKey'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4374,9 +4374,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rObjectlastkeyJSON',
+                        opcode:'rObjectLastKeyJSON',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rObjectlastkeyJSON'),
+                        text: this.formatMessage('OperatorsPro.rObjectLastKeyJSON'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4390,9 +4390,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rObjectlastkeystr',
+                        opcode:'rObjectLastKeyStr',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rObjectlastkeystr'),
+                        text: this.formatMessage('OperatorsPro.rObjectLastKeyStr'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4406,9 +4406,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rObjectlastkeynumber',
+                        opcode:'rObjectLastKeyNumber',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rObjectlastkeynumber'),
+                        text: this.formatMessage('OperatorsPro.rObjectLastKeyNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4422,9 +4422,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rObjectlastkey',
+                        opcode:'rObjectLastKey',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rObjectlastkey'),
+                        text: this.formatMessage('OperatorsPro.rObjectLastKey'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4438,9 +4438,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rObjectallkeyJSON',
+                        opcode:'rObjectAllKeyJSON',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rObjectallkeyJSON'),
+                        text: this.formatMessage('OperatorsPro.rObjectAllKeyJSON'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4454,9 +4454,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rObjectallkeystr',
+                        opcode:'rObjectAllKeyStr',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rObjectallkeystr'),
+                        text: this.formatMessage('OperatorsPro.rObjectAllKeyStr'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4470,9 +4470,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rObjectallkeynumber',
+                        opcode:'rObjectAllKeyNumber',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rObjectallkeynumber'),
+                        text: this.formatMessage('OperatorsPro.rObjectAllKeyNumber'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4486,9 +4486,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rObjectallkey',
+                        opcode:'rObjectAllKey',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rObjectallkey'),
+                        text: this.formatMessage('OperatorsPro.rObjectAllKey'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4502,9 +4502,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rmenuObjectkeys',
+                        opcode:'rMenuObjectKeys',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rmenuObjectkeys'),
+                        text: this.formatMessage('OperatorsPro.rMenuObjectKeys'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4526,9 +4526,9 @@
                         hideFromPalette: ! this.hideExtraBlocks
                     },
                     {
-                        opcode:'rObjectlength',
+                        opcode:'rObjectLength',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rObjectlength'),
+                        text: this.formatMessage('OperatorsPro.rObjectLength'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4538,9 +4538,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rObjectkeys',
+                        opcode:'rObjectKeys',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rObjectkeys'),
+                        text: this.formatMessage('OperatorsPro.rObjectKeys'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4550,9 +4550,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rObjectvalues',
+                        opcode:'rObjectValues',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rObjectvalues'),
+                        text: this.formatMessage('OperatorsPro.rObjectValues'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4562,9 +4562,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rObjectentries',
+                        opcode:'rObjectEntries',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rObjectentries'),
+                        text: this.formatMessage('OperatorsPro.rObjectEntries'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4574,9 +4574,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rObjectfromentries',
+                        opcode:'rObjectFromEntries',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rObjectfromentries'),
+                        text: this.formatMessage('OperatorsPro.rObjectFromEntries'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4586,9 +4586,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rObjectputAll',
+                        opcode:'rObjectPutAll',
                         blockType:'reporter',
-                        text: this.formatMessage('OperatorsPro.rObjectputAll'),
+                        text: this.formatMessage('OperatorsPro.rObjectPutAll'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4602,7 +4602,7 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'rObjectplusObject',
+                        opcode:'rObjectPlusObject',
                         blockType:'reporter',
                         text:'[a]+[b]',
                         arguments:{
@@ -4618,9 +4618,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'bObjecthasownproperty',
+                        opcode:'bObjectHasOwnProperty',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bObjecthasownproperty'),
+                        text: this.formatMessage('OperatorsPro.bObjectHasOwnProperty'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4635,9 +4635,9 @@
                     },
                     '---',
                     {
-                        opcode:'bObjectclear',
+                        opcode:'bObjectClear',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bObjectclear'),
+                        text: this.formatMessage('OperatorsPro.bObjectClear'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -4647,9 +4647,9 @@
                         hideFromPalette: this.hideExtraBlocks
                     },
                     {
-                        opcode:'bisObject',
+                        opcode:'bIsObject',
                         blockType:'Boolean',
-                        text: this.formatMessage('OperatorsPro.bisObject'),
+                        text: this.formatMessage('OperatorsPro.bIsObject'),
                         arguments:{
                             a:{
                                 type:'string',
@@ -5323,10 +5323,10 @@
             }
             this.runtime.emitProjectChanged()
         }
-        rtest(args,util){
+        rTest(args,util){
             return Object.isObject({})
         }
-        rmenuunusualword(args){
+        rMenuUnusualWord(args){
             if (typeof args.a == 'string'){
                 switch(args.a){
                     case 'true' :
@@ -5345,17 +5345,17 @@
             }
             return args.a
         }
-        rmenutotype(args){
+        rMenuToType(args){
             return this.totype(args.a,args.b)
         }
-        rmenutypeof(args){
+        rMenuTypeof(args){
             if (args.b){
                 const a = JSON.parse(args.a)
                 return args.c && Array.isArray(a) ? 'array' : typeof a
             }
             return typeof args.a
         }
-        bmenutypeof(args){
+        bMenuTypeof(args){
             if (args.b){
                 const a = JSON.parse(args.a)
                 if(args.c==='array')return Array.isArray(a)
@@ -5364,10 +5364,10 @@
             }
             return typeof args.a === args.c
         }
-        rJSONtypeof(args){
+        rJSONTypeof(args){
             return typeof JSON.parse(args.a)
         }
-        bJSONtypeof(args){
+        bJSONTypeof(args){
             return typeof JSON.parse(args.a) == args.b
         }
         bCheckType({ INPUT, MODE }) {
@@ -5400,7 +5400,7 @@
                     return false
             }
         }
-        bmenuToBoolean(args){
+        bMenuToBoolean(args){
             switch(args.b){
                 case 0 :
                     return args.c ? args.a : ! args.a
@@ -5410,7 +5410,7 @@
                     return args.c ? ! falseList1.includes(args.a) : falseList1.includes(args.a)
             }
         }
-        rmenuif(args){
+        rMenuIf(args){
             switch(args.b){
                 case 0 :
                     return args.a ? args.c : args.d
@@ -5420,7 +5420,7 @@
                     return falseList1.includes(args.a) ? args.d : args.c
             }
         }
-        bmenuand(args){
+        bMenuAnd(args){
             if(args.b){
                 switch(args.d){
                     case 0 :
@@ -5440,37 +5440,37 @@
                     return args.e ? !( falseList1.includes(args.a) && falseList1.includes(args.c) ) : falseList1.includes(args.a) && falseList1.includes(args.c)
             }
         }
-        rreporter(args){
+        rReporter(args){
             return args.a
         }
-        rboolean(args){
+        rBoolean(args){
             return args.a
         }
         bToBoolean(args){
             return ! falseList1.includes(args.a)
         }
-        rif(args){
+        rIf(args){
             return args.a ? args.b : args.c
         }
-        rifToBoolean(args){
+        rIfToBoolean(args){
             return falseList1.includes(args.a) ? args.c : args.b
         }
-        band(args){
+        bAnd(args){
             return args.a && args.b
         }
-        bandToBoolean(args){
+        bAndToBoolean(args){
             return ! (falseList1.includes(args.a) || falseList1.includes(args.b))
         }
-        bor(args){
+        bOr(args){
             return args.a || args.b
         }
-        borToBoolean(args){
+        bOrToBoolean(args){
             return ! (falseList1.includes(args.a) && falseList1.includes(args.b))
         }
-        bnot(args){
+        bNot(args){
             return ! args.a
         }
-        bnotToBoolean(args){
+        bNotToBoolean(args){
             return falseList1.includes(args.a)
         }
         bLogicGateOperation({ OPERAND1, OPERAND2, SYMBOL }) {
@@ -5487,33 +5487,33 @@
                     return operand1 === operand2
             }
         }
-        rjoin(args){
+        rJoin(args){
             return String(args.a)+String(args.b)+String(args.c)
         }
-        rpadstart(args){
+        rPadStart(args){
             return args.a.padStart(args.c,args.b)
         }
-        rpadend(args){
+        rPadEnd(args){
             return args.a.padEnd(args.c,args.b)
         }
-        rremove(args){
+        rRemove(args){
             return args.a.replaceAll(args.b,'')
         }
-        rinterchange(args){
+        rInterchange(args){
             let a =''
             for(const t of String(args.a).split(args.b)){
                 a+=args.c+t.replaceAll(args.c,args.b)
             }
             return a.replace(args.c,'')
         }
-        rreplaceexcept(args){
+        rReplaceExcept(args){
             let a =''
             for(const t of String(args.a).split(args.c)){
                 a+=args.c+t.replaceAll(args.b,args.d)
             }
             return a.replace(args.c,'')
         }
-        bmenuundefined(args){
+        bMenuUndefined(args){
             if (args.b){
                 if(nullList2.includes(args.a)) return args.c ? false :true
                 return args.c ? true : false
@@ -5521,17 +5521,17 @@
             if(nullList1.includes(args.a)) return args.c ? false :true
             return args.c ? true : false
         }
-        rdefault(args){
+        rDefault(args){
             if (nullList1.includes(args.a)) return args.b
             return args.a
         }
-        bdefined(args){
+        bDefined(args){
             return ! nullList1.includes(args.a)
         }
-        bundefined(args){
+        bUndefined(args){
             return nullList1.includes(args.a)
         }
-        bmenuequal(args){
+        bMenuEqual(args){
             return args.b ? this.equal(args.a,args.c,args.d) : this.notequal(args.a,args.c,args.d)
         }
         bCompare({ OPERAND1, OPERAND2, SYMBOL }) {
@@ -5548,22 +5548,22 @@
             NUM = Cast.toNumber(NUM)
             return Math.abs(OPERAND1 - OPERAND2) <= NUM
         }
-        bnotstrictlyequal(args){
+        bNotstrictlyequal(args){
             return args.a !== args.b
         }
-        bnotcontain(args){
+        bNotcontain(args){
             return ! args.a.includes(args.b)
         }
         rNegative({ NUM }) {
             return 0 - Cast.toNumber(NUM)
         }
-        rsign(args){
+        rSign(args){
             return Math.floor(Math.random()*2) ? args.a : 0-args.a
         }
-        raddition(args){
+        rAddition(args){
             return Number(args.a)+Number(args.b)+Number(args.c)
         }
-        radditionmultiplication(args){
+        rAdditionmultiplication(args){
             return (Number(args.a)+Number(args.b))*args.c
         }
         rExponent({ NUM1, NUM2 }) {
@@ -5572,10 +5572,10 @@
         rRoot({ NUM1, NUM2 }) {
             return Math.pow(Cast.toNumber(NUM2), 1 / Cast.toNumber(NUM1))
         }
-        rrandom(args){
+        rRandom(args){
             return Math.random()
         }
-        bnotequal(args){
+        bNotequal(args){
             return args.a != args.b
         }
         rLoopNum({ NUM, START, END }) {
@@ -5597,16 +5597,16 @@
             END2 = Cast.toNumber(END2)
             return ((NUM - START1) / (END1 - START1)) * (END2 - START2) + START2
         }
-        rnearestmultiple(args){
+        rNearestMultiple(args){
             return Math.round(args.a/args.b)*args.b
         }
-        rmod(args){
+        rMod(args){
             return args.a % args.b
         }
-        rround(args) {
+        rRound(args) {
             return (Number(args.a)).toFixed(args.b)
         }
-        rrintfromto(args){
+        rRintFromTo(args){
             let a = Number(args.a);
             const b = args.b-args.c
             for (let i = 0; i <= b; i++){
@@ -5614,14 +5614,14 @@
             }
             return a
         }
-        rrinttotimes(args){
+        rRintToTimes(args){
             let a = Number(args.a)
             for (let i = 0; i <= args.c; i++){
                 a=Number(a.toFixed(args.b-i))
             }
             return a
         }
-        rrinttimesto(args){
+        rRintTimesTo(args){
             let a = Number(args.a);
             const b = Number(args.b)+Number(args.c)
             for (let i = 0; i <= args.b; i++){
@@ -5632,7 +5632,7 @@
         rPI(args){
             return Math.PI.toFixed(args.a)
         }
-        rmenurad(args){
+        rMenuRad(args){
             let b
             switch(args.c){
                 case 0 :
@@ -5659,7 +5659,7 @@
                 
             
         }
-        rmenutoonehundredeighty(args){
+        rMenuToOneHundredEighty(args){
             let a
             switch(args.b){
                 case 0 :
@@ -5678,54 +5678,54 @@
             const b = a % 360
             return b+(b > -180 ? (b > 180 ? -360 : 0) : 360)
         }
-        rradsin(args){
+        rRadSin(args){
             return Math.sin(args.a)
         }
-        rradcos(args){
+        rRadCos(args){
             return Math.cos(args.a)
         }
-        rradtan(args){
+        rRadTan(args){
             return Math.tan(args.a)
         }
-        rradasin(args){
+        rRadAsin(args){
             return Math.asin(args.a)
         }
-        rradacos(args){
+        rRadAcos(args){
             return Math.acos(args.a)
         }
-        rradatan(args){
+        rRadAtan(args){
             return Math.atan(args.a)
         }
-        rsinmultiplication(args){
+        rSinMultiplication(args){
             return Math.sin(args.b)*Math.PI/180*args.a
         }
-        rcosmultiplication(args){
+        rCosMultiplication(args){
             return Math.cos(args.b)*Math.PI/180*args.a
         }
-        rtanmultiplication(args){
+        rTanMultiplication(args){
             return Math.tan(args.b)*Math.PI/180*args.a
         }
-        rasindivision(args){
+        rAsinDivision(args){
             return Math.asin(args.a/args.b)/Math.PI*180
         }
-        racosdivision(args){
+        rAcosDivision(args){
             return Math.acos(args.a/args.b)/Math.PI*180
         }
-        ratandivision(args){
+        rAtanDivision(args){
             return Math.atan(args.a/args.b)/Math.PI*180
         }
-        rtoonehundredeighty(args){
+        rToOneHundredEighty(args){
             const a = args.a % 360
             return a+(a > -180 ? (a > 180 ? -360 : 0) : 360)
         }
-        rtothreehundredsixty(args){
+        rToThreeHundredSixty(args){
             let a = Number(args.a)
             while (a < 0){
                 a+=360
             }
             return a % 360
         }
-        raddto(args){
+        rAddTo(args){
             const a = Number(args.a);
             const b = Number(args.b);
             const c = args.c;
@@ -5737,36 +5737,36 @@
             }
             return list
         }
-        rmenuArrayremoveitem(args){
+        rMenuArrayRemoveItem(args){
             return args.d ? (args.b ? args.a :JSON.parse(args.a)).toSpliced(Number(args.c), 1) : JSON.stringify((args.b ? args.a :JSON.parse(args.a)).toSpliced(Number(args.c), 1))
         }
-        rArrayremoveshift(args){
+        rArrayRemoveShift(args){
             let a = JSON.parse(args.a);
             a.shift()
             return JSON.stringify(a)
         }
-        rArrayremovepop(args){
+        rArrayRemovePop(args){
             let a = JSON.parse(args.a);
             a.pop()
             return JSON.stringify(a)
         }
-        rArrayremoveitem(args){
+        rArrayRemoveItem(args){
             return JSON.stringify(JSON.parse(args.a).toSpliced(Number(args.b), 1))
         }
-        rArrayremoveitems(args){
+        rArrayRemoveItems(args){
             let a = JSON.parse(args.a)
             for(const t of JSON.parse(args.b).sort(function(a,b){return b-a})){
                 a.splice(Number(t), 1)
             }
             return JSON.stringify(a)
         }
-        rArrayremoveitemtoitem(args){
+        rArrayRemoveItemtoitem(args){
             return JSON.stringify(JSON.parse(args.a).toSpliced(Number(args.b), args.c-args.b))
         }
-        rArrayreserveitem(args){
+        rArrayReserveItem(args){
             return JSON.stringify(JSON.parse(args.a).splice(Number(args.b), 1))
         }
-        rmenuArrayremove(args){
+        rMenuArrayRemove(args){
             const a = args.b ? args.a : JSON.parse(args.a);
             const b = this.totype(args.c,args.d);
             const n = args.e
@@ -5776,40 +5776,40 @@
             }
             return args.f ? a.filter(t => this.notequal(t,b,n)) : JSON.stringify(a.filter(t => this.notequal(t,b,n)))
         }
-        rArrayremoveJSON(args){
+        rArrayRemoveJSON(args){
             return JSON.stringify(JSON.parse(args.a).filter(t => JSON.stringify(t)!=args.b))
         }
-        rArrayremovestr(args){
+        rArrayRemoveStr(args){
             const b = String(args.b)
             return JSON.stringify(JSON.parse(args.a).filter(t => t!==b))
         }
-        rmenuArrayremovenumber(args){
+        rMenuArrayRemovenumber(args){
             const a = args.b ? args.a : JSON.parse(args.a);
             const b = this.totype(args.d,args.e);
             const n = args.c
             if(args.f)return args.g ? a.filter(t => this.notcompare(t.length,b,n)) : JSON.stringify(a.filter(t => this.notcompare(t.length,b,n)))
             return args.g ? a.filter(t => this.notcompare(t,b,n)) : JSON.stringify(a.filter(t => this.notcompare(t,b,n)))
         }
-        rArrayremovebignumber(args){        
+        rArrayRemoveBigNumber(args){        
             return JSON.stringify(JSON.parse(args.a).filter(t => t<=args.b))
         }
-        rArrayremovenotsmallnumber(args){
+        rArrayRemoveNotSmallNumber(args){
             return JSON.stringify(JSON.parse(args.a).filter(t => t<args.b))
         }
-        rArrayremovesmallnumber(args){
+        rArrayRemoveSmallNumber(args){
             return JSON.stringify(JSON.parse(args.a).filter(t => t>=args.b))
         }
-        rArrayremovenotbignumber(args){
+        rArrayRemoveNotBigNumber(args){
             return JSON.stringify(JSON.parse(args.a).filter(t => t>args.b))
         }
-        rArrayremovenumber(args){
+        rArrayRemoveNumber(args){
             const b = Number(args.b)
             return JSON.stringify(JSON.parse(args.a).filter(t => t!==b))
         }
-        rArrayremove(args){
+        rArrayRemove(args){
             return JSON.stringify(JSON.parse(args.a).filter(t => t!=args.b))
         }
-        rmenuArrayinsert(args){
+        rMenuArrayInsert(args){
             const a = args.b ? args.a : JSON.parse(args.a);
             const b = this.totype(args.e,args.f)
             switch(args.d){
@@ -5821,59 +5821,59 @@
                     return args.g ? a.with(args.c,a.at(args.c)+b) : JSON.stringify(a.with(args.c,a.at(args.c)+b))
             }
         }
-        rArrayunshiftJSON(args){
+        rArrayUnshiftJSON(args){
             let a = JSON.parse(args.a);
             a.unshift(JSON.parse(args.b))
             return JSON.stringify(a)
         }
-        rArrayunshiftstr(args){
+        rArrayUnshiftStr(args){
             let a = JSON.parse(args.a);
             a.unshift(String(args.b))
             return JSON.stringify(a)
         }
-        rArrayunshiftnumber(args){
+        rArrayUnshiftNumber(args){
             let a = JSON.parse(args.a);
             a.unshift(Number(args.b))
             return JSON.stringify(a)
         }
-        rArrayunshift(args){
+        rArrayUnshift(args){
             let a = JSON.parse(args.a);
             a.unshift(args.b)
             return JSON.stringify(a)
         }
-        rArraypushJSON(args){
+        rArrayPushJSON(args){
             let a = JSON.parse(args.a);
             a.push(JSON.parse(args.b))
             return JSON.stringify(a)
         }
-        rArraypushstr(args){
+        rArrayPushStr(args){
             let a = JSON.parse(args.a);
             a.push(String(args.b))
             return JSON.stringify(a)
         }
-        rArraypushnumber(args){
+        rArrayPushNumber(args){
             let a = JSON.parse(args.a);
             a.push(Number(args.b))
             return JSON.stringify(a)
         }
-        rArraypush(args){
+        rArrayPush(args){
             let a = JSON.parse(args.a);
             a.push(args.b)
             return JSON.stringify(a)
         }
-        rArrayinsertJSON(args){
+        rArrayInsertJSON(args){
             return JSON.stringify(JSON.parse(args.a).toSpliced(args.c,0,JSON.parse(args.b)))
         }
-        rArrayinsertstr(args){
+        rArrayInsertStr(args){
             return JSON.stringify(JSON.parse(args.a).toSpliced(args.c,0,String(args.b)))
         }
-        rArrayinsertnumber(args){
+        rArrayInsertNumber(args){
             return JSON.stringify(JSON.parse(args.a).toSpliced(args.c,0,Number(args.b)))
         }
-        rArrayinsert(args){
+        rArrayInsert(args){
             return JSON.stringify(JSON.parse(args.a).toSpliced(args.c,0,args.b))
         }
-        rArrayinsertJSONindexes(args){
+        rArrayInsertJSONindexes(args){
             let a = JSON.parse(args.a);
             const b =JSON.parse(args.b)
             for(const t of JSON.parse(args.c).sort(function(a,b){return b-a})){
@@ -5881,7 +5881,7 @@
             }
             return JSON.stringify(a)
         }
-        rArrayinsertstrindexes(args){
+        rArrayInsertStrindexes(args){
             let a = JSON.parse(args.a);
             const b = String(args.b)
             for(const t of JSON.parse(args.c).sort(function(a,b){return b-a})){
@@ -5889,7 +5889,7 @@
             }
             return JSON.stringify(a)
         }
-        rArrayinsertnumberindexes(args){
+        rArrayInsertNumberindexes(args){
             let a = JSON.parse(args.a);
             const b = Number(args.b)
             for(const t of JSON.parse(args.c).sort(function(a,b){return b-a})){
@@ -5897,7 +5897,7 @@
             }
             return JSON.stringify(a)
         }
-        rArrayinsertindexes(args){
+        rArrayInsertindexes(args){
             let a = JSON.parse(args.a);
             const b = args.b
             for(const t of JSON.parse(args.c).sort(function(a,b){return b-a})){
@@ -5905,7 +5905,7 @@
             }
             return JSON.stringify(a)
         }
-        rArrayinsertJSONindextoindex(args){
+        rArrayInsertJSONindextoindex(args){
             let a = JSON.parse(args.a);
             const b =JSON.parse(args.b);
             const c = Number(args.c)
@@ -5914,7 +5914,7 @@
             }
             return JSON.stringify(a)
         }
-        rArrayinsertstrindextoindex(args){
+        rArrayInsertStrindextoindex(args){
             let a = JSON.parse(args.a);
             const b = String(args.b);
             const c = Number(args.c)
@@ -5923,7 +5923,7 @@
             }
             return JSON.stringify(a)
         }
-        rArrayinsertnumberindextoindex(args){
+        rArrayInsertNumberindextoindex(args){
             let a = JSON.parse(args.a);
             const b = Number(args.b);
             const c = Number(args.c)
@@ -5932,7 +5932,7 @@
             }
             return JSON.stringify(a)
         }
-        rArrayinsertindextoindex(args){
+        rArrayInsertindextoindex(args){
             let a = JSON.parse(args.a);
             const b = args.b;
             const c = Number(args.c)
@@ -5941,23 +5941,23 @@
             }
             return JSON.stringify(a)
         }
-        rArraymove(args){
+        rArrayMove(args){
             const a = JSON.parse(args.a)
             return args.b>args.c ? JSON.stringify(a.toSpliced(args.b,1).toSpliced(args.c,0,a.at(args.b))) : JSON.stringify(a.toSpliced(args.c,0,args.b).toSpliced(args.b,a.at(args.b)))
         }
-        rArrayreplaceJSON(args){
+        rArrayReplaceJSON(args){
             return JSON.stringify(JSON.parse(args.a).with(args.b,JSON.parse(args.c)))
         }
-        rArrayreplacestr(args){
+        rArrayReplaceStr(args){
             return JSON.stringify(JSON.parse(args.a).with(args.b,String(args.c)))
         }
-        rArrayreplacenumber(args){
+        rArrayReplaceNumber(args){
             return JSON.stringify(JSON.parse(args.a).with(args.b,args.c))
         }
-        rArrayreplace(args){
+        rArrayReplace(args){
             return JSON.stringify(JSON.parse(args.a).with(args.b,args.c))
         }
-        rArrayreplaceindexesJSON(args){
+        rArrayReplaceindexesJSON(args){
             let a = JSON.parse(args.a);
             const c = JSON.parse(args.c)
             for(const t of JSON.parse(args.b)){
@@ -5965,7 +5965,7 @@
             }
             return JSON.stringify(a)
         }
-        rArrayreplaceindexesstr(args){
+        rArrayReplaceindexesstr(args){
             let a = JSON.parse(args.a)
             const c = String(args.c)
             for(const t of JSON.parse(args.b)){
@@ -5973,7 +5973,7 @@
             }
             return JSON.stringify(a)
         }
-        rArrayreplaceindexesnumber(args){
+        rArrayReplaceindexesnumber(args){
             let a = JSON.parse(args.a);
             const c = Number(args.c)
             for(const t of JSON.parse(args.b)){
@@ -5981,7 +5981,7 @@
             }
             return JSON.stringify(a)
         }
-        rArrayreplaceindexes(args){
+        rArrayReplaceindexes(args){
             let a = JSON.parse(args.a);
             const c = args.c
             for(const t of JSON.parse(args.b)){
@@ -5989,36 +5989,36 @@
             }
             return JSON.stringify(a)
         }
-        rArrayreplaceindextoindexJSON(args){
+        rArrayReplaceindextoindexJSON(args){
             let a = JSON.parse(args.a);
             a.fill(JSON.parse(args.d),args.b,args.c)
             return JSON.stringify(a)
         }
-        rArrayreplaceindextoindexstr(args){
+        rArrayReplaceindextoindexstr(args){
             let a = JSON.parse(args.a);
             a.fill(String(args.d),args.b,args.c)
             return JSON.stringify(a)
         }
-        rArrayreplaceindextoindexnumber(args){
+        rArrayReplaceindextoindexnumber(args){
             let a = JSON.parse(args.a);
             a.fill(Number(args.d),args.b,args.c)
             return JSON.stringify(a)
         }
-        rArrayreplaceindextoindex(args){
+        rArrayReplaceindextoindex(args){
             let a = JSON.parse(args.a);
             a.fill(args.d,args.b,args.c)
             return JSON.stringify(a)
         }
-        rArrayinterchange(args){
+        rArrayInterchange(args){
             const a = JSON.parse(args.a)
             return JSON.stringify(a.with(args.b,a.at(args.c)).with(args.c,a.at(args.b)))
         }
-        rArrayplusindex(args){
+        rArrayPlusIndex(args){
             let a = JSON.parse(args.a);
             a=a.with(args.b,a.at(args.b)+Number(args.c))
             return JSON.stringify(a)
         }
-        rArrayplusindexes(args){
+        rArrayPlusIndexes(args){
             let a = JSON.parse(args.a);
             const b = JSON.parse(args.b);
             const c = Number(args.c)
@@ -6027,7 +6027,7 @@
             }
             return JSON.stringify(a)
         }
-        rArrayplusindextoindex(args){
+        rArrayPlusIndextoindex(args){
             let a = JSON.parse(args.a);
             const b = Number(args.b);
             const d = Number(args.d)
@@ -6036,32 +6036,32 @@
             }
             return JSON.stringify(a)
         }
-        rArrayplus(args){
+        rArrayPlus(args){
             const b = Number(args.b)
             return JSON.stringify(JSON.parse(args.a).map(t => t+b))
         }
-        rmenuArrayitem(args){
+        rMenuArrayItem(args){
             return args.d ? (args.b ? args.a :JSON.parse(args.a)).at(args.c) : JSON.stringify((args.b ? args.a :JSON.parse(args.a)).at(args.c))
         }
-        rArrayshiftJSON(args){
+        rArrayShiftJSON(args){
             return JSON.stringify(JSON.parse(args.a).shift())
         }
-        rArrayshift(args){
+        rArrayShift(args){
             return JSON.parse(args.a).shift()
         }
-        rArraypopJSON(args){
+        rArrayPopJSON(args){
             return JSON.stringify(JSON.parse(args.a).pop())
         }
-        rArraypop(args){
+        rArrayPop(args){
             return JSON.parse(args.a).pop()
         }
-        rArrayitemJSON(args){
+        rArrayItemJSON(args){
             return JSON.stringify(JSON.parse(args.a).at(args.b))
         }
-        rArrayitem(args){
+        rArrayItem(args){
             return JSON.parse(args.a).at(args.b)
         }
-        rArrayitems(args){
+        rArrayItems(args){
             const a = JSON.parse(args.a);
             let c = []
             for(const t of JSON.parse(args.b)){
@@ -6069,10 +6069,10 @@
             }
             return JSON.stringify(c)
         }
-        rArrayitemtoitem(args){
+        rArrayItemtoitem(args){
             return JSON.stringify(JSON.parse(args.a).slice(args.b,args.c))
         }
-        rmenuArrayindex(args){
+        rMenuArrayIndex(args){
             const a = args.b ? args.a : JSON.parse(args.a);
             const b = this.totype(args.d,args.e);
             const n = args.f
@@ -6106,7 +6106,7 @@
                 }
             }
         }
-        rmenuArrayindexnumber(args){
+        rMenuArrayIndexnumber(args){
             const a = args.b ? args.a : JSON.parse(args.a);
             const b = this.totype(args.e,args.f);
             const n = args.d
@@ -6139,50 +6139,50 @@
                 }
             }
         }
-        rArrayindexJSON(args){
+        rArrayIndexJSON(args){
             return JSON.parse(args.a).indexOf(JSON.parse(args.b))
         }
-        rArrayindexstr(args){
+        rArrayIndexStr(args){
             return JSON.parse(args.a).indexOf(String(args.b))
         }
-        rArrayfindIndexbignumber(args){
+        rArrayFindIndexBigNumber(args){
             return JSON.parse(args.a).findIndex(i => i > args.b)
         }
-        rArrayfindIndexnotsmallnumber(args){
+        rArrayFindIndexNotSmallNumber(args){
             return JSON.parse(args.a).findIndex(i => i >= args.b)
         }
-        rArrayfindIndexsmallnumber(args){
+        rArrayFindIndexSmallNumber(args){
             return JSON.parse(args.a).findIndex(i => i < args.b)
         }
-        rArrayfindIndexnotbignumber(args){
+        rArrayFindIndexNotBigNumber(args){
             return JSON.parse(args.a).findIndex(i => i <= args.b)
         }
-        rArrayindexnumber(args){
+        rArrayIndexNumber(args){
             return JSON.parse(args.a).indexOf(Number(args.b))
         }
-        rArrayindex(args){
+        rArrayIndex(args){
             return JSON.parse(args.a).indexOf(args.b)
         }
-        rArraylastindexJSON(args){
+        rArrayLastIndexJSON(args){
             return JSON.parse(args.a).lastIndexOf(JSON.parse(args.b))
         }
-        rArraylastindexstr(args){
+        rArrayLastIndexStr(args){
             return JSON.parse(args.a).lastIndexOf(String(args.b))
         }
-        rArraylastindexnumber(args){
+        rArrayLastIndexNumber(args){
             return JSON.parse(args.a).lastIndexOf(Number(args.b))
         }
-        rArraylastindex(args){
+        rArrayLastIndex(args){
             return JSON.parse(args.a).lastIndexOf(args.b)
         }
-        rArrayallindexJSON(args){
+        rArrayAllIndexJSON(args){
             let idx = []
             JSON.parse(args.a).forEach((t,i)=>{
                 if(JSON.stringify(t)==args.b)idx.push(i)
             })
             return JSON.stringify(idx)
         }
-        rArrayallindexstr(args){
+        rArrayAllIndexStr(args){
             let idx = [];
             const b = String(args.b)
             JSON.parse(args.a).forEach((t,i)=>{
@@ -6190,7 +6190,7 @@
             })
             return JSON.stringify(idx)
         }
-        rArrayallindexnumber(args){
+        rArrayAllIndexNumber(args){
             const b = Number(args.b);
             let idx = []
             JSON.parse(args.a).forEach((t,i)=>{
@@ -6198,7 +6198,7 @@
             })
             return JSON.stringify(idx)
         }
-        rArrayallindex(args){
+        rArrayAllIndex(args){
             const b = args.b;
             let idx = []
             JSON.parse(args.a).forEach((t,i)=>{
@@ -6206,7 +6206,7 @@
             })
             return JSON.stringify(idx)
         }
-        rmenuArraycount(args){
+        rMenuArrayCount(args){
             const a = args.b ? args.a : JSON.parse(args.a);
             const b = this.totype(args.c,args.d);
             const n = args.e;
@@ -6225,14 +6225,14 @@
                 return i
             }
         }
-        rArraycountJSON(args){
+        rArrayCountJSON(args){
             let c = 0
             for(const t of JSON.parse(args.a)){
                 if(JSON.stringify(t)==args.b)c+=1
             }
             return c
         }
-        rArraycountstr(args){
+        rArrayCountStr(args){
             let c = 0;
             const b = String(args.b)
             for(const t of JSON.parse(args.a)){
@@ -6240,7 +6240,7 @@
             }
             return c
         }
-        rmenuArraycountnumber(args){
+        rMenuArrayCountnumber(args){
             const a = args.b ? args.a : JSON.parse(args.a);
             const b = this.totype(args.d,args.e);
             const n = args.c;
@@ -6258,7 +6258,7 @@
                 return i
             }
         }
-        rArraycountbignumber(args){
+        rArrayCountBigNumber(args){
             const b =Number(args.b);
             let c = 0
             for(const t of JSON.parse(args.a)){
@@ -6266,7 +6266,7 @@
             }
             return c
         }
-        rArraycountnotsmallnumber(args){
+        rArrayCountNotSmallNumber(args){
             const b =Number(args.b);
             let c = 0
             for(const t of JSON.parse(args.a)){
@@ -6274,7 +6274,7 @@
             }
             return c
         }
-        rArraycountsmallnumber(args){
+        rArrayCountSmallNumber(args){
             const b =Number(args.b);
             let c = 0
             for(const t of JSON.parse(args.a)){
@@ -6282,7 +6282,7 @@
             }
             return c
         }
-        rArraycountnotbignumber(args){
+        rArrayCountNotBigNumber(args){
             const b =Number(args.b);
             let c = 0
             for(const t of JSON.parse(args.a)){
@@ -6290,7 +6290,7 @@
             }
             return c
         }
-        rArraycountnumber(args){
+        rArrayCountNumber(args){
             const b =Number(args.b);
             let c = 0
             for(const t of JSON.parse(args.a)){
@@ -6298,14 +6298,14 @@
             }
             return c
         }
-        rArraycount(args){
+        rArrayCount(args){
             let c = 0
             for(const t of JSON.parse(args.a)){
                 if(t==args.b)c+=1
             }
             return c
         }
-        rmenuArraylength(args){
+        rMenuArrayLength(args){
             const a = args.b ? args.a : JSON.parse(args.a)
             switch(args.c){
                 case 0 :
@@ -6322,43 +6322,43 @@
                     return Math.min(...a)
             }
         }
-        rArraylength(args){
+        rArrayLength(args){
             return JSON.parse(args.a).length
         }
-        rArraysum(args){
+        rArraySum(args){
             return JSON.parse(args.a).reduce((a, b) => a + b)
         }
-        rArrayproduct(args){
+        rArrayProduct(args){
             return JSON.parse(args.a).reduce((a, b) => a * b)
         }
-        rArrayaverage(args){
+        rArrayAverage(args){
             const a = JSON.parse(args.a);
             const sum = a.reduce((a, b) => a + b);
             return sum / a.length
         }
-        rArraymax(args){
+        rArrayMax(args){
             return Math.max(...(JSON.parse(args.a)))
         }
-        rArraymin(args){
+        rArrayMin(args){
             return Math.min(...(JSON.parse(args.a)))
         }
-        rmenuArraysort(args){
+        rMenuArraySort(args){
             const a = args.b ? args.a :JSON.parse(args.a);
             a.sort(Scratch.Cast.compare)
             if(args.c)return args.d ? a : JSON.stringify(a)
             a.reverse()
             return args.d ? a : JSON.stringify(a)
         }
-        rArraysortnaturalOrder(args){
+        rArraySortNaturalOrder(args){
             return JSON.stringify(JSON.parse(args.a).sort(Scratch.Cast.compare))
         }
-        rArraysortreverseOrder(args){
+        rArraySortReverseOrder(args){
             return JSON.stringify(JSON.parse(args.a).sort(Scratch.Cast.compare).reverse())
         }
-        rArrayreverse(args){
+        rArrayReverse(args){
             return JSON.stringify(JSON.parse(args.a).reverse())
         }
-        bmenuArrayhave(args){
+        bMenuArrayHave(args){
             const a = args.b ? args.a : JSON.parse(args.a);
             const b = this.totype(args.d,args.e);
             const n = args.f
@@ -6368,87 +6368,87 @@
             }
             return args.c ? a.every(i => this.equal(i,b,n)) : a.some(i => this.equal(i,b,n))
         }
-        bArrayhaveJSON(args){
+        bArrayHaveJSON(args){
             return JSON.parse(args.a).some(i => JSON.stringify(i) == args.b)
         }
-        bArrayhavestr(args){
+        bArrayHaveStr(args){
             return JSON.parse(args.a).includes(String(args.b))
         }
-        bmenuArrayhavenumber(args){
+        bMenuArrayHavenumber(args){
             const a = args.b ? args.a : JSON.parse(args.a);
             const b = this.totype(args.e,args.f);
             const n = args.d
             if(args.g)return args.c ? a.every(i => this.compare(i.length,b,n)) : a.some(i => this.compare(i.length,b,n))
             return args.c ? a.every(i => this.compare(i,b,n)) : a.some(i => this.compare(i,b,n))
         }
-        bArrayhavebignumber(args){
+        bArrayHaveBigNumber(args){
             return JSON.parse(args.a).some(i => i > args.b)
         }
-        bArrayhavenotsmallnumber(args){
+        bArrayHaveNotSmallNumber(args){
             return JSON.parse(args.a).some(i => i >= args.b)
         }
-        bArrayhavesmallnumber(args){
+        bArrayHaveSmallNumber(args){
             return JSON.parse(args.a).some(i => i < args.b)
         }
-        bArrayhavenotbignumber(args){
+        bArrayHaveNotBigNumber(args){
             return JSON.parse(args.a).some(i => i <= args.b)
         }
-        bArrayhavenumber(args){
+        bArrayHaveNumber(args){
             return JSON.parse(args.a).includes(Number(args.b))
         }
-        bArrayhave(args){
+        bArrayHave(args){
             return JSON.parse(args.a).some(i => i == args.b)
         }
-        bArraybeJSON(args){
+        bArrayBeJSON(args){
             return JSON.parse(args.a).every(i => JSON.stringify(i) == args.b)
         }
-        bArraybestr(args){
+        bArrayBeStr(args){
             const b = String(args.b)
             return JSON.parse(args.a).every(i => i === b)
         }
-        bArraybebignumber(args){
+        bArrayBeBigNumber(args){
             return JSON.parse(args.a).every(i => i > args.b)
         }
-        bArraybenotsmallnumber(args){
+        bArrayBeNotSmallNumber(args){
             return JSON.parse(args.a).every(i => i >= args.b)
         }
-        bArraybesmallnumber(args){
+        bArrayBeSmallNumber(args){
             return JSON.parse(args.a).every(i => i < args.b)
         }
-        bArraybenotbignumber(args){
+        bArrayBeNotBigNumber(args){
             return JSON.parse(args.a).every(i => i <= args.b)
         }
-        bArraybenumber(args){
+        bArrayBeNumber(args){
             return JSON.parse(args.a).every(i => i === Number(args.b))
         }
-        bArraybe(args){
+        bArrayBe(args){
             return JSON.parse(args.a).every(i => i == args.b)
         }
-        bArrayequal(args){
+        bArrayEqual(args){
             return JSON.stringify(JSON.parse(args.a).sort(Scratch.Cast.compare))==JSON.stringify(JSON.parse(args.b).sort(Scratch.Cast.compare))
         }
-        bArraystrictlyequal(args){
+        bArrayStrictlyEqual(args){
             return JSON.stringify(JSON.parse(args.a).sort(Scratch.Cast.compare))===JSON.stringify(JSON.parse(args.b).sort(Scratch.Cast.compare))
         }
-        bArrayclear(args){
+        bArrayClear(args){
             return args.a == '[]'
         }
-        bisArray(args){
+        bIsArray(args){
             return Array.isArray(JSON.parse(args.a))
         }
-        rObjectremove(args){
+        rObjectRemove(args){
             let a=JSON.parse(args.a);
             delete a[args.b]
             return JSON.stringify(a)
         }
-        rObjectremovekeys(args){
+        rObjectRemovekeys(args){
             let a=JSON.parse(args.a)
             for(const t of JSON.parse(args.b)){
                 delete a[t]
             }
             return JSON.stringify(a)
         }
-        rmenuObjectset(args){
+        rMenuObjectSet(args){
             const a = args.b ? args.a : JSON.parse(args.a);
             const b = this.totype(args.e,args.f)
             if(args.d){
@@ -6459,32 +6459,32 @@
             }
             return args.g ? a : JSON.stringify(a)
         }
-        rObjectputkeyJSON(args){
+        rObjectPutKeyJSON(args){
             let a=JSON.parse(args.a);
             a[args.b]=JSON.parse(args.c)
             return JSON.stringify(a)
         }
-        rObjectputkeystr(args){
+        rObjectPutKeyStr(args){
             let a=JSON.parse(args.a);
             a[args.b]=String(args.c)
             return JSON.stringify(a)
         }
-        rObjectputkeynumber(args){
+        rObjectPutKeyNumber(args){
             let a=JSON.parse(args.a);
             a[args.b]=Number(args.c)
             return JSON.stringify(a)
         }
-        rObjectputkey(args){
+        rObjectPutKey(args){
             let a=JSON.parse(args.a);
             a[args.b]=args.c
             return JSON.stringify(a)
         }
-        rObjectpluskey(args){
+        rObjectPlusKey(args){
             let a=JSON.parse(args.a);
             a[args.b]+=Number(args.c)
             return JSON.stringify(a)
         }
-        rObjectplus(args){
+        rObjectPlus(args){
             let a=JSON.parse(args.a);
             const b = Number(args.b)
             for(const t of Object.keys(a)){
@@ -6492,64 +6492,64 @@
             }
             return JSON.stringify(a)
         }
-        rmenuObjectmember(args){
+        rMenuObjectMember(args){
             return args.d ? (args.b ? args.a :JSON.parse(args.a))[args.c] : JSON.stringify((args.b ? args.a :JSON.parse(args.a))[args.c])
         }
-        rObjectvalueJSON(args){
+        rObjectValueJSON(args){
             return JSON.stringify(JSON.parse(args.a)[args.b])
         }
-        rObjectvalue(args){
+        rObjectValue(args){
             return JSON.parse(args.a)[args.b]
         }
-        rObjectkeyJSON(args){
+        rObjectKeyJSON(args){
             const a = JSON.parse(args.a);
             const keys = Object.keys(a);
             const values = Object.values(a)
             return keys[values.indexOf(JSON.parse(args.b))]
         }
-        rObjectkeystr(args){
+        rObjectKeyStr(args){
             const a = JSON.parse(args.a);
             const keys = Object.keys(a);
             const values = Object.values(a)
             return keys[values.indexOf(String(args.b))]
         }
-        rObjectkeynumber(args){
+        rObjectKeyNumber(args){
             const a = JSON.parse(args.a);
             const keys = Object.keys(a);
             const values = Object.values(a)
             return keys[values.indexOf(Number(args.b))]
         }
-        rObjectkey(args){
+        rObjectKey(args){
             const a = JSON.parse(args.a);
             const keys = Object.keys(a);
             const values = Object.values(a)
             return keys[values.indexOf(args.b)]
         }
-        rObjectlastkeyJSON(args){
+        rObjectLastKeyJSON(args){
             const a = JSON.parse(args.a);
             const keys = Object.keys(a);
             const values = Object.values(a)
             return keys[values.lastIndexOf(JSON.parse(args.b))]
         }
-        rObjectlastkeystr(args){
+        rObjectLastKeyStr(args){
             const a = JSON.parse(args.a);
             const keys = Object.keys(a);
             const values = Object.values(a)
             return keys[values.lastIndexOf(String(args.b))]
         }
-        rObjectlastkeynumber(args){
+        rObjectLastKeyNumber(args){
             const a = JSON.parse(args.a);
             const keys = Object.keys(a);
             const values = Object.values(a)
             return keys[values.lastIndexOf(Number(args.b))]
         }
-        rObjectlastkey(args){
+        rObjectLastKey(args){
             const a = JSON.parse(args.a);
             const keys = Object.keys(a);
             const values = Object.values(a)
             return keys[values.lastIndexOf(args.b)]
         }
-        rObjectallkeyJSON(args){
+        rObjectAllKeyJSON(args){
             const a = JSON.parse(args.a);
             const b =JSON.parse(args.b);
             const keys = Object.keys(a);
@@ -6559,7 +6559,7 @@
             })
             return JSON.stringify(key)
         }
-        rObjectallkeystr(args){
+        rObjectAllKeyStr(args){
             const a = JSON.parse(args.a);
             const b = String(args.b);
             const keys = Object.keys(a);
@@ -6569,7 +6569,7 @@
             })
             return JSON.stringify(key)
         }
-        rObjectallkeynumber(args){
+        rObjectAllKeyNumber(args){
             const a = JSON.parse(args.a);
             const b =Number(args.b);
             const keys = Object.keys(a);
@@ -6579,7 +6579,7 @@
             })
             return JSON.stringify(key)
         }
-        rObjectallkey(args){
+        rObjectAllKey(args){
             const a = JSON.parse(args.a);
             const b = args.b;
             const keys = Object.keys(a);
@@ -6589,7 +6589,7 @@
             })
             return JSON.stringify(key)
         }
-        rmenuObjectkeys(args){
+        rMenuObjectKeys(args){
             const a = args.b ? args.a : JSON.parse(args.a)
             switch(args.c){
                 case 0 :
@@ -6600,25 +6600,25 @@
                     return args.d ? Object.entries(a) : JSON.stringify(Object.entries(a))
             }
         }
-        rObjectlength(args){
+        rObjectLength(args){
             return Object.keys(JSON.parse(args.a)).length
         }
-        rObjectkeys(args){
+        rObjectKeys(args){
             return JSON.stringify(Object.keys(JSON.parse(args.a)))
         }
-        rObjectvalues(args){
+        rObjectValues(args){
             return JSON.stringify(Object.values(JSON.parse(args.a)))
         }
-        rObjectentries(args){
+        rObjectEntries(args){
             return JSON.stringify(Object.entries(JSON.parse(args.a)))
         }
-        rObjectfromentries(args){
+        rObjectFromEntries(args){
             return JSON.stringify(Object.fromEntries(JSON.parse(args.a)))
         }
-        rObjectputAll(args){
+        rObjectPutAll(args){
             return JSON.stringify(Object.assign(JSON.parse(args.b),JSON.parse(args.a)))
         }
-        rObjectplusObject(args){
+        rObjectPlusObject(args){
             let a = JSON.parse(args.a);
             const b = JSON.parse(args.b)
             for(const t of Object.keys(b)){
@@ -6631,13 +6631,13 @@
             }
             return JSON.stringify(a)
         }
-        bObjecthasownproperty(args){
+        bObjectHasOwnProperty(args){
             return JSON.parse(args.a).hasOwnProperty(args.b)
         }
-        bObjectclear(args){
+        bObjectClear(args){
             return args.a == '{}'
         }
-        bisObject(args){
+        bIsObject(args){
             const a = JSON.parse(args.a)
             return ! Array.isArray(a) && typeof a == 'object'
         }
@@ -6773,18 +6773,18 @@
             insetIconURL: OperatorsProicon,
             featured: true,
             disabled: false,
-            collaboratorList: [
+            collabOratorList: [
                 {
-                    collaborator: "多bug的啸天犬 @ CCW",
-                    collaboratorURL: "https://www.ccw.site/student/6200811f05660557606c8b15"
+                    collabOrator: "多bug的啸天犬 @ CCW",
+                    collabOratorURL: "https://www.ccw.site/student/6200811f05660557606c8b15"
                 },
                 {
-                    collaborator: "NOname_awa @ CCW",
-                    collaboratorURL: "https://www.ccw.site/student/6267e862a6666f52c7c97059"
+                    collabOrator: "NOname_awa @ CCW",
+                    collabOratorURL: "https://www.ccw.site/student/6267e862a6666f52c7c97059"
                 },
                 {
-                    collaborator: "bilioicik @ CCW",
-                    collaboratorURL: "https://www.ccw.site/student/6218cd094daafc57cebfc1d3"
+                    collabOrator: "bilioicik @ CCW",
+                    collabOratorURL: "https://www.ccw.site/student/6218cd094daafc57cebfc1d3"
                 }
               ],
         },
@@ -6799,4 +6799,4 @@
             }
         }
     }
-    })(Scratch);
+})(Scratch);
