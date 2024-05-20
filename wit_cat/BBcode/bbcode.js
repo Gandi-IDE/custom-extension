@@ -1,4 +1,3 @@
-/* eslint-disable */
 const obj = window || global || {};
 let runtime;
 // 以下代码来自github  https://github.com/vishnevskiy/bbcodejs
@@ -594,6 +593,9 @@ let runtime;
       if ('bstyle' in this.params) {
         style += "border-style:" + this.params["bstyle"] + ';';
       }
+      if ('style' in this.params) {
+        style += this.params["style"];
+      }
       return [`<td style="${style}" ${this.renderer.htmlAttributes(attributes)}>`, this.getContent(), '</td>'];
     };
 
@@ -1055,7 +1057,7 @@ let runtime;
       });
     };
 
-    Parser.prototype.parse = function (input) {
+    Parser.prototype.parse = function (input, maxParsedable) {
       let cls;
       let current;
       let params;
@@ -1068,7 +1070,7 @@ let runtime;
       tokens = input.split(_TOKEN_RE);
       let tagNumber = 0;
       let lastTag = null;
-      while (tokens.length && tagNumber < 100) {
+      while (tokens.length && tagNumber < maxParsedable) {
         tagNumber++;
         token = tokens.shift();
         if (token.match(_TOKEN_RE)) {
@@ -1110,10 +1112,10 @@ let runtime;
       return root;
     };
 
-    Parser.prototype.toHTML = function (input, runtimes) {
+    Parser.prototype.toHTML = function (input, runtimes, maxParsedable) {
       let html;
       runtime = runtimes;
-      return (html = this.parse(input).toHTML());
+      return (html = this.parse(input, maxParsedable).toHTML());
     };
 
     return Parser;
