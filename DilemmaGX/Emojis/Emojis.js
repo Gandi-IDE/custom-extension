@@ -98,7 +98,7 @@ class EasyEmojis {
         },
         {
           opcode: "loaded",
-          blockType: Scratch.BlockType.BOOLEAN,
+          blockType: "Boolean",
           text: this.formatMessage("ee.block.loaded"),
           arguments: {},
           disableMonitor: false,
