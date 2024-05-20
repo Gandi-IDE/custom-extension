@@ -658,9 +658,8 @@ class WitCatFileHelper {
       const max_length = 1000;
       const short_length = 20;
       if (showtext.length > max_length) {
-        showtext = `${showtext.slice(0, max_length - short_length)}(... 省略 ${
-          showtext.length - max_length + short_length
-        } 字符)`;
+        showtext = `${showtext.slice(0, max_length - short_length)}(... 省略 ${showtext.length - max_length + short_length
+          } 字符)`;
       }
       // eslint-disable-next-line no-alert
       const a = confirm(`${ask}\n\n${showtext}`);
@@ -1225,25 +1224,25 @@ function HumanSize(size) {
 }
 
 window.tempExt = {
-    Extension: WitCatFileHelper,
-    info: {
-        name: "WitCatFileHelper.name",
-        description: "WitCatFileHelper.descp",
-        extensionId: witcat_file_helper_extensionId,
-        iconURL: witcat_file_helper_picture,
-        insetIconURL: witcat_file_helper_icon,
-        featured: true,
-        disabled: false,
-        collaborator: "白猫 @ CCW"
+  Extension: WitCatFileHelper,
+  info: {
+    name: "WitCatFileHelper.name",
+    description: "WitCatFileHelper.descp",
+    extensionId: witcat_file_helper_extensionId,
+    iconURL: witcat_file_helper_picture,
+    insetIconURL: witcat_file_helper_icon,
+    featured: true,
+    disabled: false,
+    collaborator: "白猫 @ CCW"
+  },
+  l10n: {
+    "zh-cn": {
+      "WitCatFileHelper.name": "[beta]白猫的文件助手",
+      "WitCatFileHelper.descp": "读取/处理本地数据"
     },
-    l10n: {
-        "zh-cn": {
-            "WitCatFileHelper.name": "[beta]白猫的文件助手",
-            "WitCatFileHelper.descp": "读取/处理本地数据"
-        },
-        en: {
-            "WitCatFileHelper.name": "[beta]WitCat’s File Helper",
-            "WitCatFileHelper.descp": "Handling local data"
-        }
+    en: {
+      "WitCatFileHelper.name": "[beta]WitCat’s File Helper",
+      "WitCatFileHelper.descp": "Handling local data"
     }
+  }
 };
