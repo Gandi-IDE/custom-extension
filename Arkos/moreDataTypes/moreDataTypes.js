@@ -32,8 +32,9 @@ const hackFun = (runtime) => {
   const origToJSON = vm.toJSON;
   vm.toJSON = function toJSON(obj) {
     const orig = SafeObject.prototype.toString;
+    const info = { nextId: 0, seen: new Map() };
     SafeObject.prototype.toString = function toString() {
-      return `<SafeObject> ${SafeObject.stringify(this.value)}`;
+      return `<SafeObject> ${SafeObject.stringifyWithRef(this.value, info)}`;
     };
     // 序列化作品
     const res = origToJSON.call(vm, obj);
