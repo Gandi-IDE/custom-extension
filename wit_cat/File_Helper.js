@@ -6,9 +6,7 @@ const witcat_file_helper_picture = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUg
 
 const witcat_file_helper_icon = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACtWK6eAAAABHNCSVQICAgIfAhkiAAAD2VJREFUeJzt3U9wHFV+B/Dve/13ekYaS7ZhvfiPkI3xQvBSpMxmU0tClcuk4MZWilP2EnLVgZOhOBPwiYOvy4lUpYpKha0coILLFRbYYoOJK0CwjY1sSbaXALIlzZ+e/vteDvIosi21ZGm6eyR9P7eZ7un3s2u+ev3nvTcC63T59Kv7DKmOCC0OA/qgkGKPVvonEBjSWlSF0BYgxHrbIbqb1lqLWAjdhsaMkOJ/tdJXAXFRC/1lquSZ0aOvTa6nhTV9cac+fOUpaLwAiGcB7F9PAUQ5Gwf0+xB4Z+/Tr398rx9edUD0e2POVXfwRSH0mAYO3WtDRGUTwAWtxck9QeMt8dzJcJWfWdnE6ZefN6R8UwP71lciUfkEMJkq9dLI0TfeXcW+y7t56ni9aciTQojf9K48ov6gtX57IFVjw8dOzC23z7IBGT91fK9pGB8IgYfzKY+ofFrjmyRNn9l/7MTUUtuXDMj4qeN7TVP+XkCM5FgbUV/Q0BNJov56qZDIO9+4eep43TSMDxgO2ioExIhpGB/cPHW8fue2uwIyf83B0yraWoTAw01Dnrzr/cUvJk6//LyU8l+LK4uovyilfr347tZCD6LfG3MMKd8spyyi/mBI+aZ+b8zpvl4IyFV38EU+56CtTgP7rrqDL3ZfLwRECD1WTklE/WVxFiQwP7aKw0eI5mng0NSHrzwFdHsQjRdKrYio39zKxK1TLPFsmbUQ9Z/5TIjLp1/dZ0o9UXI1RH0nUWLENKQ6ssZpIWsnJIS46xkl0bK0VoBWhbZpSHXEFFocLjofle0PY8ef/V2xjdKGNv0//4TO9PlC2xRaHJaAPlhoq0Qbhj4ohRR7yi6DqB9pgb1SK/2Tsgsh6kdC434JgaGyCyHqSwJDUmtRLbsOon6ktajK+XWriOhOQmhLclE3ouXwaR1RJgaEKAMDQpSBASHKwIAQZWBAiDIwIEQZzGJaqcEYPLDwUld2oRNEhTRNm4OujMAYXliNB2njWyBp5d5uIQER1gDMn/7NwmsNoNkKimiaNov6YZj1wwsvVed76AICwlMsogwMCFEGBoQoAwNClIEBIcrAgBBlYECIMjAgRBkYEKIMDAhRBgaEKAMDQpSBASHKwIAQZejJcHchTex8/B8ytlsQDhdwpN7Rj/4ttIqX3f7jf/8WWiXrbqdn80GcQS4STwWyillznadYRBkYEKIMDAhRBgaEKAMDQpSBASHKwIAQZWBAiDIwIEQZGBCiDAwIUQZpGPwNT6KlGIaAtAx2IkRLsUwJ07YNBFG64s7CHl5+ozSQJCsfg6gw9hCEWv47qaObKx/CMmB6rolGa+Xf6rD2/RrC2b7s9puz7RWPQVQU+8DfL7tNhzcQXfrtisfwXBPSMiUqjtHL2og2vIpjwDLl/F2s+oCz0v5EW0o3ExKYvxip1+xSCyLqF/WaDcucv3m1cAtrsGaj4hbzk4VE/cpzTQwu6ixuu8e7ve6iWmFIaGuqeRaG6+5t792WBiGA4boL10kwMxdCaV1ogURlkEJgqO7AW+IMasnuwnNNuLaB2WaEdmf5pVWINrpqxcK2ARtSLj2iZNnzKSkFhusOap6JmUaYW4FEZbAtiaFBB7aV/YhjxXEmtmXgvmEPA+FZCMWg0MYmVIiB8CzuG/ZWDAewyoXjhAC86CLcmSm0qr9E4D6y7kKJiuYG51BrfwqpA2CVY3Tv6ZaV1AEGW/+BSnAOzdpfITHvW0udRIUykx8w0PoIVvL9vX92LQ1ayfcYmv0XBM4htKq/hJaVtRyGKFdCdVBrf4pKeH7Nx1jzQw8BjUp4Hk40jrb3JDruY4Dg0HnqA1qhEnyFqv8ZpF55IG6WdT8VlDrCQPsTVIJzaFV/hcjmItZUHju6ilr7I5jpbE+O17PH5mZ6E9sa/4bQ3o9m9S+hjMFeHZpoRUY6h1r7D3CiKz09bs/HlTjROOxoAn7l5/ArT0BLjhSm/AgVwuuchdf5AgK9n7SXy8ArgRTVzllUggtoV4+g4zzC6xPqLa1QCc+h2j4Dqf3cmsl1ZKLUPgZav0el8xWvT6hn7GgKtfYfYKYrT5tdr0KG7i5cn1h70ar+Cqk5VESztMkYyQxq7U/gxFOFtVno2HYnnoI9+88InENoV/8CSnpFNk8blFQ+qu0/wg0vQKDYEeaFT/7oPj9xw4vwvSfguz/nhTwtSagQXvAFPP9sLhfgq1Ha7CiBFFX/DCqdr9H2nuCDRvp/Cw/6Pp8fN1Wi0qcPSu1joP0JvOArtLxfIHQeKrskKpEbfoOqfwZGOld2KQD6ICBdRjqHevMDxP5ZtL0jiJzRskuiAtnhZVT9M7DS6bJLuU3fBKTLSqexrfk+4s4utKq/QGw9UHZJlCMrvo5a+9M1jbQtQt8FpMtKvsPQ3O8QWT9F23uSQdlkrPg6qv5nsOM/lV1Kpr4NSJcd/wn23O8Q2g+i7T2JxNxRdkm0DmYyjar/Wc/HTOWl7wPS5URX4ERXEFoj8L3H2aNsMPM9xlnYBT7k64UNE5AuJ56AMzfBU68NYqOcSi1nwwWkq3vqxaD0Jyu6imrn8w0bjK4NG5CublBiYwd8788R2qN84FgWreBEl+H5/9V3t2vXasMHpMtKp1Fv/jtSow7ffRwd9xAgNs0/r7/pBJXgPLzgi755wNcrQp//x025vqgSHvzKY+i4j3JRiZwI1UEl+Bpe56tc52SUadP+iZXaR83/T1T9zxG4B9FxD/MWcY+YyTQqwZdwg4ulDSIsyqYNSJdAikpwHpXgPCJrN3z3MUT2CK9T7pVWsKMJeMFXsONrZVdTmE0fkMXs+Brs+BpSOYCO+ygC92eck7ICqXy4wXlUgq9hqGbZ5RRu016DrIaGQGiPInB/hsjeV3Y5fcWOJuEG5+FElwufpNRPtlQPcicBDTcahxuN3+pVHkHgHIIyamWXVgqZNuCGF1EJzm3J3mIpW7oHWU5kPYDAOYjQeQhaWGWXkyuhYzjhJbjhRdjx9bLL6TtbugdZjh1fhx1fh259hNAZRWjvR2Tv3TRhETqGHU3BicbhhJc3/Z2o9WBAMgikcMNLcMNL0DAQ2XsR2PsROaMbLixCx7DDy3CjcdjRFEOxSgzIKgmkCyOKdctAbO1CZO1GaI8gNbeXXd6SjOQGnGgCdnwNVvwdQ7EGDMgaCKQLt4xr/h+Ryhoiazdi6wHE1i6kRr2Uuox0Dlb8Haz4Opx4ClJtzqfbRWJAesBQLVTCC6iEFwAASriIrV2IrV1IjO1IzB09f94ilQ8zmYaZ3rgViu9KXwFkM2JAciB1sHA61qWEjcTcgVQOQhkDSGUNStaghYVUVpc8jqHaEDqGVC0YqgWZNmGmczDSG+v+3QtaHQakIFJHt+ZGbOz5EVsNByQRZWBAiDIwIEQZGBCiDAwIUQYGhCgDA0KUgQEhysCAEGVgQIgyMCBEGTgWq2RJkqLVbiMIQsRxAgCwLBOu66BWrcI0jZIr3NoYkJLMzjXxww/TaDRbmfsNDtRw/307UK8PFFQZLcaAFCwMI1yZvIZWq72q/RvNFhrNFgZqVYzs2w3HsXOukBbjNUiBms0Wzl/4dtXhuO2zrTbOXfgWzea9f5bWjgEpSLPZxqXxCSTp2ueFp2mKS+MTaK4hYLQ2DEgBwijC+JVJKLX+JciUUhgfn0QYckZhERiQAkxOXkeS9G5FkSRNMTG5dRaQLhMDkrNGo7Xinaq1aLbamJ3j8qB5Y0By9sOPN/I79g+b42fO+hkDkiOlFOYa+f2VbzRb67rop5UxIDlq+x1one/a4O02F4fLEwOSoyAIc2+Dd7PyxYDkqDu2Kk9Jkn8bWxkDkiMhimijgEa2MAYkR5aV/08kFNHGVsaA5Mh1nU3RxlbGgOTIq1QgZX7/xYaU8CqV3I5PDEiupBTYtm0wt+PX64OQktcgeWJAcnb/zvx+fer++3fkdmyax4DkrFr1sH14W8+Pu314G6oeT6/yxoAUYPcDu2DbvbvbZNsWdj+wq2fHo+UxIAWwLBMPHRjpyQIMpmnioQMPwrI4W7oIDEhBKq6LQwdH19WT2LaFhw+OosJbu4VhQArkui4eOXRgTdckO3YM4ZFDBxiOgrGfLphpmnhwZA/u27kd3/94A7OzDSilltnXwNC2Onbu3A6v4hZcKQEMSGmqVQ+jVQ9aa/h+B0EYIU0SQAhY5vzCca7rFjKei5bHgJRMCIFq1UO12tvfUafe4DUIUQYGhCgDA0KUgQEhysCAEGVgQIgyMCBEGRgQogwMCFEGBoQoAwNClIEBIcrAgBBlYECIMjAgRBkYEKIMDAhRBgaEKAMDQpSBASHKwIAQZWBAiDIwIEQZGBCiDAwIUQYGhCiDVEovvXIy0RaXKq2kBtKyCyHqR1ojlYlSc2UXQtSPUq3mpEr11bILIepHKtGTMo71xbILIepHcaK/lUGcMiBESwji9KIMwvjLOOGNLKLF4kQhCOMvZarkGb8Tl10PUV/xOzFSJc/I0aOvTXaCZLzsgoj6hdYafpCMjx59bVICQJyq9ztBUnZdRH2hE6ZIUvU+0B1qIvDOXCsqtSiiftFoRYDAO8CtgOx9+vWPk0RdaPNahLa4th8jSdSFvU+//jGwaLCi1uLkbCOCUrq86ohKpJTGbDOC1uJk972FgOwJGm9prSdnGmE51RGVbKYRQms9uSdovNV9byEg4rmTYarUS36QoOXzVIu2lpYfww8SpEq9JJ47udBL3DYfZOToG+9qrd+eaYQIQt7Voq0hCJNu7/H2yNE33l287a4JUwOpGtMa30zPBggjjoSnzS2MUkzPBtAa3wykauzO7XcFZPjYibkkTZ9RWk/8ONNhT0KbVhAm+HGmA6X1RJKmzwwfO3HX1A+x3IfHTx3faxrGB0Lg4aFBBzXPyrdaogK1/PjWaRW+SdL0mf3HTkwttd+yAQGAm6eO15uGPCmE+I3nmhgadCBl5keI+ppSGjONEH6QQGv99kCqxpbqObpW9W2fOP3y84aUbwoh9m0btFGtsDehjaftx7eec+jJVKmX7rwgX8qquwP93phz1R18UQg9ZpryUL1mw3UMCMEehfqX1hpBmGKuFSFJ1AWtxck9QeOtxbdys6zp2z314StPQeMFy5DPVlxzv1exYJlcQYj6R5wo+J0YfpCMJ6l6HwLvdIeP3It1//m/fPrVfYZUR1zHOuxaxkHLEgelIfYYQtalgCGlYHIoN0pppTTSVKs5lejJONHfBnF6MQjjL1Mlz4wefW1yPcf/P7DcZJN/M21RAAAAAElFTkSuQmCC";
 
-const witcat_file_helper_icons = "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIxNTkuNzgzNTEiIGhlaWdodD0iMTU5Ljc4MzUxIiB2aWV3Qm94PSIwLDAsMTU5Ljc4MzUxLDE1OS43ODM1MSI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTI0MC4xMDgyNSwtMTAwLjEwODI0KSI+PGcgZGF0YS1wYXBlci1kYXRhPSJ7JnF1b3Q7aXNQYWludGluZ0xheWVyJnF1b3Q7OnRydWV9IiBmaWxsLXJ1bGU9Im5vbnplcm8iIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9ImJ1dHQiIHN0cm9rZS1saW5lam9pbj0ibWl0ZXIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgc3Ryb2tlLWRhc2hhcnJheT0iIiBzdHJva2UtZGFzaG9mZnNldD0iMCIgc3R5bGU9Im1peC1ibGVuZC1tb2RlOiBub3JtYWwiPjxwYXRoIGQ9Ik0yNDAuMTA4MjUsMjU5Ljg5MTc2di0xNTkuNzgzNTFoMTU5Ljc4MzUxdjE1OS43ODM1MXoiIGZpbGwtb3BhY2l0eT0iMC4wMDM5MiIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIwIi8+PGltYWdlIHg9IjQ1NC4zNzU2MyIgeT0iMjExLjgzNjI5IiB0cmFuc2Zvcm09InNjYWxlKDAuNTc3MjMsMC41NzcyMykiIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB4bGluazpocmVmPSJkYXRhOmltYWdlL3BuZztiYXNlNjQsaVZCT1J3MEtHZ29BQUFBTlNVaEVVZ0FBQU1nQUFBRElDQVlBQUFDdFdLNmVBQUFBQkhOQ1NWUUlDQWdJZkFoa2lBQUFEMlZKUkVGVWVKenQzVTl3SEZWK0IvRHZlLzEzZWtZYVM3Wmh2ZmlQa0kzeFF2QlNwTXhtVTB0Q2xjdWs0TVpXaWxQMkVuTFZnWk9oT0JQd2lZT3Z5NGxVcFlwS2hhMGNvSUxMRlJiWVlvT0pLMEN3alkxc1NiYVhBTElselorZS92dGVEdklvc2kyMVpHbTZleVI5UDdlWjd1bjNzMnUrZXYzbnZUY0M2M1Q1OUt2N0RLbU9DQzBPQS9xZ2tHS1BWdm9uRUJqU1dsU0YwQllneEhyYklicWIxbHFMV0FqZGhzYU1rT0ovdGRKWEFYRlJDLzFscXVTWjBhT3ZUYTZuaFRWOWNhYytmT1VwYUx3QWlHY0I3RjlQQVVRNUd3ZjAreEI0WisvVHIzOThyeDllZFVEMGUyUE9WWGZ3UlNIMG1BWU8zV3REUkdVVHdBV3R4Y2s5UWVNdDhkekpjSldmV2RuRTZaZWZONlI4VXdQNzFsY2lVZmtFTUprcTlkTEkwVGZlWGNXK3k3dDU2bmk5YWNpVFFvamY5SzQ4b3Y2Z3RYNTdJRlZqdzhkT3pDMjN6N0lCR1Q5MWZLOXBHQjhJZ1lmektZK29mRnJqbXlSTm45bC83TVRVVXR1WERNajRxZU43VFZQK1hrQ001RmdiVVYvUTBCTkpvdjU2cVpESU85KzRlZXA0M1RTTUR4Z08yaW9FeElocEdCL2NQSFc4ZnVlMnV3SXlmODNCMHlyYVdvVEF3MDFEbnJ6ci9jVXZKazYvL0x5VThsK0xLNHVvdnlpbGZyMzQ3dFpDRDZMZkczTU1LZDhzcHl5aS9tQkkrYVorYjh6cHZsNEl5RlYzOEVVKzU2Q3RUZ1A3cnJxREwzWmZMd1JFQ0QxV1RrbEUvV1Z4RmlRd1A3YUt3MGVJNW1uZzBOU0hyendGZEhzUWpSZEtyWWlvMzl6S3hLMVRMUEZzbWJVUTlaLzVUSWpMcDEvZFowbzlVWEkxUkgwblVXTEVOS1E2c3NacElXc25KSVM0NnhrbDBiSzBWb0JXaGJacFNIWEVGRm9jTGpvZmxlMFBZOGVmL1YyeGpkS0dOdjAvLzRUTzlQbEMyeFJhSEphQVBsaG9xMFFiaGo0b2hSUjd5aTZEcUI5cGdiMVNLLzJUc2dzaDZrZEM0MzRKZ2FHeUN5SHFTd0pEVW10Ukxic09vbjZrdGFqSytYV3JpT2hPUW1oTGNsRTNvdVh3YVIxUkpnYUVLQU1EUXBTQkFTSEt3SUFRWldCQWlESXdJRVFaekdKYXFjRVlQTER3VWxkMm9STkVoVFJObTRPdWpNQVlYbGlOQjJuald5QnA1ZDV1SVFFUjFnRE1uLzdOd21zTm9Oa0tpbWlhTm92NllaajF3d3N2VmVkNzZBSUN3bE1zb2d3TUNGRUdCb1FvQXdOQ2xJRUJJY3JBZ0JCbFlFQ0lNakFnUkJrWUVLSU1EQWhSQmdhRUtBTURRcFNCQVNIS3dJQVFaZWpKY0hjaFRleDgvQjh5dGxzUURoZHdwTjdSai80dHRJcVgzZjdqZi84V1dpWHJicWRuODBHY1FTNFNUd1d5aWxsem5hZFlSQmtZRUtJTURBaFJCZ2FFS0FNRFFwU0JBU0hLd0lBUVpXQkFpREl3SUVRWkdCQ2lEQXdJVVFacEdQd05UNktsR0lhQXRBeDJJa1JMc1V3SjA3WU5CRkc2NHM3Q0hsNStvelNRSkNzZmc2Z3c5aENFV3Y0N3FhT2JLeC9DTW1CNnJvbEdhK1hmNnJEMi9SckMyYjdzOXB1ejdSV1BRVlFVKzhEZkw3dE5oemNRWGZydGlzZndYQlBTTWlVcWp0SEwyb2cydklwandETGwvRjJzK29DejB2NUVXMG8zRXhLWXZ4aXAxK3hTQ3lMcUYvV2FEY3VjdjNtMWNBdHJzR2FqNGhiems0VkUvY3B6VFF3dTZpeHV1OGU3dmU2aVdtRklhR3VxZVJhRzYrNXQ3OTJXQmlHQTRib0wxMGt3TXhkQ2FWMW9nVVJsa0VKZ3FPN0FXK0lNYXNudXduTk51TGFCMldhRWRtZjVwVldJTnJwcXhjSzJBUnRTTGoyaVpObnpLU2tGaHVzT2FwNkptVWFZVzRGRVpiQXRpYUZCQjdhVi9ZaGp4WEVtdG1YZ3ZtRVBBK0ZaQ01XZzBNWW1WSWlCOEN6dUcvWldEQWV3eW9YamhBQzg2Q0xjbVNtMHFyOUU0RDZ5N2tLSml1WUc1MUJyZndxcEEyQ1ZZM1R2NlphVjFBRUdXLytCU25BT3pkcGZJVEh2VzB1ZFJJVXlreDh3MFBvSVZ2TDl2WDkyTFExYXlmY1ltdjBYQk00aHRLcS9oSmFWdFJ5R0tGZENkVkJyZjRwS2VIN054MWp6UXc4QmpVcDRIazQwanJiM0pEcnVZNERnMEhucUExcWhFbnlGcXY4WnBGNTVJRzZXZFQ4VmxEckNRUHNUVklKemFGVi9oY2ptSXRaVUhqdTZpbHI3STVqcGJFK08xN1BINW1aNkU5c2EvNGJRM285bTlTK2hqTUZlSFpwb1JVWTZoMXI3RDNDaUt6MDlicy9IbFRqUk9PeG9BbjdsNS9BclQwQkxqaFNtL0FnVnd1dWNoZGY1QWdLOW43U1h5OEFyZ1JUVnpsbFVnZ3RvVjQrZzR6ekM2eFBxTGExUUNjK2gyajREcWYzY21zbDFaS0xVUGdaYXYwZWw4eFd2VDZobjdHZ0t0ZllmWUtZclQ1dGRyMEtHN2k1Y24xaDcwYXIrQ3FrNVZFU3p0TWtZeVF4cTdVL2d4Rk9GdFZubzJIWW5ub0k5Kzg4SW5FTm9WLzhDU25wRk5rOGJsRlErcXUwL3dnMHZRS0RZRWVhRlQvN29Qajl4dzR2d3ZTZmd1ei9uaFR3dFNhZ1FYdkFGUFA5c0xoZmdxMUhhN0NpQkZGWC9EQ3FkcjlIMm51Q0RSdnAvQ3cvNlBwOGZOMVdpMHFjUFN1MWpvUDBKdk9BcnRMeGZJSFFlS3Jza0twRWJmb09xZndaR09sZDJLUUQ2SUNCZFJqcUhldk1EeFA1WnRMMGppSnpSc2t1aUF0bmhaVlQ5TTdEUzZiSkx1VTNmQktUTFNxZXhyZmsrNHM0dXRLcS9RR3c5VUhaSmxDTXJ2bzVhKzlNMWpiUXRRdDhGcE10S3ZzUFEzTzhRV1Q5RjIzdVNRZGxrclBnNnF2NW5zT00vbFYxS3ByNE5TSmNkL3duMjNPOFEyZytpN1QySnhOeFJka20wRG1ZeWphci9XYy9IVE9XbDd3UFM1VVJYNEVSWEVGb2o4TDNIMmFOc01QTTl4bG5ZQlQ3azY0VU5FNUF1SjU2QU16ZkJVNjhOWXFPY1NpMW53d1drcTN2cXhhRDBKeXU2aW1ybjh3MGJqSzRORzVDdWJsQmlZd2Q4Nzg4UjJxTjg0RmdXcmVCRWwrSDUvOVYzdDJ2WGFzTUhwTXRLcDFGdi9qdFNvdzdmZlJ3ZDl4QWdOczAvcjcvcEJKWGdQTHpnaTc1NXdOY3JRcC8veDAyNXZxZ1NIdnpLWStpNGozSlJpWndJMVVFbCtCcGU1NnRjNTJTVWFkUCtpWlhhUjgzL1QxVDl6eEc0QjlGeEQvTVdjWStZeVRRcXdaZHdnNHVsRFNJc3lxWU5TSmRBaWtwd0hwWGdQQ0pyTjN6M01VVDJDSzlUN3BWV3NLTUplTUZYc09OclpWZFRtRTBma01YcytCcnMrQnBTT1lDTyt5Z0M5MmVjazdJQ3FYeTR3WGxVZ3E5aHFHYlo1UlJ1MDE2RHJJYUdRR2lQSW5CL2hzamVWM1k1ZmNXT0p1RUc1K0ZFbHd1ZnBOUlB0bFFQY2ljQkRUY2FoeHVOMytwVkhrSGdISUl5YW1XWFZncVpOdUNHRjFFSnptM0ozbUlwVzdvSFdVNWtQWURBT1lqUWVRaGFXR1dYa3l1aFl6amhKYmpoUmRqeDliTEw2VHRidWdkWmpoMWZoeDFmaDI1OWhOQVpSV2p2UjJUdjNUUmhFVHFHSFUzQmljYmhoSmMzL1oybzlXQkFNZ2lrY01OTGNNTkwwREFRMlhzUjJQc1JPYU1iTGl4Q3g3RER5M0NqY2RqUkZFT3hTZ3pJS2dta0N5T0tkY3RBYk8xQ1pPMUdhSThnTmJlWFhkNlNqT1FHbkdnQ2Rud05WdndkUTdFR0RNZ2FDS1FMdDR4ci9oK1J5aG9pYXpkaTZ3SEUxaTZrUnIyVXVveDBEbGI4SGF6NE9weDRDbEp0enFmYlJXSkFlc0JRTFZUQ0M2aUVGd0FBU3JpSXJWMklyVjFJak8xSXpCMDlmOTRpbFE4em1ZYVozcmdWaXU5S1h3RmtNMkpBY2lCMXNIQTYxcVdFamNUY2dWUU9RaGtEU0dVTlN0YWdoWVZVVnBjOGpxSGFFRHFHVkMwWXFnV1pObUdtY3pEU0crdiszUXRhSFFha0lGSkh0K1pHYk96NUVWc05CeVFSWldCQWlESXdJRVFaR0JDaURBd0lVUVlHaENnREEwS1VnUUVoeXNDQUVHVmdRSWd5TUNCRUdUZ1dxMlJKa3FMVmJpTUlRc1J4QWdDd0xCT3U2NkJXcmNJMGpaSXIzTm9Za0pMTXpqWHh3dy9UYURSYm1mc05EdFJ3LzMwN1VLOFBGRlFaTGNhQUZDd01JMXladklaV3E3MnEvUnZORmhyTkZnWnFWWXpzMnczSHNYT3VrQmJqTlVpQm1zMFd6bC80ZHRYaHVPMnpyVGJPWGZnV3plYTlmNWJXamdFcFNMUFp4cVh4Q1NUcDJ1ZUZwMm1LUytNVGFLNGhZTFEyREVnQndpakMrSlZKS0xYK0pjaVVVaGdmbjBRWWNrWmhFUmlRQWt4T1hrZVM5RzVGa1NSTk1URzVkUmFRTGhNRGtyTkdvN1hpbmFxMWFMYmFtSjNqOHFCNVkwQnk5c09QTi9JNzlnK2I0MmZPK2hrRGtpT2xGT1lhK2YyVmJ6UmI2N3JvcDVVeElEbHEreDFvbmUvYTRPMDJGNGZMRXdPU295QUljMitEZDdQeXhZRGtxRHUyS2s5SmtuOGJXeGtEa2lNaGltaWpnRWEyTUFZa1I1YVYvMDhrRk5IR1ZzYUE1TWgxblUzUnhsYkdnT1RJcTFRZ1pYNy94WWFVOENxVjNJNVBERWl1cEJUWXRtMHd0K1BYNjRPUWt0Y2dlV0pBY25iL3p2eCtmZXIrKzNma2RteWF4NERrckZyMXNIMTRXOCtQdTMxNEc2b2VUNi95eG9BVVlQY0R1MkRidmJ2YlpOc1dkait3cTJmSG8rVXhJQVd3TEJNUEhSanB5UUlNcG1uaW9RTVB3ckk0VzdvSURFaEJLcTZMUXdkSDE5V1QyTGFGaHcrT29zSmJ1NFZoUUFya3VpNGVPWFJnVGRja08zWU00WkZEQnhpT2dyR2ZMcGhwbW5od1pBL3UyN2tkMy85NEE3T3pEU2lsbHRuWHdOQzJPbmJ1M0E2djRoWmNLUUVNU0dtcVZRK2pWUTlhYS9oK0IwRVlJVTBTUUFoWTV2ekNjYTdyRmpLZWk1YkhnSlJNQ0lGcTFVTzEydHZmVWFmZTREVUlVUVlHaENnREEwS1VnUUVoeXNDQUVHVmdRSWd5TUNCRUdSZ1FvZ3dNQ0ZFR0JvUW9Bd05DbElFQkljckFnQkJsWUVDSU1qQWdSQmtZRUtJTURBaFJCZ2FFS0FNRFFwU0JBU0hLd0lBUVpXQkFpREl3SUVRWkdCQ2lEQXdJVVFZR2hDaURWRW92dlhJeTBSYVhLcTJrQnRLeUN5SHFSMW9qbFlsU2MyVVhRdFNQVXEzbXBFcjExYklMSWVwSEt0R1RNbzcxeGJJTEllcEhjYUsvbFVHY01pQkVTd2ppOUtJTXd2akxPT0dOTEtMRjRrUWhDT012WmFya0diOFRsMTBQVVYveE96RlNKYy9JMGFPdlRYYUNaTHpzZ29qNmhkWWFmcENNang1OWJWSUNRSnlxOXp0QlVuWmRSSDJoRTZaSVV2VSswQjFxSXZET1hDc3F0U2lpZnRGb1JZREFPOEN0Z094OSt2V1BrMFJkYVBOYWhMYTR0aDhqU2RTRnZVKy8vakd3YUxDaTF1TGtiQ09DVXJxODZvaEtwSlRHYkRPQzF1Sms5NzJGZ093SkdtOXByU2RuR21FNTFSR1ZiS1lSUW1zOXVTZG92TlY5YnlFZzRybVRZYXJVUzM2UW9PWHpWSXUybHBZZnd3OFNwRXE5Sko0N3VkQkwzRFlmWk9Ub0crOXFyZCtlYVlRSVF0N1ZvcTBoQ0pOdTcvSDJ5TkUzM2wyODdhNEpVd09wR3RNYTMwelBCZ2dqam9TbnpTMk1Va3pQQnRBYTN3eWthdXpPN1hjRlpQallpYmtrVFo5UldrLzhPTk5oVDBLYlZoQW0rSEdtQTZYMVJKS216d3dmTzNIWDFBK3gzSWZIVHgzZmF4ckdCMExnNGFGQkJ6WFB5cmRhb2dLMS9QaldhUlcrU2RMMG1mM0hUa3d0dGQreUFRR0FtNmVPMTV1R1BDbUUrSTNubWhnYWRDQmw1a2VJK3BwU0dqT05FSDZRUUd2OTlrQ3F4cGJxT2JwVzlXMmZPUDN5ODRhVWJ3b2g5bTBidEZHdHNEZWhqYWZ0eDdlZWMrakpWS21YN3J3Z1g4cXF1d1A5M3BoejFSMThVUWc5WnByeVVMMW13M1VNQ01FZWhmcVgxaHBCbUdLdUZTRkoxQVd0eGNrOVFlT3R4YmR5czZ6cDJ6MzE0U3RQUWVNRnk1RFBWbHh6djFleFlKbGNRWWo2UjV3bytKMFlmcENNSjZsNkh3THZkSWVQM0l0MS8vbS9mUHJWZllaVVIxekhPdXhheGtITEVnZWxJZllZUXRhbGdDR2xZSElvTjBwcHBUVFNWS3M1bGVqSk9OSGZCbkY2TVFqakwxTWx6NHdlZlcxeVBjZi9QN0RjWkpOL00yMVJBQUFBQUVsRlRrU3VRbUNDIiBmaWxsPSJub25lIiBzdHJva2Utd2lkdGg9IjAuNSIvPjwvZz48L2c+PC9zdmc+";
-
-const witcat_file_helper_extensionId = 'WitCatFileHelpers';
+const witcat_file_helper_extensionId = 'WitCatFileHelper';
 
 /** @typedef {string|number|boolean} SCarg 来自Scratch圆形框的参数，虽然这个框可能只能输入数字，但是可以放入变量，因此有可能获得数字、布尔和文本（极端情况下还有 null 或 undefined，需要同时处理 */
 
@@ -40,14 +38,13 @@ class WitCatFileHelper {
     this.runtime = runtime;
     this._formatMessage = runtime.getFormatMessage({
       'zh-cn': {
-        'WitCatFileHelper.name': '白猫的文件助手',
+        'WitCatFileHelper.name': '[beta]白猫的文件助手',
         'WitCatFileHelper.filehelper': '文件处理',
         'WitCatFileHelper.inputmanagement': '键值对',
         'WitCatFileHelper.imageprocess': '图片',
         'WitCatFileHelper.Multiplelinestext': '多行文本',
         'WitCatFileHelper.downloads': '将内容[text]按[s]分割后命名为[name]并下载多行文本',
         'WitCatFileHelper.download': '将内容[text]命名为[name]并下载',
-        'WitCatFileHelper.downloadBlob': '将 blob [text]命名为[name]并下载',
         'WitCatFileHelper.save': '设置键[name]的值为[text]',
         'WitCatFileHelper.upload': '获取键[name]的值',
         'WitCatFileHelper.delete': '删除键[name]',
@@ -80,7 +77,6 @@ class WitCatFileHelper {
         'WitCatFileHelper.openfiless.1': '单文件',
         'WitCatFileHelper.openfiless.2': '多文件',
         'WitCatFileHelper.openfile.1': 'UTF-8(文本)',
-        "WitCatFileHelper.openfile.2": "zip(压缩文件)",
         'WitCatFileHelper.file': '上次打开第[num]个文件的[type]',
         'WitCatFileHelper.file.1': '文件名',
         'WitCatFileHelper.file.2': '文件后缀',
@@ -91,17 +87,15 @@ class WitCatFileHelper {
         'WitCatFileHelper.docs': '📖拓展教程',
         'WitCatFileHelper.arrayjoin': '用[s]作为分隔符合并数组[text]',
         'WitCatFileHelper.asks': '文件大小太大，可能导致浏览器崩溃，确定继续？',
-        "WitCatFileHelper.lastfile": "用[type]读取上次打开第[num]个文件的内容",
       },
       en: {
-        'WitCatFileHelper.name': 'WitCat’s File Helper',
+        'WitCatFileHelper.name': '[beta]WitCat’s File Helper',
         'WitCatFileHelper.filehelper': 'File',
         'WitCatFileHelper.inputmanagement': 'Key-value pair',
         'WitCatFileHelper.imageprocess': 'Image',
         'WitCatFileHelper.Multiplelinestext': 'Multi-line text',
         'WitCatFileHelper.downloads': 'Download split text [text] by [s] named [name]',
         'WitCatFileHelper.download': 'Download text [text] named [name]',
-        'WitCatFileHelper.downloadBlob': 'Download blob [text] named [name]',
         'WitCatFileHelper.save': 'Set value of key [name] to [text]',
         'WitCatFileHelper.upload': 'value of key [name]',
         'WitCatFileHelper.delete': 'Delete key [name]',
@@ -137,7 +131,6 @@ class WitCatFileHelper {
         'WitCatFileHelper.openfiless.1': 'Single',
         'WitCatFileHelper.openfiless.2': 'multi',
         'WitCatFileHelper.openfile.1': 'UTF-8(text)',
-        "WitCatFileHelper.openfile.2": "zip(Compressed file)",
         'WitCatFileHelper.file': '[type] of [num] file opened',
         'WitCatFileHelper.file.1': 'name',
         'WitCatFileHelper.file.2': 'extension',
@@ -149,7 +142,6 @@ class WitCatFileHelper {
         'WitCatFileHelper.arrayjoin': 'join array [text], seperating by [s]',
         'WitCatFileHelper.asks':
           'The file size is too large and may cause the browser to crash, are you sure to continue?',
-        "WitCatFileHelper.lastfile": "Use [type] to read the contents of the [num] file that was last opened",
       },
     });
   }
@@ -171,7 +163,7 @@ class WitCatFileHelper {
     return {
       id: witcat_file_helper_extensionId, // 拓展id
       name: this.formatMessage('WitCatFileHelper.name'), // 拓展名
-      blockIconURI: witcat_file_helper_icons,
+      blockIconURI: witcat_file_helper_icon,
       menuIconURI: witcat_file_helper_icon,
       color1: '#60D6F4',
       color2: '#55a7f7',
@@ -209,21 +201,6 @@ class WitCatFileHelper {
             text: {
               type: 'string',
               defaultValue: 'awa!!!',
-            },
-            name: {
-              type: 'string',
-              defaultValue: 'wit_cat.txt',
-            },
-          },
-        },
-        {
-          opcode: 'downloadBlob',
-          blockType: 'command',
-          text: this.formatMessage('WitCatFileHelper.downloadBlob'),
-          arguments: {
-            text: {
-              type: 'string',
-              defaultValue: 'blob',
             },
             name: {
               type: 'string',
@@ -409,22 +386,6 @@ class WitCatFileHelper {
             name: {
               type: 'string',
               defaultValue: 'i',
-            },
-          },
-        },
-        {
-          opcode: "lastfile",
-          blockType: "reporter",
-          text: this.formatMessage("WitCatFileHelper.lastfile"),
-          disableMonitor: true,
-          arguments: {
-            num: {
-              type: "number",
-              defaultValue: '1',
-            },
-            type: {
-              type: "string",
-              menu: 'openfile',
             },
           },
         },
@@ -635,10 +596,6 @@ class WitCatFileHelper {
             text: this.formatMessage('WitCatFileHelper.openfile.1'),
             value: 'utf-8',
           },
-          {
-            text: this.formatMessage('WitCatFileHelper.openfile.2'),
-            value: 'zip',
-          },
         ],
         openfiless: [
           {
@@ -684,23 +641,10 @@ class WitCatFileHelper {
    * @param {string} name 下载后文件名
    * @return {void}
    */
-  async _download(text, name, type) {
+  _downloadText(text, name) {
     // 字符内容转变成blob地址
-    let blob = null, url = "";
-    if (type === 'text') {
-      blob = new Blob([text]);
-      url = URL.createObjectURL(blob);
-    }
-    else if (type === 'blob') {
-      if (!text.startsWith('blob:')) {
-        console.error('The provided URL is not a valid Blob URL.');
-        return;
-      }
-      url = text;
-    }
-    if (url === "") {
-      return;
-    }
+    const blob = new Blob([text]);
+    const url = URL.createObjectURL(blob);
     let SuffixName = '';
     if (name.includes('.')) {
       SuffixName = name.substring(name.lastIndexOf('.') + 1);
@@ -747,7 +691,7 @@ class WitCatFileHelper {
         h = h.split(s).join('\n');
       }
 
-      this._download(h, String(args.name), "text");
+      this._downloadText(h, String(args.name));
     });
   }
 
@@ -761,24 +705,9 @@ class WitCatFileHelper {
   download(args) {
     this._downloadable(() => {
       const content = String(args.text);
-      this._download(content, String(args.name), "text");
+      this._downloadText(content, String(args.name));
     });
   }
-
-  /**
-   * 下载blob文件
-   * @param {object} args
-   * @param {SCarg} args.text 文本
-   * @param {SCarg} args.name 文件名
-   * @returns {void}
-   */
-  downloadBlob(args) {
-    this._downloadable(() => {
-      const content = String(args.text);
-      this._download(content, String(args.name), "blob");
-    });
-  }
-
 
   /**
    * 读取本地变量
@@ -901,69 +830,6 @@ class WitCatFileHelper {
   }
 
   /**
-   * 读取上一次打开的文件内容
-   * @param {Number} args.num 文件编号，从 1 开始
-   * @param {string} args.type 文件类型
-   * @returns 文件内容
-   */
-  async lastfile(args) {
-    try {
-      const file = this.filelist[Number(args.num) - 1];
-      let mode = "text";
-      switch (args.type) {
-        case "base64":
-          mode = "dataurl";
-          break;
-        case "utf-8":
-          mode = "text";
-          break;
-        case "zip":
-          mode = "blob";
-          break;
-      }
-      return String(await this._readerasync(file, mode));
-    }
-    catch {
-      return "";
-    }
-  }
-
-  /**
-   * 读取文件
-   * @param {File|Blob} file File 或者 Blob
-   * @param {"arraybuffer"|"dataurl"|"text"} mode 读取模式
-   * @return {Promise<string|ArrayBuffer|null>} [异步地]返回读取后的内容
-   */
-  _readerasync(file, mode) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        resolve(reader.result);
-      };
-      reader.onerror = (e) => {
-        reject(e);
-      };
-      switch (mode) {
-        case "arraybuffer":
-          reader.readAsArrayBuffer(file);
-          break;
-        case "dataurl":
-          reader.readAsDataURL(file);
-          break;
-        case "text":
-          reader.readAsText(file);
-          break;
-        case "blob":
-          resolve(URL.createObjectURL(file));
-          break;
-        default:
-          reject(new Error("mode 错误: 应该是 arraybuffer, dataurl, blob 或者 text"));
-          return;
-      }
-    });
-  }
-
-  /**
    * 读取文件
    * @param {File|Blob} file File 或者 Blob
    * @param {"arraybuffer"|"dataurl"|"text"} mode 读取模式
@@ -988,9 +854,6 @@ class WitCatFileHelper {
         case 'text':
           reader.readAsText(file);
           break;
-        case 'blob':
-          const blobUrl = URL.createObjectURL(file);
-          resolve(blobUrl);
         default:
           reject(new Error('mode 错误: 应该是 arraybuffer, dataurl 或者 text'));
       }
@@ -1088,9 +951,6 @@ class WitCatFileHelper {
           break;
         case 'utf-8':
           mode = 'text';
-          break;
-        case 'zip':
-          mode = 'blob';
           break;
         default:
           break;
@@ -1377,11 +1237,11 @@ window.tempExt = {
   },
   l10n: {
     "zh-cn": {
-      "WitCatFileHelper.name": "白猫的文件助手 V2.9",
+      "WitCatFileHelper.name": "[beta]白猫的文件助手",
       "WitCatFileHelper.descp": "读取/处理本地数据"
     },
     en: {
-      "WitCatFileHelper.name": "WitCat’s File Helper V2.9",
+      "WitCatFileHelper.name": "[beta]WitCat’s File Helper",
       "WitCatFileHelper.descp": "Handling local data"
     }
   }
