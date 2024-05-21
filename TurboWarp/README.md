@@ -32,3 +32,11 @@ Cover under license: [GPLv3](./licenses/GPL-3.0.txt)
 Code under license: [MIT](./licenses/MIT.txt)  
 - Cover from: https://github.com/TurboWarp/extensions/blob/master/images/Skyhigh173/bigint.svg    
 Cover under license: [GPLv3](./licenses/GPL-3.0.txt)  
+
+## [Morecomparison.js](./NOname-awa/Morecomparison.js)  
+- Original by: [NOname-awa](https://github.com/NOname-awa)  
+- Ported & modified by: [fath11](https://github.com/Fath11)
+- Code ported from: https://extensions.turbowarp.org/NOname-awa/more-comparisons.js
+Code under license: [MIT](./licenses/MIT.txt)  
+- Cover from: https://github.com/TurboWarp/extensions/blob/master/images/NOname-awa/more-comparisons.svg
+Cover under license: [GPLv3](./licenses/GPL-3.0.txt)  
