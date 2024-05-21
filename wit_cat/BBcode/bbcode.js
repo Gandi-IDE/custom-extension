@@ -425,8 +425,9 @@ let runtime;
 
     MarkDownTag.prototype._toHTML = function () {
       const converter = new markdown.Converter();
+      let mode = this.params[this.name];
       let style = this.params["style"];
-      return [`<span style="${style}">`, converter.makeHtml(String((this.getContent().replace(/<br\s*\/?>/g, "\n")))), '</span>'];
+      return [`<span style="${style}">`, converter.makeHtml(String((this.getContent(Boolean(mode) ? true : undefined).replace(/<br\s*\/?>/g, "\n")))), '</span>'];
     };
 
     return MarkDownTag;
