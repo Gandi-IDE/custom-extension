@@ -31,10 +31,10 @@ class RegExpVI {
         "RegExpVI.name": "正则表达式vi",
         "RegExpVI.info.1": "创建匹配模式",
         "RegExpVI.info.2": "查找文本",
-        "RegExpVI.regexp.dight": "数字",
+        "RegExpVI.regexp.digit": "数字",
         "RegExpVI.regexp.chars": "数字字母下划线",
         "RegExpVI.regexp.white": "空白字符",
-        "RegExpVI.regexp.notdight": "非数字",
+        "RegExpVI.regexp.nondigit": "非数字",
         "RegExpVI.regexp.notchars": "非数字字母下划线",
         "RegExpVI.regexp.notwhite": "非空白字符",
         "RegExpVI.regexp.number": "数",
@@ -89,22 +89,22 @@ class RegExpVI {
         "RegExpVI.name": "Regular expression vi",
         "RegExpVI.info.1": "Creating pattern",
         "RegExpVI.info.2": "Finding texts",
-        "RegExpVI.regexp.dight": "dight",
+        "RegExpVI.regexp.digit": "digit",
         "RegExpVI.regexp.chars": "[a-zA-Z_]",
-        "RegExpVI.regexp.white": "white character",
-        "RegExpVI.regexp.notdight": "not dight",
+        "RegExpVI.regexp.white": "whitespace character",
+        "RegExpVI.regexp.nondigit": "non-digit",
         "RegExpVI.regexp.notchars": "not [a-zA-Z_]",
-        "RegExpVI.regexp.notwhite": "not white character",
+        "RegExpVI.regexp.notwhite": "non-whitespace character",
         "RegExpVI.regexp.number": "number",
         "RegExpVI.regexp.integer": "integer",
-        "RegExpVI.regexp.positivenumber": "not-negative number",
-        "RegExpVI.regexp.positiveinteger": "not-negative integer",
+        "RegExpVI.regexp.positivenumber": "non-negative number",
+        "RegExpVI.regexp.positiveinteger": "non-negative integer",
         "RegExpVI.regexp.scientific": "scientific notation",
         "RegExpVI.regexp.any": "any character",
         "RegExpVI.regexp.word": "word",
-        "RegExpVI.regexp.upper": "captical letter",
-        "RegExpVI.regexp.lower": "non-capital letter",
-        "RegExpVI.regexp.chinese": "chinese character",
+        "RegExpVI.regexp.upper": "capital letter",
+        "RegExpVI.regexp.lower": "lowercase letter",
+        "RegExpVI.regexp.chinese": "Chinese character",
         "RegExpVI.range": "chars [INCLUDE] [RANGE] [TEXT]",
         "RegExpVI.range.include": "in",
         "RegExpVI.range.exclude": "not in",
@@ -451,7 +451,7 @@ class RegExpVI {
       menus: {
         RegExpPicker: {
           items: [{
-            text: this.formatMessage("RegExpVI.regexp.dight"),
+            text: this.formatMessage("RegExpVI.regexp.digit"),
             value: "\\d"
           }, {
             text: this.formatMessage("RegExpVI.regexp.chars"),
@@ -460,7 +460,7 @@ class RegExpVI {
             text: this.formatMessage("RegExpVI.regexp.white"),
             value: "\\s"
           }, {
-            text: this.formatMessage("RegExpVI.regexp.notdight"),
+            text: this.formatMessage("RegExpVI.regexp.nondigit"),
             value: "\\D"
           }, {
             text: this.formatMessage("RegExpVI.regexp.notchars"),
