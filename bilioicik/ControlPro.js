@@ -80,7 +80,7 @@
                     'ControlPro.cnElseForever':'否则循环',
                     
                     'ControlPro.if':'如果',
-                    'ControlPro.unless':'除非',
+                    'ControlPro.ifNot':'除非',
                     'ControlPro.repeatWhile':'循环当',
                     'ControlPro.repeatUntil':'循环直到',
                     'ControlPro.cnIf':'如果[a]',
@@ -143,11 +143,11 @@
                     'ControlPro.cnElseForever':'else forever',
 
                     'ControlPro.if':'if',
-                    'ControlPro.unless':'unless',
+                    'ControlPro.ifNot':'if not',
                     'ControlPro.repeatWhile':'repeat while',
                     'ControlPro.repeatUntil':'repeat until',
                     'ControlPro.cnIf':'if[a]',
-                    'ControlPro.cnIfNot':'unless[a]',
+                    'ControlPro.cnIfNot':'if not[a]',
                     'ControlPro.else':'else',
                     'ControlPro.cnWhile':'while[a]',
                     'ControlPro.cnRepeatWhile':'repeat[a]while[b]',
@@ -695,7 +695,7 @@
                                 value: 0
                             },
                             {
-                                text: this.formatMessage('ControlPro.unless'), 
+                                text: this.formatMessage('ControlPro.ifNot'), 
                                 value: 1
                             },
                             {
@@ -1178,7 +1178,7 @@
         l10n: {
             "zh-cn": {
                 "ControlPro.name": "控制pro",
-                "ControlPro.descp": "永无止境的“驱动”"
+                "ControlPro.descp": "无止境“驱动”"
             },
             en: {
                 "ControlPro.name": "Control pro",
