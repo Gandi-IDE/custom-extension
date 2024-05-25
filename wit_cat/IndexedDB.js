@@ -106,23 +106,23 @@ class WitCatIndexedDB {
         this.db = undefined;
 
         this.dbOpen("witcat", 3, (res) => {
-            console.log("初始化本地存储键值对");
+            
             const store = res.createObjectStore('indexeddb-store', { autoIncrement: true });
             store.createIndex('uuid', 'uuid');
             store.createIndex('uuid-name', ['uuid', 'name']);
         }).then((res) => {
             this.db = res;
-            console.log('witcat:load key-value success');
+            
         }).catch((err) => {
             alert("此浏览器貌似不支持使用本地存储键值对，建议使用chrome或者edge\n" +
                 "This browser does not seem to support the use of IndexedDB key-value pairs, you can use Chrome or Edge");
             console.warn("初始化 IndexedDB 错误", err);
         });
 
-        this.mButtonShow();
+        // this.mButtonShow();
 
         this.runtime = runtime;
-        console.log(this.runtime);
+        
         this._formatMessage = runtime.getFormatMessage({
             "zh-cn": {
                 "WitCatIndexedDB.name": "[beta]白猫的本地储存",
@@ -1619,6 +1619,7 @@ class WitCatIndexedDB {
 
     /** 检测作品详情页显示按钮 */
     mButtonShow() {
+        return;
         const url = window.location.pathname;
         if (!(url.startsWith("/gandi/") || url.startsWith("/creator/"))) {
             alert("此作品使用了本地储存，将会在您的电脑上存储内容，如需要删除，可以从右下角按钮（可以隐藏）进入管理页面\nThis work uses local storage and will store content on your computer. If you need to delete it, you can enter the management page from the lower right button (which can be hidden)")
