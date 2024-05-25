@@ -28232,7 +28232,18 @@ void main() {
         };
       }
       __gandiAssetsJsonFileList() {
-        if (!this.runtime.getGandiAssetsFileList) {
+        try {
+          const list = this.runtime.getGandiAssetsFileList("json").map((item) => item.name);
+          if (list.length < 1) {
+            return [
+              {
+                text: this.formatMessage("RenderTheWorld.fileListEmpty"),
+                value: "fileListEmpty"
+              }
+            ];
+          }
+          return list;
+        } catch (err) {
           return [
             {
               text: this.formatMessage("RenderTheWorld.fileListEmpty"),
@@ -28240,16 +28251,6 @@ void main() {
             }
           ];
         }
-        const list = this.runtime.getGandiAssetsFileList("json").map((item) => item.name);
-        if (list.length < 1) {
-          return [
-            {
-              text: this.formatMessage("RenderTheWorld.fileListEmpty"),
-              value: "fileListEmpty"
-            }
-          ];
-        }
-        return list;
       }
       /**
        * @param {string} filename
