@@ -28232,6 +28232,14 @@ void main() {
         };
       }
       __gandiAssetsJsonFileList() {
+        if (!this.runtime.getGandiAssetsFileList) {
+          return [
+            {
+              text: this.formatMessage("RenderTheWorld.fileListEmpty"),
+              value: "fileListEmpty"
+            }
+          ];
+        }
         const list = this.runtime.getGandiAssetsFileList("json").map((item) => item.name);
         if (list.length < 1) {
           return [
