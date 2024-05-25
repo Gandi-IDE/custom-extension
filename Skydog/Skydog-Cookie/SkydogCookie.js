@@ -1,6 +1,6 @@
 // Name: Skydog's Cookie
 // Version: 1.0.0
-// ID: SkydogCookie
+// ID: Cookie
 // Description: Manipulate cookies! Set expiration time!
 // By: MoreBugOfDog
 // License: MPL-2.0
@@ -9,6 +9,9 @@
 // Cookie的读取和储存强制添加了唯一标识符和命名空间（ccw_custom_作品链接_用户输入的name），
 // path强制为/ 防止随请求携带导致错误
 // 编辑器内和编辑器外cookie不同步，这是为了方便肝酱开发，非Bug
+// ————————不重要的——————————
+// 我解释一下为什么ID没有带Skydog：
+// 因为如果加上的话，不方便通过输入ID加载
 
 (() => {
     // src/index.ts
@@ -42,7 +45,7 @@
         }
         getInfo() {
           return {
-            id: "SkydogCookie",
+            id: "Cookie",
             name: i10n("SkydogCookie.name"),
             color1: "#996026",
             color2: "#996026",
@@ -123,7 +126,7 @@
         info: {
           name: "SkydogCookie.name",
           description: "SkydogCookie.descp",
-          extensionId: "SkydogCookie",
+          extensionId: "Cookie",
           iconURL: SkydogCookiePictureUrl,
           insetIconURL: SkydogCookieIconUrl,
           featured: true,
