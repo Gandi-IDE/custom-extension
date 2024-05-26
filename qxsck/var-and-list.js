@@ -191,7 +191,7 @@ class VarAndList {
         }
         return true;
       }
-    }
+    };
   }
   formatMessage(id) {
     return this._formatMessage({
@@ -955,17 +955,14 @@ class VarAndList {
     if (list.length === 0) list.push({text: `-`,value: 'empty'});
     return list;
   }
-  //from turbowarp-vm
+
   changeMonitorVisibility(id, visible) {
-    // Send the monitor blocks an event like the flyout checkbox event.
-    // This both updates the monitor state and changes the isMonitored block flag.
     this.runtime.monitorBlocks.changeBlock({
-      id: id, // Monitor blocks for variables are the variable ID.
-      element: 'checkbox', // Mimic checkbox event from flyout.
+      id: id,
+      element: 'checkbox',
       value: visible
     }, this.runtime);
   }
-
   isShow(args) {
     let list = args.list;
     if (!list) return false;
@@ -1437,7 +1434,7 @@ window.tempExt = {
     },
     'en': {
       'qxsckvarandlist.name':'Variable and list',
-      'qxsckvarandlist.description':'some blocks about variables and lists.'
+      'qxsckvarandlist.description':'Some blocks about variables and lists.'
     }
   },
 }

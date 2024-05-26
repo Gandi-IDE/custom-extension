@@ -280,11 +280,11 @@ window.tempExt = {
   l10n: {
     'zh-cn': {
       'qxsckmatrix.name': '矩阵',
-      'qxsckmatrix.description': '帮你进行矩阵的计算与操作',
+      'qxsckmatrix.description': '一些关于矩阵计算与操作的积木',
     },
     'en': {
       'qxsckmatrix.name': 'Matrix',
-      'qxsckmatrix.description': 'Help you calculate and operate matrix.',
+      'qxsckmatrix.description': 'Some blocks about calculate and operate matrix.',
     },
   },
 }
