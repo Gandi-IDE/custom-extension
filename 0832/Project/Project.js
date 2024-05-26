@@ -1,27 +1,27 @@
-import { icon } from "./0832_Project.svg";
+import { icon } from "./Project0832.svg";
 
 (function (Scratch) {
     Scratch.translate.setup({
         zh: {
-            '0832_Project.0832_Project': '项目',
-            '0832_Project.description': '在Gandi中读取项目信息',
-            '0832_Project.TotalUsedBlocks': '使用的块总数',
-            '0832_Project.NumberOfBlockTypes': '块种类数',
-            '0832_Project.NumberOfSegments': '段数',
-            '0832_Project.NumberOfCostumes': '造型数',
-            '0832_Project.NumberOfSounds': '声音数'
+            'Project0832.Project0832': '项目',
+            'Project0832.description': '在Gandi中读取项目信息',
+            'Project0832.TotalUsedBlocks': '使用的块总数',
+            'Project0832.NumberOfBlockTypes': '块种类数',
+            'Project0832.NumberOfSegments': '段数',
+            'Project0832.NumberOfCostumes': '造型数',
+            'Project0832.NumberOfSounds': '声音数'
         },
         en: {
-            '0832_Project.0832_Project': 'Project',
-            '0832_Project.description': 'Read Project infomation in Gandi',
-            '0832_Project.TotalUsedBlocks': 'Total Used Blocks',
-            '0832_Project.NumberOfBlockTypes': 'Number Of Block Types',
-            '0832_Project.NumberOfSegments': 'Number Of Segments',
-            '0832_Project.NumberOfCostumes': 'Number Of Costumes',
-            '0832_Project.NumberOfSounds': 'Number Of Sounds'
+            'Project0832.Project0832': 'Project',
+            'Project0832.description': 'Read Project infomation in Gandi',
+            'Project0832.TotalUsedBlocks': 'Total Used Blocks',
+            'Project0832.NumberOfBlockTypes': 'Number Of Block Types',
+            'Project0832.NumberOfSegments': 'Number Of Segments',
+            'Project0832.NumberOfCostumes': 'Number Of Costumes',
+            'Project0832.NumberOfSounds': 'Number Of Sounds'
         }
     });
-    const extensionId = '0832_Project';
+    const extensionId = 'Project0832';
     class Project {
         constructor(runtime) {
             this.runtime = runtime;
@@ -78,37 +78,37 @@ import { icon } from "./0832_Project.svg";
         getInfo() {
             return {
                 id: extensionId,
-                name: Scratch.translate({ id: '0832_Project.0832_Project', default: 'Project' }),
+                name: Scratch.translate({ id: 'Project0832.Project0832', default: 'Project' }),
                 blocks: [
                     {
                         opcode: 'TotalUsedBlocks',
                         blockType: Scratch.BlockType.REPORTER,
                         disableMonitor: true,
-                        text: Scratch.translate({ id: '0832_Project.TotalUsedBlocks', default: 'Total Used Blocks' })
+                        text: Scratch.translate({ id: 'Project0832.TotalUsedBlocks', default: 'Total Used Blocks' })
                     },
                     {
                         opcode: 'NumberOfBlockTypes',
                         blockType: Scratch.BlockType.REPORTER,
                         disableMonitor: true,
-                        text: Scratch.translate({ id: '0832_Project.NumberOfBlockTypes', default: 'Number of Block Types' })
+                        text: Scratch.translate({ id: 'Project0832.NumberOfBlockTypes', default: 'Number of Block Types' })
                     },
                     {
                         opcode: 'NumberOfSegments',
                         blockType: Scratch.BlockType.REPORTER,
                         disableMonitor: true,
-                        text: Scratch.translate({ id: '0832_Project.NumberOfSegments', default: 'Number of Segments' })
+                        text: Scratch.translate({ id: 'Project0832.NumberOfSegments', default: 'Number of Segments' })
                     },
                     {
                         opcode: 'NumberOfCostumes',
                         blockType: Scratch.BlockType.REPORTER,
                         disableMonitor: true,
-                        text: Scratch.translate({ id: '0832_Project.NumberOfCostumes', default: 'Number of Costumes' })
+                        text: Scratch.translate({ id: 'Project0832.NumberOfCostumes', default: 'Number of Costumes' })
                     },
                     {
                         opcode: 'NumberOfSounds',
                         blockType: Scratch.BlockType.REPORTER,
                         disableMonitor: true,
-                        text: Scratch.translate({ id: '0832_Project.NumberOfSounds', default: 'Number of Sounds' })
+                        text: Scratch.translate({ id: 'Project0832.NumberOfSounds', default: 'Number of Sounds' })
                     },
                 ]
             };
@@ -142,8 +142,8 @@ import { icon } from "./0832_Project.svg";
     const extension = {
         Extension: Project,
         info: {
-            name: `${extensionId}.0832_Project.0832_Project`,
-            description: `${extensionId}.0832_Project.description`,
+            name: `${extensionId}.Project0832.Project0832`,
+            description: `${extensionId}.Project0832.description`,
             extensionId,
             iconURL: icon,
             featured: true,
@@ -157,12 +157,12 @@ import { icon } from "./0832_Project.svg";
         },
         l10n: {
             "zh-cn": {
-                [`${extensionId}.0832_Project.0832_Project`]: "项目",
-                [`${extensionId}.0832_Project.description`]: "在Gandi中读取项目信息",
+                [`${extensionId}.Project0832.Project0832`]: "项目",
+                [`${extensionId}.Project0832.description`]: "在Gandi中读取项目信息",
             },
             en: {
-                [`${extensionId}.0832_Project.0832_Project`]: "Project",
-                [`${extensionId}.0832_Project.description`]: "Read Project infomation in Gandi",
+                [`${extensionId}.Project0832.Project0832`]: "Project",
+                [`${extensionId}.Project0832.description`]: "Read Project infomation in Gandi",
             },
         },
     };
