@@ -1,4 +1,4 @@
-import { icon } from "./Project0832.svg";
+import { icon } from "./Project.svg";
 
 (function (Scratch) {
     Scratch.translate.setup({
