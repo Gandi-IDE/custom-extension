@@ -60,9 +60,8 @@
   };
 
   class StretchExt {
-    constructor(rt) {
-      if (!rt) return;
-      initExt(rt);
+    constructor() {
+      initExt(Scratch.runtime);
       this.initFormatMessage({
         name: ['角色拉伸', 'Stretch'],
         credit: ['✨ 扩展搬运自 TurboWarp', '✨ Ported From TurboWarp'],

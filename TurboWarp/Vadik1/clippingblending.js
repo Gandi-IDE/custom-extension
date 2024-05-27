@@ -285,14 +285,13 @@
   };
 
   class ClippingExtension {
-    constructor(rt) {
-      this.runtime = rt;
-      if (!rt) return;
+    constructor() {
+      this.runtime = Scratch.runtime;      
       const intervalId = setInterval(() => {
         // 重复检查直到有 target 时才初始化
-        if (rt.targets.length > 0) {
+        if (this.runtime.targets.length > 0) {
           clearInterval(intervalId);
-          initExt(rt);
+          initExt(this.runtime);
         }
       }, 300);
 
