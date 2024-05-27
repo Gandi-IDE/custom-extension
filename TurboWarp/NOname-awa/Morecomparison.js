@@ -590,8 +590,8 @@ info: {
 },
 l10n: {
   'zh-cn': {
-    'comparison.extensionName': "跟多比较",
-    'comparison.description': '跟多比较块',
+    'comparison.extensionName': "更多比较",
+    'comparison.description': '更多比较相关的积木',
   },
   'en': {
     'comparison.extensionName': "More Comparisons",
