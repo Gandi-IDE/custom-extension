@@ -27154,7 +27154,488 @@ void main() {
   // src/RenderTheWorld.js
   (function(Scratch2) {
     "use strict";
-    const { ArgumentType, BlockType, TargetType, Cast, translate, extensions, runtime } = Scratch2;
+    const hackFun = (runtime2) => {
+      if (!runtime2 || hackFun.hacked)
+        return;
+      hackFun.hacked = true;
+      if (!Scratch2.BlockType.XML) {
+        Scratch2.BlockType.XML = "XML";
+        const origFun = runtime2._convertForScratchBlocks;
+        runtime2._convertForScratchBlocks = function(blockInfo, categoryInfo) {
+          if (blockInfo.blockType === Scratch2.BlockType.XML) {
+            return {
+              info: blockInfo,
+              xml: blockInfo.xml
+            };
+          }
+          return origFun.call(this, blockInfo, categoryInfo);
+        };
+      }
+    };
+    const PICTRUE = {
+      plus: "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSI4NC41NzI3MyIgaGVpZ2h0PSI4NC41NzI3MyIgdmlld0JveD0iMCwwLDg0LjU3MjczLDg0LjU3MjczIj48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjc3LjcxMzYzLC0xMzcuNzEzNjMpIj48ZyBkYXRhLXBhcGVyLWRhdGE9InsmcXVvdDtpc1BhaW50aW5nTGF5ZXImcXVvdDs6dHJ1ZX0iIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0ibm9uemVybyIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2UtZGFzaGFycmF5PSIiIHN0cm9rZS1kYXNob2Zmc2V0PSIwIiBzdHlsZT0ibWl4LWJsZW5kLW1vZGU6IG5vcm1hbCI+PHBhdGggZD0iTTI5My42ODIxNiwxODAuMDI1NDRoNTIuNjM1NjgiIHN0cm9rZT0iIzlhYjNmZiIgc3Ryb2tlLXdpZHRoPSIxMSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTMyMC4xMjQ4NiwxNTMuNjgyNThsLTAuMzAwNTcsNTIuNjM0ODMiIHN0cm9rZT0iIzlhYjNmZiIgc3Ryb2tlLXdpZHRoPSIxMSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTI3Ny43MTM2MywyMjIuMjg2MzZ2LTg0LjU3MjczaDg0LjU3Mjczdjg0LjU3MjczeiIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjAiIHN0cm9rZS1saW5lY2FwPSJidXR0Ii8+PC9nPjwvZz48L3N2Zz4=",
+      minus: "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSI4NC41NzI3MyIgaGVpZ2h0PSI4NC41NzI3MyIgdmlld0JveD0iMCwwLDg0LjU3MjczLDg0LjU3MjczIj48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjc3LjcxMzYzLC0xMzcuNzEzNjQpIj48ZyBkYXRhLXBhcGVyLWRhdGE9InsmcXVvdDtpc1BhaW50aW5nTGF5ZXImcXVvdDs6dHJ1ZX0iIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0ibm9uemVybyIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2UtZGFzaGFycmF5PSIiIHN0cm9rZS1kYXNob2Zmc2V0PSIwIiBzdHlsZT0ibWl4LWJsZW5kLW1vZGU6IG5vcm1hbCI+PHBhdGggZD0iTTI5My42ODIxNiwxODAuMDI1NDNoNTIuNjM1NjgiIHN0cm9rZT0iIzlhYjNmZiIgc3Ryb2tlLXdpZHRoPSIxMSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTI3Ny43MTM2NCwyMjIuMjg2Mzd2LTg0LjU3MjczaDg0LjU3Mjczdjg0LjU3MjczeiIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjAiIHN0cm9rZS1saW5lY2FwPSJidXR0Ii8+PC9nPjwvZz48L3N2Zz4="
+    };
+    const BLOCK_DEFAULT = {
+      connect: ["DEFAULT", "DEFAULT2"],
+      arit: ["DEFAULT", "OPER", "DEFAULT2"],
+      array: [],
+      object: [],
+      broadcastWithData: [],
+      if: []
+    };
+    let expandableBlockInit = false;
+    const setExpandableBlocks = (runtime2, extension) => {
+      if (expandableBlockInit)
+        return;
+      expandableBlockInit = true;
+      const hijack = (fn) => {
+        const _orig = Function.prototype.apply;
+        Function.prototype.apply = (thisArg) => thisArg;
+        const result = fn();
+        Function.prototype.apply = _orig;
+        return result;
+      };
+      const getScratch = (runtime3) => {
+        function getEvent(e) {
+          return e instanceof Array ? e[e.length - 1] : e;
+        }
+        const vm = hijack(getEvent(runtime3._events["QUESTION"])).props.vm;
+        const scratchBlocks2 = hijack(
+          getEvent(vm._events["EXTENSION_ADDED"])
+        )?.ScratchBlocks;
+        return {
+          scratchBlocks: scratchBlocks2,
+          vm
+        };
+      };
+      const createButtons = (Blockly) => {
+        class FieldButton extends Blockly.FieldImage {
+          constructor(src) {
+            super(src, 25, 25, void 0, false);
+            this.initialized = false;
+          }
+          init() {
+            super.init();
+            if (!this.initialized) {
+              Blockly.bindEventWithChecks_(
+                this.getSvgRoot(),
+                "mousedown",
+                this,
+                (e) => {
+                  e.stopPropagation();
+                }
+              );
+              Blockly.bindEventWithChecks_(
+                this.getSvgRoot(),
+                "mouseup",
+                this,
+                this.handleClick.bind(this)
+              );
+            }
+            this.initialized = true;
+          }
+          handleClick(e) {
+            if (!this.sourceBlock_ || !this.sourceBlock_.workspace) {
+              return false;
+            }
+            if (this.sourceBlock_.workspace.isDragging()) {
+              return false;
+            }
+            if (this.sourceBlock_.isInFlyout) {
+              return false;
+            }
+            this.onclick(e);
+          }
+          onclick(e) {
+          }
+        }
+        class PlusButton extends FieldButton {
+          constructor() {
+            super(plusImage);
+          }
+          onclick() {
+            const block = this.sourceBlock_;
+            block.itemCount_ += 1;
+            block.updateShape();
+          }
+        }
+        class MinusButton extends FieldButton {
+          constructor() {
+            super(minusImage);
+          }
+          onclick() {
+            const block = this.sourceBlock_;
+            block.itemCount_ -= 1;
+            if (block.itemCount_ < 0) {
+              block.itemCount_ = 0;
+            }
+            block.updateShape();
+          }
+        }
+        const minusImage = PICTRUE.minus;
+        const plusImage = PICTRUE.plus;
+        return {
+          PlusButton,
+          MinusButton
+        };
+      };
+      const createExpandableBlock = (runtime3, Blockly) => {
+        const { PlusButton, MinusButton } = createButtons(Blockly);
+        const ProcedureUtils = Blockly.ScratchBlocks.ProcedureUtils;
+        return {
+          attachShadow_: function(input, argumentType, text) {
+            if (argumentType == "number" || argumentType == "string") {
+              let blockType = argumentType == "number" ? "math_number" : "text";
+              Blockly.Events.disable();
+              let newBlock;
+              try {
+                newBlock = this.workspace.newBlock(blockType);
+                if (argumentType == "number") {
+                  newBlock.setFieldValue(
+                    Scratch2.Cast.toString(text),
+                    "NUM"
+                  );
+                } else if (argumentType == "string") {
+                  newBlock.setFieldValue(
+                    Scratch2.Cast.toString(text),
+                    "TEXT"
+                  );
+                }
+                newBlock.setShadow(true);
+                if (!this.isInsertionMarker()) {
+                  newBlock.initSvg();
+                  newBlock.render(false);
+                }
+              } finally {
+                Blockly.Events.enable();
+              }
+              if (Blockly.Events.isEnabled()) {
+                Blockly.Events.fire(
+                  new Blockly.Events.BlockCreate(newBlock)
+                );
+              }
+              newBlock.outputConnection.connect(input.connection);
+            }
+          },
+          updateShape: function() {
+            let wasRendered = this.rendered;
+            this.rendered = false;
+            Blockly.Events.setGroup(true);
+            let oldExtraState = Blockly.Xml.domToText(
+              this.mutationToDom(this)
+            );
+            let opcode_ = this.opcode_, expandableArgs = this.expandableArgs, inputKeys = Object.keys(expandableArgs), i;
+            for (i = 1; i <= this.itemCount_; i++) {
+              if (!this.getInput(`${inputKeys[0]}_${i}`)) {
+                for (let j = 0; j < inputKeys.length; j++) {
+                  let inputKey = inputKeys[j], inputKeyID = `${inputKey}_${i}`;
+                  this.ARGS.push(inputKeyID);
+                  let input, type = expandableArgs[inputKey][0], text = expandableArgs[inputKey][1] || null, canEndInput = expandableArgs[inputKey][2] || 0;
+                  input = type === "substack" ? this.appendStatementInput(inputKeyID) : type === "list" || type === "text" ? this.appendDummyInput(inputKeyID) : this.appendValueInput(inputKeyID);
+                  if (type === "text") {
+                    input.appendField("text");
+                  } else if (type === "boolean") {
+                    input.setCheck("Boolean");
+                  } else if (type === "list") {
+                    input.appendField(
+                      new Blockly.FieldDropdown(text),
+                      inputKeyID
+                    );
+                    const fields = runtime3.getEditingTarget()?.blocks.getBlock(this.id)?.fields;
+                    if (fields) {
+                      fields[inputKeyID] = {
+                        id: null,
+                        name: inputKeyID,
+                        value: "+"
+                      };
+                    }
+                    this.moveInputBefore(inputKeyID, "END");
+                  } else if (type === "substack") {
+                    input.setCheck(null);
+                  } else {
+                    this.attachShadow_(input, type, text);
+                  }
+                }
+              }
+            }
+            if (runtime3._editingTarget) {
+              if (this.getInput("SUBSTACK")) {
+                try {
+                  const blocks = runtime3._editingTarget.blocks;
+                  const targetBlock = blocks.getBlock(this.id);
+                  const input = targetBlock.inputs["SUBSTACK"];
+                  if (input) {
+                    if (input.block !== null) {
+                      const blockInInput = targetBlock.getBlock(input.block);
+                      blockInInput.topLevel = true;
+                      blockInInput.parent = null;
+                      blocks.moveBlock({
+                        id: blockInInput.id,
+                        oldParent: this.id,
+                        oldInput: "SUBSTACK",
+                        newParent: void 0,
+                        newInput: void 0
+                      });
+                    }
+                    if (input.shadow !== null && input.shadow == input.block) {
+                      blocks.deleteBlock(input.shadow);
+                    }
+                  }
+                  this.removeInput("SUBSTACK");
+                  delete targetBlock.inputs["SUBSTACK"];
+                } catch {
+                }
+              }
+              let iTemp = i;
+              for (let j = 0; j < inputKeys.length; j++) {
+                i = iTemp;
+                const blocks = runtime3._editingTarget.blocks;
+                const targetBlock = blocks.getBlock(this.id);
+                const toDel = [];
+                let inputKey = inputKeys[j], inputKeyID = `${inputKey}_${i}`, type = expandableArgs[inputKey][0];
+                while (this.getInput(inputKeyID)) {
+                  this.ARGS.pop(inputKeyID);
+                  const input = targetBlock.inputs[inputKeyID];
+                  if (input) {
+                    if (input.block !== null) {
+                      const blockInInput = blocks.getBlock(
+                        input.block
+                      );
+                      blockInInput.topLevel = true;
+                      blockInInput.parent = null;
+                      blocks.moveBlock({
+                        id: blockInInput.id,
+                        oldParent: this.id,
+                        oldInput: inputKeyID,
+                        newParent: void 0,
+                        newInput: void 0
+                        //newCoordinate: e.newCoordinate
+                      });
+                    }
+                    if (input.shadow !== null) {
+                      if (input.shadow == input.block)
+                        blocks.deleteBlock(input.shadow);
+                      else
+                        blocks.deleteBlock(input.block);
+                    }
+                  }
+                  this.removeInput(inputKeyID);
+                  if (type === "list") {
+                    const fields = runtime3.getEditingTarget()?.blocks.getBlock(this.id)?.fields;
+                    if (fields) {
+                      delete fields[inputKeyID];
+                    }
+                  } else {
+                    toDel.push(inputKeyID);
+                  }
+                  i++;
+                }
+                setTimeout(() => {
+                  toDel.forEach((i2) => {
+                    delete targetBlock.inputs[i2];
+                  });
+                }, 0);
+              }
+            }
+            this.removeInput("BEGIN");
+            if (this.itemCount_ > 0) {
+              this.appendDummyInput("BEGIN").appendField(
+                this.textBegin
+              );
+              this.moveInputBefore("BEGIN", "BEGIN");
+            }
+            const getArg = (str) => {
+              let str_ = str.match(/^[A-Z0-9]+/);
+              if (Array.isArray(str_)) {
+                str_ = str_[0];
+                let num_ = Number(str.replace(str_ + "_", ""));
+                return [str_, isNaN(num_) ? 1 : num_];
+              } else {
+                return false;
+              }
+            };
+            let inputList = this.inputList;
+            for (i = 0; i < inputList.length; i++) {
+              let name = inputList[i].name, args = getArg(name);
+              if (args === false && this.defaultText && Array.isArray(this.defaultText) && i === this.defaultIndex) {
+                this.inputList[this.defaultIndex].fieldRow[0].setText(
+                  this.itemCount_ === 0 ? this.defaultText[0] : this.defaultText[1]
+                );
+              } else {
+                if (expandableArgs[args[0]]) {
+                  let arg = expandableArgs[args[0]], type = arg[0], text = arg[1], rule = arg[2] || 0;
+                  if (type === "text") {
+                    if (rule === 1) {
+                      if (Array.isArray(text)) {
+                        this.inputList[i].fieldRow[0].setText(
+                          args[1] === 1 ? text[0] : text[1]
+                        );
+                      } else
+                        this.inputList[i].fieldRow[0].setText(text);
+                    } else {
+                      let flag1 = args[1] !== 1 && args[1] !== this.itemCount_, index = inputKeys.indexOf(args[0]), flag2 = index > 0 && index < inputKeys.length - 1, flag3 = args[1] > 1 || index > 0, flag4 = args[1] < this.itemCount_ || index < inputKeys.length - 1;
+                      if (flag1 || flag2 || flag3 && flag4) {
+                        this.inputList[i].fieldRow[0].setText(text);
+                        this.inputList[i].setVisible(true);
+                      } else {
+                        this.inputList[i].fieldRow[0].setText("");
+                        this.inputList[i].setVisible(false);
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            for (i = 1; i <= this.itemCount_; i++) {
+              for (let j = 0; j < inputKeys.length; j++) {
+                this.moveInputBefore(`${inputKeys[j]}_${i}`, null);
+              }
+            }
+            this.removeInput("END");
+            if (this.itemCount_ > 0) {
+              this.appendDummyInput("END").appendField(this.textEnd);
+              this.moveInputBefore("END", null);
+            }
+            this.removeInput("MINUS");
+            if (this.itemCount_ > 0) {
+              this.minusButton = new MinusButton();
+              this.appendDummyInput("MINUS").appendField(
+                this.minusButton
+              );
+              this.moveInputBefore("MINUS", null);
+            }
+            this.moveInputBefore("PLUS", null);
+            this.oldItemCount = this.itemCount_;
+            const newExtraState = Blockly.Xml.domToText(
+              this.mutationToDom(this)
+            );
+            if (oldExtraState != newExtraState) {
+              Blockly.Events.fire(
+                new Blockly.Events.BlockChange(
+                  this,
+                  "mutation",
+                  null,
+                  oldExtraState,
+                  newExtraState
+                  // 状态
+                )
+              );
+              setTimeout(() => {
+                const target = runtime3._editingTarget;
+                const block = target.blocks._blocks[this.id];
+                try {
+                  Object.keys(block.inputs).forEach((name) => {
+                    let argName = name.match(/^[A-Z0-9]+/)[0];
+                    if (!this.ARGS.includes(name) && this.expandableArgs[argName] && this.expandableArgs[argName][0] !== "text") {
+                      target.blocks.deleteBlock(
+                        block.inputs[name].shadow,
+                        {
+                          source: "default",
+                          targetId: target.id
+                        }
+                      );
+                      delete block.inputs[name];
+                      if (runtime3.emitTargetBlocksChanged) {
+                        runtime3.emitTargetBlocksChanged(
+                          target.id,
+                          [
+                            "deleteInput",
+                            {
+                              id: block.id,
+                              inputName: name
+                            }
+                          ]
+                        );
+                      }
+                    }
+                  });
+                } catch {
+                }
+              }, 0);
+            }
+            Blockly.Events.setGroup(false);
+            this.rendered = wasRendered;
+            if (wasRendered && !this.isInsertionMarker()) {
+              this.initSvg();
+              this.render();
+            }
+          },
+          mutationToDom: function() {
+            const container = document.createElement("mutation");
+            container.setAttribute("items", `${this.oldItemCount}`);
+            return container;
+          },
+          domToMutation: function(xmlElement) {
+            this.itemCount_ = parseInt(
+              xmlElement.getAttribute("items"),
+              0
+            );
+            this.updateShape();
+          },
+          init: function(type) {
+            this.itemCount_ = 0;
+            this.oldItemCount = this.itemCount_;
+            this.opcode_ = type.opcode;
+            this.expandableBlock = type.expandableBlock;
+            this.expandableArgs = this.expandableBlock.expandableArgs;
+            this.textBegin = this.expandableBlock.textBegin;
+            this.textEnd = this.expandableBlock.textEnd;
+            this.defaultIndex = this.expandableBlock.defaultIndex || 0;
+            this.defaultText = this.expandableBlock.defaultText;
+            this.plusButton = new PlusButton();
+            this.ARGS = [];
+            if (this.removeInput)
+              this.removeInput("PLUS");
+            this.appendDummyInput("PLUS").appendField(this.plusButton);
+            if (this.moveInputBefore)
+              this.moveInputBefore("PLUS", null);
+          }
+        };
+      };
+      const { id, blocks: blocksInfo } = extension.getInfo();
+      let expandableBlocks = {};
+      blocksInfo.forEach((block) => {
+        if (block.expandableBlock)
+          expandableBlocks[`${id}_${block.opcode}`] = {
+            opcode: block.opcode,
+            expandableBlock: block.expandableBlock
+          };
+      });
+      const { scratchBlocks } = getScratch(runtime2);
+      if (!scratchBlocks)
+        return;
+      const expandableAttr = createExpandableBlock(runtime2, scratchBlocks);
+      scratchBlocks.Blocks = new Proxy(scratchBlocks.Blocks, {
+        set(target, property, value) {
+          if (expandableBlocks[property]) {
+            Object.keys(expandableAttr).forEach((key) => {
+              if (key != "init") {
+                value[key] = expandableAttr[key];
+              }
+            });
+            const orgInit = value.init;
+            value.init = function() {
+              orgInit.call(this);
+              expandableAttr.init.call(
+                this,
+                expandableBlocks[property]
+              );
+            };
+          }
+          return Reflect.set(target, property, value);
+        }
+      });
+    };
+    const {
+      ArgumentType,
+      BlockType,
+      TargetType,
+      Cast,
+      translate,
+      extensions,
+      runtime
+    } = Scratch2;
     const chen_RenderTheWorld_extensionId = "RenderTheWorld";
     translate.setup({
       "zh-cn": {
@@ -27209,7 +27690,7 @@ void main() {
         "RenderTheWorld.deleteLight": "\u5220\u9664\u5149\u6E90: [name]",
         "RenderTheWorld.camera": "\u{1F4F7}\u76F8\u673A",
         "RenderTheWorld.moveCamera": "\u5C06\u76F8\u673A\u79FB\u52A8\u5230x[x]y[y]z[z]",
-        "RenderTheWorld.rotationCamera": "\u5C06\u83B7\u53D6\u76F8\u673A\u65CB\u8F6C: x[x] y[y] z[z]",
+        "RenderTheWorld.rotationCamera": "\u5C06\u76F8\u673A\u65CB\u8F6C: x[x] y[y] z[z]",
         "RenderTheWorld.cameraLookAt": "\u8BA9\u76F8\u673A\u9762\u5411: x[x] y[y] z[z]",
         "RenderTheWorld.getCameraPos": "\u83B7\u53D6\u76F8\u673A[xyz]\u5750\u6807",
         "RenderTheWorld.getCameraRotation": "\u83B7\u53D6\u76F8\u673A[xyz]\u7684\u65CB\u8F6C\u89D2\u5EA6",
@@ -27290,7 +27771,14 @@ void main() {
     });
     class RenderTheWorld {
       constructor(_runtime) {
-        this.runtime = _runtime;
+        this.runtime = _runtime ?? Scratch2?.vm?.runtime;
+        if (!this.runtime)
+          return;
+        hackFun(_runtime);
+        setExpandableBlocks(
+          this.runtime,
+          this
+        );
         this.isWebglAvailable = false;
         this.renderer = null;
         this.scene = null;
@@ -27411,12 +27899,16 @@ void main() {
             {
               opcode: "isWebGLAvailable",
               blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.isWebGLAvailable")
+              text: this.formatMessage(
+                "RenderTheWorld.isWebGLAvailable"
+              )
             },
             {
               opcode: "_isWebGLAvailable",
               blockType: BlockType.BOOLEAN,
-              text: this.formatMessage("RenderTheWorld._isWebGLAvailable")
+              text: this.formatMessage(
+                "RenderTheWorld._isWebGLAvailable"
+              )
             },
             {
               blockType: BlockType.LABEL,
@@ -27622,7 +28114,8 @@ void main() {
                 },
                 YN: {
                   type: "string",
-                  menu: "YN"
+                  menu: "YN",
+                  defaultValue: "false"
                 },
                 YN2: {
                   type: "string",
@@ -27640,12 +28133,23 @@ void main() {
                   type: "string",
                   defaultValue: "name"
                 }
+              },
+              expandableBlock: {
+                expandableArgs: {
+                  "TEXT": ["text", ", ", 1],
+                  "NAME": ["string", "name"]
+                },
+                defaultIndex: 1,
+                textBegin: "",
+                textEnd: ""
               }
             },
             {
               opcode: "rotationObject",
               blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.rotationObject"),
+              text: this.formatMessage(
+                "RenderTheWorld.rotationObject"
+              ),
               arguments: {
                 name: {
                   type: "string",
@@ -27729,7 +28233,9 @@ void main() {
             {
               opcode: "getObjectRotation",
               blockType: BlockType.REPORTER,
-              text: this.formatMessage("RenderTheWorld.getObjectRotation"),
+              text: this.formatMessage(
+                "RenderTheWorld.getObjectRotation"
+              ),
               arguments: {
                 name: {
                   type: "string",
@@ -27744,7 +28250,9 @@ void main() {
             {
               opcode: "getObjectScale",
               blockType: BlockType.REPORTER,
-              text: this.formatMessage("RenderTheWorld.getObjectScale"),
+              text: this.formatMessage(
+                "RenderTheWorld.getObjectScale"
+              ),
               arguments: {
                 name: {
                   type: "string",
@@ -27760,7 +28268,9 @@ void main() {
             {
               opcode: "playAnimation",
               blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.playAnimation"),
+              text: this.formatMessage(
+                "RenderTheWorld.playAnimation"
+              ),
               arguments: {
                 name: {
                   type: "string",
@@ -27770,12 +28280,23 @@ void main() {
                   type: "string",
                   defaultValue: "animationName"
                 }
+              },
+              expandableBlock: {
+                expandableArgs: {
+                  "TEXT": ["text", ", ", 1],
+                  "ANIMATIONMAME": ["string", "animationName"]
+                },
+                defaultIndex: 1,
+                textBegin: "",
+                textEnd: ""
               }
             },
             {
               opcode: "stopAnimation",
               blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.stopAnimation"),
+              text: this.formatMessage(
+                "RenderTheWorld.stopAnimation"
+              ),
               arguments: {
                 name: {
                   type: "string",
@@ -27785,12 +28306,23 @@ void main() {
                   type: "string",
                   defaultValue: "animationName"
                 }
+              },
+              expandableBlock: {
+                expandableArgs: {
+                  "TEXT": ["text", ", ", 1],
+                  "ANIMATIONMAME": ["string", "animationName"]
+                },
+                defaultIndex: 1,
+                textBegin: "",
+                textEnd: ""
               }
             },
             {
               opcode: "updateAnimation2",
               blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.updateAnimation2"),
+              text: this.formatMessage(
+                "RenderTheWorld.updateAnimation2"
+              ),
               arguments: {
                 name: {
                   type: "string",
@@ -27801,7 +28333,9 @@ void main() {
             {
               opcode: "updateAnimation",
               blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.updateAnimation"),
+              text: this.formatMessage(
+                "RenderTheWorld.updateAnimation"
+              ),
               arguments: {
                 name: {
                   type: "string",
@@ -27829,7 +28363,9 @@ void main() {
             {
               opcode: "objectLoadingCompleted",
               blockType: BlockType.HAT,
-              text: this.formatMessage("RenderTheWorld.objectLoadingCompleted"),
+              text: this.formatMessage(
+                "RenderTheWorld.objectLoadingCompleted"
+              ),
               shouldRestartExistingThreads: false,
               arguments: {
                 name: {
@@ -27845,7 +28381,9 @@ void main() {
             {
               opcode: "makePointLight",
               blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.makePointLight"),
+              text: this.formatMessage(
+                "RenderTheWorld.makePointLight"
+              ),
               arguments: {
                 name: {
                   type: "string",
@@ -27883,7 +28421,9 @@ void main() {
             {
               opcode: "setAmbientLightColor",
               blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.setAmbientLightColor"),
+              text: this.formatMessage(
+                "RenderTheWorld.setAmbientLightColor"
+              ),
               arguments: {
                 color: {
                   type: "number"
@@ -27897,7 +28437,9 @@ void main() {
             {
               opcode: "setHemisphereLightColor",
               blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.setHemisphereLightColor"),
+              text: this.formatMessage(
+                "RenderTheWorld.setHemisphereLightColor"
+              ),
               arguments: {
                 skyColor: {
                   type: "number"
@@ -27915,7 +28457,9 @@ void main() {
             {
               opcode: "setLightMapSize",
               blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.setLightMapSize"),
+              text: this.formatMessage(
+                "RenderTheWorld.setLightMapSize"
+              ),
               arguments: {
                 name: {
                   type: "string",
@@ -28007,7 +28551,9 @@ void main() {
             {
               opcode: "rotationCamera",
               blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.rotationCamera"),
+              text: this.formatMessage(
+                "RenderTheWorld.rotationCamera"
+              ),
               arguments: {
                 x: {
                   type: "number",
@@ -28058,7 +28604,9 @@ void main() {
             {
               opcode: "getCameraRotation",
               blockType: BlockType.REPORTER,
-              text: this.formatMessage("RenderTheWorld.getCameraRotation"),
+              text: this.formatMessage(
+                "RenderTheWorld.getCameraRotation"
+              ),
               arguments: {
                 xyz: {
                   type: "string",
@@ -28071,7 +28619,9 @@ void main() {
             {
               opcode: "setControlState",
               blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.setControlState"),
+              text: this.formatMessage(
+                "RenderTheWorld.setControlState"
+              ),
               hideFromPalette: false,
               arguments: {
                 YN: {
@@ -28083,12 +28633,16 @@ void main() {
             {
               opcode: "mouseCanControlCamera",
               blockType: BlockType.BOOLEAN,
-              text: this.formatMessage("RenderTheWorld.mouseCanControlCamera")
+              text: this.formatMessage(
+                "RenderTheWorld.mouseCanControlCamera"
+              )
             },
             {
               opcode: "controlCamera",
               blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.controlCamera"),
+              text: this.formatMessage(
+                "RenderTheWorld.controlCamera"
+              ),
               hideFromPalette: false,
               arguments: {
                 yn1: {
@@ -28108,7 +28662,9 @@ void main() {
             {
               opcode: "setControlCameraDamping",
               blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.setControlCameraDamping"),
+              text: this.formatMessage(
+                "RenderTheWorld.setControlCameraDamping"
+              ),
               arguments: {
                 YN2: {
                   type: "string",
@@ -28119,7 +28675,9 @@ void main() {
             {
               opcode: "setControlCameraDampingNum",
               blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.setControlCameraDampingNum"),
+              text: this.formatMessage(
+                "RenderTheWorld.setControlCameraDampingNum"
+              ),
               arguments: {
                 num: {
                   type: "number",
@@ -28134,7 +28692,9 @@ void main() {
             {
               opcode: "enableFogEffect",
               blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.enableFogEffect"),
+              text: this.formatMessage(
+                "RenderTheWorld.enableFogEffect"
+              ),
               arguments: {
                 color: {
                   type: "number"
@@ -28152,7 +28712,9 @@ void main() {
             {
               opcode: "disableFogEffect",
               blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.disableFogEffect")
+              text: this.formatMessage(
+                "RenderTheWorld.disableFogEffect"
+              )
             }
           ],
           menus: {
@@ -28163,15 +28725,21 @@ void main() {
               acceptReporters: false,
               items: [
                 {
-                  text: this.formatMessage("RenderTheWorld.xyz.x"),
+                  text: this.formatMessage(
+                    "RenderTheWorld.xyz.x"
+                  ),
                   value: "x"
                 },
                 {
-                  text: this.formatMessage("RenderTheWorld.xyz.y"),
+                  text: this.formatMessage(
+                    "RenderTheWorld.xyz.y"
+                  ),
                   value: "y"
                 },
                 {
-                  text: this.formatMessage("RenderTheWorld.xyz.z"),
+                  text: this.formatMessage(
+                    "RenderTheWorld.xyz.z"
+                  ),
                   value: "z"
                 }
               ]
@@ -28180,11 +28748,15 @@ void main() {
               acceptReporters: false,
               items: [
                 {
-                  text: this.formatMessage("RenderTheWorld.Anti_Aliasing.enable"),
+                  text: this.formatMessage(
+                    "RenderTheWorld.Anti_Aliasing.enable"
+                  ),
                   value: "enable"
                 },
                 {
-                  text: this.formatMessage("RenderTheWorld.Anti_Aliasing.disable"),
+                  text: this.formatMessage(
+                    "RenderTheWorld.Anti_Aliasing.disable"
+                  ),
                   value: "disable"
                 }
               ]
@@ -28193,11 +28765,15 @@ void main() {
               acceptReporters: false,
               items: [
                 {
-                  text: this.formatMessage("RenderTheWorld.YN.true"),
+                  text: this.formatMessage(
+                    "RenderTheWorld.YN.true"
+                  ),
                   value: "true"
                 },
                 {
-                  text: this.formatMessage("RenderTheWorld.YN.false"),
+                  text: this.formatMessage(
+                    "RenderTheWorld.YN.false"
+                  ),
                   value: "false"
                 }
               ]
@@ -28206,11 +28782,15 @@ void main() {
               acceptReporters: false,
               items: [
                 {
-                  text: this.formatMessage("RenderTheWorld.YN2.yes"),
+                  text: this.formatMessage(
+                    "RenderTheWorld.YN2.yes"
+                  ),
                   value: "yes"
                 },
                 {
-                  text: this.formatMessage("RenderTheWorld.YN2.no"),
+                  text: this.formatMessage(
+                    "RenderTheWorld.YN2.no"
+                  ),
                   value: "no"
                 }
               ]
@@ -28219,11 +28799,15 @@ void main() {
               acceptReporters: false,
               items: [
                 {
-                  text: this.formatMessage("RenderTheWorld.3dState.display"),
+                  text: this.formatMessage(
+                    "RenderTheWorld.3dState.display"
+                  ),
                   value: "display"
                 },
                 {
-                  text: this.formatMessage("RenderTheWorld.3dState.hidden"),
+                  text: this.formatMessage(
+                    "RenderTheWorld.3dState.hidden"
+                  ),
                   value: "hidden"
                 }
               ]
@@ -28237,7 +28821,9 @@ void main() {
           if (list.length < 1) {
             return [
               {
-                text: this.formatMessage("RenderTheWorld.fileListEmpty"),
+                text: this.formatMessage(
+                  "RenderTheWorld.fileListEmpty"
+                ),
                 value: "fileListEmpty"
               }
             ];
@@ -28246,7 +28832,9 @@ void main() {
         } catch (err) {
           return [
             {
-              text: this.formatMessage("RenderTheWorld.fileListEmpty"),
+              text: this.formatMessage(
+                "RenderTheWorld.fileListEmpty"
+              ),
               value: "fileListEmpty"
             }
           ];
@@ -28357,7 +28945,9 @@ void main() {
         this.objects = {};
         this.lights = {};
         this.animations = {};
-        if (this.scratchCanvas.parentElement.getElementsByClassName("RenderTheWorld").length == 0) {
+        if (this.scratchCanvas.parentElement.getElementsByClassName(
+          "RenderTheWorld"
+        ).length == 0) {
           this.tc = document.createElement("canvas");
           this.tc.className = "RenderTheWorld";
           this.scratchCanvas.before(this.tc);
@@ -28385,8 +28975,16 @@ void main() {
         this.aspect = this.tc.clientWidth / this.tc.clientHeight;
         this.near = 0.1;
         this.far = 1e3;
-        this.camera = new PerspectiveCamera(this.fov, this.aspect, this.near, this.far);
-        this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+        this.camera = new PerspectiveCamera(
+          this.fov,
+          this.aspect,
+          this.near,
+          this.far
+        );
+        this.controls = new OrbitControls(
+          this.camera,
+          this.renderer.domElement
+        );
         this.controls.enabled = false;
         this.controls.enableDamping = false;
         this.controls.enablePan = false;
@@ -28395,7 +28993,10 @@ void main() {
         this.controls.update();
         this.ambient_light = new AmbientLight(0);
         this.scene.add(this.ambient_light);
-        this.hemisphere_light = new HemisphereLight(0, 0);
+        this.hemisphere_light = new HemisphereLight(
+          0,
+          0
+        );
         this.scene.add(this.hemisphere_light);
         this.tc.style.width = this.scratchCanvas.style.width;
         this.tc.style.height = this.scratchCanvas.style.height;
@@ -28480,11 +29081,14 @@ void main() {
         if (Cast.toString(YN2) == "true") {
           this.objects[name].receiveShadow = true;
         }
-        this.runtime.startHatsWithParams(chen_RenderTheWorld_extensionId + "_objectLoadingCompleted", {
-          parameters: {
-            name
+        this.runtime.startHatsWithParams(
+          chen_RenderTheWorld_extensionId + "_objectLoadingCompleted",
+          {
+            parameters: {
+              name
+            }
           }
-        });
+        );
         this.scene.add(this.objects[name]);
       }
       /**
@@ -28528,11 +29132,14 @@ void main() {
         if (Cast.toString(YN2) == "true") {
           this.objects[name].receiveShadow = true;
         }
-        this.runtime.startHatsWithParams(chen_RenderTheWorld_extensionId + "_objectLoadingCompleted", {
-          parameters: {
-            name
+        this.runtime.startHatsWithParams(
+          chen_RenderTheWorld_extensionId + "_objectLoadingCompleted",
+          {
+            parameters: {
+              name
+            }
           }
-        });
+        );
         this.scene.add(this.objects[name]);
       }
       /**
@@ -28574,11 +29181,14 @@ void main() {
         if (Cast.toString(YN2) == "true") {
           this.objects[name].receiveShadow = true;
         }
-        this.runtime.startHatsWithParams(chen_RenderTheWorld_extensionId + "_objectLoadingCompleted", {
-          parameters: {
-            name
+        this.runtime.startHatsWithParams(
+          chen_RenderTheWorld_extensionId + "_objectLoadingCompleted",
+          {
+            parameters: {
+              name
+            }
           }
-        });
+        );
         this.scene.add(this.objects[name]);
       }
       /**
@@ -28607,34 +29217,40 @@ void main() {
         mtlLoader.load(this.getFileURL(Cast.toString(mtlfile)), (mtl) => {
           mtl.preload();
           objLoader.setMaterials(mtl);
-          objLoader.load(this.getFileURL(Cast.toString(objfile)), (root) => {
-            this.objects[name] = root;
-            this.objects[name].position.x = Cast.toNumber(x);
-            this.objects[name].position.y = Cast.toNumber(y);
-            this.objects[name].position.z = Cast.toNumber(z);
-            if (Cast.toString(YN) == "true") {
-              this.objects[name].castShadow = true;
-              this.objects[name].traverse(function(node) {
-                if (node.isMesh) {
-                  node.castShadow = true;
-                }
-              });
-            }
-            if (Cast.toString(YN2) == "true") {
-              this.objects[name].receiveShadow = true;
-              this.objects[name].traverse(function(node) {
-                if (node.isMesh) {
-                  node.receiveShadow = true;
-                }
-              });
-            }
-            this.runtime.startHatsWithParams(chen_RenderTheWorld_extensionId + "_objectLoadingCompleted", {
-              parameters: {
-                name
+          objLoader.load(
+            this.getFileURL(Cast.toString(objfile)),
+            (root) => {
+              this.objects[name] = root;
+              this.objects[name].position.x = Cast.toNumber(x);
+              this.objects[name].position.y = Cast.toNumber(y);
+              this.objects[name].position.z = Cast.toNumber(z);
+              if (Cast.toString(YN) == "true") {
+                this.objects[name].castShadow = true;
+                this.objects[name].traverse(function(node) {
+                  if (node.isMesh) {
+                    node.castShadow = true;
+                  }
+                });
               }
-            });
-            this.scene.add(this.objects[name]);
-          });
+              if (Cast.toString(YN2) == "true") {
+                this.objects[name].receiveShadow = true;
+                this.objects[name].traverse(function(node) {
+                  if (node.isMesh) {
+                    node.receiveShadow = true;
+                  }
+                });
+              }
+              this.runtime.startHatsWithParams(
+                chen_RenderTheWorld_extensionId + "_objectLoadingCompleted",
+                {
+                  parameters: {
+                    name
+                  }
+                }
+              );
+              this.scene.add(this.objects[name]);
+            }
+          );
         });
       }
       /**
@@ -28689,11 +29305,14 @@ void main() {
               }
             });
           }
-          this.runtime.startHatsWithParams(chen_RenderTheWorld_extensionId + "_objectLoadingCompleted", {
-            parameters: {
-              name
+          this.runtime.startHatsWithParams(
+            chen_RenderTheWorld_extensionId + "_objectLoadingCompleted",
+            {
+              parameters: {
+                name
+              }
             }
-          });
+          );
           this.scene.add(this.objects[name]);
         });
       }
@@ -28703,19 +29322,29 @@ void main() {
        * @param {string} args.name
        * @param {string} args.animationName
        */
-      playAnimation({ name, animationName }) {
+      playAnimation(args) {
         if (!this.tc) {
           return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
         }
-        name = Cast.toString(name);
-        animationName = Cast.toString(animationName);
+        let name = Cast.toString(args.name);
+        let animationNames = [Cast.toString(args.animationName)];
+        let i = 1;
+        while (args[`ANIMATIONMAME_${i}`]) {
+          animationNames.push(args[`ANIMATIONMAME_${i}`]);
+          i++;
+        }
         if (name in this.animations && this.animations[name].mixer) {
-          const cilp = AnimationClip.findByName(this.animations[name].clips, animationName);
-          if (!cilp) {
-            return "\u26A0\uFE0F\u6CA1\u6709\u52A8\u753B \u201C" + animationName + "\u201D \uFF0C\u8BF7\u6838\u5B9E\u6A21\u578B\u7684\u52A8\u753B\u540D\u79F0\uFF01";
-          }
-          this.animations[name].action[animationName] = this.animations[name].mixer.clipAction(cilp);
-          this.animations[name].action[animationName].play();
+          animationNames.forEach((animationName) => {
+            console.log(animationNames);
+            const cilp = AnimationClip.findByName(
+              this.animations[name].clips,
+              animationName
+            );
+            if (cilp) {
+              this.animations[name].action[animationName] = this.animations[name].mixer.clipAction(cilp);
+              this.animations[name].action[animationName].play();
+            }
+          });
         }
       }
       /**
@@ -28724,16 +29353,23 @@ void main() {
        * @param {string} args.name
        * @param {string} args.animationName
        */
-      stopAnimation({ name, animationName }) {
+      stopAnimation(args) {
         if (!this.tc) {
           return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
         }
-        name = Cast.toString(name);
-        animationName = Cast.toString(animationName);
+        let name = Cast.toString(args.name);
+        let animationNames = [Cast.toString(args.animationName)];
+        let i = 1;
+        while (args[`ANIMATIONMAME_${i}`]) {
+          animationNames.push(args[`ANIMATIONMAME_${i}`]);
+          i++;
+        }
         if (name in this.animations) {
-          if (animationName in this.animations[name].action) {
-            this.animations[name].action[animationName].stop();
-          }
+          animationNames.forEach((animationName) => {
+            if (animationName in this.animations[name].action) {
+              this.animations[name].action[animationName].stop();
+            }
+          });
         }
       }
       /**
@@ -28753,7 +29389,10 @@ void main() {
         }
       }
       updateAnimation2({ name }) {
-        return this.updateAnimation({ name, time: this._clock * 1e3 });
+        return this.updateAnimation({
+          name,
+          time: this._clock * 1e3
+        });
       }
       /**
        * 获取物体所有的动画
@@ -28780,12 +29419,16 @@ void main() {
        * @param {object} args
        * @param {string} args.name
        */
-      deleteObject({ name }) {
+      deleteObject(args) {
         if (!this.tc) {
           return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
         }
-        name = Cast.toString(name);
-        this.releaseDuplicates(name);
+        let i = 1;
+        this.releaseDuplicates(Cast.toString(args.name));
+        while (args[`NAME_${i}`]) {
+          this.releaseDuplicates(args[`NAME_${i}`]);
+          i++;
+        }
       }
       rotationObject({ name, x, y, z }) {
         if (!this.tc) {
@@ -28864,11 +29507,17 @@ void main() {
         if (name in this.objects) {
           switch (Cast.toString(xyz)) {
             case "x":
-              return MathUtils.radToDeg(this.objects[name].rotation.x);
+              return MathUtils.radToDeg(
+                this.objects[name].rotation.x
+              );
             case "y":
-              return MathUtils.radToDeg(this.objects[name].rotation.y);
+              return MathUtils.radToDeg(
+                this.objects[name].rotation.y
+              );
             case "z":
-              return MathUtils.radToDeg(this.objects[name].rotation.z);
+              return MathUtils.radToDeg(
+                this.objects[name].rotation.z
+              );
           }
         } else {
           return;
@@ -28928,6 +29577,7 @@ void main() {
           Cast.toNumber(y),
           Cast.toNumber(z)
         );
+        this.lights[name].shadow.bias = -5e-5;
         if (Cast.toString(YN) == "true") {
           this.lights[name].castShadow = true;
         }
@@ -28992,9 +29642,7 @@ void main() {
         if (!this.tc) {
           return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
         }
-        this.ambient_light.color = new Color(
-          Cast.toNumber(color)
-        );
+        this.ambient_light.color = new Color(Cast.toNumber(color));
         this.ambient_light.intensity = Cast.toNumber(intensity);
       }
       /**
