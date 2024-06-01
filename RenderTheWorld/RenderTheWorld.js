@@ -28523,6 +28523,15 @@ void main() {
                   type: "string",
                   defaultValue: "name"
                 }
+              },
+              expandableBlock: {
+                expandableArgs: {
+                  "TEXT": ["text", ", ", 1],
+                  "NAME": ["string", "name"]
+                },
+                defaultIndex: 1,
+                textBegin: "",
+                textEnd: ""
               }
             },
             {
@@ -29623,13 +29632,19 @@ void main() {
           return;
         }
       }
-      deleteLight({ name }) {
+      deleteLight(args) {
         if (!this.tc) {
           return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
         }
-        name = Cast.toString(name);
+        let name = Cast.toString(args.name), i = 1;
         if (name in this.lights) {
           this._deleteObject(this.lights[name]);
+        }
+        while (args[`NAME_${i}`]) {
+          if (args[`NAME_${i}`] in this.lights) {
+            this._deleteObject(this.lights[args[`NAME_${i}`]]);
+          }
+          i++;
         }
       }
       /**
