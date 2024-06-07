@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-underscore-dangle */
-import { setExpandableBlocks, INPUT_TYPES, getScratchBlocksAndVM } from './extendable.js';
+import initExpandableBlocks from './use-extendable-block.js';
 import SafeObject from './SafeObject.js';
 import l10n from './l10n.js';
 // import cover from './assets/cover.png';
@@ -23,10 +23,36 @@ const EXT_CONFIG_COMMENT_ID = '_ArkosExtensionConfig_';
 
 let showPrefix = true;
 const hackFun = (runtime) => {
-  if (!runtime || hackFun.hacked) return;
-  hackFun.hacked = true;
+  /**
+     * 在Gandi编辑器获取scratchBlocks与获取VM的方法
+     * 来自凌（FurryR） https://github.com/FurryR/lpp-scratch 的LPP扩展
+     */
+  const hijack = (fn) => {
+    const _orig = Function.prototype.apply;
+    Function.prototype.apply = (thisArg) => thisArg;
+    const result = fn();
+    Function.prototype.apply = _orig;
+    return result;
+  };
 
-  const { vm } = getScratchBlocksAndVM(runtime);
+  /**
+       * 获取 ScratchBlocks 和 VM 实例
+       * @returns {{ScratchBlocks, vm}}
+       */
+  const getScratchVM = (runtime) => {
+    function getEvent(e) {
+      return e instanceof Array ? e[e.length - 1] : e;
+    }
+    const { vm } = hijack(getEvent(runtime._events.QUESTION)).props;
+    return vm;
+  };
+  const vm = getScratchVM(runtime);
+  // 防止重复patch
+  if (!runtime || vm.__ArkosADSPatched) return;
+  vm.__ArkosADSPatched = true;
+  // hackFun.hacked = true;
+
+  // const { vm } = getScratchBlocksAndVM(runtime);
 
   // 序列化作品时，对变量中的SafeObject转为形如"<SafeObject> {...}"的字符串存入作品，用于下次解析
   const origToJSON = vm.toJSON;
@@ -129,59 +155,7 @@ class moreDataTypes {
     });
 
     this.initFormatMessage(l10n);
-
-    setExpandableBlocks(
-      {
-        [`${extensionId}_getNewList`]: [
-          INPUT_TYPES.STRING,
-          'list',
-          'block.getNewList',
-          'block.createList',
-          'block.defaultList',
-        ],
-        [`${extensionId}_getNewObject`]: [
-          INPUT_TYPES.STRING,
-          'obj',
-          'block.getNewObject',
-          'block.createObj',
-          'block.defaultObj',
-        ],
-        [`${extensionId}_getPropOfObject`]: [
-          INPUT_TYPES.STRING,
-          'getProp',
-          null,
-          null,
-          'block.defaultProps',
-          'block.de',
-        ],
-        [`${extensionId}_setPropOfObject`]: [
-          INPUT_TYPES.STRING,
-          'getProp',
-          null,
-          null,
-          'block.defaultProps',
-          'block.de',
-        ],
-        [`${extensionId}_addItemToList2`]: [
-          INPUT_TYPES.STRING,
-          'addItem',
-          null,
-          null,
-          'block.defaultProps',
-          'block.de',
-        ],
-        [`${extensionId}_createListWithLength`]: [
-          INPUT_TYPES.NUMBER,
-          'ndList',
-          null,
-          null,
-          null,
-          'block.x',
-        ],
-      },
-      this.runtime,
-      this.fm.bind(this),
-    );
+    initExpandableBlocks(this, this.fm.bind(this));
   }
 
   /**
@@ -211,8 +185,8 @@ class moreDataTypes {
     this.fm = (id) => {
       const ID = `${extensionId}.${id}`;
       return _formatMessage({
-        ID,
-        default: ID,
+        id: ID,
+        default: id,
         description: ID,
       });
     };
@@ -443,6 +417,13 @@ class moreDataTypes {
             type: Scratch.ArgumentType.STRING,
             defaultValue: this.fm('defaultValue.thing'),
           },
+        },
+        enableDynamicArgs: true,
+        dynamicArgsInfo: {
+          type: 'getProp',
+          defaultValues: 'block.defaultProps',
+          afterArg: 'NAME_OR_OBJ',
+          // dynamicArgTypes: ['s', 'n'],
         },
       },
       // // 删除对象名为xx的内容
@@ -783,6 +764,15 @@ class moreDataTypes {
         disableMonitor: true,
         blockType: Scratch.BlockType.REPORTER,
         text: this.fm('block.getNewObject'),
+        enableDynamicArgs: true,
+        dynamicArgsInfo: {
+          type: 'getObj',
+          emptyText: 'block.getNewObject',
+          text: 'block.createObj',
+          joinCh: ',',
+          joinCh2: '=',
+          defaultValues: 'block.defaultObj',
+        },
       },
       // 返回一个空列表
       {
@@ -790,6 +780,13 @@ class moreDataTypes {
         blockType: Scratch.BlockType.REPORTER,
         disableMonitor: true,
         text: this.fm('block.getNewList'),
+        enableDynamicArgs: true,
+        dynamicArgsInfo: {
+          emptyText: 'block.getNewList',
+          text: 'block.createList',
+          joinCh: ',',
+          defaultValues: 'block.defaultList',
+        },
       },
       // 返回一个N个NUM的列表
       {
@@ -806,6 +803,13 @@ class moreDataTypes {
             type: Scratch.ArgumentType.STRING,
             defaultValue: '0',
           },
+        },
+        enableDynamicArgs: true,
+        dynamicArgsInfo: {
+          type: 'ndList',
+          afterArg: 'N',
+          joinCh: 'x',
+          dynamicArgTypes: ['n'],
         },
       },
       // {
@@ -853,6 +857,13 @@ class moreDataTypes {
             defaultValue: this.fm('defaultValue.thing'),
           },
         },
+        enableDynamicArgs: true,
+        dynamicArgsInfo: {
+          type: 'getProp',
+          defaultValues: 'block.defaultProps',
+          afterArg: 'PROP',
+          // dynamicArgTypes: ['s', 'n'],
+        },
       },
       // 获取对象名为XX的内容
       {
@@ -869,6 +880,13 @@ class moreDataTypes {
             type: Scratch.ArgumentType.STRING,
             defaultValue: this.fm('defaultValue.prop'),
           },
+        },
+        enableDynamicArgs: true,
+        dynamicArgsInfo: {
+          type: 'getProp',
+          defaultValues: 'block.defaultProps',
+          afterArg: 'PROP',
+          // dynamicArgTypes: ['s', 'n'],
         },
       },
       // 删除对象名为xx的内容
@@ -2013,8 +2031,8 @@ class moreDataTypes {
    */
   getNewList(args) {
     const list = [];
-    for (let i = 0; ; i += 1) {
-      const value = args[`ARG${i}`];
+    for (let i = 1; ; i += 1) {
+      const value = args[`DYNAMIC_ARGS${i}`];
       if (value === undefined) return new SafeObject(list);
       list.push(value);
     }
@@ -2028,10 +2046,10 @@ class moreDataTypes {
   getNewObject(args) {
     // console.log(this.runtime._editingTarget.blocks);
     const obj = Object.create(null);
-    for (let i = 0; ; i += 1) {
-      const key = args[`ARG${i}`];
+    for (let i = 1; ; i += 2) {
+      const key = args[`DYNAMIC_ARGS${i}`];
       if (key === undefined) return new SafeObject(obj);
-      const value = args[`VALUE${i}`];
+      const value = args[`DYNAMIC_ARGS${i + 1}`];
       obj[key] = value;
     }
   }
@@ -2045,8 +2063,8 @@ class moreDataTypes {
   createListWithLength(args) {
     const arg = [];
     arg.push(Cast.toNumber(args.N));
-    for (let i = 0; ;i += 1) {
-      const a = args[`ARG${i}`];
+    for (let i = 1; ;i += 1) {
+      const a = args[`DYNAMIC_ARGS${i}`];
       if (a === undefined) break;
       arg.push(a);
     }
@@ -2349,7 +2367,7 @@ class moreDataTypes {
    * @param {*} VALUE
    */
   addItemToList2(args) {
-    const hasNextKey = args.ARG0 !== undefined;
+    const hasNextKey = args.DYNAMIC_ARGS1 !== undefined;
     const type = (1 + !hasNextKey) * this.autoCreate;
     let list = this.__getObjByNameOrObj(args.NAME_OR_OBJ, type);
     if (!list) return;
@@ -2853,7 +2871,7 @@ class moreDataTypes {
   /**
    * 根据args读取多层对象
    * @param {*} obj 对象
-   * @param {*} args 例如{ARG0:... ARG1:...}
+   * @param {*} args 例如{DYNAMIC_ARGS1:... DYNAMIC_ARGS2:...}
    * @param {*} firstArg 第一个参数key
    * @param {boolean} [autoCreate=false] 是否自动创建路径上不存在的对象，例如a.a.a=1，如果a.a不存在，自动创建为对象
    * @returns {[object, key]} [最深层对象, 属性键]
@@ -2864,7 +2882,7 @@ class moreDataTypes {
     let i = 0;
     if (getList) {
       i += 1;
-      key = args.ARG0;
+      key = args.DYNAMIC_ARGS1;
       if (key === undefined) return [null, ''];
     }
     for (; ;i += 1) {
@@ -2881,7 +2899,7 @@ class moreDataTypes {
           if (key < 0 || key > parent.length) return [null, ''];
         }
       }
-      const nextKey = args[`ARG${i}`];
+      const nextKey = args[`DYNAMIC_ARGS${i + 1}`];
       // 没有下一个键
       if (!getList && nextKey === undefined) return [parent, key];
       // 更新parent
