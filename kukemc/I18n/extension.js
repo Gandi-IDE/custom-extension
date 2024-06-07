@@ -535,7 +535,7 @@ export default class KukeMCI18n {
   __gandiAssetsFileList() {
     const list = this.runtime
       .getGandiAssetsFileList("json")
-      .map((item) => item.name);
+      .map((item) => item.fullName);
     if (list.length < 1) {
       list.push("没有文件 empty");
     }
