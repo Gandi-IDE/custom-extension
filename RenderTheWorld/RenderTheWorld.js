@@ -28728,6 +28728,7 @@ void main() {
           ],
           menus: {
             file_list: {
+              acceptReporters: true,
               items: this.__gandiAssetsJsonFileList()
             },
             xyz: {
@@ -28826,7 +28827,10 @@ void main() {
       }
       __gandiAssetsJsonFileList() {
         try {
-          const list = this.runtime.getGandiAssetsFileList("json").map((item) => item.name);
+          const list = this.runtime.getGandiAssetsFileList("json").map((item) => ({
+            text: item.fullName,
+            value: item.fullName
+          }));
           if (list.length < 1) {
             return [
               {
@@ -29219,6 +29223,13 @@ void main() {
         if (objfile == "fileListEmpty") {
           return;
         }
+        let _filelist = this.runtime.getGandiAssetsFileList().map((f) => f.fullName);
+        if (_filelist.indexOf(objfile) == -1) {
+          return "\u26A0\uFE0FOBJ\u6587\u4EF6\u4E0D\u5B58\u5728\uFF01";
+        }
+        if (_filelist.indexOf(mtlfile) == -1) {
+          return "\u26A0\uFE0FMTL\u6587\u4EF6\u4E0D\u5B58\u5728\uFF01";
+        }
         name = Cast.toString(name);
         const objLoader = new OBJLoader();
         const mtlLoader = new MTLLoader();
@@ -29280,6 +29291,10 @@ void main() {
         }
         if (gltffile == "fileListEmpty") {
           return;
+        }
+        let _filelist = this.runtime.getGandiAssetsFileList().map((f) => f.fullName);
+        if (_filelist.indexOf(gltffile) == -1) {
+          return "\u26A0\uFE0FGLTF\u6587\u4EF6\u4E0D\u5B58\u5728\uFF01";
         }
         name = Cast.toString(name);
         const gltfLoader = new GLTFLoader();
@@ -29344,7 +29359,6 @@ void main() {
         }
         if (name in this.animations && this.animations[name].mixer) {
           animationNames.forEach((animationName) => {
-            console.log(animationNames);
             const cilp = AnimationClip.findByName(
               this.animations[name].clips,
               animationName
