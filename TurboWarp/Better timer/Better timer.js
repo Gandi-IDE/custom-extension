@@ -144,7 +144,7 @@
             opcode: "changeTimer",
             blockType: Scratch.BlockType.COMMAND,
             extensions: ["colours_sensing"],
-            text: "更改计时器[TIMER]由[NUM]",
+            text: "更改计时器[TIMER]将其增加[NUM]",
             arguments: {
               TIMER: {
                 type: Scratch.ArgumentType.STRING,
