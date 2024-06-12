@@ -3,7 +3,7 @@ const insetIcon='data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJod
 //感谢Arkos对拓展的帮助
 class dataAnalysis {
   constructor(runtime) {
-    this.runtime = runtime,
+    this.runtime = runtime；
     this._formatMessage = runtime.getFormatMessage({
       'zh-cn': {
         'qxsckdataanalysis.name': '数据分析',
@@ -119,7 +119,7 @@ class dataAnalysis {
     }
     this.minimumFunc=function(numbers_,type){
       let numbers=this.getData(numbers_,type);
-      console.log(numbers);
+      //console.log(numbers);
       return Math.min(...numbers);
     }
     this.medianFunc=function(numbers_,type){
