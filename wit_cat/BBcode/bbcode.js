@@ -1,3 +1,4 @@
+import markdown from './MarkDown.js';
 const obj = window || global || {};
 let runtime;
 // 以下代码来自github  https://github.com/vishnevskiy/bbcodejs
@@ -170,6 +171,7 @@ let runtime;
   let QuoteTag;
   let RightTag;
   let SizeTag;
+  let MarkDownTag;
   let _LINE_BREAK;
   let _NEWLINE_RE;
   let bbcode;
@@ -246,13 +248,13 @@ let runtime;
       let len;
       let pieces;
       let text;
-      if (raw == null) {
+      if (raw === undefined) {
         raw = false;
       }
       pieces = [];
       if (this.text) {
         text = this.renderer.escape(this.text);
-        if (!raw) {
+        if (raw === false) {
           if (this.renderer.options.linkify) {
             text = this.renderer.linkify(text);
           }
@@ -412,6 +414,23 @@ let runtime;
     };
 
     return SizeTag;
+  })(this.bbcode.Tag);
+
+  MarkDownTag = (function (superClass) {
+    extend(MarkDownTag, superClass);
+
+    function MarkDownTag() {
+      return MarkDownTag.__super__.constructor.apply(this, arguments);
+    }
+
+    MarkDownTag.prototype._toHTML = function () {
+      const converter = new markdown.Converter();
+      let mode = this.params[this.name];
+      let style = this.params["style"];
+      return [`<span style="${style}">`, converter.makeHtml(String((this.getContent(Boolean(mode) ? true : undefined).replace(/<br\s*\/?>/g, "\n")))), '</span>'];
+    };
+
+    return MarkDownTag;
   })(this.bbcode.Tag);
 
   ColorTag = (function (superClass) {
@@ -927,6 +946,8 @@ let runtime;
     img: ImageTag,
     hr: HorizontalRuleTag,
     size: SizeTag,
+    markdown: MarkDownTag,
+    md: MarkDownTag,
     center: CenterTag,
     right: RightTag,
     color: ColorTag,
