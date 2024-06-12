@@ -78,6 +78,9 @@ export default class WitCatBBcode {
       h6{
           font-size:0.67em;
       }
+      .WitCatBBcodeOut::-webkit-scrollbar{
+          display: none;
+      }
       .WitCatBBcode::-webkit-scrollbar{
           display: none;
       }
@@ -148,8 +151,13 @@ export default class WitCatBBcode {
         border: 1px solid black;
         padding: 8px;
       }
-      code[class*=language-],pre[class*=language-]{color:#ccc;background:0 0;font-family:Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;font-size:1em;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:0px;margin:0px;overflow:auto}:not(pre)>code[class*=language-],pre[class*=language-]{background:#2d2d2d}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal}.token.block-comment,.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#999}.token.punctuation{color:#ccc}.token.attr-name,.token.deleted,.token.namespace,.token.tag{color:#e2777a}.token.function-name{color:#6196cc}.token.boolean,.token.function,.token.number{color:#f08d49}.token.class-name,.token.constant,.token.property,.token.symbol{color:#f8c555}.token.atrule,.token.builtin,.token.important,.token.keyword,.token.selector{color:#cc99cd}.token.attr-value,.token.char,.token.regex,.token.string,.token.variable{color:#7ec699}.token.entity,.token.operator,.token.url{color:#67cdcc}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}.token.inserted{color:green}
-      `;
+      code[class*="language-"], pre[class*="language-"] { color: black; background: none; text-shadow: 0 1px white; font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace; font-size: 1em; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; word-wrap: normal; line-height: 1.5; -moz-tab-size: 4; -o-tab-size: 4; tab-size: 4; -webkit-hyphens: none; -moz-hyphens: none; -ms-hyphens: none; hyphens: none; } pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection, code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection { text-shadow: none; background: #b3d4fc; } pre[class*="language-"]::selection, pre[class*="language-"] ::selection, code[class*="language-"]::selection, code[class*="language-"] ::selection { text-shadow: none; background: #b3d4fc; } @media print { code[class*="language-"], pre[class*="language-"] { text-shadow: none; } } /* Code blocks */ pre[class*="language-"] { padding: 1em; margin: .5em 0; overflow: auto; } :not(pre) > code[class*="language-"], pre[class*="language-"] { background: #f5f2f0; } /* Inline code */ :not(pre) > code[class*="language-"] { padding: .1em; border-radius: .3em; white-space: normal; } .token.comment, .token.prolog, .token.doctype, .token.cdata { color: slategray; } .token.punctuation { color: #999; } .token.namespace { opacity: .7; }
+      .token.property, .token.tag, .token.boolean, .token.number, .token.constant, .token.symbol, .token.deleted { color: #905; } .token.selector, .token.attr-name, .token.string, .token.char, .token.builtin, .token.inserted { color: #690; } .token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string { color: #9a6e3a; /* This background color was intended by the author of this theme. */ background: hsla(0, 0%, 100%, .5); } .token.atrule, .token.attr-value, .token.keyword { color: #07a; } .token.function, .token.class-name { color: #DD4A68; } .token.regex, .token.important, .token.variable { color: #e90; } .token.important, .token.bold { font-weight: bold; } .token.italic { font-style: italic; } .token.entity { cursor: help; } div.code-toolbar { position: relative; } div.code-toolbar > .toolbar { position: absolute; z-index: 10; top: .3em; right: .2em; transition: opacity 0.3s ease-in-out; opacity: 0; } div.code-toolbar:hover > .toolbar { opacity: 1; } /* Separate line b/c rules are thrown out if selector is invalid. IE11 and old Edge versions don't support :focus-within. */ div.code-toolbar:focus-within > .toolbar { opacity: 1; } div.code-toolbar > .toolbar > .toolbar-item { display: inline-block; } div.code-toolbar > .toolbar > .toolbar-item > a { cursor: pointer; }
+       div.code-toolbar > .toolbar > .toolbar-item > button { background: none; border: 0; color: inherit; font: inherit; line-height: normal; overflow: visible; padding: 0; -webkit-user-select: none; /* for button */ -moz-user-select: none; -ms-user-select: none; } div.code-toolbar > .toolbar > .toolbar-item > a, div.code-toolbar > .toolbar > .toolbar-item > button, div.code-toolbar > .toolbar > .toolbar-item > span { color: #bbb; font-size: .8em; padding: 0 .5em; background: #f5f2f0; background: rgba(224, 224, 224, 0.2); box-shadow: 0 2px 0 0 rgba(0,0,0,0.2); border-radius: .5em; } div.code-toolbar > .toolbar > .toolbar-item > a:hover, div.code-toolbar > .toolbar > .toolbar-item > a:focus, div.code-toolbar > .toolbar > .toolbar-item > button:hover, div.code-toolbar > .toolbar > .toolbar-item > button:focus, div.code-toolbar > .toolbar > .toolbar-item > span:hover, div.code-toolbar > .toolbar > .toolbar-item > span:focus { color: inherit; text-decoration: none; } .prism-previewer, .prism-previewer:before, .prism-previewer:after { position: absolute; pointer-events: none; } .prism-previewer, .prism-previewer:after { left: 50%; } .prism-previewer { margin-top: -48px; width: 32px; height: 32px; margin-left: -16px; z-index: 10; opacity: 0; -webkit-transition: opacity .25s; -o-transition: opacity .25s; transition: opacity .25s; } .prism-previewer.flipped { margin-top: 0; margin-bottom: -48px; }
+       .prism-previewer:before, .prism-previewer:after { content: ''; position: absolute; pointer-events: none; } .prism-previewer:before { top: -5px; right: -5px; left: -5px; bottom: -5px; border-radius: 10px; border: 5px solid #fff; box-shadow: 0 0 3px rgba(0, 0, 0, 0.5) inset, 0 0 10px rgba(0, 0, 0, 0.75); } .prism-previewer:after { top: 100%; width: 0; height: 0; margin: 5px 0 0 -7px; border: 7px solid transparent; border-color: rgba(255, 0, 0, 0); border-top-color: #fff; } .prism-previewer.flipped:after { top: auto; bottom: 100%; margin-top: 0; margin-bottom: 5px; border-top-color: rgba(255, 0, 0, 0); border-bottom-color: #fff; } .prism-previewer.active { opacity: 1; } .prism-previewer-angle:before { border-radius: 50%; background: #fff; } .prism-previewer-angle:after { margin-top: 4px; } .prism-previewer-angle svg { width: 32px; height: 32px; -webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg); -ms-transform: rotate(-90deg); -o-transform: rotate(-90deg); transform: rotate(-90deg); } .prism-previewer-angle[data-negative] svg { -webkit-transform: scaleX(-1) rotate(-90deg); -moz-transform: scaleX(-1) rotate(-90deg); -ms-transform: scaleX(-1) rotate(-90deg); -o-transform: scaleX(-1) rotate(-90deg); transform: scaleX(-1) rotate(-90deg); } .prism-previewer-angle circle { fill: transparent; stroke: hsl(200, 10%, 20%); stroke-opacity: 0.9; stroke-width: 32; stroke-dasharray: 0, 500; }
+       .prism-previewer-gradient { background-image: linear-gradient(45deg, #bbb 25%, transparent 25%, transparent 75%, #bbb 75%, #bbb), linear-gradient(45deg, #bbb 25%, #eee 25%, #eee 75%, #bbb 75%, #bbb); background-size: 10px 10px; background-position: 0 0, 5px 5px; width: 64px; margin-left: -32px; } .prism-previewer-gradient:before { content: none; } .prism-previewer-gradient div { position: absolute; top: -5px; left: -5px; right: -5px; bottom: -5px; border-radius: 10px; border: 5px solid #fff; box-shadow: 0 0 3px rgba(0, 0, 0, 0.5) inset, 0 0 10px rgba(0, 0, 0, 0.75); } .prism-previewer-color { background-image: linear-gradient(45deg, #bbb 25%, transparent 25%, transparent 75%, #bbb 75%, #bbb), linear-gradient(45deg, #bbb 25%, #eee 25%, #eee 75%, #bbb 75%, #bbb); background-size: 10px 10px; background-position: 0 0, 5px 5px; } .prism-previewer-color:before { background-color: inherit; background-clip: padding-box; } .prism-previewer-easing { margin-top: -76px; margin-left: -30px; width: 60px; height: 60px; background: #333; } .prism-previewer-easing.flipped { margin-bottom: -116px; } .prism-previewer-easing svg { width: 60px; height: 60px; } .prism-previewer-easing circle { fill: hsl(200, 10%, 20%); stroke: white; } .prism-previewer-easing path { fill: none; stroke: white; stroke-linecap: round; stroke-width: 4; } .prism-previewer-easing line { stroke: white; stroke-opacity: 0.5; stroke-width: 2; } @-webkit-keyframes prism-previewer-time { 0% { stroke-dasharray: 0, 500; stroke-dashoffset: 0; } 50% { stroke-dasharray: 100, 500; stroke-dashoffset: 0; } 100% { stroke-dasharray: 0, 500; stroke-dashoffset: -100; } }
+       @-o-keyframes prism-previewer-time { 0% { stroke-dasharray: 0, 500; stroke-dashoffset: 0; } 50% { stroke-dasharray: 100, 500; stroke-dashoffset: 0; } 100% { stroke-dasharray: 0, 500; stroke-dashoffset: -100; } } @-moz-keyframes prism-previewer-time { 0% { stroke-dasharray: 0, 500; stroke-dashoffset: 0; } 50% { stroke-dasharray: 100, 500; stroke-dashoffset: 0; } 100% { stroke-dasharray: 0, 500; stroke-dashoffset: -100; } } @keyframes prism-previewer-time { 0% { stroke-dasharray: 0, 500; stroke-dashoffset: 0; } 50% { stroke-dasharray: 100, 500; stroke-dashoffset: 0; } 100% { stroke-dasharray: 0, 500; stroke-dashoffset: -100; } } .prism-previewer-time:before { border-radius: 50%; background: #fff; } .prism-previewer-time:after { margin-top: 4px; } .prism-previewer-time svg { width: 32px; height: 32px; -webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg); -ms-transform: rotate(-90deg); -o-transform: rotate(-90deg); transform: rotate(-90deg); } .prism-previewer-time circle { fill: transparent; stroke: hsl(200, 10%, 20%); stroke-opacity: 0.9; stroke-width: 32; stroke-dasharray: 0, 500; stroke-dashoffset: 0; -webkit-animation: prism-previewer-time linear infinite 3s; -moz-animation: prism-previewer-time linear infinite 3s; -o-animation: prism-previewer-time linear infinite 3s; animation: prism-previewer-time linear infinite 3s; }
+`;
     document.body.appendChild(ScrollStyle);
     const script = document.createElement("script");
     script.type = "text/javascript";
@@ -178,6 +186,8 @@ export default class WitCatBBcode {
         'WitCatBBcode.deleteall': '删除所有 BBcode ',
         'WitCatBBcode.get': ' BBcode ID[id]的[type]',
         'WitCatBBcode.set': '设置 BBcode ID[id]的[type]为[text]',
+        "WitCatBBcode.sets": "设置 BBcode ID[id]第[num]个[type]的[object]样式为[text]",
+        "WitCatBBcode.gets": "BBcode ID[id]第[num]个[type]的[object]的样式",
         'WitCatBBcode.settextalign': '设置 BBcode ID[id]第[num]个[type]为[text]',
         'WitCatBBcode.imgstyle': ' BBcode ID[id]的第[num]张图片的宽[width]高[height]',
         'WitCatBBcode.loadfontfamily': '从[text]加载字体名[name]',
@@ -227,6 +237,10 @@ export default class WitCatBBcode {
         'WitCatBBcode.textalign.2': '右对齐',
         'WitCatBBcode.setinsite.1': '阴影',
         'WitCatBBcode.setinsite.2': '文字阴影',
+        'WitCatBBcode.object.1': '本体',
+        'WitCatBBcode.object.2': '内部顶层 (::before)',
+        'WitCatBBcode.object.3': '内部底层 (::after)',
+        'WitCatBBcode.object.4': '碰到鼠标时 (:hover)',
         'WitCatBBcode.setnum': '⚠️设置解析最大数为[num]',
       },
       en: {
@@ -240,6 +254,8 @@ export default class WitCatBBcode {
         'WitCatBBcode.deleteall': 'Delete all BBcode',
         'WitCatBBcode.get': 'ID[id]BBcode`s[type]',
         'WitCatBBcode.set': 'set BBcode ID[id]`s[type] to [text]',
+        "WitCatBBcode.sets": "Set the style of BBcode ID[id] and the [num] [type]`s [object] to [text]",
+        "WitCatBBcode.gets": "BBcode ID[id]num[num] [type]`s [object] style",
         'WitCatBBcode.settextalign': 'set BBcode ID[id] num [num]`s[type] to [text]',
         'WitCatBBcode.imgstyle': 'BBcode ID[id] width of [num] picture [width] height [height]',
         'WitCatBBcode.loadfontfamily': 'load[name]from url[text]',
@@ -289,6 +305,10 @@ export default class WitCatBBcode {
         'WitCatBBcode.textalign.2': 'Align right',
         'WitCatBBcode.setinsite.1': 'shadow',
         'WitCatBBcode.setinsite.2': 'text shadow',
+        'WitCatBBcode.object.1': 'self',
+        'WitCatBBcode.object.2': 'before (::before)',
+        'WitCatBBcode.object.3': 'after (::after)',
+        'WitCatBBcode.object.4': 'hover (:hover)',
         'WitCatBBcode.setnum': '⚠️ set maximum parsedable to[num]',
       },
     });
@@ -384,6 +404,56 @@ export default class WitCatBBcode {
           },
         },
         {
+          opcode: "sets",
+          blockType: "command",
+          text: this.formatMessage("WitCatBBcode.sets"),
+          arguments: {
+            id: {
+              type: "string",
+              defaultValue: 'i',
+            },
+            num: {
+              type: "number",
+              defaultValue: '1',
+            },
+            type: {
+              type: "string",
+              defaultValue: 'div',
+            },
+            object: {
+              type: "string",
+              menu: 'object',
+            },
+            text: {
+              type: "string",
+              defaultValue: '{"color":"red"}',
+            },
+          },
+        },
+        {
+          opcode: "gets",
+          blockType: "reporter",
+          text: this.formatMessage("WitCatBBcode.gets"),
+          arguments: {
+            id: {
+              type: "string",
+              defaultValue: 'i',
+            },
+            num: {
+              type: "number",
+              defaultValue: '1',
+            },
+            type: {
+              type: "string",
+              defaultValue: 'div',
+            },
+            object: {
+              type: "string",
+              menu: 'object',
+            },
+          },
+        },
+        {
           opcode: 'imgstyle',
           blockType: 'command',
           text: this.formatMessage('WitCatBBcode.imgstyle'),
@@ -410,6 +480,7 @@ export default class WitCatBBcode {
           opcode: 'code',
           blockType: 'command',
           text: this.formatMessage('WitCatBBcode.code'),
+          hideFromPalette: true,
           arguments: {
             id: {
               type: 'string',
@@ -422,6 +493,25 @@ export default class WitCatBBcode {
             name: {
               type: 'string',
               menu: 'code',
+            },
+          },
+        },
+        {
+          opcode: 'Highlight',
+          blockType: 'command',
+          text: this.formatMessage('WitCatBBcode.code'),
+          arguments: {
+            id: {
+              type: 'string',
+              defaultValue: 'i',
+            },
+            num: {
+              type: 'number',
+              defaultValue: '1',
+            },
+            name: {
+              type: 'string',
+              menu: 'Highlight',
             },
           },
         },
@@ -924,6 +1014,27 @@ export default class WitCatBBcode {
             value: 'language-python',
           },
         ],
+        Highlight: {
+          acceptReporters: true,
+          items: [
+            {
+              text: 'javascript',
+              value: 'language-javascript',
+            },
+            {
+              text: 'css',
+              value: 'language-css',
+            },
+            {
+              text: 'HTML',
+              value: 'language-html',
+            },
+            {
+              text: 'python',
+              value: 'language-python',
+            },
+          ],
+        },
         ide: [
           {
             text: this.formatMessage('WitCatBBcode.ide.1'),
@@ -1010,6 +1121,27 @@ export default class WitCatBBcode {
             value: 'fold',
           },
         ],
+        object: {
+          acceptReporters: true,
+          items: [
+            {
+              text: this.formatMessage('WitCatBBcode.object.1'),
+              value: 'self',
+            },
+            {
+              text: this.formatMessage('WitCatBBcode.object.2'),
+              value: '::before',
+            },
+            {
+              text: this.formatMessage('WitCatBBcode.object.3'),
+              value: '::after',
+            },
+            {
+              text: this.formatMessage('WitCatBBcode.object.4'),
+              value: ':hover',
+            },
+          ],
+        },
       },
     };
   }
@@ -1074,6 +1206,7 @@ export default class WitCatBBcode {
     if (search === null) {
       search = document.createElement('div');
       search.id = `WitCatBBcode${args.id}`;
+      search.className = 'WitCatBBcodeOut';
       search.style.overflow = 'auto';
       search.style.webkitUserSelect = 'text';
       search.style.userSelect = 'text';
@@ -1163,6 +1296,128 @@ export default class WitCatBBcode {
     }
   }
 
+  /**
+* 设置样式
+* @param {Object} args 
+*/
+  sets(args) {
+    if (this.canvas() === null || this.inputParent() === null) {
+      return;
+    }
+    let search = null;
+    const search_1 = document.getElementById(`WitCatBBcode${args.id}`);
+    if (search_1 instanceof HTMLDivElement) {
+      search = search_1;
+    }
+    if (search !== null) {
+      let styles, styles_1, styles_2;
+      //生成css样式
+      try {
+        styles = JSON.parse(args.text);
+        styles_1 = Object.keys(styles);
+        styles_2 = "";
+        let forbid = [];
+        styles_1.forEach(e => {
+          if (!forbid.includes(e))
+            if (!styles[e].includes("javascript:"))
+              styles_2 += `${e}:${styles[e]};`;
+        });
+      }
+      catch (e) {
+        console.error("WitCatBBcode", e);
+        if (e.message.includes("is not valid JSON"))
+          console.error("WitCatBBcode", "请输入正确的json字符串");
+        return;
+      }
+      //创建css样式
+      if (Number(args.num) > 0) {
+        let target = search.getElementsByTagName(args.type)[args.num - 1];
+        if (target !== undefined) {
+          if (String(args.object) === "self") {
+            target.style = styles_2;
+          } else {
+            try {
+              target.id = `WitcatBBcode_${String(args.type)}_${(Number(args.num) - 1) > 0 ? (Number(args.num) - 1) : 0}`;
+              let styleSheet = document.styleSheets[0];
+              let newStyle = `#WitcatBBcode_${String(args.type)}_${(Number(args.num) - 1) > 0 ? (Number(args.num) - 1) : 0}${String(args.object)} {${styles_2}}`;
+              for (let i = 0; i < styleSheet.cssRules.length; i++) {
+                let rule = styleSheet.cssRules[i];
+                if ((rule.selectorText === `#WitcatBBcode_${String(args.type)}_${(Number(args.num) - 1) > 0 ? (Number(args.num) - 1) : 0}${String(args.object)}`)) {
+                  styleSheet.deleteRule(i);
+                  i--;
+                }
+              }
+              styleSheet.insertRule(newStyle, styleSheet.cssRules.length);
+            } catch (e) {
+              console.error("WitCatBBcode: " + e);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  gets(args) {
+    if (this.canvas() === null || this.inputParent() === null) {
+      return;
+    }
+    let search = null;
+    const search_1 = document.getElementById(`WitCatBBcode${args.id}`);
+    if (search_1 instanceof HTMLDivElement) {
+      search = search_1;
+    }
+    let out = "";
+    if (search !== null) {
+      //创建css样式
+      if (Number(args.num) > 0) {
+        let target = search.getElementsByTagName(args.type)[args.num - 1];
+        if (target !== undefined) {
+          if (String(args.object) === "self") {
+            let styleJson = {};
+            const style = target.style;
+            for (let i = 0; i < style.length; i++) {
+              let key = style[i];
+              let value = style.getPropertyValue(key);
+              if (value) {
+                styleJson[key] = value;
+              }
+            }
+            out = styleJson;
+          } else {
+            try {
+              let styleSheet = document.styleSheets[0];
+              for (let i = 0; i < styleSheet.cssRules.length; i++) {
+                let rule = styleSheet.cssRules[i];
+                if (rule.selectorText === `#WitcatBBcode_${String(args.type)}_${(Number(args.num) - 1) > 0 ? (Number(args.num) - 1) : 0}${String(args.object)}`) {
+                  let cssText = rule.cssText;
+                  let startIndex = cssText.indexOf('{') + 1;
+                  let endIndex = cssText.indexOf('}');
+                  cssText = cssText.substring(startIndex, endIndex).trim();
+                  let cssArray = cssText.split(';').filter(function (rule) {
+                    return rule.trim().length > 0;
+                  });
+
+                  let cssJson = {};
+                  cssArray.forEach(function (rule) {
+                    let parts = rule.split(':');
+                    let key = parts[0].trim();
+                    let value = parts[1].trim();
+                    cssJson[key] = value;
+                  });
+                  out = cssJson;
+                  break;
+                }
+              }
+            } catch (e) {
+              console.error("witcatBBcode: " + e);
+            }
+          }
+        }
+      }
+    }
+    return JSON.stringify(out);
+  }
+
   morecontent(args) {
     let search = null;
     const search_1 = document.getElementById(`WitCatBBcodepolier${args.id}`);
@@ -1223,14 +1478,29 @@ export default class WitCatBBcode {
       search = search_1;
     }
     if (search !== null) {
-      if (search.getElementsByTagName('code').length > args.num - 1 && args.num > 0) {
-        const a = search.getElementsByTagName('code')[args.num - 1].children;
-        a.forEach((e) => {
-          e.className = args.name;
-        });
-        Prism.highlightAll();
+      if (search.getElementsByTagName('pre').length > args.num - 1 && args.num > 0) {
+        search.getElementsByTagName('pre')[args.num - 1].className = args.name;
       }
     }
+    Prism.highlightAll();
+  }
+
+  /**
+   * 设置代码框高亮
+   * @param {object} args
+   */
+  Highlight(args) {
+    let search = null;
+    const search_1 = document.getElementById(`WitCatBBcode${args.id}`);
+    if (search_1 instanceof HTMLDivElement) {
+      search = search_1;
+    }
+    if (search !== null) {
+      if (search.getElementsByTagName('pre').length > args.num - 1 && args.num > 0) {
+        search.getElementsByTagName('pre')[args.num - 1].className = args.name;
+      }
+    }
+    Prism.highlightAll();
   }
 
   ide(args) {
@@ -1563,7 +1833,7 @@ export default class WitCatBBcode {
     }
     const search = document.getElementsByClassName('WitCatBBcode');
     for (const item of Array.from(search)) {
-      this.inputParent().removeChild(item);
+      item.parentElement.remove();
     }
   }
 
@@ -1635,11 +1905,11 @@ window.tempExt = {
   },
   l10n: {
     "zh-cn": {
-      "WitCatBBcode.name": "白猫的BBcode",
+      "WitCatBBcode.name": "白猫的BBcode V2.0",
       "WitCatBBcode.descp": "更优雅的文本框"
     },
     en: {
-      "WitCatBBcode.name": "WitCat’s BBcode",
+      "WitCatBBcode.name": "WitCat’s BBcode V2.0",
       "WitCatBBcode.descp": "Make your text box more colorful"
     }
   }
