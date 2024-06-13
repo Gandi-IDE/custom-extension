@@ -43,8 +43,10 @@ class WitCatFileHelper {
         'WitCatFileHelper.inputmanagement': '键值对',
         'WitCatFileHelper.imageprocess': '图片',
         'WitCatFileHelper.Multiplelinestext': '多行文本',
+        'WitCatFileHelper.lastfile': '用[type]读取上次打开第[num]个文件的内容',
         'WitCatFileHelper.downloads': '将内容[text]按[s]分割后命名为[name]并下载多行文本',
         'WitCatFileHelper.download': '将内容[text]命名为[name]并下载',
+        'WitCatFileHelper.downloadblob': '将blob[text]命名为[name]并下载',
         'WitCatFileHelper.save': '设置键[name]的值为[text]',
         'WitCatFileHelper.upload': '获取键[name]的值',
         'WitCatFileHelper.delete': '删除键[name]',
@@ -77,6 +79,7 @@ class WitCatFileHelper {
         'WitCatFileHelper.openfiless.1': '单文件',
         'WitCatFileHelper.openfiless.2': '多文件',
         'WitCatFileHelper.openfile.1': 'UTF-8(文本)',
+        'WitCatFileHelper.openfile.2': 'zip(压缩文件)',
         'WitCatFileHelper.file': '上次打开第[num]个文件的[type]',
         'WitCatFileHelper.file.1': '文件名',
         'WitCatFileHelper.file.2': '文件后缀',
@@ -94,6 +97,7 @@ class WitCatFileHelper {
         'WitCatFileHelper.inputmanagement': 'Key-value pair',
         'WitCatFileHelper.imageprocess': 'Image',
         'WitCatFileHelper.Multiplelinestext': 'Multi-line text',
+        'WitCatFileHelper.lastfile': 'Use [type] to read the contents of the [num] file that was last opened',
         'WitCatFileHelper.downloads': 'Download split text [text] by [s] named [name]',
         'WitCatFileHelper.download': 'Download text [text] named [name]',
         'WitCatFileHelper.save': 'Set value of key [name] to [text]',
@@ -131,6 +135,7 @@ class WitCatFileHelper {
         'WitCatFileHelper.openfiless.1': 'Single',
         'WitCatFileHelper.openfiless.2': 'multi',
         'WitCatFileHelper.openfile.1': 'UTF-8(text)',
+        'WitCatFileHelper.openfile.2': 'zip(Compressed file)',
         'WitCatFileHelper.file': '[type] of [num] file opened',
         'WitCatFileHelper.file.1': 'name',
         'WitCatFileHelper.file.2': 'extension',
@@ -209,6 +214,21 @@ class WitCatFileHelper {
           },
         },
         {
+          opcode: 'downloadblob',
+          blockType: 'command',
+          text: this.formatMessage('WitCatFileHelper.downloadblob'),
+          arguments: {
+            text: {
+              type: 'string',
+              defaultValue: 'blob',
+            },
+            name: {
+              type: 'string',
+              defaultValue: 'wit_cat.zip',
+            },
+          },
+        },
+        {
           opcode: 'downloadnum',
           blockType: 'reporter',
           text: this.formatMessage('WitCatFileHelper.downloadnum'),
@@ -238,7 +258,7 @@ class WitCatFileHelper {
             type: {
               type: 'string',
               menu: 'openfile',
-            },
+            }
           },
         },
         {
@@ -257,7 +277,23 @@ class WitCatFileHelper {
             },
           },
         },
-        // 键值对（已下线）
+        {
+          opcode: 'lastfile',
+          blockType: 'reporter',
+          text: this.formatMessage('WitCatFileHelper.lastfile'),
+          disableMonitor: true,
+          arguments: {
+            num: {
+              type: 'number',
+              defaultValue: '1',
+            },
+            type: {
+              type: 'string',
+              menu: 'openfile',
+            },
+          },
+        },
+        //键值对（已下线）	
         {
           opcode: 'upload',
           blockType: 'reporter',
@@ -444,7 +480,7 @@ class WitCatFileHelper {
             thing: {
               type: 'string',
               menu: 'thing',
-            },
+            }
           },
         },
         {
@@ -459,7 +495,7 @@ class WitCatFileHelper {
             num: {
               type: 'number',
               defaultValue: '1',
-            },
+            }
           },
         },
         {
@@ -478,7 +514,7 @@ class WitCatFileHelper {
             num: {
               type: 'string',
               defaultValue: 'last',
-            },
+            }
           },
         },
         {
@@ -493,7 +529,7 @@ class WitCatFileHelper {
             num: {
               type: 'string',
               defaultValue: '1',
-            },
+            }
           },
         },
         {
@@ -534,80 +570,84 @@ class WitCatFileHelper {
         setvariable: [
           {
             text: this.formatMessage('WitCatFileHelper.showall'),
-            value: '#witcat',
+            value: '#witcat'
           },
           {
             text: this.formatMessage('WitCatFileHelper.showon'),
-            value: '$witcat',
+            value: '$witcat'
           },
           {
             text: this.formatMessage('WitCatFileHelper.showoff'),
-            value: '@witcat',
+            value: '@witcat'
           },
         ],
         thing: [
           {
             text: this.formatMessage('WitCatFileHelper.thing.1'),
-            value: 'true',
+            value: 'true'
           },
           {
             text: this.formatMessage('WitCatFileHelper.thing.2'),
-            value: 'false',
+            value: 'false'
           },
         ],
         type: [
           {
             text: this.formatMessage('WitCatFileHelper.number.1'),
-            value: 'name',
+            value: 'name'
           },
           {
             text: this.formatMessage('WitCatFileHelper.number.2'),
-            value: 'content',
+            value: 'content'
           },
         ],
         file: [
           {
             text: this.formatMessage('WitCatFileHelper.file.1'),
-            value: 'name',
+            value: 'name'
           },
           {
             text: this.formatMessage('WitCatFileHelper.file.2'),
-            value: 'suffix',
+            value: 'suffix'
           },
           {
             text: this.formatMessage('WitCatFileHelper.file.3'),
-            value: 'size',
+            value: 'size'
           },
           {
             text: this.formatMessage('WitCatFileHelper.file.5'),
-            value: 'sizeB',
+            value: 'sizeB'
           },
           {
             text: this.formatMessage('WitCatFileHelper.file.6'),
-            value: 'sizeH',
+            value: 'sizeH'
           },
           {
             text: this.formatMessage('WitCatFileHelper.file.4'),
-            value: 'content',
+            value: 'content'
           },
         ],
         openfile: [
           {
             text: this.formatMessage('WitCatFileHelper.openfile.1'),
-            value: 'utf-8',
+            value: 'utf-8'
+          },
+          {
+            text: this.formatMessage('WitCatFileHelper.openfile.2'),
+            value: 'zip'
           },
         ],
         openfiless: [
           {
             text: this.formatMessage('WitCatFileHelper.openfiless.1'),
-            value: 'Single',
+            value: 'Single'
           },
           {
             text: this.formatMessage('WitCatFileHelper.openfiless.2'),
-            value: 'multiple',
+            value: 'multiple'
           },
         ],
-      },
+      }
     };
   }
 
@@ -639,12 +679,16 @@ class WitCatFileHelper {
    * 下载方法
    * @param {string} text 下载的文本
    * @param {string} name 下载后文件名
+   * @param {string} mode 下载的类型
    * @return {void}
    */
-  _downloadText(text, name) {
+  _downloadText(text, name, mode) {
     // 字符内容转变成blob地址
-    const blob = new Blob([text]);
-    const url = URL.createObjectURL(blob);
+    let url = text;
+    if (mode === 'text') {
+      const blob = new Blob([text]);
+      url = URL.createObjectURL(blob);
+    }
     let SuffixName = '';
     if (name.includes('.')) {
       SuffixName = name.substring(name.lastIndexOf('.') + 1);
@@ -691,7 +735,7 @@ class WitCatFileHelper {
         h = h.split(s).join('\n');
       }
 
-      this._downloadText(h, String(args.name));
+      this._downloadText(h, String(args.name), 'text');
     });
   }
 
@@ -705,7 +749,21 @@ class WitCatFileHelper {
   download(args) {
     this._downloadable(() => {
       const content = String(args.text);
-      this._downloadText(content, String(args.name));
+      this._downloadText(content, String(args.name), 'text');
+    });
+  }
+
+  /**
+   * 下载blob文件
+   * @param {object} args
+   * @param {SCarg} args.text 文本
+   * @param {SCarg} args.name 文件名
+   * @returns {void}
+   */
+  downloadblob(args) {
+    this._downloadable(() => {
+      const content = String(args.text);
+      this._downloadText(content, String(args.name), 'blob');
     });
   }
 
@@ -854,6 +912,9 @@ class WitCatFileHelper {
         case 'text':
           reader.readAsText(file);
           break;
+        case "blob":
+          resolve(URL.createObjectURL(file));
+          break;
         default:
           reject(new Error('mode 错误: 应该是 arraybuffer, dataurl 或者 text'));
       }
@@ -952,8 +1013,8 @@ class WitCatFileHelper {
         case 'utf-8':
           mode = 'text';
           break;
-        default:
-          break;
+        case 'zip':
+          mode = 'blob';
       }
       return String(await this._readerasync(file, mode));
     } catch (e) {
@@ -997,10 +1058,30 @@ class WitCatFileHelper {
       return '';
     }
   }
-
-  /**
-   * 设置状态
-   * @deprecated
+  async lastfile(args) {
+    try {
+      const file = this.filelist[Number(args.num) - 1];
+      let mode = 'text';
+      switch (args.type) {
+        case 'base64':
+          mode = 'dataurl';
+          break;
+        case 'utf-8':
+          mode = 'text';
+          break;
+        case 'zip':
+          mode = 'blob';
+          break;
+      }
+      return String(await this._readerasync(file, mode));
+    }
+    catch {
+      return '';
+    }
+  }
+  /**	
+   * 设置状态	
+   * @deprecated	
    */
   showvar() {
     console.warn('文件助手：判断键值对积木已下线\nFile Helper: Determine the key value pair block has been offline');
@@ -1237,11 +1318,11 @@ window.tempExt = {
   },
   l10n: {
     "zh-cn": {
-      "WitCatFileHelper.name": "白猫的文件助手",
+      "WitCatFileHelper.name": "白猫的文件助手 V2.8",
       "WitCatFileHelper.descp": "读取/处理本地数据"
     },
     en: {
-      "WitCatFileHelper.name": "WitCat’s File Helper",
+      "WitCatFileHelper.name": "WitCat’s File Helper V2.8",
       "WitCatFileHelper.descp": "Handling local data"
     }
   }
