@@ -106,13 +106,13 @@ class WitCatIndexedDB {
         this.db = undefined;
 
         this.dbOpen("witcat", 3, (res) => {
-            
+
             const store = res.createObjectStore('indexeddb-store', { autoIncrement: true });
             store.createIndex('uuid', 'uuid');
             store.createIndex('uuid-name', ['uuid', 'name']);
         }).then((res) => {
             this.db = res;
-            
+
         }).catch((err) => {
             alert("此浏览器貌似不支持使用本地存储键值对，建议使用chrome或者edge\n" +
                 "This browser does not seem to support the use of IndexedDB key-value pairs, you can use Chrome or Edge");
@@ -122,21 +122,23 @@ class WitCatIndexedDB {
         // this.mButtonShow();
 
         this.runtime = runtime;
-        
+
         this._formatMessage = runtime.getFormatMessage({
             "zh-cn": {
-                "WitCatIndexedDB.name": "[beta]白猫的本地储存",
+                "WitCatIndexedDB.name": "白猫的本地储存",
                 "WitCatIndexedDB.inputmanagement": "🔑键值对",
                 "WitCatIndexedDB.who": "🌏万物互联🌎",
                 "WitCatIndexedDB.Permissions": "🔒权限🔓",
-                "WitCatIndexedDB.save": "设置键[name]的值为[text]",
+                "WitCatIndexedDB.save": "设置键[name]的值为文本[text]",
+                "WitCatIndexedDB.saveFile": "设置键[name]的值为 blob[text]",
                 "WitCatIndexedDB.saves": "设置键[name]的描述为[text]",
                 "WitCatIndexedDB.description": "设置作品的描述为[text]",
                 "WitCatIndexedDB.load": "获取键[name]的[type]",
                 "WitCatIndexedDB.delete": "删除键[name]",
                 "WitCatIndexedDB.showvar": "设置键[name]为[show]",
                 "WitCatIndexedDB.showvaro": "设置键[name]针对[id]为[show]",
-                "WitCatIndexedDB.saveother": "设置作品ID[id]的键[name]的值为[text]",
+                "WitCatIndexedDB.saveother": "设置作品ID[id]的键[name]的值为文本[text]",
+                "WitCatIndexedDB.saveFileother": "设置作品ID[id]的键[name]的值为 blob[text]",
                 "WitCatIndexedDB.loadother": "获取作品[id]的键[name]的[type]",
                 "WitCatIndexedDB.other": "作品[id]的键[name]的状态",
                 "WitCatIndexedDB.showon": "只读",
@@ -152,18 +154,20 @@ class WitCatIndexedDB {
                 "WitCatIndexedDB.Manages": "💻 管理",
             },
             en: {
-                "WitCatIndexedDB.name": "[beta]WitCat’s File Helper",
+                "WitCatIndexedDB.name": "WitCat’s IndexedDB",
                 "WitCatIndexedDB.inputmanagement": "🔑Key-value pair",
                 "WitCatIndexedDB.who": "🌏Interconnection project🌎",
                 "WitCatIndexedDB.Permissions": "🔒Permissions🔓",
-                "WitCatIndexedDB.save": "Set value of key [name] to [text]",
+                "WitCatIndexedDB.save": "Set value of key [name] to text[text]",
+                "WitCatIndexedDB.saveFile": "Set value of key [name] to blob[text]",
                 "WitCatIndexedDB.saves": "Set description of key [name] to [text]",
                 "WitCatIndexedDB.description": "Set description of project to [text]",
                 "WitCatIndexedDB.load": "[type] of key [name]",
                 "WitCatIndexedDB.delete": "Delete key [name]",
                 "WitCatIndexedDB.showvar": "Other project [show] value of key [name]",
                 "WitCatIndexedDB.showvaro": "Other project [show] value of key [name] with [id]",
-                "WitCatIndexedDB.saveother": "Set value of key [name] of project [id] to [text]",
+                "WitCatIndexedDB.saveother": "Set value of key [name] of project [id] to text[text]",
+                "WitCatIndexedDB.saveFileother": "Set value of key [name] of project [id] to blob[text]",
                 "WitCatIndexedDB.loadother": "[type] of key [name] of project [id]",
                 "WitCatIndexedDB.other": "get permission of value [name] of project [id]",
                 "WitCatIndexedDB.showon": "can read",
@@ -248,6 +252,21 @@ class WitCatIndexedDB {
                         text: {
                             type: "string",
                             defaultValue: '0',
+                        },
+                        name: {
+                            type: "string",
+                            defaultValue: 'i',
+                        },
+                    },
+                },
+                {
+                    opcode: "saveFile",
+                    blockType: "command",
+                    text: this.formatMessage("WitCatIndexedDB.saveFile"),
+                    arguments: {
+                        text: {
+                            type: "string",
+                            defaultValue: 'blob',
                         },
                         name: {
                             type: "string",
@@ -342,6 +361,25 @@ class WitCatIndexedDB {
                     opcode: "saveother",
                     blockType: "command",
                     text: this.formatMessage("WitCatIndexedDB.saveother"),
+                    arguments: {
+                        id: {
+                            type: "string",
+                            defaultValue: "6373950041d21d2d2cd0da9b",
+                        },
+                        name: {
+                            type: "string",
+                            defaultValue: "i",
+                        },
+                        text: {
+                            type: "string",
+                            defaultValue: "wit_cat!",
+                        },
+                    },
+                },
+                {
+                    opcode: "saveFileother",
+                    blockType: "command",
+                    text: this.formatMessage("WitCatIndexedDB.saveFileother"),
                     arguments: {
                         id: {
                             type: "string",
@@ -493,7 +531,13 @@ class WitCatIndexedDB {
         }
         switch (args.type) {
             case "value":
-                return info.value;
+                if (info.value instanceof ArrayBuffer) {
+                    const blob = new Blob([info.value]);
+                    const url = URL.createObjectURL(blob);
+                    return url;
+                } else {
+                    return info.value;
+                }
             case "description":
                 return info.descp;
             default:
@@ -526,6 +570,49 @@ class WitCatIndexedDB {
             oldinfo.value = args.text;
             return oldinfo;
         });
+    }
+
+    /**
+    * 保存本地文件
+    * @param {object} args
+    * @param {SCarg} args.name 变量名
+    * @param {SCarg} args.text 变量内容
+    * @returns {Promise<void>}
+    */
+    async saveFile(args) {
+        const h = this.runtime.ccwAPI.getProjectUUID();
+        let content = null;
+        new Promise(async (resolve, reject) => {
+            const response = await fetch(args.text);
+            // 将响应体转换为Blob
+            const blob = await response.blob();
+            let reader = new FileReader()
+
+            reader.onload = async function () {
+                resolve(this.result);
+            }
+
+            reader.readAsArrayBuffer(blob);
+        }).then(async (e) => {
+            content = e;
+            await this.kKeyModifyAsync(h, String(args.name), (oldinfo) => {
+                if (oldinfo === undefined) {
+                    return {
+                        uuid: h,
+                        name: String(args.name),
+                        value: content,
+                        descp: "",
+                        perms: {
+                            all: "self",
+                            projects: {}
+                        }
+                    };
+                }
+
+                oldinfo.value = content;
+                return oldinfo;
+            }, 'blob');
+        })
     }
 
     /**
@@ -596,6 +683,11 @@ class WitCatIndexedDB {
         await this.kKeyCheckSetAsync(String(args.id), String(args.name), h, args.text);
     }
 
+    async saveFileother(args) {
+        const h = this.runtime.ccwAPI.getProjectUUID();
+        await this.kKeyCheckSetAsync(String(args.id), String(args.name), h, args.text, 'blob');
+    }
+
     /**
      * 获取别人的键
      * @param {object} args
@@ -608,10 +700,18 @@ class WitCatIndexedDB {
         const id = String(args.id)
         const name = String(args.name)
         const h = this.runtime.ccwAPI.getProjectUUID();
-        if (args.type === 'value')
-            return await this.kKeyCheckGetAsync(id, name, h);
-        else
+        if (args.type === 'value') {
+            let value = await this.kKeyCheckGetAsync(id, name, h);
+            if (value instanceof ArrayBuffer) {
+                const blob = new Blob([value]);
+                const url = URL.createObjectURL(blob);
+                return url;
+            } else {
+                return value;
+            }
+        } else {
             return await this.kKeyCheckGetAsync(id, name, h, 'descp');
+        }
     }
 
     /**
@@ -1025,33 +1125,77 @@ class WitCatIndexedDB {
      * @param {string} name 键名
      * @param {string} fromuuid 改键的作品 ID
      * @param {SCarg} value 新的键值
+     * @param {string} type 储存模式
      * @returns {Promise<void>}
      */
-    async kKeyCheckSetAsync(uuid, name, fromuuid, value) {
-        await this.dbKeyModifyAsync(
-            uuid,
-            name,
-            (/** @type {DBKeyInfo|undefined} */ oldinfo) => {
-                if (oldinfo === undefined) {
-                    console.warn(`修改 ${uuid} 上的键 ${name} 的权限不够，因为没有这个键。`);
-                    return undefined;
+    async kKeyCheckSetAsync(uuid, name, fromuuid, value, type) {
+        if (type === 'blob') {
+            let content = null;
+            new Promise(async (resolve, reject) => {
+                const response = await fetch(value);
+                // 将响应体转换为Blob
+                const blob = await response.blob();
+                let reader = new FileReader()
+
+                reader.onload = async function () {
+                    resolve(this.result);
                 }
-                if (
-                    oldinfo.uuid === fromuuid ||
-                    (oldinfo.perms.projects[uuid] === undefined
-                        ? oldinfo.perms.all === "allow"
-                        : oldinfo.perms.projects[uuid] === "allow")
-                ) {
-                    oldinfo.value = value;
-                } else {
-                    console.warn(
-                        `修改 ${uuid} 上的键 ${name} 的权限不够，这个键的权限描述是：`,
-                        oldinfo.perms
-                    );
+
+                reader.readAsArrayBuffer(blob);
+            }).then(async (e) => {
+                content = e;
+
+                await this.dbKeyModifyAsync(
+                    uuid,
+                    name,
+                    (/** @type {DBKeyInfo|undefined} */ oldinfo) => {
+                        if (oldinfo === undefined) {
+                            console.warn(`修改 ${uuid} 上的键 ${name} 的权限不够，因为没有这个键。`);
+                            return undefined;
+                        }
+                        if (
+                            oldinfo.uuid === fromuuid ||
+                            (oldinfo.perms.projects[uuid] === undefined
+                                ? oldinfo.perms.all === "allow"
+                                : oldinfo.perms.projects[uuid] === "allow")
+                        ) {
+                            oldinfo.value = content;
+                        } else {
+                            console.warn(
+                                `修改 ${uuid} 上的键 ${name} 的权限不够，这个键的权限描述是：`,
+                                oldinfo.perms
+                            );
+                        }
+                        return oldinfo;
+                    }
+                );
+            })
+        } else {
+            await this.dbKeyModifyAsync(
+                uuid,
+                name,
+                (/** @type {DBKeyInfo|undefined} */ oldinfo) => {
+                    if (oldinfo === undefined) {
+                        console.warn(`修改 ${uuid} 上的键 ${name} 的权限不够，因为没有这个键。`);
+                        return undefined;
+                    }
+                    if (
+                        oldinfo.uuid === fromuuid ||
+                        (oldinfo.perms.projects[uuid] === undefined
+                            ? oldinfo.perms.all === "allow"
+                            : oldinfo.perms.projects[uuid] === "allow")
+                    ) {
+                        oldinfo.value = value;
+                    } else {
+                        console.warn(
+                            `修改 ${uuid} 上的键 ${name} 的权限不够，这个键的权限描述是：`,
+                            oldinfo.perms
+                        );
+                    }
+                    return oldinfo;
                 }
-                return oldinfo;
-            }
-        );
+            );
+        }
     }
 
     /**
@@ -1665,11 +1809,11 @@ window.tempExt = {
     },
     l10n: {
         "zh-cn": {
-            "WitCatIndexedDB.name": "[beta]白猫的本地储存",
+            "WitCatIndexedDB.name": "白猫的本地储存 V1.2",
             "WitCatIndexedDB.descp": "读取/处理本地数据"
         },
         en: {
-            "WitCatIndexedDB.name": "[beta]WitCat’s IndexedDB",
+            "WitCatIndexedDB.name": "WitCat’s IndexedDB V1.2",
             "WitCatIndexedDB.descp": "Handling local data"
         }
     }
