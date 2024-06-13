@@ -16,31 +16,7 @@ const INPUT_TYPES_OPTIONS_LABEL = {
  */
 const enabledDynamicArgBlocks = {};
 
-let proxingBlocklyBlocks = false;
-
-/**
- * Hijacks the Function.prototype.apply method.
- * @param {Function} fn - The function to execute while the apply method is hijacked.
- * @returns {*} The result of the function execution.
- */
-function hijack(fn) {
-  const _orig = Function.prototype.apply;
-  // eslint-disable-next-line no-extend-native
-  Function.prototype.apply = (thisArg) => thisArg;
-  const result = fn();
-  // eslint-disable-next-line no-extend-native
-  Function.prototype.apply = _orig;
-  return result;
-}
-
-/**
- * Retrieves the event listener from an event object.
- * @param {Event|Event[]} e - The event object or array of event objects.
- * @returns {Event} The event listener.
- */
-function getEventListener(e) {
-  return e instanceof Array ? e[e.length - 1] : e;
-}
+let proxyingBlocklyBlocks = false;
 
 /**
  * Retrieves ScratchBlocks from the runtime or window object.
@@ -52,8 +28,7 @@ function getScratchBlocks(runtime) {
   // In TW, ScratchBlocks can be directly accessed from the window.
   return (
     runtime.scratchBlocks ||
-    window.ScratchBlocks ||
-    hijack(getEventListener(runtime._events.EXTENSION_ADDED)).ScratchBlocks
+    window.ScratchBlocks
   );
 }
 
@@ -181,18 +156,21 @@ function createButtons(Blockly) {
  * @param {Runtime} runtime - The runtime object.
  */
 function proxyBlocklyBlocksObject(runtime) {
-  if (proxingBlocklyBlocks) return;
-  proxingBlocklyBlocks = true;
+  if (proxyingBlocklyBlocks) return;
+  proxyingBlocklyBlocks = true;
   const Blockly = getScratchBlocks(runtime);
-  setLocales(Blockly);
-  Blockly.Blocks = new Proxy(Blockly.Blocks, {
-    set(target, opcode, blockDefinition) {
-      if (Object.prototype.hasOwnProperty.call(enabledDynamicArgBlocks, opcode)) {
-        initExpandableBlock(runtime, blockDefinition, enabledDynamicArgBlocks[opcode]);
-      }
-      return Reflect.set(target, opcode, blockDefinition);
-    },
-  });
+  // There is no Blockly in the Player.
+  if (Blockly) {
+    setLocales(Blockly);
+    Blockly.Blocks = new Proxy(Blockly.Blocks, {
+      set(target, opcode, blockDefinition) {
+        if (Object.prototype.hasOwnProperty.call(enabledDynamicArgBlocks, opcode)) {
+          initExpandableBlock(runtime, blockDefinition, enabledDynamicArgBlocks[opcode]);
+        }
+        return Reflect.set(target, opcode, blockDefinition);
+      },
+    });
+  }
 }
 
 /**
