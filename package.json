@@ -10,7 +10,25 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "check-format": "prettier . --check",
     "format": "prettier . --write",
-    "lint": "eslint . --max-warnings=0"
+    "lint": "eslint . --max-warnings=0",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint --ext .js,.jsx,.ts,.tsx --fix",
+      "git add",
+      "eslint --ext .js,.jsx,.ts,.tsx"
+    ],
+    "*.{css,scss}": [
+      "prettier --write",
+      "stylelint --fix",
+      "git add"
+    ],
+    "*.{html,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
@@ -30,9 +48,10 @@
   },
   "homepage": "https://github.com/Gandi-IDE/custom-extension#readme",
   "devDependencies": {
-    "prettier": "^3.2.5"
-  },
-  "dependencies": {
-    "eslint": "^8.57.0"
+    "eslint": "^8.57.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.7",
+    "prettier": "^3.2.5",
+    "stylelint": "^16.6.1"
   }
 }
