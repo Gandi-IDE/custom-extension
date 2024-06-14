@@ -1301,7 +1301,29 @@ class WitCatIndexedDB {
                         break;
                 }
                 /** 每一列 @type string[] */
-                const row = [v, info.value, info.descp, state];
+                let content = '--';
+                if (info.value instanceof ArrayBuffer) {
+                    content = document.createElement('a');
+                    content.innerText = this.mLangCh ? '下载查看' : 'Download';
+                    content.href = '#';
+                    content.setAttribute('onClick', 'return false;');
+                    content.addEventListener('click', (e) => {
+                        let blob = new Blob([info.value]);
+                        let link = document.createElement("a");
+                        link.style.display = "none";
+                        document.body.appendChild(link);
+                        link.href = URL.createObjectURL(blob);
+                        link.download = `${v}.file`;
+                        link.click();
+                        URL.revokeObjectURL(link.href);
+                        document.body.removeChild(link);
+                        return false;
+                    })
+                    console.log(content);
+                } else {
+                    content = info.value;
+                }
+                const row = [v, content, info.descp, state];
                 return row;
             })
         );
@@ -1312,7 +1334,10 @@ class WitCatIndexedDB {
             for (let val of row) {
                 const td = document.createElement("td");
                 /** 设置 innerText */
-                td.innerText = String(val);
+                if (val instanceof String)
+                    td.innerHTML = String(val);
+                else
+                    td.append(val);
                 ss.append(td);
             }
             /** 删除值用的按钮 */
