@@ -1167,7 +1167,7 @@ class VarAndList {
     if (variable) {
       try {
         let arr = JSON.parse(args.LIST2);
-        for (let i = 0; i < arr.length; i++) variable.value.push(String(arr[i]));
+        for (let i = 0; i < arr.length; i++) variable.value.push(JSON.stringify(arr[i]));
         variable._monitorUpToDate = false;
       } catch (error) {
         console.log('error:', error);
