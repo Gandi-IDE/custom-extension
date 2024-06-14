@@ -1,9 +1,9 @@
 /*Icon积木/菜单/小图标*/
-const Icon="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSI3OS45ODQzOSIgaGVpZ2h0PSI3OS45ODQzOSIgdmlld0JveD0iMCwwLDc5Ljk4NDM5LDc5Ljk4NDM5Ij48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjA5LjU2NDk1LC0xNDcuOTY0OTUpIj48ZyBkYXRhLXBhcGVyLWRhdGE9InsmcXVvdDtpc1BhaW50aW5nTGF5ZXImcXVvdDs6dHJ1ZX0iIGZpbGwtcnVsZT0ibm9uemVybyIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2UtZGFzaGFycmF5PSIiIHN0cm9rZS1kYXNob2Zmc2V0PSIwIiBzdHlsZT0ibWl4LWJsZW5kLW1vZGU6IG5vcm1hbCI+PGc+PHBhdGggZD0iTTIzNy40NDIwNywxOTkuMzk1NTdjMCwtMTMuMDA4MTMgMTAuNTQ1MTEsLTIzLjU1Mzc3IDIzLjU1MzUsLTIzLjU1Mzc3YzEzLjAwODEzLDAgMjMuNTUzNzcsMTAuNTQ1NjQgMjMuNTUzNzcsMjMuNTUzNzdjMCwxMy4wMDgxMyAtMTAuNTQ1NjQsMjMuNTUzNzcgLTIzLjU1Mzc3LDIzLjU1Mzc3Yy0xMy4wMDg0MSwwIC0yMy41NTM3NywtMTAuNTQ1NjUgLTIzLjU1Mzc3LC0yMy41NTM3N3oiIGZpbGw9Im5vbmUiIHN0cm9rZS1vcGFjaXR5PSIwLjE1IiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMTAiIHN0cm9rZS1saW5lY2FwPSJidXR0Ii8+PHBhdGggZD0iTTIzNy42NDIwNywxOTkuNTk1NTdjMCwtMTMuMDA4MTMgMTAuNTQ1MTEsLTIzLjU1Mzc3IDIzLjU1MzUsLTIzLjU1Mzc3YzEzLjAwODEzLDAgMjMuNTUzNzcsMTAuNTQ1NjQgMjMuNTUzNzcsMjMuNTUzNzdjMCwxMy4wMDgxMyAtMTAuNTQ1NjQsMjMuNTUzNzcgLTIzLjU1Mzc3LDIzLjU1Mzc3Yy0xMy4wMDg0MSwwIC0yMy41NTM3NywtMTAuNTQ1NjUgLTIzLjU1Mzc3LC0yMy41NTM3N3oiIGZpbGw9IiNmZjhjMTkiIHN0cm9rZT0iI2RiNmUwMCIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0iYnV0dCIvPjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2UtbGluZWNhcD0icm91bmQiPjxwYXRoIGQ9Ik0yNjQuMzU1NDMsMjA1LjY0MDgzbC02LjcyNTM5LC0xMS4zOTQ3OCIvPjxwYXRoIGQ9Ik0yNTUuMjY0MjUsMjA1LjA0OTE4bDExLjY1MzksLTEwLjgwMzEzIiBkYXRhLXBhcGVyLWRhdGE9InsmcXVvdDtpbmRleCZxdW90OzpudWxsfSIvPjwvZz48cGF0aCBkPSJNMjcyLjAwNzE5LDE4Ni41NjAwNWMwLDAgNC42NzA1LDUuNDc1NTIgNC42MDIwMSwxMy4xMTQ2OGMtMC4wODIxOCw5LjE2Mjk0IC01LjM3OTkzLDEzLjMyMzk1IC01LjM3OTkzLDEzLjMyMzk1IiBkYXRhLXBhcGVyLWRhdGE9InsmcXVvdDtpbmRleCZxdW90OzpudWxsfSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0yNTAuODg2NjcsMjEyLjU3OTJjMCwwIC01LjI1MDU2LC00LjYxMTE2IC00Ljc3NTM2LC0xNC4xMzY3OWMwLjM5NjI0LC03Ljk0MTU0IDUuNTg0OTMsLTEzLjM3Nzk1IDUuNTg0OTMsLTEzLjM3Nzk1IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9nPjxnPjxwYXRoIGQ9Ik0yMTQuNTY1MjMsMTc2LjUxODcyYzAsLTEzLjAwODEzIDEwLjU0NTEsLTIzLjU1Mzc3IDIzLjU1Mzc3LC0yMy41NTM3N2MxMy4wMDgxMywwIDIzLjU1MzUsMTAuNTQ1NjUgMjMuNTUzNSwyMy41NTM3N2MwLDEzLjAwODEzIC0xMC41NDU2NSwyMy41NTM3OCAtMjMuNTUzNzcsMjMuNTUzNzhjLTEzLjAwODEzLDAgLTIzLjU1Mzc3LC0xMC41NDU2NSAtMjMuNTUzNzcsLTIzLjU1Mzc3eiIgZmlsbD0ibm9uZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMTUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIxMCIgc3Ryb2tlLWxpbmVjYXA9ImJ1dHQiLz48cGF0aCBkPSJNMjE0LjU2NTIzLDE3Ni41MTg3MmMwLC0xMy4wMDgxMyAxMC41NDUxLC0yMy41NTM3NyAyMy41NTM3NywtMjMuNTUzNzdjMTMuMDA4MTMsMCAyMy41NTM1LDEwLjU0NTY1IDIzLjU1MzUsMjMuNTUzNzdjMCwxMy4wMDgxMyAtMTAuNTQ1NjUsMjMuNTUzNzggLTIzLjU1Mzc3LDIzLjU1Mzc4Yy0xMy4wMDgxMywwIC0yMy41NTM3NywtMTAuNTQ1NjUgLTIzLjU1Mzc3LC0yMy41NTM3N3oiIGZpbGw9IiNmZjY2MWEiIHN0cm9rZT0iI2U2NGQwMCIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2UtbGluZWNhcD0iYnV0dCIvPjxwYXRoIGQ9Ik0yNTEuMDA0NDEsMTc2LjMxMzE4aC0xNS4wNzQ2NE0yNTEuMDA0NDEsMTY1LjkxNjk3aC0xNS4wNzQ2NE0yMjUuNzA2ODgsMTY2LjA5MDI5aDAuNjkzMjZNMjI2LjQwMDE1LDE3Ni40ODY1aC0wLjY5MzI2TTIzNS45Mjk3NywxODYuNzA5MzhoMTUuMDc0NjRNMjI2LjQwMDE1LDE4Ni44ODI3aC0wLjY5MzI2IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9nPjxnIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI+PHBhdGggZD0iTTI1OC4zNTU2NCwxNjkuMzY5MzNoMjQuMjAyMzlNMjcwLjQ1Njg0LDE1Ny4yNjg3djI0LjIwMTg0IiBzdHJva2Utb3BhY2l0eT0iMC4xNSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjEwIi8+PHBhdGggZD0iTTI1OC4zNTU2NCwxNjkuMzY5MzNoMjQuMjAyMzlNMjcwLjQ1Njg0LDE1Ny4yNjg3djI0LjIwMTg0IiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iNSIvPjwvZz48L2c+PC9nPjwvc3ZnPjwhLS1yb3RhdGlvbkNlbnRlcjozMC40MzUwNTAwMDAwMDAxMDM6MzIuMDM1MDUwMDAwMDAwMDEtLT4=";
+const Icon = "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSI3OS45ODQzOSIgaGVpZ2h0PSI3OS45ODQzOSIgdmlld0JveD0iMCwwLDc5Ljk4NDM5LDc5Ljk4NDM5Ij48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjA5LjU2NDk1LC0xNDcuOTY0OTUpIj48ZyBkYXRhLXBhcGVyLWRhdGE9InsmcXVvdDtpc1BhaW50aW5nTGF5ZXImcXVvdDs6dHJ1ZX0iIGZpbGwtcnVsZT0ibm9uemVybyIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2UtZGFzaGFycmF5PSIiIHN0cm9rZS1kYXNob2Zmc2V0PSIwIiBzdHlsZT0ibWl4LWJsZW5kLW1vZGU6IG5vcm1hbCI+PGc+PHBhdGggZD0iTTIzNy40NDIwNywxOTkuMzk1NTdjMCwtMTMuMDA4MTMgMTAuNTQ1MTEsLTIzLjU1Mzc3IDIzLjU1MzUsLTIzLjU1Mzc3YzEzLjAwODEzLDAgMjMuNTUzNzcsMTAuNTQ1NjQgMjMuNTUzNzcsMjMuNTUzNzdjMCwxMy4wMDgxMyAtMTAuNTQ1NjQsMjMuNTUzNzcgLTIzLjU1Mzc3LDIzLjU1Mzc3Yy0xMy4wMDg0MSwwIC0yMy41NTM3NywtMTAuNTQ1NjUgLTIzLjU1Mzc3LC0yMy41NTM3N3oiIGZpbGw9Im5vbmUiIHN0cm9rZS1vcGFjaXR5PSIwLjE1IiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMTAiIHN0cm9rZS1saW5lY2FwPSJidXR0Ii8+PHBhdGggZD0iTTIzNy42NDIwNywxOTkuNTk1NTdjMCwtMTMuMDA4MTMgMTAuNTQ1MTEsLTIzLjU1Mzc3IDIzLjU1MzUsLTIzLjU1Mzc3YzEzLjAwODEzLDAgMjMuNTUzNzcsMTAuNTQ1NjQgMjMuNTUzNzcsMjMuNTUzNzdjMCwxMy4wMDgxMyAtMTAuNTQ1NjQsMjMuNTUzNzcgLTIzLjU1Mzc3LDIzLjU1Mzc3Yy0xMy4wMDg0MSwwIC0yMy41NTM3NywtMTAuNTQ1NjUgLTIzLjU1Mzc3LC0yMy41NTM3N3oiIGZpbGw9IiNmZjhjMTkiIHN0cm9rZT0iI2RiNmUwMCIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0iYnV0dCIvPjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2UtbGluZWNhcD0icm91bmQiPjxwYXRoIGQ9Ik0yNjQuMzU1NDMsMjA1LjY0MDgzbC02LjcyNTM5LC0xMS4zOTQ3OCIvPjxwYXRoIGQ9Ik0yNTUuMjY0MjUsMjA1LjA0OTE4bDExLjY1MzksLTEwLjgwMzEzIiBkYXRhLXBhcGVyLWRhdGE9InsmcXVvdDtpbmRleCZxdW90OzpudWxsfSIvPjwvZz48cGF0aCBkPSJNMjcyLjAwNzE5LDE4Ni41NjAwNWMwLDAgNC42NzA1LDUuNDc1NTIgNC42MDIwMSwxMy4xMTQ2OGMtMC4wODIxOCw5LjE2Mjk0IC01LjM3OTkzLDEzLjMyMzk1IC01LjM3OTkzLDEzLjMyMzk1IiBkYXRhLXBhcGVyLWRhdGE9InsmcXVvdDtpbmRleCZxdW90OzpudWxsfSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0yNTAuODg2NjcsMjEyLjU3OTJjMCwwIC01LjI1MDU2LC00LjYxMTE2IC00Ljc3NTM2LC0xNC4xMzY3OWMwLjM5NjI0LC03Ljk0MTU0IDUuNTg0OTMsLTEzLjM3Nzk1IDUuNTg0OTMsLTEzLjM3Nzk1IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9nPjxnPjxwYXRoIGQ9Ik0yMTQuNTY1MjMsMTc2LjUxODcyYzAsLTEzLjAwODEzIDEwLjU0NTEsLTIzLjU1Mzc3IDIzLjU1Mzc3LC0yMy41NTM3N2MxMy4wMDgxMywwIDIzLjU1MzUsMTAuNTQ1NjUgMjMuNTUzNSwyMy41NTM3N2MwLDEzLjAwODEzIC0xMC41NDU2NSwyMy41NTM3OCAtMjMuNTUzNzcsMjMuNTUzNzhjLTEzLjAwODEzLDAgLTIzLjU1Mzc3LC0xMC41NDU2NSAtMjMuNTUzNzcsLTIzLjU1Mzc3eiIgZmlsbD0ibm9uZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMTUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIxMCIgc3Ryb2tlLWxpbmVjYXA9ImJ1dHQiLz48cGF0aCBkPSJNMjE0LjU2NTIzLDE3Ni41MTg3MmMwLC0xMy4wMDgxMyAxMC41NDUxLC0yMy41NTM3NyAyMy41NTM3NywtMjMuNTUzNzdjMTMuMDA4MTMsMCAyMy41NTM1LDEwLjU0NTY1IDIzLjU1MzUsMjMuNTUzNzdjMCwxMy4wMDgxMyAtMTAuNTQ1NjUsMjMuNTUzNzggLTIzLjU1Mzc3LDIzLjU1Mzc4Yy0xMy4wMDgxMywwIC0yMy41NTM3NywtMTAuNTQ1NjUgLTIzLjU1Mzc3LC0yMy41NTM3N3oiIGZpbGw9IiNmZjY2MWEiIHN0cm9rZT0iI2U2NGQwMCIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2UtbGluZWNhcD0iYnV0dCIvPjxwYXRoIGQ9Ik0yNTEuMDA0NDEsMTc2LjMxMzE4aC0xNS4wNzQ2NE0yNTEuMDA0NDEsMTY1LjkxNjk3aC0xNS4wNzQ2NE0yMjUuNzA2ODgsMTY2LjA5MDI5aDAuNjkzMjZNMjI2LjQwMDE1LDE3Ni40ODY1aC0wLjY5MzI2TTIzNS45Mjk3NywxODYuNzA5MzhoMTUuMDc0NjRNMjI2LjQwMDE1LDE4Ni44ODI3aC0wLjY5MzI2IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9nPjxnIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI+PHBhdGggZD0iTTI1OC4zNTU2NCwxNjkuMzY5MzNoMjQuMjAyMzlNMjcwLjQ1Njg0LDE1Ny4yNjg3djI0LjIwMTg0IiBzdHJva2Utb3BhY2l0eT0iMC4xNSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjEwIi8+PHBhdGggZD0iTTI1OC4zNTU2NCwxNjkuMzY5MzNoMjQuMjAyMzlNMjcwLjQ1Njg0LDE1Ny4yNjg3djI0LjIwMTg0IiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iNSIvPjwvZz48L2c+PC9nPjwvc3ZnPjwhLS1yb3RhdGlvbkNlbnRlcjozMC40MzUwNTAwMDAwMDAxMDM6MzIuMDM1MDUwMDAwMDAwMDEtLT4=";
 /*insetIcon大图标*/
-const insetIcon="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSI1OTkuNjU3NDgiIGhlaWdodD0iMzcxLjUxOTUyIiB2aWV3Qm94PSIwLDAsNTk5LjY1NzQ4LDM3MS41MTk1MiI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNTkuODI4NzQsNS43NTk3NikiPjxnIGRhdGEtcGFwZXItZGF0YT0ieyZxdW90O2lzUGFpbnRpbmdMYXllciZxdW90Ozp0cnVlfSIgZmlsbC1ydWxlPSJub256ZXJvIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHN0cm9rZS1kYXNoYXJyYXk9IiIgc3Ryb2tlLWRhc2hvZmZzZXQ9IjAiIHN0eWxlPSJtaXgtYmxlbmQtbW9kZTogbm9ybWFsIj48cGF0aCBkPSJNLTU5LjgyODc0LDM2NS43NTk3NnYtMzcxLjUxOTUyaDU5OS42NTc0OHYzNzEuNTE5NTJ6IiBmaWxsPSIjMGZiZDhjIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgc3Ryb2tlLWxpbmVjYXA9ImJ1dHQiLz48Zz48cGF0aCBkPSJNLTI1LjAxNjQzLDE4MGMwLC00OS40MjI5NiA0MC4wNjQ5NiwtODkuNDkgODkuNDg4OTYsLTg5LjQ5YzQ5LjQyMjk2LDAgODkuNDksNDAuMDY3MDQgODkuNDksODkuNDljMCw0OS40MjI5NiAtNDAuMDY3MDQsODkuNDkgLTg5LjQ5LDg5LjQ5Yy00OS40MjQsMCAtODkuNDksLTQwLjA2NzA0IC04OS40OSwtODkuNDl6TTMyNi4wMzg1MSwxODBjMCwtNDkuNDIyOTYgNDAuMDY0OTYsLTg5LjQ5IDg5LjQ5LC04OS40OWM0OS40MjI5NiwwIDg5LjQ4ODk2LDQwLjA2NzA0IDg5LjQ4ODk2LDg5LjQ5YzAsNDkuNDIyOTYgLTQwLjA2NzA0LDg5LjQ5IC04OS40OSw4OS40OWMtNDkuNDIyOTYsMCAtODkuNDksLTQwLjA2NzA0IC04OS40OSwtODkuNDl6IiBmaWxsPSJub25lIiBzdHJva2Utb3BhY2l0eT0iMC4xNSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjI1IiBzdHJva2UtbGluZWNhcD0iYnV0dCIvPjxwYXRoIGQ9Ik0tMjUuMDE2NDMsMTgwYzAsLTQ5LjQyMjk2IDQwLjA2NDk2LC04OS40OSA4OS40ODg5NiwtODkuNDljNDkuNDIyOTYsMCA4OS40OSw0MC4wNjcwNCA4OS40OSw4OS40OWMwLDQ5LjQyMjk2IC00MC4wNjcwNCw4OS40OSAtODkuNDksODkuNDljLTQ5LjQyNCwwIC04OS40OSwtNDAuMDY3MDQgLTg5LjQ5LC04OS40OXoiIGZpbGw9IiNmZjhjMTkiIHN0cm9rZT0iI2RiNmUwMCIgc3Ryb2tlLXdpZHRoPSIxMCIgc3Ryb2tlLWxpbmVjYXA9ImJ1dHQiLz48ZyBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMjAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI+PHBhdGggZD0iTTc2LjQ3ODA4LDIwMi45NjgzbC0yNS41NTIzNywtNDMuMjkzMjIiLz48cGF0aCBkPSJNODYuMjE0ODgsMTU5LjY3NTA4bC00NC4yNzc3Miw0MS4wNDUzIiBkYXRhLXBhcGVyLWRhdGE9InsmcXVvdDtpbmRleCZxdW90OzpudWxsfSIvPjwvZz48cGF0aCBkPSJNMzI2LjAzODUxLDE4MGMwLC00OS40MjI5NiA0MC4wNjQ5NiwtODkuNDkgODkuNDksLTg5LjQ5YzQ5LjQyMjk2LDAgODkuNDg4OTYsNDAuMDY3MDQgODkuNDg4OTYsODkuNDljMCw0OS40MjI5NiAtNDAuMDY3MDQsODkuNDkgLTg5LjQ5LDg5LjQ5Yy00OS40MjI5NiwwIC04OS40OSwtNDAuMDY3MDQgLTg5LjQ5LC04OS40OXoiIGZpbGw9IiNmZjY2MWEiIHN0cm9rZT0iI2U2NGQwMCIgc3Ryb2tlLXdpZHRoPSIxMCIgc3Ryb2tlLWxpbmVjYXA9ImJ1dHQiLz48ZyBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiPjxwYXRoIGQ9Ik00NTkuODk0NywyNDYuOTI3NTdoNDUuMTIyNzdNNDgyLjQ1NjA4LDIyNC4zNjcyM3Y0NS4xMjE3MyIgc3Ryb2tlLW9wYWNpdHk9IjAuMTUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSI0NSIvPjxwYXRoIGQ9Ik00NTkuODk0NywyNDYuOTI3NTdoNDUuMTIyNzdNNDgyLjQ1NjA4LDIyNC4zNjcyM3Y0NS4xMjE3MyIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjI1Ii8+PC9nPjxwYXRoIGQ9Ik00MDYuNjcxMDksMTc5LjY4MzYzaDU1LjAzNDQyTTQwNi42NzEwOSwxNDEuNzI5MjFoNTUuMDM0NDJNMzcxLjg4MDQxLDE0Mi4zNjE5NmgtMi41MzA5OU0zNjkuMzQ5NDIsMTgwLjMxNjM3aDIuNTMwOTlNNDYxLjcwNTUyLDIxNy42MzgwNGgtNTUuMDM0NDJNMzY5LjM0OTQyLDIxOC4yNzA3OWgyLjUzMDk5TTIyLjcwMTg2LDIyOS41MjcwM2MwLDAgLTE5LjE2ODcsLTE2LjgzNDQgLTE3LjQzMzg1LC01MS42MTA1MWMxLjQ0NjU4LC0yOC45OTI5MyAyMC4zODk0NCwtNDguODQwMTYgMjAuMzg5NDQsLTQ4Ljg0MDE2IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMjAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0xMDUuNTUwMDksMTMwLjQ3Mjk3YzAsMCAxNy43NDUwMiwyMC44MDM2NCAxNy40ODQ4NCw0OS44Mjc3OWMtMC4zMTIyMSwzNC44MTM1OCAtMjAuNDQwNDQsNTAuNjIyODkgLTIwLjQ0MDQ0LDUwLjYyMjg5IiBkYXRhLXBhcGVyLWRhdGE9InsmcXVvdDtpbmRleCZxdW90OzpudWxsfSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjIwIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNMjkxLjE3Mzk0LDIzNC4yNzY3OWMwLDAgLTc5LjIzNTk2LC01OC41Njg2NSAtODQuOTgzNzYsLTY0LjY0MTE1Yy0xLjUyNjcxLC0xLjYxMzA5IC03LjQxNjA1LC03Ljk5OTg4IC03LjMwMzY1LC0yMS40MjgwNmMwLjE0MjU4LC0xNy4xNDY2MSAxMy40NjA0NCwtMjUuNjc0MTMgMjguMzU5MTQsLTI1LjMxNTA5YzE2LjIwNjg2LDAuMzkwMjYgMjguNTU2ODcsMTEuNDA2MSAyOC4xODIyMiwyNS43MDMyN2MtMC41NjE5OCwyMS4zNjQ1OCAtMTIuNzk5NiwzMy4xMzU5NiAtMzEuNDI5MjEsMzIuMDU0NjdjLTE2LjQ1MDM4LC0wLjk1NDMyIC0yNy45MTY4NCwxOC4zOTc1NCAtMjcuMDA3MjcsMzAuMzI1MDNjMS4yOTM1OSwxNi45NjU1MyAxMi44MzcwNiwyNi4yMDkwNSAyMy41MDIxOCwyNi4xNDI0NGM0NC44MzU1NCwtMC4yODA5OSA2MS42MzE0NCwtNTMuMjUyNzQgNjEuNjMxNDQsLTUzLjI1Mjc0IiBmaWxsPSJub25lIiBzdHJva2Utb3BhY2l0eT0iMC4xNSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjM1IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNMjkxLjE3Mzk0LDIzNC4yNzY3OWMwLDAgLTc5LjIzNTk2LC01OC41Njg2NSAtODQuOTgzNzYsLTY0LjY0MTE1Yy0xLjUyNjcxLC0xLjYxMzA5IC03LjQxNjA1LC03Ljk5OTg4IC03LjMwMzY1LC0yMS40MjgwNmMwLjE0MjU4LC0xNy4xNDY2MSAxMy40NjA0NCwtMjUuNjc0MTMgMjguMzU5MTQsLTI1LjMxNTA5YzE2LjIwNjg2LDAuMzkwMjYgMjguNTU2ODcsMTEuNDA2MSAyOC4xODIyMiwyNS43MDMyN2MtMC41NjE5OCwyMS4zNjQ1OCAtMTIuNzk5NiwzMy4xMzU5NiAtMzEuNDI5MjEsMzIuMDU0NjdjLTE2LjQ1MDM4LC0wLjk1NDMyIC0yNy45MTY4NCwxOC4zOTc1NCAtMjcuMDA3MjcsMzAuMzI1MDNjMS4yOTM1OSwxNi45NjU1MyAxMi44MzcwNiwyNi4yMDkwNSAyMy41MDIxOCwyNi4xNDI0NGM0NC44MzU1NCwtMC4yODA5OSA2MS42MzE0NCwtNTMuMjUyNzQgNjEuNjMxNDQsLTUzLjI1Mjc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMjAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxnIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI+PHBhdGggZD0iTTEwOC44Mzg3MiwyNDYuOTI3NTdoNDUuMTIyNzdNMTMxLjQwMTE0LDIyNC4zNjcyM3Y0NS4xMjE3MyIgc3Ryb2tlLW9wYWNpdHk9IjAuMTUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSI0NSIvPjxwYXRoIGQ9Ik0xMDguODM4NzIsMjQ2LjkyNzU3aDQ1LjEyMjc3TTEzMS40MDExNCwyMjQuMzY3MjN2NDUuMTIxNzMiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIyNSIvPjwvZz48L2c+PC9nPjwvZz48L3N2Zz48IS0tcm90YXRpb25DZW50ZXI6Mjk5LjgyODczOTk5OTk5OTk6MTg1Ljc1OTc2LS0+";
+const insetIcon = "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSI1OTkuNjU3NDgiIGhlaWdodD0iMzcxLjUxOTUyIiB2aWV3Qm94PSIwLDAsNTk5LjY1NzQ4LDM3MS41MTk1MiI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNTkuODI4NzQsNS43NTk3NikiPjxnIGRhdGEtcGFwZXItZGF0YT0ieyZxdW90O2lzUGFpbnRpbmdMYXllciZxdW90Ozp0cnVlfSIgZmlsbC1ydWxlPSJub256ZXJvIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHN0cm9rZS1kYXNoYXJyYXk9IiIgc3Ryb2tlLWRhc2hvZmZzZXQ9IjAiIHN0eWxlPSJtaXgtYmxlbmQtbW9kZTogbm9ybWFsIj48cGF0aCBkPSJNLTU5LjgyODc0LDM2NS43NTk3NnYtMzcxLjUxOTUyaDU5OS42NTc0OHYzNzEuNTE5NTJ6IiBmaWxsPSIjMGZiZDhjIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgc3Ryb2tlLWxpbmVjYXA9ImJ1dHQiLz48Zz48cGF0aCBkPSJNLTI1LjAxNjQzLDE4MGMwLC00OS40MjI5NiA0MC4wNjQ5NiwtODkuNDkgODkuNDg4OTYsLTg5LjQ5YzQ5LjQyMjk2LDAgODkuNDksNDAuMDY3MDQgODkuNDksODkuNDljMCw0OS40MjI5NiAtNDAuMDY3MDQsODkuNDkgLTg5LjQ5LDg5LjQ5Yy00OS40MjQsMCAtODkuNDksLTQwLjA2NzA0IC04OS40OSwtODkuNDl6TTMyNi4wMzg1MSwxODBjMCwtNDkuNDIyOTYgNDAuMDY0OTYsLTg5LjQ5IDg5LjQ5LC04OS40OWM0OS40MjI5NiwwIDg5LjQ4ODk2LDQwLjA2NzA0IDg5LjQ4ODk2LDg5LjQ5YzAsNDkuNDIyOTYgLTQwLjA2NzA0LDg5LjQ5IC04OS40OSw4OS40OWMtNDkuNDIyOTYsMCAtODkuNDksLTQwLjA2NzA0IC04OS40OSwtODkuNDl6IiBmaWxsPSJub25lIiBzdHJva2Utb3BhY2l0eT0iMC4xNSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjI1IiBzdHJva2UtbGluZWNhcD0iYnV0dCIvPjxwYXRoIGQ9Ik0tMjUuMDE2NDMsMTgwYzAsLTQ5LjQyMjk2IDQwLjA2NDk2LC04OS40OSA4OS40ODg5NiwtODkuNDljNDkuNDIyOTYsMCA4OS40OSw0MC4wNjcwNCA4OS40OSw4OS40OWMwLDQ5LjQyMjk2IC00MC4wNjcwNCw4OS40OSAtODkuNDksODkuNDljLTQ5LjQyNCwwIC04OS40OSwtNDAuMDY3MDQgLTg5LjQ5LC04OS40OXoiIGZpbGw9IiNmZjhjMTkiIHN0cm9rZT0iI2RiNmUwMCIgc3Ryb2tlLXdpZHRoPSIxMCIgc3Ryb2tlLWxpbmVjYXA9ImJ1dHQiLz48ZyBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMjAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI+PHBhdGggZD0iTTc2LjQ3ODA4LDIwMi45NjgzbC0yNS41NTIzNywtNDMuMjkzMjIiLz48cGF0aCBkPSJNODYuMjE0ODgsMTU5LjY3NTA4bC00NC4yNzc3Miw0MS4wNDUzIiBkYXRhLXBhcGVyLWRhdGE9InsmcXVvdDtpbmRleCZxdW90OzpudWxsfSIvPjwvZz48cGF0aCBkPSJNMzI2LjAzODUxLDE4MGMwLC00OS40MjI5NiA0MC4wNjQ5NiwtODkuNDkgODkuNDksLTg5LjQ5YzQ5LjQyMjk2LDAgODkuNDg4OTYsNDAuMDY3MDQgODkuNDg4OTYsODkuNDljMCw0OS40MjI5NiAtNDAuMDY3MDQsODkuNDkgLTg5LjQ5LDg5LjQ5Yy00OS40MjI5NiwwIC04OS40OSwtNDAuMDY3MDQgLTg5LjQ5LC04OS40OXoiIGZpbGw9IiNmZjY2MWEiIHN0cm9rZT0iI2U2NGQwMCIgc3Ryb2tlLXdpZHRoPSIxMCIgc3Ryb2tlLWxpbmVjYXA9ImJ1dHQiLz48ZyBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiPjxwYXRoIGQ9Ik00NTkuODk0NywyNDYuOTI3NTdoNDUuMTIyNzdNNDgyLjQ1NjA4LDIyNC4zNjcyM3Y0NS4xMjE3MyIgc3Ryb2tlLW9wYWNpdHk9IjAuMTUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSI0NSIvPjxwYXRoIGQ9Ik00NTkuODk0NywyNDYuOTI3NTdoNDUuMTIyNzdNNDgyLjQ1NjA4LDIyNC4zNjcyM3Y0NS4xMjE3MyIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjI1Ii8+PC9nPjxwYXRoIGQ9Ik00MDYuNjcxMDksMTc5LjY4MzYzaDU1LjAzNDQyTTQwNi42NzEwOSwxNDEuNzI5MjFoNTUuMDM0NDJNMzcxLjg4MDQxLDE0Mi4zNjE5NmgtMi41MzA5OU0zNjkuMzQ5NDIsMTgwLjMxNjM3aDIuNTMwOTlNNDYxLjcwNTUyLDIxNy42MzgwNGgtNTUuMDM0NDJNMzY5LjM0OTQyLDIxOC4yNzA3OWgyLjUzMDk5TTIyLjcwMTg2LDIyOS41MjcwM2MwLDAgLTE5LjE2ODcsLTE2LjgzNDQgLTE3LjQzMzg1LC01MS42MTA1MWMxLjQ0NjU4LC0yOC45OTI5MyAyMC4zODk0NCwtNDguODQwMTYgMjAuMzg5NDQsLTQ4Ljg0MDE2IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMjAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0xMDUuNTUwMDksMTMwLjQ3Mjk3YzAsMCAxNy43NDUwMiwyMC44MDM2NCAxNy40ODQ4NCw0OS44Mjc3OWMtMC4zMTIyMSwzNC44MTM1OCAtMjAuNDQwNDQsNTAuNjIyODkgLTIwLjQ0MDQ0LDUwLjYyMjg5IiBkYXRhLXBhcGVyLWRhdGE9InsmcXVvdDtpbmRleCZxdW90OzpudWxsfSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjIwIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNMjkxLjE3Mzk0LDIzNC4yNzY3OWMwLDAgLTc5LjIzNTk2LC01OC41Njg2NSAtODQuOTgzNzYsLTY0LjY0MTE1Yy0xLjUyNjcxLC0xLjYxMzA5IC03LjQxNjA1LC03Ljk5OTg4IC03LjMwMzY1LC0yMS40MjgwNmMwLjE0MjU4LC0xNy4xNDY2MSAxMy40NjA0NCwtMjUuNjc0MTMgMjguMzU5MTQsLTI1LjMxNTA5YzE2LjIwNjg2LDAuMzkwMjYgMjguNTU2ODcsMTEuNDA2MSAyOC4xODIyMiwyNS43MDMyN2MtMC41NjE5OCwyMS4zNjQ1OCAtMTIuNzk5NiwzMy4xMzU5NiAtMzEuNDI5MjEsMzIuMDU0NjdjLTE2LjQ1MDM4LC0wLjk1NDMyIC0yNy45MTY4NCwxOC4zOTc1NCAtMjcuMDA3MjcsMzAuMzI1MDNjMS4yOTM1OSwxNi45NjU1MyAxMi44MzcwNiwyNi4yMDkwNSAyMy41MDIxOCwyNi4xNDI0NGM0NC44MzU1NCwtMC4yODA5OSA2MS42MzE0NCwtNTMuMjUyNzQgNjEuNjMxNDQsLTUzLjI1Mjc0IiBmaWxsPSJub25lIiBzdHJva2Utb3BhY2l0eT0iMC4xNSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjM1IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNMjkxLjE3Mzk0LDIzNC4yNzY3OWMwLDAgLTc5LjIzNTk2LC01OC41Njg2NSAtODQuOTgzNzYsLTY0LjY0MTE1Yy0xLjUyNjcxLC0xLjYxMzA5IC03LjQxNjA1LC03Ljk5OTg4IC03LjMwMzY1LC0yMS40MjgwNmMwLjE0MjU4LC0xNy4xNDY2MSAxMy40NjA0NCwtMjUuNjc0MTMgMjguMzU5MTQsLTI1LjMxNTA5YzE2LjIwNjg2LDAuMzkwMjYgMjguNTU2ODcsMTEuNDA2MSAyOC4xODIyMiwyNS43MDMyN2MtMC41NjE5OCwyMS4zNjQ1OCAtMTIuNzk5NiwzMy4xMzU5NiAtMzEuNDI5MjEsMzIuMDU0NjdjLTE2LjQ1MDM4LC0wLjk1NDMyIC0yNy45MTY4NCwxOC4zOTc1NCAtMjcuMDA3MjcsMzAuMzI1MDNjMS4yOTM1OSwxNi45NjU1MyAxMi44MzcwNiwyNi4yMDkwNSAyMy41MDIxOCwyNi4xNDI0NGM0NC44MzU1NCwtMC4yODA5OSA2MS42MzE0NCwtNTMuMjUyNzQgNjEuNjMxNDQsLTUzLjI1Mjc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMjAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxnIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI+PHBhdGggZD0iTTEwOC44Mzg3MiwyNDYuOTI3NTdoNDUuMTIyNzdNMTMxLjQwMTE0LDIyNC4zNjcyM3Y0NS4xMjE3MyIgc3Ryb2tlLW9wYWNpdHk9IjAuMTUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSI0NSIvPjxwYXRoIGQ9Ik0xMDguODM4NzIsMjQ2LjkyNzU3aDQ1LjEyMjc3TTEzMS40MDExNCwyMjQuMzY3MjN2NDUuMTIxNzMiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIyNSIvPjwvZz48L2c+PC9nPjwvZz48L3N2Zz48IS0tcm90YXRpb25DZW50ZXI6Mjk5LjgyODczOTk5OTk5OTk6MTg1Ljc1OTc2LS0+";
 
-let openCaseSensitive=false;
+let openCaseSensitive = false;
 
 class VarAndList {
   constructor(runtime) {
@@ -45,7 +45,7 @@ class VarAndList {
         'qxsckvarandlist.seriListsToJson': '将以 [START] 为开头的所有列表转换为json',
         'qxsckvarandlist.swapList': '交换列表 [LIST] 和 [LIST2]',
         'qxsckvarandlist.changeMonitorList': '[CASE] 列表 [LIST]',
-          'qxsckvarandlist.isShowList': '列表 [LIST] 显示了吗？',
+        'qxsckvarandlist.isShowList': '列表 [LIST] 显示了吗？',
         'qxsckvarandlist.clearList': '清空列表 [LIST]',
         'qxsckvarandlist.setList': '设置列表 [LIST] 的内容为列表 [LIST2]',
         'qxsckvarandlist.setListValue': '设置列表 [LIST] 为 [NUM] 个 [VALUE]',
@@ -67,7 +67,7 @@ class VarAndList {
         'qxsckvarandlist.sortListRange': '以 [CASE] 排序列表 [LIST] 的第 [LEFT] 到 [RIGHT] 项',
         'qxsckvarandlist.isOrder': '列表 [LIST] 是 [CASE] 的吗？',
         'qxsckvarandlist.mapObject': '映射对象 [OBJ] 的值到列表 [LIST] ，键到列表 [LIST2]',
-        'qxsckvarandlist.associateList':'关联列表 [LIST] 为键，[LIST2] 为值，如果长度不同则 [DO]',
+        'qxsckvarandlist.associateList': '关联列表 [LIST] 为键，[LIST2] 为值，如果长度不同则 [DO]',
 
         'qxsckvarandlist.unSupportCompile': '⚠️不支持编译',
 
@@ -132,7 +132,7 @@ class VarAndList {
         'qxsckvarandlist.sortListRange': 'sort item [LEFT] to [RIGHT] in list [LIST] with [CASE]',
         'qxsckvarandlist.isOrder': 'list [LIST] is [CASE] ?',
         'qxsckvarandlist.mapObject': 'map object [OBJ] , keys to list [LIST], and values to list [LIST2]',
-        'qxsckvarandlist.associateList':'associate list [LIST] to keys, and [LIST2] to values, if length is different, then [DO]',
+        'qxsckvarandlist.associateList': 'associate list [LIST] to keys, and [LIST2] to values, if length is different, then [DO]',
 
         'qxsckvarandlist.unSupportCompile': '⚠️Compilation not supported',
 
@@ -140,54 +140,54 @@ class VarAndList {
         'qxsckvarandlist.forEachList': '⚠️for each variable [VAR] in value of from [LEFT] to [RIGHT] in list [LIST]',
       },
     });
-    this.randomString=function(length){
-      let stringDict=
+    this.randomString = function(length) {
+      let stringDict =
         'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890~`!@#$%^&*()_-+={[}}|:;<,>.?/';
-      let result='';
-      for(let i=0;i<length;i++){
-        let idx=Math.floor(Math.random()*stringDict.length);
-        result+=stringDict[idx];
+      let result = '';
+      for (let i = 0; i < length; i++) {
+        let idx = Math.floor(Math.random() * stringDict.length);
+        result += stringDict[idx];
       }
       return result;
     };
-    this.sortFunc=function(data){
-      let arr=data.arr,order=data.order,length=data.arr.length;
-      let left=data.range?data.range[0]:1,right=data.range?data.range[1]:length;
-      if(left<1) left=1;
-      if(right>length) right=length;
-      left-=1,right-=1;
-      let list=arr.slice(left,right+1);
-      switch(order){
+    this.sortFunc = function(data) {
+      let arr = data.arr, order = data.order, length = data.arr.length;
+      let left = data.range ? data.range[0] : 1, right = data.range ? data.range[1] : length;
+      if (left < 1) left = 1;
+      if (right > length) right = length;
+      left -= 1, right -= 1;
+      let list = arr.slice(left, right + 1);
+      switch (order) {
         case 'asc':
-          list=list.map(val=>isNaN(Number(val))?0:Number(val));
-          list.sort((a,b)=>a-b);
+          list = list.map(val => isNaN(Number(val)) ? 0 : Number(val));
+          list.sort((a, b) => a - b);
           break;
         case 'desc':
-          list=list.map(val=>isNaN(Number(val))?0:Number(val));
-          list.sort((a,b)=>b-a);
+          list = list.map(val => isNaN(Number(val)) ? 0 : Number(val));
+          list.sort((a, b) => b - a);
           break;
         case 'dictOrder':
-          list=list.map(val=>String(val));
+          list = list.map(val => String(val));
           list.sort();
           break;
         case 'random':
-          list.sort(function(){
-            return (0.5-Math.random());
+          list.sort(function() {
+            return (0.5 - Math.random());
           });
           break;
       }
-      let list2=arr.slice();
-      return [...list2.slice(0,left),...list,...list2.slice(right+1,length)];
+      let list2 = arr.slice();
+      return [...list2.slice(0, left), ...list, ...list2.slice(right + 1, length)];
     };
-    this.isOrderFunc=function(arr,order){
-      if(order==='asc'){
-        for(let i=0;i<arr.length-1;i++){
-          if (arr[i]>arr[i+1]) return false;
+    this.isOrderFunc = function(arr, order) {
+      if (order === 'asc') {
+        for (let i = 0; i < arr.length - 1; i++) {
+          if (arr[i] > arr[i + 1]) return false;
         }
         return true;
-      }else{
-        for(let i=0;i<arr.length-1;i++){
-          if (arr[i]<arr[i+1]) return false;
+      } else {
+        for (let i = 0; i < arr.length - 1; i++) {
+          if (arr[i] < arr[i + 1]) return false;
         }
         return true;
       }
@@ -203,7 +203,7 @@ class VarAndList {
 
   getInfo() {
     return {
-      id:'qxsckvarandlist',
+      id: 'qxsckvarandlist',
       name: this.formatMessage('qxsckvarandlist.name'),
       color1: '#ed6b00',
       color2: '#ed6b00',
@@ -213,70 +213,70 @@ class VarAndList {
       blocks: [
         //command,reporter,Boolean,hat,conditional,loop
         {
-          opcode:'haveVar',
+          opcode: 'haveVar',
           blockType: 'Boolean',
           text: this.formatMessage('qxsckvarandlist.haveVar'),
           arguments: {
             VAR: {
               type: 'string',
-              defaultValue:'variable'
+              defaultValue: 'variable'
             },
           }
         },
         {
-          opcode:'getVar',
+          opcode: 'getVar',
           blockType: 'reporter',
           text: this.formatMessage('qxsckvarandlist.getVar'),
           arguments: {
             VAR: {
               type: 'string',
-              defaultValue:'variable'
+              defaultValue: 'variable'
             },
           }
         },
         {
-          opcode:'setVar',
+          opcode: 'setVar',
           blockType: 'command',
           text: this.formatMessage('qxsckvarandlist.setVar'),
           arguments: {
             VAR: {
               type: 'string',
-              defaultValue:'variable'
+              defaultValue: 'variable'
             },
             VALUE: {
               type: 'string',
-              defaultValue:'value'
+              defaultValue: 'value'
             },
           }
         },
         {
-          opcode:'seriVarsToJson',
+          opcode: 'seriVarsToJson',
           blockType: 'reporter',
           text: this.formatMessage('qxsckvarandlist.seriVarsToJson'),
           arguments: {
             START: {
               type: 'string',
-              defaultValue:'variable'
+              defaultValue: 'variable'
             },
           }
         },
         {
-          opcode:'swapVar',
+          opcode: 'swapVar',
           blockType: 'command',
           text: this.formatMessage('qxsckvarandlist.swapVar'),
           arguments: {
             VAR: {
               type: 'string',
-              defaultValue:'variable1'
+              defaultValue: 'variable1'
             },
             VAR2: {
               type: 'string',
-              defaultValue:'variable2'
+              defaultValue: 'variable2'
             },
           }
         },
         {
-          opcode:'changeMonitorVar',
+          opcode: 'changeMonitorVar',
           blockType: 'command',
           text: this.formatMessage('qxsckvarandlist.changeMonitorVar'),
           arguments: {
@@ -286,18 +286,18 @@ class VarAndList {
             },
             VAR: {
               type: 'string',
-              defaultValue:'variable'
+              defaultValue: 'variable'
             },
           }
         },
         {
-          opcode:'isShowVar',
+          opcode: 'isShowVar',
           blockType: 'Boolean',
           text: this.formatMessage('qxsckvarandlist.isShowVar'),
           arguments: {
             VAR: {
               type: 'string',
-              defaultValue:'variable'
+              defaultValue: 'variable'
             },
           }
         },
@@ -305,7 +305,7 @@ class VarAndList {
         '---',
 
         {
-          opcode:'openCaseSensitive',
+          opcode: 'openCaseSensitive',
           blockType: 'command',
           text: this.formatMessage('qxsckvarandlist.openCaseSensitive'),
           arguments: {
@@ -316,112 +316,112 @@ class VarAndList {
           }
         },
         {
-          opcode:'haveList',
+          opcode: 'haveList',
           blockType: 'Boolean',
           text: this.formatMessage('qxsckvarandlist.haveList'),
           arguments: {
             LIST: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue: 'list'
             },
           }
         },
         {
-          opcode:'length',
+          opcode: 'length',
           blockType: 'reporter',
           text: this.formatMessage('qxsckvarandlist.length'),
           arguments: {
             LIST: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue: 'list'
             }
           }
         },
         {
-          opcode:'getList',
+          opcode: 'getList',
           blockType: 'reporter',
           text: this.formatMessage('qxsckvarandlist.getList'),
           hideFromPalette: true,
           arguments: {
             LIST: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue: 'list'
             },
           }
         },
         {
-          opcode:'newGetList',
+          opcode: 'newGetList',
           blockType: 'reporter',
           text: this.formatMessage('qxsckvarandlist.newGetList'),
           arguments: {
             LIST: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue: 'list'
             },
           }
         },
         {
-          opcode:'getListRange',
+          opcode: 'getListRange',
           blockType: 'reporter',
           text: this.formatMessage('qxsckvarandlist.getListRange'),
           arguments: {
             LIST: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue: 'list'
             },
             LEFT: {
               type: 'string',
-              defaultValue:'1'
+              defaultValue: '1'
             },
             RIGHT: {
               type: 'string',
-              defaultValue:'2'
+              defaultValue: '2'
             },
           }
         },
         {
-          opcode:'getValueOfList',
+          opcode: 'getValueOfList',
           blockType: 'reporter',
           text: this.formatMessage('qxsckvarandlist.getValueOfList'),
           arguments: {
             LIST: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue: 'list'
             },
             INDEX: {
               type: 'string',
-              defaultValue:'1'
+              defaultValue: '1'
             }
           }
         },
         {
-          opcode:'seriListsToJson',
+          opcode: 'seriListsToJson',
           blockType: 'reporter',
           text: this.formatMessage('qxsckvarandlist.seriListsToJson'),
           arguments: {
             START: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue: 'list'
             },
           }
         },
         {
-          opcode:'swapList',
+          opcode: 'swapList',
           blockType: 'command',
           text: this.formatMessage('qxsckvarandlist.swapList'),
           arguments: {
             LIST: {
               type: 'string',
-              defaultValue:'list1'
+              defaultValue: 'list1'
             },
             LIST2: {
               type: 'string',
-              defaultValue:'list2'
+              defaultValue: 'list2'
             },
           }
         },
         {
-          opcode:'changeMonitorList',
+          opcode: 'changeMonitorList',
           blockType: 'command',
           text: this.formatMessage('qxsckvarandlist.changeMonitorList'),
           arguments: {
@@ -431,432 +431,432 @@ class VarAndList {
             },
             LIST: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue: 'list'
             },
           }
         },
         {
-          opcode:'isShowList',
+          opcode: 'isShowList',
           blockType: 'Boolean',
           text: this.formatMessage('qxsckvarandlist.isShowList'),
           arguments: {
             LIST: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue: 'list'
             },
           }
         },
         {
-          opcode:'clearList',
+          opcode: 'clearList',
           blockType: 'command',
           text: this.formatMessage('qxsckvarandlist.clearList'),
           arguments: {
             LIST: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue: 'list'
             },
           }
         },
         {
-          opcode:'setList',
+          opcode: 'setList',
           blockType: 'command',
           text: this.formatMessage('qxsckvarandlist.setList'),
           arguments: {
             LIST: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue: 'list'
             },
             LIST2: {
               type: 'string',
-              defaultValue:'["a","b"]'
+              defaultValue: '["a","b"]'
             },
           }
         },
         {
-          opcode:'setListValue',
+          opcode: 'setListValue',
           blockType: 'command',
           text: this.formatMessage('qxsckvarandlist.setListValue'),
           arguments: {
             LIST: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue: 'list'
             },
             NUM: {
               type: 'string',
-              defaultValue:'5'
+              defaultValue: '5'
             },
             VALUE: {
               type: 'string',
-              defaultValue:'thing'
+              defaultValue: 'thing'
             },
           }
         },
         {
-          opcode:'deleteOfList',
+          opcode: 'deleteOfList',
           blockType: 'command',
           text: this.formatMessage('qxsckvarandlist.deleteOfList'),
           arguments: {
             LIST: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue: 'list'
             },
             INDEX: {
               type: 'string',
-              defaultValue:'1'
+              defaultValue: '1'
             }
           }
         },
         {
-          opcode:'addValueInList',
+          opcode: 'addValueInList',
           blockType: 'command',
           text: this.formatMessage('qxsckvarandlist.addValueInList'),
           arguments: {
             LIST: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue: 'list'
             },
             VALUE: {
               type: 'string',
-              defaultValue:'value'
+              defaultValue: 'value'
             },
           }
         },
         {
-          opcode:'addListToList',
+          opcode: 'addListToList',
           blockType: 'command',
           text: this.formatMessage('qxsckvarandlist.addListToList'),
           arguments: {
             LIST: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue: 'list'
             },
             LIST2: {
               type: 'string',
-              defaultValue:'["a","b"]'
+              defaultValue: '["a","b"]'
             },
           }
         },
         {
-          opcode:'insertOfList',
+          opcode: 'insertOfList',
           blockType: 'command',
           text: this.formatMessage('qxsckvarandlist.insertOfList'),
           arguments: {
             LIST: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue: 'list'
             },
             INDEX: {
               type: 'string',
-              defaultValue:'1'
+              defaultValue: '1'
             },
             VALUE: {
               type: 'string',
-              defaultValue:'thing'
+              defaultValue: 'thing'
             }
           }
         },
         {
-          opcode:'insertListToList',
+          opcode: 'insertListToList',
           blockType: 'command',
           text: this.formatMessage('qxsckvarandlist.insertListToList'),
           arguments: {
             LIST: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue: 'list'
             },
             INDEX: {
               type: 'string',
-              defaultValue:'1'
+              defaultValue: '1'
             },
             LIST2: {
               type: 'string',
-              defaultValue:'["ark","os"]'
+              defaultValue: '["ark","os"]'
             }
           }
         },
         {
-          opcode:'replaceOfList',
+          opcode: 'replaceOfList',
           blockType: 'command',
           text: this.formatMessage('qxsckvarandlist.replaceOfList'),
           arguments: {
             LIST: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue: 'list'
             },
             INDEX: {
               type: 'string',
-              defaultValue:'1'
+              defaultValue: '1'
             },
             VALUE: {
               type: 'string',
-              defaultValue:'thing'
+              defaultValue: 'thing'
             }
           }
         },
         {
-          opcode:'replaceRangeOfList',
+          opcode: 'replaceRangeOfList',
           blockType: 'command',
           text: this.formatMessage('qxsckvarandlist.replaceRangeOfList'),
           arguments: {
             LIST: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue: 'list'
             },
             LEFT: {
               type: 'string',
-              defaultValue:'1'
+              defaultValue: '1'
             },
             RIGHT: {
               type: 'string',
-              defaultValue:'2'
+              defaultValue: '2'
             },
             VALUE: {
               type: 'string',
-              defaultValue:'thing'
+              defaultValue: 'thing'
             }
           }
         },
         {
-          opcode:'getIndexOfList',
+          opcode: 'getIndexOfList',
           blockType: 'reporter',
           text: this.formatMessage('qxsckvarandlist.getIndexOfList'),
           arguments: {
             LIST: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue: 'list'
             },
             VALUE: {
               type: 'string',
-              defaultValue:'thing'
+              defaultValue: 'thing'
             }
           }
         },
         {
-          opcode:'getIndexesOfList',
+          opcode: 'getIndexesOfList',
           blockType: 'reporter',
           text: this.formatMessage('qxsckvarandlist.getIndexesOfList'),
           hideFromPalette: true,
           arguments: {
             LIST: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue: 'list'
             },
             VALUE: {
               type: 'string',
-              defaultValue:'thing'
+              defaultValue: 'thing'
             }
           }
         },
         {
-          opcode:'newGetIndexesOfList',
+          opcode: 'newGetIndexesOfList',
           blockType: 'reporter',
           text: this.formatMessage('qxsckvarandlist.newGetIndexesOfList'),
           arguments: {
             LIST: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue: 'list'
             },
             VALUE: {
               type: 'string',
-              defaultValue:'thing'
+              defaultValue: 'thing'
             }
           }
         },
         {
-          opcode:'getCountsOfList',
+          opcode: 'getCountsOfList',
           blockType: 'reporter',
           text: this.formatMessage('qxsckvarandlist.getCountsOfList'),
           arguments: {
             LIST: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue: 'list'
             },
             VALUE: {
               type: 'string',
-              defaultValue:'thing'
+              defaultValue: 'thing'
             }
           }
         },
         {
-          opcode:'listContains',
+          opcode: 'listContains',
           blockType: 'Boolean',
           text: this.formatMessage('qxsckvarandlist.listContains'),
           arguments: {
             LIST: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue: 'list'
             },
             VALUE: {
               type: 'string',
-              defaultValue:'thing'
+              defaultValue: 'thing'
             }
           }
         },
         {
-          opcode:'copyList',
+          opcode: 'copyList',
           blockType: 'command',
           text: this.formatMessage('qxsckvarandlist.copyList'),
           arguments: {
             LIST1: {
               type: 'string',
-              defaultValue:'list1'
+              defaultValue: 'list1'
             },
             LIST2: {
               type: 'string',
-              defaultValue:'list2'
+              defaultValue: 'list2'
             }
           }
         },
         {
-          opcode:'reverseList',
+          opcode: 'reverseList',
           blockType: 'command',
           text: this.formatMessage('qxsckvarandlist.reverseList'),
           arguments: {
             LIST: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue: 'list'
             },
           },
         },
         {
-          opcode:'sortList',
+          opcode: 'sortList',
           blockType: 'command',
           text: this.formatMessage('qxsckvarandlist.sortList'),
           arguments: {
             LIST: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue: 'list'
             },
-            CASE:{
+            CASE: {
               type: 'string',
               menu: 'sortList.List',
             }
           }
         },
         {
-          opcode:'sortListRange',
+          opcode: 'sortListRange',
           blockType: 'command',
           text: this.formatMessage('qxsckvarandlist.sortListRange'),
           arguments: {
             LIST: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue: 'list'
             },
-            CASE:{
+            CASE: {
               type: 'string',
               menu: 'sortList.List',
             },
             LEFT: {
               type: 'string',
-              defaultValue:'1'
+              defaultValue: '1'
             },
             RIGHT: {
               type: 'string',
-              defaultValue:'2'
+              defaultValue: '2'
             },
           }
         },
         {
-          opcode:'isOrder',
+          opcode: 'isOrder',
           blockType: 'Boolean',
           text: this.formatMessage('qxsckvarandlist.isOrder'),
           arguments: {
             LIST: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue: 'list'
             },
-            CASE:{
+            CASE: {
               type: 'string',
               menu: 'isOrder.List',
             },
           }
         },
         {
-          opcode:'mapObject',
+          opcode: 'mapObject',
           blockType: 'command',
           text: this.formatMessage('qxsckvarandlist.mapObject'),
           arguments: {
             OBJ: {
               type: 'string',
-              defaultValue:'{"name":"Gandi"}'
+              defaultValue: '{"name":"Gandi"}'
             },
             LIST: {
               type: 'string',
-              defaultValue:'list1'
+              defaultValue: 'list1'
             },
             LIST2: {
               type: 'string',
-              defaultValue:'list2'
+              defaultValue: 'list2'
             },
           }
         },
         {
-          opcode:'associateList',
+          opcode: 'associateList',
           blockType: 'reporter',
           text: this.formatMessage('qxsckvarandlist.associateList'),
           arguments: {
             LIST: {
               type: 'string',
-              defaultValue:'list1'
+              defaultValue: 'list1'
             },
             LIST2: {
               type: 'string',
-              defaultValue:'list2'
+              defaultValue: 'list2'
             },
             DO: {
               type: 'string',
-              menu:'associateList.List'
+              menu: 'associateList.List'
             },
           }
         },
 
-        '---'+this.formatMessage('qxsckvarandlist.unSupportCompile'),
+        '---' + this.formatMessage('qxsckvarandlist.unSupportCompile'),
 
         {
-          opcode:'forEach',
+          opcode: 'forEach',
           blockType: 'conditional',
           text: this.formatMessage('qxsckvarandlist.forEach'),
           arguments: {
             VAR: {
               type: 'string',
-              defaultValue:'variable'
+              defaultValue: 'variable'
             },
             LEFT: {
               type: 'string',
-              defaultValue:'1'
+              defaultValue: '1'
             },
             RIGHT: {
               type: 'string',
-              defaultValue:'5'
+              defaultValue: '5'
             },
           }
         },
         {
-          opcode:'forEachList',
+          opcode: 'forEachList',
           blockType: 'conditional',
           text: this.formatMessage('qxsckvarandlist.forEachList'),
           arguments: {
             VAR: {
               type: 'string',
-              defaultValue:'variable'
+              defaultValue: 'variable'
             },
             LIST: {
               type: 'string',
-              defaultValue:'list'
+              defaultValue: 'list'
             },
             LEFT: {
               type: 'string',
-              defaultValue:'1'
+              defaultValue: '1'
             },
             RIGHT: {
               type: 'string',
-              defaultValue:'5'
+              defaultValue: '5'
             },
           }
         },
       ],
       menus: {
-        'changeMonitor.List':[
+        'changeMonitor.List': [
           {
             text: this.formatMessage("qxsckvarandlist.show"),
             value: 'show'
@@ -866,7 +866,7 @@ class VarAndList {
             value: 'hide'
           },
         ],
-        'openCaseSensitive.List':[
+        'openCaseSensitive.List': [
           {
             text: this.formatMessage("qxsckvarandlist.open"),
             value: 'open'
@@ -876,7 +876,7 @@ class VarAndList {
             value: 'close'
           },
         ],
-        'sortList.List':[
+        'sortList.List': [
           {
             text: this.formatMessage("qxsckvarandlist.asc"),
             value: 'asc'
@@ -894,7 +894,7 @@ class VarAndList {
             value: 'random'
           },
         ],
-        'isOrder.List':[
+        'isOrder.List': [
           {
             text: this.formatMessage("qxsckvarandlist.asc"),
             value: 'asc'
@@ -904,7 +904,7 @@ class VarAndList {
             value: 'desc'
           },
         ],
-        'associateList.List':[
+        'associateList.List': [
           {
             text: this.formatMessage("qxsckvarandlist.complete"),
             value: 'c'
@@ -918,41 +918,41 @@ class VarAndList {
     };
   }
   findAllVar() {
-    let list = [],temp;
-    try{
-      if(this.runtime._editingTarget.isStage){
+    let list = [], temp;
+    try {
+      if (this.runtime._editingTarget.isStage) {
         temp = this.runtime._stageTarget.variables;
 
         Object.keys(temp).forEach(obj => {
-          if (temp[obj].type === '') list.push({text: temp[obj].name,value: temp[obj].id});
+          if (temp[obj].type === '') list.push({ text: temp[obj].name, value: temp[obj].id });
         });
-      }else{
+      } else {
         temp = this.runtime._editingTarget.variables;
         Object.keys(temp).forEach(obj => {
-          if (temp[obj].type === '') list.push({text: temp[obj].name,value: temp[obj].id});
+          if (temp[obj].type === '') list.push({ text: temp[obj].name, value: temp[obj].id });
         });
       }
-    }catch(e){}
-    if (list.length === 0) list.push({text: `-`,value: 'empty'});
+    } catch (e) { }
+    if (list.length === 0) list.push({ text: `-`, value: 'empty' });
     return list;
   }
 
   findAllList() {
-    let list = [],temp;
+    let list = [], temp;
     try {
-      if(this.runtime._editingTarget.isStage){
+      if (this.runtime._editingTarget.isStage) {
         temp = this.runtime._stageTarget.variables
         Object.keys(temp).forEach(obj => {
-          if (temp[obj].type === 'list') list.push({text: temp[obj].name,value: temp[obj].id});
+          if (temp[obj].type === 'list') list.push({ text: temp[obj].name, value: temp[obj].id });
         });
-      }else{
+      } else {
         temp = this.runtime._editingTarget.variables
         Object.keys(temp).forEach(obj => {
-          if (temp[obj].type === 'list') list.push({text: temp[obj].name,value: temp[obj].id});
+          if (temp[obj].type === 'list') list.push({ text: temp[obj].name, value: temp[obj].id });
         });
       }
-    }catch(e){}
-    if (list.length === 0) list.push({text: `-`,value: 'empty'});
+    } catch (e) { }
+    if (list.length === 0) list.push({ text: `-`, value: 'empty' });
     return list;
   }
 
@@ -977,7 +977,7 @@ class VarAndList {
   }
   getVar(args, util) {
     const variable = util.target.lookupVariableByNameAndType(String(args.VAR), '');
-    return variable ? variable.value :'';
+    return variable ? variable.value : '';
   }
   setVar(args, util) {
     const variable = util.target.lookupVariableByNameAndType(String(args.VAR), '');
@@ -1006,28 +1006,28 @@ class VarAndList {
     }
     return JSON.stringify(serialized);
   }
-  swapVar(args,util){
+  swapVar(args, util) {
     const variable = util.target.lookupVariableByNameAndType(String(args.VAR), '');
     const variable2 = util.target.lookupVariableByNameAndType(String(args.VAR2), '');
     if (variable && variable2) {
-      let value=variable.value;
-      variable.value=variable2.value;
-      variable2.value=value;
+      let value = variable.value;
+      variable.value = variable2.value;
+      variable2.value = value;
     }
   }
-  changeMonitorVar(args,util){
+  changeMonitorVar(args, util) {
     const variable = util.target.lookupVariableByNameAndType(String(args.VAR), '');
     if (variable) {
-      this.changeMonitorVisibility(variable.id, args.CASE==='show');
+      this.changeMonitorVisibility(variable.id, args.CASE === 'show');
     }
   }
-  isShowVar(args,util){
+  isShowVar(args, util) {
     const variable = util.target.lookupVariableByNameAndType(String(args.VAR), '');
-    return this.isShow({list:variable});
+    return this.isShow({ list: variable });
   }
 
-  openCaseSensitive(args){
-    openCaseSensitive=(args.CASE==='open'?true:false);
+  openCaseSensitive(args) {
+    openCaseSensitive = (args.CASE === 'open' ? true : false);
   }
   haveList(args, util) {
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
@@ -1035,7 +1035,7 @@ class VarAndList {
   }
   emptyList(args, util) {
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
-    return variable ? (variable.value.length?false:true) : true;
+    return variable ? (variable.value.length ? false : true) : true;
   }
   length(args, util) {
     /** @type {VM.ListVariable} */
@@ -1051,16 +1051,16 @@ class VarAndList {
   }
   newGetList(args, util) {
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
-    return variable ? '['+variable.value.map(value=>'"'+String(value)+'"').join(',')+']' : '[]';
+    return variable ? '[' + variable.value.map(value => '"' + String(value) + '"').join(',') + ']' : '[]';
   }
   getListRange(args, util) {
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
     if (variable) {
-      let length=variable.value.length,left=Number(args.LEFT),right=Number(args.RIGHT);
-      if(left<1) left=1;
-      if(right>length) right=length;
-      left-=1,right-=1;
-      return '['+variable.value.slice(left,right+1).map(value=>'"'+String(value)+'"').join(',')+']';
+      let length = variable.value.length, left = Number(args.LEFT), right = Number(args.RIGHT);
+      if (left < 1) left = 1;
+      if (right > length) right = length;
+      left -= 1, right -= 1;
+      return '[' + variable.value.slice(left, right + 1).map(value => '"' + String(value) + '"').join(',') + ']';
     }
     return '[]';
   }
@@ -1068,7 +1068,7 @@ class VarAndList {
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
     if (!variable) return '';
     const index = String(args.INDEX);
-    if(Number(index)<=variable.value.length && Number(index)>=1){
+    if (Number(index) <= variable.value.length && Number(index) >= 1) {
       return variable.value[index - 1];
     }
     return '';
@@ -1088,26 +1088,26 @@ class VarAndList {
     }
     return JSON.stringify(serialized);
   }
-  swapList(args,util){
+  swapList(args, util) {
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
     const variable2 = util.target.lookupVariableByNameAndType(String(args.LIST2), 'list');
     if (variable && variable2) {
-      let value=variable.value;
-      variable.value=variable2.value;
-      variable2.value=value;
+      let value = variable.value;
+      variable.value = variable2.value;
+      variable2.value = value;
       variable._monitorUpToDate = false;
       variable2._monitorUpToDate = false;
     }
   }
-  changeMonitorList(args,util){
+  changeMonitorList(args, util) {
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
     if (variable) {
-      this.changeMonitorVisibility(variable.id, args.CASE==='show');
+      this.changeMonitorVisibility(variable.id, args.CASE === 'show');
     }
   }
-  isShowList(args,util){
+  isShowList(args, util) {
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
-    return this.isShow({list:variable});
+    return this.isShow({ list: variable });
   }
   clearList(args, util) {
     /** @type {VM.ListVariable} */
@@ -1121,11 +1121,11 @@ class VarAndList {
     /** @type {VM.ListVariable} */
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
     if (variable) {
-      try{
-        let arr=JSON.parse(args.LIST2);
-        if(Array.isArray(arr)) variable.value=arr.map(val=>String(val));
+      try {
+        let arr = JSON.parse(args.LIST2);
+        if (Array.isArray(arr)) variable.value = arr.map(val => JSON.stringify(val));
         variable._monitorUpToDate = false;
-      }catch(error){
+      } catch (error) {
         console.log('error:', error);
       }
     }
@@ -1134,9 +1134,9 @@ class VarAndList {
     /** @type {VM.ListVariable} */
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
     if (variable) {
-      let val=String(args.VALUE),num=Number(args.NUM);
-      variable.value=[];
-      for(let i=1;i<=num;i++) variable.value.push(val);
+      let val = String(args.VALUE), num = Number(args.NUM);
+      variable.value = [];
+      for (let i = 1; i <= num; i++) variable.value.push(val);
       variable._monitorUpToDate = false;
     }
   }
@@ -1147,7 +1147,7 @@ class VarAndList {
       const index = String(args.INDEX);
       if (index === 'ALL') {
         variable.value = [];
-      } else if(Number(index)<=variable.value.length && Number(index)>=1){
+      } else if (Number(index) <= variable.value.length && Number(index) >= 1) {
         variable.value.splice(Number(index) - 1, 1);
         variable._monitorUpToDate = false;
       }
@@ -1165,30 +1165,30 @@ class VarAndList {
     /** @type {VM.ListVariable} */
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
     if (variable) {
-      try{
-        let arr=JSON.parse(args.LIST2);
-        for(let i=0;i<arr.length;i++) variable.value.push(String(arr[i]));
+      try {
+        let arr = JSON.parse(args.LIST2);
+        for (let i = 0; i < arr.length; i++) variable.value.push(String(arr[i]));
         variable._monitorUpToDate = false;
-      }catch(error){
+      } catch (error) {
         console.log('error:', error);
       }
     }
   }
-  insertOfList(args,util){
+  insertOfList(args, util) {
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
-    const value=String(args.VALUE);
-    const index=Number(args.INDEX)>variable.value.length?variable.value.length+1:Number(args.INDEX);
-    variable.value.splice(index-1,0,value);
+    const value = String(args.VALUE);
+    const index = Number(args.INDEX) > variable.value.length ? variable.value.length + 1 : Number(args.INDEX);
+    variable.value.splice(index - 1, 0, value);
     variable._monitorUpToDate = false;
   }
-  insertListToList(args,util){
+  insertListToList(args, util) {
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
-    const index=Number(args.INDEX)>variable.value.length?variable.value.length+1:Number(args.INDEX);
-    try{
-      let arr=JSON.parse(args.LIST2).map(String);
-      variable.value.splice(index-1,0,...arr);
+    const index = Number(args.INDEX) > variable.value.length ? variable.value.length + 1 : Number(args.INDEX);
+    try {
+      let arr = JSON.parse(args.LIST2).map(String);
+      variable.value.splice(index - 1, 0, ...arr);
       variable._monitorUpToDate = false;
-    }catch(error){
+    } catch (error) {
       console.log('error:', error);
     }
   }
@@ -1197,8 +1197,8 @@ class VarAndList {
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
     if (variable) {
       const index = String(args.INDEX);
-      if(Number(index)<=variable.value.length && Number(index)>=1){
-        variable.value[index-1]=String(args.VALUE);
+      if (Number(index) <= variable.value.length && Number(index) >= 1) {
+        variable.value[index - 1] = String(args.VALUE);
         variable._monitorUpToDate = false;
       }
     }
@@ -1207,25 +1207,25 @@ class VarAndList {
     /** @type {VM.ListVariable} */
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
     if (variable) {
-      let length=variable.value.length,left=Number(args.LEFT),right=Number(args.RIGHT);
-      if(left<1) left=1;
-      if(right>length) right=length;
-      left-=1,right-=1;
-      for(let i=left;i<=right;i++) variable.value[i]=String(args.VALUE);
+      let length = variable.value.length, left = Number(args.LEFT), right = Number(args.RIGHT);
+      if (left < 1) left = 1;
+      if (right > length) right = length;
+      left -= 1, right -= 1;
+      for (let i = left; i <= right; i++) variable.value[i] = String(args.VALUE);
       variable._monitorUpToDate = false;
     }
   }
   getIndexOfList(args, util) {
     /** @type {VM.ListVariable} */
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
-    const value=String(args.VALUE);
-    let flag=openCaseSensitive;
+    const value = String(args.VALUE);
+    let flag = openCaseSensitive;
     if (variable) {
-      for(let i=0;i<variable.value.length;i++){
-        if(!flag){
-          if(Scratch.Cast.compare(variable.value[i],value)===0) return i + 1;
-        }else{
-          if(String(variable.value[i]) ==String(value)) return i + 1;
+      for (let i = 0; i < variable.value.length; i++) {
+        if (!flag) {
+          if (Scratch.Cast.compare(variable.value[i], value) === 0) return i + 1;
+        } else {
+          if (String(variable.value[i]) == String(value)) return i + 1;
         }
       }
     }
@@ -1234,51 +1234,51 @@ class VarAndList {
   getIndexesOfList(args, util) {
     /** @type {VM.ListVariable} */
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
-    const value=String(args.VALUE);
-    let flag=openCaseSensitive;
-    if(variable){
-      let indexes=[];
-      for(let i=0;i<variable.value.length;i++){
-        if(!flag){
-          if(Scratch.Cast.compare(variable.value[i],value)===0) indexes.push(i + 1);
-        }else{
-          if(String(variable.value[i])===String(value)) indexes.push(i + 1);
+    const value = String(args.VALUE);
+    let flag = openCaseSensitive;
+    if (variable) {
+      let indexes = [];
+      for (let i = 0; i < variable.value.length; i++) {
+        if (!flag) {
+          if (Scratch.Cast.compare(variable.value[i], value) === 0) indexes.push(i + 1);
+        } else {
+          if (String(variable.value[i]) === String(value)) indexes.push(i + 1);
         }
       }
-      if(indexes.length>0) return indexes.toString();
+      if (indexes.length > 0) return indexes.toString();
     }
     return '';
   }
   newGetIndexesOfList(args, util) {
     /** @type {VM.ListVariable} */
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
-    const value=String(args.VALUE);
-    let flag=openCaseSensitive;
-    if(variable){
-      let indexes=[];
-      for(let i=0;i<variable.value.length;i++){
-        if(!flag){
-          if(Scratch.Cast.compare(variable.value[i],value)===0) indexes.push(i + 1);
-        }else{
-          if(String(variable.value[i])===String(value)) indexes.push(i + 1);
+    const value = String(args.VALUE);
+    let flag = openCaseSensitive;
+    if (variable) {
+      let indexes = [];
+      for (let i = 0; i < variable.value.length; i++) {
+        if (!flag) {
+          if (Scratch.Cast.compare(variable.value[i], value) === 0) indexes.push(i + 1);
+        } else {
+          if (String(variable.value[i]) === String(value)) indexes.push(i + 1);
         }
       }
-      if(indexes.length>0) return '['+indexes.map(value=>'"'+String(value)+'"').join(',')+']';
+      if (indexes.length > 0) return '[' + indexes.map(value => '"' + String(value) + '"').join(',') + ']';
     }
     return '[]';
   }
   getCountsOfList(args, util) {
     /** @type {VM.ListVariable} */
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
-    const value=String(args.VALUE);
-    let flag=openCaseSensitive;
-    if(variable){
-      let indexes=[];
-      for(let i=0;i<variable.value.length;i++){
-        if(!flag){
-          if(Scratch.Cast.compare(variable.value[i],value)===0) indexes.push(i + 1);
-        }else{
-          if(String(variable.value[i])===String(value)) indexes.push(i + 1);
+    const value = String(args.VALUE);
+    let flag = openCaseSensitive;
+    if (variable) {
+      let indexes = [];
+      for (let i = 0; i < variable.value.length; i++) {
+        if (!flag) {
+          if (Scratch.Cast.compare(variable.value[i], value) === 0) indexes.push(i + 1);
+        } else {
+          if (String(variable.value[i]) === String(value)) indexes.push(i + 1);
         }
       }
       return indexes.length;
@@ -1288,14 +1288,14 @@ class VarAndList {
   listContains(args, util) {
     /** @type {VM.ListVariable} */
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
-    const value=String(args.VALUE);
-    let flag=openCaseSensitive;
+    const value = String(args.VALUE);
+    let flag = openCaseSensitive;
     if (variable) {
-      for(let i=0;i<variable.value.length;i++){
-        if(!flag){
-          if(Scratch.Cast.compare(variable.value[i],value)===0) return true;
-        }else{
-          if(String(variable.value[i])===String(value)) return false;
+      for (let i = 0; i < variable.value.length; i++) {
+        if (!flag) {
+          if (Scratch.Cast.compare(variable.value[i], value) === 0) return true;
+        } else {
+          if (String(variable.value[i]) === String(value)) return false;
         }
       }
       return false;
@@ -1315,101 +1315,101 @@ class VarAndList {
     /** @type {VM.ListVariable} */
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
     if (variable) {
-      let list=variable.value.slice();
+      let list = variable.value.slice();
       list.reverse();
-      variable.value=list;
+      variable.value = list;
       variable._monitorUpToDate = false;
     }
   }
-  sortList(args,util){
+  sortList(args, util) {
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
     if (variable) {
-      let order=args.CASE;
-      variable.value=this.sortFunc({arr:variable.value,order:order});
+      let order = args.CASE;
+      variable.value = this.sortFunc({ arr: variable.value, order: order });
       variable._monitorUpToDate = false;
     }
   }
-  sortListRange(args,util){
+  sortListRange(args, util) {
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
     if (variable) {
-      let order=args.CASE,left=Number(args.LEFT),right=Number(args.RIGHT);
-      variable.value=this.sortFunc({arr:variable.value,order:order,range:[left,right]});
+      let order = args.CASE, left = Number(args.LEFT), right = Number(args.RIGHT);
+      variable.value = this.sortFunc({ arr: variable.value, order: order, range: [left, right] });
       variable._monitorUpToDate = false;
     }
   }
-  isOrder(args,util){
+  isOrder(args, util) {
     const variable = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
-    if(variable){
-      let order=args.CASE;
-      return this.isOrderFunc(variable.value,order);
+    if (variable) {
+      let order = args.CASE;
+      return this.isOrderFunc(variable.value, order);
     }
     return false;
   }
-  mapObject(args,util){
+  mapObject(args, util) {
     const list = util.target.lookupVariableByNameAndType(String(args.LIST), 'list'),
-          list2 = util.target.lookupVariableByNameAndType(String(args.LIST2), 'list');
+      list2 = util.target.lookupVariableByNameAndType(String(args.LIST2), 'list');
     if (list && list2) {
-      try{
-        let object=JSON.parse(args.OBJ);
-        list.value=Object.keys(object);
-        list2.value=Object.values(object);
+      try {
+        let object = JSON.parse(args.OBJ);
+        list.value = Object.keys(object);
+        list2.value = Object.values(object);
         list._monitorUpToDate = false;
         list2._monitorUpToDate = false;
-      }catch(error){
+      } catch (error) {
         console.log('error:', error);
       }
     }
   }
-  associateList(args,util){
+  associateList(args, util) {
     const list = util.target.lookupVariableByNameAndType(String(args.LIST), 'list'),
-          list2 = util.target.lookupVariableByNameAndType(String(args.LIST2), 'list');
+      list2 = util.target.lookupVariableByNameAndType(String(args.LIST2), 'list');
     if (list && list2) {
-      let object={};
-      let length=(
-        args.DO==='d'?
-          Math.min(list.value.length,list2.value.length) :
-          Math.max(list.value.length,list2.value.length)
+      let object = {};
+      let length = (
+        args.DO === 'd' ?
+          Math.min(list.value.length, list2.value.length) :
+          Math.max(list.value.length, list2.value.length)
       );
-      for(let i=0;i<length;i++){
-        let key=list.value.length<=i?'key'+this.randomString(10):list.value[i];
-        let val=list2.value.length<=i?'':list2.value[i];
-        object[key]=val;
+      for (let i = 0; i < length; i++) {
+        let key = list.value.length <= i ? 'key' + this.randomString(10) : list.value[i];
+        let val = list2.value.length <= i ? '' : list2.value[i];
+        object[key] = val;
       }
       return JSON.stringify(object);
-    }else return '{}';
+    } else return '{}';
   }
 
-  forEach(args,util){
+  forEach(args, util) {
     const variable = util.target.lookupVariableByNameAndType(String(args.VAR), '');
     if (variable) {
-      let left=Number(args.LEFT),right=Number(args.RIGHT);
-      let range=right-left+1;
-      if(typeof util.stackFrame.index==='undefined'){
+      let left = Number(args.LEFT), right = Number(args.RIGHT);
+      let range = right - left + 1;
+      if (typeof util.stackFrame.index === 'undefined') {
         util.stackFrame.index = 0;
       }
 
-      if(util.stackFrame.index<range){
+      if (util.stackFrame.index < range) {
         util.stackFrame.index++;
-        variable.value=util.stackFrame.index+left-1;
-        util.startBranch(1,true);
+        variable.value = util.stackFrame.index + left - 1;
+        util.startBranch(1, true);
       }
     }
   }
-  forEachList(args,util){
+  forEachList(args, util) {
     const variable = util.target.lookupVariableByNameAndType(String(args.VAR), '');
     const list = util.target.lookupVariableByNameAndType(String(args.LIST), 'list');
     if (variable && list) {
-      let left=Number(args.LEFT)>0?Number(args.LEFT):1,
-          right=Number(args.RIGHT)<=list.value.length?Number(args.RIGHT):list.value.length;
-      let range=right-left+1;
-      if(typeof util.stackFrame.index==='undefined'){
+      let left = Number(args.LEFT) > 0 ? Number(args.LEFT) : 1,
+        right = Number(args.RIGHT) <= list.value.length ? Number(args.RIGHT) : list.value.length;
+      let range = right - left + 1;
+      if (typeof util.stackFrame.index === 'undefined') {
         util.stackFrame.index = 0;
       }
 
-      if(util.stackFrame.index<range){
+      if (util.stackFrame.index < range) {
         util.stackFrame.index++;
-        variable.value=list.value[util.stackFrame.index+left-2];
-        util.startBranch(1,true);
+        variable.value = list.value[util.stackFrame.index + left - 2];
+        util.startBranch(1, true);
       }
     }
   }
@@ -1429,12 +1429,12 @@ window.tempExt = {
   },
   l10n: {
     'zh-cn': {
-      'qxsckvarandlist.name':'变量与列表',
-      'qxsckvarandlist.description':'一些关于变量与列表的积木'
+      'qxsckvarandlist.name': '变量与列表',
+      'qxsckvarandlist.description': '一些关于变量与列表的积木'
     },
     'en': {
-      'qxsckvarandlist.name':'Variable and list',
-      'qxsckvarandlist.description':'Some blocks about variables and lists.'
+      'qxsckvarandlist.name': 'Variable and list',
+      'qxsckvarandlist.description': 'Some blocks about variables and lists.'
     }
   },
 }
