@@ -13,9 +13,9 @@ import Swal from 'sweetalert2'
       'BetterMsg.name': '更好的弹窗',
       // 注：虽然我使用的库支持HTML，但是有监管风险，故没有使用。
       'BetterMsg.openModal':
-        '弹出覆盖式模态框，类型[type]标题[title]内容[content][anime] |可选| 字体颜色16进制代码[color] ',
+        '弹出覆盖式模态框，类型[type]标题[title]内容[content][anim] |可选| 字体颜色16进制代码[color] ',
       'BetterMsg.openModalAutoClose':
-        '弹出覆盖式模态框，类型[type]标题[title]内容[content]并在[time]秒后自动关闭[anime] |可选| 字体颜色16进制代码[color] ',
+        '弹出覆盖式模态框，类型[type]标题[title]内容[content]并在[time]秒后自动关闭[anim] |可选| 字体颜色16进制代码[color] ',
       'BetterMsg.openModalRight':
         '弹出右上角通知弹窗，类型[type]内容[content]并在[time]秒后自动关闭 |可选| 字体颜色16进制代码[color] ',
       'BetterMsg.success': '成功',
@@ -23,8 +23,8 @@ import Swal from 'sweetalert2'
       'BetterMsg.error': '错误',
       'BetterMsg.info': '信息',
       'BetterMsg.question': '问题',
-      'BetterMsg.animeOk': '附带动画',
-      'BetterMsg.animeNo': '不附带动画',
+      'BetterMsg.animOk': '附带动画',
+      'BetterMsg.animNo': '不附带动画',
       'BetterMsg.alerts': '[open]浏览器原生alert弹窗',
       'BetterMsg.oalert': '覆写',
       'BetterMsg.calert': '还原'
@@ -32,9 +32,9 @@ import Swal from 'sweetalert2'
     en: {
       'BetterMsg.name': "Skydog's Better Message",
       'BetterMsg.openModal':
-        'Open modal dialog, type [type] title [title] content [content][anime] |optional| font color hex code [color]',
+        'Open modal dialog, type [type] title [title] content [content][anim] |optional| font color hex code [color]',
       'BetterMsg.openModalAutoClose':
-        'Open modal dialog, type [type] title [title] content [content] and close in [time] seconds[anime] |optional| font color hex code [color]',
+        'Open modal dialog, type [type] title [title] content [content] and close in [time] seconds[anim] |optional| font color hex code [color]',
       'BetterMsg.openModalRight':
         'Open notification pop-up, type [type] content [content] and close in [time] seconds |optional| font color hex code [color]',
       'BetterMsg.success': 'Success',
@@ -42,8 +42,8 @@ import Swal from 'sweetalert2'
       'BetterMsg.error': 'Error',
       'BetterMsg.info': 'Info',
       'BetterMsg.question': 'Question',
-      'BetterMsg.animeOk': 'With animation',
-      'BetterMsg.animeNo': 'Without animation',
+      'BetterMsg.animOk': 'With animation',
+      'BetterMsg.animNo': 'Without animation',
       'BetterMsg.alert': '[open] browser native alert dialog',
       'BetterMsg.oalert': 'Override',
       'BetterMsg.calert': 'Restore'
@@ -86,9 +86,9 @@ import Swal from 'sweetalert2'
                 type: Scratch.ArgumentType.STRING,
                 defaultValue: i10n('BetterMsg.success')
               },
-              anime: {
+              anim: {
                 type: Scratch.ArgumentType.STRING,
-                menu: 'anime'
+                menu: 'anim'
               },
               color: {
                 type: Scratch.ArgumentType.COLOR,
@@ -114,9 +114,9 @@ import Swal from 'sweetalert2'
                 type: Scratch.ArgumentType.STRING,
                 defaultValue: i10n('BetterMsg.success')
               },
-              anime: {
+              anim: {
                 type: Scratch.ArgumentType.STRING,
-                menu: 'anime'
+                menu: 'anim'
               },
               color: {
                 type: Scratch.ArgumentType.COLOR,
@@ -187,13 +187,13 @@ import Swal from 'sweetalert2'
               value: 'question'
             }
           ],
-          anime: [
+          anim: [
             {
-              text: i10n('BetterMsg.animeOk'),
+              text: i10n('BetterMsg.animOk'),
               value: 'true'
             },
             {
-              text: i10n('BetterMsg.animeNo'),
+              text: i10n('BetterMsg.animNo'),
               value: 'false'
             }
           ],
@@ -226,9 +226,9 @@ import Swal from 'sweetalert2'
       const content = args.content
       const title = args.title
       const type = args.type
-      const anime = args.anime
+      const anim = args.anim
       const color = args.color
-      if (anime === 'true') {
+      if (anim === 'true') {
         console.log('with animation')
         Swal.fire({
           title: title,
@@ -272,10 +272,10 @@ import Swal from 'sweetalert2'
       const content = args.content
       const title = args.title
       const type = args.type
-      const anime = args.anime
+      const anim = args.anim
       const color = args.color
       const time = args.time
-      if (anime === 'true') {
+      if (anim === 'true') {
         Swal.fire({
           title: title,
           color: color,

@@ -3074,32 +3074,32 @@
         "zh-cn": {
           "BetterMsg.name": "\u66F4\u597D\u7684\u5F39\u7A97",
           // 注：虽然我使用的库支持HTML，但是有监管风险，故没有使用。
-          "BetterMsg.openModal": "\u5F39\u51FA\u8986\u76D6\u5F0F\u6A21\u6001\u6846\uFF0C\u7C7B\u578B[type]\u6807\u9898[title]\u5185\u5BB9[content][anime] |\u53EF\u9009| \u5B57\u4F53\u989C\u827216\u8FDB\u5236\u4EE3\u7801[color] ",
-          "BetterMsg.openModalAutoClose": "\u5F39\u51FA\u8986\u76D6\u5F0F\u6A21\u6001\u6846\uFF0C\u7C7B\u578B[type]\u6807\u9898[title]\u5185\u5BB9[content]\u5E76\u5728[time]\u79D2\u540E\u81EA\u52A8\u5173\u95ED[anime] |\u53EF\u9009| \u5B57\u4F53\u989C\u827216\u8FDB\u5236\u4EE3\u7801[color] ",
+          "BetterMsg.openModal": "\u5F39\u51FA\u8986\u76D6\u5F0F\u6A21\u6001\u6846\uFF0C\u7C7B\u578B[type]\u6807\u9898[title]\u5185\u5BB9[content][anim] |\u53EF\u9009| \u5B57\u4F53\u989C\u827216\u8FDB\u5236\u4EE3\u7801[color] ",
+          "BetterMsg.openModalAutoClose": "\u5F39\u51FA\u8986\u76D6\u5F0F\u6A21\u6001\u6846\uFF0C\u7C7B\u578B[type]\u6807\u9898[title]\u5185\u5BB9[content]\u5E76\u5728[time]\u79D2\u540E\u81EA\u52A8\u5173\u95ED[anim] |\u53EF\u9009| \u5B57\u4F53\u989C\u827216\u8FDB\u5236\u4EE3\u7801[color] ",
           "BetterMsg.openModalRight": "\u5F39\u51FA\u53F3\u4E0A\u89D2\u901A\u77E5\u5F39\u7A97\uFF0C\u7C7B\u578B[type]\u5185\u5BB9[content]\u5E76\u5728[time]\u79D2\u540E\u81EA\u52A8\u5173\u95ED |\u53EF\u9009| \u5B57\u4F53\u989C\u827216\u8FDB\u5236\u4EE3\u7801[color] ",
           "BetterMsg.success": "\u6210\u529F",
           "BetterMsg.warning": "\u8B66\u544A",
           "BetterMsg.error": "\u9519\u8BEF",
           "BetterMsg.info": "\u4FE1\u606F",
           "BetterMsg.question": "\u95EE\u9898",
-          "BetterMsg.animeOk": "\u9644\u5E26\u52A8\u753B",
-          "BetterMsg.animeNo": "\u4E0D\u9644\u5E26\u52A8\u753B",
+          "BetterMsg.animOk": "\u9644\u5E26\u52A8\u753B",
+          "BetterMsg.animNo": "\u4E0D\u9644\u5E26\u52A8\u753B",
           "BetterMsg.alerts": "[open]\u6D4F\u89C8\u5668\u539F\u751Falert\u5F39\u7A97",
           "BetterMsg.oalert": "\u8986\u5199",
           "BetterMsg.calert": "\u8FD8\u539F"
         },
         en: {
           "BetterMsg.name": "Skydog's Better Message",
-          "BetterMsg.openModal": "Open modal dialog, type [type] title [title] content [content][anime] |optional| font color hex code [color]",
-          "BetterMsg.openModalAutoClose": "Open modal dialog, type [type] title [title] content [content] and close in [time] seconds[anime] |optional| font color hex code [color]",
+          "BetterMsg.openModal": "Open modal dialog, type [type] title [title] content [content][anim] |optional| font color hex code [color]",
+          "BetterMsg.openModalAutoClose": "Open modal dialog, type [type] title [title] content [content] and close in [time] seconds[anim] |optional| font color hex code [color]",
           "BetterMsg.openModalRight": "Open notification pop-up, type [type] content [content] and close in [time] seconds |optional| font color hex code [color]",
           "BetterMsg.success": "Success",
           "BetterMsg.warning": "Warning",
           "BetterMsg.error": "Error",
           "BetterMsg.info": "Info",
           "BetterMsg.question": "Question",
-          "BetterMsg.animeOk": "With animation",
-          "BetterMsg.animeNo": "Without animation",
+          "BetterMsg.animOk": "With animation",
+          "BetterMsg.animNo": "Without animation",
           "BetterMsg.alert": "[open] browser native alert dialog",
           "BetterMsg.oalert": "Override",
           "BetterMsg.calert": "Restore"
@@ -3139,9 +3139,9 @@
                     type: Scratch2.ArgumentType.STRING,
                     defaultValue: i10n("BetterMsg.success")
                   },
-                  anime: {
+                  anim: {
                     type: Scratch2.ArgumentType.STRING,
-                    menu: "anime"
+                    menu: "anim"
                   },
                   color: {
                     type: Scratch2.ArgumentType.COLOR,
@@ -3166,9 +3166,9 @@
                     type: Scratch2.ArgumentType.STRING,
                     defaultValue: i10n("BetterMsg.success")
                   },
-                  anime: {
+                  anim: {
                     type: Scratch2.ArgumentType.STRING,
-                    menu: "anime"
+                    menu: "anim"
                   },
                   color: {
                     type: Scratch2.ArgumentType.COLOR,
@@ -3238,13 +3238,13 @@
                   value: "question"
                 }
               ],
-              anime: [
+              anim: [
                 {
-                  text: i10n("BetterMsg.animeOk"),
+                  text: i10n("BetterMsg.animOk"),
                   value: "true"
                 },
                 {
-                  text: i10n("BetterMsg.animeNo"),
+                  text: i10n("BetterMsg.animNo"),
                   value: "false"
                 }
               ],
@@ -3274,9 +3274,9 @@
           const content = args.content;
           const title = args.title;
           const type = args.type;
-          const anime = args.anime;
+          const anim = args.anim;
           const color = args.color;
-          if (anime === "true") {
+          if (anim === "true") {
             console.log("with animation");
             import_sweetalert2.default.fire({
               title,
@@ -3319,10 +3319,10 @@
           const content = args.content;
           const title = args.title;
           const type = args.type;
-          const anime = args.anime;
+          const anim = args.anim;
           const color = args.color;
           const time = args.time;
-          if (anime === "true") {
+          if (anim === "true") {
             import_sweetalert2.default.fire({
               title,
               color,
