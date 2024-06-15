@@ -28729,7 +28729,7 @@ void main() {
           menus: {
             file_list: {
               acceptReporters: true,
-              items: this.__gandiAssetsJsonFileList()
+              items: "__gandiAssetsJsonFileList"
             },
             xyz: {
               acceptReporters: false,
@@ -28966,6 +28966,7 @@ void main() {
           this.scratchCanvas.before(this.tc);
         }
         this.tc.style.display = "block";
+        this.tc.style.position = "absolute";
         this.scratchCanvas = this.runtime.renderer.canvas;
         let _antialias = false;
         if (Cast.toString(Anti_Aliasing) == "enable") {
