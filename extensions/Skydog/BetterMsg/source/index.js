@@ -1,3 +1,4 @@
+import Bbcode from './module/bbcode.js'
 import Swal from 'sweetalert2'
 ;(function (Scratch) {
   const BetterMsgIconUrl =
@@ -12,6 +13,8 @@ import Swal from 'sweetalert2'
     'zh-cn': {
       'BetterMsg.name': '更好的弹窗',
       // 注：虽然我使用的库支持HTML，但是有监管风险，故没有使用。
+      'BetterMsg.help':"所有弹窗支持BBcode和Markdown，优先解析Markdown",
+      'BetterMsg.thank':'感谢 白猫@CCW 提供的BBcode解析依赖！',
       'BetterMsg.openModal':
         '弹出覆盖式模态框，类型[type]标题[title]内容[content][anim] |可选| 字体颜色16进制代码[color] ',
       'BetterMsg.openModalAutoClose':
@@ -27,10 +30,12 @@ import Swal from 'sweetalert2'
       'BetterMsg.animNo': '不附带动画',
       'BetterMsg.alerts': '[open]浏览器原生alert弹窗',
       'BetterMsg.oalert': '覆写',
-      'BetterMsg.calert': '还原'
+      'BetterMsg.calert': '还原',
     },
     en: {
       'BetterMsg.name': "Skydog's Better Message",
+      'BetterMsg.help':'All popups support BBcode and Markdown, prioritizing parsing of Markdown',
+      'BetterMsg.thank':'Thanks to 白猫 @ CCW for the BBcode parsing dependency!' ,
       'BetterMsg.openModal':
         'Open modal dialog, type [type] title [title] content [content][anim] |optional| font color hex code [color]',
       'BetterMsg.openModalAutoClose':
@@ -46,17 +51,18 @@ import Swal from 'sweetalert2'
       'BetterMsg.animNo': 'Without animation',
       'BetterMsg.alert': '[open] browser native alert dialog',
       'BetterMsg.oalert': 'Override',
-      'BetterMsg.calert': 'Restore'
+      'BetterMsg.calert': 'Restore',
+
     }
   })
-  function i10n(id: string) {
+  function i10n(id){
     return Scratch.translate({ id, default: id, description: id })
   }
 
   class BetterMsg {
-    runtime: VM.Runtime
-    constructor(runtime: VM.Runtime) {
+    constructor(runtime) {
       this.runtime = runtime
+      this.maxParsedable = 100;
     }
 
     getInfo() {
@@ -68,6 +74,7 @@ import Swal from 'sweetalert2'
         blockIconURI: BetterMsgIconUrl,
         menuIconURI: BetterMsgIconUrl,
         blocks: [
+          "---" + i10n('BetterMsg.help'),
           {
             blockType: Scratch.BlockType.COMMAND,
             opcode: 'openModal',
@@ -162,7 +169,8 @@ import Swal from 'sweetalert2'
                 menu: 'open'
               }
             }
-          }
+          },
+          "---" + i10n('BetterMsg.thank')
         ],
         menus: {
           type: [
@@ -223,17 +231,17 @@ import Swal from 'sweetalert2'
         document.head.appendChild(link)
       }
 
-      const content = args.content
-      const title = args.title
+      const content = "[md]" + args.content + "[/md]"
+      const title = "[md]" + args.title + "[/md]"
       const type = args.type
       const anim = args.anim
       const color = args.color
       if (anim === 'true') {
         console.log('with animation')
         Swal.fire({
-          title: title,
+          title: new Bbcode.Parser().toHTML(title, this.runtime, this.maxParsedable),
           color: color,
-          text: content,
+          html: new Bbcode.Parser().toHTML(content, this.runtime, this.maxParsedable),
           icon: type,
           showClass: {
             popup: `
@@ -252,9 +260,9 @@ import Swal from 'sweetalert2'
         })
       } else {
         Swal.fire({
-          title: title,
+          title: new Bbcode.Parser().toHTML(title, this.runtime, this.maxParsedable),
           color: color,
-          text: content,
+          html: new Bbcode.Parser().toHTML(content, this.runtime, this.maxParsedable),
           icon: type
         })
       }
@@ -269,17 +277,17 @@ import Swal from 'sweetalert2'
           'https://s4.zstatic.net/ajax/libs/animate.css/4.1.1/animate.min.css'
         document.head.appendChild(link)
       }
-      const content = args.content
-      const title = args.title
+      const content = "[md]" + args.content + "[/md]"
+      const title = "[md]" + args.title + "[/md]"
       const type = args.type
       const anim = args.anim
       const color = args.color
       const time = args.time
       if (anim === 'true') {
         Swal.fire({
-          title: title,
+          title: new Bbcode.Parser().toHTML(title, this.runtime, this.maxParsedable),
           color: color,
-          text: content,
+          html: new Bbcode.Parser().toHTML(content, this.runtime, this.maxParsedable),
           icon: type,
           timer: time * 1000,
           showClass: {
@@ -295,13 +303,14 @@ import Swal from 'sweetalert2'
               animate__fadeOutDown
               animate__faster
             `
-          }
+          },
+          
         })
       } else {
         Swal.fire({
-          title: title,
+          title: new Bbcode.Parser().toHTML(title, this.runtime, this.maxParsedable),
           color: color,
-          text: content,
+          html: new Bbcode.Parser().toHTML(content, this.runtime, this.maxParsedable),
           icon: type,
           timer: time * 1000
         })
@@ -318,7 +327,7 @@ import Swal from 'sweetalert2'
         document.head.appendChild(link)
       }
       const color = args.color
-      const content = args.content
+      const content = "[md]" + args.content + "[/md]"
       const type = args.type
       const time = args.time * 1000
       Swal.fire({
@@ -327,7 +336,7 @@ import Swal from 'sweetalert2'
         showConfirmButton: false,
         timer: time,
         type: type,
-        title: content,
+        title: new Bbcode.Parser().toHTML(content, this.runtime, this.maxParsedable),
         color: color
       })
     }
@@ -337,7 +346,7 @@ import Swal from 'sweetalert2'
         window.alert = e => {
           Swal.fire({
             type: 'info',
-            title: e
+            titleText: e
           })
         }
       } else {
@@ -351,6 +360,7 @@ import Swal from 'sweetalert2'
         d.close()
       }
     }
+
   }
   // For Gandi
   window.tempExt = {
