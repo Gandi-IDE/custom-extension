@@ -3179,7 +3179,7 @@
           "ODF",
           "OBSOLETE"
         ];
-        if (blackurl.includes(xy.toUpperCase())) {
+        if (blackurl.includes(xy.toUpperCase()) || xy.includes("//")) {
           import_sweetalert2.default.fire({
             title: i10n("LocalApp.error"),
             text: i10n("LocalApp.onlyLocalApp"),
