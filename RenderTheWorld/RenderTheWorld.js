@@ -27779,6 +27779,7 @@ void main() {
           this.runtime,
           this
         );
+        this.is_listener = false;
         this.isWebglAvailable = false;
         this.renderer = null;
         this.scene = null;
@@ -29054,14 +29055,20 @@ void main() {
             this.controls.update();
           }
         };
-        this.runtime.on("PROJECT_START", () => {
-          console.log(chen_RenderTheWorld_extensionId + ": Starting renders");
-          this.renderer.setAnimationLoop(this.render);
-        });
-        this.runtime.on("PROJECT_STOP_ALL", () => {
-          console.log(chen_RenderTheWorld_extensionId + ": Stopping renders");
-          this.renderer.setAnimationLoop(null);
-        });
+        this._listener();
+      }
+      _listener() {
+        if (!this.is_listener) {
+          this.runtime.on("PROJECT_START", () => {
+            console.log(chen_RenderTheWorld_extensionId + ": Starting renders");
+            this.renderer.setAnimationLoop(this.render);
+          });
+          this.runtime.on("PROJECT_STOP_ALL", () => {
+            console.log(chen_RenderTheWorld_extensionId + ": Stopping renders");
+            this.renderer.setAnimationLoop(null);
+          });
+          this.is_listener = true;
+        }
       }
       /**
        * 设置3d渲染器状态
