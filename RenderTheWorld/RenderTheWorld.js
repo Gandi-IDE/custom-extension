@@ -27668,7 +27668,6 @@ void main() {
         "RenderTheWorld.playAnimation": "\u542F\u52A8\u6A21\u578B: [name] \u7684\u52A8\u753B[animationName]",
         "RenderTheWorld.stopAnimation": "\u7ED3\u675F\u6A21\u578B: [name] \u7684\u52A8\u753B[animationName]",
         "RenderTheWorld.updateAnimation": "\u63A8\u8FDB\u6A21\u578B: [name] \u7684\u52A8\u753B [time]\u6BEB\u79D2 \u5E76\u66F4\u65B0",
-        "RenderTheWorld.updateAnimation2": "\u81EA\u52A8\u63A8\u8FDB\u6A21\u578B: [name] \u7684\u52A8\u753B\u5E76\u66F4\u65B0",
         "RenderTheWorld.getAnimation": "\u83B7\u53D6\u6A21\u578B: [name] \u7684\u6240\u6709\u52A8\u753B",
         "RenderTheWorld.rotationObject": "\u5C06\u7269\u4F53: [name] \u65CB\u8F6C: x[x] y[y] z[z]",
         "RenderTheWorld.moveObject": "\u5C06\u7269\u4F53: [name] \u79FB\u52A8\u5230: x[x] y[y] z[z]",
@@ -27684,6 +27683,7 @@ void main() {
         "RenderTheWorld.setAmbientLightColor": "\u8BBE\u7F6E\u73AF\u5883\u5149\u989C\u8272: [color] \u5149\u7167\u5F3A\u5EA6: [intensity]",
         "RenderTheWorld.setHemisphereLightColor": "\u8BBE\u7F6E\u534A\u7403\u5149\u5929\u7A7A\u989C\u8272: [skyColor] \u5730\u9762\u989C\u8272: [groundColor] \u5149\u7167\u5F3A\u5EA6: [intensity]",
         "RenderTheWorld.makePointLight": "\u521B\u5EFA\u6216\u91CD\u7F6E\u70B9\u5149\u6E90: [name] \u989C\u8272: [color] \u5149\u7167\u5F3A\u5EA6: [intensity] \u4F4D\u7F6E: x[x] y[y] z[z] \u8870\u51CF\u91CF[decay] [YN]\u6295\u5C04\u9634\u5F71",
+        "RenderTheWorld.makeDirectionalLight": "\u521B\u5EFA\u6216\u91CD\u7F6E\u65B9\u5411\u5149: [name] \u989C\u8272: [color] \u5149\u7167\u5F3A\u5EA6: [intensity] \u4F4D\u7F6E: x[x] y[y] z[z] \u6307\u5411: x[x2] y[y2] z[z2] [YN]\u6295\u5C04\u9634\u5F71",
         "RenderTheWorld.setLightMapSize": "\u8BBE\u7F6E\u5149\u6E90: [name] \u7684\u9634\u5F71\u7EB9\u7406\u5206\u8FA8\u7387\u4E3A: x[xsize] y[ysize]",
         "RenderTheWorld.moveLight": "\u5C06\u5149\u6E90: [name] \u79FB\u52A8\u5230: x[x] y[y] z[z]",
         "RenderTheWorld.getLightPos": "\u83B7\u53D6\u5149\u6E90: [name] \u7684[xyz]\u5750\u6807",
@@ -27733,7 +27733,6 @@ void main() {
         "RenderTheWorld.playAnimation": "start Object: [name]'s Animation [animationName]",
         "RenderTheWorld.stopAnimation": "stop Object: [name]'s Animation [animationName]",
         "RenderTheWorld.updateAnimation": "advance Object: [name]'s animation [time] millisecond and update it",
-        "RenderTheWorld.updateAnimation2": "automatically advance Object: [name]'s animation and update it",
         "RenderTheWorld.getAnimation": "Get Object: [name]'s all animations",
         "RenderTheWorld.rotationObject": "Object: [name] rotation: x[x] y[y] z[z]",
         "RenderTheWorld.moveObject": "Object: [name] go to: x[x] y[y] z[z]",
@@ -27749,6 +27748,7 @@ void main() {
         "RenderTheWorld.setAmbientLightColor": "set AmbientLight's color: [color] intensity: [intensity]",
         "RenderTheWorld.setHemisphereLightColor": "set HemisphereLight's skyColor: [skyColor] groundColor: [groundColor] intensity: [intensity]",
         "RenderTheWorld.makePointLight": "reset or make a PointLight: [name] color: [color] intensity: [intensity] position: x[x] y[y] z[z] decay[decay] [YN]cast shadows",
+        "RenderTheWorld.makeDirectionalLight": "reset or make a DirectionalLight: [name] color: [color] intensity: [intensity] position: x[x] y[y] z[z] to: x[x2] y[y2] z[z2] [YN]cast shadows",
         "RenderTheWorld.setLightMapSize": "set Light: [name]'s shadow texture resolution x[xsize] y[ysize]",
         "RenderTheWorld.moveLight": "Light: [name] go to: x[x] y[y] z[z]",
         "RenderTheWorld.getLightPos": "get Light: [name]'s [xyz] pos",
@@ -27868,11 +27868,11 @@ void main() {
               blockType: BlockType.BOOLEAN,
               text: this.formatMessage("RenderTheWorld.get3dState")
             },
-            {
-              opcode: "render",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.render")
-            },
+            // {
+            //     opcode: "render",
+            //     blockType: BlockType.COMMAND,
+            //     text: this.formatMessage("RenderTheWorld.render"),
+            // },
             {
               blockType: BlockType.LABEL,
               text: this.formatMessage("RenderTheWorld.tools")
@@ -28318,19 +28318,6 @@ void main() {
               }
             },
             {
-              opcode: "updateAnimation2",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage(
-                "RenderTheWorld.updateAnimation2"
-              ),
-              arguments: {
-                name: {
-                  type: "string",
-                  defaultValue: "name"
-                }
-              }
-            },
-            {
               opcode: "updateAnimation",
               blockType: BlockType.COMMAND,
               text: this.formatMessage(
@@ -28411,6 +28398,54 @@ void main() {
                 decay: {
                   type: "number",
                   defaultValue: 2
+                },
+                YN: {
+                  type: "string",
+                  menu: "YN"
+                }
+              }
+            },
+            {
+              opcode: "makeDirectionalLight",
+              blockType: BlockType.COMMAND,
+              text: this.formatMessage(
+                "RenderTheWorld.makeDirectionalLight"
+              ),
+              arguments: {
+                name: {
+                  type: "string",
+                  defaultValue: "name"
+                },
+                color: {
+                  type: "number"
+                },
+                intensity: {
+                  type: "number",
+                  defaultValue: 100
+                },
+                x: {
+                  type: "number",
+                  defaultValue: 0
+                },
+                y: {
+                  type: "number",
+                  defaultValue: 1
+                },
+                z: {
+                  type: "number",
+                  defaultValue: 0
+                },
+                x2: {
+                  type: "number",
+                  defaultValue: 0
+                },
+                y2: {
+                  type: "number",
+                  defaultValue: 1
+                },
+                z2: {
+                  type: "number",
+                  defaultValue: 0
                 },
                 YN: {
                   type: "string",
@@ -28943,14 +28978,6 @@ void main() {
             this.tc.style.height = String(pixelsTall) + "px";
           }
         };
-        this.runtime.renderer.draw = () => {
-          if (!this.isTcShow) {
-            _draw.call(this.runtime.renderer);
-          } else if (this.dirty) {
-            this.dirty = false;
-            this.renderer.render(this.scene, this.camera);
-          }
-        };
         this.dirty = false;
         this.scratchCanvas = this.runtime.renderer.canvas;
         this.clock = new Clock();
@@ -29016,6 +29043,25 @@ void main() {
         this.tc.style.height = this.scratchCanvas.style.height;
         this.tc.style.display = "none";
         this.isTcShow = false;
+        this.render = () => {
+          if (!this.tc) {
+            this.renderer.setAnimationLoop(null);
+            return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+          }
+          this._clock = this.clock.getDelta();
+          this.renderer.render(this.scene, this.camera);
+          if (this.controls.enableDamping) {
+            this.controls.update();
+          }
+        };
+        this.runtime.on("PROJECT_START", () => {
+          console.log(chen_RenderTheWorld_extensionId + ": Starting renders");
+          this.renderer.setAnimationLoop(this.render);
+        });
+        this.runtime.on("PROJECT_STOP_ALL", () => {
+          console.log(chen_RenderTheWorld_extensionId + ": Stopping renders");
+          this.renderer.setAnimationLoop(null);
+        });
       }
       /**
        * 设置3d渲染器状态
@@ -29044,16 +29090,16 @@ void main() {
       /**
        * 渲染，放在主循环里
        */
-      render(args) {
-        if (!this.tc) {
-          return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
-        }
-        this._clock = this.clock.getDelta();
-        this.renderer.render(this.scene, this.camera);
-        if (this.controls.enableDamping) {
-          this.controls.update();
-        }
-      }
+      // render(args) {
+      //     if (!this.tc) {
+      //         return "⚠️显示器未初始化！";
+      //     }
+      //     this._clock = this.clock.getDelta();
+      //     this.renderer.render(this.scene, this.camera);
+      //     if (this.controls.enableDamping) {
+      //         this.controls.update();
+      //     }
+      // }
       /**
        * 创建或重置长方体
        * @param {object} args
@@ -29412,12 +29458,6 @@ void main() {
           this.animations[name].mixer.update(time / 1e3);
         }
       }
-      updateAnimation2({ name }) {
-        return this.updateAnimation({
-          name,
-          time: this._clock * 1e3
-        });
-      }
       /**
        * 获取物体所有的动画
        * @param {object} args
@@ -29597,6 +29637,35 @@ void main() {
           Cast.toNumber(decay)
         );
         this.lights[name].position.set(
+          Cast.toNumber(x),
+          Cast.toNumber(y),
+          Cast.toNumber(z)
+        );
+        this.lights[name].shadow.bias = -5e-5;
+        if (Cast.toString(YN) == "true") {
+          this.lights[name].castShadow = true;
+        }
+        this.scene.add(this.lights[name]);
+      }
+      makeDirectionalLight({ name, color, intensity, x, y, z, x2, y2, z2, YN }) {
+        if (!this.tc) {
+          return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+        }
+        name = Cast.toString(name);
+        if (name in this.lights) {
+          this._deleteObject(this.lights[name]);
+          this.lights[name].dispose();
+        }
+        this.lights[name] = new DirectionalLight(
+          Cast.toNumber(color),
+          Cast.toNumber(intensity)
+        );
+        this.lights[name].position.set(
+          Cast.toNumber(x),
+          Cast.toNumber(y),
+          Cast.toNumber(z)
+        );
+        this.lights[name].target.position.set(
           Cast.toNumber(x),
           Cast.toNumber(y),
           Cast.toNumber(z)
