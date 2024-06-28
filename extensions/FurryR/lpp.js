@@ -5362,7 +5362,7 @@
                   thread.lpp.closure.set(value, new LppConstant(null));
               }
               controller.wait(thread).then(() => {
-                ;
+                
                 thread?.lpp?.returnCallback(
                   new LppReturn(new LppConstant(null))
                 );
