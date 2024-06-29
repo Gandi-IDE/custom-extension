@@ -1,7 +1,7 @@
-  const icon = 
+  const icon =
   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAI6UlEQVR4Xu1aa2wUVRSeQikFCgWpUpMijW0sISiVh5ZAlApEE4rFANFII5hiLA9F5CWiIBggAeQRSCHWSgENIC8JQgCNy7ulb2iR1rbQpTy2bFtadulzd8fvtEutdGbu3dlp/HMnmdAw5577nW/OPfPdc1eSxCUYEAwIBgQDggHBgGBAMCAYEAwIBgQDggHBgGBAMCAYEAwIBgQDggHBgGBAMCAYEAx0LAM+3riPuLxsxvCeoQkDuwe/GtK1T6ur0vrKyuK6+8dy7bf+KKy1HHaMSarzZh4jxq41n/AL9uu1OahLwPPw51PRZK+63fAg/+vQiauN8M/tIyxt6YhvS49Vl9VXyjzXvYZqeVPZaXlY5qo53JMYZFhUa8kHxkbcDtwuLbw5NnPjkpKDmw2aWtnNznsX0ptchEXfZXpQII/KXru0Q0HCOTDaeUhTiqLO2Sivv3XytKEYp19PftvmqNPHmsKo7XdMcu/zc4cZCrKFOCumI6Ca2cYTCK2w13PWves1RgS7l2dCT20I4JtXNq70GiAc3KyzZmD+BiOIaxsHrbb4gpSNujEeuJ95ylNiPLVfduPwVckU300vSARJGef0dF5eeyJxcn7iUmDs5BFG1LvDvJN4a3fgfoYccG72a54A3Ft++bybOK+XKws/1cUhGd+MU8KnKGOQtk//EDH9PiugeleTdLIqXzpVlb8v11521NJYcyGgs39DqH/fF4f1DI2ZFPTylMiA/v1Zfuj5hZoiaeq17VMsozYd0rIPvjh/+JHBcw5E9QoL5fELqSL9WpEjXawp+gV/l+Iuh+QKh5yJHNtn0MiYvi9Jof5BTFeZtlJpZPaaXpBkNqbxg6ZHrJciJ909JyOYBKR2Fy2HwzNXRRyruGJiOoTB9Ud3yWecoj8soQGpi2fChivj6Isfc3XLFuCLUPOHZyG+Zz76dGZBiswTMxJrDcZ01SQQS/ekVrD0NZ6Ut80OR88w30Qbg3G5G6JR7C0sImEjQ6DP+49vU7wP/m8laUrWVVZfJU/JT9wAfE95gi88bamZXqDWVVRbLsNvsKrfkEsL/bR0Hj0bk7Ou3hNgbW1R5zofsWafZpFARIGwVr2Iv9fzkAffNsijIXrxIX6ZNc9bVzbNBonKO7gVN4/u1wpuQfF+WS+41nFYiphnCyeJZ0GeiRUUvdh5RXv/RGB9vcUHgjShoXTlYp6hivNgO6Oqlil9US+ivQXYPB51c8b15AWsXQ0RxyKPSgpq3S747G4QtiFUP9UuwoO5JivOpUV9QuFu77Ov7awoxqhVs1gkamByEXmjs9cmIqAAQ8hzO4n7K0kzC0NTF3/ebj6k7gStUUEX5s03EqQ7E/1A4jzSWR5eLsqEgZeXrTOaPMKFWA9p4Wn+uruvVnWNVo9q8S2ovSeh/fOz4QRGJzcetGYljr/y3Wd2J/+3CXrTJzp3/fcFtZYvpehku9G4EOuG0voKVbf9/ALb11psqRLVWKeaYDTIJ2RKDyzFHTwNC2ujjTIvnanHvAR8vvpv1STER/BEuwz09elM/6dEVMeSR7NGJz9CA/aWpfEhM+xqR62tSXY2YEwD09gLA4fs0hrdnhOo8WmgXEnlu9wCsp8XeDSHYvdBOwzeMuhE/auEvElh7YJ04zXFP0cxq11QED+2y0C82da0fHJi7G2d/p26KG+xdKNsGQjy5poiFyUN7P4sr6dOwX6BgWciF8VEdA+mHUdP3oG8dtgnbw3vpr7Rwkq5p+hLIwWcsXnbcnkB8NrRbkPrTTNSsgmZaEWXZBVI7ME7J4/dNIaMwY5luqIfFPFaFdAO9AZJgRslVn0Q+GKWSCZ545Y4ag0EBzDbcUxAm/yBPOQwbUzxcdhQqL47dzkboegHfbndKnWQGpYOHAxtZgJgGUBAx+Zt3cn64rpFshVf5wy3rWoXhkhG1mSAxG2s6VnP0XHRTHycl/ymqgCgwN/EaLXurjPPfrsYDQHd5wTYCgatNR9Xy/JW4G7ykgHUF3dnkLicRSINhm/abupWDSgpJ1gvdnD68njNl4BlpZ6/IPf3qmupHpOIBgKy94PUmmLml9ZNHu0wfFuBtpA4ixUcOac5wtK+oP1qLCvb2j5HSUlhlRR0eyzMUoGzUcpCrYtkTSlOrJbDmba0AXE4R45EjzGbZ89LAURlrV6iWGvRgACJc1hBEnBa0nQW3e/ifCJyhRaR/mcT5iBmGwsfPYeAH/+kr3Z9LTj0yRux0qX1GYcTWiZOtOFzfypPS8e/l8z1lVl2Z0MF5I4v5EXYmN4Rk9Eu/2Rcn0H/ZpJGJNR6x5buQ2zPdkEkKy9DvBD8CmIqZM8+SBlmgj0+cjhozZQybWbpDuYARinQt5uMowafmL5DpLh+URKPr69uHjmw2nx8BrDVMidGFrzCeiPuj00TfVzcdZOr1a6Q2q7UmhJq5U9gAiMDNDMhI2JzbLeY5cAoA5Qtqq2aRxftsH9cuPt9owCo+CHCXVjeJaipo7nIa2OEMWMgrToYItXUEjox1D4HUQOPLm98ByFs7uVhS0SN0Bc8Ja/NxyUSXfI9OtphXGFREwXkeXS20i4WHCBN5jmx4kLk3mvjlK4YTck4kii6yXs8EB8yFPcFlClGXtB7uVi2IV7jIweoOf2NWC5Ut3A6t9jTEz2eIBDsG8joLV5sDZv5z3h4k5QAHRypn77xAFKywRnvoD2W1Gs8euxxNpAtxlDrfSFADdA7N9c4U3xvEDn2vWs7NqLwF3J8CJthUgmAxqOXuxUYo7jmchvp+oElpE4IZMo7owLDJ6KLMh7dC0iBXs0SgW7q5uY/unMjy2beA4lzAr01Mz7/5Z4A88q25XcsQ4EreHRgeBR+JTEKsmw45Err2Qm6zk3oQeZcfliSfqa6MK3aUZcNjNc9nVcXgW2KOI3vjZt6P9RWoppGjU5q91gBSLMr6SlY3fYtLa8w3OG4CROdHxThLgNG/rME3QDEQMGAYEAwIBgQDAgGBAOCAcGAYEAwIBgQDAgGBAOCAcGAYEAwIBgQDAgGBAOCAcGAYEAw8L8x8A8JuP/V1yX+SAAAAABJRU5ErkJggg==";
-  
-  const cover = 
+
+  const cover =
   "https://extensions.turbowarp.org/images/Skyhigh173/bigint.svg";
 
   /**
@@ -9,6 +9,9 @@
    * @returns {bigint}
    */
   const bi = (x) => {
+    if(typeof x==='bigint'){
+      return x;
+    }
     if (typeof x === "string") {
       // Try to parse things like '8n'
       if (x.charAt(x.length - 1) === "n") {
@@ -44,8 +47,8 @@
       this._formatMessage = runtime.getFormatMessage({
         'zh-cn': {
           'BigInt.extensionName': "大数字",
-          'BigInt.from': '到大数字 [text]',
-          'BigInt.to': '到[text]',
+          'BigInt.from': '将数字 [text] 转为BigInt',
+          'BigInt.to': '将BigInt [text] 转为数字',
           'BigInt.add': '[a] + [b]',
           'BigInt.sub': '[a] - [b]',
           'BigInt.mul': '[a] * [b]',
@@ -66,11 +69,11 @@
           'BigInt.rs': '[a] >> [b]',
           'BigInt.not': '~ [a]',
         },
-    
+
         en: {
           'BigInt.extensionName': "Big Int",
-          'BigInt.from': 'To BigInt [text]',
-          'BigInt.to': 'To Number [text]',
+          'BigInt.from': 'convert number [text] to BigInt',
+          'BigInt.to': 'convert BigInt [text] to number',
           'BigInt.add': '[a] + [b]',
           'BigInt.sub': '[a] - [b]',
           'BigInt.mul': '[a] * [b]',
@@ -93,7 +96,7 @@
         },
       })
     }
-    
+
     formatMessage(id) {
       return this._formatMessage({
         id,
