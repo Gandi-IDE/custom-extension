@@ -27833,6 +27833,7 @@ void main() {
           this
         );
         this.is_listener = false;
+        this._init_porject_time = 0;
         this.isWebglAvailable = false;
         this.renderer = null;
         this.scene = null;
@@ -29073,6 +29074,7 @@ void main() {
        * @param {string} args.Anti_Aliasing
        */
       init({ color, sizex, sizey, Anti_Aliasing }) {
+        this._init_porject_time = (/* @__PURE__ */ new Date()).getTime();
         const _draw = this.runtime.renderer.draw;
         this.dirty = false;
         this.scratchCanvas = this.runtime.renderer.canvas;
@@ -29154,6 +29156,7 @@ void main() {
             this.renderer.setAnimationLoop(this.render);
           });
           this.runtime.on("PROJECT_STOP_ALL", () => {
+            this._init_porject_time = 0;
             console.log(chen_RenderTheWorld_extensionId + ": Stopping renders");
             this.renderer.setAnimationLoop(null);
             this.scene.traverse((child) => {
@@ -29224,6 +29227,7 @@ void main() {
         if (!this.tc) {
           return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
         }
+        let init_porject_time = this._init_porject_time;
         name = Cast.toString(name);
         let geometry = new BoxGeometry(
           Cast.toNumber(a),
@@ -29248,7 +29252,7 @@ void main() {
         if (Cast.toString(YN2) == "true") {
           this.objects[name].receiveShadow = true;
         }
-        this.runtime.startHatsWithParams(
+        let r = this.runtime.startHatsWithParams(
           chen_RenderTheWorld_extensionId + "_objectLoadingCompleted",
           {
             parameters: {
@@ -29256,8 +29260,13 @@ void main() {
             }
           }
         );
-        this.scene.add(this.objects[name]);
-        this.render();
+        r && r.forEach((e) => {
+          this.runtime.sequencer.stepThread(e);
+        });
+        if (init_porject_time == this._init_porject_time) {
+          this.scene.add(this.objects[name]);
+          this.render();
+        }
       }
       /**
        * 创建或重置球体
@@ -29277,6 +29286,7 @@ void main() {
         if (!this.tc) {
           return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
         }
+        let init_porject_time = this._init_porject_time;
         name = Cast.toString(name);
         let geometry = new SphereGeometry(
           Cast.toNumber(radius),
@@ -29300,7 +29310,7 @@ void main() {
         if (Cast.toString(YN2) == "true") {
           this.objects[name].receiveShadow = true;
         }
-        this.runtime.startHatsWithParams(
+        let r = this.runtime.startHatsWithParams(
           chen_RenderTheWorld_extensionId + "_objectLoadingCompleted",
           {
             parameters: {
@@ -29308,8 +29318,13 @@ void main() {
             }
           }
         );
-        this.scene.add(this.objects[name]);
-        this.render();
+        r && r.forEach((e) => {
+          this.runtime.sequencer.stepThread(e);
+        });
+        if (init_porject_time == this._init_porject_time) {
+          this.scene.add(this.objects[name]);
+          this.render();
+        }
       }
       /**
        * 创建或重置平面
@@ -29328,6 +29343,7 @@ void main() {
         if (!this.tc) {
           return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
         }
+        let init_porject_time = this._init_porject_time;
         name = Cast.toString(name);
         let geometry = new PlaneGeometry(
           Cast.toNumber(a),
@@ -29350,7 +29366,7 @@ void main() {
         if (Cast.toString(YN2) == "true") {
           this.objects[name].receiveShadow = true;
         }
-        this.runtime.startHatsWithParams(
+        let r = this.runtime.startHatsWithParams(
           chen_RenderTheWorld_extensionId + "_objectLoadingCompleted",
           {
             parameters: {
@@ -29358,8 +29374,13 @@ void main() {
             }
           }
         );
-        this.scene.add(this.objects[name]);
-        this.render();
+        r && r.forEach((e) => {
+          this.runtime.sequencer.stepThread(e);
+        });
+        if (init_porject_time == this._init_porject_time) {
+          this.scene.add(this.objects[name]);
+          this.render();
+        }
       }
       /**
        * 导入或重置OBJ模型
@@ -29387,6 +29408,7 @@ void main() {
         if (_filelist.indexOf(mtlfile) == -1) {
           return "\u26A0\uFE0FMTL\u6587\u4EF6\u4E0D\u5B58\u5728\uFF01";
         }
+        let init_porject_time = this._init_porject_time;
         name = Cast.toString(name);
         const objLoader = new OBJLoader();
         const mtlLoader = new MTLLoader();
@@ -29417,7 +29439,7 @@ void main() {
                   }
                 });
               }
-              this.runtime.startHatsWithParams(
+              let r = this.runtime.startHatsWithParams(
                 chen_RenderTheWorld_extensionId + "_objectLoadingCompleted",
                 {
                   parameters: {
@@ -29425,8 +29447,13 @@ void main() {
                   }
                 }
               );
-              this.scene.add(this.objects[name]);
-              this.render();
+              r && r.forEach((e) => {
+                this.runtime.sequencer.stepThread(e);
+              });
+              if (init_porject_time == this._init_porject_time) {
+                this.scene.add(this.objects[name]);
+                this.render();
+              }
             }
           );
         });
@@ -29454,6 +29481,7 @@ void main() {
         if (_filelist.indexOf(gltffile) == -1) {
           return "\u26A0\uFE0FGLTF\u6587\u4EF6\u4E0D\u5B58\u5728\uFF01";
         }
+        let init_porject_time = this._init_porject_time;
         name = Cast.toString(name);
         const gltfLoader = new GLTFLoader();
         const url = this.getFileURL(Cast.toString(gltffile));
@@ -29487,7 +29515,7 @@ void main() {
               }
             });
           }
-          this.runtime.startHatsWithParams(
+          let r = this.runtime.startHatsWithParams(
             chen_RenderTheWorld_extensionId + "_objectLoadingCompleted",
             {
               parameters: {
@@ -29495,8 +29523,13 @@ void main() {
               }
             }
           );
-          this.scene.add(this.objects[name]);
-          this.render();
+          r && r.forEach((e) => {
+            this.runtime.sequencer.stepThread(e);
+          });
+          if (init_porject_time == this._init_porject_time) {
+            this.scene.add(this.objects[name]);
+            this.render();
+          }
         });
       }
       /**
