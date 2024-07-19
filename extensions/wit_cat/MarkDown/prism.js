@@ -1263,7 +1263,7 @@ if (typeof global !== 'undefined') {
  * @global
  * @public
  */
-;
+
 Prism.languages.markup = {
     'comment': {
         pattern: /<!--(?:(?!<!--)[\s\S])*?-->/,
