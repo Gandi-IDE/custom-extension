@@ -18,7 +18,7 @@ const zhcn = {
   "rc.rxblocks.rxfs.search": "搜索[STR]",
   "rc.rxblocks.rxfs.searchin": "搜索文件内容[STR]",
 
-  "rc.rxblocks.rxfs.folder_default": "rxFS 3!",
+  "rc.rxblocks.rxfs.folder_default": "rxFS 4!",
 };
 
 const enus = {
@@ -37,7 +37,7 @@ const enus = {
   "rc.rxblocks.rxfs.search": "Search [STR]",
   "rc.rxblocks.rxfs.searchin": "Search file contents [STR]",
 
-  "rc.rxblocks.rxfs.folder_default": "rxFS 3!",
+  "rc.rxblocks.rxfs.folder_default": "rxFS 4!",
 };
 
 class rxFS {
