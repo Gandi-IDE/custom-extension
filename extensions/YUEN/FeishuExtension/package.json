@@ -1,0 +1,35 @@
+{
+  "name": "gandi-extension-webpack-template",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./dist/extension.js",
+  "browser": "./dist/index.js",
+  "license": "MIT",
+  "author": "yuen619 <en5991@outlook.com>",
+  "scripts": {
+    "build": "npm run clean && webpack --config webpack.config.js",
+    "build:pre": "npm run clean && cross-env DEPLOY_ENV=pre webpack --config webpack.config.js",
+    "watch": "npm run clean && webpack --watch --progress",
+    "watch:pre": "npm run clean && cross-env DEPLOY_ENV=pre webpack --watch --progress",
+    "lint": "eslint src/**/*.js",
+    "clean": "rimraf ./dist"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.19.3",
+    "babel-loader": "^8.2.5",
+    "copy-webpack-plugin": "^11.0.0",
+    "eslint": "^7.32.0",
+    "css-loader": "^6.7.1",
+    "file-loader": "^6.2.0",
+    "rimraf": "^5.0.5",
+    "style-loader": "^3.3.1",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1",
+    "cross-env": "^7.0.3"
+  },
+  "dependencies": {
+    "axios": "^1.6.8"
+  }
+}

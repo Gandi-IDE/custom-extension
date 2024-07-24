@@ -1,24 +1,27 @@
 # ccw-user-extensions
 
 - [ccw-user-extensions](#ccw-user-extensions)
-  * [What for](#what-for)
-  * [How to jump in](#how-to-jump-in)
-    + [Normal remote extension (for anyone)](#normal-remote-extension--for-anyone-)
-    + [CCW approved extension (for CCW collaborator)](#ccw-approved-extension--for-ccw-collaborator-)
-    + [Apply for CCW collaborator](#apply-for-ccw-collaborator)
-  * [How to develop](#how-to-develop)
-    + [Define a extension](#define-a-extension)
+  - [What for](#what-for)
+  - [About license](#about-license)
+  - [How to jump in](#how-to-jump-in)
+    - [Normal remote extension (for anyone)](#normal-remote-extension-for-anyone)
+    - [CCW approved extension (for CCW collaborator)](#ccw-approved-extension-for-ccw-collaborator)
+    - [Apply for CCW collaborator](#apply-for-ccw-collaborator)
+  - [How to develop](#how-to-develop)
+    - [Define a extension](#define-a-extension)
       - [normal remote extension](#normal-remote-extension)
       - [CCW approved extension](#ccw-approved-extension)
-    + [Test your extension](#test-your-extension)
+    - [Test your extension](#test-your-extension)
       - [normal remote extension](#normal-remote-extension-1)
       - [CCW approved extension](#ccw-approved-extension-1)
-    + [Asset standard](#asset-standard)
+    - [Asset standard](#asset-standard)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
 ## What for
-This repo is for CCW Creator who wants make and test their own extensions.
+This repo is for Gandi Developer who wants make and test their own extensions.
+## About license
+Extensions in this repository are licensed under [LGPL-2.1](./LICENSE) by default, but certain extensions may have different licenses (such as extensions ported from TurboWarp for which we are grateful for their contributions).
 ## How to jump in
 There are two ways to develop and test your extensions.
 ### Normal remote extension (for anyone)
@@ -41,23 +44,27 @@ When your complete testing,you can apply for publish extensions to CCW Extension
 ### Define a extension
 #### normal remote extension
 
-[.example/normal-ext.js](https://github.com/CCW-Site/ccw-user-extension/blob/main/example/normal-ext.js)
+[.extensions/example/normal-ext.js](https://github.com/Gandi-IDE/custom-extension/blob/main/extensions/example/normal-ext.js)
 
 #### CCW approved extension
 
-[.example/ccw-approved-ext.js](https://github.com/CCW-Site/ccw-user-extension/blob/main/example/ccw-approved-ext.js)
+[.extensions/example/ccw-approved-ext.js](https://github.com/Gandi-IDE/custom-extension/blob/main/extensions/example/ccw-approved-ext.js)
 ### Test your extension
 #### normal remote extension
 if your work on a normal remote extension, you can upload your extension js file to any http server and make sure it can be accessed in open network.
 
 when complete above moves, use below url in browser(recommend Chrome)
 ```
-https://www.ccw.site/creator?extension=${your_file_url}
+https://www.ccw.site/gandi?gext=${your_file_url}
+```
+or
+```
+https://cocrea.world/gandi?gext=${your_file_url}
 ```
 
 For example
 ```
-https://www.ccw.site/creator?extension=https://ccw-user-extension.ccw.site/example/normal-ext.js
+https://www.ccw.site/gandi?gext=https://ccw-user-extension.ccw.site/extensions/example/normal-ext.js
 ```
 Extensions will be added to the bottom of block menu if there is no error in your code.
 
@@ -66,16 +73,16 @@ Push code and a bot will deploy your commit to a http server automatically. The 
 
 The automatic deploy url format is like below
 ```
-https://ccw-user-extension.ccw.site/${your_folder}/${jsFile}
+https://ccw-user-extension.ccw.site/extensions/${your_folder}/${jsFile}
 ```
 
 When completing the above moves, use the URL below in your browser(recommend Chrome).
 ```
-https://www.ccw.site/creator?ext=https://ccw-user-extension.ccw.site/${your_folder}/${jsFile}
+https://www.ccw.site/gandi?gext=https://ccw-user-extension.ccw.site/extensions/${your_folder}/${jsFile}
 ```
 For example
 ```
-https://www.ccw.site/creator?ext=https://ccw-user-extension.ccw.site/example/ccw-approved-ext.js
+https://www.ccw.site/gandi?gext=https://ccw-user-extension.ccw.site/extensions/example/ccw-approved-ext.js
 ```
 
 Extensions will be registed in Extension Library. You must add it by hand before you use it.
