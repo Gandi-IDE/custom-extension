@@ -833,7 +833,7 @@ void(window.tempExt = {
           let a = document.createElement("canvas");
           a.setAttribute("id", "Cube"), a.setAttribute("width", this.canvas().width), a.setAttribute("height", this.canvas().height);
           let e = a.style;
-          e.position = "absolute", e.left = "0%", e.top = "0%", this.cubeParent().appendChild(a), this.cubeScene = new this.Cube.init({
+          e.position = "absolute", e.left = "0%", e.top = "0%", e.pointerEvents = "none", this.cubeParent().appendChild(a), this.cubeScene = new this.Cube.init({
             element: document.getElementById("Cube")
           }), new MutationObserver(() => {
             for (let e in a.setAttribute("width", this.canvas().width), a.setAttribute("height", this.canvas().height), this.cubeScene = new this.Cube.init({
@@ -1162,7 +1162,7 @@ void(window.tempExt = {
               defaultValue: "50"
             },
             backface: {
-              type: "string",
+              type: "color",
               defaultValue: "#33cc33"
             },
             color: {
