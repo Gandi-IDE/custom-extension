@@ -27189,7 +27189,7 @@ void main() {
       if (expandableBlockInit)
         return;
       expandableBlockInit = true;
-      const hijack = (fn) => {
+      const hijack2 = (fn) => {
         const _orig = Function.prototype.apply;
         Function.prototype.apply = (thisArg) => thisArg;
         const result = fn();
@@ -27200,13 +27200,13 @@ void main() {
         function getEvent(e) {
           return e instanceof Array ? e[e.length - 1] : e;
         }
-        const vm = hijack(getEvent(runtime3._events["QUESTION"])).props.vm;
-        const scratchBlocks2 = hijack(
-          getEvent(vm._events["EXTENSION_ADDED"])
+        const vm2 = hijack2(getEvent(runtime3._events["QUESTION"])).props.vm;
+        const scratchBlocks2 = hijack2(
+          getEvent(vm2._events["EXTENSION_ADDED"])
         )?.ScratchBlocks;
         return {
           scratchBlocks: scratchBlocks2,
-          vm
+          vm: vm2
         };
       };
       const createButtons = (Blockly) => {
@@ -27687,7 +27687,69 @@ void main() {
       extensions,
       runtime
     } = Scratch2;
+    function hijack(fn) {
+      const _orig = Function.prototype.apply;
+      Function.prototype.apply = function(thisArg) {
+        return thisArg;
+      };
+      const result = fn();
+      Function.prototype.apply = _orig;
+      return result;
+    }
+    function getVM(runtime2) {
+      let virtualMachine;
+      if (Array.isArray(runtime2._events["QUESTION"])) {
+        for (const value of runtime2._events["QUESTION"]) {
+          const v = hijack(value);
+          if (v && v.props && v.props.vm) {
+            virtualMachine = v.props.vm;
+            break;
+          }
+        }
+      } else if (runtime2._events["QUESTION"]) {
+        const v = hijack(runtime2._events["QUESTION"]);
+        if (v && v.props && v.props.vm) {
+          virtualMachine = v.props.vm;
+        }
+      }
+      if (!virtualMachine) {
+        throw new Error("lpp cannot get Virtual Machine instance.");
+      }
+      return virtualMachine;
+    }
+    const vm = getVM(Scratch2.runtime);
     const chen_RenderTheWorld_extensionId = "RenderTheWorld";
+    const PATCHES_ID = "__patches_" + chen_RenderTheWorld_extensionId;
+    const patch = (obj, functions) => {
+      if (obj[PATCHES_ID])
+        return;
+      obj[PATCHES_ID] = {};
+      for (const name in functions) {
+        const original = obj[name];
+        obj[PATCHES_ID][name] = obj[name];
+        if (original) {
+          obj[name] = function(...args) {
+            const callOriginal = (...args2) => original.call(this, ...args2);
+            return functions[name].call(this, callOriginal, ...args);
+          };
+        } else {
+          obj[name] = function(...args) {
+            return functions[name].call(this, () => {
+            }, ...args);
+          };
+        }
+      }
+    };
+    patch(runtime.constructor.prototype, {
+      visualReport(original, blockId, value) {
+        if (vm.editingTarget) {
+          const block = vm.editingTarget.blocks.getBlock(blockId);
+          if (block.opcode === chen_RenderTheWorld_extensionId + "_makeMaterial" && !block.topLevel)
+            return;
+        }
+        original(blockId, value);
+      }
+    });
     translate.setup({
       "zh-cn": {
         "RenderTheWorld.name": "\u6E32\u67D3\u4E16\u754C",
@@ -27698,11 +27760,14 @@ void main() {
         "RenderTheWorld.get3dState": "\u200B3D\u663E\u793A\u5668\u662F\u663E\u793A\u7684?",
         "RenderTheWorld.3dState.display": "\u663E\u793A",
         "RenderTheWorld.3dState.hidden": "\u9690\u85CF",
+        "RenderTheWorld.material.Basic": "\u57FA\u7840",
+        "RenderTheWorld.material.Lambert": "Lambert",
+        "RenderTheWorld.material.Phong": "Phong",
         "RenderTheWorld.init": "\u521D\u59CB\u5316\u5E76\u8BBE\u7F6E\u80CC\u666F\u989C\u8272\u4E3A[color] \u5927\u5C0F[sizex]x[sizey]y [Anti_Aliasing]",
         "RenderTheWorld.Anti_Aliasing.enable": "\u542F\u7528\u6297\u952F\u9F7F",
         "RenderTheWorld.Anti_Aliasing.disable": "\u7981\u7528\u6297\u952F\u9F7F",
         "RenderTheWorld.render": "\u6E32\u67D3\u573A\u666F",
-        "RenderTheWorld.color_": "\u989C\u8272: [R] [G] [B]",
+        "RenderTheWorld.color_RGB": "RGB\u989C\u8272: [R] [G] [B]",
         "RenderTheWorld.tools": "\u{1F6E0}\uFE0F\u5DE5\u5177",
         "RenderTheWorld.YN.true": "\u80FD",
         "RenderTheWorld.YN.false": "\u4E0D\u80FD",
@@ -27711,11 +27776,26 @@ void main() {
         "RenderTheWorld.isWebGLAvailable": "\u517C\u5BB9\u6027\u68C0\u67E5",
         "RenderTheWorld._isWebGLAvailable": "\u5F53\u524D\u8BBE\u5907\u652F\u6301WebGL\u5417?",
         "RenderTheWorld.objects": "\u{1F9F8}\u7269\u4F53",
+        "RenderTheWorld.Material": "\u6750\u8D28",
+        "RenderTheWorld.Model": "\u6A21\u578B",
+        "RenderTheWorld.Move": "\u52A8\u4F5C",
+        "RenderTheWorld.Animation": "\u52A8\u753B",
         "RenderTheWorld.makeCube": "\u521B\u5EFA\u6216\u91CD\u7F6E\u957F\u65B9\u4F53: [name] \u957F[a] \u5BBD[b] \u9AD8[h] \u989C\u8272: [color] \u4F4D\u7F6E: x[x] y[y] z[z] [YN]\u6295\u5C04\u9634\u5F71 [YN2]\u88AB\u6295\u5C04\u9634\u5F71",
         "RenderTheWorld.makeSphere": "\u521B\u5EFA\u6216\u91CD\u7F6E\u7403\u4F53: [name] \u534A\u5F84[radius] \u6C34\u5E73\u5206\u6BB5\u6570[w] \u5782\u76F4\u5206\u6BB5\u6570[h] \u989C\u8272: [color] \u4F4D\u7F6E: x[x] y[y] z[z] [YN]\u6295\u5C04\u9634\u5F71 [YN2]\u88AB\u6295\u5C04\u9634\u5F71",
         "RenderTheWorld.makePlane": "\u521B\u5EFA\u6216\u91CD\u7F6E\u5E73\u9762: [name] \u957F[a] \u5BBD[b] \u989C\u8272: [color] \u4F4D\u7F6E: x[x] y[y] z[z] [YN]\u6295\u5C04\u9634\u5F71 [YN2]\u88AB\u6295\u5C04\u9634\u5F71",
         "RenderTheWorld.importOBJ": "\u5BFC\u5165\u6216\u91CD\u7F6EOBJ\u6A21\u578B: [name] OBJ\u6A21\u578B\u6587\u4EF6: [objfile] MTL\u6750\u8D28\u6587\u4EF6: [mtlfile] \u4F4D\u7F6E: x[x] y[y] z[z] [YN]\u6295\u5C04\u9634\u5F71 [YN2]\u88AB\u6295\u5C04\u9634\u5F71",
         "RenderTheWorld.importGLTF": "\u5BFC\u5165\u6216\u91CD\u7F6EGLTF\u6A21\u578B: [name] GLTF\u6A21\u578B\u6587\u4EF6: [gltffile] \u4F4D\u7F6E: x[x] y[y] z[z] [YN]\u6295\u5C04\u9634\u5F71 [YN2]\u88AB\u6295\u5C04\u9634\u5F71",
+        "RenderTheWorld.cubeModel": "<\u957F\u65B9\u4F53> \u957F[a] \u5BBD[b] \u9AD8[h] \u6750\u8D28[material]",
+        "RenderTheWorld.sphereModel": "<\u7403\u4F53> \u534A\u5F84[radius] \u6C34\u5E73\u5206\u6BB5\u6570[w] \u5782\u76F4\u5206\u6BB5\u6570[h] \u6750\u8D28[material]",
+        "RenderTheWorld.planeModel": "<\u5E73\u9762> \u957F[a] \u5BBD[b] \u6750\u8D28[material]",
+        "RenderTheWorld.objModel": "<OBJ\u6A21\u578B> OBJ\u6587\u4EF6[objfile] MTL\u6587\u4EF6[mtlfile]",
+        "RenderTheWorld.gltfModel": "<GLTF\u6A21\u578B> GLTF\u6587\u4EF6[gltffile]",
+        "RenderTheWorld.importModel": "\u5BFC\u5165\u6216\u91CD\u7F6E\u6A21\u578B: \u540D\u79F0[name] \u6A21\u578B[model]",
+        "RenderTheWorld.shadowSettings": "\u8BBE\u7F6E\u6A21\u578B [name] \u7684\u9634\u5F71\u8BBE\u7F6E: [YN]\u6295\u5C04\u9634\u5F71 [YN2]\u88AB\u6295\u5C04\u9634\u5F71",
+        "RenderTheWorld.makeMaterial": "\u521B\u5EFA\u6750\u8D28 [material]",
+        "RenderTheWorld.setMaterialColor": "\u8BBE\u7F6E\u5F53\u524D\u6750\u8D28\u989C\u8272 [color]",
+        "RenderTheWorld.setMaterialFog": "\u8BBE\u7F6E\u5F53\u524D\u6750\u8D28 [YN] \u53D7\u96FE\u6548\u679C\u5F71\u54CD",
+        "RenderTheWorld.return": "\u6750\u8D28\u521B\u5EFA\u5B8C\u6210",
         "RenderTheWorld.playAnimation": "\u542F\u52A8\u6A21\u578B: [name] \u7684\u52A8\u753B[animationName]",
         "RenderTheWorld.stopAnimation": "\u7ED3\u675F\u6A21\u578B: [name] \u7684\u52A8\u753B[animationName]",
         "RenderTheWorld.updateAnimation": "\u63A8\u8FDB\u6A21\u578B: [name] \u7684\u52A8\u753B [time]\u6BEB\u79D2 \u5E76\u66F4\u65B0",
@@ -27764,11 +27844,14 @@ void main() {
         "RenderTheWorld.get3dState": "The 3D display is show?",
         "RenderTheWorld.3dState.display": "display",
         "RenderTheWorld.3dState.hidden": "hidden",
+        "RenderTheWorld.material.Basic": "Basic",
+        "RenderTheWorld.material.Lambert": "Lambert",
+        "RenderTheWorld.material.Phong": "Phong",
         "RenderTheWorld.init": "init and set the background color to [color] size:[sizex]x[sizey]y [Anti_Aliasing]",
         "RenderTheWorld.Anti_Aliasing.enable": "enable anti aliasing",
         "RenderTheWorld.Anti_Aliasing.disable": "disable anti aliasing",
         "RenderTheWorld.render": "render",
-        "RenderTheWorld.color_": "color: [R] [G] [B]",
+        "RenderTheWorld.color_RGB": "RGB color: [R] [G] [B]",
         "RenderTheWorld.tools": "\u{1F6E0}\uFE0FTools",
         "RenderTheWorld.YN.true": "can",
         "RenderTheWorld.YN.false": "can't",
@@ -27777,11 +27860,26 @@ void main() {
         "RenderTheWorld.isWebGLAvailable": "compatibility check",
         "RenderTheWorld._isWebGLAvailable": "Does the current device support WebGL?",
         "RenderTheWorld.objects": "\u{1F9F8}Objects",
+        "RenderTheWorld.Material": "Material",
+        "RenderTheWorld.Model": "Model",
+        "RenderTheWorld.Move": "Move",
+        "RenderTheWorld.Animation": "Animation",
         "RenderTheWorld.makeCube": "reset or make a Cube: [name] length[a] width[b] height[h] color: [color] position: x[x] y[y] z[z] [YN]cast shadows [YN2]shadow cast",
         "RenderTheWorld.makeSphere": "reset or make a Sphere: [name] radius[radius] widthSegments[w] heightSegments[h] color: [color] position: x[x] y[y] z[z] [YN]cast shadows [YN2]shadow cast",
         "RenderTheWorld.makePlane": "reset or make a Plane: [name] length[a] width[b] color: [color] position: x[x] y[y] z[z] [YN]cast shadows [YN2]shadow cast",
         "RenderTheWorld.importOBJ": "reset or make a OBJ Model: [name] OBJ file: [objfile] MTL file: [mtlfile] position: x[x] y[y] z[z] [YN]cast shadows [YN2]shadow cast",
         "RenderTheWorld.importGLTF": "reset or make a GLTF Model: [name] GLTF file: [gltffile] position: x[x] y[y] z[z] [YN]cast shadows [YN2]shadow cast",
+        "RenderTheWorld.cubeModel": "<cube> length[a] width[b] height[h] material[material]",
+        "RenderTheWorld.sphereModel": "<sphere> radius[radius] widthSegments[w] heightSegments[h] material[material]",
+        "RenderTheWorld.planeModel": "<plane> length[a] width[b] material[material]",
+        "RenderTheWorld.objModel": "<OBJ model> OBJ file[objfile] MTL file[mtlfile]",
+        "RenderTheWorld.gltfModel": "<GLTF model> GLTF file[gltffile]",
+        "RenderTheWorld.importModel": "reset or make a Model: name[name] model[model]",
+        "RenderTheWorld.shadowSettings": "set model [name] shadow settings: [YN]cast shadows [YN2]shadow cast",
+        "RenderTheWorld.makeMaterial": "make material [material]",
+        "RenderTheWorld.setMaterialColor": "set current material color [color]",
+        "RenderTheWorld.setMaterialFog": "set current material [YN] affected fog",
+        "RenderTheWorld.return": "Material make completed",
         "RenderTheWorld.playAnimation": "start Object: [name]'s Animation [animationName]",
         "RenderTheWorld.stopAnimation": "stop Object: [name]'s Animation [animationName]",
         "RenderTheWorld.updateAnimation": "advance Object: [name]'s animation [time] millisecond and update it",
@@ -27870,9 +27968,9 @@ void main() {
           this.threeDrawableId,
           this.threeSkinId
         );
-        console.log(this.runtime.renderer);
         this.clock = null;
         this._clock = 0;
+        this.threadInfo = {};
       }
       /**
        * 翻译
@@ -27953,9 +28051,9 @@ void main() {
               text: this.formatMessage("RenderTheWorld.tools")
             },
             {
-              opcode: "color_",
+              opcode: "color_RGB",
               blockType: BlockType.REPORTER,
-              text: this.formatMessage("RenderTheWorld.color_"),
+              text: this.formatMessage("RenderTheWorld.color_RGB"),
               arguments: {
                 R: {
                   type: "number",
@@ -27990,9 +28088,247 @@ void main() {
               text: this.formatMessage("RenderTheWorld.objects")
             },
             {
+              blockType: BlockType.LABEL,
+              text: this.formatMessage("RenderTheWorld.Material")
+            },
+            {
+              opcode: "makeMaterial",
+              blockType: BlockType.OUTPUT,
+              text: this.formatMessage("RenderTheWorld.makeMaterial"),
+              arguments: {
+                material: {
+                  type: "material",
+                  menu: "material",
+                  defaultValue: "Basic"
+                }
+              },
+              output: "Boolean",
+              outputShape: 3,
+              branchCount: 1
+            },
+            {
+              opcode: "setMaterialColor",
+              blockType: BlockType.COMMAND,
+              text: this.formatMessage("RenderTheWorld.setMaterialColor"),
+              arguments: {
+                color: {
+                  type: "string",
+                  defaultValue: ""
+                }
+              }
+            },
+            // "RenderTheWorld.setMaterialFog": "设置当前材质 [YN] 受雾效果影响",
+            {
+              opcode: "setMaterialFog",
+              blockType: BlockType.COMMAND,
+              text: this.formatMessage("RenderTheWorld.setMaterialFog"),
+              arguments: {
+                YN: {
+                  type: "string",
+                  menu: "YN",
+                  defaultValue: "true"
+                }
+              }
+            },
+            {
+              opcode: "return",
+              blockType: BlockType.COMMAND,
+              text: this.formatMessage("RenderTheWorld.return"),
+              arguments: {},
+              isTerminal: true
+            },
+            {
+              blockType: BlockType.LABEL,
+              text: this.formatMessage("RenderTheWorld.Model")
+            },
+            {
+              opcode: "objectLoadingCompleted",
+              blockType: BlockType.HAT,
+              text: this.formatMessage(
+                "RenderTheWorld.objectLoadingCompleted"
+              ),
+              isEdgeActivated: false,
+              shouldRestartExistingThreads: false,
+              arguments: {
+                name: {
+                  type: "ccw_hat_parameter",
+                  defaultValue: "name"
+                }
+              }
+            },
+            {
+              opcode: "importModel",
+              blockType: BlockType.COMMAND,
+              text: this.formatMessage("RenderTheWorld.importModel"),
+              arguments: {
+                name: {
+                  type: "string",
+                  defaultValue: "name"
+                },
+                model: {
+                  type: null,
+                  defaultValue: ""
+                }
+              }
+            },
+            {
+              opcode: "deleteObject",
+              blockType: BlockType.COMMAND,
+              text: this.formatMessage("RenderTheWorld.deleteObject"),
+              arguments: {
+                name: {
+                  type: "string",
+                  defaultValue: "name"
+                }
+              },
+              expandableBlock: {
+                expandableArgs: {
+                  "TEXT": ["text", ", ", 1],
+                  "NAME": ["string", "name"]
+                },
+                defaultIndex: 1,
+                textBegin: "",
+                textEnd: ""
+              }
+            },
+            {
+              opcode: "cubeModel",
+              blockType: BlockType.OUTPUT,
+              text: this.formatMessage("RenderTheWorld.cubeModel"),
+              arguments: {
+                a: {
+                  type: "number",
+                  defaultValue: 5
+                },
+                b: {
+                  type: "number",
+                  defaultValue: 5
+                },
+                h: {
+                  type: "number",
+                  defaultValue: 5
+                },
+                material: {
+                  type: null,
+                  defaultValue: ""
+                }
+              },
+              output: "Reporter",
+              outputShape: 3,
+              branchCount: 0
+            },
+            {
+              opcode: "sphereModel",
+              blockType: BlockType.OUTPUT,
+              text: this.formatMessage("RenderTheWorld.sphereModel"),
+              arguments: {
+                radius: {
+                  type: "number",
+                  defaultValue: 3
+                },
+                w: {
+                  type: "number",
+                  defaultValue: 32
+                },
+                h: {
+                  type: "number",
+                  defaultValue: 16
+                },
+                material: {
+                  type: null,
+                  defaultValue: ""
+                }
+              },
+              output: "Reporter",
+              outputShape: 3,
+              branchCount: 0
+            },
+            {
+              opcode: "planeModel",
+              blockType: BlockType.OUTPUT,
+              text: this.formatMessage("RenderTheWorld.planeModel"),
+              arguments: {
+                a: {
+                  type: "number",
+                  defaultValue: 5
+                },
+                b: {
+                  type: "number",
+                  defaultValue: 5
+                },
+                material: {
+                  type: null,
+                  defaultValue: ""
+                }
+              },
+              output: "Reporter",
+              outputShape: 3,
+              branchCount: 0
+            },
+            {
+              opcode: "objModel",
+              blockType: BlockType.OUTPUT,
+              text: this.formatMessage("RenderTheWorld.objModel"),
+              arguments: {
+                objfile: {
+                  type: "string",
+                  menu: "file_list"
+                },
+                mtlfile: {
+                  type: "string",
+                  menu: "file_list"
+                },
+                material: {
+                  type: null,
+                  defaultValue: ""
+                }
+              },
+              output: "Reporter",
+              outputShape: 3,
+              branchCount: 0
+            },
+            {
+              opcode: "gltfModel",
+              blockType: BlockType.OUTPUT,
+              text: this.formatMessage("RenderTheWorld.gltfModel"),
+              arguments: {
+                gltffile: {
+                  type: "string",
+                  menu: "file_list"
+                },
+                material: {
+                  type: null,
+                  defaultValue: ""
+                }
+              },
+              output: "Reporter",
+              outputShape: 3,
+              branchCount: 0
+            },
+            {
+              opcode: "shadowSettings",
+              blockType: BlockType.COMMAND,
+              text: this.formatMessage("RenderTheWorld.shadowSettings"),
+              arguments: {
+                name: {
+                  type: "string",
+                  defaultValue: "name"
+                },
+                YN: {
+                  type: "string",
+                  menu: "YN"
+                },
+                YN2: {
+                  type: "string",
+                  menu: "YN"
+                }
+              }
+            },
+            {
               opcode: "makeCube",
               blockType: BlockType.COMMAND,
               text: this.formatMessage("RenderTheWorld.makeCube"),
+              hideFromPalette: true,
               arguments: {
                 name: {
                   type: "string",
@@ -28039,6 +28375,7 @@ void main() {
               opcode: "makeSphere",
               blockType: BlockType.COMMAND,
               text: this.formatMessage("RenderTheWorld.makeSphere"),
+              hideFromPalette: true,
               arguments: {
                 name: {
                   type: "string",
@@ -28085,6 +28422,7 @@ void main() {
               opcode: "makePlane",
               blockType: BlockType.COMMAND,
               text: this.formatMessage("RenderTheWorld.makePlane"),
+              hideFromPalette: true,
               arguments: {
                 name: {
                   type: "string",
@@ -28127,6 +28465,7 @@ void main() {
               opcode: "importOBJ",
               blockType: BlockType.COMMAND,
               text: this.formatMessage("RenderTheWorld.importOBJ"),
+              hideFromPalette: true,
               arguments: {
                 name: {
                   type: "string",
@@ -28166,6 +28505,7 @@ void main() {
               opcode: "importGLTF",
               blockType: BlockType.COMMAND,
               text: this.formatMessage("RenderTheWorld.importGLTF"),
+              hideFromPalette: true,
               arguments: {
                 name: {
                   type: "string",
@@ -28198,26 +28538,9 @@ void main() {
                 }
               }
             },
-            "---",
             {
-              opcode: "deleteObject",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.deleteObject"),
-              arguments: {
-                name: {
-                  type: "string",
-                  defaultValue: "name"
-                }
-              },
-              expandableBlock: {
-                expandableArgs: {
-                  "TEXT": ["text", ", ", 1],
-                  "NAME": ["string", "name"]
-                },
-                defaultIndex: 1,
-                textBegin: "",
-                textEnd: ""
-              }
+              blockType: BlockType.LABEL,
+              text: this.formatMessage("RenderTheWorld.Move")
             },
             {
               opcode: "rotationObject",
@@ -28339,7 +28662,10 @@ void main() {
                 }
               }
             },
-            "---",
+            {
+              blockType: BlockType.LABEL,
+              text: this.formatMessage("RenderTheWorld.Animation")
+            },
             {
               opcode: "playAnimation",
               blockType: BlockType.COMMAND,
@@ -28420,22 +28746,6 @@ void main() {
                 }
               },
               disableMonitor: true
-            },
-            "---",
-            {
-              opcode: "objectLoadingCompleted",
-              blockType: BlockType.HAT,
-              text: this.formatMessage(
-                "RenderTheWorld.objectLoadingCompleted"
-              ),
-              isEdgeActivated: false,
-              shouldRestartExistingThreads: false,
-              arguments: {
-                name: {
-                  type: "ccw_hat_parameter",
-                  defaultValue: "name"
-                }
-              }
             },
             {
               blockType: BlockType.LABEL,
@@ -28961,6 +29271,29 @@ void main() {
                   value: "hidden"
                 }
               ]
+            },
+            material: {
+              acceptReporters: false,
+              items: [
+                {
+                  text: this.formatMessage(
+                    "RenderTheWorld.material.Basic"
+                  ),
+                  value: "Basic"
+                },
+                {
+                  text: this.formatMessage(
+                    "RenderTheWorld.material.Lambert"
+                  ),
+                  value: "Lambert"
+                },
+                {
+                  text: this.formatMessage(
+                    "RenderTheWorld.material.Phong"
+                  ),
+                  value: "Phong"
+                }
+              ]
             }
           }
         };
@@ -29209,6 +29542,329 @@ void main() {
       //         this.controls.update();
       //     }
       // }
+      /**
+       * 创建材质
+       * @param {object} args
+       * @param {string} args.material
+       */
+      makeMaterial({ material }, util) {
+        const thread = util.thread;
+        if (typeof util.stackFrame._inlineLastReturn !== "undefined") {
+          return util.stackFrame._inlineReturn;
+        } else if (typeof util.stackFrame._inlineReturn !== "undefined") {
+          const returnValue = util.stackFrame._inlineReturn;
+          util.thread.popStack();
+          util.stackFrame._inlineLastReturn = true;
+          util.stackFrame._inlineReturn = returnValue;
+          let _material = "";
+          if (material === "Basic") {
+            _material = new MeshBasicMaterial();
+          } else if (material === "Lambert") {
+            _material = new MeshLambertMaterial();
+          } else if (material === "Phong") {
+            _material = new MeshPhongMaterial();
+          } else {
+            _material = new MeshBasicMaterial();
+          }
+          _material.fog = true;
+          if (this.threadInfo[thread.topBlock]) {
+            for (let key in this.threadInfo[thread.topBlock]) {
+              if (key === "color") {
+                _material.color.set(this.threadInfo[thread.topBlock][key]);
+              }
+              if (key === "fog") {
+                _material.fog = this.threadInfo[thread.topBlock][key];
+              }
+            }
+          }
+          return _material;
+        } else {
+          this.threadInfo[thread.topBlock] = {};
+          if (util.stackFrame._inlineLoopRan) {
+            thread.popStack();
+            return "";
+          }
+          ;
+          const stackFrame = thread.peekStackFrame();
+          const oldGoToNextBlock = thread.goToNextBlock;
+          const resetGoToNext = function() {
+            thread.goToNextBlock = oldGoToNextBlock;
+          };
+          const blockGlowInFrame = thread.blockGlowInFrame;
+          const resetGlowInFrame = function() {
+            delete thread.blockGlowInFrame;
+            thread.blockGlowInFrame = blockGlowInFrame;
+          };
+          const trap = () => {
+            thread.status = thread.constructor.STATUS_RUNNING;
+            const realBlockId = stackFrame.reporting;
+            thread.pushStack(realBlockId);
+            util.stackFrame._inlineLoopRan = true;
+            this.stepToBranchWithBlockId(realBlockId, thread, 1, true);
+          };
+          thread.goToNextBlock = function() {
+            resetGlowInFrame();
+            trap();
+            thread.goToNextBlock = oldGoToNextBlock;
+            oldGoToNextBlock.call(this);
+            resetGoToNext();
+          };
+          Object.defineProperty(thread, "blockGlowInFrame", {
+            get() {
+              return blockGlowInFrame;
+            },
+            set(newValue) {
+              resetGoToNext();
+              trap();
+              resetGlowInFrame();
+            },
+            enumerable: true,
+            configurable: true
+          });
+          return { then: () => {
+          } };
+        }
+      }
+      // 实现stepToBranchWithBlockId方法，用于跳转到指定分支的块
+      stepToBranchWithBlockId(blockId, thread, branchNum, isLoop) {
+        if (!branchNum) {
+          branchNum = 1;
+        }
+        const currentBlockId = blockId;
+        const branchId = thread.target.blocks.getBranch(
+          currentBlockId,
+          branchNum
+        );
+        thread.peekStackFrame().isLoop = isLoop;
+        if (branchId) {
+          thread.pushStack(branchId);
+        } else {
+          thread.pushStack(null);
+        }
+      }
+      setMaterialColor({ color }, util) {
+        const thread = util.thread;
+        if (Number(Cast.toString(color)) == Number(Cast.toString(color))) {
+          this.threadInfo[thread.topBlock].color = Number(Cast.toString(color));
+        } else {
+          this.threadInfo[thread.topBlock].color = Cast.toString(color);
+        }
+      }
+      setMaterialFog({ YN }, util) {
+        const thread = util.thread;
+        if (Cast.toString(YN) === "ture") {
+          this.threadInfo[thread.topBlock].fog = true;
+        } else {
+          this.threadInfo[thread.topBlock].fog = false;
+        }
+      }
+      // 实现return方法，用于处理返回值
+      return(args, util) {
+        const thread = util.thread;
+        let blockID = thread.peekStack();
+        while (blockID) {
+          const block = thread.target.blocks.getBlock(blockID);
+          if (block && block.opcode === chen_RenderTheWorld_extensionId + "_makeMaterial") {
+            break;
+          }
+          thread.popStack();
+          blockID = thread.peekStack();
+        }
+        if (thread.stack.length === 0) {
+          thread.requestScriptGlowInFrame = false;
+          thread.status = thread.constructor.STATUS_DONE;
+        } else {
+          util.stackFrame._inlineReturn = "";
+          thread.status = thread.constructor.STATUS_RUNNING;
+        }
+      }
+      /**
+       * 创建或重置模型
+       * @param {object} args
+       * @param {string} args.name
+       * @param {number} args.model
+       */
+      async importModel({ name, model }) {
+        if (!this.tc) {
+          return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+        }
+        if (model === void 0) {
+          return "\u26A0\uFE0F\u6A21\u578B\u52A0\u8F7D\u5931\u8D25\uFF01";
+        }
+        let init_porject_time = this._init_porject_time;
+        name = Cast.toString(name);
+        this.releaseDuplicates(name);
+        if (model["model"] != void 0 && model["model"].isObject3D) {
+          this.objects[name] = model.model;
+          if (model["animations"] != void 0) {
+            this.animations[name] = model.animations;
+          }
+          let r = this.runtime.startHatsWithParams(
+            chen_RenderTheWorld_extensionId + "_objectLoadingCompleted",
+            {
+              parameters: {
+                name
+              }
+            }
+          );
+          r && r.forEach((e) => {
+            this.runtime.sequencer.stepThread(e);
+          });
+          if (init_porject_time == this._init_porject_time) {
+            this.scene.add(this.objects[name]);
+            this.render();
+          }
+        } else if (model["objfile"] != void 0 && model["mtlfile"] != void 0) {
+          this._objModel(name, model["objfile"], model["mtlfile"], init_porject_time);
+        } else if (model["gltffile"] != void 0) {
+          this._gltfModel(name, model["gltffile"], init_porject_time);
+        }
+      }
+      // "RenderTheWorld.shadowSettings": "设置模型 [name] 的阴影设置: [YN]投射阴影 [YN2]被投射阴影",
+      shadowSettings({ name, YN, YN2 }) {
+        if (!this.tc) {
+          return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
+        }
+        name = Cast.toString(name);
+        if (name in this.objects) {
+          if (Cast.toString(YN) == "true") {
+            this.objects[name].castShadow = true;
+            this.objects[name].traverse(function(node) {
+              if (node.isMesh) {
+                node.castShadow = true;
+              }
+            });
+          } else {
+            this.objects[name].castShadow = false;
+            this.objects[name].traverse(function(node) {
+              if (node.isMesh) {
+                node.castShadow = false;
+              }
+            });
+          }
+          if (Cast.toString(YN2) == "true") {
+            this.objects[name].receiveShadow = true;
+            this.objects[name].traverse(function(node) {
+              if (node.isMesh) {
+                node.receiveShadow = true;
+              }
+            });
+          } else {
+            this.objects[name].receiveShadow = false;
+            this.objects[name].traverse(function(node) {
+              if (node.isMesh) {
+                node.receiveShadow = false;
+              }
+            });
+          }
+        }
+      }
+      cubeModel({ a, b, h, material }) {
+        console.log(material);
+        let geometry = new BoxGeometry(
+          Cast.toNumber(a),
+          Cast.toNumber(b),
+          Cast.toNumber(h)
+        );
+        return {
+          "model": new Mesh(geometry, material)
+        };
+      }
+      // "RenderTheWorld.sphereModel": "<sphere> radius[radius] widthSegments[w] heightSegments[h] material[material]",
+      // "RenderTheWorld.planeModel": "<plane> length[a] width[b] material[material]",
+      // "RenderTheWorld.objModel": "<OBJ model> OBJ file[objfile] MTL file[mtlfile]",
+      // "RenderTheWorld.gltfModel": "<GLTF model> GLTF file[gltffile]",
+      sphereModel({ radius, w, h, material }) {
+        let geometry = new SphereGeometry(
+          Cast.toNumber(radius),
+          Cast.toNumber(w),
+          Cast.toNumber(h)
+        );
+        return {
+          "model": new Mesh(geometry, material)
+        };
+      }
+      planeModel({ a, b, material }) {
+        let geometry = new PlaneGeometry(
+          Cast.toNumber(a),
+          Cast.toNumber(b)
+        );
+        return {
+          "model": new Mesh(geometry, material)
+        };
+      }
+      objModel({ objfile, mtlfile }) {
+        return {
+          "objfile": objfile,
+          "mtlfile": mtlfile
+        };
+      }
+      _objModel(name, objfile, mtlfile, init_porject_time) {
+        name = Cast.toString(name);
+        const objLoader = new OBJLoader();
+        const mtlLoader = new MTLLoader();
+        mtlLoader.load(this.getFileURL(Cast.toString(mtlfile)), (mtl) => {
+          mtl.preload();
+          objLoader.setMaterials(mtl);
+          objLoader.load(
+            this.getFileURL(Cast.toString(objfile)),
+            (root) => {
+              this.objects[name] = root;
+              let r = this.runtime.startHatsWithParams(
+                chen_RenderTheWorld_extensionId + "_objectLoadingCompleted",
+                {
+                  parameters: {
+                    name
+                  }
+                }
+              );
+              r && r.forEach((e) => {
+                this.runtime.sequencer.stepThread(e);
+              });
+              if (init_porject_time == this._init_porject_time) {
+                this.scene.add(this.objects[name]);
+                this.render();
+              }
+            }
+          );
+        });
+      }
+      gltfModel({ gltffile }) {
+        return {
+          "gltffile": gltffile
+        };
+      }
+      _gltfModel(name, gltffile, init_porject_time) {
+        name = Cast.toString(name);
+        const gltfLoader = new GLTFLoader();
+        const url = this.getFileURL(Cast.toString(gltffile));
+        gltfLoader.load(url, (gltf) => {
+          const root = gltf.scene;
+          let mixer = new AnimationMixer(root);
+          let clips = gltf.animations;
+          this.animations[name] = {
+            mixer,
+            clips,
+            action: {}
+          };
+          this.objects[name] = root;
+          let r = this.runtime.startHatsWithParams(
+            chen_RenderTheWorld_extensionId + "_objectLoadingCompleted",
+            {
+              parameters: {
+                name
+              }
+            }
+          );
+          r && r.forEach((e) => {
+            this.runtime.sequencer.stepThread(e);
+          });
+          if (init_porject_time == this._init_porject_time) {
+            this.scene.add(this.objects[name]);
+            this.render();
+          }
+        });
+      }
       /**
        * 创建或重置长方体
        * @param {object} args
@@ -29877,7 +30533,6 @@ void main() {
         if (name in this.lights) {
           this.lights[name].shadow.mapSize.width = Cast.toNumber(xsize);
           this.lights[name].shadow.mapSize.height = Cast.toNumber(ysize);
-          console.log(this.lights[name].shadow);
         }
       }
       moveLight({ name, x, y, z }) {
@@ -30165,10 +30820,25 @@ void main() {
        * @param {number} args.B
        * @return {number}
        */
-      color_({ R, G, B }) {
+      color_RGB({ R, G, B }) {
         return Math.min(Math.max(Cast.toNumber(R), 0), 255) * 65536 + Math.min(Math.max(Cast.toNumber(G), 0), 255) * 256 + Math.min(Math.max(Cast.toNumber(B), 0), 255);
       }
     }
+    const cbfsb = runtime._convertBlockForScratchBlocks.bind(runtime);
+    runtime._convertBlockForScratchBlocks = function(blockInfo, categoryInfo) {
+      const res = cbfsb(blockInfo, categoryInfo);
+      if (blockInfo.outputShape) {
+        if (!res.json.outputShape)
+          res.json.outputShape = blockInfo.outputShape;
+      }
+      if (blockInfo.output) {
+        if (!res.json.output)
+          res.json.output = blockInfo.output;
+      }
+      if (!res.json.branchCount)
+        res.json.branchCount = blockInfo.branchCount;
+      return res;
+    };
     extensions.register(new RenderTheWorld(runtime));
     window.tempExt = {
       Extension: RenderTheWorld,
