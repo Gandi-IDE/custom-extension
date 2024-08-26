@@ -26,7 +26,7 @@ class StarryEncrypt {
                 "StarryEncrypt.hex": "十六进制",
                 "StarryEncrypt.ths": "三十六进制",
                 "StarryEncrypt.cae": "凯撒密码",
-                "StarryEncrypt.bac": "培根密码(无法设置密钥)",
+                "StarryEncrypt.bac": "培根密码",
                 "StarryEncrypt.key": "密钥",
                 "StarryEncrypt.docs": "📖拓展教程",
                 "StarryEncrypt.encrypt": "以 [type] 加密 [TEXT] 密钥 [KEY]",
@@ -46,7 +46,7 @@ class StarryEncrypt {
                 "StarryEncrypt.hex": "Sixteen Base",
                 "StarryEncrypt.ths": "Thirty-two Base",
                 "StarryEncrypt.cae": "Caesar Code",
-                "StarryEncrypt.bac": "Bacon Code(Unable to set a key)",
+                "StarryEncrypt.bac": "Bacon Code",
                 "StarryEncrypt.key": "Key",
                 "StarryEncrypt.docs": "📖 Tutorial",
                 "StarryEncrypt.encrypt": "Encrypt [TEXT] key [KEY] with [type]",
@@ -448,7 +448,7 @@ class StarryEncrypt {
     bacEncrypt(args) {
         let text = args.TEXT.toUpperCase();
         let encryptedText = '';
-
+        this.lastEncryptedText = args.TEXT;
         for (let i = 0; i < text.length; i++) {
             let char = text.charAt(i);
             if (char >= 'A' && char <= 'Z') {
@@ -468,7 +468,7 @@ class StarryEncrypt {
     bacDecrypt(args) {
         let text = args.TEXT.toUpperCase();
         let decryptedText = '';
-
+        this.lastDecryptedText = args.TEXT;
         for (let i = 0; i < text.length; i += 5) {
             let chunk = text.slice(i, i + 5);
             let binary = chunk.split('').map(char => char === 'A' ? '1' : '0').join('');
