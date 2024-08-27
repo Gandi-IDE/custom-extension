@@ -42,7 +42,7 @@ class Complex {
       }
     getInfo() {
         return {
-            id: 'complex',
+            id: 'wtkzq_complex',
             name: this.formatMessage("complex.name"),
             blockIconURI: wtkzq_complex_icon,
             menuIconURI: wtkzq_complex_icon,
@@ -312,7 +312,7 @@ window.tempExt = {
     info: {
       name: 'complex.name',
       description: 'complex.description',
-      extensionId: 'complex',
+      extensionId: 'wtkzq_complex',
       iconURL: wtkzq_complex_pic,
       insetIconURL: wtkzq_complex_icon,
       featured: true,
