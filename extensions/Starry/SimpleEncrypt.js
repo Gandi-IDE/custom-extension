@@ -172,6 +172,7 @@ class StarryEncrypt {
                     opcode: "digRandom",
                     blockType: "reporter",
                     text: this.formatMessage("StarryEncrypt.dig"),
+                    disableMonitor: true,
                     arguments: {
                         dig: {
                             type: "string",
