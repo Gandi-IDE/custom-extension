@@ -240,73 +240,57 @@ class StarryEncrypt {
         a.click();
     }
 
-    // 现代加密
+// 现代加密
     xdencrypt(args) {
-        if (args.type == "bin") {
-            return this.binEncrypt(args);
-        }
-        else {
-            if (args.type == "dec") {
-            return this.decEncrypt(args);
-            }
-            else {
-                if (args.type == "hex") {
+        switch (args.type) {
+            case "bin":
+                return this.binEncrypt(args);
+            case "dec":
+                return this.decEncrypt(args);
+            case "hex":
                 return this.hexEncrypt(args);
-                }
-            }
         }
     }
-    
-    // 现代解密
+
+// 现代解密
     xddecrypt(args) {
-        if (args.type == "bin") {
-            return this.binDecrypt(args);
-        }
-        else {
-            if (args.type == "dec") {
-            return this.decDecrypt(args);
-            }
-            else {
-                if (args.type == "hex") {
+        switch (args.type) {
+            case "bin":
+                return this.binDecrypt(args);
+            case "dec":
+                return this.decDecrypt(args);
+            case "hex":
                 return this.hexDecrypt(args);
-                }
-            }
         }
     }
 
-    // 古典加密
+// 古典加密
     gdencrypt(args) {
-        if (args.type == "cae") {
-            return this.caeEncrypt(args);
-        }
-        else {
-            if (args.type == "bac") {
-            return this.bacEncrypt(args);
-            }
-        }
-    }
-    
-    // 古典解密
-    gddecrypt(args) {
-        if (args.type == "cae") {
-            return this.caeDecrypt(args);
-        }
-        else {
-            if (args.type == "bac") {
-            return this.bacDecrypt(args);
-            }
+        switch (args.type) {
+            case "cae":
+                return this.caeEncrypt(args);
+            case "bac":
+                return this.bacEncrypt(args);
         }
     }
 
-    // 上次加密/解密的文本
-    lastText(args) {
-        if (args.ENDE == "encr") {
-        return this.lastEncryptedText;
+// 古典解密
+    gddecrypt(args) {
+        switch (args.type) {
+            case "cae":
+                return this.caeDecrypt(args);
+            case "bac":
+                return this.bacDecrypt(args);
         }
-        else {
-            if (args.ENDE == "decr") {
-            return this.lastDecryptedText;
-            }
+    }
+
+// 上次加密/解密的文本
+    lastText(args) {
+        switch (args.ENDE) {
+            case "encr":
+                return this.lastEncryptedText;
+            case "decr":
+                return this.lastDecryptedText;
         }
     }
 
