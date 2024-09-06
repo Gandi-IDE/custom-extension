@@ -27684,8 +27684,7 @@ void main() {
       TargetType,
       Cast,
       translate,
-      extensions,
-      runtime
+      extensions
     } = Scratch2;
     function hijack(fn) {
       const _orig = Function.prototype.apply;
@@ -27717,9 +27716,15 @@ void main() {
       }
       return virtualMachine;
     }
-    const vm = getVM(Scratch2.runtime);
+    const vm = Scratch2.vm ?? getVM(runtime);
+    const runtime = vm.runtime ?? Scratch2.runtime;
     const chen_RenderTheWorld_extensionId = "RenderTheWorld";
     const PATCHES_ID = "__patches_" + chen_RenderTheWorld_extensionId;
+    const is_see_inside = () => {
+      const ur1 = window.location.pathname;
+      const rege = /\/(?:gandi|creator)(?:\/|$)/;
+      return rege.test(ur1);
+    };
     const patch = (obj, functions) => {
       if (obj[PATCHES_ID])
         return;
@@ -27926,10 +27931,12 @@ void main() {
         if (!this.runtime)
           return;
         hackFun(_runtime);
-        setExpandableBlocks(
-          this.runtime,
-          this
-        );
+        if (is_see_inside() === "dev") {
+          setExpandableBlocks(
+            this.runtime,
+            this
+          );
+        }
         this.is_listener = false;
         this._init_porject_time = 0;
         this.isWebglAvailable = false;
