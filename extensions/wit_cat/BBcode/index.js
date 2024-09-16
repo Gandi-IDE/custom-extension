@@ -1594,7 +1594,8 @@ export default class WitCatBBcode {
     if (
       String(args.text).startsWith('https://m.ccw.site') ||
       String(args.text).startsWith('https://m.xiguacity') ||
-      String(args.text).startsWith('https://static.xiguacity')
+      String(args.text).startsWith('https://static.xiguacity') ||
+      String(args.text).substring(0, 5) == "data:application/font-woff;"
     ) {
       const xhr = new XMLHttpRequest(); // 定义一个异步对象
       xhr.open('GET', String(args.text), true); // 异步GET方式加载字体
