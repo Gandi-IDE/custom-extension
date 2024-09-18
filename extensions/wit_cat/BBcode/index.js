@@ -1909,7 +1909,17 @@ window.tempExt = {
     insetIconURL: witcat_BBcode_icon,
     featured: true,
     disabled: false,
-    collaborator: "白猫 @ CCW"
+    collaborator: "白猫 @ CCW",
+    collaboratorList: [
+      {
+        collaborator: '白猫 @ CCW',
+        collaboratorURL: 'https://www.ccw.site/student/6173f57f48cf8f4796fc860e'
+      },
+      {
+        collaborator: 'Fath11@Cocrea',
+        collaboratorURL: 'https://cocrea.world/@Fath11',
+      },
+    ],
   },
   l10n: {
     "zh-cn": {
