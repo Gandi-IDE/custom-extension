@@ -1845,7 +1845,11 @@ window.tempExt = {
       {
         collaborator: "酷可mc @ CCW",
         collaboratorURL: "https://www.ccw.site/student/203910367",
-      }
+      },
+      {
+        collaborator: 'Fath11@Cocrea',
+        collaboratorURL: 'https://cocrea.world/@Fath11',
+      },
     ]
   },
   l10n: {
