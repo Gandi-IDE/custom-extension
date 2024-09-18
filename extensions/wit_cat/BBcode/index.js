@@ -1591,30 +1591,30 @@ export default class WitCatBBcode {
    * @param {string} args.name 要获取的字体
    */
   loadfont(args) {
-  if (String(args.text).startsWith("data:application/font-woff;")) {
-    // Handle data URI directly
-    const font = new FontFace(String(args.name), `url(${String(args.text)})`);
-    font.load().then(function(loadedFont) {
-      document.fonts.add(loadedFont);
-    }).catch(function(error) {
-      console.error('Font loading failed:', error);
-    });
-  } else if (
-    String(args.text).startsWith('https://m.ccw.site') ||
-    String(args.text).startsWith('https://m.xiguacity') ||
-    String(args.text).startsWith('https://static.xiguacity')
-  ) {
-    const xhr = new XMLHttpRequest(); // Define an asynchronous object
-    xhr.open('GET', String(args.text), true); // Asynchronous GET method to load the font
-    xhr.responseType = 'arraybuffer'; // Change the asynchronous fetch type to arraybuffer binary type
-    xhr.onload = function () {
-      document.fonts.add(new FontFace(String(args.name), this.response)); // Add the font object to the page
-    };
-    xhr.send();
-  } else {
-    console.warn('不允许的链接\nDisallowed links');
+    if (String(args.text).startsWith("data:application/font-woff;")) {
+      // Handle data URI directly
+      const font = new FontFace(String(args.name), `url(${String(args.text)})`);
+      font.load().then(function(loadedFont) {
+        document.fonts.add(loadedFont);
+      }).catch(function(error) {
+        console.error('Font loading failed:', error);
+      });
+    } else if (
+      String(args.text).startsWith('https://m.ccw.site') ||
+      String(args.text).startsWith('https://m.xiguacity') ||
+      String(args.text).startsWith('https://static.xiguacity')
+    ) {
+      const xhr = new XMLHttpRequest(); // Define an asynchronous object
+      xhr.open('GET', String(args.text), true); // Asynchronous GET method to load the font
+      xhr.responseType = 'arraybuffer'; // Change the asynchronous fetch type to arraybuffer binary type
+      xhr.onload = function () {
+        document.fonts.add(new FontFace(String(args.name), this.response)); // Add the font object to the page
+      };
+      xhr.send();
+    } else {
+      console.warn('不允许的链接\nDisallowed links');
+    }
   }
-}
 
   click(args) {
     let out = '';
