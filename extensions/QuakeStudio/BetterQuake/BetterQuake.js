@@ -44,7 +44,7 @@
         "zh-cn": {
           extensionName: "\u96F7\u795E Pro",
           me: "\u81EA\u5DF1",
-          stage: "\u9636\u6BB5",
+          stage: "\u821E\u53F0",
           example: "\u793A\u4F8B",
           Enable: "\u542F\u7528",
           Disable: "\u7981\u7528",
