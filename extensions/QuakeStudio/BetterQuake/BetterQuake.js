@@ -42,23 +42,23 @@
           "Create/Update texture called [NAME] with [TEXTURE]": "Create/Update texture called [NAME] with [TEXTURE]"
         },
         "zh-cn": {
-          extensionName: "\u5730\u9707\u788E\u7247",
-          me: "\u6211",
+          extensionName: "\u96F7\u795E Pro",
+          me: "\u81EA\u5DF1",
           stage: "\u9636\u6BB5",
-          example: "\u4F8B\u5B50",
-          Enable: "\u4F7F\u80FD\u591F",
+          example: "\u793A\u4F8B",
+          Enable: "\u542F\u7528",
           Disable: "\u7981\u7528",
-          "[SHOULD] auto re-render": "[SHOULD]]\u81EA\u52A8\u91CD\u65B0\u6E32\u67D3",
-          "All loaded shaders": "\u6240\u6709\u52A0\u8F7D\u7684\u7740\u8272\u5668",
-          "Remove [SHADER]": "\u5220\u9664 [SHADER]",
+          "[SHOULD] auto re-render": "[SHOULD] \u81EA\u52A8\u91CD\u65B0\u6E32\u67D3",
+          "All loaded shaders": "\u6240\u6709\u5DF2\u52A0\u8F7D\u7684\u7740\u8272\u5668",
+          "Remove [SHADER]": "\u79FB\u9664 [SHADER]",
           "Reload [SHADER]": "\u91CD\u65B0\u52A0\u8F7D [SHADER]",
           "Apply [SHADER] to [TARGET]": "\u5C06 [SHADER] \u5E94\u7528\u4E8E [TARGET]",
-          "Detach [SHADER] from [TARGET]": "\u5C06 [SHADER] \u4ECE [TARGET] \u5206\u79BB",
-          Uniforms: "\u5236\u670D",
-          "Set number [UNIFORM] of [TARGET] to [VALUE]": "\u5C06 [TARGET] \u7684\u7F16\u53F7 [UNIFORM] \u8BBE\u7F6E\u4E3A [VALUE]",
-          "Set vector 2 [UNIFORM] of [TARGET] to [VALUE1][VALUE2]": "\u5C06 [TARGET] \u7684\u5411\u91CF 2 [UNIFORM] \u8BBE\u7F6E\u4E3A [VALUE1][VALUE2]",
-          "Set vector 3 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3]": "\u5C06 [TARGET] \u7684\u5411\u91CF 3 [UNIFORM] \u8BBE\u7F6E\u4E3A [VALUE1][VALUE2][VALUE3]",
-          "Set vector 4 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3][VALUE4]": "\u5C06 [TARGET] \u7684\u5411\u91CF 4 [UNIFORM] \u8BBE\u7F6E\u4E3A [VALUE1][VALUE2][VALUE3][VALUE4]",
+          "Detach [SHADER] from [TARGET]": "\u4ECE [TARGET] \u5206\u79BB [SHADER]",
+          Uniforms: "\u7EDF\u4E00\u53D8\u91CF",
+          "Set number [UNIFORM] of [TARGET] to [VALUE]": "\u5C06 [TARGET] \u7684\u7EDF\u4E00\u53D8\u91CF [UNIFORM] \u8BBE\u7F6E\u4E3A [VALUE]",
+          "Set vector 2 [UNIFORM] of [TARGET] to [VALUE1][VALUE2]": "\u5C06 [TARGET] \u7684\u4E8C\u7EF4\u5411\u91CF [UNIFORM] \u8BBE\u7F6E\u4E3A [VALUE1][VALUE2]",
+          "Set vector 3 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3]": "\u5C06 [TARGET] \u7684\u4E09\u7EF4\u5411\u91CF [UNIFORM] \u8BBE\u7F6E\u4E3A [VALUE1][VALUE2][VALUE3]",
+          "Set vector 4 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3][VALUE4]": "\u5C06 [TARGET] \u7684\u56DB\u7EF4\u5411\u91CF [UNIFORM] \u8BBE\u7F6E\u4E3A [VALUE1][VALUE2][VALUE3][VALUE4]",
           "Set matrix [UNIFORM] of [TARGET] to [MATRIX]": "\u5C06 [TARGET] \u7684\u77E9\u9635 [UNIFORM] \u8BBE\u7F6E\u4E3A [MATRIX]",
           "Set texture [UNIFORM] of [TARGET] to [TEXTURE]": "\u5C06 [TARGET] \u7684\u7EB9\u7406 [UNIFORM] \u8BBE\u7F6E\u4E3A [TEXTURE]",
           Textures: "\u7EB9\u7406",
@@ -4595,7 +4595,7 @@ void main() {
       name: "quakefragment.extensionName",
       description: "quakefragment.description",
       extensionId: "quakefragment",
-      //iconURL: cover,
+      //iconURL: banner.png,
       insetIconURL: icon,
       featured: true,
       disabled: false,
@@ -4603,6 +4603,10 @@ void main() {
         {
           collaborator: "Fath11@QuakeStudio",
           collaboratorURL: "https://cocrea.world/@Fath11"
+        },
+        {
+          collaborator: "\u9177\u53EFmc @ CCW",
+          collaboratorURL: "https://www.ccw.site/student/203910367"
         }
       ]
     },
