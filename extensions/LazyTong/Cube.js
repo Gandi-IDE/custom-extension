@@ -23,7 +23,7 @@ void (window.tempExt = {
                 }
                 return null
             }, this.Cube = function () {
-                console.log("%cLazyTong's Cube\n----------\n       銆€  銆€鈻冣枂鈻堚枃鈻勨枛\n銆€ 銆€ 銆€ 鈻熲棨鈻栥€€銆€銆€鈼モ枅鈻嶾n   銆€ 鈼⑩棨銆€ 鈻愩€€銆€銆€ 銆€鈻愨枆\n銆€ 鈻椻棨銆€銆€銆€鈻傘€€鈻椻枛銆€銆€鈻曗枅鈻嶾n銆€鈼ゃ€€鈻椻枀鈻栤棩鈻勩€€鈻€鈼ｃ€€銆€鈻堚枈\n鈻愩€€鈻曗枎鈼モ枛鈼ｂ棨銆€銆€銆€銆€鈼⑩枅鈻圽n鈻堚棧銆€鈼モ枀鈻堚杸銆€銆€銆€銆€鈻愨枅鈻堚棨\n鈻愨枅鈻欌杺銆€銆€     銆€鈼⑩枅鈻堚棨\n鈼モ枅鈻堚棧銆€銆€銆€銆€鈼⑩杽鈼n 銆€銆€鈻€鈻堚枅鈻呪枃鈻€\n----------\nVer 1.2\nhttps://lt.js.org ", "color:green;font-weight:bolder");
+                console.log("%cLazyTong's Cube\n----------\n       　  　▃▆█▇▄▖\n　 　 　 ▟◤▖　　　◥█▎\n   　 ◢◤　 ▐　　　 　▐▉\n　 ▗◤　　　▂　▗▖　　▕█▎\n　◤　▗▅▖◥▄　▀◣　　█▊\n▐　▕▎◥▖◣◤　　　　◢██\n█◣　◥▅█▀　　　　▐██◤\n▐█▙▂　　     　◢██◤\n◥██◣　　　　◢▄◤\n 　　▀██▅▇▀\n----------\nVer 1.2\nhttps://lt.js.org ", "color:green;font-weight:bolder");
                 let p = 2 * Math.PI,
                     n = function (e, t) {
                         for (let a in t) e[a] = t[a];
@@ -166,7 +166,7 @@ void (window.tempExt = {
                     this.sortValue = this.renderOrigin.z
                 }, a.prototype.render = function () {
                 }, a.prototype.renderGraphCanvas = function (a) {
-                    if (!a) throw new Error("[Cube]鏈彁渚涙覆鏌撲笂涓嬫枃");
+                    if (!a) throw new Error("[Cube]未提供渲染上下文");
                     this.flatGraph.forEach(function (e) {
                         e.render(a, o)
                     })
@@ -249,7 +249,7 @@ void (window.tempExt = {
                 n(G.prototype, j.prototype), G.prototype.create = function (e) {
                     a.prototype.create.call(this, e), j.prototype.create.call(this, e), this.setElement(this.element), this.setDragRotate(this.dragRotate), this.setResize(this.resize)
                 }, G.prototype.setElement = function (e) {
-                    if (!this.element) throw new Error("[Cube]鏈寚瀹氬厓绱�");
+                    if (!this.element) throw new Error("[Cube]未指定元素");
                     this.setCanvas(e)
                 }, G.prototype.setSize = function (e, t) {
                     e = Math.round(e), t = Math.round(t), this.setSizeCanvas(e, t)
@@ -397,7 +397,7 @@ void (window.tempExt = {
                 }, E.prototype.render = function (e, t) {
                     let a = this.pathCommands.length;
                     if (this.visible && a && (this.isFacingBack = 0 < this.renderNormal.z, this.backface || !this.isFacingBack)) {
-                        if (!t) throw new Error("[Cube]鏈彁渚涙覆鏌撳櫒");
+                        if (!t) throw new Error("[Cube]未提供渲染器");
                         1 === a ? this.renderCanvasDot(e, t) : this.renderPath(e, t)
                     }
                 }, E.prototype.renderCanvasDot = function (t) {
@@ -838,7 +838,7 @@ void (window.tempExt = {
                     cone: F,
                     box: C
                 }
-            }(), (null === this.canvas() || null === this.cubeParent()) && console.error("[Cube]鏃犳硶瀹氫綅鍒拌垶鍙�"), (() => {
+            }(), (null === this.canvas() || null === this.cubeParent()) && console.error("[Cube]无法定位到舞台"), (() => {
                 if (null !== this.canvas() && null !== this.cubeParent()) {
                     let t = document.createElement("canvas");
                     t.setAttribute("id", "Cube"), t.setAttribute("width", this.canvas().style.width), t.setAttribute("height", this.canvas().style.height);
@@ -863,41 +863,41 @@ void (window.tempExt = {
             window.cube = () => this.runtime;
             this._formatMessage = e.getFormatMessage({
                 "zh-cn": {
-                    "Cube.name": "LazyTong鐨勭珛鏂逛綋",
-                    "Cube.createRect": "鍒涘缓鎴栦慨鏀逛竴涓煩褰㈠苟鍛藉悕涓篬id]锛孹[x]Y[y]Z[z]瀹絒width]楂榌height]棰滆壊[color]澶у皬[stroke]%",
-                    "Cube.createRoundedRect": "鍒涘缓鎴栦慨鏀逛竴涓渾瑙掔煩褰㈠苟鍛藉悕涓篬id]锛孹[x]Y[y]Z[z]瀹絒width]楂榌height]棰滆壊[color]杈硅寮у害[radius]澶у皬[stroke]%",
-                    "Cube.createCircle": "鍒涘缓鎴栦慨鏀逛竴涓渾褰㈠苟鍛藉悕涓篬id]锛孹[x]Y[y]Z[z]棰滆壊[color]鍗婂緞[diameter]瀹屾暣鎬quarters]",
-                    "Cube.createEllipse": "鍒涘缓鎴栦慨鏀逛竴涓き鍦嗗舰骞跺懡鍚嶄负[id]锛孹[x]Y[y]Z[z]瀹絒width]楂榌height]棰滆壊[color]澶у皬[stroke]%",
-                    "Cube.createPolygon": "鍒涘缓鎴栦慨鏀逛竴涓猍sides]杈瑰舰骞跺懡鍚嶄负[id]锛孹[x]Y[y]Z[z]瀹絒width]楂榌height]棰滆壊[color]杈硅寮у害[radius]澶у皬[stroke]%",
-                    "Cube.createHemisphere": "鍒涘缓鎴栦慨鏀逛竴涓崐鍦嗗苟鍛藉悕涓篬id]锛孹[x]Y[y]Z[z]棰滆壊[color]鍦伴潰棰滆壊[backface]鍗婂緞[diameter]澶у皬[stroke]%",
-                    "Cube.createCone": "鍒涘缓鎴栦慨鏀逛竴涓渾閿ヤ綋骞跺懡鍚嶄负[id]锛孹[x]Y[y]Z[z]棰滆壊[color]鍦伴潰棰滆壊[backface]闀垮害[length]鍗婂緞[diameter]澶у皬[stroke]%",
-                    "Cube.createCylinder": "鍒涘缓鎴栦慨鏀逛竴涓渾鏌变綋骞跺懡鍚嶄负[id]锛孹[x]Y[y]Z[z]棰滆壊[color]椤堕儴棰滆壊[frontface]鍦伴潰棰滆壊[backface]闀垮害[length]澶у皬[stroke]%",
-                    "Cube.createBox": "鍒涘缓鎴栦慨鏀逛竴涓珛鏂逛綋骞跺懡鍚嶄负[id]锛孹[x]Y[y]Z[z]瀹絒width]楂榌height]灏哄[depth]棰滆壊[color]宸︿晶棰滆壊[leftface]鍙充晶棰滆壊[rightface]椤堕儴棰滆壊[topface]鍦伴潰棰滆壊[bottomface]澶у皬[stroke]%",
-                    "Cube.createCustom": "鍒涘缓鎴栦慨鏀逛竴涓猍closed]鑷畾涔夋ā鍨嬪苟鍛藉悕涓篬id]锛孹[x]Y[y]Z[z]棰滆壊[color]鑺傜偣浣嶇疆[path]鑺傜偣澶у皬[stroke]%",
-                    "Cube.deleteObject": "鍒犻櫎鐗╀綋[id]",
-                    "Cube.getAttrib": "鐗╀綋[id]鐨刐type]",
-                    "Cube.deleteAllObject": "鍒犻櫎鎵€鏈夌墿浣�",
-                    "Cube.getObjectNumbers": "鐗╀綋鎬绘暟",
-                    "Cube.getObjectList": "鐗╀綋ID鍒楄〃",
+                    "Cube.name": "LazyTong的立方体",
+                    "Cube.createRect": "创建或修改一个矩形并命名为[id]，X[x]Y[y]Z[z]宽[width]高[height]颜色[color]大小[stroke]%",
+                    "Cube.createRoundedRect": "创建或修改一个圆角矩形并命名为[id]，X[x]Y[y]Z[z]宽[width]高[height]颜色[color]边角弧度[radius]大小[stroke]%",
+                    "Cube.createCircle": "创建或修改一个圆形并命名为[id]，X[x]Y[y]Z[z]颜色[color]半径[diameter]完整性[quarters]",
+                    "Cube.createEllipse": "创建或修改一个椭圆形并命名为[id]，X[x]Y[y]Z[z]宽[width]高[height]颜色[color]大小[stroke]%",
+                    "Cube.createPolygon": "创建或修改一个[sides]边形并命名为[id]，X[x]Y[y]Z[z]宽[width]高[height]颜色[color]边角弧度[radius]大小[stroke]%",
+                    "Cube.createHemisphere": "创建或修改一个半圆并命名为[id]，X[x]Y[y]Z[z]颜色[color]地面颜色[backface]半径[diameter]大小[stroke]%",
+                    "Cube.createCone": "创建或修改一个圆锥体并命名为[id]，X[x]Y[y]Z[z]颜色[color]地面颜色[backface]长度[length]半径[diameter]大小[stroke]%",
+                    "Cube.createCylinder": "创建或修改一个圆柱体并命名为[id]，X[x]Y[y]Z[z]颜色[color]顶部颜色[frontface]地面颜色[backface]长度[length]大小[stroke]%",
+                    "Cube.createBox": "创建或修改一个立方体并命名为[id]，X[x]Y[y]Z[z]宽[width]高[height]尺寸[depth]颜色[color]左侧颜色[leftface]右侧颜色[rightface]顶部颜色[topface]地面颜色[bottomface]大小[stroke]%",
+                    "Cube.createCustom": "创建或修改一个[closed]自定义模型并命名为[id]，X[x]Y[y]Z[z]颜色[color]节点位置[path]节点大小[stroke]%",
+                    "Cube.deleteObject": "删除物体[id]",
+                    "Cube.getAttrib": "物体[id]的[type]",
+                    "Cube.deleteAllObject": "删除所有物体",
+                    "Cube.getObjectNumbers": "物体总数",
+                    "Cube.getObjectList": "物体ID列表",
                     "Cube.x": "X",
                     "Cube.y": "Y",
                     "Cube.z": "Z",
-                    "Cube.width": "瀹藉害",
-                    "Cube.height": "楂樺害",
-                    "Cube.color": "棰滆壊",
-                    "Cube.stroke": "澶у皬",
-                    "Cube.quarters": "瀹屾暣鎬�",
-                    "Cube.cornerRadius": "杈硅寮у害",
-                    "Cube.radius": "寮у害",
-                    "Cube.setRotate": "璁剧疆鐗╀綋[id]鍦╗type]涓婃棆杞琜rotate]搴�",
-                    "Cube.updateRender": "娓叉煋褰撳墠璁剧疆鐨勭墿浣�",
-                    "Cube.docs": "鎷撳睍鏁欑▼",
-                    "Cube.create": "鍒涘缓鐗╀綋",
-                    "Cube.modify": "淇敼鐗╀綋",
-                    "Cube.info": "淇℃伅",
-                    "Cube.fileListEmpty": "鏃犳枃浠�",
-                    "Cube.open": "寮€鏀剧殑",
-                    "Cube.closed": "闂悎鐨�"
+                    "Cube.width": "宽度",
+                    "Cube.height": "高度",
+                    "Cube.color": "颜色",
+                    "Cube.stroke": "大小",
+                    "Cube.quarters": "完整性",
+                    "Cube.cornerRadius": "边角弧度",
+                    "Cube.radius": "弧度",
+                    "Cube.setRotate": "设置物体[id]在[type]上旋转[rotate]度",
+                    "Cube.updateRender": "渲染当前设置的物体",
+                    "Cube.docs": "拓展教程",
+                    "Cube.create": "创建物体",
+                    "Cube.modify": "修改物体",
+                    "Cube.info": "信息",
+                    "Cube.fileListEmpty": "无文件",
+                    "Cube.open": "开放的",
+                    "Cube.closed": "闭合的"
                 },
                 en: {
                     "Cube.name": "LazyTong's Cube",
@@ -1754,7 +1754,7 @@ void (window.tempExt = {
             try {
                 this.cubeScene.updateRenderGraph()
             } catch (e) {
-                throw new Error('Cube: 娓叉煋鏃跺彂鐢熼敊璇�')
+                throw new Error('Cube: 渲染时发生错误')
             }
         }
     },
@@ -1774,8 +1774,8 @@ void (window.tempExt = {
     },
     l10n: {
         "zh-cn": {
-            "Cube.name": "LazyTong鐨勭珛鏂逛綋 V1.2",
-            "Cube.description": "鍗囩淮鎵撳嚮锛�"
+            "Cube.name": "LazyTong的立方体 V1.2",
+            "Cube.description": "升维打击！"
         },
         en: {
             "Cube.name": "LazyTong's Cube V1.2",
