@@ -6,96 +6,87 @@
 // License: MPL-2.0
 
 (() => {
-  var __getOwnPropNames = Object.getOwnPropertyNames;
-  var __commonJS = (cb, mod) => function __require() {
-    return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-  };
-
-  // src/l10n.json
-  var require_l10n = __commonJS({
-    "src/l10n.json"(exports, module) {
-      module.exports = {
-        en: {
-          extensionName: "QuakeFragmment",
-          me: "me",
-          stage: "stage",
-          example: "Example",
-          Enable: "Enable",
-          Disable: "Disable",
-          "[SHOULD] auto re-render": "[SHOULD] auto re-render",
-          "All loaded shaders": "All loaded shaders",
-          "Remove [SHADER]": "Remove [SHADER]",
-          "Reload [SHADER]": "Reload [SHADER]",
-          "Apply [SHADER] to [TARGET]": "Apply [SHADER] to [TARGET]",
-          "Detach [SHADER] from [TARGET]": "Detach [SHADER] from [TARGET]",
-          Uniforms: "Uniforms",
-          "Set number [UNIFORM] of [TARGET] to [VALUE]": "Set number [UNIFORM] of [TARGET] to [VALUE]",
-          "Set vector 2 [UNIFORM] of [TARGET] to [VALUE1][VALUE2]": "Set vector 2 [UNIFORM] of [TARGET] to [VALUE1][VALUE2]",
-          "Set vector 3 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3]": "Set vector 3 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3]",
-          "Set vector 4 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3][VALUE4]": "Set vector 4 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3][VALUE4]",
-          "Set matrix [UNIFORM] of [TARGET] to [MATRIX]": "Set matrix [UNIFORM] of [TARGET] to [MATRIX]",
-          "Set texture [UNIFORM] of [TARGET] to [TEXTURE]": "Set texture [UNIFORM] of [TARGET] to [TEXTURE]",
-          Textures: "Textures",
-          "All textures": "All textures",
-          "Delete all textures": "Delete all textures",
-          "Delete texture called [NAME]": "Delete texture called [NAME]",
-          "Create/Update texture called [NAME] with [TEXTURE]": "Create/Update texture called [NAME] with [TEXTURE]"
-        },
-        "zh-cn": {
-          extensionName: "\u96F7\u795E Pro",
-          me: "\u81EA\u5DF1",
-          stage: "\u821E\u53F0",
-          example: "\u793A\u4F8B",
-          Enable: "\u542F\u7528",
-          Disable: "\u7981\u7528",
-          "[SHOULD] auto re-render": "[SHOULD] \u81EA\u52A8\u91CD\u65B0\u6E32\u67D3",
-          "All loaded shaders": "\u6240\u6709\u5DF2\u52A0\u8F7D\u7684\u7740\u8272\u5668",
-          "Remove [SHADER]": "\u79FB\u9664 [SHADER]",
-          "Reload [SHADER]": "\u91CD\u65B0\u52A0\u8F7D [SHADER]",
-          "Apply [SHADER] to [TARGET]": "\u5C06 [SHADER] \u5E94\u7528\u4E8E [TARGET]",
-          "Detach [SHADER] from [TARGET]": "\u4ECE [TARGET] \u5206\u79BB [SHADER]",
-          Uniforms: "\u7EDF\u4E00\u53D8\u91CF",
-          "Set number [UNIFORM] of [TARGET] to [VALUE]": "\u5C06 [TARGET] \u7684\u7EDF\u4E00\u53D8\u91CF [UNIFORM] \u8BBE\u7F6E\u4E3A [VALUE]",
-          "Set vector 2 [UNIFORM] of [TARGET] to [VALUE1][VALUE2]": "\u5C06 [TARGET] \u7684\u4E8C\u7EF4\u5411\u91CF [UNIFORM] \u8BBE\u7F6E\u4E3A [VALUE1][VALUE2]",
-          "Set vector 3 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3]": "\u5C06 [TARGET] \u7684\u4E09\u7EF4\u5411\u91CF [UNIFORM] \u8BBE\u7F6E\u4E3A [VALUE1][VALUE2][VALUE3]",
-          "Set vector 4 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3][VALUE4]": "\u5C06 [TARGET] \u7684\u56DB\u7EF4\u5411\u91CF [UNIFORM] \u8BBE\u7F6E\u4E3A [VALUE1][VALUE2][VALUE3][VALUE4]",
-          "Set matrix [UNIFORM] of [TARGET] to [MATRIX]": "\u5C06 [TARGET] \u7684\u77E9\u9635 [UNIFORM] \u8BBE\u7F6E\u4E3A [MATRIX]",
-          "Set texture [UNIFORM] of [TARGET] to [TEXTURE]": "\u5C06 [TARGET] \u7684\u7EB9\u7406 [UNIFORM] \u8BBE\u7F6E\u4E3A [TEXTURE]",
-          Textures: "\u7EB9\u7406",
-          "All textures": "\u6240\u6709\u7EB9\u7406",
-          "Delete all textures": "\u5220\u9664\u6240\u6709\u7EB9\u7406",
-          "Delete texture called [NAME]": "\u5220\u9664\u540D\u4E3A [NAME] \u7684\u7EB9\u7406",
-          "Create/Update texture called [NAME] with [TEXTURE]": "\u4F7F\u7528 [TEXTURE] \u521B\u5EFA/\u66F4\u65B0\u540D\u4E3A [NAME] \u7684\u7EB9\u7406"
-        },
-        ms: {
-          extensionName: "QuakeFragmment",
-          me: "saya",
-          stage: "pentas",
-          example: "Contoh",
-          Enable: "Hidupkan",
-          Disable: "Matikan",
-          "[SHOULD] auto re-render": "[SHOULD] lukis semula sendiri",
-          "All loaded shaders": "Semua shader dimuatkan",
-          "Remove [SHADER]": "Buang [SHADER]",
-          "Reload [SHADER]": "Set semula [SHADER]",
-          "Apply [SHADER] to [TARGET]": "Sambungkan [SHADER] ke [TARGET]",
-          "Detach [SHADER] from [TARGET]": "Cabut [SHADER] dari [TARGET]",
-          Uniforms: "Uniforms",
-          "Set number [UNIFORM] of [TARGET] to [VALUE]": "Tetapkan nombor [UNIFORM] daripada [TARGET] kepada [VALUE]",
-          "Set vector 2 [UNIFORM] of [TARGET] to [VALUE1][VALUE2]": "Tetapkan vektor 2 [UNIFORM] daripada [TARGET] kepada [VALUE1][VALUE2]",
-          "Set vector 3 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3]": "Tetapkan vektor 3 [UNIFORM] daripada [TARGET] kepada [VALUE1][VALUE2][VALUE3]",
-          "Set vector 4 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3][VALUE4]": "Tetapkan vektor 4 [UNIFORM] daripada [TARGET] kepada [VALUE1][VALUE2][VALUE3][VALUE4]",
-          "Set matrix [UNIFORM] of [TARGET] to [MATRIX]": "Tetapkan matriks [UNIFORM] daripada [TARGET] kepada [MATRIX]",
-          "Set texture [UNIFORM] of [TARGET] to [TEXTURE]": "Tetapkan tekstur [UNIFORM] daripada [TARGET] kepada [TEXTURE]",
-          Textures: "Tekstur",
-          "All textures": "Semua tekstur",
-          "Delete all textures": "Padam semua tekstur",
-          "Delete texture called [NAME]": "Padam tekstur dipanggil [NAME]",
-          "Create/Update texture called [NAME] with [TEXTURE]": "Cipta/Kemas kini tekstur dipanggil [NAME] dengan [TEKSTUR]"
-        }
-      };
+  // src/l10n/index.ts
+  var l10n_default = {
+    en: {
+      _extensionName: "QuakeFragmment",
+      _me: "me",
+      _stage: "stage",
+      _example: "Example",
+      _Enable: "Enable",
+      _Disable: "Disable",
+      "_[SHOULD] auto re-render": "[SHOULD] auto re-render",
+      "_All loaded shaders": "All loaded shaders",
+      "Remove [SHADER]": "Remove [SHADER]",
+      "Reload [SHADER]": "Reload [SHADER]",
+      "Apply [SHADER] to [TARGET]": "Apply [SHADER] to [TARGET]",
+      "Detach [SHADER] from [TARGET]": "Detach [SHADER] from [TARGET]",
+      _Uniforms: "Uniforms",
+      "_Set number [UNIFORM] of [TARGET] to [VALUE]": "Set number [UNIFORM] of [TARGET] to [VALUE]",
+      "_Set vector 2 [UNIFORM] of [TARGET] to [VALUE1][VALUE2]": "Set vector 2 [UNIFORM] of [TARGET] to [VALUE1][VALUE2]",
+      "_Set vector 3 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3]": "Set vector 3 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3]",
+      "_Set vector 4 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3][VALUE4]": "Set vector 4 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3][VALUE4]",
+      "_Set matrix [UNIFORM] of [TARGET] to [MATRIX]": "Set matrix [UNIFORM] of [TARGET] to [MATRIX]",
+      "_Set texture [UNIFORM] of [TARGET] to [TEXTURE]": "Set texture [UNIFORM] of [TARGET] to [TEXTURE]",
+      _Textures: "Textures",
+      "_All textures": "All textures",
+      "_Delete all textures": "Delete all textures",
+      "_Delete texture called [NAME]": "Delete texture called [NAME]",
+      "_Create/Update texture called [NAME] with [TEXTURE]": "Create/Update texture called [NAME] with [TEXTURE]"
+    },
+    "zh-cn": {
+      _extensionName: "\u96F7\u795E Pro",
+      _me: "\u81EA\u5DF1",
+      _stage: "\u821E\u53F0",
+      _example: "\u793A\u4F8B",
+      _Enable: "\u542F\u7528",
+      _Disable: "\u7981\u7528",
+      "_[SHOULD] auto re-render": "[SHOULD] \u81EA\u52A8\u91CD\u65B0\u6E32\u67D3",
+      "_All loaded shaders": "\u6240\u6709\u5DF2\u52A0\u8F7D\u7684\u7740\u8272\u5668",
+      "_Remove [SHADER]": "\u79FB\u9664 [SHADER]",
+      "_Reload [SHADER]": "\u91CD\u65B0\u52A0\u8F7D [SHADER]",
+      "_Apply [SHADER] to [TARGET]": "\u5C06 [SHADER] \u5E94\u7528\u4E8E [TARGET]",
+      "_Detach [SHADER] from [TARGET]": "\u4ECE [TARGET] \u5206\u79BB [SHADER]",
+      _Uniforms: "\u7EDF\u4E00\u53D8\u91CF",
+      "_Set number [UNIFORM] of [TARGET] to [VALUE]": "\u5C06 [TARGET] \u7684\u7EDF\u4E00\u53D8\u91CF [UNIFORM] \u8BBE\u7F6E\u4E3A [VALUE]",
+      "_Set vector 2 [UNIFORM] of [TARGET] to [VALUE1][VALUE2]": "\u5C06 [TARGET] \u7684\u4E8C\u7EF4\u5411\u91CF [UNIFORM] \u8BBE\u7F6E\u4E3A [VALUE1][VALUE2]",
+      "_Set vector 3 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3]": "\u5C06 [TARGET] \u7684\u4E09\u7EF4\u5411\u91CF [UNIFORM] \u8BBE\u7F6E\u4E3A [VALUE1][VALUE2][VALUE3]",
+      "_Set vector 4 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3][VALUE4]": "\u5C06 [TARGET] \u7684\u56DB\u7EF4\u5411\u91CF [UNIFORM] \u8BBE\u7F6E\u4E3A [VALUE1][VALUE2][VALUE3][VALUE4]",
+      "_Set matrix [UNIFORM] of [TARGET] to [MATRIX]": "\u5C06 [TARGET] \u7684\u77E9\u9635 [UNIFORM] \u8BBE\u7F6E\u4E3A [MATRIX]",
+      "_Set texture [UNIFORM] of [TARGET] to [TEXTURE]": "\u5C06 [TARGET] \u7684\u7EB9\u7406 [UNIFORM] \u8BBE\u7F6E\u4E3A [TEXTURE]",
+      _Textures: "\u7EB9\u7406",
+      "_All textures": "\u6240\u6709\u7EB9\u7406",
+      "_Delete all textures": "\u5220\u9664\u6240\u6709\u7EB9\u7406",
+      "_Delete texture called [NAME]": "\u5220\u9664\u540D\u4E3A [NAME] \u7684\u7EB9\u7406",
+      "_Create/Update texture called [NAME] with [TEXTURE]": "\u4F7F\u7528 [TEXTURE] \u521B\u5EFA/\u66F4\u65B0\u540D\u4E3A [NAME] \u7684\u7EB9\u7406"
+    },
+    ms: {
+      _extensionName: "QuakeFragmment",
+      _me: "saya",
+      _stage: "pentas",
+      _example: "Contoh",
+      _Enable: "Hidupkan",
+      _Disable: "Matikan",
+      "_[SHOULD] auto re-render": "[SHOULD] lukis semula sendiri",
+      "_All loaded shaders": "Semua shader dimuatkan",
+      "_Remove [SHADER]": "Buang [SHADER]",
+      "_Reload [SHADER]": "Set semula [SHADER]",
+      "_Apply [SHADER] to [TARGET]": "Sambungkan [SHADER] ke [TARGET]",
+      "_Detach [SHADER] from [TARGET]": "Cabut [SHADER] dari [TARGET]",
+      _Uniforms: "Uniforms",
+      "_Set number [UNIFORM] of [TARGET] to [VALUE]": "Tetapkan nombor [UNIFORM] daripada [TARGET] kepada [VALUE]",
+      "_Set vector 2 [UNIFORM] of [TARGET] to [VALUE1][VALUE2]": "Tetapkan vektor 2 [UNIFORM] daripada [TARGET] kepada [VALUE1][VALUE2]",
+      "_Set vector 3 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3]": "Tetapkan vektor 3 [UNIFORM] daripada [TARGET] kepada [VALUE1][VALUE2][VALUE3]",
+      "_Set vector 4 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3][VALUE4]": "Tetapkan vektor 4 [UNIFORM] daripada [TARGET] kepada [VALUE1][VALUE2][VALUE3][VALUE4]",
+      "_Set matrix [UNIFORM] of [TARGET] to [MATRIX]": "Tetapkan matriks [UNIFORM] daripada [TARGET] kepada [MATRIX]",
+      "_Set texture [UNIFORM] of [TARGET] to [TEXTURE]": "Tetapkan tekstur [UNIFORM] daripada [TARGET] kepada [TEXTURE]",
+      _Textures: "Tekstur",
+      "_All textures": "Semua tekstur",
+      "_Delete all textures": "Padam semua tekstur",
+      "_Delete texture called [NAME]": "Padam tekstur dipanggil [NAME]",
+      "_Create/Update texture called [NAME] with [TEXTURE]": "Cipta/Kemas kini tekstur dipanggil [NAME] dengan [TEKSTUR]"
     }
-  });
+  };
 
   // node_modules/twgl.js/dist/5.x/twgl-full.module.js
   var VecType = Float32Array;
@@ -3825,802 +3816,790 @@ ${errors.filter((_) => _).join("\n")}`;
   renderbufferFormats[STENCIL_INDEX] = true;
   renderbufferFormats[STENCIL_INDEX8] = true;
 
+  // src/vertexShaderSource.glsl
+  var vertexShaderSource_default = `#version 300 es\r
+#ifdef GL_ES\r
+precision mediump float;\r
+#endif\r
+\r
+#ifdef DRAW_MODE_line\r
+uniform vec2 u_stageSize;\r
+in vec2 a_lineThicknessAndLength;\r
+in vec4 a_penPoints;\r
+in vec4 a_lineColor;\r
+\r
+out vec4 v_lineColor;\r
+out float v_lineThickness;\r
+out float v_lineLength;\r
+out vec4 v_penPoints;\r
+\r
+// Add this to divisors to prevent division by 0, which results in NaNs propagating through calculations.\r
+// Smaller values can cause problems on some mobile devices.\r
+const float epsilon = 1e-3;\r
+#endif\r
+\r
+#if !(defined(DRAW_MODE_line) || defined(DRAW_MODE_background))\r
+uniform mat4 u_projectionMatrix;\r
+uniform mat4 u_modelMatrix;\r
+in vec2 a_texCoord;\r
+#endif\r
+\r
+in vec2 a_position;\r
+\r
+out vec2 vUv;\r
+\r
+void main() {\r
+	#ifdef DRAW_MODE_line\r
+	// Calculate a rotated ("tight") bounding box around the two pen points.\r
+	// Yes, we're doing this 6 times (once per vertex), but on actual GPU hardware,\r
+	// it's still faster than doing it in JS combined with the cost of uniformMatrix4fv.\r
+\r
+	// Expand line bounds by sqrt(2) / 2 each side-- this ensures that all antialiased pixels\r
+	// fall within the quad, even at a 45-degree diagonal\r
+	vec2 position = a_position;\r
+	float expandedRadius = (a_lineThicknessAndLength.x * 0.5) + 1.4142135623730951;\r
+\r
+	// The X coordinate increases along the length of the line. It's 0 at the center of the origin point\r
+	// and is in pixel-space (so at n pixels along the line, its value is n).\r
+	vUv.x = mix(0.0, a_lineThicknessAndLength.y + (expandedRadius * 2.0), a_position.x) - expandedRadius;\r
+	// The Y coordinate is perpendicular to the line. It's also in pixel-space.\r
+	vUv.y = ((a_position.y - 0.5) * expandedRadius) + 0.5;\r
+\r
+	position.x *= a_lineThicknessAndLength.y + (2.0 * expandedRadius);\r
+	position.y *= 2.0 * expandedRadius;\r
+\r
+	// 1. Center around first pen point\r
+	position -= expandedRadius;\r
+\r
+	// 2. Rotate quad to line angle\r
+	vec2 pointDiff = a_penPoints.zw;\r
+	// Ensure line has a nonzero length so it's rendered properly\r
+	// As long as either component is nonzero, the line length will be nonzero\r
+	// If the line is zero-length, give it a bit of horizontal length\r
+	pointDiff.x = (abs(pointDiff.x) < epsilon && abs(pointDiff.y) < epsilon) ? epsilon : pointDiff.x;\r
+	// The "normalized" vector holds rotational values equivalent to sine/cosine\r
+	// We're applying the standard rotation matrix formula to the position to rotate the quad to the line angle\r
+	// pointDiff can hold large values so we must divide by u_lineLength instead of calling GLSL's normalize function:\r
+	// https://asawicki.info/news_1596_watch_out_for_reduced_precision_normalizelength_in_opengl_es\r
+	vec2 normalized = pointDiff / max(a_lineThicknessAndLength.y, epsilon);\r
+	position = mat2(normalized.x, normalized.y, -normalized.y, normalized.x) * position;\r
+\r
+	// 3. Translate quad\r
+	position += a_penPoints.xy;\r
+\r
+	// 4. Apply view transform\r
+	position *= 2.0 / u_stageSize;\r
+	gl_Position = vec4(position, 0, 1);\r
+\r
+	v_lineColor = a_lineColor;\r
+	v_lineThickness = a_lineThicknessAndLength.x;\r
+	v_lineLength = a_lineThicknessAndLength.y;\r
+	v_penPoints = a_penPoints;\r
+	#elif defined(DRAW_MODE_background)\r
+	gl_Position = vec4(a_position * 2.0, 0, 1);\r
+	#else\r
+	gl_Position = u_projectionMatrix * u_modelMatrix * vec4(a_position, 0, 1);\r
+	vUv = a_texCoord;\r
+	#endif\r
+}`;
+
+  // src/fragmentShaderSource.glsl
+  var fragmentShaderSource_default = "#version 300 es\r\n#ifdef GL_ES\r\nprecision mediump float;\r\n#endif\r\n\r\nin vec2 vUv;\r\nout vec4 fragColor;\r\nuniform sampler2D tDiffuse;\r\nuniform float time;\r\n\r\nuniform vec4 u_color;\r\n\r\nvoid main() {\r\n  fragColor = texture(tDiffuse, vUv) * u_color;\r\n  fragColor.rg *= sin(time);\r\n}";
+
+  // src/assets/BetterQuakeIcon.svg
+  var BetterQuakeIcon_default = "PHN2ZyB3aWR0aD0iMTI5IiBoZWlnaHQ9IjEyOSIgdmlld0JveD0iMCAwIDEyOSAxMjkiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+DQogIDxwYXRoDQogICAgZD0iTTUwLjU3NzMgOTAuNzA0QzQ4LjIxOTMgOTIuNzE4OSA0NS4wNjg4IDkzLjcyNjMgNDEuMTI1OSA5My43MjYzQzM4LjExMDkgOTMuNzI2MyAzNS41MjA5IDkzLjA3NDUgMzMuMzU2MiA5MS43NzA3QzMxLjE1MjggOTAuNjY0NiAyOS4zNzQ2IDg5LjIyMjYgMjguMDIxOCA4Ny40NDQ4QzI2LjM1OTYgODUuNTg3OSAyNS4yNTc5IDgzLjE1ODQgMjQuNzE2NyA4MC4xNTU5QzI0LjA5ODIgNzcuMTUzNCAyMy43ODg5IDcxLjQwNTIgMjMuNzg4OSA2Mi45MTE0QzIzLjc4ODkgNTQuNDE3NCAyNC4wOTgyIDQ4LjYyOTggMjQuNzE2NyA0NS41NDgzQzI1LjI1NzkgNDIuNjI0OCAyNi4zNTk2IDQwLjIzNDcgMjguMDIxOCAzOC4zNzc5QzI5LjM3NDYgMzYuNiAzMS4xNTI4IDM1LjExODYgMzMuMzU2MiAzMy45MzM0QzM1LjUyMDkgMzIuNzg3NyAzOC4xMTA5IDMyLjE3NTMgNDEuMTI1OSAzMi4wOTYzQzQ0LjE3OTggMzIuMTc1MyA0Ni44Mjc3IDMyLjc4NzcgNDkuMDY5NyAzMy45MzM0QzUxLjE5NTggMzUuMTE4NiA1Mi44OTY2IDM2LjYgNTQuMTcyMiAzOC4zNzc5QzU1LjgzNDQgNDAuMjM0NyA1Ni45NzQ4IDQyLjYyNDggNTcuNTkzMyA0NS41NDgzQzU4LjE3MzEgNDguNjI5OCA1OC40NjMgNTQuNDE3NCA1OC40NjMgNjIuOTExNEM1OC40NjMgNzIuMDM3MyA1OC4wNTcxIDc4LjA2MiA1Ny4yNDU0IDgwLjk4NTVMNDcuMzg4MiA3Mi45ODU1TDM5Ljc5MjQgODEuOTMzN0w1MC41NzczIDkwLjcwNFpNNjEuMDcyMyA5OS4yOTY3TDcxLjc0MTIgMTA4LjA2N0w3OS4zMzcgOTkuMDU5N0w2OC4yMDQyIDg5Ljk5MjlDNjkuMzYzOSA4OC4wMTc2IDcwLjE5NSA4NS4yNTIyIDcwLjY5NzYgODEuNjk2NkM3MS4wODQxIDc4LjE0MTEgNzEuMjc3NCA3MS44NzkzIDcxLjI3NzQgNjIuOTExNEM3MS4yNzc0IDUyLjg3NjcgNzEuMDI2MSA0Ni4xNjA3IDcwLjUyMzYgNDIuNzYzMUM2OS45ODI0IDM5LjM2NTUgNjguOTk2NyAzNi42MTk5IDY3LjU2NjQgMzQuNTI2QzY1LjU5NSAzMC41MzU4IDYyLjM4NjYgMjYuOTgwMyA1Ny45NDExIDIzLjg1OTNDNTMuNDU3MSAyMC42OTg4IDQ3Ljg1MiAxOS4wNzkgNDEuMTI1OSAxOUMzNC40NzcyIDE5LjA3OSAyOC45MzAxIDIwLjY5ODggMjQuNDg0NyAyMy44NTkzQzE5Ljk2MiAyNi45ODAzIDE2LjY3NjMgMzAuNTM1OCAxNC42Mjc2IDM0LjUyNkMxMy4zNTE5IDM2LjYxOTkgMTIuNDA0OSAzOS4zNjU1IDExLjc4NjQgNDIuNzYzMUMxMS4yMDY2IDQ2LjE2MDcgMTAuOTE2NiA1Mi44NzY3IDEwLjkxNjYgNjIuOTExNEMxMC45MTY2IDcyLjc4NzkgMTEuMjA2NiA3OS40NjQ2IDExLjc4NjQgODIuOTQxMUMxMi4wOTU2IDg0Ljc5NzkgMTIuNDgyMiA4Ni4zMzg2IDEyLjk0NjEgODcuNTYzM0MxMy40NDg2IDg4Ljc0ODUgMTQuMDA5MSA4OS45OTI5IDE0LjYyNzYgOTEuMjk2N0MxNi42NzYzIDk1LjI4NjggMTkuOTYyIDk4LjgwMjggMjQuNDg0NyAxMDEuODQ1QzI4LjkzMDEgMTA1LjAwNSAzNC40NzcyIDEwNi42NjUgNDEuMTI1OSAxMDYuODIzQzQ5LjQzNyAxMDYuNjY1IDU2LjA4NTcgMTA0LjE1NiA2MS4wNzIzIDk5LjI5NjdaIg0KICAgIGZpbGw9IiNFNjUxRTkiIC8+DQogIDxwYXRoDQogICAgZD0iTTU2LjUxNDcgOTAuNzA0QzU0LjE1NjggOTIuNzE4OSA1MS4wMDYzIDkzLjcyNjMgNDcuMDYzNCA5My43MjYzQzQ0LjA0ODQgOTMuNzI2MyA0MS40NTg0IDkzLjA3NDUgMzkuMjkzNyA5MS43NzA3QzM3LjA5MDMgOTAuNjY0NiAzNS4zMTIxIDg5LjIyMjYgMzMuOTU5MyA4Ny40NDQ4QzMyLjI5NzEgODUuNTg3OSAzMS4xOTU0IDgzLjE1ODQgMzAuNjU0MiA4MC4xNTU5QzMwLjAzNTcgNzcuMTUzNCAyOS43MjY0IDcxLjQwNTIgMjkuNzI2NCA2Mi45MTE0QzI5LjcyNjQgNTQuNDE3NCAzMC4wMzU3IDQ4LjYyOTggMzAuNjU0MiA0NS41NDgzQzMxLjE5NTQgNDIuNjI0OCAzMi4yOTcxIDQwLjIzNDcgMzMuOTU5MyAzOC4zNzc5QzM1LjMxMjEgMzYuNiAzNy4wOTAzIDM1LjExODYgMzkuMjkzNyAzMy45MzM0QzQxLjQ1ODQgMzIuNzg3NyA0NC4wNDg0IDMyLjE3NTMgNDcuMDYzNCAzMi4wOTYzQzUwLjExNzMgMzIuMTc1MyA1Mi43NjUyIDMyLjc4NzcgNTUuMDA3MiAzMy45MzM0QzU3LjEzMzIgMzUuMTE4NiA1OC44MzQxIDM2LjYgNjAuMTA5NyAzOC4zNzc5QzYxLjc3MTkgNDAuMjM0NyA2Mi45MTIzIDQyLjYyNDggNjMuNTMwOCA0NS41NDgzQzY0LjExMDYgNDguNjI5OCA2NC40MDA1IDU0LjQxNzQgNjQuNDAwNSA2Mi45MTE0QzY0LjQwMDUgNzIuMDM3MyA2My45OTQ2IDc4LjA2MiA2My4xODI5IDgwLjk4NTVMNTMuMzI1NyA3Mi45ODU1TDQ1LjcyOTkgODEuOTMzN0w1Ni41MTQ3IDkwLjcwNFpNNjcuMDA5OCA5OS4yOTY3TDc3LjY3ODcgMTA4LjA2N0w4NS4yNzQ5IDk5LjA1OTdMNzQuMTQxNyA4OS45OTI5Qzc1LjMwMTQgODguMDE3NiA3Ni4xMzI0IDg1LjI1MjIgNzYuNjM1MSA4MS42OTY2Qzc3LjAyMTYgNzguMTQxMSA3Ny4yMTQ4IDcxLjg3OTMgNzcuMjE0OCA2Mi45MTE0Qzc3LjIxNDggNTIuODc2NyA3Ni45NjM2IDQ2LjE2MDcgNzYuNDYxMSA0Mi43NjMxQzc1LjkxOTkgMzkuMzY1NSA3NC45MzQyIDM2LjYxOTkgNzMuNTAzOSAzNC41MjZDNzEuNTMyNSAzMC41MzU4IDY4LjMyNCAyNi45ODAzIDYzLjg3ODYgMjMuODU5M0M1OS4zOTQ2IDIwLjY5ODggNTMuNzg5NSAxOS4wNzkgNDcuMDYzNCAxOUM0MC40MTQ3IDE5LjA3OSAzNC44Njc2IDIwLjY5ODggMzAuNDIyMiAyMy44NTkzQzI1Ljg5OTUgMjYuOTgwMyAyMi42MTM4IDMwLjUzNTggMjAuNTY1MSAzNC41MjZDMTkuMjg5NCAzNi42MTk5IDE4LjM0MjQgMzkuMzY1NSAxNy43MjM5IDQyLjc2MzFDMTcuMTQ0MSA0Ni4xNjA3IDE2Ljg1NDEgNTIuODc2NyAxNi44NTQxIDYyLjkxMTRDMTYuODU0MSA3Mi43ODc5IDE3LjE0NDEgNzkuNDY0NiAxNy43MjM5IDgyLjk0MTFDMTguMDMzMSA4NC43OTc5IDE4LjQxOTYgODYuMzM4NiAxOC44ODM2IDg3LjU2MzNDMTkuMzg2MSA4OC43NDg1IDE5Ljk0NjYgODkuOTkyOSAyMC41NjUxIDkxLjI5NjdDMjIuNjEzOCA5NS4yODY4IDI1Ljg5OTUgOTguODAyOCAzMC40MjIyIDEwMS44NDVDMzQuODY3NiAxMDUuMDA1IDQwLjQxNDcgMTA2LjY2NSA0Ny4wNjM0IDEwNi44MjNDNTUuMzc0NCAxMDYuNjY1IDYyLjAyMzIgMTA0LjE1NiA2Ny4wMDk4IDk5LjI5NjdaIg0KICAgIGZpbGw9IiMxNUY2RUEiIC8+DQogIDxwYXRoDQogICAgZD0iTTUzLjU0NiA5MC43MDRDNTEuMTg4IDkyLjcxODkgNDguMDM3NiA5My43MjYzIDQ0LjA5NDcgOTMuNzI2M0M0MS4wNzk2IDkzLjcyNjMgMzguNDg5NyA5My4wNzQ1IDM2LjMyNSA5MS43NzA3QzM0LjEyMTYgOTAuNjY0NiAzMi4zNDM0IDg5LjIyMjYgMzAuOTkwNSA4Ny40NDQ4QzI5LjMyODMgODUuNTg3OSAyOC4yMjY2IDgzLjE1ODQgMjcuNjg1NCA4MC4xNTU5QzI3LjA2NjkgNzcuMTUzNCAyNi43NTc3IDcxLjQwNTIgMjYuNzU3NyA2Mi45MTE0QzI2Ljc1NzcgNTQuNDE3NCAyNy4wNjY5IDQ4LjYyOTggMjcuNjg1NCA0NS41NDgzQzI4LjIyNjYgNDIuNjI0OCAyOS4zMjgzIDQwLjIzNDcgMzAuOTkwNSAzOC4zNzc5QzMyLjM0MzQgMzYuNiAzNC4xMjE2IDM1LjExODYgMzYuMzI1IDMzLjkzMzRDMzguNDg5NyAzMi43ODc3IDQxLjA3OTYgMzIuMTc1MyA0NC4wOTQ3IDMyLjA5NjNDNDcuMTQ4NiAzMi4xNzUzIDQ5Ljc5NjUgMzIuNzg3NyA1Mi4wMzg1IDMzLjkzMzRDNTQuMTY0NSAzNS4xMTg2IDU1Ljg2NTQgMzYuNiA1Ny4xNDEgMzguMzc3OUM1OC44MDMyIDQwLjIzNDcgNTkuOTQzNiA0Mi42MjQ4IDYwLjU2MjEgNDUuNTQ4M0M2MS4xNDE5IDQ4LjYyOTggNjEuNDMxOCA1NC40MTc0IDYxLjQzMTggNjIuOTExNEM2MS40MzE4IDcyLjAzNzMgNjEuMDI1OSA3OC4wNjIgNjAuMjE0MSA4MC45ODU1TDUwLjM1NyA3Mi45ODU1TDQyLjc2MTEgODEuOTMzN0w1My41NDYgOTAuNzA0Wk02NC4wNDEgOTkuMjk2N0w3NC43MDk5IDEwOC4wNjdMODIuMzA1OCA5OS4wNTk3TDcxLjE3MyA4OS45OTI5QzcyLjMzMjcgODguMDE3NiA3My4xNjM3IDg1LjI1MjIgNzMuNjY2MyA4MS42OTY2Qzc0LjA1MjkgNzguMTQxMSA3NC4yNDYxIDcxLjg3OTMgNzQuMjQ2MSA2Mi45MTE0Qzc0LjI0NjEgNTIuODc2NyA3My45OTQ5IDQ2LjE2MDcgNzMuNDkyMyA0Mi43NjMxQzcyLjk1MTEgMzkuMzY1NSA3MS45NjU0IDM2LjYxOTkgNzAuNTM1MiAzNC41MjZDNjguNTYzNyAzMC41MzU4IDY1LjM1NTMgMjYuOTgwMyA2MC45MDk5IDIzLjg1OTNDNTYuNDI1OSAyMC42OTg4IDUwLjgyMDggMTkuMDc5IDQ0LjA5NDcgMTlDMzcuNDQ2IDE5LjA3OSAzMS44OTg5IDIwLjY5ODggMjcuNDUzNSAyMy44NTkzQzIyLjkzMDggMjYuOTgwMyAxOS42NDUxIDMwLjUzNTggMTcuNTk2MyAzNC41MjZDMTYuMzIwNyAzNi42MTk5IDE1LjM3MzYgMzkuMzY1NSAxNC43NTUxIDQyLjc2MzFDMTQuMTc1MyA0Ni4xNjA3IDEzLjg4NTQgNTIuODc2NyAxMy44ODU0IDYyLjkxMTRDMTMuODg1NCA3Mi43ODc5IDE0LjE3NTMgNzkuNDY0NiAxNC43NTUxIDgyLjk0MTFDMTUuMDY0NCA4NC43OTc5IDE1LjQ1MDkgODYuMzM4NiAxNS45MTQ4IDg3LjU2MzNDMTYuNDE3MyA4OC43NDg1IDE2Ljk3NzggODkuOTkyOSAxNy41OTYzIDkxLjI5NjdDMTkuNjQ1MSA5NS4yODY4IDIyLjkzMDggOTguODAyOCAyNy40NTM1IDEwMS44NDVDMzEuODk4OSAxMDUuMDA1IDM3LjQ0NiAxMDYuNjY1IDQ0LjA5NDcgMTA2LjgyM0M1Mi40MDU3IDEwNi42NjUgNTkuMDU0NCAxMDQuMTU2IDY0LjA0MSA5OS4yOTY3WiINCiAgICBmaWxsPSJ3aGl0ZSIgLz4NCiAgPHBhdGggZD0iTTY5LjMwMjEgNzUuNjM2NEg5MS4wNzI5Vjc4LjY3MDRINjkuMzAyMVY3NS42MzY0WiIgZmlsbD0iI0ZBRkYwMCIgLz4NCiAgPHBhdGggZD0iTTYuOTU4MzMgNTkuNDU0NUgxMy44ODU0VjY3LjU0NTRINi45NTgzM1Y1OS40NTQ1WiIgZmlsbD0iI0U2NTFFOSIgLz4NCiAgPHBhdGggZD0iTTY3LjMyMjkgMzcuMjA0NUg4OS4wOTM3VjQyLjI2MTNINjcuMzIyOVYzNy4yMDQ1WiIgZmlsbD0iI0U2NTFFOSIgLz4NCiAgPHBhdGggZD0iTTY2LjMzMzMgODguNzg0MUg5OFY5Ni44NzVINjYuMzMzM1Y4OC43ODQxWiIgZmlsbD0iIzE1RjZFQSIgLz4NCiAgPHBhdGggZD0iTTIwLjgxMjUgMTAwLjkySDQzLjU3MjlWMTA1Ljk3N0gyMC44MTI1VjEwMC45MloiIGZpbGw9IiMxNUY2RUEiIC8+DQogIDxwYXRoIGQ9Ik0zIDg4Ljc4NDFIMjQuNzcwOFY5MS44MTgxSDNWODguNzg0MVoiIGZpbGw9IiNGQUZGMDAiIC8+DQogIDxwYXRoIGQ9Ik02Ljk1ODMzIDI3LjA5MDlIMzguNjI1VjM1LjE4MThINi45NTgzM1YyNy4wOTA5WiIgZmlsbD0iI0ZBRkYwMCIgLz4NCiAgPHJlY3QgeD0iOTguMDM4MyIgeT0iMjgiIHdpZHRoPSIxMC41OTIxIiBoZWlnaHQ9IjQyLjM2ODQiIGZpbGw9IiMxNUY2RUEiIC8+DQogIDxyZWN0IHg9IjgyLjYzMTYiIHk9IjU0Ljk2MTciIHdpZHRoPSIxMC41OTIxIiBoZWlnaHQ9IjQyLjM2ODQiDQogICAgdHJhbnNmb3JtPSJyb3RhdGUoLTkwIDgyLjYzMTYgNTQuOTYxNykiIGZpbGw9IiMxNUY2RUEiIC8+DQogIDxyZWN0IHg9Ijk0LjQwNjciIHk9IjMxLjYzMTYiIHdpZHRoPSIxMC41OTIxIiBoZWlnaHQ9IjQyLjM2ODQiIGZpbGw9IiNFNjUxRTkiIC8+DQogIDxyZWN0IHg9Ijc5IiB5PSI1OC41OTMzIiB3aWR0aD0iMTAuNTkyMSIgaGVpZ2h0PSI0Mi4zNjg0IiB0cmFuc2Zvcm09InJvdGF0ZSgtOTAgNzkgNTguNTkzMykiDQogICAgZmlsbD0iI0U2NTFFOSIgLz4NCiAgPHJlY3QgeD0iOTUuNjE3MiIgeT0iMjkuMjEwNSIgd2lkdGg9IjEwLjU5MjEiIGhlaWdodD0iNDIuMzY4NCIgZmlsbD0id2hpdGUiIC8+DQogIDxyZWN0IHg9IjgwLjIxMDUiIHk9IjU2LjE3MjMiIHdpZHRoPSIxMC41OTIxIiBoZWlnaHQ9IjQyLjM2ODQiDQogICAgdHJhbnNmb3JtPSJyb3RhdGUoLTkwIDgwLjIxMDUgNTYuMTcyMykiIGZpbGw9IndoaXRlIiAvPg0KPC9zdmc+";
+
   // src/index.js
-  var l10n = require_l10n();
-  var icon = `data:image/svg+xml;base64,${btoa(
-    `
-<svg width="129" height="129" viewBox="0 0 129 129" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M50.5773 90.704C48.2193 92.7189 45.0688 93.7263 41.1259 93.7263C38.1109 93.7263 35.5209 93.0745 33.3562 91.7707C31.1528 90.6646 29.3746 89.2226 28.0218 87.4448C26.3596 85.5879 25.2579 83.1584 24.7167 80.1559C24.0982 77.1534 23.7889 71.4052 23.7889 62.9114C23.7889 54.4174 24.0982 48.6298 24.7167 45.5483C25.2579 42.6248 26.3596 40.2347 28.0218 38.3779C29.3746 36.6 31.1528 35.1186 33.3562 33.9334C35.5209 32.7877 38.1109 32.1753 41.1259 32.0963C44.1798 32.1753 46.8277 32.7877 49.0697 33.9334C51.1958 35.1186 52.8966 36.6 54.1722 38.3779C55.8344 40.2347 56.9748 42.6248 57.5933 45.5483C58.1731 48.6298 58.463 54.4174 58.463 62.9114C58.463 72.0373 58.0571 78.062 57.2454 80.9855L47.3882 72.9855L39.7924 81.9337L50.5773 90.704ZM61.0723 99.2967L71.7412 108.067L79.337 99.0597L68.2042 89.9929C69.3639 88.0176 70.195 85.2522 70.6976 81.6966C71.0841 78.1411 71.2774 71.8793 71.2774 62.9114C71.2774 52.8767 71.0261 46.1607 70.5236 42.7631C69.9824 39.3655 68.9967 36.6199 67.5664 34.526C65.595 30.5358 62.3866 26.9803 57.9411 23.8593C53.4571 20.6988 47.852 19.079 41.1259 19C34.4772 19.079 28.9301 20.6988 24.4847 23.8593C19.962 26.9803 16.6763 30.5358 14.6276 34.526C13.3519 36.6199 12.4049 39.3655 11.7864 42.7631C11.2066 46.1607 10.9166 52.8767 10.9166 62.9114C10.9166 72.7879 11.2066 79.4646 11.7864 82.9411C12.0956 84.7979 12.4822 86.3386 12.9461 87.5633C13.4486 88.7485 14.0091 89.9929 14.6276 91.2967C16.6763 95.2868 19.962 98.8028 24.4847 101.845C28.9301 105.005 34.4772 106.665 41.1259 106.823C49.437 106.665 56.0857 104.156 61.0723 99.2967Z" fill="#E651E9"/>
-<path d="M56.5147 90.704C54.1568 92.7189 51.0063 93.7263 47.0634 93.7263C44.0484 93.7263 41.4584 93.0745 39.2937 91.7707C37.0903 90.6646 35.3121 89.2226 33.9593 87.4448C32.2971 85.5879 31.1954 83.1584 30.6542 80.1559C30.0357 77.1534 29.7264 71.4052 29.7264 62.9114C29.7264 54.4174 30.0357 48.6298 30.6542 45.5483C31.1954 42.6248 32.2971 40.2347 33.9593 38.3779C35.3121 36.6 37.0903 35.1186 39.2937 33.9334C41.4584 32.7877 44.0484 32.1753 47.0634 32.0963C50.1173 32.1753 52.7652 32.7877 55.0072 33.9334C57.1332 35.1186 58.8341 36.6 60.1097 38.3779C61.7719 40.2347 62.9123 42.6248 63.5308 45.5483C64.1106 48.6298 64.4005 54.4174 64.4005 62.9114C64.4005 72.0373 63.9946 78.062 63.1829 80.9855L53.3257 72.9855L45.7299 81.9337L56.5147 90.704ZM67.0098 99.2967L77.6787 108.067L85.2749 99.0597L74.1417 89.9929C75.3014 88.0176 76.1324 85.2522 76.6351 81.6966C77.0216 78.1411 77.2148 71.8793 77.2148 62.9114C77.2148 52.8767 76.9636 46.1607 76.4611 42.7631C75.9199 39.3655 74.9342 36.6199 73.5039 34.526C71.5325 30.5358 68.324 26.9803 63.8786 23.8593C59.3946 20.6988 53.7895 19.079 47.0634 19C40.4147 19.079 34.8676 20.6988 30.4222 23.8593C25.8995 26.9803 22.6138 30.5358 20.5651 34.526C19.2894 36.6199 18.3424 39.3655 17.7239 42.7631C17.1441 46.1607 16.8541 52.8767 16.8541 62.9114C16.8541 72.7879 17.1441 79.4646 17.7239 82.9411C18.0331 84.7979 18.4196 86.3386 18.8836 87.5633C19.3861 88.7485 19.9466 89.9929 20.5651 91.2967C22.6138 95.2868 25.8995 98.8028 30.4222 101.845C34.8676 105.005 40.4147 106.665 47.0634 106.823C55.3744 106.665 62.0232 104.156 67.0098 99.2967Z" fill="#15F6EA"/>
-<path d="M53.546 90.704C51.188 92.7189 48.0376 93.7263 44.0947 93.7263C41.0796 93.7263 38.4897 93.0745 36.325 91.7707C34.1216 90.6646 32.3434 89.2226 30.9905 87.4448C29.3283 85.5879 28.2266 83.1584 27.6854 80.1559C27.0669 77.1534 26.7577 71.4052 26.7577 62.9114C26.7577 54.4174 27.0669 48.6298 27.6854 45.5483C28.2266 42.6248 29.3283 40.2347 30.9905 38.3779C32.3434 36.6 34.1216 35.1186 36.325 33.9334C38.4897 32.7877 41.0796 32.1753 44.0947 32.0963C47.1486 32.1753 49.7965 32.7877 52.0385 33.9334C54.1645 35.1186 55.8654 36.6 57.141 38.3779C58.8032 40.2347 59.9436 42.6248 60.5621 45.5483C61.1419 48.6298 61.4318 54.4174 61.4318 62.9114C61.4318 72.0373 61.0259 78.062 60.2141 80.9855L50.357 72.9855L42.7611 81.9337L53.546 90.704ZM64.041 99.2967L74.7099 108.067L82.3058 99.0597L71.173 89.9929C72.3327 88.0176 73.1637 85.2522 73.6663 81.6966C74.0529 78.1411 74.2461 71.8793 74.2461 62.9114C74.2461 52.8767 73.9949 46.1607 73.4923 42.7631C72.9511 39.3655 71.9654 36.6199 70.5352 34.526C68.5637 30.5358 65.3553 26.9803 60.9099 23.8593C56.4259 20.6988 50.8208 19.079 44.0947 19C37.446 19.079 31.8989 20.6988 27.4535 23.8593C22.9308 26.9803 19.6451 30.5358 17.5963 34.526C16.3207 36.6199 15.3736 39.3655 14.7551 42.7631C14.1753 46.1607 13.8854 52.8767 13.8854 62.9114C13.8854 72.7879 14.1753 79.4646 14.7551 82.9411C15.0644 84.7979 15.4509 86.3386 15.9148 87.5633C16.4173 88.7485 16.9778 89.9929 17.5963 91.2967C19.6451 95.2868 22.9308 98.8028 27.4535 101.845C31.8989 105.005 37.446 106.665 44.0947 106.823C52.4057 106.665 59.0544 104.156 64.041 99.2967Z" fill="white"/>
-<path d="M69.3021 75.6364H91.0729V78.6704H69.3021V75.6364Z" fill="#FAFF00"/>
-<path d="M6.95833 59.4545H13.8854V67.5454H6.95833V59.4545Z" fill="#E651E9"/>
-<path d="M67.3229 37.2045H89.0937V42.2613H67.3229V37.2045Z" fill="#E651E9"/>
-<path d="M66.3333 88.7841H98V96.875H66.3333V88.7841Z" fill="#15F6EA"/>
-<path d="M20.8125 100.92H43.5729V105.977H20.8125V100.92Z" fill="#15F6EA"/>
-<path d="M3 88.7841H24.7708V91.8181H3V88.7841Z" fill="#FAFF00"/>
-<path d="M6.95833 27.0909H38.625V35.1818H6.95833V27.0909Z" fill="#FAFF00"/>
-<rect x="98.0383" y="28" width="10.5921" height="42.3684" fill="#15F6EA"/>
-<rect x="82.6316" y="54.9617" width="10.5921" height="42.3684" transform="rotate(-90 82.6316 54.9617)" fill="#15F6EA"/>
-<rect x="94.4067" y="31.6316" width="10.5921" height="42.3684" fill="#E651E9"/>
-<rect x="79" y="58.5933" width="10.5921" height="42.3684" transform="rotate(-90 79 58.5933)" fill="#E651E9"/>
-<rect x="95.6172" y="29.2105" width="10.5921" height="42.3684" fill="white"/>
-<rect x="80.2105" y="56.1723" width="10.5921" height="42.3684" transform="rotate(-90 80.2105 56.1723)" fill="white"/>
-</svg>
-`
-  )}`;
-  var extensionId = "betterquake";
-  var PATCHES_ID = "__patches_betterquake";
-  var patch = (obj, functions) => {
-    if (obj[PATCHES_ID])
-      return;
-    obj[PATCHES_ID] = {};
-    for (const name in functions) {
-      const original = obj[name];
-      obj[PATCHES_ID][name] = obj[name];
-      if (original) {
-        obj[name] = function(...args) {
-          const callOriginal = (...ogArgs) => original.call(this, ...ogArgs);
-          return functions[name].call(this, callOriginal, ...args);
-        };
-      } else {
-        obj[name] = function(...args) {
-          return functions[name].call(this, () => {
-          }, ...args);
-        };
-      }
-    }
-  };
-  var vertexShaderSource = `
-#version 300 es
-#ifdef GL_ES
-precision mediump float;
-#endif
-
-#ifdef DRAW_MODE_line
-uniform vec2 u_stageSize;
-in vec2 a_lineThicknessAndLength;
-in vec4 a_penPoints;
-in vec4 a_lineColor;
-
-out vec4 v_lineColor;
-out float v_lineThickness;
-out float v_lineLength;
-out vec4 v_penPoints;
-
-// Add this to divisors to prevent division by 0, which results in NaNs propagating through calculations.
-// Smaller values can cause problems on some mobile devices.
-const float epsilon = 1e-3;
-#endif
-
-#if !(defined(DRAW_MODE_line) || defined(DRAW_MODE_background))
-uniform mat4 u_projectionMatrix;
-uniform mat4 u_modelMatrix;
-in vec2 a_texCoord;
-#endif
-
-in vec2 a_position;
-
-out vec2 vUv;
-
-void main() {
-	#ifdef DRAW_MODE_line
-	// Calculate a rotated ("tight") bounding box around the two pen points.
-	// Yes, we're doing this 6 times (once per vertex), but on actual GPU hardware,
-	// it's still faster than doing it in JS combined with the cost of uniformMatrix4fv.
-
-	// Expand line bounds by sqrt(2) / 2 each side-- this ensures that all antialiased pixels
-	// fall within the quad, even at a 45-degree diagonal
-	vec2 position = a_position;
-	float expandedRadius = (a_lineThicknessAndLength.x * 0.5) + 1.4142135623730951;
-
-	// The X coordinate increases along the length of the line. It's 0 at the center of the origin point
-	// and is in pixel-space (so at n pixels along the line, its value is n).
-	vUv.x = mix(0.0, a_lineThicknessAndLength.y + (expandedRadius * 2.0), a_position.x) - expandedRadius;
-	// The Y coordinate is perpendicular to the line. It's also in pixel-space.
-	vUv.y = ((a_position.y - 0.5) * expandedRadius) + 0.5;
-
-	position.x *= a_lineThicknessAndLength.y + (2.0 * expandedRadius);
-	position.y *= 2.0 * expandedRadius;
-
-	// 1. Center around first pen point
-	position -= expandedRadius;
-
-	// 2. Rotate quad to line angle
-	vec2 pointDiff = a_penPoints.zw;
-	// Ensure line has a nonzero length so it's rendered properly
-	// As long as either component is nonzero, the line length will be nonzero
-	// If the line is zero-length, give it a bit of horizontal length
-	pointDiff.x = (abs(pointDiff.x) < epsilon && abs(pointDiff.y) < epsilon) ? epsilon : pointDiff.x;
-	// The "normalized" vector holds rotational values equivalent to sine/cosine
-	// We're applying the standard rotation matrix formula to the position to rotate the quad to the line angle
-	// pointDiff can hold large values so we must divide by u_lineLength instead of calling GLSL's normalize function:
-	// https://asawicki.info/news_1596_watch_out_for_reduced_precision_normalizelength_in_opengl_es
-	vec2 normalized = pointDiff / max(a_lineThicknessAndLength.y, epsilon);
-	position = mat2(normalized.x, normalized.y, -normalized.y, normalized.x) * position;
-
-	// 3. Translate quad
-	position += a_penPoints.xy;
-
-	// 4. Apply view transform
-	position *= 2.0 / u_stageSize;
-	gl_Position = vec4(position, 0, 1);
-
-	v_lineColor = a_lineColor;
-	v_lineThickness = a_lineThicknessAndLength.x;
-	v_lineLength = a_lineThicknessAndLength.y;
-	v_penPoints = a_penPoints;
-	#elif defined(DRAW_MODE_background)
-	gl_Position = vec4(a_position * 2.0, 0, 1);
-	#else
-	gl_Position = u_projectionMatrix * u_modelMatrix * vec4(a_position, 0, 1);
-	vUv = a_texCoord;
-	#endif
-}
-    `;
-  var fragmentShaderSource = `
-#version 300 es
-#ifdef GL_ES
-precision mediump float;
-#endif
-
-in vec2 vUv;
-out vec4 fragColor;
-uniform sampler2D tDiffuse;
-uniform float time;
-
-uniform vec4 u_color;
-
-void main() {
-  fragColor = texture(tDiffuse, vUv) * u_color;
-  fragColor.rg *= sin(time);
-}
-`;
-  var QuakeFragment = class {
-    constructor(runtime) {
-      window.TEST = this;
-      this.runtime = runtime;
-      if (!this.runtime.QuakeManager)
-        this.runtime.QuakeManager = {};
-      this.runtime.QuakeManager.loadedShaders = [];
-      this.runtime.QuakeManager.textures = [];
-      this.QuakeManager = this.runtime.QuakeManager;
-      this.gl = runtime.renderer._gl;
-      this.autoReRender = true;
-      this.newDrawThese = (drawables, drawMode, projection, opts = {}) => {
-        const gl = runtime.renderer._gl;
-        let currentShader = null;
-        const framebufferSpaceScaleDiffers = "framebufferWidth" in opts && "framebufferHeight" in opts && opts.framebufferWidth !== runtime.renderer._nativeSize[0] && opts.framebufferHeight !== runtime.renderer._nativeSize[1];
-        const numDrawables = drawables.length;
-        for (let drawableIndex = 0; drawableIndex < numDrawables; ++drawableIndex) {
-          const drawableID = drawables[drawableIndex];
-          if (opts.filter && !opts.filter(drawableID))
-            continue;
-          const drawable = runtime.renderer._allDrawables[drawableID];
-          if (!drawable.getVisible() && !opts.ignoreVisibility)
-            continue;
-          const drawableScale = framebufferSpaceScaleDiffers ? [
-            drawable.scale[0] * opts.framebufferWidth / runtime.renderer._nativeSize[0],
-            drawable.scale[1] * opts.framebufferHeight / runtime.renderer._nativeSize[1]
-          ] : drawable.scale;
-          if (!drawable.skin || !drawable.skin.getTexture(drawableScale))
-            continue;
-          if (opts.skipPrivateSkins && drawable.skin.private)
-            continue;
-          let uniforms = {};
-          let effectBits = drawable.enabledEffects;
-          effectBits &= Object.prototype.hasOwnProperty.call(opts, "effectMask") ? opts.effectMask : effectBits;
-          const drawableShader = runtime.QuakeManager.loadedShaders[drawable.QuakeFragment?.shader];
-          const newShader = drawableShader ? drawableShader.programInfo : runtime.renderer._shaderManager.getShader(drawMode, effectBits);
-          if (runtime.renderer._regionId !== newShader) {
-            runtime.renderer._doExitDrawRegion();
-            runtime.renderer._regionId = newShader;
-            currentShader = newShader;
-            gl.useProgram(currentShader.program);
-            setBuffersAndAttributes(gl, currentShader, runtime.renderer._bufferInfo);
-            Object.assign(uniforms, {
-              u_projectionMatrix: projection
-            });
+  ((Scratch2) => {
+    const icon = `data:image/svg+xml;base64,${BetterQuakeIcon_default}`;
+    const extensionId = "betterquake";
+    class BetterQuake {
+      constructor(runtime) {
+        this.runtime = runtime;
+        if (!this.runtime.QuakeManager)
+          this.runtime.QuakeManager = {};
+        this.runtime.QuakeManager.loadedShaders = [];
+        this.runtime.QuakeManager.textures = [];
+        this.QuakeManager = this.runtime.QuakeManager;
+        this.gl = runtime.renderer._gl;
+        this.autoReRender = true;
+        const skinClass = this.runtime.renderer.getSkinClass ? this.runtime.renderer.getSkinClass() : null;
+        const oldDrawThese = this.runtime.renderer._drawThese;
+        this.newDrawThese = (drawables, drawMode, projection, opts = {}) => {
+          const renderer = this.runtime.renderer;
+          const gl = renderer._gl;
+          let currentShader = null;
+          if (renderer.spineManager) {
+            renderer.spineManager.updateTime();
           }
-          Object.assign(
-            uniforms,
-            drawable.skin.getUniforms(drawableScale),
-            drawable.getUniforms()
+          const framebufferSpaceScaleDiffers = "framebufferWidth" in opts && "framebufferHeight" in opts && opts.framebufferWidth !== renderer._nativeSize[0] && opts.framebufferHeight !== renderer._nativeSize[1];
+          const startIndex = Math.max(0, opts.startIndex ?? 0);
+          const endIndex = Math.min(
+            drawables.length,
+            opts.endIndex ?? drawables.length
           );
-          if (opts.extraUniforms) {
-            Object.assign(uniforms, opts.extraUniforms);
-          }
-          if (drawableShader) {
-            drawable.QuakeFragment.uniforms.time = this.runtime.ioDevices.clock.projectTimer();
-            Object.assign(uniforms, drawable.QuakeFragment.uniforms);
-          }
-          if (uniforms.u_skin || drawable.QuakeFragment.uniforms.tDiffuse) {
-            setTextureParameters(
-              gl,
-              uniforms.u_skin ? uniforms.u_skin : drawable.QuakeFragment.uniforms.tDiffuse,
-              {
-                minMag: drawable.skin.useNearest(drawableScale, drawable) ? gl.NEAREST : gl.LINEAR
-              }
+          for (let drawableIndex = startIndex; drawableIndex < endIndex; ++drawableIndex) {
+            const drawableID = drawables[drawableIndex];
+            if (opts.filter && !opts.filter(drawableID))
+              continue;
+            const drawable = renderer._allDrawables[drawableID];
+            if (!drawable.getVisible() && !opts.ignoreVisibility)
+              continue;
+            const drawableScale = framebufferSpaceScaleDiffers ? [
+              drawable.scale[0] * opts.framebufferWidth / renderer._nativeSize[0],
+              drawable.scale[1] * opts.framebufferHeight / renderer._nativeSize[1]
+            ] : drawable.scale;
+            if (!drawable.skin || !drawable.skin.getTexture(drawableScale))
+              continue;
+            if (!skinClass || !(drawable.skin instanceof skinClass)) {
+              renderer._doExitDrawRegion();
+              drawable.skin.render(drawable, drawableScale, projection, opts);
+              gl.enable(gl.BLEND);
+              continue;
+            }
+            const uniforms = {};
+            let effectBits = drawable.enabledEffects;
+            effectBits &= Object.prototype.hasOwnProperty.call(opts, "effectMask") ? opts.effectMask : effectBits;
+            if (drawable.enabledExtraEffect !== 0) {
+              effectBits |= drawable.enabledExtraEffect;
+              drawable.injectExtraEffectUniforms(uniforms);
+            }
+            const drawableShader = runtime.QuakeManager.loadedShaders[drawable.BetterQuake?.shader];
+            const newShader = drawableShader ? drawableShader.programInfo : renderer._shaderManager.getShader(drawMode, effectBits);
+            if (renderer._regionId !== newShader) {
+              renderer._doExitDrawRegion();
+              renderer._regionId = newShader;
+              currentShader = newShader;
+              gl.useProgram(currentShader.program);
+              setBuffersAndAttributes(
+                gl,
+                currentShader,
+                renderer._bufferInfo
+              );
+              Object.assign(uniforms, {
+                u_projectionMatrix: projection
+              });
+            }
+            if (drawable.customizedProjection && drawMode !== "straightAlpha") {
+              Object.assign(uniforms, {
+                u_projectionMatrix: drawable.customizedProjection
+              });
+            } else {
+              Object.assign(uniforms, {
+                u_projectionMatrix: projection
+              });
+            }
+            Object.assign(
+              uniforms,
+              drawable.skin.getUniforms(drawableScale),
+              drawable.getUniforms()
             );
+            if (opts.extraUniforms) {
+              Object.assign(uniforms, opts.extraUniforms);
+            }
+            if (drawableShader) {
+              drawable.BetterQuake.uniforms.time = this.runtime.ioDevices.clock.projectTimer();
+              Object.assign(uniforms, drawable.BetterQuake.uniforms);
+            }
+            if (uniforms.u_skin || drawable.BetterQuake.uniforms.tDiffuse) {
+              setTextureParameters(
+                gl,
+                uniforms.u_skin ? uniforms.u_skin : drawable.BetterQuake.uniforms.tDiffuse,
+                {
+                  minMag: drawable.skin.useNearest(drawableScale, drawable) ? gl.NEAREST : gl.LINEAR
+                }
+              );
+            }
+            setUniforms(currentShader, uniforms);
+            drawBufferInfo(gl, renderer._bufferInfo, gl.TRIANGLES);
           }
-          setUniforms(currentShader, uniforms);
-          drawBufferInfo(gl, runtime.renderer._bufferInfo, gl.TRIANGLES);
-        }
-        runtime.renderer._regionId = null;
-      };
-      this.runtime.renderer.ext_quakefragment = this;
-      patch(this.runtime.renderer, {
-        _drawThese(og, drawables, drawMode, projection, opts = {}) {
-          const drawablesWithShader = drawables.filter(
-            (drawable) => this._allDrawables[drawable].hasOwnProperty("QuakeFragment")
-          );
-          this.ext_quakefragment.newDrawThese(drawablesWithShader, drawMode, projection, opts);
-          const drawablesWithoutShader = drawables.filter(
-            (drawable) => !this._allDrawables[drawable].hasOwnProperty("QuakeFragment")
-          );
-          og(drawablesWithoutShader, drawMode, projection, opts);
-          this.dirty = this.ext_quakefragment.autoReRender;
-        }
-      });
-      const newL10n = {};
-      for (const lang in l10n) {
-        if (l10n.hasOwnProperty(lang)) {
-          newL10n[lang] = {};
-          for (const key in l10n[lang]) {
-            if (l10n[lang].hasOwnProperty(key)) {
-              newL10n[lang][`${extensionId}.${key}`] = l10n[lang][key];
+          renderer._regionId = null;
+          renderer.dirty = this.autoReRender;
+        };
+        this.runtime.renderer._drawThese = this.newDrawThese;
+      }
+      getInfo() {
+        return {
+          id: extensionId,
+          name: "Better Quake",
+          color1: "#6645F6",
+          color2: "#5237c5",
+          color3: "#6645F6",
+          blockIconURI: icon,
+          menuIconURI: icon,
+          blocks: [
+            "---",
+            {
+              opcode: "setAutoReRender",
+              blockType: Scratch2.BlockType.COMMAND,
+              text: Scratch2.translate("[SHOULD] auto re-render"),
+              arguments: {
+                SHOULD: {
+                  type: Scratch2.ArgumentType.STRING,
+                  menu: "SHOULD_MENU"
+                }
+              }
+            },
+            "---",
+            {
+              opcode: "allLoadedShaders",
+              blockType: Scratch2.BlockType.REPORTER,
+              text: Scratch2.translate("All loaded shaders"),
+              arguments: {},
+              disableMonitor: true
+            },
+            {
+              opcode: "removeShader",
+              blockType: Scratch2.BlockType.COMMAND,
+              text: Scratch2.translate("Remove [SHADER]"),
+              arguments: {
+                SHADER: {
+                  type: Scratch2.ArgumentType.STRING,
+                  menu: "SHADER_MENU"
+                }
+              }
+            },
+            {
+              opcode: "reloadShader",
+              blockType: Scratch2.BlockType.COMMAND,
+              text: Scratch2.translate("Reload [SHADER]"),
+              arguments: {
+                SHADER: {
+                  type: Scratch2.ArgumentType.STRING,
+                  menu: "SHADER_MENU"
+                }
+              }
+            },
+            "---",
+            {
+              opcode: "applyShader",
+              blockType: Scratch2.BlockType.COMMAND,
+              text: Scratch2.translate("Apply [SHADER] to [TARGET]"),
+              arguments: {
+                SHADER: {
+                  type: Scratch2.ArgumentType.STRING,
+                  menu: "SHADER_MENU"
+                },
+                TARGET: {
+                  type: Scratch2.ArgumentType.STRING,
+                  menu: "DRAWABLES_MENU"
+                }
+              }
+            },
+            {
+              opcode: "detachShader",
+              blockType: Scratch2.BlockType.COMMAND,
+              text: Scratch2.translate("Detach [SHADER] from [TARGET]"),
+              arguments: {
+                SHADER: {
+                  type: Scratch2.ArgumentType.STRING,
+                  menu: "SHADER_MENU"
+                },
+                TARGET: {
+                  type: Scratch2.ArgumentType.STRING,
+                  menu: "DRAWABLES_MENU"
+                }
+              }
+            },
+            {
+              blockType: Scratch2.BlockType.LABEL,
+              text: Scratch2.translate("Uniforms")
+            },
+            {
+              opcode: "setNumber",
+              blockType: Scratch2.BlockType.COMMAND,
+              text: Scratch2.translate(
+                "Set number [UNIFORM] of [TARGET] to [VALUE]"
+              ),
+              arguments: {
+                UNIFORM: {
+                  type: Scratch2.ArgumentType.STRING,
+                  defaultValue: "Uniform"
+                },
+                TARGET: {
+                  type: Scratch2.ArgumentType.STRING,
+                  menu: "DRAWABLES_MENU"
+                },
+                VALUE: {
+                  type: Scratch2.ArgumentType.NUMBER,
+                  defaultValue: 0
+                }
+              }
+            },
+            {
+              opcode: "setVec2",
+              blockType: Scratch2.BlockType.COMMAND,
+              text: Scratch2.translate(
+                "Set vector 2 [UNIFORM] of [TARGET] to [VALUE1][VALUE2]"
+              ),
+              arguments: {
+                UNIFORM: {
+                  type: Scratch2.ArgumentType.STRING,
+                  defaultValue: "Uniform"
+                },
+                TARGET: {
+                  type: Scratch2.ArgumentType.STRING,
+                  menu: "DRAWABLES_MENU"
+                },
+                VALUE1: {
+                  type: Scratch2.ArgumentType.NUMBER,
+                  defaultValue: 0
+                },
+                VALUE2: {
+                  type: Scratch2.ArgumentType.NUMBER,
+                  defaultValue: 0
+                }
+              }
+            },
+            {
+              opcode: "setVec3",
+              blockType: Scratch2.BlockType.COMMAND,
+              text: Scratch2.translate(
+                "Set vector 3 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3]"
+              ),
+              arguments: {
+                UNIFORM: {
+                  type: Scratch2.ArgumentType.STRING,
+                  defaultValue: "Uniform"
+                },
+                TARGET: {
+                  type: Scratch2.ArgumentType.STRING,
+                  menu: "DRAWABLES_MENU"
+                },
+                VALUE1: {
+                  type: Scratch2.ArgumentType.NUMBER,
+                  defaultValue: 0
+                },
+                VALUE2: {
+                  type: Scratch2.ArgumentType.NUMBER,
+                  defaultValue: 0
+                },
+                VALUE3: {
+                  type: Scratch2.ArgumentType.NUMBER,
+                  defaultValue: 0
+                }
+              }
+            },
+            {
+              opcode: "setVec4",
+              blockType: Scratch2.BlockType.COMMAND,
+              text: Scratch2.translate(
+                "Set vector 4 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3][VALUE4]"
+              ),
+              arguments: {
+                UNIFORM: {
+                  type: Scratch2.ArgumentType.STRING,
+                  defaultValue: "Uniform"
+                },
+                TARGET: {
+                  type: Scratch2.ArgumentType.STRING,
+                  menu: "DRAWABLES_MENU"
+                },
+                VALUE1: {
+                  type: Scratch2.ArgumentType.NUMBER,
+                  defaultValue: 0
+                },
+                VALUE2: {
+                  type: Scratch2.ArgumentType.NUMBER,
+                  defaultValue: 0
+                },
+                VALUE3: {
+                  type: Scratch2.ArgumentType.NUMBER,
+                  defaultValue: 0
+                },
+                VALUE4: {
+                  type: Scratch2.ArgumentType.NUMBER,
+                  defaultValue: 0
+                }
+              }
+            },
+            {
+              opcode: "setMatrix",
+              blockType: Scratch2.BlockType.COMMAND,
+              text: Scratch2.translate(
+                "Set matrix [UNIFORM] of [TARGET] to [MATRIX]"
+              ),
+              arguments: {
+                UNIFORM: {
+                  type: Scratch2.ArgumentType.STRING,
+                  defaultValue: "Uniform"
+                },
+                TARGET: {
+                  type: Scratch2.ArgumentType.STRING,
+                  menu: "DRAWABLES_MENU"
+                },
+                MATRIX: {
+                  type: Scratch2.ArgumentType.STRING,
+                  defaultValue: "[[], []]"
+                }
+              }
+            },
+            {
+              opcode: "setTexture",
+              blockType: Scratch2.BlockType.COMMAND,
+              text: Scratch2.translate(
+                "Set texture [UNIFORM] of [TARGET] to [TEXTURE]"
+              ),
+              arguments: {
+                UNIFORM: {
+                  type: Scratch2.ArgumentType.STRING,
+                  defaultValue: "Uniform"
+                },
+                TARGET: {
+                  type: Scratch2.ArgumentType.STRING,
+                  menu: "DRAWABLES_MENU"
+                },
+                TEXTURE: {
+                  type: Scratch2.ArgumentType.STRING,
+                  defaultValue: "Scratch Cat"
+                }
+              }
+            },
+            {
+              blockType: Scratch2.BlockType.LABEL,
+              text: Scratch2.translate("Textures")
+            },
+            {
+              opcode: "allTextures",
+              blockType: Scratch2.BlockType.REPORTER,
+              text: Scratch2.translate("All textures"),
+              arguments: {},
+              disableMonitor: true
+            },
+            {
+              opcode: "deleteAllTextures",
+              blockType: Scratch2.BlockType.COMMAND,
+              text: Scratch2.translate("Delete all textures"),
+              arguments: {}
+            },
+            {
+              opcode: "deleteTexture",
+              blockType: Scratch2.BlockType.COMMAND,
+              text: Scratch2.translate("Delete texture called [NAME]"),
+              arguments: {
+                NAME: {
+                  type: Scratch2.ArgumentType.STRING,
+                  defaultValue: "Scratch Cat"
+                }
+              }
+            },
+            {
+              opcode: "createUpdateTexture",
+              blockType: Scratch2.BlockType.COMMAND,
+              text: Scratch2.translate(
+                "Create/Update texture called [NAME] with [TEXTURE]"
+              ),
+              arguments: {
+                NAME: {
+                  type: Scratch2.ArgumentType.STRING,
+                  defaultValue: "Scratch Cat"
+                },
+                TEXTURE: {
+                  type: Scratch2.ArgumentType.STRING,
+                  defaultValue: "dc7f14b8438834de154cebaf827b6b4d.svg"
+                }
+              }
             }
+          ],
+          menus: {
+            DRAWABLES_MENU: {
+              acceptReporters: true,
+              items: "_getDrawablesMenu"
+            },
+            SHADER_MENU: {
+              acceptReporters: true,
+              items: "_shaderList"
+            },
+            SHOULD_MENU: {
+              items: [
+                {
+                  text: Scratch2.translate("Enable"),
+                  value: "true"
+                },
+                {
+                  text: Scratch2.translate("Disable"),
+                  value: "false"
+                }
+              ]
+            }
+          }
+        };
+      }
+      setAutoReRender({ SHOULD }) {
+        this.autoReRender = SHOULD == "true" ? true : false;
+      }
+      removeShader({ SHADER }) {
+        const shaderInfo = this.QuakeManager.loadedShaders[SHADER];
+        if (!shaderInfo) {
+          console.error(`Shader ${SHADER} not found.`);
+          return;
+        }
+        const shaderProgram = shaderInfo.programInfo.program;
+        const gl = this.gl;
+        const shaders = gl.getAttachedShaders(shaderProgram);
+        shaders.forEach((shader) => {
+          gl.detachShader(shaderProgram, shader);
+          gl.deleteShader(shader);
+        });
+        gl.deleteProgram(shaderProgram);
+        delete this.QuakeManager.loadedShaders[SHADER];
+        for (let i = 0; i < this.runtime.renderer._allDrawables.length; i++) {
+          const drawable = this.runtime.renderer._allDrawables[i];
+          if (drawable.BetterQuake?.shader === SHADER) {
+            delete drawable.BetterQuake;
           }
         }
       }
-      this._formatMessage = runtime.getFormatMessage(newL10n);
-    }
-    fm(id) {
-      return this._formatMessage({
-        id: `${extensionId}.${id}`,
-        default: id,
-        description: id
-      });
-    }
-    getInfo() {
-      return {
-        id: "betterquake",
-        name: "Better Quake",
-        color1: "#6645F6",
-        color2: "#5237c5",
-        color3: "#6645F6",
-        blockIconURI: icon,
-        menuIconURI: icon,
-        blocks: [
-          "---",
-          {
-            opcode: "setAutoReRender",
-            blockType: Scratch.BlockType.COMMAND,
-            text: this.fm("[SHOULD] auto re-render"),
-            arguments: {
-              SHOULD: {
-                type: Scratch.ArgumentType.STRING,
-                menu: "SHOULD_MENU"
-              }
-            }
-          },
-          "---",
-          {
-            opcode: "allLoadedShaders",
-            blockType: Scratch.BlockType.REPORTER,
-            text: this.fm("All loaded shaders"),
-            arguments: {},
-            disableMonitor: true
-          },
-          {
-            opcode: "removeShader",
-            blockType: Scratch.BlockType.COMMAND,
-            text: this.fm("Remove [SHADER]"),
-            arguments: {
-              SHADER: {
-                type: Scratch.ArgumentType.STRING,
-                menu: "SHADER_MENU"
-              }
-            }
-          },
-          {
-            opcode: "reloadShader",
-            blockType: Scratch.BlockType.COMMAND,
-            text: this.fm("Reload [SHADER]"),
-            arguments: {
-              SHADER: {
-                type: Scratch.ArgumentType.STRING,
-                menu: "SHADER_MENU"
-              }
-            }
-          },
-          "---",
-          {
-            opcode: "applyShader",
-            blockType: Scratch.BlockType.COMMAND,
-            text: this.fm("Apply [SHADER] to [TARGET]"),
-            arguments: {
-              SHADER: {
-                type: Scratch.ArgumentType.STRING,
-                menu: "SHADER_MENU"
-              },
-              TARGET: {
-                type: Scratch.ArgumentType.STRING,
-                menu: "DRAWABLES_MENU"
-              }
-            }
-          },
-          {
-            opcode: "detachShader",
-            blockType: Scratch.BlockType.COMMAND,
-            text: this.fm("Detach [SHADER] from [TARGET]"),
-            arguments: {
-              SHADER: {
-                type: Scratch.ArgumentType.STRING,
-                menu: "SHADER_MENU"
-              },
-              TARGET: {
-                type: Scratch.ArgumentType.STRING,
-                menu: "DRAWABLES_MENU"
-              }
-            }
-          },
-          "---" + this.fm("Uniforms"),
-          {
-            opcode: "setNumber",
-            blockType: Scratch.BlockType.COMMAND,
-            text: this.fm("Set number [UNIFORM] of [TARGET] to [VALUE]"),
-            arguments: {
-              UNIFORM: {
-                type: Scratch.ArgumentType.STRING,
-                defaultValue: "Uniform"
-              },
-              TARGET: {
-                type: Scratch.ArgumentType.STRING,
-                menu: "DRAWABLES_MENU"
-              },
-              VALUE: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: 0
-              }
-            }
-          },
-          {
-            opcode: "setVec2",
-            blockType: Scratch.BlockType.COMMAND,
-            text: this.fm("Set vector 2 [UNIFORM] of [TARGET] to [VALUE1][VALUE2]"),
-            arguments: {
-              UNIFORM: {
-                type: Scratch.ArgumentType.STRING,
-                defaultValue: "Uniform"
-              },
-              TARGET: {
-                type: Scratch.ArgumentType.STRING,
-                menu: "DRAWABLES_MENU"
-              },
-              VALUE1: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: 0
-              },
-              VALUE2: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: 0
-              }
-            }
-          },
-          {
-            opcode: "setVec3",
-            blockType: Scratch.BlockType.COMMAND,
-            text: this.fm("Set vector 3 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3]"),
-            arguments: {
-              UNIFORM: {
-                type: Scratch.ArgumentType.STRING,
-                defaultValue: "Uniform"
-              },
-              TARGET: {
-                type: Scratch.ArgumentType.STRING,
-                menu: "DRAWABLES_MENU"
-              },
-              VALUE1: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: 0
-              },
-              VALUE2: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: 0
-              },
-              VALUE3: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: 0
-              }
-            }
-          },
-          {
-            opcode: "setVec4",
-            blockType: Scratch.BlockType.COMMAND,
-            text: this.fm("Set vector 4 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3][VALUE4]"),
-            arguments: {
-              UNIFORM: {
-                type: Scratch.ArgumentType.STRING,
-                defaultValue: "Uniform"
-              },
-              TARGET: {
-                type: Scratch.ArgumentType.STRING,
-                menu: "DRAWABLES_MENU"
-              },
-              VALUE1: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: 0
-              },
-              VALUE2: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: 0
-              },
-              VALUE3: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: 0
-              },
-              VALUE4: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: 0
-              }
-            }
-          },
-          {
-            opcode: "setMatrix",
-            blockType: Scratch.BlockType.COMMAND,
-            text: this.fm("Set matrix [UNIFORM] of [TARGET] to [MATRIX]"),
-            arguments: {
-              UNIFORM: {
-                type: Scratch.ArgumentType.STRING,
-                defaultValue: "Uniform"
-              },
-              TARGET: {
-                type: Scratch.ArgumentType.STRING,
-                menu: "DRAWABLES_MENU"
-              },
-              MATRIX: {
-                type: Scratch.ArgumentType.STRING,
-                defaultValue: "[[], []]"
-              }
-            }
-          },
-          {
-            opcode: "setTexture",
-            blockType: Scratch.BlockType.COMMAND,
-            text: this.fm("Set texture [UNIFORM] of [TARGET] to [TEXTURE]"),
-            arguments: {
-              UNIFORM: {
-                type: Scratch.ArgumentType.STRING,
-                defaultValue: "Uniform"
-              },
-              TARGET: {
-                type: Scratch.ArgumentType.STRING,
-                menu: "DRAWABLES_MENU"
-              },
-              TEXTURE: {
-                type: Scratch.ArgumentType.STRING,
-                defaultValue: "Scratch Cat"
-              }
-            }
-          },
-          "---" + this.fm("Textures"),
-          {
-            opcode: "allTextures",
-            blockType: Scratch.BlockType.REPORTER,
-            text: this.fm("All textures"),
-            arguments: {},
-            disableMonitor: true
-          },
-          {
-            opcode: "deleteAllTextures",
-            blockType: Scratch.BlockType.COMMAND,
-            text: this.fm("Delete all textures"),
-            arguments: {}
-          },
-          {
-            opcode: "deleteTexture",
-            blockType: Scratch.BlockType.COMMAND,
-            text: this.fm("Delete texture called [NAME]"),
-            arguments: {
-              NAME: {
-                type: Scratch.ArgumentType.STRING,
-                defaultValue: "Scratch Cat"
-              }
-            }
-          },
-          {
-            opcode: "createUpdateTexture",
-            blockType: Scratch.BlockType.COMMAND,
-            text: this.fm("Create/Update texture called [NAME] with [TEXTURE]"),
-            arguments: {
-              NAME: {
-                type: Scratch.ArgumentType.STRING,
-                defaultValue: "Scratch Cat"
-              },
-              TEXTURE: {
-                type: Scratch.ArgumentType.STRING,
-                defaultValue: "dc7f14b8438834de154cebaf827b6b4d.svg"
-              }
-            }
-          }
-        ],
-        menus: {
-          DRAWABLES_MENU: {
-            acceptReporters: true,
-            items: "_getDrawablesMenu"
-          },
-          SHADER_MENU: {
-            acceptReporters: true,
-            items: "_shaderList"
-          },
-          SHOULD_MENU: {
-            items: [
-              {
-                text: this.fm("Enable"),
-                value: "true"
-              },
-              {
-                text: this.fm("Disable"),
-                value: "false"
-              }
-            ]
+      reloadShader({ SHADER }) {
+        let drawableShader = this.QuakeManager.loadedShaders[SHADER];
+        const shaderUsers = [];
+        for (let i = 0; i < this.runtime.renderer._allDrawables.length; i++) {
+          const drawable = this.runtime.renderer._allDrawables[i];
+          if (drawable.BetterQuake?.shader === SHADER) {
+            shaderUsers.push(drawable);
           }
         }
-      };
-    }
-    setAutoReRender({ SHOULD }) {
-      this.autoReRender = SHOULD == "true" ? true : false;
-    }
-    removeShader({ SHADER }) {
-      const shaderInfo = this.QuakeManager.loadedShaders[SHADER];
-      if (!shaderInfo) {
-        console.error(`Shader ${SHADER} not found.`);
-        return;
-      }
-      const shaderProgram = shaderInfo.programInfo.program;
-      const gl = this.gl;
-      const shaders = gl.getAttachedShaders(shaderProgram);
-      shaders.forEach((shader) => {
-        gl.detachShader(shaderProgram, shader);
-        gl.deleteShader(shader);
-      });
-      gl.deleteProgram(shaderProgram);
-      delete this.QuakeManager.loadedShaders[SHADER];
-      for (let i = 0; i < this.runtime.renderer._allDrawables.length; i++) {
-        const drawable = this.runtime.renderer._allDrawables[i];
-        if (drawable.QuakeFragment?.shader === SHADER) {
-          delete drawable.QuakeFragment;
+        if (drawableShader) {
+          this.removeShader({ SHADER });
+        } else {
+          drawableShader = {};
         }
-      }
-    }
-    reloadShader({ SHADER }) {
-      let drawableShader = this.QuakeManager.loadedShaders[SHADER];
-      const shaderUsers = [];
-      for (let i = 0; i < this.runtime.renderer._allDrawables.length; i++) {
-        const drawable = this.runtime.renderer._allDrawables[i];
-        if (drawable.QuakeFragment?.shader === SHADER) {
-          shaderUsers.push(drawable);
+        const asset = this.runtime.getGandiAssetContent ? this.runtime.getGandiAssetContent(SHADER) : null;
+        if (asset) {
+          drawableShader.source = asset.decodeText();
         }
+        const programInfo = createProgramInfo(this.gl, [
+          vertexShaderSource_default,
+          SHADER === "__example__" ? fragmentShaderSource_default : drawableShader.source
+        ]);
+        this.gl.useProgram(programInfo.program);
+        setBuffersAndAttributes(
+          this.gl,
+          programInfo.program,
+          this.runtime.renderer._bufferInfo
+        );
+        drawableShader.programInfo = programInfo;
+        this.QuakeManager.loadedShaders[SHADER] = drawableShader;
+        shaderUsers.forEach((drawable) => {
+          drawable.BetterQuake = {};
+          drawable.BetterQuake.shader = SHADER;
+          drawable.BetterQuake.uniforms = {
+            u_color: [Math.random(), Math.random(), Math.random(), 1]
+          };
+        });
+        this.runtime.renderer.dirty = true;
       }
-      if (drawableShader) {
-        this.removeShader({ SHADER });
-      } else {
-        drawableShader = {};
+      allLoadedShaders() {
+        return JSON.stringify(Object.keys(this.QuakeManager.loadedShaders));
       }
-      const asset = this.runtime.getGandiAssetContent(SHADER);
-      if (asset) {
-        drawableShader.source = asset.decodeText();
-      }
-      const programInfo = createProgramInfo(this.gl, [vertexShaderSource, SHADER === "__example__" ? fragmentShaderSource : drawableShader.source]);
-      this.gl.useProgram(programInfo.program);
-      setBuffersAndAttributes(this.gl, programInfo.program, this.runtime.renderer._bufferInfo);
-      drawableShader.programInfo = programInfo;
-      this.QuakeManager.loadedShaders[SHADER] = drawableShader;
-      shaderUsers.forEach((drawable) => {
-        drawable.QuakeFragment = {};
-        drawable.QuakeFragment.shader = SHADER;
-        drawable.QuakeFragment.uniforms = {
+      applyShader({ SHADER, TARGET }, util) {
+        const target = this._getTargetByIdOrName(TARGET, util);
+        const drawable = this.runtime.renderer._allDrawables[target.drawableID];
+        let drawableShader = this.QuakeManager.loadedShaders[SHADER];
+        if (!drawableShader) {
+          this.reloadShader({ SHADER });
+          drawableShader = this.QuakeManager.loadedShaders[SHADER];
+        }
+        if (!drawable.BetterQuake) {
+          drawable.BetterQuake = {};
+        }
+        drawable.BetterQuake.shader = SHADER;
+        drawable.BetterQuake.uniforms = {
           u_color: [Math.random(), Math.random(), Math.random(), 1]
         };
-      });
-      this.runtime.renderer.dirty = true;
-    }
-    allLoadedShaders() {
-      return JSON.stringify(Object.keys(this.QuakeManager.loadedShaders));
-    }
-    applyShader({ SHADER, TARGET }, util) {
-      const target = this._getTargetByIdOrName(TARGET, util);
-      const drawable = this.runtime.renderer._allDrawables[target.drawableID];
-      let drawableShader = this.QuakeManager.loadedShaders[SHADER];
-      if (!drawableShader) {
-        this.reloadShader({ SHADER });
-        drawableShader = this.QuakeManager.loadedShaders[SHADER];
+        this.runtime.renderer.dirty = true;
       }
-      if (!drawable.QuakeFragment) {
-        drawable.QuakeFragment = {};
+      detachShader({ SHADER, TARGET }, util) {
+        const target = this._getTargetByIdOrName(TARGET, util);
+        const drawable = this.runtime.renderer._allDrawables[target.drawableID];
+        if (drawable.BetterQuake?.shader === SHADER) {
+          delete drawable.BetterQuake;
+        }
       }
-      drawable.QuakeFragment.shader = SHADER;
-      drawable.QuakeFragment.uniforms = {
-        u_color: [Math.random(), Math.random(), Math.random(), 1]
-      };
-      this.runtime.renderer.dirty = true;
-    }
-    detachShader({ SHADER, TARGET }, util) {
-      const target = this._getTargetByIdOrName(TARGET, util);
-      const drawable = this.runtime.renderer._allDrawables[target.drawableID];
-      if (drawable.QuakeFragment?.shader === SHADER) {
-        delete drawable.QuakeFragment;
+      setNumber({ UNIFORM, TARGET, VALUE }, util) {
+        const target = this._getTargetByIdOrName(TARGET, util);
+        const drawable = this.runtime.renderer._allDrawables[target.drawableID];
+        if (!drawable.BetterQuake)
+          return;
+        drawable.BetterQuake.uniforms[UNIFORM] = VALUE;
       }
-    }
-    setNumber({ UNIFORM, TARGET, VALUE }, util) {
-      const target = this._getTargetByIdOrName(TARGET, util);
-      const drawable = this.runtime.renderer._allDrawables[target.drawableID];
-      if (!drawable.QuakeFragment)
-        return;
-      drawable.QuakeFragment.uniforms[UNIFORM] = VALUE;
-    }
-    setVec2({ UNIFORM, TARGET, VALUE1, VALUE2 }, util) {
-      const target = this._getTargetByIdOrName(TARGET, util);
-      const drawable = this.runtime.renderer._allDrawables[target.drawableID];
-      if (!drawable.QuakeFragment)
-        return;
-      drawable.QuakeFragment.uniforms[UNIFORM] = [VALUE1, VALUE2];
-    }
-    setVec3({ UNIFORM, TARGET, VALUE1, VALUE2, VALUE3 }, util) {
-      const target = this._getTargetByIdOrName(TARGET, util);
-      const drawable = this.runtime.renderer._allDrawables[target.drawableID];
-      if (!drawable.QuakeFragment)
-        return;
-      drawable.QuakeFragment.uniforms[UNIFORM] = [VALUE1, VALUE2, VALUE3];
-    }
-    setVec4({ UNIFORM, TARGET, VALUE1, VALUE2, VALUE3, VALUE4 }, util) {
-      const target = this._getTargetByIdOrName(TARGET, util);
-      const drawable = this.runtime.renderer._allDrawables[target.drawableID];
-      if (!drawable.QuakeFragment)
-        return;
-      drawable.QuakeFragment.uniforms[UNIFORM] = [VALUE1, VALUE2, VALUE3, VALUE4];
-    }
-    setMatrix({ UNIFORM, TARGET, MATRIX }, util) {
-      const target = this._getTargetByIdOrName(TARGET, util);
-      const drawable = this.runtime.renderer._allDrawables[target.drawableID];
-      if (!drawable.QuakeFragment)
-        return;
-      let converted = JSON.parse(MATRIX);
-      if (!Array.isArray(converted))
-        return;
-      converted = converted.map(function(str) {
-        return parseInt(str);
-      });
-      drawable.QuakeFragment.uniforms[UNIFORM] = converted;
-    }
-    setTexture({ UNIFORM, TARGET, TEXTURE }, util) {
-      const target = this._getTargetByIdOrName(TARGET, util);
-      const drawable = this.runtime.renderer._allDrawables[target.drawableID];
-      if (!drawable.QuakeFragment)
-        return;
-      drawable.QuakeFragment.uniforms[UNIFORM] = this.QuakeManager.textures[Scratch.Cast.toString(TEXTURE)];
-    }
-    allTextures() {
-      return JSON.stringify(Object.keys(this.QuakeManager.textures));
-    }
-    deleteTexture({ NAME }) {
-      if (this.QuakeManager.textures[NAME]) {
-        this.gl.deleteTexture(this.QuakeManager.textures[NAME]);
-        delete this.QuakeManager.textures[NAME];
+      setVec2({ UNIFORM, TARGET, VALUE1, VALUE2 }, util) {
+        const target = this._getTargetByIdOrName(TARGET, util);
+        const drawable = this.runtime.renderer._allDrawables[target.drawableID];
+        if (!drawable.BetterQuake)
+          return;
+        drawable.BetterQuake.uniforms[UNIFORM] = [VALUE1, VALUE2];
       }
-    }
-    deleteAllTextures() {
-      this.QuakeManager.textures.forEach((texture) => {
-        this.gl.deleteTexture(texture);
-      });
-      this.QuakeManager.textures = [];
-    }
-    createUpdateTexture({ NAME, TEXTURE }, util) {
-      const textureName = Scratch.Cast.toString(NAME);
-      this.deleteTexture(textureName);
-      if (/(.*?)\.(png|svg|jpg|jpeg)/.test(String(TEXTURE))) {
-        const id = String(TEXTURE).split(".")[0];
-        const ext = String(TEXTURE).split(".")[1];
-        const assetType = ext === "svg" ? this.runtime.storage.AssetType.ImageVector : this.runtime.storage.AssetType.ImageBitmap;
-        const asset = this.runtime.storage.load(assetType, id, ext).then((asset2) => {
-          const texture = createTexture(this.gl, { src: asset2.encodeDataURI() });
+      setVec3({ UNIFORM, TARGET, VALUE1, VALUE2, VALUE3 }, util) {
+        const target = this._getTargetByIdOrName(TARGET, util);
+        const drawable = this.runtime.renderer._allDrawables[target.drawableID];
+        if (!drawable.BetterQuake)
+          return;
+        drawable.BetterQuake.uniforms[UNIFORM] = [VALUE1, VALUE2, VALUE3];
+      }
+      setVec4({ UNIFORM, TARGET, VALUE1, VALUE2, VALUE3, VALUE4 }, util) {
+        const target = this._getTargetByIdOrName(TARGET, util);
+        const drawable = this.runtime.renderer._allDrawables[target.drawableID];
+        if (!drawable.BetterQuake)
+          return;
+        drawable.BetterQuake.uniforms[UNIFORM] = [VALUE1, VALUE2, VALUE3, VALUE4];
+      }
+      setMatrix({ UNIFORM, TARGET, MATRIX }, util) {
+        const target = this._getTargetByIdOrName(TARGET, util);
+        const drawable = this.runtime.renderer._allDrawables[target.drawableID];
+        if (!drawable.BetterQuake)
+          return;
+        let converted = JSON.parse(MATRIX);
+        if (!Array.isArray(converted))
+          return;
+        converted = converted.map(function(str) {
+          return parseInt(str);
+        });
+        drawable.BetterQuake.uniforms[UNIFORM] = converted;
+      }
+      setTexture({ UNIFORM, TARGET, TEXTURE }, util) {
+        const target = this._getTargetByIdOrName(TARGET, util);
+        const drawable = this.runtime.renderer._allDrawables[target.drawableID];
+        if (!drawable.BetterQuake)
+          return;
+        drawable.BetterQuake.uniforms[UNIFORM] = this.QuakeManager.textures[Scratch2.Cast.toString(TEXTURE)];
+      }
+      allTextures() {
+        return JSON.stringify(Object.keys(this.QuakeManager.textures));
+      }
+      deleteTexture({ NAME }) {
+        if (this.QuakeManager.textures[NAME]) {
+          this.gl.deleteTexture(this.QuakeManager.textures[NAME]);
+          delete this.QuakeManager.textures[NAME];
+        }
+      }
+      deleteAllTextures() {
+        this.QuakeManager.textures.forEach((texture) => {
+          this.gl.deleteTexture(texture);
+        });
+        this.QuakeManager.textures = [];
+      }
+      createUpdateTexture({ NAME, TEXTURE }, util) {
+        const textureName = Scratch2.Cast.toString(NAME);
+        this.deleteTexture(textureName);
+        if (/(.*?)\.(png|svg|jpg|jpeg)/.test(String(TEXTURE))) {
+          const id = String(TEXTURE).split(".")[0];
+          const ext = String(TEXTURE).split(".")[1];
+          const assetType = ext === "svg" ? this.runtime.storage.AssetType.ImageVector : this.runtime.storage.AssetType.ImageBitmap;
+          const asset = this.runtime.storage.load(assetType, id, ext).then((asset2) => {
+            const texture = createTexture(this.gl, {
+              src: asset2.encodeDataURI()
+            });
+            this.QuakeManager.textures[textureName] = texture;
+          });
+        } else {
+          const texture = createTexture(this.gl, { src: TEXTURE });
           this.QuakeManager.textures[textureName] = texture;
-        });
-      } else {
-        const texture = createTexture(this.gl, { src: TEXTURE });
-        this.QuakeManager.textures[textureName] = texture;
+        }
       }
-    }
-    _getTargetByIdOrName(name, util) {
-      if (name === "__myself__")
-        return util.target;
-      if (name === "__stage__")
-        return this.runtime.getTargetForStage();
-      let target = this.runtime.getSpriteTargetByName(name);
-      if (!target) {
-        target = this.runtime.getTargetById(name);
-        if (!target)
-          return null;
+      _getTargetByIdOrName(name, util) {
+        if (name === "__myself__")
+          return util.target;
+        if (name === "__stage__")
+          return this.runtime.getTargetForStage();
+        let target = this.runtime.getSpriteTargetByName(name);
+        if (!target) {
+          target = this.runtime.getTargetById(name);
+          if (!target)
+            return null;
+        }
+        return target;
       }
-      return target;
-    }
-    _getSpriteMenu() {
-      const { targets } = this.runtime;
-      const menu = targets.filter((target) => !target.isStage && target.isOriginal).map((target) => ({
-        text: target.sprite.name,
-        value: target.sprite.name
-      }));
-      if (menu.length === 0) {
-        menu.push({
-          text: "-",
-          value: "empty"
-        });
-      }
-      return menu;
-    }
-    _getDrawablesMenu() {
-      const menu = this._getSpriteMenu();
-      if (!this.runtime._editingTarget)
+      _getSpriteMenu() {
+        const { targets } = this.runtime;
+        const menu = targets.filter((target) => !target.isStage && target.isOriginal).map((target) => ({
+          text: target.sprite.name,
+          value: target.sprite.name
+        }));
+        if (menu.length === 0) {
+          menu.push({
+            text: "-",
+            value: "empty"
+          });
+        }
         return menu;
-      const editingTargetName = this.runtime._editingTarget.sprite.name;
-      const index = menu.findIndex((item) => item.value === editingTargetName);
-      if (index !== -1) {
-        menu.splice(index, 1);
       }
-      menu.unshift(
-        {
-          text: this.fm("me"),
-          value: "__myself__"
-        },
-        {
-          text: this.fm("stage"),
-          value: "__stage__"
+      _getDrawablesMenu() {
+        const menu = this._getSpriteMenu();
+        if (!this.runtime._editingTarget)
+          return menu;
+        const editingTargetName = this.runtime._editingTarget.sprite.name;
+        const index = menu.findIndex((item) => item.value === editingTargetName);
+        if (index !== -1) {
+          menu.splice(index, 1);
         }
-      );
-      return menu;
-    }
-    _shaderList() {
-      const list = this.runtime.getGandiAssetsFileList("glsl").map((item) => item.fullName);
-      list.push({
-        text: this.fm("example"),
-        value: "__example__"
-      });
-      return list;
-    }
-  };
-  window.tempExt = {
-    Extension: QuakeFragment,
-    info: {
-      name: "quakefragment.extensionName",
-      description: "quakefragment.description",
-      extensionId: "quakefragment",
-      //iconURL: banner.png,
-      insetIconURL: icon,
-      featured: true,
-      disabled: false,
-      collaboratorList: [
-        {
-          collaborator: "Fath11@QuakeStudio",
-          collaboratorURL: "https://cocrea.world/@Fath11"
-        },
-        {
-          collaborator: "\u9177\u53EFmc @ CCW",
-          collaboratorURL: "https://www.ccw.site/student/203910367"
-        }
-      ]
-    },
-    l10n: {
-      "zh-cn": {
-        "quakefragment.extensionName": "Better Quake",
-        "quakefragment.description": "Better shader loader"
-      },
-      en: {
-        "quakefragment.extensionName": "Better Quake",
-        "quakefragment.description": "Better shader loader"
+        menu.unshift(
+          {
+            text: Scratch2.translate("me"),
+            value: "__myself__"
+          },
+          {
+            text: Scratch2.translate("stage"),
+            value: "__stage__"
+          }
+        );
+        return menu;
+      }
+      _shaderList() {
+        const list = this.runtime.getGandiAssetsFileList ? this.runtime.getGandiAssetsFileList("glsl").map((item) => item.fullName) : [];
+        list.push({
+          text: Scratch2.translate("example"),
+          value: "__example__"
+        });
+        return list;
       }
     }
-  };
+    if (Scratch2.vm?.runtime) {
+      Scratch2.extensions.register(new BetterQuake(Scratch2.vm.runtime));
+    } else {
+      window.tempExt = {
+        Extension: BetterQuake,
+        info: {
+          name: "BetterQuake.extensionName",
+          description: "BetterQuake.description",
+          extensionId: "BetterQuake",
+          //iconURL: banner.png,
+          insetIconURL: icon,
+          featured: true,
+          disabled: false,
+          collaboratorList: [
+            {
+              collaborator: "Fath11@QuakeStudio",
+              collaboratorURL: "https://cocrea.world/@Fath11"
+            },
+            {
+              collaborator: "\u9177\u53EFmc @ CCW",
+              collaboratorURL: "https://www.ccw.site/student/203910367"
+            },
+            {
+              collaborator: "\u718A\u8C37 \u51CC",
+              collaboratorURL: "https://github.com/FurryR"
+            }
+          ]
+        },
+        l10n: {
+          "zh-cn": {
+            "BetterQuake.extensionName": "Better Quake",
+            "BetterQuake.description": "Better shader loader"
+          },
+          en: {
+            "BetterQuake.extensionName": "Better Quake",
+            "BetterQuake.description": "Better shader loader"
+          }
+        }
+      };
+    }
+  })(Scratch);
+
+  // src/withL10n.ts
+  (function(Scratch2) {
+    Scratch2.translate.setup(l10n_default);
+  })(Scratch);
 })();
 /*! Bundled license information:
 
