@@ -27154,6 +27154,29 @@ void main() {
   // src/RenderTheWorld.js
   (function(Scratch2) {
     "use strict";
+    function addRTWStyle(newStyle) {
+      let _RTWStyle = !window.RTWStyle;
+      window.RTWStyle = document.getElementById("RTWStyle");
+      if (!window.RTWStyle) {
+        window.RTWStyle = document.createElement("style");
+        window.RTWStyle.type = "text/css";
+        window.RTWStyle.id = "RTWStyle";
+        if (_RTWStyle)
+          document.getElementsByTagName("head")[0].appendChild(window.RTWStyle);
+      }
+      window.RTWStyle.childNodes.forEach((child) => {
+        window.RTWStyle.removeChild(child);
+      });
+      window.RTWStyle.appendChild(document.createTextNode(newStyle));
+    }
+    addRTWStyle(`
+        .RTW-image {
+            cursor: pointer;
+        }
+        .RTW-image:hover {
+            filter: brightness(130%);
+        }
+    `);
     const hackFun = (runtime2) => {
       if (!runtime2 || hackFun.hacked)
         return;
@@ -27217,6 +27240,7 @@ void main() {
           }
           init() {
             super.init();
+            this.getSvgRoot().getElementsByTagName("image")[0].classList.add("RTW-image");
             if (!this.initialized) {
               Blockly.bindEventWithChecks_(
                 this.getSvgRoot(),
@@ -27254,23 +27278,27 @@ void main() {
           constructor() {
             super(plusImage);
           }
-          onclick() {
-            const block = this.sourceBlock_;
-            block.itemCount_ += 1;
-            block.updateShape();
+          onclick(e) {
+            if (e.button == 0) {
+              const block = this.sourceBlock_;
+              block.itemCount_ += 1;
+              block.updateShape();
+            }
           }
         }
         class MinusButton extends FieldButton {
           constructor() {
             super(minusImage);
           }
-          onclick() {
-            const block = this.sourceBlock_;
-            block.itemCount_ -= 1;
-            if (block.itemCount_ < 0) {
-              block.itemCount_ = 0;
+          onclick(e) {
+            if (e.button == 0) {
+              const block = this.sourceBlock_;
+              block.itemCount_ -= 1;
+              if (block.itemCount_ < 0) {
+                block.itemCount_ = 0;
+              }
+              block.updateShape();
             }
-            block.updateShape();
           }
         }
         const minusImage = PICTRUE.minus;
@@ -27637,10 +27665,26 @@ void main() {
             this.gl = renderer._gl;
             const texture = this.gl.createTexture();
             this.gl.bindTexture(this.gl.TEXTURE_2D, texture);
-            this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.CLAMP_TO_EDGE);
-            this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.CLAMP_TO_EDGE);
-            this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MIN_FILTER, this.gl.NEAREST);
-            this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
+            this.gl.texParameteri(
+              this.gl.TEXTURE_2D,
+              this.gl.TEXTURE_WRAP_S,
+              this.gl.CLAMP_TO_EDGE
+            );
+            this.gl.texParameteri(
+              this.gl.TEXTURE_2D,
+              this.gl.TEXTURE_WRAP_T,
+              this.gl.CLAMP_TO_EDGE
+            );
+            this.gl.texParameteri(
+              this.gl.TEXTURE_2D,
+              this.gl.TEXTURE_MIN_FILTER,
+              this.gl.NEAREST
+            );
+            this.gl.texParameteri(
+              this.gl.TEXTURE_2D,
+              this.gl.TEXTURE_MAG_FILTER,
+              this.gl.NEAREST
+            );
             this._texture = texture;
             this._rotationCenter = [320, 180];
             this._size = [640, 360];
@@ -27678,14 +27722,7 @@ void main() {
         this.CanvasSkin = CanvasSkin;
       }
     }
-    const {
-      ArgumentType,
-      BlockType,
-      TargetType,
-      Cast,
-      translate,
-      extensions
-    } = Scratch2;
+    const { ArgumentType, BlockType, TargetType, Cast, translate, extensions } = Scratch2;
     function hijack(fn) {
       const _orig = Function.prototype.apply;
       Function.prototype.apply = function(thisArg) {
@@ -27712,9 +27749,26 @@ void main() {
         }
       }
       if (!virtualMachine) {
-        throw new Error("lpp cannot get Virtual Machine instance.");
+        throw new Error(
+          "RenderTheWorld cannot get Virtual Machine instance."
+        );
       }
       return virtualMachine;
+    }
+    function getBlockly(vm2) {
+      let Blockly;
+      if (vm2._events["EXTENSION_ADDED"] instanceof Array) {
+        for (const value of vm2._events["EXTENSION_ADDED"]) {
+          const v = hijack(value);
+          if (v?.ScratchBlocks) {
+            Blockly = v?.ScratchBlocks;
+            break;
+          }
+        }
+      } else if (vm2._events["EXTENSION_ADDED"]) {
+        Blockly = hijack(vm2._events["EXTENSION_ADDED"])?.ScratchBlocks;
+      }
+      return Blockly;
     }
     const vm = Scratch2.vm ?? getVM(runtime);
     const runtime = vm.runtime ?? Scratch2.runtime;
@@ -27755,7 +27809,7 @@ void main() {
         original(blockId, value);
       }
     });
-    translate.setup({
+    const translate_setup = {
       "zh-cn": {
         "RenderTheWorld.name": "\u6E32\u67D3\u4E16\u754C",
         "RenderTheWorld.fileListEmpty": "\u6CA1\u6709\u6587\u4EF6",
@@ -27771,7 +27825,6 @@ void main() {
         "RenderTheWorld.init": "\u521D\u59CB\u5316\u5E76\u8BBE\u7F6E\u80CC\u666F\u989C\u8272\u4E3A[color] \u5927\u5C0F[sizex]x[sizey]y [Anti_Aliasing]",
         "RenderTheWorld.Anti_Aliasing.enable": "\u542F\u7528\u6297\u952F\u9F7F",
         "RenderTheWorld.Anti_Aliasing.disable": "\u7981\u7528\u6297\u952F\u9F7F",
-        "RenderTheWorld.render": "\u6E32\u67D3\u573A\u666F",
         "RenderTheWorld.color_RGB": "RGB\u989C\u8272: [R] [G] [B]",
         "RenderTheWorld.tools": "\u{1F6E0}\uFE0F\u5DE5\u5177",
         "RenderTheWorld.YN.true": "\u80FD",
@@ -27795,8 +27848,8 @@ void main() {
         "RenderTheWorld.planeModel": "<\u5E73\u9762> \u957F[a] \u5BBD[b] \u6750\u8D28[material]",
         "RenderTheWorld.objModel": "<OBJ\u6A21\u578B> OBJ\u6587\u4EF6[objfile] MTL\u6587\u4EF6[mtlfile]",
         "RenderTheWorld.gltfModel": "<GLTF\u6A21\u578B> GLTF\u6587\u4EF6[gltffile]",
-        "RenderTheWorld.importModel": "\u5BFC\u5165\u6216\u91CD\u7F6E\u6A21\u578B: \u540D\u79F0[name] \u6A21\u578B[model]",
-        "RenderTheWorld.shadowSettings": "\u8BBE\u7F6E\u6A21\u578B [name] \u7684\u9634\u5F71\u8BBE\u7F6E: [YN]\u6295\u5C04\u9634\u5F71 [YN2]\u88AB\u6295\u5C04\u9634\u5F71",
+        "RenderTheWorld.importModel": "\u5BFC\u5165\u6216\u91CD\u7F6E: \u540D\u79F0[name] \u5BF9\u8C61[model]",
+        "RenderTheWorld.shadowSettings": "\u8BBE\u7F6E [name] \u7684\u9634\u5F71\u8BBE\u7F6E: [YN]\u6295\u5C04\u9634\u5F71 [YN2]\u88AB\u6295\u5C04\u9634\u5F71",
         "RenderTheWorld.makeMaterial": "\u521B\u5EFA\u6750\u8D28 [material]",
         "RenderTheWorld.setMaterialColor": "\u8BBE\u7F6E\u5F53\u524D\u6750\u8D28\u989C\u8272 [color]",
         "RenderTheWorld.setMaterialFog": "\u8BBE\u7F6E\u5F53\u524D\u6750\u8D28 [YN] \u53D7\u96FE\u6548\u679C\u5F71\u54CD",
@@ -27805,13 +27858,13 @@ void main() {
         "RenderTheWorld.stopAnimation": "\u7ED3\u675F\u6A21\u578B: [name] \u7684\u52A8\u753B[animationName]",
         "RenderTheWorld.updateAnimation": "\u63A8\u8FDB\u6A21\u578B: [name] \u7684\u52A8\u753B [time]\u6BEB\u79D2 \u5E76\u66F4\u65B0",
         "RenderTheWorld.getAnimation": "\u83B7\u53D6\u6A21\u578B: [name] \u7684\u6240\u6709\u52A8\u753B",
-        "RenderTheWorld.rotationObject": "\u5C06\u7269\u4F53: [name] \u65CB\u8F6C: x[x] y[y] z[z]",
-        "RenderTheWorld.moveObject": "\u5C06\u7269\u4F53: [name] \u79FB\u52A8\u5230: x[x] y[y] z[z]",
-        "RenderTheWorld.scaleObject": "\u5C06\u7269\u4F53: [name] \u7F29\u653E: x[x] y[y] z[z]",
-        "RenderTheWorld.getObjectPos": "\u83B7\u53D6\u7269\u4F53: [name] \u7684[xyz]\u5750\u6807",
+        "RenderTheWorld.rotationObject": "\u5C06: [name] \u65CB\u8F6C: x[x] y[y] z[z]",
+        "RenderTheWorld.moveObject": "\u5C06: [name] \u79FB\u52A8\u5230: x[x] y[y] z[z]",
+        "RenderTheWorld.scaleObject": "\u5C06: [name] \u7F29\u653E: x[x] y[y] z[z]",
+        "RenderTheWorld.getObjectPos": "\u83B7\u53D6: [name] \u7684[xyz]\u5750\u6807",
         "RenderTheWorld.getObjectRotation": "\u83B7\u53D6\u7269\u4F53: [name] [xyz]\u7684\u65CB\u8F6C\u89D2\u5EA6",
         "RenderTheWorld.getObjectScale": "\u83B7\u53D6\u7269\u4F53: [name] [xyz]\u7684\u7F29\u653E",
-        "RenderTheWorld.deleteObject": "\u5220\u9664\u7269\u4F53: [name]",
+        "RenderTheWorld.deleteObject": "\u5220\u9664: [name]",
         "RenderTheWorld.xyz.x": "x\u8F74",
         "RenderTheWorld.xyz.y": "y\u8F74",
         "RenderTheWorld.xyz.z": "z\u8F74",
@@ -27820,6 +27873,8 @@ void main() {
         "RenderTheWorld.setHemisphereLightColor": "\u8BBE\u7F6E\u534A\u7403\u5149\u5929\u7A7A\u989C\u8272: [skyColor] \u5730\u9762\u989C\u8272: [groundColor] \u5149\u7167\u5F3A\u5EA6: [intensity]",
         "RenderTheWorld.makePointLight": "\u521B\u5EFA\u6216\u91CD\u7F6E\u70B9\u5149\u6E90: [name] \u989C\u8272: [color] \u5149\u7167\u5F3A\u5EA6: [intensity] \u4F4D\u7F6E: x[x] y[y] z[z] \u8870\u51CF\u91CF[decay] [YN]\u6295\u5C04\u9634\u5F71",
         "RenderTheWorld.makeDirectionalLight": "\u521B\u5EFA\u6216\u91CD\u7F6E\u65B9\u5411\u5149: [name] \u989C\u8272: [color] \u5149\u7167\u5F3A\u5EA6: [intensity] \u4F4D\u7F6E: x[x] y[y] z[z] \u6307\u5411: x[x2] y[y2] z[z2] [YN]\u6295\u5C04\u9634\u5F71",
+        "RenderTheWorld.pointLight": "<\u70B9\u5149\u6E90> \u989C\u8272: [color] \u5149\u7167\u5F3A\u5EA6: [intensity] \u4F4D\u7F6E: x[x] y[y] z[z] \u8870\u51CF\u91CF[decay] [YN]\u6295\u5C04\u9634\u5F71",
+        "RenderTheWorld.directionalLight": "<\u65B9\u5411\u5149> \u989C\u8272: [color] \u5149\u7167\u5F3A\u5EA6: [intensity] \u4F4D\u7F6E: x[x] y[y] z[z] \u6307\u5411: x[x2] y[y2] z[z2] [YN]\u6295\u5C04\u9634\u5F71",
         "RenderTheWorld.setDirectionalLightShawdowCamera": "\u8BBE\u7F6E\u65B9\u5411\u5149: [name] \u7684\u9634\u5F71\u6295\u5C04\u8303\u56F4 left: [left] right: [right] top: [top] bottom: [bottom]",
         "RenderTheWorld.setLightMapSize": "\u8BBE\u7F6E\u5149\u6E90: [name] \u7684\u9634\u5F71\u7EB9\u7406\u5206\u8FA8\u7387\u4E3A: x[xsize] y[ysize]",
         "RenderTheWorld.moveLight": "\u5C06\u5149\u6E90: [name] \u79FB\u52A8\u5230: x[x] y[y] z[z]",
@@ -27838,7 +27893,60 @@ void main() {
         "RenderTheWorld.setControlCameraDampingNum": "\u8BBE\u7F6E\u9F20\u6807\u63A7\u5236\u76F8\u673A\u7684\u60EF\u6027\u7CFB\u6570[num]",
         "RenderTheWorld.fogs": "\u{1F32B}\uFE0F\u96FE",
         "RenderTheWorld.enableFogEffect": "\u542F\u7528\u96FE\u6548\u679C\u5E76\u8BBE\u7F6E\u96FE\u989C\u8272\u4E3A: [color] near[near] far[far]",
-        "RenderTheWorld.disableFogEffect": "\u7981\u7528\u96FE\u6548\u679C"
+        "RenderTheWorld.disableFogEffect": "\u7981\u7528\u96FE\u6548\u679C",
+        // tooltips
+        "RenderTheWorld.objectLoadingCompleted.tooltip": "\u5F53\u5BF9\u8C61\u52A0\u8F7D\u5B8C\u6210\u65F6\u89E6\u53D1",
+        "RenderTheWorld.set3dState.tooltip": "\u8BBE\u7F6E3D\u663E\u793A\u5668\u662F\u5426\u663E\u793A",
+        "RenderTheWorld.get3dState.tooltip": "\u5224\u65AD\u200B3D\u663E\u793A\u5668\u662F\u5426\u663E\u793A",
+        "RenderTheWorld.init.tooltip": "\u521D\u59CB\u5316\u6269\u5C55\u6A21\u5757\uFF0C\u8BBE\u7F6E\u80CC\u666F\u989C\u8272\u3001\u6E32\u67D3\u5927\u5C0F\u548C\u662F\u5426\u5F00\u542F\u6297\u952F\u9F7F",
+        "RenderTheWorld.color_RGB.tooltip": "RGB\u989C\u8272",
+        "RenderTheWorld.isWebGLAvailable.tooltip": "WebGL\u517C\u5BB9\u6027\u68C0\u67E5",
+        "RenderTheWorld._isWebGLAvailable.tooltip": "\u5F53\u524D\u8BBE\u5907\u652F\u6301WebGL\u5417?",
+        "RenderTheWorld.makeCube.tooltip": "\u521B\u5EFA\u6216\u91CD\u7F6E\u957F\u65B9\u4F53",
+        "RenderTheWorld.makeSphere.tooltip": "\u521B\u5EFA\u6216\u91CD\u7F6E\u7403\u4F53",
+        "RenderTheWorld.makePlane.tooltip": "\u521B\u5EFA\u6216\u91CD\u7F6E\u5E73\u9762",
+        "RenderTheWorld.importOBJ.tooltip": "\u5BFC\u5165\u6216\u91CD\u7F6EOBJ\u6A21\u578B",
+        "RenderTheWorld.importGLTF.tooltip": "\u5BFC\u5165\u6216\u91CD\u7F6EGLTF\u6A21\u578B",
+        "RenderTheWorld.cubeModel.tooltip": "\u521B\u5EFA\u4E00\u4E2A\u957F\u65B9\u4F53\uFF0C\u8FD4\u56DE\u4E00\u4E2A\u6A21\u578B\u5BF9\u8C61\uFF0C\u53EF\u76F4\u63A5\u5728\u201C\u5BFC\u5165\u6216\u91CD\u7F6E\u201D\u79EF\u6728\u4E2D\u4F7F\u7528",
+        "RenderTheWorld.sphereModel.tooltip": "\u521B\u5EFA\u4E00\u4E2A\u7403\u4F53\uFF0C\u8FD4\u56DE\u4E00\u4E2A\u6A21\u578B\u5BF9\u8C61\uFF0C\u53EF\u76F4\u63A5\u5728\u201C\u5BFC\u5165\u6216\u91CD\u7F6E\u201D\u79EF\u6728\u4E2D\u4F7F\u7528",
+        "RenderTheWorld.planeModel.tooltip": "\u521B\u5EFA\u4E00\u4E2A\u5E73\u9762\uFF0C\u8FD4\u56DE\u4E00\u4E2A\u6A21\u578B\u5BF9\u8C61\uFF0C\u53EF\u76F4\u63A5\u5728\u201C\u5BFC\u5165\u6216\u91CD\u7F6E\u201D\u79EF\u6728\u4E2D\u4F7F\u7528",
+        "RenderTheWorld.objModel.tooltip": "\u5BFC\u5165OBJ\u6A21\u578B\uFF0C\u8FD4\u56DE\u4E00\u4E2A\u6A21\u578B\u5BF9\u8C61\uFF0C\u53EF\u76F4\u63A5\u5728\u201C\u5BFC\u5165\u6216\u91CD\u7F6E\u201D\u79EF\u6728\u4E2D\u4F7F\u7528",
+        "RenderTheWorld.gltfModel.tooltip": "\u5BFC\u5165GLTF\u6A21\u578B\uFF0C\u8FD4\u56DE\u4E00\u4E2A\u6A21\u578B\u5BF9\u8C61\uFF0C\u53EF\u76F4\u63A5\u5728\u201C\u5BFC\u5165\u6216\u91CD\u7F6E\u201D\u79EF\u6728\u4E2D\u4F7F\u7528",
+        "RenderTheWorld.pointLight.tooltip": "\u521B\u5EFA\u4E00\u4E2A\u70B9\u5149\u6E90\uFF0C\u8FD4\u56DE\u4E00\u4E2A\u6A21\u578B\u5BF9\u8C61\uFF0C\u53EF\u76F4\u63A5\u5728\u201C\u5BFC\u5165\u6216\u91CD\u7F6E\u201D\u79EF\u6728\u4E2D\u4F7F\u7528",
+        "RenderTheWorld.directionalLight.tooltip": "\u521B\u5EFA\u4E00\u4E2A\u5E73\u884C\u5149\uFF0C\u8FD4\u56DE\u4E00\u4E2A\u6A21\u578B\u5BF9\u8C61\uFF0C\u53EF\u76F4\u63A5\u5728\u201C\u5BFC\u5165\u6216\u91CD\u7F6E\u201D\u79EF\u6728\u4E2D\u4F7F\u7528",
+        "RenderTheWorld.importModel.tooltip": "\u5BFC\u5165\u6216\u91CD\u7F6E\u5BF9\u8C61",
+        "RenderTheWorld.shadowSettings.tooltip": "\u8BBE\u7F6E\u5BF9\u8C61\u7684\u9634\u5F71\u8BBE\u7F6E",
+        "RenderTheWorld.makeMaterial.tooltip": "\u521B\u5EFA\u4E00\u4E2A\u6750\u8D28\uFF0C\u53EF\u76F4\u63A5\u5728\u201C\u5BFC\u5165\u6216\u91CD\u7F6E\u201D\u79EF\u6728\u4E2D\u4F7F\u7528\uFF0C\u5982\u975E\u5FC5\u8981\uFF0C\u63A8\u8350\u591A\u4E2A\u6A21\u578B\u5171\u7528\u4E00\u4E2A\u6750\u8D28",
+        "RenderTheWorld.setMaterialColor.tooltip": "\u8BBE\u7F6E\u5F53\u524D\u6750\u8D28\u989C\u8272\uFF0C\u5728\u201C\u521B\u5EFA\u4E00\u4E2A\u6750\u8D28\u201D\u79EF\u6728\u4E2D\u4F7F\u7528",
+        "RenderTheWorld.setMaterialFog.tooltip": "\u8BBE\u7F6E\u5F53\u524D\u6750\u8D28\u662F\u5426\u53D7\u96FE\u6548\u679C\u5F71\u54CD\uFF0C\u5728\u201C\u521B\u5EFA\u4E00\u4E2A\u6750\u8D28\u201D\u79EF\u6728\u4E2D\u4F7F\u7528",
+        "RenderTheWorld.return.tooltip": "\u6750\u8D28\u521B\u5EFA\u5B8C\u6210\uFF0C\u5FC5\u987B\u5728\u201C\u521B\u5EFA\u4E00\u4E2A\u6750\u8D28\u201D\u79EF\u6728\u4E2D\u4F7F\u7528",
+        "RenderTheWorld.playAnimation.tooltip": "\u542F\u52A8\u6A21\u578B\u7684\u52A8\u753B",
+        "RenderTheWorld.stopAnimation.tooltip": "\u7ED3\u675F\u6A21\u578B\u7684\u52A8\u753B",
+        "RenderTheWorld.updateAnimation.tooltip": "\u63A8\u8FDB\u6A21\u578B\u7684\u52A8\u753B\u5E76\u66F4\u65B0",
+        "RenderTheWorld.getAnimation.tooltip": "\u83B7\u53D6\u6A21\u578B\u7684\u6240\u6709\u52A8\u753B\uFF0C\u8FD4\u56DE\u4E00\u4E2A\u5B57\u7B26\u4E32\u5316\u5217\u8868",
+        "RenderTheWorld.rotationObject.tooltip": "\u65CB\u8F6C\u7269\u4F53",
+        "RenderTheWorld.moveObject.tooltip": "\u79FB\u52A8\u7269\u4F53",
+        "RenderTheWorld.scaleObject.tooltip": "\u7F29\u653E\u7269\u4F53",
+        "RenderTheWorld.getObjectPos.tooltip": "\u83B7\u53D6\u5BF9\u8C61\u7684\u4EFB\u610Fxyz\u5750\u6807",
+        "RenderTheWorld.getObjectRotation.tooltip": "\u83B7\u53D6\u5BF9\u8C61\u4EFB\u610Fxyz\u8F74\u7684\u65CB\u8F6C\u89D2\u5EA6",
+        "RenderTheWorld.getObjectScale.tooltip": "\u83B7\u53D6\u5BF9\u8C61\u4EFB\u610Fxyz\u8F74\u7684\u7F29\u653E",
+        "RenderTheWorld.deleteObject.tooltip": "\u5220\u9664\u5BF9\u8C61",
+        "RenderTheWorld.setAmbientLightColor.tooltip": "\u8BBE\u7F6E\u73AF\u5883\u5149\u989C\u8272",
+        "RenderTheWorld.setHemisphereLightColor.tooltip": "\u8BBE\u7F6E\u534A\u7403\u5149\u5929\u7A7A\u989C\u8272",
+        "RenderTheWorld.setDirectionalLightShawdowCamera.tooltip": "\u8BBE\u7F6E\u65B9\u5411\u5149\u7684\u9634\u5F71\u6295\u5C04\u8303\u56F4",
+        "RenderTheWorld.setLightMapSize.tooltip": "\u8BBE\u7F6E\u5149\u6E90\u7684\u9634\u5F71\u7EB9\u7406\u5206\u8FA8\u7387",
+        "RenderTheWorld.moveCamera.tooltip": "\u79FB\u52A8\u76F8\u673A",
+        "RenderTheWorld.rotationCamera.tooltip": "\u65CB\u8F6C\u76F8\u673A",
+        "RenderTheWorld.cameraLookAt.tooltip": "\u8BA9\u76F8\u673A\u9762\u5411\u4E00\u4E2A\u5750\u6807",
+        "RenderTheWorld.getCameraPos.tooltip": "\u83B7\u53D6\u76F8\u673A\u4EFB\u610Fxyz\u7684\u5750\u6807",
+        "RenderTheWorld.getCameraRotation.tooltip": "\u83B7\u53D6\u76F8\u673A\u4EFB\u610Fxyz\u7684\u65CB\u8F6C\u89D2\u5EA6",
+        "RenderTheWorld.setControlState.tooltip": "\u8BBE\u7F6E\u9F20\u6807\u63A7\u5236\u76F8\u673A\u6A21\u5F0F\u662F\u5426\u5F00\u542F",
+        "RenderTheWorld.mouseCanControlCamera.tooltip": "\u5224\u65AD\u9F20\u6807\u63A7\u5236\u76F8\u673A\u6A21\u5F0F\u662F\u5426\u5F00\u542F",
+        "RenderTheWorld.controlCamera.tooltip": "\u8BBE\u7F6E\u9F20\u6807\u63A7\u5236\u76F8\u673A\u6A21\u5F0F\u80FD\u5426\u53F3\u952E\u62D6\u62FD\u3001\u80FD\u5426\u4E2D\u952E\u7F29\u653E\u3001\u80FD\u5426\u5DE6\u952E\u65CB\u8F6C",
+        "RenderTheWorld.setControlCameraDamping.tooltip": "\u8BBE\u7F6E\u9F20\u6807\u63A7\u5236\u76F8\u673A\u6A21\u5F0F\u7684\u89C6\u53E3\u65CB\u8F6C\u662F\u5426\u542F\u7528\u60EF\u6027",
+        "RenderTheWorld.setControlCameraDampingNum.tooltip": "\u8BBE\u7F6E\u9F20\u6807\u63A7\u5236\u76F8\u673A\u6A21\u5F0F\u7684\u89C6\u53E3\u65CB\u8F6C\u60EF\u6027",
+        "RenderTheWorld.enableFogEffect.tooltip": "\u542F\u7528\u96FE\u6548\u679C\u5E76\u8BBE\u7F6E\u96FE\u989C\u8272",
+        "RenderTheWorld.disableFogEffect.tooltip": "\u7981\u7528\u96FE\u6548\u679C"
       },
       en: {
         "RenderTheWorld.name": "Render The World",
@@ -27855,7 +27963,6 @@ void main() {
         "RenderTheWorld.init": "init and set the background color to [color] size:[sizex]x[sizey]y [Anti_Aliasing]",
         "RenderTheWorld.Anti_Aliasing.enable": "enable anti aliasing",
         "RenderTheWorld.Anti_Aliasing.disable": "disable anti aliasing",
-        "RenderTheWorld.render": "render",
         "RenderTheWorld.color_RGB": "RGB color: [R] [G] [B]",
         "RenderTheWorld.tools": "\u{1F6E0}\uFE0FTools",
         "RenderTheWorld.YN.true": "can",
@@ -27879,8 +27986,8 @@ void main() {
         "RenderTheWorld.planeModel": "<plane> length[a] width[b] material[material]",
         "RenderTheWorld.objModel": "<OBJ model> OBJ file[objfile] MTL file[mtlfile]",
         "RenderTheWorld.gltfModel": "<GLTF model> GLTF file[gltffile]",
-        "RenderTheWorld.importModel": "reset or make a Model: name[name] model[model]",
-        "RenderTheWorld.shadowSettings": "set model [name] shadow settings: [YN]cast shadows [YN2]shadow cast",
+        "RenderTheWorld.importModel": "reset or make: name[name] object[model]",
+        "RenderTheWorld.shadowSettings": "set [name] shadow settings: [YN]cast shadows [YN2]shadow cast",
         "RenderTheWorld.makeMaterial": "make material [material]",
         "RenderTheWorld.setMaterialColor": "set current material color [color]",
         "RenderTheWorld.setMaterialFog": "set current material [YN] affected fog",
@@ -27905,6 +28012,8 @@ void main() {
         "RenderTheWorld.makePointLight": "reset or make a PointLight: [name] color: [color] intensity: [intensity] position: x[x] y[y] z[z] decay[decay] [YN]cast shadows",
         "RenderTheWorld.makeDirectionalLight": "reset or make a DirectionalLight: [name] color: [color] intensity: [intensity] position: x[x] y[y] z[z] to: x[x2] y[y2] z[z2] [YN]cast shadows",
         "RenderTheWorld.setDirectionalLightShawdowCamera": "set the shadow casting range for DirectionalLight: [name] left: [left] right: [right] top: [top] bottom: [bottom]",
+        "RenderTheWorld.pointLight": "<pointLight> color: [color] intensity: [intensity] position: x[x] y[y] z[z] decay[decay] [YN]cast shadows",
+        "RenderTheWorld.directionalLight": "<directionalLight> color: [color] intensity: [intensity] position: x[x] y[y] z[z] to: x[x2] y[y2] z[z2] [YN]cast shadows",
         "RenderTheWorld.setLightMapSize": "set Light: [name]'s shadow texture resolution x[xsize] y[ysize]",
         "RenderTheWorld.moveLight": "Light: [name] go to: x[x] y[y] z[z]",
         "RenderTheWorld.getLightPos": "get Light: [name]'s [xyz] pos",
@@ -27922,21 +28031,321 @@ void main() {
         "RenderTheWorld.setControlCameraDampingNum": "set the damping coefficient of mouse controlled camera [num]",
         "RenderTheWorld.fogs": "\u{1F32B}\uFE0FFog",
         "RenderTheWorld.enableFogEffect": "Enable fog effect and set fog color to: [color] near[near] far[far]",
-        "RenderTheWorld.disableFogEffect": "Disable fog effect"
+        "RenderTheWorld.disableFogEffect": "Disable fog effect",
+        // tooltips
+        "RenderTheWorld.objectLoadingCompleted.tooltip": "Triggered when object loading is complete",
+        "RenderTheWorld.set3dState.tooltip": "Set whether the 3D stage displays",
+        "RenderTheWorld.get3dState.tooltip": "Determine whether the 3D stage is displaying",
+        "RenderTheWorld.init.tooltip": "Initialize the extension module, set the background color, rendering size, and whether to enable anti aliasing",
+        "RenderTheWorld.color_RGB.tooltip": "RGB color",
+        "RenderTheWorld.isWebGLAvailable.tooltip": "WebGL compatibility check",
+        "RenderTheWorld._isWebGLAvailable.tooltip": "Does the current device support WebGL?",
+        "RenderTheWorld.makeCube.tooltip": "Create or reset a cube",
+        "RenderTheWorld.makeSphere.tooltip": "Create or reset a sphere",
+        "RenderTheWorld.makePlane.tooltip": "Create or reset a plane",
+        "RenderTheWorld.importOBJ.tooltip": "Import or reset OBJ model",
+        "RenderTheWorld.importGLTF.tooltip": "Import or reset GLTF model",
+        "RenderTheWorld.cubeModel.tooltip": 'Create a cube and return a model object, which can be directly used in the "reset or make" building block',
+        "RenderTheWorld.sphereModel.tooltip": 'Create a sphere and return a model object, which can be directly used in the "reset or make" building block',
+        "RenderTheWorld.planeModel.tooltip": 'Create a plane and return a model object, which can be directly used in the "reset or make" building block',
+        "RenderTheWorld.objModel.tooltip": 'Import OBJ model and return a model object, which can be directly used in the "reset or make" building block',
+        "RenderTheWorld.gltfModel.tooltip": 'Import GLTF model and return a model object, which can be directly used in the "reset or make" building block',
+        "RenderTheWorld.pointLight.tooltip": 'Create a pointLight and return a model object, which can be directly used in the "reset or make" building block',
+        "RenderTheWorld.directionalLight.tooltip": 'Create a directionalLight and return a model object, which can be directly used in the "reset or make" building block',
+        "RenderTheWorld.importModel.tooltip": "Import or reset objects",
+        "RenderTheWorld.shadowSettings.tooltip": "Set shadow settings for objects",
+        "RenderTheWorld.makeMaterial.tooltip": 'Create a material that can be directly used in the "reset or make" block. If not necessary, it is recommended that multiple models share the same material',
+        "RenderTheWorld.setMaterialColor.tooltip": 'Set the current material color and use it in the "make material" block',
+        "RenderTheWorld.setMaterialFog.tooltip": 'Set whether the current material is affected by fog effects, using in the "make material" block',
+        "RenderTheWorld.return.tooltip": 'The material creation is completed and must be used in the "make material" block',
+        "RenderTheWorld.playAnimation.tooltip": "Start the animation of the model",
+        "RenderTheWorld.stopAnimation.tooltip": "End the animation of the model",
+        "RenderTheWorld.updateAnimation.tooltip": "Advance the animation of the model and update it",
+        "RenderTheWorld.getAnimation.tooltip": "Retrieve all animations of the model and return a stringified list",
+        "RenderTheWorld.rotationObject.tooltip": "Rotating object",
+        "RenderTheWorld.moveObject.tooltip": "Moving object",
+        "RenderTheWorld.scaleObject.tooltip": "Scaling object",
+        "RenderTheWorld.getObjectPos.tooltip": "\u83B7\u53D6\u5BF9\u8C61\u7684\u4EFB\u610Fxyz\u5750\u6807",
+        "RenderTheWorld.getObjectRotation.tooltip": "Get any xyz coordinate of the object",
+        "RenderTheWorld.getObjectScale.tooltip": "Get the scaling of any xyz axis of the object",
+        "RenderTheWorld.deleteObject.tooltip": "Delete object",
+        "RenderTheWorld.setAmbientLightColor.tooltip": "Set ambient light color",
+        "RenderTheWorld.setHemisphereLightColor.tooltip": "Set the color of the hemisphere light",
+        "RenderTheWorld.setDirectionalLightShawdowCamera.tooltip": "Set the shadow projection range of directional light",
+        "RenderTheWorld.setLightMapSize.tooltip": "Set the shadow texture resolution of the light source",
+        "RenderTheWorld.moveCamera.tooltip": "Moving camera",
+        "RenderTheWorld.rotationCamera.tooltip": "Rotating camera",
+        "RenderTheWorld.cameraLookAt.tooltip": "Place the camera facing a coordinate",
+        "RenderTheWorld.getCameraPos.tooltip": "Obtain the coordinates of any xyz of the camera",
+        "RenderTheWorld.getCameraRotation.tooltip": "Obtain the rotation angle of any xyz of the camera",
+        "RenderTheWorld.setControlState.tooltip": "Set whether the Mouse Control Camera mode is enabled or not",
+        "RenderTheWorld.mouseCanControlCamera.tooltip": "Check if the Mouse Control Camera mode is enabled",
+        "RenderTheWorld.controlCamera.tooltip": "Can the Mouse Control Camera mode be used for right click drag, middle click zoom, and left click rotation",
+        "RenderTheWorld.setControlCameraDamping.tooltip": "Whether to enable inertia for viewport rotation in the Mouse Control Camera mode",
+        "RenderTheWorld.setControlCameraDampingNum.tooltip": "Set viewport rotation inertia for Mouse Control Camera mode",
+        "RenderTheWorld.enableFogEffect.tooltip": "Enable fog effect and set fog color",
+        "RenderTheWorld.disableFogEffect.tooltip": "Disable fog effect"
       }
-    });
+    };
+    translate.setup(translate_setup);
+    class RTW_Model_Box {
+      constructor(model, ismaterial, isobj, isgltf, animations) {
+        this.model = model;
+        this.ismaterial = ismaterial;
+        this.isobj = isobj;
+        this.isgltf = isgltf;
+        this.animations = animations;
+      }
+      toString() {
+        return String(this.model);
+      }
+      getHTML() {
+        let html = document.createElement("span");
+        if (this.isobj) {
+          html.innerText = `objfile: "${this.model.objfile}" mtlfile: "${this.model.mtlfile}`;
+        } else if (this.isgltf) {
+          html.innerText = `gltffile: "${this.model.gltffile}"`;
+        } else {
+          html.innerText = `model: "${this.model["type"] ?? String(this.model)}"`;
+        }
+        return html;
+      }
+    }
+    let Wrapper = class _Wrapper extends String {
+      /**
+       * Construct a wrapped value.
+       * @param value Value to wrap.
+       */
+      constructor(value) {
+        super(value);
+        this.value = value;
+      }
+      /**
+       * Unwraps a wrapped object.
+       * @param value Wrapped object.
+       * @returns Unwrapped object.
+       */
+      static unwrap(value) {
+        return value instanceof _Wrapper ? value.value : value;
+      }
+      /**
+       * toString method for Scratch monitors.
+       * @returns String display.
+       */
+      toString() {
+        return String(this.value);
+      }
+    };
+    function show(Blockly, id, value, textAlign) {
+      const workspace = Blockly.getMainWorkspace();
+      const block = workspace.getBlockById(id);
+      if (!block)
+        return;
+      Blockly.DropDownDiv.hideWithoutAnimation();
+      Blockly.DropDownDiv.clearContent();
+      const contentDiv = Blockly.DropDownDiv.getContentDiv(), elem = document.createElement("div");
+      elem.setAttribute("class", "valueReportBox");
+      elem.append(...value);
+      elem.style.maxWidth = "none";
+      elem.style.maxHeight = "none";
+      elem.style.textAlign = textAlign;
+      elem.style.userSelect = "none";
+      contentDiv.appendChild(elem);
+      Blockly.DropDownDiv.setColour(
+        Blockly.Colours.valueReportBackground,
+        Blockly.Colours.valueReportBorder
+      );
+      Blockly.DropDownDiv.showPositionedByBlock(workspace, block);
+      return elem;
+    }
     class RenderTheWorld {
       constructor(_runtime) {
         this.runtime = _runtime ?? Scratch2?.vm?.runtime;
         if (!this.runtime)
           return;
-        hackFun(_runtime);
-        if (is_see_inside() === "dev") {
-          setExpandableBlocks(
-            this.runtime,
-            this
-          );
+        this.Blockly = void 0;
+        this.vm = getVM(runtime);
+        this.Blockly = getBlockly(this.vm);
+        if (!this.Blockly)
+          this.vm.once("workspaceUpdate", () => {
+            const newBlockly = getBlockly(this.vm);
+            if (newBlockly && newBlockly !== this.Blockly) {
+              this.Blockly = newBlockly;
+            }
+          });
+        const _visualReport = runtime.visualReport;
+        runtime.visualReport = (blockId, value) => {
+          const unwrappedValue = Wrapper.unwrap(value);
+          if (unwrappedValue instanceof RTW_Model_Box && this.Blockly) {
+            show(
+              this.Blockly,
+              blockId,
+              [unwrappedValue.getHTML()],
+              "center"
+            );
+          } else {
+            return _visualReport.call(runtime, blockId, value);
+          }
+        };
+        const _requestUpdateMonitor = runtime.requestUpdateMonitor;
+        const monitorMap = /* @__PURE__ */ new Map();
+        if (_requestUpdateMonitor) {
+          const patchMonitorValue = (element, value) => {
+            const unwrappedValue = Wrapper.unwrap(value);
+            const valueElement = element.querySelector('[class*="value"]');
+            if (valueElement instanceof HTMLElement) {
+              const internalInstance = Object.values(
+                valueElement
+              ).find(
+                (v) => typeof v === "object" && v !== null && Reflect.has(v, "stateNode")
+              );
+              if (unwrappedValue instanceof RTW_Model_Box) {
+                const inspector = unwrappedValue.getHTML();
+                valueElement.style.textAlign = "left";
+                valueElement.style.backgroundColor = "#121C3D";
+                valueElement.style.color = "#eeeeee";
+                valueElement.style.border = "1px solid #4A76FF";
+                while (valueElement.firstChild)
+                  valueElement.removeChild(
+                    valueElement.firstChild
+                  );
+                valueElement.append(inspector);
+              } else {
+                if (internalInstance) {
+                  valueElement.style.textAlign = "";
+                  valueElement.style.backgroundColor = internalInstance.memoizedProps?.style?.background ?? "";
+                  valueElement.style.color = internalInstance.memoizedProps?.style?.color ?? "";
+                  while (valueElement.firstChild)
+                    valueElement.removeChild(
+                      valueElement.firstChild
+                    );
+                  valueElement.append(String(value));
+                }
+              }
+            }
+          };
+          const getMonitorById = (id2) => {
+            const elements = document.querySelectorAll(
+              `[class*="monitor_monitor-container"]`
+            );
+            for (const element of Object.values(elements)) {
+              const internalInstance = Object.values(element).find(
+                (v) => typeof v === "object" && v !== null && Reflect.has(v, "children")
+              );
+              if (internalInstance) {
+                const props = internalInstance?.children?.props;
+                if (id2 === props?.id)
+                  return element;
+              }
+            }
+            return null;
+          };
+          this.runtime.requestUpdateMonitor = (state) => {
+            const id2 = state.get("id");
+            if (typeof id2 === "string") {
+              const monitorValue = state.get("value");
+              const unwrappedValue = Wrapper.unwrap(monitorValue);
+              const monitorMode = state.get("mode");
+              const monitorVisible = state.get("visible");
+              const cache = monitorMap.get(id2);
+              if (typeof monitorMode === "string" && cache) {
+                cache.mode = monitorMode;
+                cache.value = void 0;
+              } else if (monitorValue !== void 0) {
+                if (unwrappedValue instanceof RTW_Model_Box) {
+                  if (!cache || cache.value !== monitorValue) {
+                    requestAnimationFrame(() => {
+                      const monitor = getMonitorById(id2);
+                      if (monitor) {
+                        patchMonitorValue(
+                          monitor,
+                          monitorValue
+                        );
+                      }
+                    });
+                    if (!cache) {
+                      monitorMap.set(id2, {
+                        value: monitorValue,
+                        mode: (() => {
+                          if (runtime.getMonitorState) {
+                            const monitorCached = runtime.getMonitorState().get(id2);
+                            if (monitorCached) {
+                              const mode = monitorCached.get(
+                                "mode"
+                              );
+                              return typeof mode === "string" ? mode : "normal";
+                            }
+                          }
+                          return "normal";
+                        })()
+                      });
+                    } else
+                      cache.value = monitorValue;
+                  }
+                  return true;
+                } else {
+                  if (monitorMap.has(id2)) {
+                    const monitor = getMonitorById(id2);
+                    if (monitor) {
+                      patchMonitorValue(
+                        monitor,
+                        monitorValue
+                      );
+                    }
+                    monitorMap.delete(id2);
+                  }
+                }
+              } else if (monitorVisible !== void 0) {
+                if (!monitorVisible)
+                  monitorMap.delete(id2);
+              }
+            }
+            return _requestUpdateMonitor.call(this.runtime, state);
+          };
         }
+        this.objectLoadingCompletedUpdate = () => {
+          console.log(this.Blockly);
+          this.Blockly.getMainWorkspace().getAllBlocks().filter((block) => block.type === "ccw_hat_parameter").forEach((hat_parameter) => {
+            if (hat_parameter.svgGroup_.getElementsByTagName("text")[0].textContent === "name") {
+              let flag = false;
+              let parentBlock_ = hat_parameter.parentBlock_;
+              while (parentBlock_ !== null) {
+                if (parentBlock_.type === chen_RenderTheWorld_extensionId + "_objectLoadingCompleted") {
+                  flag = true;
+                  break;
+                }
+                parentBlock_ = parentBlock_.parentBlock_;
+              }
+              if (flag) {
+                console.log(hat_parameter);
+                hat_parameter["is_RTW_hat_parameter"] = true;
+                hat_parameter.colour_ = hat_parameter.svgPath_.style.fill = "#121C3D";
+                hat_parameter.colourTertiary_ = hat_parameter.svgPath_.style.stroke = "#4A76FF";
+              } else if (hat_parameter["is_RTW_hat_parameter"] === true) {
+                hat_parameter["is_RTW_hat_parameter"] = void 0;
+                hat_parameter.colour_ = hat_parameter.svgPath_.style.fill = "#FF6680";
+                hat_parameter.colourTertiary_ = hat_parameter.svgPath_.style.stroke = "#FF3355";
+              }
+            }
+          });
+        };
+        this.runtime.on("PROJECT_LOADED", this.objectLoadingCompletedUpdate);
+        this.runtime.on("BLOCK_DRAG_UPDATE", this.objectLoadingCompletedUpdate);
+        this.runtime.on("BLOCKSINFO_UPDATE", this.objectLoadingCompletedUpdate);
+        hackFun(_runtime);
+        console.log("RTW", is_see_inside());
+        if (is_see_inside()) {
+          setExpandableBlocks(this.runtime, this);
+        }
+        this.vm = getVM(this.runtime);
+        this.Blockly = getBlockly(this.vm);
+        if (!this.Blockly)
+          this.vm.once("workspaceUpdate", () => {
+            const newBlockly = getBlockly(this.vm);
+            if (newBlockly && newBlockly !== this.Blockly) {
+              this.Blockly = newBlockly;
+            }
+          });
         this.is_listener = false;
         this._init_porject_time = 0;
         this.isWebglAvailable = false;
@@ -27950,15 +28359,17 @@ void main() {
         this.controls = null;
         this.ambient_light = null;
         this.hemisphere_light = null;
-        this.lights = {};
         this.objects = {};
         this.animations = {};
-        this.scratchCanvas = null;
         this.tc = null;
         this.isTcShow = false;
         this.NullCanvas = document.createElement("canvas");
         let index = this.runtime.renderer._groupOrdering.indexOf("video");
-        this.runtime.renderer._groupOrdering.splice(index + 1, 0, "RenderTheWorld");
+        this.runtime.renderer._groupOrdering.splice(
+          index + 1,
+          0,
+          "RenderTheWorld"
+        );
         this.runtime.renderer._layerGroups["RenderTheWorld"] = {
           groupIndex: 0,
           drawListOffset: this.runtime.renderer._layerGroups["video"].drawListOffset
@@ -27968,7 +28379,11 @@ void main() {
         }
         this.threeSkinId = this.runtime.renderer._nextSkinId++;
         let SkinsClass = new Skins(this.runtime);
-        this.threeSkin = new SkinsClass.CanvasSkin(this.threeSkinId, this.runtime.renderer);
+        this.threeSkin = new SkinsClass.CanvasSkin(
+          this.threeSkinId,
+          this.runtime.renderer
+        );
+        this.threeSkin.setContent(this.NullCanvas);
         this.runtime.renderer._allSkins[this.threeSkinId] = this.threeSkin;
         this.threeDrawableId = this.runtime.renderer.createDrawable("RenderTheWorld");
         this.runtime.renderer.updateDrawableSkinId(
@@ -27992,10 +28407,1104 @@ void main() {
         });
       }
       getInfo() {
+        translate.setup(translate_setup);
+        let blocks = [
+          {
+            blockType: BlockType.BUTTON,
+            text: this.formatMessage("RenderTheWorld.apidocs"),
+            onClick: this.docs
+          },
+          {
+            opcode: "init",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage("RenderTheWorld.init"),
+            arguments: {
+              color: {
+                type: "number",
+                defaultValue: 0
+              },
+              sizex: {
+                type: "number",
+                defaultValue: 640
+              },
+              sizey: {
+                type: "number",
+                defaultValue: 360
+              },
+              Anti_Aliasing: {
+                type: "string",
+                menu: "Anti_Aliasing"
+              }
+            }
+          },
+          {
+            opcode: "set3dState",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage("RenderTheWorld.set3dState"),
+            arguments: {
+              state: {
+                type: "string",
+                menu: "3dState"
+              }
+            }
+          },
+          {
+            opcode: "get3dState",
+            blockType: BlockType.BOOLEAN,
+            text: this.formatMessage("RenderTheWorld.get3dState")
+          },
+          {
+            blockType: BlockType.LABEL,
+            text: this.formatMessage("RenderTheWorld.tools")
+          },
+          {
+            opcode: "color_RGB",
+            blockType: BlockType.REPORTER,
+            text: this.formatMessage("RenderTheWorld.color_RGB"),
+            arguments: {
+              R: {
+                type: "number",
+                defaultValue: 255
+              },
+              G: {
+                type: "number",
+                defaultValue: 255
+              },
+              B: {
+                type: "number",
+                defaultValue: 255
+              }
+            }
+          },
+          {
+            opcode: "isWebGLAvailable",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage("RenderTheWorld.isWebGLAvailable")
+          },
+          {
+            opcode: "_isWebGLAvailable",
+            blockType: BlockType.BOOLEAN,
+            text: this.formatMessage(
+              "RenderTheWorld._isWebGLAvailable"
+            )
+          },
+          {
+            blockType: BlockType.LABEL,
+            text: this.formatMessage("RenderTheWorld.objects")
+          },
+          {
+            blockType: BlockType.LABEL,
+            text: this.formatMessage("RenderTheWorld.Material")
+          },
+          {
+            opcode: "makeMaterial",
+            blockType: BlockType.OUTPUT,
+            text: this.formatMessage("RenderTheWorld.makeMaterial"),
+            arguments: {
+              material: {
+                type: "material",
+                menu: "material",
+                defaultValue: "Basic"
+              }
+            },
+            output: "Boolean",
+            outputShape: 3,
+            branchCount: 1
+          },
+          {
+            opcode: "setMaterialColor",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage("RenderTheWorld.setMaterialColor"),
+            arguments: {
+              color: {
+                type: "string",
+                defaultValue: ""
+              }
+            }
+          },
+          // "RenderTheWorld.setMaterialFog": "设置当前材质 [YN] 受雾效果影响",
+          {
+            opcode: "setMaterialFog",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage("RenderTheWorld.setMaterialFog"),
+            arguments: {
+              YN: {
+                type: "string",
+                menu: "YN",
+                defaultValue: "true"
+              }
+            }
+          },
+          {
+            opcode: "return",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage("RenderTheWorld.return"),
+            arguments: {},
+            isTerminal: true
+          },
+          {
+            blockType: BlockType.LABEL,
+            text: this.formatMessage("RenderTheWorld.Model")
+          },
+          {
+            opcode: "objectLoadingCompleted",
+            blockType: BlockType.HAT,
+            text: this.formatMessage(
+              "RenderTheWorld.objectLoadingCompleted"
+            ),
+            isEdgeActivated: false,
+            shouldRestartExistingThreads: false,
+            arguments: {
+              name: {
+                type: "ccw_hat_parameter",
+                defaultValue: "name"
+              }
+            }
+          },
+          {
+            opcode: "importModel",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage("RenderTheWorld.importModel"),
+            arguments: {
+              name: {
+                type: "string",
+                defaultValue: "name"
+              },
+              model: {
+                type: null,
+                defaultValue: ""
+              }
+            }
+          },
+          {
+            opcode: "deleteObject",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage("RenderTheWorld.deleteObject"),
+            arguments: {
+              name: {
+                type: "string",
+                defaultValue: "name"
+              }
+            },
+            expandableBlock: {
+              expandableArgs: {
+                TEXT: ["text", ", ", 1],
+                NAME: ["string", "name"]
+              },
+              defaultIndex: 1,
+              textBegin: "",
+              textEnd: ""
+            }
+          },
+          {
+            opcode: "cubeModel",
+            blockType: BlockType.OUTPUT,
+            text: this.formatMessage("RenderTheWorld.cubeModel"),
+            arguments: {
+              a: {
+                type: "number",
+                defaultValue: 5
+              },
+              b: {
+                type: "number",
+                defaultValue: 5
+              },
+              h: {
+                type: "number",
+                defaultValue: 5
+              },
+              material: {
+                type: null,
+                defaultValue: ""
+              }
+            },
+            output: "Reporter",
+            outputShape: 3,
+            branchCount: 0
+          },
+          {
+            opcode: "sphereModel",
+            blockType: BlockType.OUTPUT,
+            text: this.formatMessage("RenderTheWorld.sphereModel"),
+            arguments: {
+              radius: {
+                type: "number",
+                defaultValue: 3
+              },
+              w: {
+                type: "number",
+                defaultValue: 32
+              },
+              h: {
+                type: "number",
+                defaultValue: 16
+              },
+              material: {
+                type: null,
+                defaultValue: ""
+              }
+            },
+            output: "Reporter",
+            outputShape: 3,
+            branchCount: 0
+          },
+          {
+            opcode: "planeModel",
+            blockType: BlockType.OUTPUT,
+            text: this.formatMessage("RenderTheWorld.planeModel"),
+            arguments: {
+              a: {
+                type: "number",
+                defaultValue: 5
+              },
+              b: {
+                type: "number",
+                defaultValue: 5
+              },
+              material: {
+                type: null,
+                defaultValue: ""
+              }
+            },
+            output: "Reporter",
+            outputShape: 3,
+            branchCount: 0
+          },
+          {
+            opcode: "objModel",
+            blockType: BlockType.OUTPUT,
+            text: this.formatMessage("RenderTheWorld.objModel"),
+            arguments: {
+              objfile: {
+                type: "string",
+                menu: "file_list"
+              },
+              mtlfile: {
+                type: "string",
+                menu: "file_list"
+              },
+              material: {
+                type: null,
+                defaultValue: ""
+              }
+            },
+            output: "Reporter",
+            outputShape: 3,
+            branchCount: 0
+          },
+          {
+            opcode: "gltfModel",
+            blockType: BlockType.OUTPUT,
+            text: this.formatMessage("RenderTheWorld.gltfModel"),
+            arguments: {
+              gltffile: {
+                type: "string",
+                menu: "file_list"
+              },
+              material: {
+                type: null,
+                defaultValue: ""
+              }
+            },
+            output: "Reporter",
+            outputShape: 3,
+            branchCount: 0
+          },
+          {
+            opcode: "shadowSettings",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage("RenderTheWorld.shadowSettings"),
+            arguments: {
+              name: {
+                type: "string",
+                defaultValue: "name"
+              },
+              YN: {
+                type: "string",
+                menu: "YN"
+              },
+              YN2: {
+                type: "string",
+                menu: "YN"
+              }
+            }
+          },
+          {
+            opcode: "makeCube",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage("RenderTheWorld.makeCube"),
+            hideFromPalette: true,
+            arguments: {
+              name: {
+                type: "string",
+                defaultValue: "name"
+              },
+              a: {
+                type: "number",
+                defaultValue: 5
+              },
+              b: {
+                type: "number",
+                defaultValue: 5
+              },
+              h: {
+                type: "number",
+                defaultValue: 5
+              },
+              color: {
+                type: "number"
+              },
+              x: {
+                type: "number",
+                defaultValue: 0
+              },
+              y: {
+                type: "number",
+                defaultValue: 0
+              },
+              z: {
+                type: "number",
+                defaultValue: 0
+              },
+              YN: {
+                type: "string",
+                menu: "YN"
+              },
+              YN2: {
+                type: "string",
+                menu: "YN"
+              }
+            }
+          },
+          {
+            opcode: "makeSphere",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage("RenderTheWorld.makeSphere"),
+            hideFromPalette: true,
+            arguments: {
+              name: {
+                type: "string",
+                defaultValue: "name"
+              },
+              radius: {
+                type: "number",
+                defaultValue: 3
+              },
+              w: {
+                type: "number",
+                defaultValue: 32
+              },
+              h: {
+                type: "number",
+                defaultValue: 16
+              },
+              color: {
+                type: "number"
+              },
+              x: {
+                type: "number",
+                defaultValue: 0
+              },
+              y: {
+                type: "number",
+                defaultValue: 0
+              },
+              z: {
+                type: "number",
+                defaultValue: 0
+              },
+              YN: {
+                type: "string",
+                menu: "YN"
+              },
+              YN2: {
+                type: "string",
+                menu: "YN"
+              }
+            }
+          },
+          {
+            opcode: "makePlane",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage("RenderTheWorld.makePlane"),
+            hideFromPalette: true,
+            arguments: {
+              name: {
+                type: "string",
+                defaultValue: "name"
+              },
+              a: {
+                type: "number",
+                defaultValue: 5
+              },
+              b: {
+                type: "number",
+                defaultValue: 5
+              },
+              color: {
+                type: "number"
+              },
+              x: {
+                type: "number",
+                defaultValue: 0
+              },
+              y: {
+                type: "number",
+                defaultValue: 0
+              },
+              z: {
+                type: "number",
+                defaultValue: 0
+              },
+              YN: {
+                type: "string",
+                menu: "YN"
+              },
+              YN2: {
+                type: "string",
+                menu: "YN"
+              }
+            }
+          },
+          {
+            opcode: "importOBJ",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage("RenderTheWorld.importOBJ"),
+            hideFromPalette: true,
+            arguments: {
+              name: {
+                type: "string",
+                defaultValue: "name"
+              },
+              objfile: {
+                type: "string",
+                menu: "file_list"
+              },
+              mtlfile: {
+                type: "string",
+                menu: "file_list"
+              },
+              x: {
+                type: "number",
+                defaultValue: 0
+              },
+              y: {
+                type: "number",
+                defaultValue: 0
+              },
+              z: {
+                type: "number",
+                defaultValue: 0
+              },
+              YN: {
+                type: "string",
+                menu: "YN"
+              },
+              YN2: {
+                type: "string",
+                menu: "YN"
+              }
+            }
+          },
+          {
+            opcode: "importGLTF",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage("RenderTheWorld.importGLTF"),
+            hideFromPalette: true,
+            arguments: {
+              name: {
+                type: "string",
+                defaultValue: "name"
+              },
+              gltffile: {
+                type: "string",
+                menu: "file_list"
+              },
+              x: {
+                type: "number",
+                defaultValue: 0
+              },
+              y: {
+                type: "number",
+                defaultValue: 0
+              },
+              z: {
+                type: "number",
+                defaultValue: 0
+              },
+              YN: {
+                type: "string",
+                menu: "YN",
+                defaultValue: "false"
+              },
+              YN2: {
+                type: "string",
+                menu: "YN"
+              }
+            }
+          },
+          {
+            blockType: BlockType.LABEL,
+            text: this.formatMessage("RenderTheWorld.Move")
+          },
+          {
+            opcode: "rotationObject",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage("RenderTheWorld.rotationObject"),
+            arguments: {
+              name: {
+                type: "string",
+                defaultValue: "name"
+              },
+              x: {
+                type: "number",
+                defaultValue: 0
+              },
+              y: {
+                type: "number",
+                defaultValue: 0
+              },
+              z: {
+                type: "number",
+                defaultValue: 0
+              }
+            }
+          },
+          {
+            opcode: "moveObject",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage("RenderTheWorld.moveObject"),
+            arguments: {
+              name: {
+                type: "string",
+                defaultValue: "name"
+              },
+              x: {
+                type: "number",
+                defaultValue: 0
+              },
+              y: {
+                type: "number",
+                defaultValue: 0
+              },
+              z: {
+                type: "number",
+                defaultValue: 0
+              }
+            }
+          },
+          {
+            opcode: "scaleObject",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage("RenderTheWorld.scaleObject"),
+            arguments: {
+              name: {
+                type: "string",
+                defaultValue: "name"
+              },
+              x: {
+                type: "number",
+                defaultValue: 0
+              },
+              y: {
+                type: "number",
+                defaultValue: 0
+              },
+              z: {
+                type: "number",
+                defaultValue: 0
+              }
+            }
+          },
+          {
+            opcode: "getObjectPos",
+            blockType: BlockType.REPORTER,
+            text: this.formatMessage("RenderTheWorld.getObjectPos"),
+            arguments: {
+              name: {
+                type: "string",
+                defaultValue: "name"
+              },
+              xyz: {
+                type: "string",
+                menu: "xyz"
+              }
+            }
+          },
+          {
+            opcode: "getObjectRotation",
+            blockType: BlockType.REPORTER,
+            text: this.formatMessage(
+              "RenderTheWorld.getObjectRotation"
+            ),
+            arguments: {
+              name: {
+                type: "string",
+                defaultValue: "name"
+              },
+              xyz: {
+                type: "string",
+                menu: "xyz"
+              }
+            }
+          },
+          {
+            opcode: "getObjectScale",
+            blockType: BlockType.REPORTER,
+            text: this.formatMessage("RenderTheWorld.getObjectScale"),
+            arguments: {
+              name: {
+                type: "string",
+                defaultValue: "name"
+              },
+              xyz: {
+                type: "string",
+                menu: "xyz"
+              }
+            }
+          },
+          {
+            blockType: BlockType.LABEL,
+            text: this.formatMessage("RenderTheWorld.Animation")
+          },
+          {
+            opcode: "playAnimation",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage("RenderTheWorld.playAnimation"),
+            arguments: {
+              name: {
+                type: "string",
+                defaultValue: "name"
+              },
+              animationName: {
+                type: "string",
+                defaultValue: "animationName"
+              }
+            },
+            expandableBlock: {
+              expandableArgs: {
+                TEXT: ["text", ", ", 1],
+                ANIMATIONMAME: ["string", "animationName"]
+              },
+              defaultIndex: 1,
+              textBegin: "",
+              textEnd: ""
+            }
+          },
+          {
+            opcode: "stopAnimation",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage("RenderTheWorld.stopAnimation"),
+            arguments: {
+              name: {
+                type: "string",
+                defaultValue: "name"
+              },
+              animationName: {
+                type: "string",
+                defaultValue: "animationName"
+              }
+            },
+            expandableBlock: {
+              expandableArgs: {
+                TEXT: ["text", ", ", 1],
+                ANIMATIONMAME: ["string", "animationName"]
+              },
+              defaultIndex: 1,
+              textBegin: "",
+              textEnd: ""
+            }
+          },
+          {
+            opcode: "updateAnimation",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage("RenderTheWorld.updateAnimation"),
+            arguments: {
+              name: {
+                type: "string",
+                defaultValue: "name"
+              },
+              time: {
+                type: "number",
+                defaultValue: "1"
+              }
+            }
+          },
+          {
+            opcode: "getAnimation",
+            blockType: BlockType.REPORTER,
+            text: this.formatMessage("RenderTheWorld.getAnimation"),
+            arguments: {
+              name: {
+                type: "string",
+                defaultValue: "name"
+              }
+            },
+            disableMonitor: true
+          },
+          {
+            blockType: BlockType.LABEL,
+            text: this.formatMessage("RenderTheWorld.lights")
+          },
+          {
+            opcode: "pointLight",
+            blockType: BlockType.OUTPUT,
+            text: this.formatMessage("RenderTheWorld.pointLight"),
+            arguments: {
+              color: {
+                type: "number"
+              },
+              intensity: {
+                type: "number",
+                defaultValue: 100
+              },
+              x: {
+                type: "number",
+                defaultValue: 0
+              },
+              y: {
+                type: "number",
+                defaultValue: 0
+              },
+              z: {
+                type: "number",
+                defaultValue: 0
+              },
+              decay: {
+                type: "number",
+                defaultValue: 2
+              },
+              YN: {
+                type: "string",
+                menu: "YN"
+              }
+            },
+            output: "Reporter",
+            outputShape: 3,
+            branchCount: 0
+          },
+          {
+            opcode: "directionalLight",
+            blockType: BlockType.OUTPUT,
+            text: this.formatMessage("RenderTheWorld.directionalLight"),
+            arguments: {
+              color: {
+                type: "number"
+              },
+              intensity: {
+                type: "number",
+                defaultValue: 100
+              },
+              x: {
+                type: "number",
+                defaultValue: 0
+              },
+              y: {
+                type: "number",
+                defaultValue: 1
+              },
+              z: {
+                type: "number",
+                defaultValue: 0
+              },
+              x2: {
+                type: "number",
+                defaultValue: 0
+              },
+              y2: {
+                type: "number",
+                defaultValue: 1
+              },
+              z2: {
+                type: "number",
+                defaultValue: 0
+              },
+              YN: {
+                type: "string",
+                menu: "YN"
+              }
+            },
+            output: "Reporter",
+            outputShape: 3,
+            branchCount: 0
+          },
+          {
+            opcode: "setAmbientLightColor",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage(
+              "RenderTheWorld.setAmbientLightColor"
+            ),
+            arguments: {
+              color: {
+                type: "number"
+              },
+              intensity: {
+                type: "number",
+                defaultValue: 1
+              }
+            }
+          },
+          {
+            opcode: "setHemisphereLightColor",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage(
+              "RenderTheWorld.setHemisphereLightColor"
+            ),
+            arguments: {
+              skyColor: {
+                type: "number"
+              },
+              groundColor: {
+                type: "number"
+              },
+              intensity: {
+                type: "number",
+                defaultValue: 1
+              }
+            }
+          },
+          "---",
+          {
+            opcode: "setDirectionalLightShawdowCamera",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage(
+              "RenderTheWorld.setDirectionalLightShawdowCamera"
+            ),
+            arguments: {
+              name: {
+                type: "string",
+                defaultValue: "name"
+              },
+              left: {
+                type: "number",
+                defaultValue: -20
+              },
+              right: {
+                type: "number",
+                defaultValue: 20
+              },
+              top: {
+                type: "number",
+                defaultValue: 20
+              },
+              bottom: {
+                type: "number",
+                defaultValue: -20
+              }
+            }
+          },
+          {
+            opcode: "setLightMapSize",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage("RenderTheWorld.setLightMapSize"),
+            arguments: {
+              name: {
+                type: "string",
+                defaultValue: "name"
+              },
+              xsize: {
+                type: "number",
+                defaultValue: 512
+              },
+              ysize: {
+                type: "number",
+                defaultValue: 512
+              }
+            }
+          },
+          {
+            blockType: BlockType.LABEL,
+            text: this.formatMessage("RenderTheWorld.camera")
+          },
+          {
+            opcode: "moveCamera",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage("RenderTheWorld.moveCamera"),
+            arguments: {
+              x: {
+                type: "number",
+                defaultValue: 0
+              },
+              y: {
+                type: "number",
+                defaultValue: 0
+              },
+              z: {
+                type: "number",
+                defaultValue: 0
+              }
+            }
+          },
+          {
+            opcode: "rotationCamera",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage("RenderTheWorld.rotationCamera"),
+            arguments: {
+              x: {
+                type: "number",
+                defaultValue: 0
+              },
+              y: {
+                type: "number",
+                defaultValue: 0
+              },
+              z: {
+                type: "number",
+                defaultValue: 0
+              }
+            }
+          },
+          {
+            opcode: "cameraLookAt",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage("RenderTheWorld.cameraLookAt"),
+            arguments: {
+              x: {
+                type: "number",
+                defaultValue: 0
+              },
+              y: {
+                type: "number",
+                defaultValue: 0
+              },
+              z: {
+                type: "number",
+                defaultValue: 0
+              }
+            }
+          },
+          "---",
+          {
+            opcode: "getCameraPos",
+            blockType: BlockType.REPORTER,
+            text: this.formatMessage("RenderTheWorld.getCameraPos"),
+            arguments: {
+              xyz: {
+                type: "string",
+                menu: "xyz"
+              }
+            },
+            disableMonitor: true
+          },
+          {
+            opcode: "getCameraRotation",
+            blockType: BlockType.REPORTER,
+            text: this.formatMessage(
+              "RenderTheWorld.getCameraRotation"
+            ),
+            arguments: {
+              xyz: {
+                type: "string",
+                menu: "xyz"
+              }
+            },
+            disableMonitor: true
+          },
+          "---",
+          {
+            opcode: "setControlState",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage("RenderTheWorld.setControlState"),
+            hideFromPalette: false,
+            arguments: {
+              YN: {
+                type: "string",
+                menu: "YN"
+              }
+            }
+          },
+          {
+            opcode: "mouseCanControlCamera",
+            blockType: BlockType.BOOLEAN,
+            text: this.formatMessage(
+              "RenderTheWorld.mouseCanControlCamera"
+            )
+          },
+          {
+            opcode: "controlCamera",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage("RenderTheWorld.controlCamera"),
+            hideFromPalette: false,
+            arguments: {
+              yn1: {
+                type: "string",
+                menu: "YN"
+              },
+              yn2: {
+                type: "string",
+                menu: "YN"
+              },
+              yn3: {
+                type: "string",
+                menu: "YN"
+              }
+            }
+          },
+          {
+            opcode: "setControlCameraDamping",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage(
+              "RenderTheWorld.setControlCameraDamping"
+            ),
+            arguments: {
+              YN2: {
+                type: "string",
+                menu: "YN2"
+              }
+            }
+          },
+          {
+            opcode: "setControlCameraDampingNum",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage(
+              "RenderTheWorld.setControlCameraDampingNum"
+            ),
+            arguments: {
+              num: {
+                type: "number",
+                defaultValue: 0.05
+              }
+            }
+          },
+          {
+            blockType: BlockType.LABEL,
+            text: this.formatMessage("RenderTheWorld.fogs")
+          },
+          {
+            opcode: "enableFogEffect",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage("RenderTheWorld.enableFogEffect"),
+            arguments: {
+              color: {
+                type: "number"
+              },
+              near: {
+                type: "number",
+                defaultValue: 1
+              },
+              far: {
+                type: "number",
+                defaultValue: 1e3
+              }
+            }
+          },
+          {
+            opcode: "disableFogEffect",
+            blockType: BlockType.COMMAND,
+            text: this.formatMessage("RenderTheWorld.disableFogEffect")
+          }
+        ];
+        blocks.forEach((e) => {
+          if (typeof e !== "string" && e.blockType != BlockType.LABEL) {
+            e.tooltip = this.formatMessage(
+              "RenderTheWorld.".concat(e.opcode).concat(".tooltip")
+            );
+          }
+        });
         return {
           id: chen_RenderTheWorld_extensionId,
           // 拓展id
-          docsURI: "https://learn.ccw.site/article/aa0cf6d0-6758-447a-96f5-8e5dfdbe14d6",
+          docsURI: "https://learn.ccw.site/article/0d8196d6-fccf-4d92-91b8-ee918a733237",
           name: this.formatMessage("RenderTheWorld.name"),
           // 拓展名
           blockIconURI: chen_RenderTheWorld_icon,
@@ -28003,1186 +29512,7 @@ void main() {
           color1: "#121C3D",
           color2: "#4A76FF",
           color3: "#4A76FF",
-          blocks: [
-            {
-              blockType: BlockType.BUTTON,
-              text: this.formatMessage("RenderTheWorld.apidocs"),
-              onClick: this.docs
-            },
-            {
-              opcode: "init",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.init"),
-              arguments: {
-                color: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                sizex: {
-                  type: "number",
-                  defaultValue: 640
-                },
-                sizey: {
-                  type: "number",
-                  defaultValue: 360
-                },
-                Anti_Aliasing: {
-                  type: "string",
-                  menu: "Anti_Aliasing"
-                }
-              }
-            },
-            {
-              opcode: "set3dState",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.set3dState"),
-              arguments: {
-                state: {
-                  type: "string",
-                  menu: "3dState"
-                }
-              }
-            },
-            {
-              opcode: "get3dState",
-              blockType: BlockType.BOOLEAN,
-              text: this.formatMessage("RenderTheWorld.get3dState")
-            },
-            // {
-            //     opcode: "render",
-            //     blockType: BlockType.COMMAND,
-            //     text: this.formatMessage("RenderTheWorld.render"),
-            // },
-            {
-              blockType: BlockType.LABEL,
-              text: this.formatMessage("RenderTheWorld.tools")
-            },
-            {
-              opcode: "color_RGB",
-              blockType: BlockType.REPORTER,
-              text: this.formatMessage("RenderTheWorld.color_RGB"),
-              arguments: {
-                R: {
-                  type: "number",
-                  defaultValue: 255
-                },
-                G: {
-                  type: "number",
-                  defaultValue: 255
-                },
-                B: {
-                  type: "number",
-                  defaultValue: 255
-                }
-              }
-            },
-            {
-              opcode: "isWebGLAvailable",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage(
-                "RenderTheWorld.isWebGLAvailable"
-              )
-            },
-            {
-              opcode: "_isWebGLAvailable",
-              blockType: BlockType.BOOLEAN,
-              text: this.formatMessage(
-                "RenderTheWorld._isWebGLAvailable"
-              )
-            },
-            {
-              blockType: BlockType.LABEL,
-              text: this.formatMessage("RenderTheWorld.objects")
-            },
-            {
-              blockType: BlockType.LABEL,
-              text: this.formatMessage("RenderTheWorld.Material")
-            },
-            {
-              opcode: "makeMaterial",
-              blockType: BlockType.OUTPUT,
-              text: this.formatMessage("RenderTheWorld.makeMaterial"),
-              arguments: {
-                material: {
-                  type: "material",
-                  menu: "material",
-                  defaultValue: "Basic"
-                }
-              },
-              output: "Boolean",
-              outputShape: 3,
-              branchCount: 1
-            },
-            {
-              opcode: "setMaterialColor",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.setMaterialColor"),
-              arguments: {
-                color: {
-                  type: "string",
-                  defaultValue: ""
-                }
-              }
-            },
-            // "RenderTheWorld.setMaterialFog": "设置当前材质 [YN] 受雾效果影响",
-            {
-              opcode: "setMaterialFog",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.setMaterialFog"),
-              arguments: {
-                YN: {
-                  type: "string",
-                  menu: "YN",
-                  defaultValue: "true"
-                }
-              }
-            },
-            {
-              opcode: "return",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.return"),
-              arguments: {},
-              isTerminal: true
-            },
-            {
-              blockType: BlockType.LABEL,
-              text: this.formatMessage("RenderTheWorld.Model")
-            },
-            {
-              opcode: "objectLoadingCompleted",
-              blockType: BlockType.HAT,
-              text: this.formatMessage(
-                "RenderTheWorld.objectLoadingCompleted"
-              ),
-              isEdgeActivated: false,
-              shouldRestartExistingThreads: false,
-              arguments: {
-                name: {
-                  type: "ccw_hat_parameter",
-                  defaultValue: "name"
-                }
-              }
-            },
-            {
-              opcode: "importModel",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.importModel"),
-              arguments: {
-                name: {
-                  type: "string",
-                  defaultValue: "name"
-                },
-                model: {
-                  type: null,
-                  defaultValue: ""
-                }
-              }
-            },
-            {
-              opcode: "deleteObject",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.deleteObject"),
-              arguments: {
-                name: {
-                  type: "string",
-                  defaultValue: "name"
-                }
-              },
-              expandableBlock: {
-                expandableArgs: {
-                  "TEXT": ["text", ", ", 1],
-                  "NAME": ["string", "name"]
-                },
-                defaultIndex: 1,
-                textBegin: "",
-                textEnd: ""
-              }
-            },
-            {
-              opcode: "cubeModel",
-              blockType: BlockType.OUTPUT,
-              text: this.formatMessage("RenderTheWorld.cubeModel"),
-              arguments: {
-                a: {
-                  type: "number",
-                  defaultValue: 5
-                },
-                b: {
-                  type: "number",
-                  defaultValue: 5
-                },
-                h: {
-                  type: "number",
-                  defaultValue: 5
-                },
-                material: {
-                  type: null,
-                  defaultValue: ""
-                }
-              },
-              output: "Reporter",
-              outputShape: 3,
-              branchCount: 0
-            },
-            {
-              opcode: "sphereModel",
-              blockType: BlockType.OUTPUT,
-              text: this.formatMessage("RenderTheWorld.sphereModel"),
-              arguments: {
-                radius: {
-                  type: "number",
-                  defaultValue: 3
-                },
-                w: {
-                  type: "number",
-                  defaultValue: 32
-                },
-                h: {
-                  type: "number",
-                  defaultValue: 16
-                },
-                material: {
-                  type: null,
-                  defaultValue: ""
-                }
-              },
-              output: "Reporter",
-              outputShape: 3,
-              branchCount: 0
-            },
-            {
-              opcode: "planeModel",
-              blockType: BlockType.OUTPUT,
-              text: this.formatMessage("RenderTheWorld.planeModel"),
-              arguments: {
-                a: {
-                  type: "number",
-                  defaultValue: 5
-                },
-                b: {
-                  type: "number",
-                  defaultValue: 5
-                },
-                material: {
-                  type: null,
-                  defaultValue: ""
-                }
-              },
-              output: "Reporter",
-              outputShape: 3,
-              branchCount: 0
-            },
-            {
-              opcode: "objModel",
-              blockType: BlockType.OUTPUT,
-              text: this.formatMessage("RenderTheWorld.objModel"),
-              arguments: {
-                objfile: {
-                  type: "string",
-                  menu: "file_list"
-                },
-                mtlfile: {
-                  type: "string",
-                  menu: "file_list"
-                },
-                material: {
-                  type: null,
-                  defaultValue: ""
-                }
-              },
-              output: "Reporter",
-              outputShape: 3,
-              branchCount: 0
-            },
-            {
-              opcode: "gltfModel",
-              blockType: BlockType.OUTPUT,
-              text: this.formatMessage("RenderTheWorld.gltfModel"),
-              arguments: {
-                gltffile: {
-                  type: "string",
-                  menu: "file_list"
-                },
-                material: {
-                  type: null,
-                  defaultValue: ""
-                }
-              },
-              output: "Reporter",
-              outputShape: 3,
-              branchCount: 0
-            },
-            {
-              opcode: "shadowSettings",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.shadowSettings"),
-              arguments: {
-                name: {
-                  type: "string",
-                  defaultValue: "name"
-                },
-                YN: {
-                  type: "string",
-                  menu: "YN"
-                },
-                YN2: {
-                  type: "string",
-                  menu: "YN"
-                }
-              }
-            },
-            {
-              opcode: "makeCube",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.makeCube"),
-              hideFromPalette: true,
-              arguments: {
-                name: {
-                  type: "string",
-                  defaultValue: "name"
-                },
-                a: {
-                  type: "number",
-                  defaultValue: 5
-                },
-                b: {
-                  type: "number",
-                  defaultValue: 5
-                },
-                h: {
-                  type: "number",
-                  defaultValue: 5
-                },
-                color: {
-                  type: "number"
-                },
-                x: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                y: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                z: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                YN: {
-                  type: "string",
-                  menu: "YN"
-                },
-                YN2: {
-                  type: "string",
-                  menu: "YN"
-                }
-              }
-            },
-            {
-              opcode: "makeSphere",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.makeSphere"),
-              hideFromPalette: true,
-              arguments: {
-                name: {
-                  type: "string",
-                  defaultValue: "name"
-                },
-                radius: {
-                  type: "number",
-                  defaultValue: 3
-                },
-                w: {
-                  type: "number",
-                  defaultValue: 32
-                },
-                h: {
-                  type: "number",
-                  defaultValue: 16
-                },
-                color: {
-                  type: "number"
-                },
-                x: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                y: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                z: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                YN: {
-                  type: "string",
-                  menu: "YN"
-                },
-                YN2: {
-                  type: "string",
-                  menu: "YN"
-                }
-              }
-            },
-            {
-              opcode: "makePlane",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.makePlane"),
-              hideFromPalette: true,
-              arguments: {
-                name: {
-                  type: "string",
-                  defaultValue: "name"
-                },
-                a: {
-                  type: "number",
-                  defaultValue: 5
-                },
-                b: {
-                  type: "number",
-                  defaultValue: 5
-                },
-                color: {
-                  type: "number"
-                },
-                x: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                y: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                z: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                YN: {
-                  type: "string",
-                  menu: "YN"
-                },
-                YN2: {
-                  type: "string",
-                  menu: "YN"
-                }
-              }
-            },
-            {
-              opcode: "importOBJ",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.importOBJ"),
-              hideFromPalette: true,
-              arguments: {
-                name: {
-                  type: "string",
-                  defaultValue: "name"
-                },
-                objfile: {
-                  type: "string",
-                  menu: "file_list"
-                },
-                mtlfile: {
-                  type: "string",
-                  menu: "file_list"
-                },
-                x: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                y: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                z: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                YN: {
-                  type: "string",
-                  menu: "YN"
-                },
-                YN2: {
-                  type: "string",
-                  menu: "YN"
-                }
-              }
-            },
-            {
-              opcode: "importGLTF",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.importGLTF"),
-              hideFromPalette: true,
-              arguments: {
-                name: {
-                  type: "string",
-                  defaultValue: "name"
-                },
-                gltffile: {
-                  type: "string",
-                  menu: "file_list"
-                },
-                x: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                y: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                z: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                YN: {
-                  type: "string",
-                  menu: "YN",
-                  defaultValue: "false"
-                },
-                YN2: {
-                  type: "string",
-                  menu: "YN"
-                }
-              }
-            },
-            {
-              blockType: BlockType.LABEL,
-              text: this.formatMessage("RenderTheWorld.Move")
-            },
-            {
-              opcode: "rotationObject",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage(
-                "RenderTheWorld.rotationObject"
-              ),
-              arguments: {
-                name: {
-                  type: "string",
-                  defaultValue: "name"
-                },
-                x: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                y: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                z: {
-                  type: "number",
-                  defaultValue: 0
-                }
-              }
-            },
-            {
-              opcode: "moveObject",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.moveObject"),
-              arguments: {
-                name: {
-                  type: "string",
-                  defaultValue: "name"
-                },
-                x: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                y: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                z: {
-                  type: "number",
-                  defaultValue: 0
-                }
-              }
-            },
-            {
-              opcode: "scaleObject",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.scaleObject"),
-              arguments: {
-                name: {
-                  type: "string",
-                  defaultValue: "name"
-                },
-                x: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                y: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                z: {
-                  type: "number",
-                  defaultValue: 0
-                }
-              }
-            },
-            {
-              opcode: "getObjectPos",
-              blockType: BlockType.REPORTER,
-              text: this.formatMessage("RenderTheWorld.getObjectPos"),
-              arguments: {
-                name: {
-                  type: "string",
-                  defaultValue: "name"
-                },
-                xyz: {
-                  type: "string",
-                  menu: "xyz"
-                }
-              }
-            },
-            {
-              opcode: "getObjectRotation",
-              blockType: BlockType.REPORTER,
-              text: this.formatMessage(
-                "RenderTheWorld.getObjectRotation"
-              ),
-              arguments: {
-                name: {
-                  type: "string",
-                  defaultValue: "name"
-                },
-                xyz: {
-                  type: "string",
-                  menu: "xyz"
-                }
-              }
-            },
-            {
-              opcode: "getObjectScale",
-              blockType: BlockType.REPORTER,
-              text: this.formatMessage(
-                "RenderTheWorld.getObjectScale"
-              ),
-              arguments: {
-                name: {
-                  type: "string",
-                  defaultValue: "name"
-                },
-                xyz: {
-                  type: "string",
-                  menu: "xyz"
-                }
-              }
-            },
-            {
-              blockType: BlockType.LABEL,
-              text: this.formatMessage("RenderTheWorld.Animation")
-            },
-            {
-              opcode: "playAnimation",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage(
-                "RenderTheWorld.playAnimation"
-              ),
-              arguments: {
-                name: {
-                  type: "string",
-                  defaultValue: "name"
-                },
-                animationName: {
-                  type: "string",
-                  defaultValue: "animationName"
-                }
-              },
-              expandableBlock: {
-                expandableArgs: {
-                  "TEXT": ["text", ", ", 1],
-                  "ANIMATIONMAME": ["string", "animationName"]
-                },
-                defaultIndex: 1,
-                textBegin: "",
-                textEnd: ""
-              }
-            },
-            {
-              opcode: "stopAnimation",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage(
-                "RenderTheWorld.stopAnimation"
-              ),
-              arguments: {
-                name: {
-                  type: "string",
-                  defaultValue: "name"
-                },
-                animationName: {
-                  type: "string",
-                  defaultValue: "animationName"
-                }
-              },
-              expandableBlock: {
-                expandableArgs: {
-                  "TEXT": ["text", ", ", 1],
-                  "ANIMATIONMAME": ["string", "animationName"]
-                },
-                defaultIndex: 1,
-                textBegin: "",
-                textEnd: ""
-              }
-            },
-            {
-              opcode: "updateAnimation",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage(
-                "RenderTheWorld.updateAnimation"
-              ),
-              arguments: {
-                name: {
-                  type: "string",
-                  defaultValue: "name"
-                },
-                time: {
-                  type: "number",
-                  defaultValue: "1"
-                }
-              }
-            },
-            {
-              opcode: "getAnimation",
-              blockType: BlockType.REPORTER,
-              text: this.formatMessage("RenderTheWorld.getAnimation"),
-              arguments: {
-                name: {
-                  type: "string",
-                  defaultValue: "name"
-                }
-              },
-              disableMonitor: true
-            },
-            {
-              blockType: BlockType.LABEL,
-              text: this.formatMessage("RenderTheWorld.lights")
-            },
-            {
-              opcode: "makePointLight",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage(
-                "RenderTheWorld.makePointLight"
-              ),
-              arguments: {
-                name: {
-                  type: "string",
-                  defaultValue: "name"
-                },
-                color: {
-                  type: "number"
-                },
-                intensity: {
-                  type: "number",
-                  defaultValue: 100
-                },
-                x: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                y: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                z: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                decay: {
-                  type: "number",
-                  defaultValue: 2
-                },
-                YN: {
-                  type: "string",
-                  menu: "YN"
-                }
-              }
-            },
-            {
-              opcode: "makeDirectionalLight",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage(
-                "RenderTheWorld.makeDirectionalLight"
-              ),
-              arguments: {
-                name: {
-                  type: "string",
-                  defaultValue: "name"
-                },
-                color: {
-                  type: "number"
-                },
-                intensity: {
-                  type: "number",
-                  defaultValue: 100
-                },
-                x: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                y: {
-                  type: "number",
-                  defaultValue: 1
-                },
-                z: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                x2: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                y2: {
-                  type: "number",
-                  defaultValue: 1
-                },
-                z2: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                YN: {
-                  type: "string",
-                  menu: "YN"
-                }
-              }
-            },
-            {
-              opcode: "setAmbientLightColor",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage(
-                "RenderTheWorld.setAmbientLightColor"
-              ),
-              arguments: {
-                color: {
-                  type: "number"
-                },
-                intensity: {
-                  type: "number",
-                  defaultValue: 1
-                }
-              }
-            },
-            {
-              opcode: "setHemisphereLightColor",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage(
-                "RenderTheWorld.setHemisphereLightColor"
-              ),
-              arguments: {
-                skyColor: {
-                  type: "number"
-                },
-                groundColor: {
-                  type: "number"
-                },
-                intensity: {
-                  type: "number",
-                  defaultValue: 1
-                }
-              }
-            },
-            "---",
-            {
-              opcode: "setDirectionalLightShawdowCamera",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage(
-                "RenderTheWorld.setDirectionalLightShawdowCamera"
-              ),
-              arguments: {
-                name: {
-                  type: "string",
-                  defaultValue: "name"
-                },
-                left: {
-                  type: "number",
-                  defaultValue: -20
-                },
-                right: {
-                  type: "number",
-                  defaultValue: 20
-                },
-                top: {
-                  type: "number",
-                  defaultValue: 20
-                },
-                bottom: {
-                  type: "number",
-                  defaultValue: -20
-                }
-              }
-            },
-            {
-              opcode: "setLightMapSize",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage(
-                "RenderTheWorld.setLightMapSize"
-              ),
-              arguments: {
-                name: {
-                  type: "string",
-                  defaultValue: "name"
-                },
-                xsize: {
-                  type: "number",
-                  defaultValue: 512
-                },
-                ysize: {
-                  type: "number",
-                  defaultValue: 512
-                }
-              }
-            },
-            {
-              opcode: "moveLight",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.moveLight"),
-              arguments: {
-                name: {
-                  type: "string",
-                  defaultValue: "name"
-                },
-                x: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                y: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                z: {
-                  type: "number",
-                  defaultValue: 0
-                }
-              }
-            },
-            {
-              opcode: "getLightPos",
-              blockType: BlockType.REPORTER,
-              text: this.formatMessage("RenderTheWorld.getLightPos"),
-              arguments: {
-                name: {
-                  type: "string",
-                  defaultValue: "name"
-                },
-                xyz: {
-                  type: "string",
-                  menu: "xyz"
-                }
-              }
-            },
-            "---",
-            {
-              opcode: "deleteLight",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.deleteLight"),
-              arguments: {
-                name: {
-                  type: "string",
-                  defaultValue: "name"
-                }
-              },
-              expandableBlock: {
-                expandableArgs: {
-                  "TEXT": ["text", ", ", 1],
-                  "NAME": ["string", "name"]
-                },
-                defaultIndex: 1,
-                textBegin: "",
-                textEnd: ""
-              }
-            },
-            {
-              blockType: BlockType.LABEL,
-              text: this.formatMessage("RenderTheWorld.camera")
-            },
-            {
-              opcode: "moveCamera",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.moveCamera"),
-              arguments: {
-                x: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                y: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                z: {
-                  type: "number",
-                  defaultValue: 0
-                }
-              }
-            },
-            {
-              opcode: "rotationCamera",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage(
-                "RenderTheWorld.rotationCamera"
-              ),
-              arguments: {
-                x: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                y: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                z: {
-                  type: "number",
-                  defaultValue: 0
-                }
-              }
-            },
-            {
-              opcode: "cameraLookAt",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage("RenderTheWorld.cameraLookAt"),
-              arguments: {
-                x: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                y: {
-                  type: "number",
-                  defaultValue: 0
-                },
-                z: {
-                  type: "number",
-                  defaultValue: 0
-                }
-              }
-            },
-            "---",
-            {
-              opcode: "getCameraPos",
-              blockType: BlockType.REPORTER,
-              text: this.formatMessage("RenderTheWorld.getCameraPos"),
-              arguments: {
-                xyz: {
-                  type: "string",
-                  menu: "xyz"
-                }
-              },
-              disableMonitor: true
-            },
-            {
-              opcode: "getCameraRotation",
-              blockType: BlockType.REPORTER,
-              text: this.formatMessage(
-                "RenderTheWorld.getCameraRotation"
-              ),
-              arguments: {
-                xyz: {
-                  type: "string",
-                  menu: "xyz"
-                }
-              },
-              disableMonitor: true
-            },
-            "---",
-            {
-              opcode: "setControlState",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage(
-                "RenderTheWorld.setControlState"
-              ),
-              hideFromPalette: false,
-              arguments: {
-                YN: {
-                  type: "string",
-                  menu: "YN"
-                }
-              }
-            },
-            {
-              opcode: "mouseCanControlCamera",
-              blockType: BlockType.BOOLEAN,
-              text: this.formatMessage(
-                "RenderTheWorld.mouseCanControlCamera"
-              )
-            },
-            {
-              opcode: "controlCamera",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage(
-                "RenderTheWorld.controlCamera"
-              ),
-              hideFromPalette: false,
-              arguments: {
-                yn1: {
-                  type: "string",
-                  menu: "YN"
-                },
-                yn2: {
-                  type: "string",
-                  menu: "YN"
-                },
-                yn3: {
-                  type: "string",
-                  menu: "YN"
-                }
-              }
-            },
-            {
-              opcode: "setControlCameraDamping",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage(
-                "RenderTheWorld.setControlCameraDamping"
-              ),
-              arguments: {
-                YN2: {
-                  type: "string",
-                  menu: "YN2"
-                }
-              }
-            },
-            {
-              opcode: "setControlCameraDampingNum",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage(
-                "RenderTheWorld.setControlCameraDampingNum"
-              ),
-              arguments: {
-                num: {
-                  type: "number",
-                  defaultValue: 0.05
-                }
-              }
-            },
-            {
-              blockType: BlockType.LABEL,
-              text: this.formatMessage("RenderTheWorld.fogs")
-            },
-            {
-              opcode: "enableFogEffect",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage(
-                "RenderTheWorld.enableFogEffect"
-              ),
-              arguments: {
-                color: {
-                  type: "number"
-                },
-                near: {
-                  type: "number",
-                  defaultValue: 1
-                },
-                far: {
-                  type: "number",
-                  defaultValue: 1e3
-                }
-              }
-            },
-            {
-              opcode: "disableFogEffect",
-              blockType: BlockType.COMMAND,
-              text: this.formatMessage(
-                "RenderTheWorld.disableFogEffect"
-              )
-            }
-          ],
+          blocks,
           menus: {
             file_list: {
               acceptReporters: true,
@@ -29417,17 +29747,14 @@ void main() {
         this._init_porject_time = (/* @__PURE__ */ new Date()).getTime();
         const _draw = this.runtime.renderer.draw;
         this.dirty = false;
-        this.scratchCanvas = this.runtime.renderer.canvas;
         this.clock = new Clock();
         this._clock = 0;
         this.objects = {};
-        this.lights = {};
         this.animations = {};
         if (!this.tc) {
           this.tc = document.createElement("canvas");
           this.tc.className = "RenderTheWorld";
         }
-        this.scratchCanvas = this.runtime.renderer.canvas;
         let _antialias = false;
         if (Cast.toString(Anti_Aliasing) == "enable") {
           _antialias = true;
@@ -29456,10 +29783,7 @@ void main() {
           this.near,
           this.far
         );
-        this.controls = new OrbitControls(
-          this.camera,
-          this.scratchCanvas
-        );
+        this.controls = new OrbitControls(this.camera, this.runtime.renderer.canvas);
         this.controls.enabled = false;
         this.controls.enableDamping = false;
         this.controls.enablePan = false;
@@ -29473,7 +29797,7 @@ void main() {
           0
         );
         this.scene.add(this.hemisphere_light);
-        this.isTcShow = true;
+        this.isTcShow = false;
         this.render = () => {
           this._clock = this.clock.getDelta();
           this.renderer.render(this.scene, this.camera);
@@ -29492,12 +29816,16 @@ void main() {
       _listener() {
         if (!this.is_listener) {
           this.runtime.on("PROJECT_START", () => {
-            console.log(chen_RenderTheWorld_extensionId + ": Starting renders");
+            console.log(
+              chen_RenderTheWorld_extensionId + ": Starting renders"
+            );
             this.renderer.setAnimationLoop(this.render);
           });
           this.runtime.on("PROJECT_STOP_ALL", () => {
             this._init_porject_time = 0;
-            console.log(chen_RenderTheWorld_extensionId + ": Stopping renders");
+            console.log(
+              chen_RenderTheWorld_extensionId + ": Stopping renders"
+            );
             this.renderer.setAnimationLoop(null);
             this.scene.traverse((child) => {
               if (child.material) {
@@ -29532,27 +29860,11 @@ void main() {
       get3dState(args) {
         return this.isTcShow;
       }
-      // _resize() {
-      // 	this.tc.style.width = this.scratchCanvas.style.width;
-      // 	this.tc.style.height = this.scratchCanvas.style.height;
-      // }
-      /**
-       * 渲染，放在主循环里
-       */
-      // render(args) {
-      //     if (!this.tc) {
-      //         return "⚠️显示器未初始化！";
-      //     }
-      //     this._clock = this.clock.getDelta();
-      //     this.renderer.render(this.scene, this.camera);
-      //     if (this.controls.enabled) {
-      //         this.controls.update();
-      //     }
-      // }
       /**
        * 创建材质
        * @param {object} args
        * @param {string} args.material
+       * @return {_Wrapper}
        */
       makeMaterial({ material }, util) {
         const thread = util.thread;
@@ -29577,21 +29889,24 @@ void main() {
           if (this.threadInfo[thread.topBlock]) {
             for (let key in this.threadInfo[thread.topBlock]) {
               if (key === "color") {
-                _material.color.set(this.threadInfo[thread.topBlock][key]);
+                _material.color.set(
+                  this.threadInfo[thread.topBlock][key]
+                );
               }
               if (key === "fog") {
                 _material.fog = this.threadInfo[thread.topBlock][key];
               }
             }
           }
-          return _material;
+          return new Wrapper(
+            new RTW_Model_Box(_material, true, false, false, void 0)
+          );
         } else {
           this.threadInfo[thread.topBlock] = {};
           if (util.stackFrame._inlineLoopRan) {
             thread.popStack();
             return "";
           }
-          ;
           const stackFrame = thread.peekStackFrame();
           const oldGoToNextBlock = thread.goToNextBlock;
           const resetGoToNext = function() {
@@ -29652,7 +29967,9 @@ void main() {
       setMaterialColor({ color }, util) {
         const thread = util.thread;
         if (Number(Cast.toString(color)) == Number(Cast.toString(color))) {
-          this.threadInfo[thread.topBlock].color = Number(Cast.toString(color));
+          this.threadInfo[thread.topBlock].color = Number(
+            Cast.toString(color)
+          );
         } else {
           this.threadInfo[thread.topBlock].color = Cast.toString(color);
         }
@@ -29689,7 +30006,7 @@ void main() {
        * 创建或重置模型
        * @param {object} args
        * @param {string} args.name
-       * @param {number} args.model
+       * @param {_Wrapper} args.model
        */
       async importModel({ name, model }) {
         if (!this.tc) {
@@ -29698,12 +30015,16 @@ void main() {
         if (model === void 0) {
           return "\u26A0\uFE0F\u6A21\u578B\u52A0\u8F7D\u5931\u8D25\uFF01";
         }
+        model = Wrapper.unwrap(model);
+        if (!(model instanceof RTW_Model_Box)) {
+          return "\u26A0\uFE0F\u4F20\u5165\u7684\u6A21\u578B\u65E0\u6CD5\u8BC6\u522B";
+        }
         let init_porject_time = this._init_porject_time;
         name = Cast.toString(name);
         this.releaseDuplicates(name);
-        if (model["model"] != void 0 && model["model"].isObject3D) {
+        if (model.model != void 0 && model.model.isObject3D) {
           this.objects[name] = model.model;
-          if (model["animations"] != void 0) {
+          if (model.animations != void 0) {
             this.animations[name] = model.animations;
           }
           let r = this.runtime.startHatsWithParams(
@@ -29721,10 +30042,19 @@ void main() {
             this.scene.add(this.objects[name]);
             this.render();
           }
-        } else if (model["objfile"] != void 0 && model["mtlfile"] != void 0) {
-          this._objModel(name, model["objfile"], model["mtlfile"], init_porject_time);
-        } else if (model["gltffile"] != void 0) {
-          this._gltfModel(name, model["gltffile"], init_porject_time);
+        } else if (model.isobj) {
+          this._objModel(
+            name,
+            model.model["objfile"],
+            model.model["mtlfile"],
+            init_porject_time
+          );
+        } else if (model.isgltf) {
+          this._gltfModel(
+            name,
+            model.model["gltffile"],
+            init_porject_time
+          );
         }
       }
       // "RenderTheWorld.shadowSettings": "设置模型 [name] 的阴影设置: [YN]投射阴影 [YN2]被投射阴影",
@@ -29767,44 +30097,86 @@ void main() {
         }
       }
       cubeModel({ a, b, h, material }) {
-        console.log(material);
+        material = Wrapper.unwrap(material);
+        if (material !== void 0) {
+          if (!material.ismaterial) {
+            return "\u26A0\uFE0F\u6750\u8D28\u65E0\u6548\uFF01";
+          }
+          material = material["model"];
+        }
         let geometry = new BoxGeometry(
           Cast.toNumber(a),
           Cast.toNumber(b),
           Cast.toNumber(h)
         );
-        return {
-          "model": new Mesh(geometry, material)
-        };
+        return new Wrapper(
+          new RTW_Model_Box(
+            new Mesh(geometry, material),
+            false,
+            false,
+            false,
+            void 0
+          )
+        );
       }
-      // "RenderTheWorld.sphereModel": "<sphere> radius[radius] widthSegments[w] heightSegments[h] material[material]",
-      // "RenderTheWorld.planeModel": "<plane> length[a] width[b] material[material]",
-      // "RenderTheWorld.objModel": "<OBJ model> OBJ file[objfile] MTL file[mtlfile]",
-      // "RenderTheWorld.gltfModel": "<GLTF model> GLTF file[gltffile]",
       sphereModel({ radius, w, h, material }) {
+        material = Wrapper.unwrap(material);
+        if (material !== void 0) {
+          if (!material.ismaterial) {
+            return "\u26A0\uFE0F\u6750\u8D28\u65E0\u6548\uFF01";
+          }
+          material = material["model"];
+        }
         let geometry = new SphereGeometry(
           Cast.toNumber(radius),
           Cast.toNumber(w),
           Cast.toNumber(h)
         );
-        return {
-          "model": new Mesh(geometry, material)
-        };
+        return new Wrapper(
+          new RTW_Model_Box(
+            new Mesh(geometry, material),
+            false,
+            false,
+            false,
+            void 0
+          )
+        );
       }
       planeModel({ a, b, material }) {
+        material = Wrapper.unwrap(material);
+        if (material !== void 0) {
+          if (!material.ismaterial) {
+            return "\u26A0\uFE0F\u6750\u8D28\u65E0\u6548\uFF01";
+          }
+          material = material["model"];
+        }
         let geometry = new PlaneGeometry(
           Cast.toNumber(a),
           Cast.toNumber(b)
         );
-        return {
-          "model": new Mesh(geometry, material)
-        };
+        return new Wrapper(
+          new RTW_Model_Box(
+            new Mesh(geometry, material),
+            false,
+            false,
+            false,
+            void 0
+          )
+        );
       }
       objModel({ objfile, mtlfile }) {
-        return {
-          "objfile": objfile,
-          "mtlfile": mtlfile
-        };
+        return new Wrapper(
+          new RTW_Model_Box(
+            {
+              objfile,
+              mtlfile
+            },
+            false,
+            true,
+            false,
+            void 0
+          )
+        );
       }
       _objModel(name, objfile, mtlfile, init_porject_time) {
         name = Cast.toString(name);
@@ -29837,9 +30209,17 @@ void main() {
         });
       }
       gltfModel({ gltffile }) {
-        return {
-          "gltffile": gltffile
-        };
+        return new Wrapper(
+          new RTW_Model_Box(
+            {
+              gltffile
+            },
+            false,
+            false,
+            true,
+            void 0
+          )
+        );
       }
       _gltfModel(name, gltffile, init_porject_time) {
         name = Cast.toString(name);
@@ -30420,81 +30800,60 @@ void main() {
           return;
         }
       }
-      /**
-       * 创建或重置点光源
-       * [name] 颜色: [color] 光照强度: [intensity] 位置:x[x] y[y] z[z]
-       * @param {object} args
-       * @param {string} args.name
-       * @param {number} args.color
-       * @param {number} args.intensity
-       * @param {number} args.x
-       * @param {number} args.y
-       * @param {number} args.z
-       * @param {number} args.decay
-       * @param {string} args.YN
-       */
-      makePointLight({ name, color, intensity, x, y, z, decay, YN }) {
-        if (!this.tc) {
-          return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
-        }
-        name = Cast.toString(name);
-        if (name in this.lights) {
-          this._deleteObject(this.lights[name]);
-          this.lights[name].dispose();
-        }
-        this.lights[name] = new PointLight(
+      pointLight({ color, intensity, x, y, z, decay, YN }) {
+        let _point_light = new PointLight(
           Cast.toNumber(color),
           Cast.toNumber(intensity),
           0,
           Cast.toNumber(decay)
         );
-        this.lights[name].position.set(
+        _point_light.position.set(
           Cast.toNumber(x),
           Cast.toNumber(y),
           Cast.toNumber(z)
         );
-        this.lights[name].shadow.bias = -5e-5;
+        _point_light.shadow.bias = -5e-5;
         if (Cast.toString(YN) == "true") {
-          this.lights[name].castShadow = true;
+          _point_light.castShadow = true;
         }
-        this.scene.add(this.lights[name]);
-        this.render();
+        return new Wrapper(new RTW_Model_Box(_point_light, false, false, false, void 0));
       }
-      makeDirectionalLight({ name, color, intensity, x, y, z, x2, y2, z2, YN }) {
-        if (!this.tc) {
-          return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
-        }
-        name = Cast.toString(name);
-        if (name in this.lights) {
-          this._deleteObject(this.lights[name]);
-          this.lights[name].dispose();
-        }
-        this.lights[name] = new DirectionalLight(
+      directionalLight({
+        color,
+        intensity,
+        x,
+        y,
+        z,
+        x2,
+        y2,
+        z2,
+        YN
+      }) {
+        let _directional_light = new DirectionalLight(
           Cast.toNumber(color),
           Cast.toNumber(intensity)
         );
-        this.lights[name].position.set(
+        _directional_light.position.set(
           Cast.toNumber(x),
           Cast.toNumber(y),
           Cast.toNumber(z)
         );
-        this.lights[name].target.position.set(
+        _directional_light.target.position.set(
           Cast.toNumber(x),
           Cast.toNumber(y),
           Cast.toNumber(z)
         );
-        this.lights[name].shadow.bias = -5e-5;
+        _directional_light.shadow.bias = -5e-5;
         if (Cast.toString(YN) == "true") {
-          this.lights[name].castShadow = true;
+          _directional_light.castShadow = true;
         }
-        this.lights[name].shadow.camera.left = -20;
-        this.lights[name].shadow.camera.right = 20;
-        this.lights[name].shadow.camera.top = 20;
-        this.lights[name].shadow.camera.bottom = -20;
-        this.lights[name].shadow.camera.near = 0.1;
-        this.lights[name].shadow.camera.far = 1e3;
-        this.scene.add(this.lights[name]);
-        this.render();
+        _directional_light.shadow.camera.left = -20;
+        _directional_light.shadow.camera.right = 20;
+        _directional_light.shadow.camera.top = 20;
+        _directional_light.shadow.camera.bottom = -20;
+        _directional_light.shadow.camera.near = 0.1;
+        _directional_light.shadow.camera.far = 1e3;
+        return new Wrapper(new RTW_Model_Box(_directional_light, false, false, false, void 0));
       }
       /**
        * 设置平行光的阴影投射范围
@@ -30504,24 +30863,26 @@ void main() {
        * @param {number} args.right
        * @param {number} args.top
        * @param {number} args.bottom
-      */
+       */
       setDirectionalLightShawdowCamera({ name, left, right, top, bottom }) {
         if (!this.tc) {
           return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
         }
         name = Cast.toString(name);
-        if (name in this.lights) {
-          if (this.lights[name].type === "DirectionalLight") {
+        if (name in this.objects) {
+          if (this.objects[name].type === "DirectionalLight") {
             let _camera = new OrthographicCamera(
               Cast.toNumber(left),
               Cast.toNumber(right),
               Cast.toNumber(top),
               Cast.toNumber(bottom),
-              this.lights[name].shadow.camera.near,
-              this.lights[name].shadow.camera.far
+              this.objects[name].shadow.camera.near,
+              this.objects[name].shadow.camera.far
             );
-            _camera.zoom = this.lights[name].shadow.camera.zoom;
-            this.lights[name].shadow.camera = _camera;
+            _camera.zoom = this.objects[name].shadow.camera.zoom;
+            this.objects[name].shadow.camera = _camera;
+          } else {
+            return "\u26A0\uFE0F'" + name + "'\u4E0D\u662F\u5E73\u884C\u5149\uFF01";
           }
         }
       }
@@ -30537,57 +30898,14 @@ void main() {
           return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
         }
         name = Cast.toString(name);
-        if (name in this.lights) {
-          this.lights[name].shadow.mapSize.width = Cast.toNumber(xsize);
-          this.lights[name].shadow.mapSize.height = Cast.toNumber(ysize);
-        }
-      }
-      moveLight({ name, x, y, z }) {
-        if (!this.tc) {
-          return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
-        }
-        name = Cast.toString(name);
-        if (name in this.lights) {
-          this.lights[name].position.set(
-            Cast.toNumber(x),
-            Cast.toNumber(y),
-            Cast.toNumber(z)
-          );
-          this.render();
-        } else {
-          return;
-        }
-      }
-      getLightPos({ name, xyz }) {
-        name = Cast.toString(name);
-        if (name in this.lights) {
-          switch (Cast.toString(xyz)) {
-            case "x":
-              return this.lights[name].position.x;
-            case "y":
-              return this.lights[name].position.y;
-            case "z":
-              return this.lights[name].position.z;
+        if (name in this.objects) {
+          if (this.objects[name].isLight) {
+            this.objects[name].shadow.mapSize.width = Cast.toNumber(xsize);
+            this.objects[name].shadow.mapSize.height = Cast.toNumber(ysize);
+          } else {
+            return "\u26A0\uFE0F'" + name + "'\u4E0D\u662F\u5149\u6E90\uFF01";
           }
-        } else {
-          return;
         }
-      }
-      deleteLight(args) {
-        if (!this.tc) {
-          return "\u26A0\uFE0F\u663E\u793A\u5668\u672A\u521D\u59CB\u5316\uFF01";
-        }
-        let name = Cast.toString(args.name), i = 1;
-        if (name in this.lights) {
-          this._deleteObject(this.lights[name]);
-        }
-        while (args[`NAME_${i}`]) {
-          if (args[`NAME_${i}`] in this.lights) {
-            this._deleteObject(this.lights[args[`NAME_${i}`]]);
-          }
-          i++;
-        }
-        this.render();
       }
       /**
        * 设置环境光颜色
