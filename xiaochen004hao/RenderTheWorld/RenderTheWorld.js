@@ -27154,6 +27154,11 @@ void main() {
   // src/RenderTheWorld.js
   (function(Scratch2) {
     "use strict";
+    const { logSystem } = Scratch2.vm.runtime;
+    const logError = (...args) => {
+      logSystem?.error(...args);
+      console.error(...args);
+    };
     function addRTWStyle(newStyle) {
       let _RTWStyle = !window.RTWStyle;
       window.RTWStyle = document.getElementById("RTWStyle");
@@ -27848,6 +27853,7 @@ void main() {
         "RenderTheWorld.planeModel": "<\u5E73\u9762> \u957F[a] \u5BBD[b] \u6750\u8D28[material]",
         "RenderTheWorld.objModel": "<OBJ\u6A21\u578B> OBJ\u6587\u4EF6[objfile] MTL\u6587\u4EF6[mtlfile]",
         "RenderTheWorld.gltfModel": "<GLTF\u6A21\u578B> GLTF\u6587\u4EF6[gltffile]",
+        "RenderTheWorld.groupModel": "<\u7EC4> ",
         "RenderTheWorld.importModel": "\u5BFC\u5165\u6216\u91CD\u7F6E: \u540D\u79F0[name] \u5BF9\u8C61[model]",
         "RenderTheWorld.shadowSettings": "\u8BBE\u7F6E [name] \u7684\u9634\u5F71\u8BBE\u7F6E: [YN]\u6295\u5C04\u9634\u5F71 [YN2]\u88AB\u6295\u5C04\u9634\u5F71",
         "RenderTheWorld.makeMaterial": "\u521B\u5EFA\u6750\u8D28 [material]",
@@ -27914,6 +27920,7 @@ void main() {
         "RenderTheWorld.gltfModel.tooltip": "\u5BFC\u5165GLTF\u6A21\u578B\uFF0C\u8FD4\u56DE\u4E00\u4E2A\u6A21\u578B\u5BF9\u8C61\uFF0C\u53EF\u76F4\u63A5\u5728\u201C\u5BFC\u5165\u6216\u91CD\u7F6E\u201D\u79EF\u6728\u4E2D\u4F7F\u7528",
         "RenderTheWorld.pointLight.tooltip": "\u521B\u5EFA\u4E00\u4E2A\u70B9\u5149\u6E90\uFF0C\u8FD4\u56DE\u4E00\u4E2A\u6A21\u578B\u5BF9\u8C61\uFF0C\u53EF\u76F4\u63A5\u5728\u201C\u5BFC\u5165\u6216\u91CD\u7F6E\u201D\u79EF\u6728\u4E2D\u4F7F\u7528",
         "RenderTheWorld.directionalLight.tooltip": "\u521B\u5EFA\u4E00\u4E2A\u5E73\u884C\u5149\uFF0C\u8FD4\u56DE\u4E00\u4E2A\u6A21\u578B\u5BF9\u8C61\uFF0C\u53EF\u76F4\u63A5\u5728\u201C\u5BFC\u5165\u6216\u91CD\u7F6E\u201D\u79EF\u6728\u4E2D\u4F7F\u7528",
+        "RenderTheWorld.groupModel.tooltip": "\u521B\u5EFA\u4E00\u4E2A\u5BF9\u8C61\u7EC4\uFF0C\u8FD4\u56DE\u4E00\u4E2A\u7EC4\u5BF9\u8C61\uFF0C\u53EF\u76F4\u63A5\u5728\u201C\u5BFC\u5165\u6216\u91CD\u7F6E\u201D\u79EF\u6728\u4E2D\u4F7F\u7528",
         "RenderTheWorld.importModel.tooltip": "\u5BFC\u5165\u6216\u91CD\u7F6E\u5BF9\u8C61",
         "RenderTheWorld.shadowSettings.tooltip": "\u8BBE\u7F6E\u5BF9\u8C61\u7684\u9634\u5F71\u8BBE\u7F6E",
         "RenderTheWorld.makeMaterial.tooltip": "\u521B\u5EFA\u4E00\u4E2A\u6750\u8D28\uFF0C\u53EF\u76F4\u63A5\u5728\u201C\u5BFC\u5165\u6216\u91CD\u7F6E\u201D\u79EF\u6728\u4E2D\u4F7F\u7528\uFF0C\u5982\u975E\u5FC5\u8981\uFF0C\u63A8\u8350\u591A\u4E2A\u6A21\u578B\u5171\u7528\u4E00\u4E2A\u6750\u8D28",
@@ -27986,6 +27993,7 @@ void main() {
         "RenderTheWorld.planeModel": "<plane> length[a] width[b] material[material]",
         "RenderTheWorld.objModel": "<OBJ model> OBJ file[objfile] MTL file[mtlfile]",
         "RenderTheWorld.gltfModel": "<GLTF model> GLTF file[gltffile]",
+        "RenderTheWorld.groupModel": "<group> ",
         "RenderTheWorld.importModel": "reset or make: name[name] object[model]",
         "RenderTheWorld.shadowSettings": "set [name] shadow settings: [YN]cast shadows [YN2]shadow cast",
         "RenderTheWorld.makeMaterial": "make material [material]",
@@ -28052,6 +28060,7 @@ void main() {
         "RenderTheWorld.gltfModel.tooltip": 'Import GLTF model and return a model object, which can be directly used in the "reset or make" building block',
         "RenderTheWorld.pointLight.tooltip": 'Create a pointLight and return a model object, which can be directly used in the "reset or make" building block',
         "RenderTheWorld.directionalLight.tooltip": 'Create a directionalLight and return a model object, which can be directly used in the "reset or make" building block',
+        "RenderTheWorld.groupModel.tooltip": 'Create a group and return a group object, which can be directly used in the "reset or make" building block',
         "RenderTheWorld.importModel.tooltip": "Import or reset objects",
         "RenderTheWorld.shadowSettings.tooltip": "Set shadow settings for objects",
         "RenderTheWorld.makeMaterial.tooltip": 'Create a material that can be directly used in the "reset or make" block. If not necessary, it is recommended that multiple models share the same material',
@@ -28107,6 +28116,10 @@ void main() {
           html.innerText = `gltffile: "${this.model.gltffile}"`;
         } else {
           html.innerText = `model: "${this.model["type"] ?? String(this.model)}"`;
+        }
+        if (this.model instanceof Group) {
+          console.log(this.model);
+          html.innerText += ` ${JSON.stringify(this.model.children.map((x) => x.type))}`;
         }
         return html;
       }
@@ -28303,13 +28316,14 @@ void main() {
             return _requestUpdateMonitor.call(this.runtime, state);
           };
         }
+        this._RTW_hat_parameters = /* @__PURE__ */ new Set();
         this.objectLoadingCompletedUpdate = () => {
-          console.log(this.Blockly);
           this.Blockly.getMainWorkspace().getAllBlocks().filter((block) => block.type === "ccw_hat_parameter").forEach((hat_parameter) => {
             if (hat_parameter.svgGroup_.getElementsByTagName("text")[0].textContent === "name") {
-              let flag = false;
+              let flag = hat_parameter["is_RTW_hat_parameter"] == true || this._RTW_hat_parameters.has(hat_parameter.id) ? true : false;
               let parentBlock_ = hat_parameter.parentBlock_;
-              while (parentBlock_ !== null) {
+              while (!flag && parentBlock_ !== null) {
+                this._RTW_hat_parameters.add(hat_parameter.id);
                 if (parentBlock_.type === chen_RenderTheWorld_extensionId + "_objectLoadingCompleted") {
                   flag = true;
                   break;
@@ -28317,15 +28331,15 @@ void main() {
                 parentBlock_ = parentBlock_.parentBlock_;
               }
               if (flag) {
-                console.log(hat_parameter);
                 hat_parameter["is_RTW_hat_parameter"] = true;
                 hat_parameter.colour_ = hat_parameter.svgPath_.style.fill = "#121C3D";
                 hat_parameter.colourTertiary_ = hat_parameter.svgPath_.style.stroke = "#4A76FF";
-              } else if (hat_parameter["is_RTW_hat_parameter"] === true) {
-                hat_parameter["is_RTW_hat_parameter"] = void 0;
-                hat_parameter.colour_ = hat_parameter.svgPath_.style.fill = "#FF6680";
-                hat_parameter.colourTertiary_ = hat_parameter.svgPath_.style.stroke = "#FF3355";
               }
+              this._RTW_hat_parameters.forEach((id) => {
+                if (this.Blockly.getMainWorkspace().getBlockById(id) === null) {
+                  this._RTW_hat_parameters.delete(id);
+                }
+              });
             }
           });
         };
@@ -28705,6 +28719,25 @@ void main() {
                 type: null,
                 defaultValue: ""
               }
+            },
+            output: "Reporter",
+            outputShape: 3,
+            branchCount: 0
+          },
+          {
+            opcode: "groupModel",
+            blockType: BlockType.OUTPUT,
+            text: this.formatMessage("RenderTheWorld.groupModel"),
+            arguments: {},
+            expandableBlock: {
+              expandableArgs: {
+                MODEL: ["string", "MODEL"],
+                TEXT: ["text", ", ", 0]
+              },
+              defaultIndex: 1,
+              defaultText: this.formatMessage("RenderTheWorld.groupModel"),
+              textBegin: "[",
+              textEnd: "]"
             },
             output: "Reporter",
             outputShape: 3,
@@ -29869,6 +29902,7 @@ void main() {
       makeMaterial({ material }, util) {
         const thread = util.thread;
         if (typeof util.stackFrame._inlineLastReturn !== "undefined") {
+          util.stackFrame._inlineLastReturn = void 0;
           return util.stackFrame._inlineReturn;
         } else if (typeof util.stackFrame._inlineReturn !== "undefined") {
           const returnValue = util.stackFrame._inlineReturn;
@@ -30095,6 +30129,37 @@ void main() {
             });
           }
         }
+      }
+      groupModel(args) {
+        let _group = new Group(), cnt = 1;
+        while (args[`MODEL_${cnt}`]) {
+          let _model = Wrapper.unwrap(args[`MODEL_${cnt}`]);
+          if (_model instanceof RTW_Model_Box && _model.model.isObject3D) {
+            _model = _model.model;
+          } else if (typeof _model === "string") {
+            if (!(_model in this.objects)) {
+              cnt++;
+              continue;
+            }
+            ;
+            _model = this.objects[_model];
+          } else {
+            cnt++;
+            continue;
+          }
+          ;
+          _group.children.push(_model);
+          cnt++;
+        }
+        return new Wrapper(
+          new RTW_Model_Box(
+            _group,
+            false,
+            false,
+            false,
+            void 0
+          )
+        );
       }
       cubeModel({ a, b, h, material }) {
         material = Wrapper.unwrap(material);
@@ -31175,11 +31240,11 @@ void main() {
         insetIconURL: chen_RenderTheWorld_icon,
         featured: true,
         disabled: false,
-        collaborator: "\u9648\u601D\u7FF0 @ CCW",
+        collaborator: "xiaochen004hao @ CCW",
         collaboratorURL: "https://www.ccw.site/student/643bb84051bc32279f0c3fa0",
         collaboratorList: [
           {
-            collaborator: "\u9648\u601D\u7FF0 @ CCW",
+            collaborator: "xiaochen004hao @ CCW",
             collaboratorURL: "https://www.ccw.site/student/643bb84051bc32279f0c3fa0"
           },
           {
