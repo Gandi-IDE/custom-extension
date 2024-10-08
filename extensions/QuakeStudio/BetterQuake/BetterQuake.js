@@ -3999,6 +3999,7 @@ void main() {\r
             }
             if (drawableShader) {
               drawable.BetterQuake.uniforms.time = this.runtime.ioDevices.clock.projectTimer();
+              drawable.BetterQuake.uniforms.tDiffuse = uniforms.u_skin;
               Object.assign(uniforms, drawable.BetterQuake.uniforms);
             }
             if (uniforms.u_skin || drawable.BetterQuake.uniforms.tDiffuse) {
@@ -4345,7 +4346,7 @@ void main() {\r
         delete this.QuakeManager.loadedShaders[SHADER];
         for (let i = 0; i < this.runtime.renderer._allDrawables.length; i++) {
           const drawable = this.runtime.renderer._allDrawables[i];
-          if (drawable.BetterQuake?.shader === SHADER) {
+          if (drawable?.BetterQuake?.shader === SHADER) {
             delete drawable.BetterQuake;
           }
         }
@@ -4355,7 +4356,7 @@ void main() {\r
         const shaderUsers = [];
         for (let i = 0; i < this.runtime.renderer._allDrawables.length; i++) {
           const drawable = this.runtime.renderer._allDrawables[i];
-          if (drawable.BetterQuake?.shader === SHADER) {
+          if (drawable?.BetterQuake?.shader === SHADER) {
             shaderUsers.push(drawable);
           }
         }
