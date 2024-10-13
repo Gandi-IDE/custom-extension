@@ -2,7 +2,7 @@
  * @file 实现简单的缓动动画以及数据运算
  *
  * @author 官方小傲娇 <gfxaj@qq.com>
- * @version 1.0.3
+ * @version 1.0.4
  */
 
 // @ts-nocheck
@@ -40,6 +40,7 @@ class Animate {
    * @type {number} 动画长度。
    */
   length;
+
   /**
    * 构造动画类。
    * @param {AnimationMethod} method 将要使用的动画类型。
@@ -48,43 +49,53 @@ class Animate {
   constructor(method, { start, end, length }) {
     [this.method, this.start, this.end, this.length] = [method, start, end, length];
   }
+
   /** @type {AnimationMethod} 线性 */
   static Linear(t, b, c, d) {
     return (c * t) / d + b;
   }
+
   /** @type {AnimationMethod} 平方缓入。 */
   static EaseInQuad(t, b, c, d) {
     return c * (t / d) * (t / d) + b;
   }
+
   /** @type {AnimationMethod} 平方缓出。 */
   static EaseOutQuad(t, b, c, d) {
     return -c * (t /= d) * (t - 2) + b;
   }
+
   /** @type {AnimationMethod} 平方缓入缓出。 */
   static EaseInOutQuad(t, b, c, d) {
     if ((t /= d / 2) < 1) return (c / 2) * t * t + b;
     return (-c / 2) * (--t * (t - 2) - 1) + b;
   }
+
   /** @type {AnimationMethod} 正弦缓入。 */
   static EaseInSine(t, b, c, d) {
     return -c * Math.cos((t / d) * (Math.PI / 2)) + c + b;
   }
+
   /** @type {AnimationMethod} 正弦缓出。 */
   static EaseOutSine(t, b, c, d) {
     return c * Math.sin((t / d) * (Math.PI / 2)) + b;
   }
+
   /** @type {AnimationMethod} 正弦缓入缓出。 */
   static EaseInOutSine(t, b, c, d) {
     return (-c / 2) * (Math.cos((Math.PI * t) / d) - 1) + b;
   }
+
   /** @type {AnimationMethod} 指数曲线缓入。 */
   static EaseInExpo(t, b, c, d) {
     return t == 0 ? b : c * Math.pow(2, 10 * (t / d - 1)) + b;
   }
+
   /** @type {AnimationMethod} 指数曲线缓出。 */
   static EaseOutExpo(t, b, c, d) {
     return t == d ? b + c : c * (-Math.pow(2, (-10 * t) / d) + 1) + b;
   }
+
   /** @type {AnimationMethod} 指数曲线缓入缓出。 */
   static EaseInOutExpo(t, b, c, d) {
     if (t == 0) return b;
@@ -92,58 +103,71 @@ class Animate {
     if ((t /= d / 2) < 1) return (c / 2) * Math.pow(2, 10 * (t - 1)) + b;
     return (c / 2) * (-Math.pow(2, -10 * --t) + 2) + b;
   }
+
   /** @type {AnimationMethod} 圆形曲线缓入。 */
   static EaseInCirc(t, b, c, d) {
     return -c * (Math.sqrt(1 - (t /= d) * t) - 1) + b;
   }
+
   /** @type {AnimationMethod} 圆形曲线缓出。 */
   static EaseOutCirc(t, b, c, d) {
     return c * Math.sqrt(1 - (t = t / d - 1) * t) + b;
   }
+
   /** @type {AnimationMethod} 圆形曲线缓入缓出。 */
   static EaseInOutCirc(t, b, c, d) {
     if ((t /= d / 2) < 1) return (-c / 2) * (Math.sqrt(1 - t * t) - 1) + b;
     return (c / 2) * (Math.sqrt(1 - (t -= 2) * t) + 1) + b;
   }
+
   /** @type {AnimationMethod} 三次方缓入。 */
   static EaseInCubic(t, b, c, d) {
     return c * (t /= d) * t * t + b;
   }
+
   /** @type {AnimationMethod} 三次方缓出。 */
   static EaseOutCubic(t, b, c, d) {
     return c * ((t = t / d - 1) * t * t + 1) + b;
   }
+
   /** @type {AnimationMethod} 三次方缓入缓出。 */
   static EaseInOutCubic(t, b, c, d) {
     if ((t /= d / 2) < 1) return (c / 2) * t * t * t + b;
     return (c / 2) * ((t -= 2) * t * t + 2) + b;
   }
+
   /** @type {AnimationMethod} 四次方缓入。 */
   static EaseInQuart(t, b, c, d) {
     return c * (t /= d) * t * t * t + b;
   }
+
   /** @type {AnimationMethod} 四次方缓出。 */
   static EaseOutQuart(t, b, c, d) {
     return -c * ((t = t / d - 1) * t * t * t - 1) + b;
   }
+
   /** @type {AnimationMethod} 四次方缓入缓出。 */
   static EaseInOutQuart(t, b, c, d) {
     if ((t /= d / 2) < 1) return (c / 2) * t * t * t * t + b;
     return (-c / 2) * ((t -= 2) * t * t * t - 2) + b;
   }
+
   /** @type {AnimationMethod} 五次方缓入。 */
   static EaseInQuint(t, b, c, d) {
     return c * (t /= d) * t * t * t * t + b;
   }
+
   /** @type {AnimationMethod} 五次方缓出。 */
   static EaseOutQuint(t, b, c, d) {
     return c * ((t = t / d - 1) * t * t * t * t + 1) + b;
   }
+
   /** @type {AnimationMethod} 五次方缓入缓出。 */
   static EaseInOutQuint(t, b, c, d) {
     if ((t /= d / 2) < 1) return (c / 2) * t * t * t * t * t + b;
     return (c / 2) * ((t -= 2) * t * t * t * t + 2) + b;
   }
+
   /** @type {AnimationMethod} 指数衰减正弦曲线缓入。 */
   static EaseInElastic(t, b, c, d) {
     let s = 1.70158;
@@ -158,6 +182,7 @@ class Animate {
     } else s = (p / (2 * Math.PI)) * Math.asin(c / a);
     return -(a * Math.pow(2, 10 * (t -= 1)) * Math.sin(((t * d - s) * (2 * Math.PI)) / p)) + b;
   }
+
   /** @type {AnimationMethod} 指数衰减正弦曲线缓出。 */
   static EaseOutElastic(t, b, c, d) {
     let s = 1.70158;
@@ -172,6 +197,7 @@ class Animate {
     } else s = (p / (2 * Math.PI)) * Math.asin(c / a);
     return a * Math.pow(2, -10 * t) * Math.sin(((t * d - s) * (2 * Math.PI)) / p) + c + b;
   }
+
   /** @type {AnimationMethod} 指数衰减正弦曲线缓入缓出。 */
   static EaseInOutElastic(t, b, c, d) {
     let s = 1.70158;
@@ -187,26 +213,31 @@ class Animate {
     if (t < 1) return -0.5 * (a * Math.pow(2, 10 * (t -= 1)) * Math.sin(((t * d - s) * (2 * Math.PI)) / p)) + b;
     return a * Math.pow(2, -10 * (t -= 1)) * Math.sin(((t * d - s) * (2 * Math.PI)) / p) * 0.5 + c + b;
   }
+
   /** @type {AnimationMethod} 超范围三次方缓入。 */
   static EaseInBack(t, b, c, d) {
     let s = 1.70158;
     return c * (t /= d) * t * ((s + 1) * t - s) + b;
   }
+
   /** @type {AnimationMethod} 超范围三次方缓出。 */
   static EaseOutBack(t, b, c, d) {
     let s = 1.70158;
     return c * ((t = t / d - 1) * t * ((s + 1) * t + s) + 1) + b;
   }
+
   /** @type {AnimationMethod} 超范围三次方缓入缓出。 */
   static EaseInOutBack(t, b, c, d) {
     let s = 1.70158;
     if ((t /= d / 2) < 1) return (c / 2) * (t * t * (((s *= 1.525) + 1) * t - s)) + b;
     return (c / 2) * ((t -= 2) * t * (((s *= 1.525) + 1) * t + s) + 2) + b;
   }
+
   /** @type {AnimationMethod} 指数衰减反弹缓入。 */
   static EaseInBounce(t, b, c, d) {
     return c - Animate.EaseOutBounce(d - t, 0, c, d) + b;
   }
+
   /** @type {AnimationMethod} 指数衰减反弹缓出。 */
   static EaseOutBounce(t, b, c, d) {
     if ((t /= d) < 1 / 2.75) {
@@ -219,6 +250,7 @@ class Animate {
       return c * (7.5625 * (t -= 2.625 / 2.75) * t + 0.984375) + b;
     }
   }
+
   /** @type {AnimationMethod} 指数衰减反弹缓入缓出。 */
   static EaseInOutBounce(t, b, c, d) {
     if (t < d / 2) {
@@ -226,6 +258,7 @@ class Animate {
     }
     return Animate.EaseOutBounce(t * 2 - d, 0, c, d) * 0.5 + c * 0.5 + b;
   }
+
   /**
    * 求动画在 t = time 时的值。
    * @param {number} time 时间。
@@ -233,9 +266,11 @@ class Animate {
    */
   at(time) {
     if (time > this.length) return this.end;
+    if (this.end - this.start == 0) return this.end;
     return this.method(time, this.start, this.end - this.start, this.length);
   }
 }
+
 /**
  * 根据函数获取动画方法。
  * @param {string} name
@@ -247,6 +282,7 @@ function getMethod(name) {
   }
   return null;
 }
+
 /**
  * 插件主类。
  */
@@ -259,6 +295,7 @@ class Animator {
    * @type {any} 运行时。
    */
   runtime;
+
   /**
    * 构造插件。
    * @param {any} runtime 运行时。
@@ -315,7 +352,7 @@ class Animator {
         "Ani.ghost": "虚像",
         "Ani.size": "大小",
 
-        "Ani.docs": "📖文档", //Not included
+        "Ani.docs": "📖文档",
 
         "Ani.Fac_ani": "🌟缓动运算",
         "Ani.Fac_dat": "🪄特效参数",
@@ -370,13 +407,14 @@ class Animator {
         "Ani.ghost": "ghost",
         "Ani.size": "size",
 
-        "Ani.docs": "📖Docs", //Not included
+        "Ani.docs": "📖Docs",
 
         "Ani.Fac_ani": "🌟Easing functions",
         "Ani.Fac_dat": "🪄Effect parameters",
       },
     });
   }
+
   /**
    * 翻译函数。
    * @param {string} id 键名。
@@ -389,6 +427,7 @@ class Animator {
       description: id,
     });
   }
+
   /**
    * 获取插件信息。
    * @returns {any} 插件的积木。
@@ -401,6 +440,11 @@ class Animator {
       menuIconURI: ani_icon,
       blockIconURI: ani_icon,
       blocks: [
+        {
+          blockType: "button",
+          text: this.formatMessage("Ani.docs"),
+          onClick: this.docs,
+        },
         "---" + this.formatMessage("Ani.Fac_ani"),
         {
           opcode: "Animate",
@@ -666,6 +710,14 @@ class Animator {
         ],
       },
     };
+  }
+
+  docs() {
+    let a = document.createElement("a");
+    a.href = "https://learn.ccw.site/article/63a876b1-ccd4-4e74-a298-04e94109ab95";
+    a.rel = "noopener noreferrer";
+    a.target = "_blank";
+    a.click();
   }
 
   /**
