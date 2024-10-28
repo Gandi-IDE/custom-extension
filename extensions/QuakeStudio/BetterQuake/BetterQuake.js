@@ -85,6 +85,33 @@
       "_Delete all textures": "Padam semua tekstur",
       "_Delete texture called [NAME]": "Padam tekstur dipanggil [NAME]",
       "_Create/Update texture called [NAME] with [TEXTURE]": "Cipta/Kemas kini tekstur dipanggil [NAME] dengan [TEKSTUR]"
+    },
+    uk: {
+      _extensionName: "QuakeFragmment",
+      _me: "я",
+      _stage: "етап",
+      _example: "Приклад",
+      _Enable: "Увімкнути",
+      _Disable: "Вимкнути",
+      "_[SHOULD] ауто повтор-рендеринг": "[SHOULD] ауто повтор-рендеринг",
+      "_Всі провантажені шейдери": "Всі провантажені шейдери",
+      "Прибрати [SHADER]": "Прибрати [SHADER]",
+      "Повторити [SHADER]": "Повторити [SHADER]",
+      "Застосувати [SHADER] до [TARGET]": "Застосувати [SHADER] до [TARGET]",
+      "Від'єднати [SHADER] від [TARGET]": "Від'єднати [SHADER] від [TARGET]",
+      _Uniforms: "Уніформи",
+      "_Надати число [UNIFORM] від [TARGET] до [VALUE]": "Надати число [UNIFORM] від [TARGET] до [VALUE]",
+      "_Надати вектор 2 [UNIFORM] від [TARGET] до [VALUE1][VALUE2]": "Встановити вектор 2 [UNIFORM] від [TARGET] до [VALUE1][VALUE2]",
+      "_Надати вектор 3 [UNIFORM] від [TARGET] до [VALUE1][VALUE2][VALUE3]": "Надати вектор 3 [UNIFORM] від [TARGET] до [VALUE1][VALUE2][VALUE3]",
+      "_Надати вектор 4 [UNIFORM] від [TARGET] до [VALUE1][VALUE2][VALUE3][VALUE4]": "Надати вектор 4 [UNIFORM] від [TARGET] до [VALUE1][VALUE2][VALUE3][VALUE4]",
+      "_Надати матрицю [UNIFORM] від [TARGET] до [MATRIX]": "Надати матрицю [UNIFORM] від [TARGET] до [MATRIX]",
+      "_Надати текстуру [UNIFORM] від [TARGET] до [TEXTURE]": "Надати текстуру [UNIFORM] від [TARGET] до [TEXTURE]",
+      _Textures: "Текстури",
+      "_Всі текстури": "Всі текстури",
+      "_Видалити всі текстури": "Видалити всі текстури",
+      "_Видалити текстуру, названу як [NAME]": "Видалити текстуру, названу як [NAME]",
+      "_Створити/Оновити текстуру, названу як [NAME] з [TEXTURE]": "Створити/Оновити текстуру, названу як [NAME] з [TEXTURE]"
+                                                                                                                                                          
     }
   };
 
@@ -4591,6 +4618,10 @@ void main() {\r
           en: {
             "BetterQuake.extensionName": "Better Quake",
             "BetterQuake.description": "Better shader loader"
+          },
+          uk: { 
+            "BetterQuake.extensionName": "Кращий кюак"
+            "BetterQuake.description": "Кращий провантажувач шейдерів"
           }
         }
       };
