@@ -1371,7 +1371,6 @@ class WitCatIndexedDB {
                         document.body.removeChild(link);
                         return false;
                     })
-                    console.log(content);
                 } else {
                     content = info.value;
                 }

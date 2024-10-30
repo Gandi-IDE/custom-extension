@@ -1,14 +1,13 @@
-
 // Released under MIT license
 // Copyright (c) 2009-2010 Dominic Baggott
 // Copyright (c) 2009-2010 Ash Berlin
 // Copyright (c) 2011 Christoph Dorn <christoph@christophdorn.com> (http://www.christophdorn.com)
 
 /*jshint browser:true, devel:true */
+/* eslint-disable */
 let expose = {};
 
 (function () {
-
   /**
    *  class Markdown
    *
@@ -36,7 +35,7 @@ let expose = {};
    *
    *  [JsonML]: http://jsonml.org/ "JSON Markup Language"
    **/
-  var Markdown = expose.Markdown = function (dialect) {
+  var Markdown = (expose.Markdown = function (dialect) {
     switch (typeof dialect) {
       case "undefined":
         this.dialect = Markdown.dialects.Gruber;
@@ -47,8 +46,7 @@ let expose = {};
       default:
         if (dialect in Markdown.dialects) {
           this.dialect = Markdown.dialects[dialect];
-        }
-        else {
+        } else {
           throw new Error("Unknown Markdown dialect '" + String(dialect) + "'");
         }
         break;
@@ -56,7 +54,7 @@ let expose = {};
     this.em_state = [];
     this.strong_state = [];
     this.debug_indent = "";
-  };
+  });
 
   /**
    *  parse( markdown, [dialect] ) -> JsonML
@@ -118,29 +116,32 @@ let expose = {};
 
   // For Spidermonkey based engines
   function mk_block_toSource() {
-    return "Markdown.mk_block( " +
+    return (
+      "Markdown.mk_block( " +
       uneval(this.toString()) +
       ", " +
       uneval(this.trailing) +
       ", " +
       uneval(this.lineNumber) +
-      " )";
+      " )"
+    );
   }
 
   // node
   function mk_block_inspect() {
     var util = require("util");
-    return "Markdown.mk_block( " +
+    return (
+      "Markdown.mk_block( " +
       util.inspect(this.toString()) +
       ", " +
       util.inspect(this.trailing) +
       ", " +
       util.inspect(this.lineNumber) +
-      " )";
-
+      " )"
+    );
   }
 
-  var mk_block = Markdown.mk_block = function (block, trail, line) {
+  var mk_block = (Markdown.mk_block = function (block, trail, line) {
     // Be helpful for default case in tests.
     if (arguments.length == 1) trail = "\n\n";
 
@@ -150,14 +151,14 @@ let expose = {};
     s.inspect = mk_block_inspect;
     s.toSource = mk_block_toSource;
 
-    if (line != undefined)
-      s.lineNumber = line;
+    if (line != undefined) s.lineNumber = line;
 
     return s;
-  };
+  });
 
   function count_lines(str) {
-    var n = 0, i = -1;
+    var n = 0,
+      i = -1;
     while ((i = str.indexOf("\n", i + 1)) !== -1) n++;
     return n;
   }
@@ -225,8 +226,7 @@ let expose = {};
       var res = cbs[ord[i]].call(this, block, next);
       if (res) {
         //D:this.debug("  matched");
-        if (!isArray(res) || (res.length > 0 && !(isArray(res[0]))))
-          this.debug(ord[i], "didn't return a proper array");
+        if (!isArray(res) || (res.length > 0 && !isArray(res[0]))) this.debug(ord[i], "didn't return a proper array");
         //D:this.debug( "" );
         return res;
       }
@@ -255,8 +255,7 @@ let expose = {};
     try {
       this.tree = custom_root || this.tree || ["markdown"];
 
-      blocks:
-      while (blocks.length) {
+      blocks: while (blocks.length) {
         var b = this.processBlock(blocks.shift(), blocks);
 
         // Reference blocks and the like won't return any content
@@ -265,8 +264,7 @@ let expose = {};
         this.tree.push.apply(this.tree, b);
       }
       return this.tree;
-    }
-    finally {
+    } finally {
       if (custom_root) {
         this.tree = old_tree;
       }
@@ -277,11 +275,9 @@ let expose = {};
   Markdown.prototype.debug = function () {
     var args = Array.prototype.slice.call(arguments);
     args.unshift(this.debug_indent);
-    if (typeof print !== "undefined")
-      print.apply(print, args);
-    if (typeof console !== "undefined" && typeof console.log !== "undefined")
-      console.log.apply(null, args);
-  }
+    if (typeof print !== "undefined") print.apply(print, args);
+    if (typeof console !== "undefined" && typeof console.log !== "undefined") console.log.apply(null, args);
+  };
 
   Markdown.prototype.loop_re_over_block = function (re, block, cb) {
     // Dont use /g regexps with this
@@ -331,7 +327,7 @@ let expose = {};
 
         if (!m) return undefined;
 
-        var level = (m[2] === "=") ? 1 : 2;
+        var level = m[2] === "=" ? 1 : 2;
         var header = ["header", { level: level }, m[1]];
 
         if (m[0].length < block.length)
@@ -354,18 +350,17 @@ let expose = {};
         // 4 spaces + content
         if (!block.match(re)) return undefined;
 
-        block_search:
-        do {
+        block_search: do {
           // Now pull out the rest of the lines
-          var b = this.loop_re_over_block(
-            re, block.valueOf(), function (m) { ret.push(m[1]); });
+          var b = this.loop_re_over_block(re, block.valueOf(), function (m) {
+            ret.push(m[1]);
+          });
 
           if (b.length) {
             // Case alluded to in first comment. push it back on as a new block
             next.unshift(mk_block(b, block.trailing));
             break block_search;
-          }
-          else if (next.length) {
+          } else if (next.length) {
             // Check the next block - it might be code too
             if (!next[0].match(re)) break block_search;
 
@@ -373,8 +368,7 @@ let expose = {};
             ret.push(block.trailing.replace(/[^\n]/g, "").substring(2));
 
             block = next.shift();
-          }
-          else {
+          } else {
             break block_search;
           }
         } while (true);
@@ -434,12 +428,21 @@ let expose = {};
         // TODO: Cache this regexp for certain depths.
         // Create a regexp suitable for matching an li for a given stack depth
         function regex_for_depth(depth) {
-
           return new RegExp(
             // m[1] = indent, m[2] = list_type
-            "(?:^(" + indent_re + "{0," + depth + "} {0,3})(" + any_list + ")\\s+)|" +
-            // m[3] = cont
-            "(^" + indent_re + "{0," + (depth - 1) + "}[ ]{0,4})"
+            "(?:^(" +
+              indent_re +
+              "{0," +
+              depth +
+              "} {0,3})(" +
+              any_list +
+              ")\\s+)|" +
+              // m[3] = cont
+              "(^" +
+              indent_re +
+              "{0," +
+              (depth - 1) +
+              "}[ ]{0,4})"
           );
         }
         function expand_tab(input) {
@@ -454,9 +457,7 @@ let expose = {};
             return;
           }
           // Hmmm, should this be any block level element or just paras?
-          var add_to = li[li.length - 1] instanceof Array && li[li.length - 1][0] == "para"
-            ? li[li.length - 1]
-            : li;
+          var add_to = li[li.length - 1] instanceof Array && li[li.length - 1][0] == "para" ? li[li.length - 1] : li;
 
           // If there is already some content in this list, add the new line in
           if (nl && li.length > 1) inline.unshift(nl);
@@ -466,8 +467,7 @@ let expose = {};
               is_str = typeof what == "string";
             if (is_str && add_to.length > 1 && typeof add_to[add_to.length - 1] == "string") {
               add_to[add_to.length - 1] += what;
-            }
-            else {
+            } else {
               add_to.push(what);
             }
           }
@@ -476,7 +476,6 @@ let expose = {};
         // contained means have an indent greater than the current one. On
         // *every* line in the block
         function get_contained_blocks(depth, blocks) {
-
           var re = new RegExp("^(" + indent_re + "{" + depth + "}.*?\\n?)*$"),
             replace = new RegExp("^" + indent_re + "{" + depth + "}", "gm"),
             ret = [];
@@ -488,8 +487,7 @@ let expose = {};
                 x = b.replace(replace, "");
 
               ret.push(mk_block(x, b.trailing, b.lineNumber));
-            }
-            else {
+            } else {
               break;
             }
           }
@@ -508,8 +506,7 @@ let expose = {};
             // Last stack frame
             // Keep the same array, but replace the contents
             last_li.push(["para"].concat(last_li.splice(1, last_li.length - 1)));
-          }
-          else {
+          } else {
             var sublist = last_li.pop();
             last_li.push(["para"].concat(last_li.splice(1, last_li.length - 1)), sublist);
           }
@@ -521,14 +518,11 @@ let expose = {};
           if (!m) return undefined;
 
           function make_list(m) {
-            var list = bullet_list.exec(m[2])
-              ? ["bulletlist"]
-              : ["numberlist"];
+            var list = bullet_list.exec(m[2]) ? ["bulletlist"] : ["numberlist"];
 
             stack.push({ list: list, indent: m[1] });
             return list;
           }
-
 
           var stack = [], // Stack of lists for nesting.
             list = make_list(m),
@@ -538,8 +532,7 @@ let expose = {};
             i;
 
           // Loop to search over block looking for inner block elements and loose lists
-          loose_search:
-          while (true) {
+          loose_search: while (true) {
             // Split into lines preserving new lines at end of line
             var lines = block.split(/(?=\n)/);
 
@@ -548,10 +541,12 @@ let expose = {};
             var li_accumulate = "";
 
             // Loop over the lines in this block looking for tight lists.
-            tight_search:
-            for (var line_no = 0; line_no < lines.length; line_no++) {
+            tight_search: for (var line_no = 0; line_no < lines.length; line_no++) {
               var nl = "",
-                l = lines[line_no].replace(/^\n/, function (n) { nl = n; return ""; });
+                l = lines[line_no].replace(/^\n/, function (n) {
+                  nl = n;
+                  return "";
+                });
 
               // TODO: really should cache this
               var line_re = regex_for_depth(stack.length);
@@ -578,8 +573,7 @@ let expose = {};
                   list = make_list(m);
                   last_li.push(list);
                   last_li = list[1] = ["listitem"];
-                }
-                else {
+                } else {
                   // We aren't deep enough to be strictly a new level. This is
                   // where Md.pl goes nuts. If the indent matches a level in the
                   // stack, put it there, else put it one deeper then the
@@ -601,8 +595,7 @@ let expose = {};
                       //print("Desired depth now", wanted_depth, "stack:", stack.length);
                       list = stack[wanted_depth - 1].list;
                       //print("list:", uneval(list) );
-                    }
-                    else {
+                    } else {
                       //print ("made new stack for messy indent");
                       list = make_list(m);
                       last_li.push(list);
@@ -641,7 +634,7 @@ let expose = {};
               last_li.push.apply(last_li, this.toTree(contained, []));
             }
 
-            var next_block = next[0] && next[0].valueOf() || "";
+            var next_block = (next[0] && next[0].valueOf()) || "";
 
             if (next_block.match(is_list_re) || next_block.match(/^ /)) {
               block = next.shift();
@@ -668,8 +661,7 @@ let expose = {};
       })(),
 
       blockquote: function blockquote(block, next) {
-        if (!block.match(/^>/m))
-          return undefined;
+        if (!block.match(/^>/m)) return undefined;
 
         var jsonml = [];
 
@@ -694,7 +686,6 @@ let expose = {};
           // reassemble new block of just block quotes!
           block = mk_block(lines.join("\n"), block.trailing, line_no);
         }
-
 
         // if the next block is also a blockquote merge it in
         while (next.length && next[0][0] == ">") {
@@ -725,8 +716,7 @@ let expose = {};
         var re = /^\s*\[(.*?)\]:\s*(\S+)(?:\s+(?:(['"])(.*?)\3|\((.*?)\)))?\n?/;
         // interesting matches are [ , ref_id, url, , title, title ]
 
-        if (!block.match(re))
-          return undefined;
+        if (!block.match(re)) return undefined;
 
         // make an attribute node if it doesn't exist
         if (!extract_attr(this.tree)) {
@@ -741,23 +731,17 @@ let expose = {};
         }
 
         var b = this.loop_re_over_block(re, block, function (m) {
+          if (m[2] && m[2][0] == "<" && m[2][m[2].length - 1] == ">") m[2] = m[2].substring(1, m[2].length - 1);
 
-          if (m[2] && m[2][0] == "<" && m[2][m[2].length - 1] == ">")
-            m[2] = m[2].substring(1, m[2].length - 1);
+          var ref = (attrs.references[m[1].toLowerCase()] = {
+            href: m[2],
+          });
 
-          var ref = attrs.references[m[1].toLowerCase()] = {
-            href: m[2]
-          };
-
-          if (m[4] !== undefined)
-            ref.title = m[4];
-          else if (m[5] !== undefined)
-            ref.title = m[5];
-
+          if (m[4] !== undefined) ref.title = m[4];
+          else if (m[5] !== undefined) ref.title = m[5];
         });
 
-        if (b.length)
-          next.unshift(mk_block(b, block.trailing));
+        if (b.length) next.unshift(mk_block(b, block.trailing));
 
         return [];
       },
@@ -765,12 +749,11 @@ let expose = {};
       para: function para(block, next) {
         // everything's a para!
         return [["para"].concat(this.processInline(block))];
-      }
-    }
+      },
+    },
   };
 
   Markdown.dialects.Gruber.inline = {
-
     __oneElement__: function oneElement(text, patterns_or_re, previous_nodes) {
       var m,
         res,
@@ -783,17 +766,14 @@ let expose = {};
       if (!m) {
         // Just boring text
         return [text.length, text];
-      }
-      else if (m[1]) {
+      } else if (m[1]) {
         // Some un-interesting text matched. Return that first
         return [m[1].length, m[1]];
       }
 
       var res;
       if (m[2] in this.dialect.inline) {
-        res = this.dialect.inline[m[2]].call(
-          this,
-          text.substr(m.index), m, previous_nodes || []);
+        res = this.dialect.inline[m[2]].call(this, text.substr(m.index), m, previous_nodes || []);
       }
       // Default for now to make dev easier. just slurp special and output it.
       res = res || [m[2].length, m[2]];
@@ -801,22 +781,19 @@ let expose = {};
     },
 
     __call__: function inline(text, patterns) {
-
       var out = [],
         res;
 
       function add(x) {
         //D:self.debug("  adding output", uneval(x));
-        if (typeof x == "string" && typeof out[out.length - 1] == "string")
-          out[out.length - 1] += x;
-        else
-          out.push(x);
+        if (typeof x == "string" && typeof out[out.length - 1] == "string") out[out.length - 1] += x;
+        else out.push(x);
       }
 
       while (text.length > 0) {
         res = this.dialect.inline.__oneElement__.call(this, text, patterns, out);
         text = text.substr(res.shift());
-        forEach(res, add)
+        forEach(res, add);
       }
 
       return out;
@@ -824,23 +801,20 @@ let expose = {};
 
     // These characters are intersting elsewhere, so have rules for them so that
     // chunks of plain text blocks don't include them
-    "]": function () { },
-    "}": function () { },
+    "]": function () {},
+    "}": function () {},
 
     __escape__: /^\\[\\`\*_{}\[\]()#\+.!\-]/,
 
     "\\": function escaped(text) {
       // [ length of input processed, node/children to add... ]
       // Only esacape: \ ` * _ { } [ ] ( ) # * + - . !
-      if (this.dialect.inline.__escape__.exec(text))
-        return [2, text.charAt(1)];
-      else
-        // Not an esacpe
-        return [1, "\\"];
+      if (this.dialect.inline.__escape__.exec(text)) return [2, text.charAt(1)];
+      // Not an esacpe
+      else return [1, "\\"];
     },
 
     "![": function image(text) {
-
       // Unlike images, alt text is plain text only. no other elements are
       // allowed in there
 
@@ -849,14 +823,12 @@ let expose = {};
       var m = text.match(/^!\[(.*?)\][ \t]*\([ \t]*([^")]*?)(?:[ \t]+(["'])(.*?)\3)?[ \t]*\)/);
 
       if (m) {
-        if (m[2] && m[2][0] == "<" && m[2][m[2].length - 1] == ">")
-          m[2] = m[2].substring(1, m[2].length - 1);
+        if (m[2] && m[2][0] == "<" && m[2][m[2].length - 1] == ">") m[2] = m[2].substring(1, m[2].length - 1);
 
         m[2] = this.dialect.inline.__call__.call(this, m[2], /\\/)[0];
 
         var attrs = { alt: m[1], href: m[2] || "" };
-        if (m[4] !== undefined)
-          attrs.title = m[4];
+        if (m[4] !== undefined) attrs.title = m[4];
 
         return [m[0].length, ["img", attrs]];
       }
@@ -875,7 +847,6 @@ let expose = {};
     },
 
     "[": function link(text) {
-
       var orig = String(text);
       // Inline content is possible inside `link text`
       var res = Markdown.DialectHelpers.inline_until_char.call(this, text.substr(1), "]");
@@ -903,8 +874,7 @@ let expose = {};
         var url = m[1];
         consumed += m[0].length;
 
-        if (url && url[0] == "<" && url[url.length - 1] == ">")
-          url = url.substring(1, url.length - 1);
+        if (url && url[0] == "<" && url[url.length - 1] == ">") url = url.substring(1, url.length - 1);
 
         // If there is a title we don't have to worry about parens in the url
         if (!m[3]) {
@@ -928,8 +898,7 @@ let expose = {};
         url = this.dialect.inline.__call__.call(this, url, /\\/)[0];
 
         attrs = { href: url || "" };
-        if (m[3] !== undefined)
-          attrs.title = m[3];
+        if (m[3] !== undefined) attrs.title = m[3];
 
         link = ["link", attrs].concat(children);
         return [consumed, link];
@@ -940,7 +909,6 @@ let expose = {};
       m = text.match(/^\s*\[(.*?)\]/);
 
       if (m) {
-
         consumed += m[0].length;
 
         // [links][] uses links as its reference
@@ -957,7 +925,6 @@ let expose = {};
       // [id]
       // Only if id is plain (no formatting.)
       if (children.length == 1 && typeof children[0] == "string") {
-
         attrs = { ref: children[0].toLowerCase(), original: orig.substr(0, consumed) };
         link = ["link_ref", attrs, children[0]];
         return [consumed, link];
@@ -967,20 +934,15 @@ let expose = {};
       return [1, "["];
     },
 
-
     "<": function autoLink(text) {
       var m;
 
       if ((m = text.match(/^<(?:((https?|ftp|mailto):[^>]+)|(.*?@.*?\.[a-zA-Z]+))>/)) != null) {
         if (m[3]) {
           return [m[0].length, ["link", { href: "mailto:" + m[3] }, m[3]]];
-
-        }
-        else if (m[2] == "mailto") {
+        } else if (m[2] == "mailto") {
           return [m[0].length, ["link", { href: m[1] }, m[1].substr("mailto:".length)]];
-        }
-        else
-          return [m[0].length, ["link", { href: m[1] }, m[1]]];
+        } else return [m[0].length, ["link", { href: m[1] }, m[1]]];
       }
 
       return [1, "<"];
@@ -991,8 +953,7 @@ let expose = {};
       // Always skip over the opening ticks.
       var m = text.match(/(`+)(([\s\S]*?)\1)/);
 
-      if (m && m[2])
-        return [m[1].length + m[2].length, ["inlinecode", m[3]]];
+      if (m && m[2]) return [m[1].length + m[2].length, ["inlinecode", m[3]]];
       else {
         // TODO: No matching end code found - warn!
         return [1, "`"];
@@ -1001,13 +962,11 @@ let expose = {};
 
     "  \n": function lineBreak(text) {
       return [3, ["linebreak"]];
-    }
-
+    },
   };
 
   // Meta Helper/generator method for em and strong handling
   function strong_em(tag, md) {
-
     var state_slot = tag + "_state",
       other_slot = tag == "strong" ? "em_state" : "strong_state";
 
@@ -1017,7 +976,6 @@ let expose = {};
     }
 
     return function (text, orig_match) {
-
       if (this[state_slot][0] == md) {
         // Most recent em is of this type
         //D:this.debug("closing", md);
@@ -1025,8 +983,7 @@ let expose = {};
 
         // "Consume" everything to go back to the recrusion in the else-block below
         return [text.length, new CloseTag(text.length - md.length)];
-      }
-      else {
+      } else {
         // Store a clone of the em/strong states
         var other = this[other_slot].slice(),
           state = this[state_slot].slice();
@@ -1049,8 +1006,7 @@ let expose = {};
           // We matched! Huzzah.
           var consumed = text.length - last.len_after;
           return [consumed, [tag].concat(res)];
-        }
-        else {
+        } else {
           // Restore the state of the other kind. We might have mistakenly closed it.
           this[other_slot] = other;
           this[state_slot] = state;
@@ -1066,7 +1022,6 @@ let expose = {};
   Markdown.dialects.Gruber.inline["__"] = strong_em("strong", "__");
   Markdown.dialects.Gruber.inline["*"] = strong_em("em", "*");
   Markdown.dialects.Gruber.inline["_"] = strong_em("em", "_");
-
 
   // Build default order from insertion order.
   Markdown.buildBlockOrder = function (d) {
@@ -1085,8 +1040,7 @@ let expose = {};
     for (var i in d) {
       // __foo__ is reserved and not a pattern
       if (i.match(/^__.*__$/)) continue;
-      var l = i.replace(/([\\.*+?|()\[\]{}])/g, "\\$1")
-        .replace(/\n/, "\\n");
+      var l = i.replace(/([\\.*+?|()\[\]{}])/g, "\\$1").replace(/\n/, "\\n");
       patterns.push(i.length == 1 ? l : "(?:" + l + ")");
     }
 
@@ -1098,8 +1052,7 @@ let expose = {};
     d.__call__ = function (text, pattern) {
       if (pattern != undefined) {
         return fn.call(this, text, pattern);
-      }
-      else {
+      } else {
         return fn.call(this, text, patterns);
       }
     };
@@ -1127,13 +1080,13 @@ let expose = {};
       // Add any returned nodes.
       nodes.push.apply(nodes, res.slice(1));
     }
-  }
+  };
 
   // Helper function to make sub-classing a dialect easier
   Markdown.subclassDialect = function (d) {
-    function Block() { }
+    function Block() {}
     Block.prototype = d.block;
-    function Inline() { }
+    function Inline() {}
     Inline.prototype = d.inline;
 
     return { block: new Block(), inline: new Inline() };
@@ -1158,8 +1111,7 @@ let expose = {};
         // if class already exists, append the new one
         if (attr["class"]) {
           attr["class"] = attr["class"] + meta[i].replace(/./, " ");
-        }
-        else {
+        } else {
           attr["class"] = meta[i].substring(1);
         }
       }
@@ -1171,7 +1123,7 @@ let expose = {};
     }
 
     return attr;
-  }
+  };
 
   function split_meta_hash(meta_string) {
     var meta = meta_string.split(""),
@@ -1290,7 +1242,8 @@ let expose = {};
     // one or more terms followed by one or more definitions, in a single block
     var tight = /^((?:[^\s:].*\n)+):\s+([\s\S]+)$/,
       list = ["dl"],
-      i, m;
+      i,
+      m;
 
     // see if we're dealing with a tight or loose block
     if ((m = block.match(tight))) {
@@ -1316,8 +1269,7 @@ let expose = {};
           list.push(["dd"].concat(this.processInline(defns[i].replace(/(\n)\s+/, "$1"))));
         }
       }
-    }
-    else {
+    } else {
       return undefined;
     }
 
@@ -1328,29 +1280,32 @@ let expose = {};
   // can be unpredictable
 
   Markdown.dialects.Maruku.block.table = function table(block, next) {
-
     var _split_on_unescaped = function (s, ch) {
-      ch = ch || '\\s';
-      if (ch.match(/^[\\|\[\]{}?*.+^$]$/)) { ch = '\\' + ch; }
+      ch = ch || "\\s";
+      if (ch.match(/^[\\|\[\]{}?*.+^$]$/)) {
+        ch = "\\" + ch;
+      }
       var res = [],
-        r = new RegExp('^((?:\\\\.|[^\\\\' + ch + '])*)' + ch + '(.*)'),
+        r = new RegExp("^((?:\\\\.|[^\\\\" + ch + "])*)" + ch + "(.*)"),
         m;
-      while (m = s.match(r)) {
+      while ((m = s.match(r))) {
         res.push(m[1]);
         s = m[2];
       }
       res.push(s);
       return res;
-    }
+    };
 
     var leading_pipe = /^ {0,3}\|(.+)\n {0,3}\|\s*([\-:]+[\-| :]*)\n((?:\s*\|.*(?:\n|$))*)(?=\n|$)/,
       // find at least an unescaped pipe in each line
-      no_leading_pipe = /^ {0,3}(\S(?:\\.|[^\\|])*\|.*)\n {0,3}([\-:]+\s*\|[\-| :]*)\n((?:(?:\\.|[^\\|])*\|.*(?:\n|$))*)(?=\n|$)/,
-      i, m;
-    if (m = block.match(leading_pipe)) {
+      no_leading_pipe =
+        /^ {0,3}(\S(?:\\.|[^\\|])*\|.*)\n {0,3}([\-:]+\s*\|[\-| :]*)\n((?:(?:\\.|[^\\|])*\|.*(?:\n|$))*)(?=\n|$)/,
+      i,
+      m;
+    if ((m = block.match(leading_pipe))) {
       // remove leading pipes in contents
       // (header and horizontal rule already have the leading pipe left out)
-      m[3] = m[3].replace(/^\s*\|/gm, '');
+      m[3] = m[3].replace(/^\s*\|/gm, "");
     } else if (!(m = block.match(no_leading_pipe))) {
       return undefined;
     }
@@ -1359,7 +1314,7 @@ let expose = {};
 
     // remove trailing pipes, then split on pipes
     // (no escaped pipes are allowed in horizontal rule)
-    m[2] = m[2].replace(/\|\s*$/, '').split('|');
+    m[2] = m[2].replace(/\|\s*$/, "").split("|");
 
     // process alignment
     var html_attrs = [];
@@ -1371,24 +1326,27 @@ let expose = {};
     });
 
     // now for the header, avoid escaped pipes
-    m[1] = _split_on_unescaped(m[1].replace(/\|\s*$/, ''), '|');
+    m[1] = _split_on_unescaped(m[1].replace(/\|\s*$/, ""), "|");
     for (i = 0; i < m[1].length; i++) {
-      table[1][1].push(['th', html_attrs[i] || {}].concat(
-        this.processInline(m[1][i].trim())));
+      table[1][1].push(["th", html_attrs[i] || {}].concat(this.processInline(m[1][i].trim())));
     }
 
     // now for body contents
-    forEach(m[3].replace(/\|\s*$/mg, '').split('\n'), function (row) {
-      var html_row = ['tr'];
-      row = _split_on_unescaped(row, '|');
-      for (i = 0; i < row.length; i++) {
-        html_row.push(['td', html_attrs[i] || {}].concat(this.processInline(row[i].trim())));
-      }
-      table[2].push(html_row);
-    }, this);
+    forEach(
+      m[3].replace(/\|\s*$/gm, "").split("\n"),
+      function (row) {
+        var html_row = ["tr"];
+        row = _split_on_unescaped(row, "|");
+        for (i = 0; i < row.length; i++) {
+          html_row.push(["td", html_attrs[i] || {}].concat(this.processInline(row[i].trim())));
+        }
+        table[2].push(html_row);
+      },
+      this
+    );
 
     return [table];
-  }
+  };
 
   Markdown.dialects.Maruku.inline["{:"] = function inline_meta(text, matches, out) {
     if (!out.length) {
@@ -1432,9 +1390,11 @@ let expose = {};
   Markdown.buildBlockOrder(Markdown.dialects.Maruku.block);
   Markdown.buildInlinePatterns(Markdown.dialects.Maruku.inline);
 
-  var isArray = Array.isArray || function (obj) {
-    return Object.prototype.toString.call(obj) == "[object Array]";
-  };
+  var isArray =
+    Array.isArray ||
+    function (obj) {
+      return Object.prototype.toString.call(obj) == "[object Array]";
+    };
 
   var forEach;
   // Don't mess with Array.prototype. Its not friendly
@@ -1442,13 +1402,12 @@ let expose = {};
     forEach = function (arr, cb, thisp) {
       return arr.forEach(cb, thisp);
     };
-  }
-  else {
+  } else {
     forEach = function (arr, cb, thisp) {
       for (var i = 0; i < arr.length; i++) {
         cb.call(thisp || arr, arr[i], i, arr);
       }
-    }
+    };
   }
 
   var isEmpty = function (obj) {
@@ -1459,18 +1418,13 @@ let expose = {};
     }
 
     return true;
-  }
+  };
 
   function extract_attr(jsonml) {
-    return isArray(jsonml)
-      && jsonml.length > 1
-      && typeof jsonml[1] === "object"
-      && !(isArray(jsonml[1]))
+    return isArray(jsonml) && jsonml.length > 1 && typeof jsonml[1] === "object" && !isArray(jsonml[1])
       ? jsonml[1]
       : undefined;
   }
-
-
 
   /**
    *  renderJsonML( jsonml[, options] ) -> String
@@ -1494,8 +1448,7 @@ let expose = {};
 
     if (options.root) {
       content.push(render_tree(jsonml));
-    }
-    else {
+    } else {
       jsonml.shift(); // get rid of the tag
       if (jsonml.length && typeof jsonml[0] === "object" && !(jsonml[0] instanceof Array)) {
         jsonml.shift(); // get rid of the attributes
@@ -1510,7 +1463,8 @@ let expose = {};
   };
 
   function escapeHTML(text) {
-    return text.replace(/&/g, "&amp;")
+    return text
+      .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
@@ -1543,8 +1497,7 @@ let expose = {};
     // be careful about adding whitespace here for inline elements
     if (tag == "img" || tag == "br" || tag == "hr") {
       return "<" + tag + tag_attrs + "/>";
-    }
-    else {
+    } else {
       return "<" + tag + tag_attrs + ">" + content.join("") + "</" + tag + ">";
     }
   }
@@ -1690,7 +1643,6 @@ let expose = {};
     return jsonml;
   }
 
-
   // merges adjacent text nodes into a single node
   function merge_text_nodes(jsonml) {
     // skip the tag name and attribute hash
@@ -1702,8 +1654,7 @@ let expose = {};
         if (i + 1 < jsonml.length && typeof jsonml[i + 1] === "string") {
           // merge the second string into the first and remove it
           jsonml[i] += jsonml.splice(i + 1, 1)[0];
-        }
-        else {
+        } else {
           ++i;
         }
       }
@@ -1714,14 +1665,14 @@ let expose = {};
       }
     }
   }
-
-})((function () {
-  if (typeof exports === "undefined") {
-    window.markdown = {};
-    return window.markdown;
-  }
-  else {
-    return exports;
-  }
-})());
+})(
+  (function () {
+    if (typeof exports === "undefined") {
+      window.markdown = {};
+      return window.markdown;
+    } else {
+      return exports;
+    }
+  })()
+);
 export default expose;

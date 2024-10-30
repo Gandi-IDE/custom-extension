@@ -1263,7 +1263,7 @@ if (typeof global !== 'undefined') {
  * @global
  * @public
  */
-;
+
 Prism.languages.markup = {
     'comment': {
         pattern: /<!--(?:(?!<!--)[\s\S])*?-->/,
@@ -1844,7 +1844,7 @@ if (Prism.languages.markup) {
         }
     });
 }
-;
+
 Prism.languages.ada = {
     'comment': /--.*/,
     'string': /"(?:""|[^"\r\f\n])*"/,

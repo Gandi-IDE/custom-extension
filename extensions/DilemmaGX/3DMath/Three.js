@@ -236,7 +236,7 @@ class Three {
                 'Three.block.spr3D': 'go to my position in 3D',
 
                 'Three.menu.nmove': 'do not update current character',
-                'Three.menu.move': 'update urrent character',
+                'Three.menu.move': 'update current character',
                 'Three.menu.nsize': 'do not update current character',
                 'Three.menu.size': 'update current character',
                 'Three.menu.ncam': 'do not update current character',
