@@ -532,7 +532,8 @@ class WitCatIndexedDB {
         switch (args.type) {
             case "value":
                 if (info.value instanceof ArrayBuffer) {
-                    const blob = new Blob([info.value]);
+                    const fileType = this.getFileType(info.value);
+                    const blob = new Blob([info.value], { type: fileType });
                     const url = URL.createObjectURL(blob);
                     return url;
                 } else {
@@ -544,6 +545,57 @@ class WitCatIndexedDB {
                 return "";
         }
     }
+
+    getFileType = (buffer) => {
+        let type = 'unknown';
+        const header = new Uint8Array(buffer);
+
+        // 判断常见图片格式
+        if (header[0] === 0xff && header[1] === 0xd8) {
+            type = 'image/jpeg';
+        } else if (header[0] === 0x89 && header[1] === 0x50 && header[2] === 0x4e && header[3] === 0x47) {
+            type = 'image/png';
+        } else if (header[0] === 0x47 && header[1] === 0x49 && header[2] === 0x46 && header[3] === 0x38) {
+            type = 'image/gif';
+        } else if (header[0] === 0x42 && header[1] === 0x4d) {
+            type = 'image/bmp';
+
+            // 判断常见文档格式
+        } else if (header[0] === 0x25 && header[1] === 0x50 && header[2] === 0x44 && header[3] === 0x46) {
+            type = 'application/pdf';
+        } else if (header[0] === 0x50 && header[1] === 0x4b && header[2] === 0x03 && header[3] === 0x04) {
+            type = 'application/zip';
+        } else if (header[0] === 0x7b && header[1] === 0x5c && header[2] === 0x72 && header[3] === 0x74) {
+            type = 'text/rtf';
+        } else if (header[0] === 0x50 && header[1] === 0x4b && header[2] === 0x53 && header[3] === 0x20) {
+            type = 'application/vnd.ms-powerpoint';
+
+            // 判断常见视频格式
+        } else if (header[0] === 0x52 && header[1] === 0x49 && header[2] === 0x46 && header[3] === 0x46) {
+            const format = new DataView(buffer.slice(8, 12)).getUint32(0, false);
+            if (format === 0x5741) {
+                type = 'video/x-ms-wmv';
+            } else if (format === 0x4156) {
+                type = 'video/x-msvideo';
+            } else if (format === 0x4852) {
+                type = 'video/mp4';
+            }
+
+            // 判断其他格式
+        } else if (header[0] === 0x46 && header[1] === 0x4c && header[2] === 0x56 && header[3] === 0x01) {
+            type = 'video/x-flv';
+
+            // 判断 SVG 格式
+        } else {
+            const text = new TextDecoder().decode(buffer.slice(0, 100)).trim();
+            if (text.startsWith('<?xml') || text.startsWith('<svg')) {
+                type = 'image/svg+xml';
+            }
+        }
+
+        return type;
+    }
+
 
     /**
      * 保存本地变量
@@ -1304,22 +1356,21 @@ class WitCatIndexedDB {
                 let content = '--';
                 if (info.value instanceof ArrayBuffer) {
                     content = document.createElement('a');
-                    content.innerText = this.mLangCh ? '下载查看' : 'Download';
+                    content.innerText = this.mLangCh ? '下载' : 'Download';
                     content.href = '#';
                     content.setAttribute('onClick', 'return false;');
                     content.addEventListener('click', (e) => {
-                        let blob = new Blob([info.value]);
+                        let blob = new Blob([info.value], { type: this.getFileType(info.value) });
                         let link = document.createElement("a");
                         link.style.display = "none";
                         document.body.appendChild(link);
                         link.href = URL.createObjectURL(blob);
-                        link.download = `${v}.file`;
+                        link.download = `${v}.${this.getFileExtension(blob.type)}`;
                         link.click();
                         URL.revokeObjectURL(link.href);
                         document.body.removeChild(link);
                         return false;
                     })
-                    console.log(content);
                 } else {
                     content = info.value;
                 }
@@ -1354,6 +1405,27 @@ class WitCatIndexedDB {
             ss.append(delbuttontd);
             this.mVariables.appendChild(ss);
         }
+    }
+
+    getFileExtension = (mimeType) => {
+        const mimeTypes = {
+            'image/jpeg': 'jpg',
+            'image/png': 'png',
+            'image/gif': 'gif',
+            'image/bmp': 'bmp',
+            'image/svg+xml': 'svg',
+            'application/pdf': 'pdf',
+            'application/zip': 'zip',
+            'text/rtf': 'rtf',
+            'application/vnd.ms-powerpoint': 'ppt',
+            'video/x-ms-wmv': 'wmv',
+            'video/x-msvideo': 'avi',
+            'video/mp4': 'mp4',
+            'video/x-flv': 'flv',
+            // 添加更多 MIME 类型和文件扩展名
+        };
+
+        return mimeTypes[mimeType] || 'file';
     }
 
     /** 打开管理页面 */
