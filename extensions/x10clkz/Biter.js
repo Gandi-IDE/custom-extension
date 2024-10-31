@@ -48,6 +48,27 @@ class Biter {
 				"Biter.Rad2Rad": "[R] based [A] to [B] based",
 				"Biter.Dec2Rad": "Decimal [A] to [B] based",
 				"Biter.Rad2Dec": "[R] based [A] to Decimal"
+        
+      },  'uk': {
+				"Biter.name": "кусач",
+				"Biter.BitOperator": "Порозрядні оператори",
+				"Biter.and": "[A]&[B]", 
+				"Biter.or": "[A]|[B]",
+				"Biter.xor": "[A]^[B]",
+				"Biter.not": "~[A]",
+				"Biter.shl": "[A]<<[B]",
+				"Biter.shr": "[A]>>[B]",
+				
+				"Biter.NumberBase": "Перетворення основ чисел",
+				"Biter.Dec2Bin": "Десятковий [A] до двійкового",
+				"Biter.Bin2Dec": "Двійковий [A] до десяткового",
+				"Biter.Dec2Hex": "Десятковий [A] до шістнадцяткового",
+				"Biter.Bin2Hex": "Двійковий [A] до шістнадцяткового",
+				"Biter.Hex2Dec": "Шістнадцятковий [A] до десяткового",
+				"Biter.Hex2Bin": "Шістнадцятковий [A] до двійкового",
+				"Biter.Rad2Rad": "[R] на основі [A] до [B] основи",
+				"Biter.Dec2Rad": "Десятковий [A] до [B] основи",
+				"Biter.Rad2Dec": "[R] на основі [A] до десяткового"
 			},
 		});
 	}
