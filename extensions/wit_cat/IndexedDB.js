@@ -181,6 +181,35 @@ class WitCatIndexedDB {
                 "WitCatIndexedDB.number.3": "description",
                 "WitCatIndexedDB.docs": "📖 Tutorial",
                 "WitCatIndexedDB.Manages": "💻 Manages",
+            },
+            uk: {
+                "WitCatIndexedDB.name": "WitCat’s Індексована БД",
+                "WitCatIndexedDB.inputmanagement": "🔑Пара ключ-значення",
+                "WitCatIndexedDB.who": "🌏Проєкт взаємозв'язку🌎",
+                "WitCatIndexedDB.Permissions": "🔒Дозволи🔓",
+                "WitCatIndexedDB.save": "Надати значення ключа [name] до тексту[text]",
+                "WitCatIndexedDB.saveFile": "Надати значення ключа [name] до крапки[text]",
+                "WitCatIndexedDB.saves": "Надати опис ключа [name] в [text]",
+                "WitCatIndexedDB.description": "Надати опис проєкту в [text]",
+                "WitCatIndexedDB.load": "[type] ключа [name]",
+                "WitCatIndexedDB.delete": "Видалити ключ [name]",
+                "WitCatIndexedDB.showvar": "Інший проєкт [show] значення ключа [name]",
+                "WitCatIndexedDB.showvaro": "Інший проєкт [show] значення ключа [name] з [id]",
+                "WitCatIndexedDB.saveother": "Надати значення ключа [name] проєкту [id] в текст[text]",
+                "WitCatIndexedDB.saveFileother": "Встановити значення ключа [name] проєкту [id] до крапки[text]",
+                "WitCatIndexedDB.loadother": "[type] ключа [name] проєкту [id]",
+                "WitCatIndexedDB.other": "отримати дозвіл значення [name] проєкту [id]",
+                "WitCatIndexedDB.showon": "можу читати",
+                "WitCatIndexedDB.showoff": "не можу читати",
+                "WitCatIndexedDB.showall": "не можу читати та модифікувати",
+                "WitCatIndexedDB.default": "налаштування за замовчуванням",
+                "WitCatIndexedDB.number": "[type] ключа [num]",
+                "WitCatIndexedDB.numbers": "кількість ключів",
+                "WitCatIndexedDB.number.1": "ключ",
+                "WitCatIndexedDB.number.2": "значення",
+                "WitCatIndexedDB.number.3": "опис",
+                "WitCatIndexedDB.docs": "📖 Посібник",
+                "WitCatIndexedDB.Manages": "💻 Керування",
             }
         })
     }
@@ -1840,6 +1869,10 @@ window.tempExt = {
         en: {
             "WitCatIndexedDB.name": "WitCat’s IndexedDB V1.2",
             "WitCatIndexedDB.descp": "Handling local data"
+        },
+        uk: {
+            "WitCatIndexedDB.name": "WitCat’s ІндексованаБД В1.2",
+            "WitCatIndexedDB.descp": "Обробка локальних даних"
         }
     }
 };
