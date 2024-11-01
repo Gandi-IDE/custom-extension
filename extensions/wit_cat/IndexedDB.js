@@ -129,6 +129,7 @@ class WitCatIndexedDB {
                 "WitCatIndexedDB.inputmanagement": "🔑键值对",
                 "WitCatIndexedDB.who": "🌏万物互联🌎",
                 "WitCatIndexedDB.Permissions": "🔒权限🔓",
+                "WitCatIndexedDB.dynamicload": "动态加载·联动",
                 "WitCatIndexedDB.save": "设置键[name]的值为文本[text]",
                 "WitCatIndexedDB.saveFile": "设置键[name]的值为 blob[text]",
                 "WitCatIndexedDB.saves": "设置键[name]的描述为[text]",
@@ -141,6 +142,11 @@ class WitCatIndexedDB {
                 "WitCatIndexedDB.saveFileother": "设置作品ID[id]的键[name]的值为 blob[text]",
                 "WitCatIndexedDB.loadother": "获取作品[id]的键[name]的[type]",
                 "WitCatIndexedDB.other": "作品[id]的键[name]的状态",
+                "WitCatIndexedDB.cache": "为缓存表[cache]创建缓存",
+                "WitCatIndexedDB.updatetocache": "更新动态加载[json]至缓存",
+                "WitCatIndexedDB.removeBlob": "释放 blob[blob]占用的内存",
+                "WitCatIndexedDB.updateCheck": "根据[json]检查更新",
+                "WitCatIndexedDB.updateChecks": "根据[json]生成更新数据表",
                 "WitCatIndexedDB.showon": "只读",
                 "WitCatIndexedDB.showoff": "私有",
                 "WitCatIndexedDB.showall": "公开",
@@ -158,6 +164,7 @@ class WitCatIndexedDB {
                 "WitCatIndexedDB.inputmanagement": "🔑Key-value pair",
                 "WitCatIndexedDB.who": "🌏Interconnection project🌎",
                 "WitCatIndexedDB.Permissions": "🔒Permissions🔓",
+                "WitCatIndexedDB.dynamicload": "Async Asset",
                 "WitCatIndexedDB.save": "Set value of key [name] to text[text]",
                 "WitCatIndexedDB.saveFile": "Set value of key [name] to blob[text]",
                 "WitCatIndexedDB.saves": "Set description of key [name] to [text]",
@@ -170,6 +177,11 @@ class WitCatIndexedDB {
                 "WitCatIndexedDB.saveFileother": "Set value of key [name] of project [id] to blob[text]",
                 "WitCatIndexedDB.loadother": "[type] of key [name] of project [id]",
                 "WitCatIndexedDB.other": "get permission of value [name] of project [id]",
+                "WitCatIndexedDB.cache": "Create a cache for the cache table [cache]",
+                "WitCatIndexedDB.updatetocache": "Update dynamically loads [json] into the cache",
+                "WitCatIndexedDB.removeBlob": "Release memory occupied by blob[blob]",
+                "WitCatIndexedDB.updateCheck": "Check for updates against [json]",
+                "WitCatIndexedDB.updateChecks": "Generate an update data table based on [json]",
                 "WitCatIndexedDB.showon": "can read",
                 "WitCatIndexedDB.showoff": "can't read",
                 "WitCatIndexedDB.showall": "can read and modify",
@@ -225,6 +237,17 @@ class WitCatIndexedDB {
                         text: {
                             type: "string",
                             defaultValue: 'An unremarkable project',
+                        },
+                    },
+                },
+                {
+                    opcode: "removeBlob",
+                    blockType: "command",
+                    text: this.formatMessage("WitCatIndexedDB.removeBlob"),
+                    arguments: {
+                        blob: {
+                            type: "string",
+                            defaultValue: "blob",
                         },
                     },
                 },
@@ -429,6 +452,51 @@ class WitCatIndexedDB {
                         },
                     },
                 },
+                "---" + this.formatMessage("WitCatIndexedDB.dynamicload"),
+                {
+                    opcode: "cache",
+                    blockType: "command",
+                    text: this.formatMessage("WitCatIndexedDB.cache"),
+                    arguments: {
+                        cache: {
+                            type: "string",
+                            defaultValue: "cache",
+                        },
+                    },
+                },
+                {
+                    opcode: "updateToCache",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatIndexedDB.updatetocache"),
+                    arguments: {
+                        json: {
+                            type: "string",
+                            defaultValue: "json",
+                        },
+                    },
+                },
+                {
+                    opcode: "updateCheck",
+                    blockType: "Boolean",
+                    text: this.formatMessage("WitCatIndexedDB.updateCheck"),
+                    arguments: {
+                        json: {
+                            type: "string",
+                            defaultValue: "json",
+                        },
+                    },
+                },
+                {
+                    opcode: "updateChecks",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatIndexedDB.updateChecks"),
+                    arguments: {
+                        json: {
+                            type: "string",
+                            defaultValue: "json",
+                        },
+                    },
+                },
             ],
             menus: {
                 setvariablewithdefault: [
@@ -546,6 +614,56 @@ class WitCatIndexedDB {
         }
     }
 
+    /**
+     * 读取本地变量(Blob)
+     * @param {SCarg} name 变量名
+     * @returns {Promise<Blob|null>} 变量值
+     */
+    loadWithBlob = async (name) => {
+        const h = this.runtime.ccwAPI.getProjectUUID();
+        const info = await this.kKeyGetAsync(h, name);
+        if (info === undefined) {
+            console.warn(`变量不存在: ${name}`);
+            return null;
+        }
+        if (info.value instanceof ArrayBuffer) {
+            const fileType = this.getFileType(info.value);
+            const blob = new Blob([info.value], { type: fileType });
+            return blob;
+        } else {
+            return null;
+        }
+    }
+
+    cache = (args) => {
+        const cache = JSON.parse(args.cache);
+        Object.entries(cache).forEach(async (e) => {
+            this.saveFile({
+                name: e[0],
+                text: e[1]
+            }).then(() => {
+                URL.revokeObjectURL(e[1]);
+            })
+        });
+    }
+
+    updateToCache = async (args) => {
+        const get = async (key) => {
+            return await this.load({
+                name: key,
+                type: "value"
+            })
+        }
+
+        const cache = JSON.parse(args.json);
+        for (const [key, value] of Object.entries(cache)) {
+            value[0] = await get(value[0]);
+        }
+
+        return JSON.stringify(cache);
+    }
+
+
     getFileType = (buffer) => {
         let type = 'unknown';
         const header = new Uint8Array(buffer);
@@ -596,6 +714,32 @@ class WitCatIndexedDB {
         return type;
     }
 
+    async updateCheck(args) {
+        let out = false;
+        const h = this.runtime.ccwAPI.getProjectUUID();
+        const cache = JSON.parse(args.json);
+        for (const [key, value] of Object.entries(cache)) {
+            const info = await this.kKeyGetAsync(h, value[0]);
+            if (info === undefined) {
+                out = true;
+                break;
+            }
+        }
+        return out;
+    }
+
+    async updateChecks(args) {
+        let out = {};
+        const h = this.runtime.ccwAPI.getProjectUUID();
+        const cache = JSON.parse(args.json);
+        for (const [key, value] of Object.entries(cache)) {
+            const info = await this.kKeyGetAsync(h, value[0]);
+            if (info === undefined) {
+                out[key] = value;
+            }
+        }
+        return JSON.stringify(out);
+    }
 
     /**
      * 保存本地变量
@@ -622,6 +766,12 @@ class WitCatIndexedDB {
             oldinfo.value = args.text;
             return oldinfo;
         });
+    }
+
+    removeBlob(args) {
+        if (args.blob) {
+            URL.revokeObjectURL(String(args.blob));
+        }
     }
 
     /**
@@ -1906,11 +2056,11 @@ window.tempExt = {
     },
     l10n: {
         "zh-cn": {
-            "WitCatIndexedDB.name": "白猫的本地储存 V1.2",
+            "WitCatIndexedDB.name": "白猫的本地储存 V1.3",
             "WitCatIndexedDB.descp": "读取/处理本地数据"
         },
         en: {
-            "WitCatIndexedDB.name": "WitCat’s IndexedDB V1.2",
+            "WitCatIndexedDB.name": "WitCat’s IndexedDB V1.3",
             "WitCatIndexedDB.descp": "Handling local data"
         }
     }
