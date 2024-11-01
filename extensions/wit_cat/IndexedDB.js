@@ -640,7 +640,8 @@ class WitCatIndexedDB {
         Object.entries(cache).forEach(async (e) => {
             this.saveFile({
                 name: e[0],
-                text: e[1]
+                text: e[1],
+                descp: null
             }).then(() => {
                 URL.revokeObjectURL(e[1]);
             })
@@ -803,7 +804,7 @@ class WitCatIndexedDB {
                         uuid: h,
                         name: String(args.name),
                         value: content,
-                        descp: "",
+                        descp: args.descp !== undefined ? args.descp : "",
                         perms: {
                             all: "self",
                             projects: {}
@@ -1504,7 +1505,9 @@ class WitCatIndexedDB {
                 }
                 /** 每一列 @type string[] */
                 let content = '--';
-                if (info.value instanceof ArrayBuffer) {
+                if (info.descp === null) {
+                    content = this.mLangCh ? '资源' : 'Resources';
+                } else if (info.value instanceof ArrayBuffer) {
                     content = document.createElement('a');
                     content.innerText = this.mLangCh ? '下载' : 'Download';
                     content.href = '#';
@@ -1524,7 +1527,7 @@ class WitCatIndexedDB {
                 } else {
                     content = info.value;
                 }
-                const row = [v, content, info.descp, state];
+                const row = [info.descp === null ? "*" : v, content, info.descp === null ? "动态加载" : info.descp, state];
                 return row;
             })
         );
