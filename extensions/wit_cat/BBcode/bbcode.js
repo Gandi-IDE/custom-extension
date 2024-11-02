@@ -140,7 +140,7 @@ let runtime;
         results = [];
         for (k in attributes) {
           v = this.escape(attributes[k]);
-          results.push(`${k}="${v}"`);
+          results.push(`${this.escape(k)}="${v}"`);
         }
         return results;
       }).bind(this)().join(' ');
