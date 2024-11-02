@@ -18,9 +18,12 @@ class Block {
             "YSGJ.inf": "无限",
             "YSGJ.int": "将小数[double]舍弃小数点以后数字",
             "YSGJ.int2": "将小数[double2]保留小数点后[double3]位",
+            "YSGJ.power": "获取[num]的[power]次方",
+            "YSGJ.power_2": "平方",
+            "YSGJ.power_3": "立方",
         },
         en: {
-            "YSGJ.name": "White Compression tool Pro",
+            "YSGJ.name": "White Compression tool Pro",  
             "YSGJ.endl": "Line feed",
             "YSGJ.two1": "Converts decimal [TEXT] to binary",
             "YSGJ.two2": "Convert binary [TEXT2] to decimal",
@@ -28,8 +31,11 @@ class Block {
             "YSGJ.inf": "Infinity",
             "YSGJ.int": "Discard [double] after the decimal point",
             "YSGJ.int2": "Leave the decimal [double2] after the decimal point [double3]",
+            "YSGJ.power_2": "²",
+            "YSGJ.power_3": "³",
         }
     })
+  }
 }
 
   getInfo() {
@@ -109,7 +115,23 @@ class Block {
               defaultValue: '1'
             }
           },
-        }
+        },
+        {
+          opcode: 'power',
+          blockType: Scratch.BlockType.REPORTER,
+          text: this.formatMessage("YSGJ.power"),
+          arguments: {
+            num: {
+              type: Scratch.ArgumentType.NUMBER,
+              defaultValue: '2'
+            },
+            power: {
+              type: Scratch.ArgumentType.REPORTER,
+              defaultValue: 'p_2',
+              menu: "_power_",
+            }
+          },
+        },
       ],
       menus: {
           keydown: [
@@ -142,6 +164,16 @@ class Block {
                 value: "27"
               }
           ],
+          _power_: [
+            {
+              text: this.formatMessage("YSGJ.power_2"),
+              value: "p_2"
+            },
+            {
+              text: this.formatMessage("YSGJ.power_3"),
+              value: "p_3"
+            }
+        ],
       },
     };
   }
@@ -197,6 +229,15 @@ class Block {
     var r = (int).toFixed(int2)
     return r;
   }
+  power(ages) {
+    const { num } = ages;
+    const { power } = ages;
+    let a=num,b=power;
+    if(b == "p_2"){
+      return a*a;
+    }else{
+      return a*a*a;
+    }
 }
 
 window.tempExt = {
