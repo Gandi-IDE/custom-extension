@@ -10,7 +10,7 @@ class Block {
     this.step = this.runtime._step;
     this._formatMessage = runtime.getFormatMessage({
         "zh-cn": {
-            "YSGJ.name": "White的压缩工具Pro",
+            "YSGJ.name": "White的更多工具Pro",
             "YSGJ.endl": "换行",
             "YSGJ.two1": "将十进制[TEXT]转换为二进制",
             "YSGJ.two2": "将二进制[TEXT2]转换为十进制",
@@ -23,7 +23,7 @@ class Block {
             "YSGJ.power_3": "立方",
         },
         en: {
-            "YSGJ.name": "White Compression tool Pro",  
+            "YSGJ.name": "White More tool Pro",  
             "YSGJ.endl": "Line feed",
             "YSGJ.two1": "Converts decimal [TEXT] to binary",
             "YSGJ.two2": "Convert binary [TEXT2] to decimal",
@@ -256,11 +256,11 @@ window.tempExt = {
     },
     l10n: {
         "zh-cn": {
-            "YSGJ.name": "White的压缩工具Pro",
+            "YSGJ.name": "White的更多工具Pro",
             'YSGJ.Description' : '更多工具'
         },
         en: {
-            "YSGJ.name": "White Compression tool Pro",
+            "YSGJ.name": "White More tool Pro",
             'YSGJ.Description' : 'More tools'
         }
     },
