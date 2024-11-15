@@ -4007,7 +4007,6 @@ void main() {\r
               drawable.BetterQuake.uniforms.time = this.runtime.ioDevices.clock.projectTimer();
               drawable.BetterQuake.uniforms.tDiffuse = uniforms.u_skin;
               drawable.BetterQuake.uniforms.Resolution = [gl.canvas.clientWidth, gl.canvas.clientHeight];
-              drawable.BetterQuake.uniforms.tDiffuse = uniforms.u_skin;
               Object.assign(uniforms, drawable.BetterQuake.uniforms);
             }
             if (uniforms.u_skin || drawable.BetterQuake.uniforms.tDiffuse) {
