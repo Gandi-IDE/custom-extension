@@ -3920,7 +3920,6 @@ void main() {\r
     class BetterQuake {
       constructor(runtime) {
         this.runtime = runtime;
-        window.TEST = this;
         if (!this.runtime.QuakeManager)
           this.runtime.QuakeManager = {};
         this.runtime.QuakeManager.loadedShaders = [];
@@ -4424,8 +4423,9 @@ void main() {\r
           this.reloadShader({ SHADER });
           drawableShader = this.QuakeManager.loadedShaders[SHADER];
         }
-        if (!drawable.BetterQuake)
+        if (!drawable.BetterQuake) {
           drawable.BetterQuake = {};
+        }
         drawable.BetterQuake.shader = SHADER;
         drawable.BetterQuake.uniforms = {
           u_color: [Math.random(), Math.random(), Math.random(), 1]
