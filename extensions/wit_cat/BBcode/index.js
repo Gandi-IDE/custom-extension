@@ -1619,7 +1619,7 @@ export default class WitCatBBcode {
   click(args) {
     let out = '';
     if (JSON.stringify(bbcodemousedown) !== '{}') {
-      const s = document.getElementsByClassName('WitCatBBcodeOut');
+      const s = document.getElementsByClassName('WitCatBBcode');
       s.forEach((e) => {
         if (e.contains(bbcodemousedown.target)) {
           switch (args.clickmenu) {
@@ -1650,7 +1650,7 @@ export default class WitCatBBcode {
   touchs(args) {
     let out = '';
     if (JSON.stringify(touchEvent) !== '{}') {
-      const s = document.getElementsByClassName('WitCatBBcodeOut');
+      const s = document.getElementsByClassName('WitCatBBcode');
       s.forEach((e) => {
         if (e.contains(touchEvent.target)) {
           switch (args.clickmenu) {
