@@ -288,13 +288,7 @@ window.tempExt = {
         featured: true,
         disabled: false,
         collaborator: "awa_Scratcher@CCW",
-        collaboratorList: [
-            {
-              collaborator: 'awa_Scratcher@CCW',
-              collaboratorURL:
-              'https://www.ccw.site/student/638c4cb8785493404042adf5',
-            },
-          ],
+        collaboratorURL:"https://www.ccw.site/student/638c4cb8785493404042adf5",
     },
     l10n: {
         "zh-cn": {
