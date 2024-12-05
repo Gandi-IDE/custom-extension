@@ -129,6 +129,7 @@ class WitCatIndexedDB {
                 "WitCatIndexedDB.inputmanagement": "🔑键值对",
                 "WitCatIndexedDB.who": "🌏万物互联🌎",
                 "WitCatIndexedDB.Permissions": "🔒权限🔓",
+                "WitCatIndexedDB.dynamicload": "动态加载·联动",
                 "WitCatIndexedDB.save": "设置键[name]的值为文本[text]",
                 "WitCatIndexedDB.saveFile": "设置键[name]的值为 blob[text]",
                 "WitCatIndexedDB.saves": "设置键[name]的描述为[text]",
@@ -141,6 +142,11 @@ class WitCatIndexedDB {
                 "WitCatIndexedDB.saveFileother": "设置作品ID[id]的键[name]的值为 blob[text]",
                 "WitCatIndexedDB.loadother": "获取作品[id]的键[name]的[type]",
                 "WitCatIndexedDB.other": "作品[id]的键[name]的状态",
+                "WitCatIndexedDB.cache": "为缓存表[cache]创建缓存",
+                "WitCatIndexedDB.updatetocache": "更新动态加载[json]至缓存",
+                "WitCatIndexedDB.removeBlob": "释放 blob[blob]占用的内存",
+                "WitCatIndexedDB.updateCheck": "根据[json]检查更新",
+                "WitCatIndexedDB.updateChecks": "根据[json]生成更新数据表",
                 "WitCatIndexedDB.showon": "只读",
                 "WitCatIndexedDB.showoff": "私有",
                 "WitCatIndexedDB.showall": "公开",
@@ -158,6 +164,7 @@ class WitCatIndexedDB {
                 "WitCatIndexedDB.inputmanagement": "🔑Key-value pair",
                 "WitCatIndexedDB.who": "🌏Interconnection project🌎",
                 "WitCatIndexedDB.Permissions": "🔒Permissions🔓",
+                "WitCatIndexedDB.dynamicload": "Async Asset",
                 "WitCatIndexedDB.save": "Set value of key [name] to text[text]",
                 "WitCatIndexedDB.saveFile": "Set value of key [name] to blob[text]",
                 "WitCatIndexedDB.saves": "Set description of key [name] to [text]",
@@ -170,6 +177,11 @@ class WitCatIndexedDB {
                 "WitCatIndexedDB.saveFileother": "Set value of key [name] of project [id] to blob[text]",
                 "WitCatIndexedDB.loadother": "[type] of key [name] of project [id]",
                 "WitCatIndexedDB.other": "get permission of value [name] of project [id]",
+                "WitCatIndexedDB.cache": "Create a cache for the cache table [cache]",
+                "WitCatIndexedDB.updatetocache": "Update dynamically loads [json] into the cache",
+                "WitCatIndexedDB.removeBlob": "Release memory occupied by blob[blob]",
+                "WitCatIndexedDB.updateCheck": "Check for updates against [json]",
+                "WitCatIndexedDB.updateChecks": "Generate an update data table based on [json]",
                 "WitCatIndexedDB.showon": "can read",
                 "WitCatIndexedDB.showoff": "can't read",
                 "WitCatIndexedDB.showall": "can read and modify",
@@ -225,6 +237,17 @@ class WitCatIndexedDB {
                         text: {
                             type: "string",
                             defaultValue: 'An unremarkable project',
+                        },
+                    },
+                },
+                {
+                    opcode: "removeBlob",
+                    blockType: "command",
+                    text: this.formatMessage("WitCatIndexedDB.removeBlob"),
+                    arguments: {
+                        blob: {
+                            type: "string",
+                            defaultValue: "blob",
                         },
                     },
                 },
@@ -429,6 +452,51 @@ class WitCatIndexedDB {
                         },
                     },
                 },
+                "---" + this.formatMessage("WitCatIndexedDB.dynamicload"),
+                {
+                    opcode: "cache",
+                    blockType: "command",
+                    text: this.formatMessage("WitCatIndexedDB.cache"),
+                    arguments: {
+                        cache: {
+                            type: "string",
+                            defaultValue: "cache",
+                        },
+                    },
+                },
+                {
+                    opcode: "updateToCache",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatIndexedDB.updatetocache"),
+                    arguments: {
+                        json: {
+                            type: "string",
+                            defaultValue: "json",
+                        },
+                    },
+                },
+                {
+                    opcode: "updateCheck",
+                    blockType: "Boolean",
+                    text: this.formatMessage("WitCatIndexedDB.updateCheck"),
+                    arguments: {
+                        json: {
+                            type: "string",
+                            defaultValue: "json",
+                        },
+                    },
+                },
+                {
+                    opcode: "updateChecks",
+                    blockType: "reporter",
+                    text: this.formatMessage("WitCatIndexedDB.updateChecks"),
+                    arguments: {
+                        json: {
+                            type: "string",
+                            defaultValue: "json",
+                        },
+                    },
+                },
             ],
             menus: {
                 setvariablewithdefault: [
@@ -532,7 +600,8 @@ class WitCatIndexedDB {
         switch (args.type) {
             case "value":
                 if (info.value instanceof ArrayBuffer) {
-                    const blob = new Blob([info.value]);
+                    const fileType = this.getFileType(info.value);
+                    const blob = new Blob([info.value], { type: fileType });
                     const url = URL.createObjectURL(blob);
                     return url;
                 } else {
@@ -543,6 +612,134 @@ class WitCatIndexedDB {
             default:
                 return "";
         }
+    }
+
+    /**
+     * 读取本地变量(Blob)
+     * @param {SCarg} name 变量名
+     * @returns {Promise<Blob|null>} 变量值
+     */
+    loadWithBlob = async (name) => {
+        const h = this.runtime.ccwAPI.getProjectUUID();
+        const info = await this.kKeyGetAsync(h, name);
+        if (info === undefined) {
+            console.warn(`变量不存在: ${name}`);
+            return null;
+        }
+        if (info.value instanceof ArrayBuffer) {
+            const fileType = this.getFileType(info.value);
+            const blob = new Blob([info.value], { type: fileType });
+            return blob;
+        } else {
+            return null;
+        }
+    }
+
+    cache = (args) => {
+        const cache = JSON.parse(args.cache);
+        Object.entries(cache).forEach(async (e) => {
+            this.saveFile({
+                name: e[0],
+                text: e[1],
+                descp: null
+            }).then(() => {
+                URL.revokeObjectURL(e[1]);
+            })
+        });
+    }
+
+    updateToCache = async (args) => {
+        const get = async (key) => {
+            return await this.load({
+                name: key,
+                type: "value"
+            })
+        }
+
+        const cache = JSON.parse(args.json);
+        for (const [key, value] of Object.entries(cache)) {
+            value[0] = await get(value[0]);
+        }
+
+        return JSON.stringify(cache);
+    }
+
+
+    getFileType = (buffer) => {
+        let type = 'unknown';
+        const header = new Uint8Array(buffer);
+
+        // 判断常见图片格式
+        if (header[0] === 0xff && header[1] === 0xd8) {
+            type = 'image/jpeg';
+        } else if (header[0] === 0x89 && header[1] === 0x50 && header[2] === 0x4e && header[3] === 0x47) {
+            type = 'image/png';
+        } else if (header[0] === 0x47 && header[1] === 0x49 && header[2] === 0x46 && header[3] === 0x38) {
+            type = 'image/gif';
+        } else if (header[0] === 0x42 && header[1] === 0x4d) {
+            type = 'image/bmp';
+
+            // 判断常见文档格式
+        } else if (header[0] === 0x25 && header[1] === 0x50 && header[2] === 0x44 && header[3] === 0x46) {
+            type = 'application/pdf';
+        } else if (header[0] === 0x50 && header[1] === 0x4b && header[2] === 0x03 && header[3] === 0x04) {
+            type = 'application/zip';
+        } else if (header[0] === 0x7b && header[1] === 0x5c && header[2] === 0x72 && header[3] === 0x74) {
+            type = 'text/rtf';
+        } else if (header[0] === 0x50 && header[1] === 0x4b && header[2] === 0x53 && header[3] === 0x20) {
+            type = 'application/vnd.ms-powerpoint';
+
+            // 判断常见视频格式
+        } else if (header[0] === 0x52 && header[1] === 0x49 && header[2] === 0x46 && header[3] === 0x46) {
+            const format = new DataView(buffer.slice(8, 12)).getUint32(0, false);
+            if (format === 0x5741) {
+                type = 'video/x-ms-wmv';
+            } else if (format === 0x4156) {
+                type = 'video/x-msvideo';
+            } else if (format === 0x4852) {
+                type = 'video/mp4';
+            }
+
+            // 判断其他格式
+        } else if (header[0] === 0x46 && header[1] === 0x4c && header[2] === 0x56 && header[3] === 0x01) {
+            type = 'video/x-flv';
+
+            // 判断 SVG 格式
+        } else {
+            const text = new TextDecoder().decode(buffer.slice(0, 100)).trim();
+            if (text.startsWith('<?xml') || text.startsWith('<svg')) {
+                type = 'image/svg+xml';
+            }
+        }
+
+        return type;
+    }
+
+    async updateCheck(args) {
+        let out = false;
+        const h = this.runtime.ccwAPI.getProjectUUID();
+        const cache = JSON.parse(args.json);
+        for (const [key, value] of Object.entries(cache)) {
+            const info = await this.kKeyGetAsync(h, value[0]);
+            if (info === undefined) {
+                out = true;
+                break;
+            }
+        }
+        return out;
+    }
+
+    async updateChecks(args) {
+        let out = {};
+        const h = this.runtime.ccwAPI.getProjectUUID();
+        const cache = JSON.parse(args.json);
+        for (const [key, value] of Object.entries(cache)) {
+            const info = await this.kKeyGetAsync(h, value[0]);
+            if (info === undefined) {
+                out[key] = value;
+            }
+        }
+        return JSON.stringify(out);
     }
 
     /**
@@ -570,6 +767,12 @@ class WitCatIndexedDB {
             oldinfo.value = args.text;
             return oldinfo;
         });
+    }
+
+    removeBlob(args) {
+        if (args.blob) {
+            URL.revokeObjectURL(String(args.blob));
+        }
     }
 
     /**
@@ -601,7 +804,7 @@ class WitCatIndexedDB {
                         uuid: h,
                         name: String(args.name),
                         value: content,
-                        descp: "",
+                        descp: args.descp !== undefined ? args.descp : "",
                         perms: {
                             all: "self",
                             projects: {}
@@ -1302,28 +1505,29 @@ class WitCatIndexedDB {
                 }
                 /** 每一列 @type string[] */
                 let content = '--';
-                if (info.value instanceof ArrayBuffer) {
+                if (info.descp === null) {
+                    content = this.mLangCh ? '资源' : 'Resources';
+                } else if (info.value instanceof ArrayBuffer) {
                     content = document.createElement('a');
-                    content.innerText = this.mLangCh ? '下载查看' : 'Download';
+                    content.innerText = this.mLangCh ? '下载' : 'Download';
                     content.href = '#';
                     content.setAttribute('onClick', 'return false;');
                     content.addEventListener('click', (e) => {
-                        let blob = new Blob([info.value]);
+                        let blob = new Blob([info.value], { type: this.getFileType(info.value) });
                         let link = document.createElement("a");
                         link.style.display = "none";
                         document.body.appendChild(link);
                         link.href = URL.createObjectURL(blob);
-                        link.download = `${v}.file`;
+                        link.download = `${v}.${this.getFileExtension(blob.type)}`;
                         link.click();
                         URL.revokeObjectURL(link.href);
                         document.body.removeChild(link);
                         return false;
                     })
-                    console.log(content);
                 } else {
                     content = info.value;
                 }
-                const row = [v, content, info.descp, state];
+                const row = [info.descp === null ? "*" : v, content, info.descp === null ? "动态加载" : info.descp, state];
                 return row;
             })
         );
@@ -1354,6 +1558,27 @@ class WitCatIndexedDB {
             ss.append(delbuttontd);
             this.mVariables.appendChild(ss);
         }
+    }
+
+    getFileExtension = (mimeType) => {
+        const mimeTypes = {
+            'image/jpeg': 'jpg',
+            'image/png': 'png',
+            'image/gif': 'gif',
+            'image/bmp': 'bmp',
+            'image/svg+xml': 'svg',
+            'application/pdf': 'pdf',
+            'application/zip': 'zip',
+            'text/rtf': 'rtf',
+            'application/vnd.ms-powerpoint': 'ppt',
+            'video/x-ms-wmv': 'wmv',
+            'video/x-msvideo': 'avi',
+            'video/mp4': 'mp4',
+            'video/x-flv': 'flv',
+            // 添加更多 MIME 类型和文件扩展名
+        };
+
+        return mimeTypes[mimeType] || 'file';
     }
 
     /** 打开管理页面 */
@@ -1834,11 +2059,11 @@ window.tempExt = {
     },
     l10n: {
         "zh-cn": {
-            "WitCatIndexedDB.name": "白猫的本地储存 V1.2",
+            "WitCatIndexedDB.name": "白猫的本地储存 V1.3",
             "WitCatIndexedDB.descp": "读取/处理本地数据"
         },
         en: {
-            "WitCatIndexedDB.name": "WitCat’s IndexedDB V1.2",
+            "WitCatIndexedDB.name": "WitCat’s IndexedDB V1.3",
             "WitCatIndexedDB.descp": "Handling local data"
         }
     }
