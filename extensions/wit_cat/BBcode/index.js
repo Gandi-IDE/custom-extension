@@ -1591,16 +1591,24 @@ export default class WitCatBBcode {
    * @param {string} args.name 要获取的字体
    */
   loadfont(args) {
-    if (
+    if (String(args.text).startsWith("data:application/font-woff;")) {
+      // Handle data URI directly
+      const font = new FontFace(String(args.name), `url(${String(args.text)})`);
+      font.load().then(function(loadedFont) {
+        document.fonts.add(loadedFont);
+      }).catch(function(error) {
+        console.error('Font loading failed:', error);
+      });
+    } else if (
       String(args.text).startsWith('https://m.ccw.site') ||
       String(args.text).startsWith('https://m.xiguacity') ||
       String(args.text).startsWith('https://static.xiguacity')
     ) {
-      const xhr = new XMLHttpRequest(); // 定义一个异步对象
-      xhr.open('GET', String(args.text), true); // 异步GET方式加载字体
-      xhr.responseType = 'arraybuffer'; // 把异步获取类型改为arraybuffer二进制类型
+      const xhr = new XMLHttpRequest(); // Define an asynchronous object
+      xhr.open('GET', String(args.text), true); // Asynchronous GET method to load the font
+      xhr.responseType = 'arraybuffer'; // Change the asynchronous fetch type to arraybuffer binary type
       xhr.onload = function () {
-        document.fonts.add(new FontFace(String(args.name), this.response)); // 将字体对象添加到页面中
+        document.fonts.add(new FontFace(String(args.name), this.response)); // Add the font object to the page
       };
       xhr.send();
     } else {
@@ -1611,7 +1619,7 @@ export default class WitCatBBcode {
   click(args) {
     let out = '';
     if (JSON.stringify(bbcodemousedown) !== '{}') {
-      const s = document.getElementsByClassName('WitCatBBcode');
+      const s = document.getElementsByClassName('WitCatBBcodeOut');
       s.forEach((e) => {
         if (e.contains(bbcodemousedown.target)) {
           switch (args.clickmenu) {
@@ -1642,7 +1650,7 @@ export default class WitCatBBcode {
   touchs(args) {
     let out = '';
     if (JSON.stringify(touchEvent) !== '{}') {
-      const s = document.getElementsByClassName('WitCatBBcode');
+      const s = document.getElementsByClassName('WitCatBBcodeOut');
       s.forEach((e) => {
         if (e.contains(touchEvent.target)) {
           switch (args.clickmenu) {
@@ -1901,7 +1909,17 @@ window.tempExt = {
     insetIconURL: witcat_BBcode_icon,
     featured: true,
     disabled: false,
-    collaborator: "白猫 @ CCW"
+    collaborator: "白猫 @ CCW",
+    collaboratorList: [
+      {
+        collaborator: '白猫 @ CCW',
+        collaboratorURL: 'https://www.ccw.site/student/6173f57f48cf8f4796fc860e'
+      },
+      {
+        collaborator: 'Fath11@Cocrea',
+        collaboratorURL: 'https://cocrea.world/@Fath11',
+      },
+    ],
   },
   l10n: {
     "zh-cn": {
