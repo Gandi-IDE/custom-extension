@@ -2279,8 +2279,8 @@ showdown.Converter = function (converterOptions) {
     } else {
       throw Error(
         "Converter expects the passed parameter to be an object, but " +
-        typeof converterOptions +
-        " was passed instead."
+          typeof converterOptions +
+          " was passed instead."
       );
     }
 
@@ -2306,9 +2306,9 @@ showdown.Converter = function (converterOptions) {
       if (showdown.extensions[ext]) {
         console.warn(
           "DEPRECATION WARNING: " +
-          ext +
-          " is an old extension that uses a deprecated loading method." +
-          "Please inform the developer that the extension should be updated!"
+            ext +
+            " is an old extension that uses a deprecated loading method." +
+            "Please inform the developer that the extension should be updated!"
         );
         legacyExtensionLoading(showdown.extensions[ext], ext);
         return;
@@ -3517,41 +3517,41 @@ showdown.subParser("hashHTMLBlocks", function (text, options, globals) {
   text = globals.converter._dispatch("hashHTMLBlocks.before", text, options, globals);
 
   var blockTags = [
-    "pre",
-    "div",
-    "h1",
-    "h2",
-    "h3",
-    "h4",
-    "h5",
-    "h6",
-    "blockquote",
-    "table",
-    "dl",
-    "ol",
-    "ul",
-    "script",
-    "noscript",
-    "form",
-    "fieldset",
-    "iframe",
-    "math",
-    "style",
-    "section",
-    "header",
-    "footer",
-    "nav",
-    "article",
-    "aside",
-    "address",
-    "audio",
-    "canvas",
-    "figure",
-    "hgroup",
-    "output",
-    "video",
-    "p",
-  ],
+      "pre",
+      "div",
+      "h1",
+      "h2",
+      "h3",
+      "h4",
+      "h5",
+      "h6",
+      "blockquote",
+      "table",
+      "dl",
+      "ol",
+      "ul",
+      "script",
+      "noscript",
+      "form",
+      "fieldset",
+      "iframe",
+      "math",
+      "style",
+      "section",
+      "header",
+      "footer",
+      "nav",
+      "article",
+      "aside",
+      "address",
+      "audio",
+      "canvas",
+      "figure",
+      "hgroup",
+      "output",
+      "video",
+      "p",
+    ],
     repFunc = function (wholeMatch, match, left, right) {
       var txt = wholeMatch;
       // check if this html element is marked as markdown
@@ -3858,7 +3858,7 @@ showdown.subParser("images", function (text, options, globals) {
   text = globals.converter._dispatch("images.before", text, options, globals);
 
   var inlineRegExp =
-    /!\[([^\]]*?)][ \t]*()\([ \t]?<?([\S]+?(?:\([\S]*?\)[\S]*?)?)>?(?: =([*\d]+[A-Za-z%]{0,4})x([*\d]+[A-Za-z%]{0,4}))?[ \t]*(?:(["'])([^"]*?)\6)?[ \t]?\)/g,
+      /!\[([^\]]*?)][ \t]*()\([ \t]?<?([\S]+?(?:\([\S]*?\)[\S]*?)?)>?(?: =([*\d]+[A-Za-z%]{0,4})x([*\d]+[A-Za-z%]{0,4}))?[ \t]*(?:(["'])([^"]*?)\6)?[ \t]?\)/g,
     crazyRegExp =
       /!\[([^\]]*?)][ \t]*()\([ \t]?<([^>]*)>(?: =([*\d]+[A-Za-z%]{0,4})x([*\d]+[A-Za-z%]{0,4}))?[ \t]*(?:(?:(["'])([^"]*?)\6))?[ \t]?\)/g,
     base64RegExp =
@@ -4068,7 +4068,7 @@ showdown.subParser("lists", function (text, options, globals) {
     listStr += "¨0";
 
     var rgx =
-      /(\n)?(^ {0,3})([*+-]|\d+[.])[ \t]+((\[(x|X| )?])?[ \t]*[^\r]+?(\n{1,2}))(?=\n*(¨0| {0,3}([*+-]|\d+[.])[ \t]+))/gm,
+        /(\n)?(^ {0,3})([*+-]|\d+[.])[ \t]+((\[(x|X| )?])?[ \t]*[^\r]+?(\n{1,2}))(?=\n*(¨0| {0,3}([*+-]|\d+[.])[ \t]+))/gm,
       isParagraphed = /\n[ \t]*\n(?!¨0)/.test(listStr);
 
     // Since version 1.5, nesting sublists requires 4 spaces (or 1 tab) indentation,
@@ -4478,7 +4478,7 @@ showdown.subParser("stripLinkDefinitions", function (text, options, globals) {
   "use strict";
 
   var regex =
-    /^ {0,3}\[([^\]]+)]:[ \t]*\n?[ \t]*<?([^>\s]+)>?(?: =([*\d]+[A-Za-z%]{0,4})x([*\d]+[A-Za-z%]{0,4}))?[ \t]*\n?[ \t]*(?:(\n*)["|'(](.+?)["|')][ \t]*)?(?:\n+|(?=¨0))/gm,
+      /^ {0,3}\[([^\]]+)]:[ \t]*\n?[ \t]*<?([^>\s]+)>?(?: =([*\d]+[A-Za-z%]{0,4})x([*\d]+[A-Za-z%]{0,4}))?[ \t]*\n?[ \t]*(?:(\n*)["|'(](.+?)["|')][ \t]*)?(?:\n+|(?=¨0))/gm,
     base64Regex =
       /^ {0,3}\[([^\]]+)]:[ \t]*\n?[ \t]*<?(data:.+?\/.+?;base64,[A-Za-z0-9+/=\n]+?)>?(?: =([*\d]+[A-Za-z%]{0,4})x([*\d]+[A-Za-z%]{0,4}))?[ \t]*\n?[ \t]*(?:(\n*)["|'(](.+?)["|')][ \t]*)?(?:\n\n|(?=¨0)|(?=\n\[))/gm;
 
@@ -4536,7 +4536,7 @@ showdown.subParser("tables", function (text, options, globals) {
   }
 
   var tableRgx =
-    /^ {0,3}\|?.+\|.+\n {0,3}\|?[ \t]*:?[ \t]*(?:[-=]){2,}[ \t]*:?[ \t]*\|[ \t]*:?[ \t]*(?:[-=]){2,}[\s\S]+?(?:\n\n|¨0)/gm,
+      /^ {0,3}\|?.+\|.+\n {0,3}\|?[ \t]*:?[ \t]*(?:[-=]){2,}[ \t]*:?[ \t]*\|[ \t]*:?[ \t]*(?:[-=]){2,}[\s\S]+?(?:\n\n|¨0)/gm,
     //singeColTblRgx = /^ {0,3}\|.+\|\n {0,3}\|[ \t]*:?[ \t]*(?:[-=]){2,}[ \t]*:?[ \t]*\|[ \t]*\n(?: {0,3}\|.+\|\n)+(?:\n\n|¨0)/gm;
     singeColTblRgx =
       /^ {0,3}\|.+\|[ \t]*\n {0,3}\|[ \t]*:?[ \t]*(?:[-=]){2,}[ \t]*:?[ \t]*\|[ \t]*\n( {0,3}\|.+\|[ \t]*\n)*(?:\n|¨0)/gm;
@@ -4607,8 +4607,8 @@ showdown.subParser("tables", function (text, options, globals) {
     }
 
     var rawHeaders = tableLines[0].split("|").map(function (s) {
-      return s.trim();
-    }),
+        return s.trim();
+      }),
       rawStyles = tableLines[1].split("|").map(function (s) {
         return s.trim();
       }),

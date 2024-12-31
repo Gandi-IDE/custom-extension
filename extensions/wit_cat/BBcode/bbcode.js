@@ -21,15 +21,13 @@ let runtime;
   let key;
   const { slice } = [];
 
-  _ESCAPE_RE = /[&<>"'`]/g;
+  _ESCAPE_RE = /[&<>"]/g;
 
   _ESCAPE_DICT = {
     '&': '&amp;',
     '<': '&lt;',
     '>': '&gt;',
     '"': '&quot;',
-    "'": '&apos;',
-    '`': '&grave;'
   };
 
   _URL_RE =
@@ -139,11 +137,11 @@ let runtime;
         let results;
         results = [];
         for (k in attributes) {
-          v = this.escape(attributes[k]);
-          results.push(`${this.escape(k)}="${v}"`);
+          v = attributes[k];
+          results.push(`${k}="${v}"`);
         }
         return results;
-      }).bind(this)().join(' ');
+      })().join(' ');
     };
 
     return Renderer;
