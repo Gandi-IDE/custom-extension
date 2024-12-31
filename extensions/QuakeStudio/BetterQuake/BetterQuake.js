@@ -27,7 +27,7 @@
       "_Set vector 3 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3]": "Set vector 3 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3]",
       "_Set vector 4 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3][VALUE4]": "Set vector 4 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3][VALUE4]",
       "_Set matrix [UNIFORM] of [TARGET] to [MATRIX]": "Set matrix [UNIFORM] of [TARGET] to [MATRIX]",
-      "Set array [UNIFORM] of [TARGET] to [ARRAY]": "Set array [UNIFORM] of [TARGET] to [ARRAY]",
+      "_Set array [UNIFORM] of [TARGET] to [ARRAY]": "Set array [UNIFORM] of [TARGET] to [ARRAY]",
       "_Set texture [UNIFORM] of [TARGET] to [TEXTURE]": "Set texture [UNIFORM] of [TARGET] to [TEXTURE]",
       _Textures: "Textures",
       "_All textures": "All textures",
@@ -54,7 +54,7 @@
       "_Set vector 3 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3]": "\u5C06 [TARGET] \u7684\u4E09\u7EF4\u5411\u91CF [UNIFORM] \u8BBE\u7F6E\u4E3A [VALUE1][VALUE2][VALUE3]",
       "_Set vector 4 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3][VALUE4]": "\u5C06 [TARGET] \u7684\u56DB\u7EF4\u5411\u91CF [UNIFORM] \u8BBE\u7F6E\u4E3A [VALUE1][VALUE2][VALUE3][VALUE4]",
       "_Set matrix [UNIFORM] of [TARGET] to [MATRIX]": "\u5C06 [TARGET] \u7684\u77E9\u9635 [UNIFORM] \u8BBE\u7F6E\u4E3A [MATRIX]",
-      "Set array [UNIFORM] of [TARGET] to [ARRAY]": "\u5C06 [TARGET] \u7684\u6570\u7EC4 [UNIFORM] \u8BBE\u7F6E\u4E3A [ARRAY]",
+      "_Set array [UNIFORM] of [TARGET] to [ARRAY]": "\u5C06 [TARGET] \u7684\u6570\u7EC4 [UNIFORM] \u8BBE\u7F6E\u4E3A [ARRAY]",
       "_Set texture [UNIFORM] of [TARGET] to [TEXTURE]": "\u5C06 [TARGET] \u7684\u7EB9\u7406 [UNIFORM] \u8BBE\u7F6E\u4E3A [TEXTURE]",
       _Textures: "\u7EB9\u7406",
       "_All textures": "\u6240\u6709\u7EB9\u7406",
@@ -81,6 +81,7 @@
       "_Set vector 3 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3]": "Tetapkan vektor 3 [UNIFORM] daripada [TARGET] kepada [VALUE1][VALUE2][VALUE3]",
       "_Set vector 4 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3][VALUE4]": "Tetapkan vektor 4 [UNIFORM] daripada [TARGET] kepada [VALUE1][VALUE2][VALUE3][VALUE4]",
       "_Set matrix [UNIFORM] of [TARGET] to [MATRIX]": "Tetapkan matriks [UNIFORM] daripada [TARGET] kepada [MATRIX]",
+      "_Set array [UNIFORM] of [TARGET] to [ARRAY]": "Tetapkan array [UNIFORM] daripada [TARGET] kepada [ARRAY]",
       "_Set texture [UNIFORM] of [TARGET] to [TEXTURE]": "Tetapkan tekstur [UNIFORM] daripada [TARGET] kepada [TEXTURE]",
       _Textures: "Tekstur",
       "_All textures": "Semua tekstur",
@@ -3922,7 +3923,7 @@ void main() {\r
     class BetterQuake {
       constructor(runtime) {
         this.runtime = runtime;
-        window.TEST = this;
+        // window.TEST = this;
         if (!this.runtime.QuakeManager)
           this.runtime.QuakeManager = {};
         this.runtime.QuakeManager.loadedShaders = [];
