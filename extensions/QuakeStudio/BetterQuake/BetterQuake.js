@@ -27,6 +27,7 @@
       "_Set vector 3 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3]": "Set vector 3 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3]",
       "_Set vector 4 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3][VALUE4]": "Set vector 4 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3][VALUE4]",
       "_Set matrix [UNIFORM] of [TARGET] to [MATRIX]": "Set matrix [UNIFORM] of [TARGET] to [MATRIX]",
+      "Set array [UNIFORM] of [TARGET] to [ARRAY]": "Set array [UNIFORM] of [TARGET] to [ARRAY]",
       "_Set texture [UNIFORM] of [TARGET] to [TEXTURE]": "Set texture [UNIFORM] of [TARGET] to [TEXTURE]",
       _Textures: "Textures",
       "_All textures": "All textures",
@@ -53,6 +54,7 @@
       "_Set vector 3 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3]": "\u5C06 [TARGET] \u7684\u4E09\u7EF4\u5411\u91CF [UNIFORM] \u8BBE\u7F6E\u4E3A [VALUE1][VALUE2][VALUE3]",
       "_Set vector 4 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3][VALUE4]": "\u5C06 [TARGET] \u7684\u56DB\u7EF4\u5411\u91CF [UNIFORM] \u8BBE\u7F6E\u4E3A [VALUE1][VALUE2][VALUE3][VALUE4]",
       "_Set matrix [UNIFORM] of [TARGET] to [MATRIX]": "\u5C06 [TARGET] \u7684\u77E9\u9635 [UNIFORM] \u8BBE\u7F6E\u4E3A [MATRIX]",
+      "Set array [UNIFORM] of [TARGET] to [ARRAY]": "\u5C06 [TARGET] \u7684\u6570\u7EC4 [UNIFORM] \u8BBE\u7F6E\u4E3A [ARRAY]",
       "_Set texture [UNIFORM] of [TARGET] to [TEXTURE]": "\u5C06 [TARGET] \u7684\u7EB9\u7406 [UNIFORM] \u8BBE\u7F6E\u4E3A [TEXTURE]",
       _Textures: "\u7EB9\u7406",
       "_All textures": "\u6240\u6709\u7EB9\u7406",
@@ -3901,10 +3903,14 @@ void main() {\r
 	gl_Position = u_projectionMatrix * u_modelMatrix * vec4(a_position, 0, 1);\r
 	vUv = a_texCoord;\r
 	#endif\r
-}`;
+}\r
+\r
+// copy pasted from scratch\r
+// when custom vertex shaders are a thing, please yell at fath11 to make more built-in shaders for debugging purposes\r
+// he needs to get yelled at`;
 
   // src/fragmentShaderSource.glsl
-  var fragmentShaderSource_default = "#version 300 es\r\n#ifdef GL_ES\r\nprecision mediump float;\r\n#endif\r\n\r\nin vec2 vUv;\r\nout vec4 fragColor;\r\nuniform sampler2D tDiffuse;\r\nuniform float time;\r\n\r\nuniform vec4 u_color;\r\n\r\nvoid main() {\r\n  fragColor = texture(tDiffuse, vUv) * u_color;\r\n  fragColor.rg *= sin(time);\r\n}";
+  var fragmentShaderSource_default = "#version 300 es\r\n#ifdef GL_ES\r\nprecision mediump float;\r\n#endif\r\n\r\nin vec2 vUv;\r\nout vec4 fragColor;\r\nuniform sampler2D tDiffuse;\r\nuniform float time;\r\n\r\nuniform vec4 u_color;\r\n\r\nvoid main() {\r\n  fragColor = texture(tDiffuse, vUv) * u_color;\r\n  fragColor.rg *= sin(time);\r\n}\r\n\r\n// super simple fragment shader that can be used for debugging\r\n// more of these but for testing textures or matrices and other stuff will be GREAT\r\n// but i suppose fath11 cant bother to do it even tho he's the one that wrote this\r\n// please yell at fath11 to make debugging easier if you think its too hard";
 
   // src/assets/BetterQuakeIcon.svg
   var BetterQuakeIcon_default = "PHN2ZyB3aWR0aD0iMTI5IiBoZWlnaHQ9IjEyOSIgdmlld0JveD0iMCAwIDEyOSAxMjkiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+DQogIDxwYXRoDQogICAgZD0iTTUwLjU3NzMgOTAuNzA0QzQ4LjIxOTMgOTIuNzE4OSA0NS4wNjg4IDkzLjcyNjMgNDEuMTI1OSA5My43MjYzQzM4LjExMDkgOTMuNzI2MyAzNS41MjA5IDkzLjA3NDUgMzMuMzU2MiA5MS43NzA3QzMxLjE1MjggOTAuNjY0NiAyOS4zNzQ2IDg5LjIyMjYgMjguMDIxOCA4Ny40NDQ4QzI2LjM1OTYgODUuNTg3OSAyNS4yNTc5IDgzLjE1ODQgMjQuNzE2NyA4MC4xNTU5QzI0LjA5ODIgNzcuMTUzNCAyMy43ODg5IDcxLjQwNTIgMjMuNzg4OSA2Mi45MTE0QzIzLjc4ODkgNTQuNDE3NCAyNC4wOTgyIDQ4LjYyOTggMjQuNzE2NyA0NS41NDgzQzI1LjI1NzkgNDIuNjI0OCAyNi4zNTk2IDQwLjIzNDcgMjguMDIxOCAzOC4zNzc5QzI5LjM3NDYgMzYuNiAzMS4xNTI4IDM1LjExODYgMzMuMzU2MiAzMy45MzM0QzM1LjUyMDkgMzIuNzg3NyAzOC4xMTA5IDMyLjE3NTMgNDEuMTI1OSAzMi4wOTYzQzQ0LjE3OTggMzIuMTc1MyA0Ni44Mjc3IDMyLjc4NzcgNDkuMDY5NyAzMy45MzM0QzUxLjE5NTggMzUuMTE4NiA1Mi44OTY2IDM2LjYgNTQuMTcyMiAzOC4zNzc5QzU1LjgzNDQgNDAuMjM0NyA1Ni45NzQ4IDQyLjYyNDggNTcuNTkzMyA0NS41NDgzQzU4LjE3MzEgNDguNjI5OCA1OC40NjMgNTQuNDE3NCA1OC40NjMgNjIuOTExNEM1OC40NjMgNzIuMDM3MyA1OC4wNTcxIDc4LjA2MiA1Ny4yNDU0IDgwLjk4NTVMNDcuMzg4MiA3Mi45ODU1TDM5Ljc5MjQgODEuOTMzN0w1MC41NzczIDkwLjcwNFpNNjEuMDcyMyA5OS4yOTY3TDcxLjc0MTIgMTA4LjA2N0w3OS4zMzcgOTkuMDU5N0w2OC4yMDQyIDg5Ljk5MjlDNjkuMzYzOSA4OC4wMTc2IDcwLjE5NSA4NS4yNTIyIDcwLjY5NzYgODEuNjk2NkM3MS4wODQxIDc4LjE0MTEgNzEuMjc3NCA3MS44NzkzIDcxLjI3NzQgNjIuOTExNEM3MS4yNzc0IDUyLjg3NjcgNzEuMDI2MSA0Ni4xNjA3IDcwLjUyMzYgNDIuNzYzMUM2OS45ODI0IDM5LjM2NTUgNjguOTk2NyAzNi42MTk5IDY3LjU2NjQgMzQuNTI2QzY1LjU5NSAzMC41MzU4IDYyLjM4NjYgMjYuOTgwMyA1Ny45NDExIDIzLjg1OTNDNTMuNDU3MSAyMC42OTg4IDQ3Ljg1MiAxOS4wNzkgNDEuMTI1OSAxOUMzNC40NzcyIDE5LjA3OSAyOC45MzAxIDIwLjY5ODggMjQuNDg0NyAyMy44NTkzQzE5Ljk2MiAyNi45ODAzIDE2LjY3NjMgMzAuNTM1OCAxNC42Mjc2IDM0LjUyNkMxMy4zNTE5IDM2LjYxOTkgMTIuNDA0OSAzOS4zNjU1IDExLjc4NjQgNDIuNzYzMUMxMS4yMDY2IDQ2LjE2MDcgMTAuOTE2NiA1Mi44NzY3IDEwLjkxNjYgNjIuOTExNEMxMC45MTY2IDcyLjc4NzkgMTEuMjA2NiA3OS40NjQ2IDExLjc4NjQgODIuOTQxMUMxMi4wOTU2IDg0Ljc5NzkgMTIuNDgyMiA4Ni4zMzg2IDEyLjk0NjEgODcuNTYzM0MxMy40NDg2IDg4Ljc0ODUgMTQuMDA5MSA4OS45OTI5IDE0LjYyNzYgOTEuMjk2N0MxNi42NzYzIDk1LjI4NjggMTkuOTYyIDk4LjgwMjggMjQuNDg0NyAxMDEuODQ1QzI4LjkzMDEgMTA1LjAwNSAzNC40NzcyIDEwNi42NjUgNDEuMTI1OSAxMDYuODIzQzQ5LjQzNyAxMDYuNjY1IDU2LjA4NTcgMTA0LjE1NiA2MS4wNzIzIDk5LjI5NjdaIg0KICAgIGZpbGw9IiNFNjUxRTkiIC8+DQogIDxwYXRoDQogICAgZD0iTTU2LjUxNDcgOTAuNzA0QzU0LjE1NjggOTIuNzE4OSA1MS4wMDYzIDkzLjcyNjMgNDcuMDYzNCA5My43MjYzQzQ0LjA0ODQgOTMuNzI2MyA0MS40NTg0IDkzLjA3NDUgMzkuMjkzNyA5MS43NzA3QzM3LjA5MDMgOTAuNjY0NiAzNS4zMTIxIDg5LjIyMjYgMzMuOTU5MyA4Ny40NDQ4QzMyLjI5NzEgODUuNTg3OSAzMS4xOTU0IDgzLjE1ODQgMzAuNjU0MiA4MC4xNTU5QzMwLjAzNTcgNzcuMTUzNCAyOS43MjY0IDcxLjQwNTIgMjkuNzI2NCA2Mi45MTE0QzI5LjcyNjQgNTQuNDE3NCAzMC4wMzU3IDQ4LjYyOTggMzAuNjU0MiA0NS41NDgzQzMxLjE5NTQgNDIuNjI0OCAzMi4yOTcxIDQwLjIzNDcgMzMuOTU5MyAzOC4zNzc5QzM1LjMxMjEgMzYuNiAzNy4wOTAzIDM1LjExODYgMzkuMjkzNyAzMy45MzM0QzQxLjQ1ODQgMzIuNzg3NyA0NC4wNDg0IDMyLjE3NTMgNDcuMDYzNCAzMi4wOTYzQzUwLjExNzMgMzIuMTc1MyA1Mi43NjUyIDMyLjc4NzcgNTUuMDA3MiAzMy45MzM0QzU3LjEzMzIgMzUuMTE4NiA1OC44MzQxIDM2LjYgNjAuMTA5NyAzOC4zNzc5QzYxLjc3MTkgNDAuMjM0NyA2Mi45MTIzIDQyLjYyNDggNjMuNTMwOCA0NS41NDgzQzY0LjExMDYgNDguNjI5OCA2NC40MDA1IDU0LjQxNzQgNjQuNDAwNSA2Mi45MTE0QzY0LjQwMDUgNzIuMDM3MyA2My45OTQ2IDc4LjA2MiA2My4xODI5IDgwLjk4NTVMNTMuMzI1NyA3Mi45ODU1TDQ1LjcyOTkgODEuOTMzN0w1Ni41MTQ3IDkwLjcwNFpNNjcuMDA5OCA5OS4yOTY3TDc3LjY3ODcgMTA4LjA2N0w4NS4yNzQ5IDk5LjA1OTdMNzQuMTQxNyA4OS45OTI5Qzc1LjMwMTQgODguMDE3NiA3Ni4xMzI0IDg1LjI1MjIgNzYuNjM1MSA4MS42OTY2Qzc3LjAyMTYgNzguMTQxMSA3Ny4yMTQ4IDcxLjg3OTMgNzcuMjE0OCA2Mi45MTE0Qzc3LjIxNDggNTIuODc2NyA3Ni45NjM2IDQ2LjE2MDcgNzYuNDYxMSA0Mi43NjMxQzc1LjkxOTkgMzkuMzY1NSA3NC45MzQyIDM2LjYxOTkgNzMuNTAzOSAzNC41MjZDNzEuNTMyNSAzMC41MzU4IDY4LjMyNCAyNi45ODAzIDYzLjg3ODYgMjMuODU5M0M1OS4zOTQ2IDIwLjY5ODggNTMuNzg5NSAxOS4wNzkgNDcuMDYzNCAxOUM0MC40MTQ3IDE5LjA3OSAzNC44Njc2IDIwLjY5ODggMzAuNDIyMiAyMy44NTkzQzI1Ljg5OTUgMjYuOTgwMyAyMi42MTM4IDMwLjUzNTggMjAuNTY1MSAzNC41MjZDMTkuMjg5NCAzNi42MTk5IDE4LjM0MjQgMzkuMzY1NSAxNy43MjM5IDQyLjc2MzFDMTcuMTQ0MSA0Ni4xNjA3IDE2Ljg1NDEgNTIuODc2NyAxNi44NTQxIDYyLjkxMTRDMTYuODU0MSA3Mi43ODc5IDE3LjE0NDEgNzkuNDY0NiAxNy43MjM5IDgyLjk0MTFDMTguMDMzMSA4NC43OTc5IDE4LjQxOTYgODYuMzM4NiAxOC44ODM2IDg3LjU2MzNDMTkuMzg2MSA4OC43NDg1IDE5Ljk0NjYgODkuOTkyOSAyMC41NjUxIDkxLjI5NjdDMjIuNjEzOCA5NS4yODY4IDI1Ljg5OTUgOTguODAyOCAzMC40MjIyIDEwMS44NDVDMzQuODY3NiAxMDUuMDA1IDQwLjQxNDcgMTA2LjY2NSA0Ny4wNjM0IDEwNi44MjNDNTUuMzc0NCAxMDYuNjY1IDYyLjAyMzIgMTA0LjE1NiA2Ny4wMDk4IDk5LjI5NjdaIg0KICAgIGZpbGw9IiMxNUY2RUEiIC8+DQogIDxwYXRoDQogICAgZD0iTTUzLjU0NiA5MC43MDRDNTEuMTg4IDkyLjcxODkgNDguMDM3NiA5My43MjYzIDQ0LjA5NDcgOTMuNzI2M0M0MS4wNzk2IDkzLjcyNjMgMzguNDg5NyA5My4wNzQ1IDM2LjMyNSA5MS43NzA3QzM0LjEyMTYgOTAuNjY0NiAzMi4zNDM0IDg5LjIyMjYgMzAuOTkwNSA4Ny40NDQ4QzI5LjMyODMgODUuNTg3OSAyOC4yMjY2IDgzLjE1ODQgMjcuNjg1NCA4MC4xNTU5QzI3LjA2NjkgNzcuMTUzNCAyNi43NTc3IDcxLjQwNTIgMjYuNzU3NyA2Mi45MTE0QzI2Ljc1NzcgNTQuNDE3NCAyNy4wNjY5IDQ4LjYyOTggMjcuNjg1NCA0NS41NDgzQzI4LjIyNjYgNDIuNjI0OCAyOS4zMjgzIDQwLjIzNDcgMzAuOTkwNSAzOC4zNzc5QzMyLjM0MzQgMzYuNiAzNC4xMjE2IDM1LjExODYgMzYuMzI1IDMzLjkzMzRDMzguNDg5NyAzMi43ODc3IDQxLjA3OTYgMzIuMTc1MyA0NC4wOTQ3IDMyLjA5NjNDNDcuMTQ4NiAzMi4xNzUzIDQ5Ljc5NjUgMzIuNzg3NyA1Mi4wMzg1IDMzLjkzMzRDNTQuMTY0NSAzNS4xMTg2IDU1Ljg2NTQgMzYuNiA1Ny4xNDEgMzguMzc3OUM1OC44MDMyIDQwLjIzNDcgNTkuOTQzNiA0Mi42MjQ4IDYwLjU2MjEgNDUuNTQ4M0M2MS4xNDE5IDQ4LjYyOTggNjEuNDMxOCA1NC40MTc0IDYxLjQzMTggNjIuOTExNEM2MS40MzE4IDcyLjAzNzMgNjEuMDI1OSA3OC4wNjIgNjAuMjE0MSA4MC45ODU1TDUwLjM1NyA3Mi45ODU1TDQyLjc2MTEgODEuOTMzN0w1My41NDYgOTAuNzA0Wk02NC4wNDEgOTkuMjk2N0w3NC43MDk5IDEwOC4wNjdMODIuMzA1OCA5OS4wNTk3TDcxLjE3MyA4OS45OTI5QzcyLjMzMjcgODguMDE3NiA3My4xNjM3IDg1LjI1MjIgNzMuNjY2MyA4MS42OTY2Qzc0LjA1MjkgNzguMTQxMSA3NC4yNDYxIDcxLjg3OTMgNzQuMjQ2MSA2Mi45MTE0Qzc0LjI0NjEgNTIuODc2NyA3My45OTQ5IDQ2LjE2MDcgNzMuNDkyMyA0Mi43NjMxQzcyLjk1MTEgMzkuMzY1NSA3MS45NjU0IDM2LjYxOTkgNzAuNTM1MiAzNC41MjZDNjguNTYzNyAzMC41MzU4IDY1LjM1NTMgMjYuOTgwMyA2MC45MDk5IDIzLjg1OTNDNTYuNDI1OSAyMC42OTg4IDUwLjgyMDggMTkuMDc5IDQ0LjA5NDcgMTlDMzcuNDQ2IDE5LjA3OSAzMS44OTg5IDIwLjY5ODggMjcuNDUzNSAyMy44NTkzQzIyLjkzMDggMjYuOTgwMyAxOS42NDUxIDMwLjUzNTggMTcuNTk2MyAzNC41MjZDMTYuMzIwNyAzNi42MTk5IDE1LjM3MzYgMzkuMzY1NSAxNC43NTUxIDQyLjc2MzFDMTQuMTc1MyA0Ni4xNjA3IDEzLjg4NTQgNTIuODc2NyAxMy44ODU0IDYyLjkxMTRDMTMuODg1NCA3Mi43ODc5IDE0LjE3NTMgNzkuNDY0NiAxNC43NTUxIDgyLjk0MTFDMTUuMDY0NCA4NC43OTc5IDE1LjQ1MDkgODYuMzM4NiAxNS45MTQ4IDg3LjU2MzNDMTYuNDE3MyA4OC43NDg1IDE2Ljk3NzggODkuOTkyOSAxNy41OTYzIDkxLjI5NjdDMTkuNjQ1MSA5NS4yODY4IDIyLjkzMDggOTguODAyOCAyNy40NTM1IDEwMS44NDVDMzEuODk4OSAxMDUuMDA1IDM3LjQ0NiAxMDYuNjY1IDQ0LjA5NDcgMTA2LjgyM0M1Mi40MDU3IDEwNi42NjUgNTkuMDU0NCAxMDQuMTU2IDY0LjA0MSA5OS4yOTY3WiINCiAgICBmaWxsPSJ3aGl0ZSIgLz4NCiAgPHBhdGggZD0iTTY5LjMwMjEgNzUuNjM2NEg5MS4wNzI5Vjc4LjY3MDRINjkuMzAyMVY3NS42MzY0WiIgZmlsbD0iI0ZBRkYwMCIgLz4NCiAgPHBhdGggZD0iTTYuOTU4MzMgNTkuNDU0NUgxMy44ODU0VjY3LjU0NTRINi45NTgzM1Y1OS40NTQ1WiIgZmlsbD0iI0U2NTFFOSIgLz4NCiAgPHBhdGggZD0iTTY3LjMyMjkgMzcuMjA0NUg4OS4wOTM3VjQyLjI2MTNINjcuMzIyOVYzNy4yMDQ1WiIgZmlsbD0iI0U2NTFFOSIgLz4NCiAgPHBhdGggZD0iTTY2LjMzMzMgODguNzg0MUg5OFY5Ni44NzVINjYuMzMzM1Y4OC43ODQxWiIgZmlsbD0iIzE1RjZFQSIgLz4NCiAgPHBhdGggZD0iTTIwLjgxMjUgMTAwLjkySDQzLjU3MjlWMTA1Ljk3N0gyMC44MTI1VjEwMC45MloiIGZpbGw9IiMxNUY2RUEiIC8+DQogIDxwYXRoIGQ9Ik0zIDg4Ljc4NDFIMjQuNzcwOFY5MS44MTgxSDNWODguNzg0MVoiIGZpbGw9IiNGQUZGMDAiIC8+DQogIDxwYXRoIGQ9Ik02Ljk1ODMzIDI3LjA5MDlIMzguNjI1VjM1LjE4MThINi45NTgzM1YyNy4wOTA5WiIgZmlsbD0iI0ZBRkYwMCIgLz4NCiAgPHJlY3QgeD0iOTguMDM4MyIgeT0iMjgiIHdpZHRoPSIxMC41OTIxIiBoZWlnaHQ9IjQyLjM2ODQiIGZpbGw9IiMxNUY2RUEiIC8+DQogIDxyZWN0IHg9IjgyLjYzMTYiIHk9IjU0Ljk2MTciIHdpZHRoPSIxMC41OTIxIiBoZWlnaHQ9IjQyLjM2ODQiDQogICAgdHJhbnNmb3JtPSJyb3RhdGUoLTkwIDgyLjYzMTYgNTQuOTYxNykiIGZpbGw9IiMxNUY2RUEiIC8+DQogIDxyZWN0IHg9Ijk0LjQwNjciIHk9IjMxLjYzMTYiIHdpZHRoPSIxMC41OTIxIiBoZWlnaHQ9IjQyLjM2ODQiIGZpbGw9IiNFNjUxRTkiIC8+DQogIDxyZWN0IHg9Ijc5IiB5PSI1OC41OTMzIiB3aWR0aD0iMTAuNTkyMSIgaGVpZ2h0PSI0Mi4zNjg0IiB0cmFuc2Zvcm09InJvdGF0ZSgtOTAgNzkgNTguNTkzMykiDQogICAgZmlsbD0iI0U2NTFFOSIgLz4NCiAgPHJlY3QgeD0iOTUuNjE3MiIgeT0iMjkuMjEwNSIgd2lkdGg9IjEwLjU5MjEiIGhlaWdodD0iNDIuMzY4NCIgZmlsbD0id2hpdGUiIC8+DQogIDxyZWN0IHg9IjgwLjIxMDUiIHk9IjU2LjE3MjMiIHdpZHRoPSIxMC41OTIxIiBoZWlnaHQ9IjQyLjM2ODQiDQogICAgdHJhbnNmb3JtPSJyb3RhdGUoLTkwIDgwLjIxMDUgNTYuMTcyMykiIGZpbGw9IndoaXRlIiAvPg0KPC9zdmc+";
@@ -3916,6 +3922,7 @@ void main() {\r
     class BetterQuake {
       constructor(runtime) {
         this.runtime = runtime;
+        window.TEST = this;
         if (!this.runtime.QuakeManager)
           this.runtime.QuakeManager = {};
         this.runtime.QuakeManager.loadedShaders = [];
@@ -3924,6 +3931,7 @@ void main() {\r
         this.gl = runtime.renderer._gl;
         this.autoReRender = true;
         const skinClass = this.runtime.renderer.getSkinClass ? this.runtime.renderer.getSkinClass() : null;
+        const isGandi = this.runtime.gandi ? true : false;
         const oldDrawThese = this.runtime.renderer._drawThese;
         this.newDrawThese = (drawables, drawMode, projection, opts = {}) => {
           const renderer = this.runtime.renderer;
@@ -3951,7 +3959,7 @@ void main() {\r
             ] : drawable.scale;
             if (!drawable.skin || !drawable.skin.getTexture(drawableScale))
               continue;
-            if (!skinClass || !(drawable.skin instanceof skinClass)) {
+            if (isGandi && (!skinClass || !(drawable.skin instanceof skinClass))) {
               renderer._doExitDrawRegion();
               drawable.skin.render(drawable, drawableScale, projection, opts);
               gl.enable(gl.BLEND);
@@ -3960,7 +3968,7 @@ void main() {\r
             const uniforms = {};
             let effectBits = drawable.enabledEffects;
             effectBits &= Object.prototype.hasOwnProperty.call(opts, "effectMask") ? opts.effectMask : effectBits;
-            if (drawable.enabledExtraEffect !== 0) {
+            if (drawable.enabledExtraEffect !== 0 && isGandi) {
               effectBits |= drawable.enabledExtraEffect;
               drawable.injectExtraEffectUniforms(uniforms);
             }
@@ -4000,6 +4008,7 @@ void main() {\r
             if (drawableShader) {
               drawable.BetterQuake.uniforms.time = this.runtime.ioDevices.clock.projectTimer();
               drawable.BetterQuake.uniforms.tDiffuse = uniforms.u_skin;
+              drawable.BetterQuake.uniforms.Resolution = [gl.canvas.clientWidth, gl.canvas.clientHeight];
               Object.assign(uniforms, drawable.BetterQuake.uniforms);
             }
             if (uniforms.u_skin || drawable.BetterQuake.uniforms.tDiffuse) {
@@ -4236,6 +4245,27 @@ void main() {\r
               }
             },
             {
+              opcode: "setArray",
+              blockType: Scratch2.BlockType.COMMAND,
+              text: Scratch2.translate(
+                "Set array [UNIFORM] of [TARGET] to [ARRAY]"
+              ),
+              arguments: {
+                UNIFORM: {
+                  type: Scratch2.ArgumentType.STRING,
+                  defaultValue: "Uniform"
+                },
+                TARGET: {
+                  type: Scratch2.ArgumentType.STRING,
+                  menu: "DRAWABLES_MENU"
+                },
+                ARRAY: {
+                  type: Scratch2.ArgumentType.STRING,
+                  defaultValue: "[]"
+                }
+              }
+            },
+            {
               opcode: "setTexture",
               blockType: Scratch2.BlockType.COMMAND,
               text: Scratch2.translate(
@@ -4373,20 +4403,12 @@ void main() {\r
           vertexShaderSource_default,
           SHADER === "__example__" ? fragmentShaderSource_default : drawableShader.source
         ]);
-        this.gl.useProgram(programInfo.program);
-        setBuffersAndAttributes(
-          this.gl,
-          programInfo.program,
-          this.runtime.renderer._bufferInfo
-        );
         drawableShader.programInfo = programInfo;
         this.QuakeManager.loadedShaders[SHADER] = drawableShader;
         shaderUsers.forEach((drawable) => {
           drawable.BetterQuake = {};
           drawable.BetterQuake.shader = SHADER;
-          drawable.BetterQuake.uniforms = {
-            u_color: [Math.random(), Math.random(), Math.random(), 1]
-          };
+          drawable.BetterQuake.uniforms = {};
         });
         this.runtime.renderer.dirty = true;
       }
@@ -4401,15 +4423,15 @@ void main() {\r
           this.reloadShader({ SHADER });
           drawableShader = this.QuakeManager.loadedShaders[SHADER];
         }
-        if (!drawable.BetterQuake) {
+        if (!drawable.BetterQuake)
           drawable.BetterQuake = {};
-        }
         drawable.BetterQuake.shader = SHADER;
         drawable.BetterQuake.uniforms = {
           u_color: [Math.random(), Math.random(), Math.random(), 1]
         };
         this.runtime.renderer.dirty = true;
       }
+      // detach a shader from a target
       detachShader({ SHADER, TARGET }, util) {
         const target = this._getTargetByIdOrName(TARGET, util);
         const drawable = this.runtime.renderer._allDrawables[target.drawableID];
@@ -4454,9 +4476,16 @@ void main() {\r
         if (!Array.isArray(converted))
           return;
         converted = converted.map(function(str) {
-          return parseInt(str);
+          return parseFloat(str);
         });
         drawable.BetterQuake.uniforms[UNIFORM] = converted;
+      }
+      setArray({ UNIFORM, TARGET, ARRAY }, util) {
+        const target = this._getTargetByIdOrName(TARGET, util);
+        const drawable = this.runtime.renderer._allDrawables[target.drawableID];
+        if (!drawable.BetterQuake)
+          return;
+        drawable.BetterQuake.uniforms[UNIFORM] = ARRAY;
       }
       setTexture({ UNIFORM, TARGET, TEXTURE }, util) {
         const target = this._getTargetByIdOrName(TARGET, util);
@@ -4480,16 +4509,16 @@ void main() {\r
         });
         this.QuakeManager.textures = [];
       }
-      createUpdateTexture({ NAME, TEXTURE }, util) {
+      createUpdateTexture({ NAME, TEXTURE }) {
         const textureName = Scratch2.Cast.toString(NAME);
         this.deleteTexture(textureName);
         if (/(.*?)\.(png|svg|jpg|jpeg)/.test(String(TEXTURE))) {
           const id = String(TEXTURE).split(".")[0];
           const ext = String(TEXTURE).split(".")[1];
           const assetType = ext === "svg" ? this.runtime.storage.AssetType.ImageVector : this.runtime.storage.AssetType.ImageBitmap;
-          const asset = this.runtime.storage.load(assetType, id, ext).then((asset2) => {
+          this.runtime.storage.load(assetType, id, ext).then((asset) => {
             const texture = createTexture(this.gl, {
-              src: asset2.encodeDataURI()
+              src: asset.encodeDataURI()
             });
             this.QuakeManager.textures[textureName] = texture;
           });
@@ -4511,6 +4540,7 @@ void main() {\r
         }
         return target;
       }
+      // get a list of all the sprites
       _getSpriteMenu() {
         const { targets } = this.runtime;
         const menu = targets.filter((target) => !target.isStage && target.isOriginal).map((target) => ({
@@ -4525,6 +4555,9 @@ void main() {\r
         }
         return menu;
       }
+      // get a list of all the drawables
+      // like sprites, stage
+      /** @todo add pen and video layer next, not sure about canvas layer tho since idk how it works */
       _getDrawablesMenu() {
         const menu = this._getSpriteMenu();
         if (!this.runtime._editingTarget)
@@ -4546,6 +4579,8 @@ void main() {\r
         );
         return menu;
       }
+      // get a list of all the shaders
+      /** @todo separate vertex and fragment shaders */
       _shaderList() {
         const list = this.runtime.getGandiAssetsFileList ? this.runtime.getGandiAssetsFileList("glsl").map((item) => item.fullName) : [];
         list.push({
@@ -4584,12 +4619,13 @@ void main() {\r
           ]
         },
         l10n: {
+          // ig no ones translating this since its under 900 lines of code :,)
           "zh-cn": {
-            "BetterQuake.extensionName": "Better Quake",
-            "BetterQuake.description": "Better shader loader"
+            "BetterQuake.extensionName": "\u96F7\u795E Pro V1.2",
+            "BetterQuake.description": "\u66F4\u597D\u7684\u7740\u8272\u52A0\u8F7D\u5668"
           },
           en: {
-            "BetterQuake.extensionName": "Better Quake",
+            "BetterQuake.extensionName": "Better Quake V1.2",
             "BetterQuake.description": "Better shader loader"
           }
         }
