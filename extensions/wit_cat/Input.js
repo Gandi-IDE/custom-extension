@@ -1123,12 +1123,7 @@ class WitCatInput {
     if (this.inputParent() === null) {
       return;
     }
-    while (document.getElementsByClassName("WitCatInput").length !== 0) {
-      const elements = document.getElementsByClassName("WitCatInput");
-      for (const element of elements) {
-        element.remove();
-      }
-    }
+    Array.from(document.querySelectorAll('.WitCatInput')).forEach((element) => element.remove());
     this.InputListen = [];
   }
 
