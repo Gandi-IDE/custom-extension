@@ -27,6 +27,7 @@
       "_Set vector 3 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3]": "Set vector 3 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3]",
       "_Set vector 4 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3][VALUE4]": "Set vector 4 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3][VALUE4]",
       "_Set matrix [UNIFORM] of [TARGET] to [MATRIX]": "Set matrix [UNIFORM] of [TARGET] to [MATRIX]",
+      "Set array [UNIFORM] of [TARGET] to [ARRAY]": "Set array [UNIFORM] of [TARGET] to [ARRAY]",
       "_Set texture [UNIFORM] of [TARGET] to [TEXTURE]": "Set texture [UNIFORM] of [TARGET] to [TEXTURE]",
       _Textures: "Textures",
       "_All textures": "All textures",
@@ -53,6 +54,7 @@
       "_Set vector 3 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3]": "\u5C06 [TARGET] \u7684\u4E09\u7EF4\u5411\u91CF [UNIFORM] \u8BBE\u7F6E\u4E3A [VALUE1][VALUE2][VALUE3]",
       "_Set vector 4 [UNIFORM] of [TARGET] to [VALUE1][VALUE2][VALUE3][VALUE4]": "\u5C06 [TARGET] \u7684\u56DB\u7EF4\u5411\u91CF [UNIFORM] \u8BBE\u7F6E\u4E3A [VALUE1][VALUE2][VALUE3][VALUE4]",
       "_Set matrix [UNIFORM] of [TARGET] to [MATRIX]": "\u5C06 [TARGET] \u7684\u77E9\u9635 [UNIFORM] \u8BBE\u7F6E\u4E3A [MATRIX]",
+      "Set array [UNIFORM] of [TARGET] to [ARRAY]": "\u5C06 [TARGET] \u7684\u6570\u7EC4 [UNIFORM] \u8BBE\u7F6E\u4E3A [ARRAY]",
       "_Set texture [UNIFORM] of [TARGET] to [TEXTURE]": "\u5C06 [TARGET] \u7684\u7EB9\u7406 [UNIFORM] \u8BBE\u7F6E\u4E3A [TEXTURE]",
       _Textures: "\u7EB9\u7406",
       "_All textures": "\u6240\u6709\u7EB9\u7406",
@@ -3920,6 +3922,7 @@ void main() {\r
     class BetterQuake {
       constructor(runtime) {
         this.runtime = runtime;
+        window.TEST = this;
         if (!this.runtime.QuakeManager)
           this.runtime.QuakeManager = {};
         this.runtime.QuakeManager.loadedShaders = [];
@@ -4405,10 +4408,7 @@ void main() {\r
         shaderUsers.forEach((drawable) => {
           drawable.BetterQuake = {};
           drawable.BetterQuake.shader = SHADER;
-          drawable.BetterQuake.uniforms = {
-            // not needed, but usefull for quick debugging
-            u_color: [Math.random(), Math.random(), Math.random(), 1]
-          };
+          drawable.BetterQuake.uniforms = {};
         });
         this.runtime.renderer.dirty = true;
       }
@@ -4423,9 +4423,8 @@ void main() {\r
           this.reloadShader({ SHADER });
           drawableShader = this.QuakeManager.loadedShaders[SHADER];
         }
-        if (!drawable.BetterQuake) {
+        if (!drawable.BetterQuake)
           drawable.BetterQuake = {};
-        }
         drawable.BetterQuake.shader = SHADER;
         drawable.BetterQuake.uniforms = {
           u_color: [Math.random(), Math.random(), Math.random(), 1]
@@ -4510,16 +4509,16 @@ void main() {\r
         });
         this.QuakeManager.textures = [];
       }
-      createUpdateTexture({ NAME, TEXTURE }, util) {
+      createUpdateTexture({ NAME, TEXTURE }) {
         const textureName = Scratch2.Cast.toString(NAME);
         this.deleteTexture(textureName);
         if (/(.*?)\.(png|svg|jpg|jpeg)/.test(String(TEXTURE))) {
           const id = String(TEXTURE).split(".")[0];
           const ext = String(TEXTURE).split(".")[1];
           const assetType = ext === "svg" ? this.runtime.storage.AssetType.ImageVector : this.runtime.storage.AssetType.ImageBitmap;
-          const asset = this.runtime.storage.load(assetType, id, ext).then((asset2) => {
+          this.runtime.storage.load(assetType, id, ext).then((asset) => {
             const texture = createTexture(this.gl, {
-              src: asset2.encodeDataURI()
+              src: asset.encodeDataURI()
             });
             this.QuakeManager.textures[textureName] = texture;
           });
@@ -4622,11 +4621,11 @@ void main() {\r
         l10n: {
           // ig no ones translating this since its under 900 lines of code :,)
           "zh-cn": {
-            "BetterQuake.extensionName": "\u96F7\u795E Pro V1.1",
+            "BetterQuake.extensionName": "\u96F7\u795E Pro V1.2",
             "BetterQuake.description": "\u66F4\u597D\u7684\u7740\u8272\u52A0\u8F7D\u5668"
           },
           en: {
-            "BetterQuake.extensionName": "Better Quake V1.1",
+            "BetterQuake.extensionName": "Better Quake V1.2",
             "BetterQuake.description": "Better shader loader"
           }
         }
