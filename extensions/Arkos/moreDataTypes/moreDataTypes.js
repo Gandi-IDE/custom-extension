@@ -1,6 +1,4 @@
-/* eslint-disable class-methods-use-this */
-/* eslint-disable no-underscore-dangle */
-import initExpandableBlocks from './use-extendable-block.js';
+import initExpandableBlocks from '../../../utils/use-expandable-blocks.js';
 import SafeObject from './SafeObject.js';
 import l10n from './l10n.js';
 // import cover from './assets/cover.png';
@@ -56,14 +54,14 @@ const hackFun = (runtime) => {
 
   // 序列化作品时，对变量中的SafeObject转为形如"<SafeObject> {...}"的字符串存入作品，用于下次解析
   const origToJSON = vm.toJSON;
-  vm.toJSON = function toJSON(obj) {
+  vm.toJSON = function toJSON(...args) {
     const orig = SafeObject.prototype.toString;
     const info = { nextId: 0, seen: new Map() };
     SafeObject.prototype.toString = function toString() {
       return `<SafeObject> ${SafeObject.stringifyWithRef(this.value, info)}`;
     };
     // 序列化作品
-    const res = origToJSON.call(vm, obj);
+    const res = origToJSON.call(vm, ...args);
     SafeObject.prototype.toString = orig;
     return res;
   };
@@ -165,7 +163,7 @@ class moreDataTypes {
    */
   __dataNameOrObjMsg(type) {
     return this.fm(
-      `defaultValue.${type}Name`,
+      `defaultValue.${type}Name`
       // 'defaultValue.dataName',
     );
   }
@@ -418,7 +416,6 @@ class moreDataTypes {
             defaultValue: this.fm('defaultValue.thing'),
           },
         },
-        enableDynamicArgs: true,
         dynamicArgsInfo: {
           type: 'getProp',
           defaultValues: 'block.defaultProps',
@@ -562,9 +559,7 @@ class moreDataTypes {
       // },
       {
         blockType: Scratch.BlockType.BUTTON,
-        text: this.showMoreListBlocks
-          ? this.fm('button.hideMoreList')
-          : this.fm('button.showMoreList'),
+        text: this.showMoreListBlocks ? this.fm('button.hideMoreList') : this.fm('button.showMoreList'),
         onClick: () => {
           this.showMoreListBlocks = !this.showMoreListBlocks;
           this.runtime.emit('TOOLBOX_EXTENSIONS_NEED_UPDATE');
@@ -764,11 +759,9 @@ class moreDataTypes {
         disableMonitor: true,
         blockType: Scratch.BlockType.REPORTER,
         text: this.fm('block.getNewObject'),
-        enableDynamicArgs: true,
         dynamicArgsInfo: {
           type: 'getObj',
-          emptyText: 'block.getNewObject',
-          text: 'block.createObj',
+          preText: (n) => this.fm(n === 0 ? 'block.getNewObject' : 'block.createObj'),
           joinCh: ',',
           joinCh2: '=',
           defaultValues: 'block.defaultObj',
@@ -780,10 +773,8 @@ class moreDataTypes {
         blockType: Scratch.BlockType.REPORTER,
         disableMonitor: true,
         text: this.fm('block.getNewList'),
-        enableDynamicArgs: true,
         dynamicArgsInfo: {
-          emptyText: 'block.getNewList',
-          text: 'block.createList',
+          preText: (n) => this.fm(n === 0 ? 'block.getNewList' : 'block.createList'),
           joinCh: ',',
           defaultValues: 'block.defaultList',
         },
@@ -804,7 +795,6 @@ class moreDataTypes {
             defaultValue: '0',
           },
         },
-        enableDynamicArgs: true,
         dynamicArgsInfo: {
           type: 'ndList',
           afterArg: 'N',
@@ -857,7 +847,6 @@ class moreDataTypes {
             defaultValue: this.fm('defaultValue.thing'),
           },
         },
-        enableDynamicArgs: true,
         dynamicArgsInfo: {
           type: 'getProp',
           defaultValues: 'block.defaultProps',
@@ -881,7 +870,6 @@ class moreDataTypes {
             defaultValue: this.fm('defaultValue.prop'),
           },
         },
-        enableDynamicArgs: true,
         dynamicArgsInfo: {
           type: 'getProp',
           defaultValues: 'block.defaultProps',
@@ -939,9 +927,7 @@ class moreDataTypes {
       },
       {
         blockType: Scratch.BlockType.BUTTON,
-        text: this.showMoreObjBlocks
-          ? this.fm('button.hideMoreObj')
-          : this.fm('button.showMoreObj'),
+        text: this.showMoreObjBlocks ? this.fm('button.hideMoreObj') : this.fm('button.showMoreObj'),
         onClick: () => {
           this.showMoreObjBlocks = !this.showMoreObjBlocks;
           this.runtime.emit('TOOLBOX_EXTENSIONS_NEED_UPDATE');
@@ -1336,11 +1322,7 @@ class moreDataTypes {
       }
       // 添加小icon
       if (
-        [
-          Scratch.BlockType.COMMAND,
-          Scratch.BlockType.REPORTER,
-          Scratch.BlockType.BOOLEAN,
-        ].includes(block.blockType)
+        [Scratch.BlockType.COMMAND, Scratch.BlockType.REPORTER, Scratch.BlockType.BOOLEAN].includes(block.blockType)
       ) {
         block.text = `[IMG]${block.text}`;
         if (!block.arguments) block.arguments = {};
@@ -1545,9 +1527,7 @@ class moreDataTypes {
     if (!comment) return undefined;
     const lines = comment.text.split('\n');
     if (lines.length === 0) {
-      console.warn(
-        `${extensionId}: Extension config comment does not contain valid line.`,
-      );
+      console.warn(`${extensionId}: Extension config comment does not contain valid line.`);
       return undefined;
     }
     // 配置信息存在最后一行
@@ -1626,16 +1606,7 @@ class moreDataTypes {
       const target = this.runtime.getTargetForStage();
       // TODO: smarter position logic
       const text = `${this.fm('config.tip')}\n${JSON.stringify(config)}`;
-      target.createComment(
-        EXT_CONFIG_COMMENT_ID,
-        null,
-        text,
-        1,
-        1,
-        400,
-        200,
-        false,
-      );
+      target.createComment(EXT_CONFIG_COMMENT_ID, null, text, 1, 1, 400, 200, false);
     }
     this.runtime.emitProjectChanged();
   }
@@ -1661,10 +1632,7 @@ class moreDataTypes {
     } catch (e) {
       variables = 'error';
     }
-    if (
-      variables !== 'error'
-      && this.runtime._editingTarget !== this.runtime._stageTarget
-    ) {
+    if (variables !== 'error' && this.runtime._editingTarget !== this.runtime._stageTarget) {
       Object.keys(variables).forEach((variable) => {
         if (variables[variable].type) {
           menus.push({
@@ -1926,10 +1894,7 @@ class moreDataTypes {
    * @returns {boolean}
    */
   ifTempDataExist({ NAME }) {
-    return Object.prototype.hasOwnProperty.call(
-      this.tempData.value,
-      Cast.toString(NAME),
-    );
+    return Object.prototype.hasOwnProperty.call(this.tempData.value, Cast.toString(NAME));
   }
 
   /**
@@ -2063,7 +2028,7 @@ class moreDataTypes {
   createListWithLength(args) {
     const arg = [];
     arg.push(Cast.toNumber(args.N));
-    for (let i = 1; ;i += 1) {
+    for (let i = 1; ; i += 1) {
       const a = args[`DYNAMIC_ARGS${i}`];
       if (a === undefined) break;
       arg.push(a);
@@ -2432,10 +2397,7 @@ class moreDataTypes {
       return 0;
     }
     // Handle the special case of Infinity
-    if (
-      (n1 === Infinity && n2 === Infinity)
-            || (n1 === -Infinity && n2 === -Infinity)
-    ) {
+    if ((n1 === Infinity && n2 === Infinity) || (n1 === -Infinity && n2 === -Infinity)) {
       return 0;
     }
     return n1 - n2;
@@ -2490,9 +2452,7 @@ class moreDataTypes {
    * @param {string} OP 操作：set/ add/ parse/ shallowCopy/ deepCopy
    * @param {*} VALUE
    */
-  setItemOfList({
-    NAME_OR_OBJ, IDX, OP, VALUE,
-  }) {
+  setItemOfList({ NAME_OR_OBJ, IDX, OP, VALUE }) {
     const list = this.__getListByNameOrObj(NAME_OR_OBJ, this.autoCreate);
     if (!list) return;
     const idx = this._getActualIdx(IDX, list);
@@ -2681,7 +2641,7 @@ class moreDataTypes {
     if (!obj) return;
     const o1isArray = Array.isArray(obj);
     if (o1isArray && o2isArray) obj.push(...obj2);
-    else if (!o1isArray && !o2isArray)Object.assign(obj, obj2);
+    else if (!o1isArray && !o2isArray) Object.assign(obj, obj2);
   }
 
   /**
@@ -2840,9 +2800,7 @@ class moreDataTypes {
    * @param {string} OP 操作：set/ add
    * @param {*} VALUE
    */
-  setPropOfObjectAndReturn({
-    OBJ, PROP, OP, VALUE,
-  }) {
+  setPropOfObjectAndReturn({ OBJ, PROP, OP, VALUE }) {
     const obj = this.__getObjByNameOrObj(OBJ);
     if (!obj) return '';
     this.__setDataByOption(obj, Cast.toString(PROP), OP, VALUE);
@@ -2885,7 +2843,7 @@ class moreDataTypes {
       key = args.DYNAMIC_ARGS1;
       if (key === undefined) return [null, ''];
     }
-    for (; ;i += 1) {
+    for (; ; i += 1) {
       // const isArray = ;
       // && !isNaN(key)
       if (Array.isArray(parent)) {
