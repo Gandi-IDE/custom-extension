@@ -266,7 +266,7 @@ class WitCatFileHelper {
             type: {
               type: 'string',
               menu: 'openfile',
-            }
+            },
           },
         },
         {
@@ -301,7 +301,7 @@ class WitCatFileHelper {
             },
           },
         },
-        //键值对（已下线）	
+        // 键值对（已下线）
         {
           opcode: 'upload',
           blockType: 'reporter',
@@ -488,7 +488,7 @@ class WitCatFileHelper {
             thing: {
               type: 'string',
               menu: 'thing',
-            }
+            },
           },
         },
         {
@@ -503,7 +503,7 @@ class WitCatFileHelper {
             num: {
               type: 'number',
               defaultValue: '1',
-            }
+            },
           },
         },
         {
@@ -522,7 +522,7 @@ class WitCatFileHelper {
             num: {
               type: 'string',
               defaultValue: 'last',
-            }
+            },
           },
         },
         {
@@ -537,7 +537,7 @@ class WitCatFileHelper {
             num: {
               type: 'string',
               defaultValue: '1',
-            }
+            },
           },
         },
         {
@@ -591,7 +591,6 @@ class WitCatFileHelper {
               type: 'string',
               menu: 'dataType',
             },
-
           },
         },
       ],
@@ -599,94 +598,94 @@ class WitCatFileHelper {
         setvariable: [
           {
             text: this.formatMessage('WitCatFileHelper.showall'),
-            value: '#witcat'
+            value: '#witcat',
           },
           {
             text: this.formatMessage('WitCatFileHelper.showon'),
-            value: '$witcat'
+            value: '$witcat',
           },
           {
             text: this.formatMessage('WitCatFileHelper.showoff'),
-            value: '@witcat'
+            value: '@witcat',
           },
         ],
         thing: [
           {
             text: this.formatMessage('WitCatFileHelper.thing.1'),
-            value: 'true'
+            value: 'true',
           },
           {
             text: this.formatMessage('WitCatFileHelper.thing.2'),
-            value: 'false'
+            value: 'false',
           },
         ],
         type: [
           {
             text: this.formatMessage('WitCatFileHelper.number.1'),
-            value: 'name'
+            value: 'name',
           },
           {
             text: this.formatMessage('WitCatFileHelper.number.2'),
-            value: 'content'
+            value: 'content',
           },
         ],
         file: [
           {
             text: this.formatMessage('WitCatFileHelper.file.1'),
-            value: 'name'
+            value: 'name',
           },
           {
             text: this.formatMessage('WitCatFileHelper.file.2'),
-            value: 'suffix'
+            value: 'suffix',
           },
           {
             text: this.formatMessage('WitCatFileHelper.file.3'),
-            value: 'size'
+            value: 'size',
           },
           {
             text: this.formatMessage('WitCatFileHelper.file.5'),
-            value: 'sizeB'
+            value: 'sizeB',
           },
           {
             text: this.formatMessage('WitCatFileHelper.file.6'),
-            value: 'sizeH'
+            value: 'sizeH',
           },
           {
             text: this.formatMessage('WitCatFileHelper.file.4'),
-            value: 'content'
+            value: 'content',
           },
         ],
         openfile: [
           {
             text: this.formatMessage('WitCatFileHelper.openfile.1'),
-            value: 'utf-8'
+            value: 'utf-8',
           },
           {
             text: this.formatMessage('WitCatFileHelper.openfile.2'),
-            value: 'zip'
+            value: 'zip',
           },
         ],
         openfiless: [
           {
             text: this.formatMessage('WitCatFileHelper.openfiless.1'),
-            value: 'Single'
+            value: 'Single',
           },
           {
             text: this.formatMessage('WitCatFileHelper.openfiless.2'),
-            value: 'multiple'
+            value: 'multiple',
           },
         ],
         dataType: [
           {
             text: this.formatMessage('WitCatFileHelper.dataType.1'),
-            value: 'blob'
+            value: 'blob',
           },
           {
             text: this.formatMessage('WitCatFileHelper.dataType.2'),
-            value: 'dataurl'
+            value: 'dataurl',
           },
         ],
-      }
+      },
     };
   }
 
@@ -741,8 +740,9 @@ class WitCatFileHelper {
       const max_length = 1000;
       const short_length = 20;
       if (showtext.length > max_length) {
-        showtext = `${showtext.slice(0, max_length - short_length)}(... 省略 ${showtext.length - max_length + short_length
-          } 字符)`;
+        showtext = `${showtext.slice(0, max_length - short_length)}(... 省略 ${
+          showtext.length - max_length + short_length
+        } 字符)`;
       }
       // eslint-disable-next-line no-alert
       const a = confirm(`${ask}\n\n${showtext}`);
@@ -951,7 +951,7 @@ class WitCatFileHelper {
         case 'text':
           reader.readAsText(file);
           break;
-        case "blob":
+        case 'blob':
           resolve(URL.createObjectURL(file));
           break;
         default:
@@ -970,14 +970,19 @@ class WitCatFileHelper {
     });
   }
 
-  typeConversion = async (args) => {
-    let blob, content = String(args.blob);
-    switch (String(args.dataType)) {
-      case 'blob':
+  typeConversion = async ({ blob: rawBlob, dataType, dataTypes }) => {
+    let blob;
+    const content = String(rawBlob);
+
+    try {
+      // Step 1: 根据 dataType 转换为 Blob
+      if (dataType === 'blob') {
+        if (!content.startsWith('blob:')) {
+          return 'Invalid Blob URL';
+        }
         const response = await fetch(content);
         blob = await response.blob();
-        break;
-      case 'dataurl':
+      } else if (dataType === 'dataurl') {
         const [header, base64] = content.split(',');
         const mimeType = header.match(/:(.*?);/)[1];
         const byteCharacters = atob(base64);
@@ -988,39 +993,32 @@ class WitCatFileHelper {
         }
 
         blob = new Blob([byteNumbers], { type: mimeType });
-        break;
-      default:
-        break;
+      }
+    } catch (error) {
+      return `Failed to convert input data: ${error}`;
     }
 
-    let out = "";
+    // Step 2: 根据 dataTypes 输出结果
     if (blob) {
-      switch (String(args.dataTypes)) {
-
-        case 'blob':
-          out = URL.createObjectURL(blob);
-          break;
-        case 'dataurl':
-          out = new Promise((resolve, reject) => {
+      try {
+        if (dataTypes === 'blob') {
+          return URL.createObjectURL(blob);
+        }
+        if (dataTypes === 'dataurl') {
+          return new Promise((resolve, reject) => {
             const reader = new FileReader();
-
-            reader.onloadend = () => {
-              resolve(reader.result);
-            };
-
-            reader.onerror = () => {
-              reject(new Error('Failed to convert Blob to Data URL'));
-            };
-
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = () => reject(new Error('Failed to convert Blob to Data URL'));
             reader.readAsDataURL(blob);
           });
-          break;
-        default:
-          break;
+        }
+      } catch (error) {
+        return `Failed to convert to target data type: ${error}`;
       }
     }
-    return out;
-  }
+
+    return '';
+  };
 
   /**
    * 打开文件
@@ -1106,6 +1104,9 @@ class WitCatFileHelper {
           break;
         case 'zip':
           mode = 'blob';
+          break;
+        default:
+          break;
       }
       return String(await this._readerasync(file, mode));
     } catch (e) {
@@ -1149,6 +1150,7 @@ class WitCatFileHelper {
       return '';
     }
   }
+
   async lastfile(args) {
     try {
       const file = this.filelist[Number(args.num) - 1];
@@ -1163,16 +1165,18 @@ class WitCatFileHelper {
         case 'zip':
           mode = 'blob';
           break;
+        default:
+          break;
       }
       return String(await this._readerasync(file, mode));
-    }
-    catch {
+    } catch {
       return '';
     }
   }
-  /**	
-   * 设置状态	
-   * @deprecated	
+
+  /**
+   * 设置状态
+   * @deprecated
    */
   showvar() {
     console.warn('文件助手：判断键值对积木已下线\nFile Helper: Determine the key value pair block has been offline');
