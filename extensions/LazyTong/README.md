@@ -1,0 +1,3 @@
+这里是LazyTong的扩展仓库。存放了这些扩展：
+- Cube.js：LazyTong的立方体
+- 等待更新…
