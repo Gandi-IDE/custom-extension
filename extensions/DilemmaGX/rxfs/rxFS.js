@@ -42,6 +42,7 @@ const enus = {
 
 class rxFS {
   runtime;
+
   _formatMessage;
 
   constructor(runtime) {
@@ -49,7 +50,7 @@ class rxFS {
     this.rxFSsy = [];
     this.runtime = runtime;
     this._formatMessage = runtime.getFormatMessage({
-      "zh-cn": zhcn,
+      'zh-cn': zhcn,
       en: enus,
     });
   }
@@ -69,166 +70,167 @@ class rxFS {
 
   getInfo() {
     return {
-      id: "rxfs",
-      name: "rxFS",
-      color1: "#192d50",
-      color2: "#192d50",
-      color3: "#192d50",
+      id: 'rxfs',
+      name: 'rxFS',
+      color1: '#192d50',
+      color2: '#192d50',
+      color3: '#192d50',
       blocks: [
         {
           blockIconURI: file,
-          opcode: "start",
-          blockType: "command",
-          text: this.formatMessage("rc.rxblocks.rxfs.start"),
+          opcode: 'start',
+          blockType: 'command',
+          text: this.formatMessage('rc.rxblocks.rxfs.start'),
           // text: formatMessage({ id: 'rc.rxblocks.rxfs.start', default: 'Create [STR]' }),
           arguments: {
             STR: {
-              type: "string",
-              defaultValue: "/rxFS/example",
+              type: 'string',
+              defaultValue: '/rxFS/example',
             },
           },
         },
         {
           blockIconURI: file,
-          opcode: "folder",
-          blockType: "command",
-          text: this.formatMessage("rc.rxblocks.rxfs.folder"),
+          opcode: 'folder',
+          blockType: 'command',
+          text: this.formatMessage('rc.rxblocks.rxfs.folder'),
           // text: formatMessage({ id: 'rc.rxblocks.rxfs.folder', default: 'Set [STR] to [STR2]' }),
           arguments: {
             STR: {
-              type: "string",
-              defaultValue: "/rxFS/example",
+              type: 'string',
+              defaultValue: '/rxFS/example',
             },
             STR2: {
-              type: "string",
-              defaultValue: this.formatMessage("rc.rxblocks.rxfs.folder_default"),
+              type: 'string',
+              defaultValue: this.formatMessage('rc.rxblocks.rxfs.folder_default'),
               // defaultValue: formatMessage({ id: 'rc.rxblocks.rxfs.folder_default', default: 'rxFS 3!' }),
             },
           },
         },
         {
           blockIconURI: file,
-          opcode: "sync",
-          blockType: "command",
-          text: this.formatMessage("rc.rxblocks.rxfs.sync"),
+          opcode: 'sync',
+          blockType: 'command',
+          text: this.formatMessage('rc.rxblocks.rxfs.sync'),
           // text: formatMessage({ id: 'rc.rxblocks.rxfs.sync', default: 'Change the location of [STR] to [STR2]' }),
           arguments: {
             STR: {
-              type: "string",
-              defaultValue: "/rxFS/example",
+              type: 'string',
+              defaultValue: '/rxFS/example',
             },
             STR2: {
-              type: "string",
-              defaultValue: "/rxFS/example",
+              type: 'string',
+              defaultValue: '/rxFS/example',
             },
           },
         },
         {
           blockIconURI: file,
-          opcode: "del",
-          blockType: "command",
-          text: this.formatMessage("rc.rxblocks.rxfs.del"),
+          opcode: 'del',
+          blockType: 'command',
+          text: this.formatMessage('rc.rxblocks.rxfs.del'),
           // text: formatMessage({ id: 'rc.rxblocks.rxfs.del', default: 'Delete [STR]' }),
           arguments: {
             STR: {
-              type: "string",
-              defaultValue: "/rxFS/example",
+              type: 'string',
+              defaultValue: '/rxFS/example',
             },
           },
         },
         {
           blockIconURI: file,
-          opcode: "webin",
-          blockType: "reporter",
-          text: this.formatMessage("rc.rxblocks.rxfs.webin"),
-          tooltip: this.formatMessage("rc.rxblocks.rxfs.webin.tip"),
+          opcode: 'webin',
+          blockType: 'reporter',
+          text: this.formatMessage('rc.rxblocks.rxfs.webin'),
+          tooltip: this.formatMessage('rc.rxblocks.rxfs.webin.tip'),
+          hideFromPalette: true,
           // text: formatMessage({ id: 'rc.rxblocks.rxfs.webin', default: 'Load [STR] from the web' }),
           arguments: {
             STR: {
-              type: "string",
-              defaultValue: "https://0832k12.github.io/rxFS/hello.txt",
+              type: 'string',
+              defaultValue: 'https://0832k12.github.io/rxFS/hello.txt',
             },
           },
         },
         {
           blockIconURI: file,
-          opcode: "open",
-          blockType: "reporter",
-          text: this.formatMessage("rc.rxblocks.rxfs.open"),
+          opcode: 'open',
+          blockType: 'reporter',
+          text: this.formatMessage('rc.rxblocks.rxfs.open'),
           // text: formatMessage({ id: 'rc.rxblocks.rxfs.open', default: 'Open [STR]' }),
           arguments: {
             STR: {
-              type: "string",
-              defaultValue: "/rxFS/example",
+              type: 'string',
+              defaultValue: '/rxFS/example',
             },
           },
         },
-        "---",
+        '---',
         {
           blockIconURI: folder,
-          opcode: "clean",
-          blockType: "command",
-          text: this.formatMessage("rc.rxblocks.rxfs.clean"),
+          opcode: 'clean',
+          blockType: 'command',
+          text: this.formatMessage('rc.rxblocks.rxfs.clean'),
           // text: formatMessage({ id: 'rc.rxblocks.rxfs.clean', default: 'Clear the file system' }),
           arguments: {},
         },
         {
           blockIconURI: folder,
-          opcode: "in",
-          blockType: "command",
-          text: this.formatMessage("rc.rxblocks.rxfs.in"),
+          opcode: 'in',
+          blockType: 'command',
+          text: this.formatMessage('rc.rxblocks.rxfs.in'),
           // text: formatMessage({ id: 'rc.rxblocks.rxfs.in', default: 'Import file system from [STR]' }),
           arguments: {
             STR: {
-              type: "string",
-              defaultValue: "/rxFS/",
+              type: 'string',
+              defaultValue: '/rxFS/',
             },
           },
         },
         {
           blockIconURI: folder,
-          opcode: "out",
-          blockType: "reporter",
-          text: this.formatMessage("rc.rxblocks.rxfs.out"),
+          opcode: 'out',
+          blockType: 'reporter',
+          text: this.formatMessage('rc.rxblocks.rxfs.out'),
           // text: formatMessage({ id: 'rc.rxblocks.rxfs.out', default: 'Export file system' }),
           arguments: {},
         },
         {
           blockIconURI: folder,
-          opcode: "list",
-          blockType: "reporter",
-          text: this.formatMessage("rc.rxblocks.rxfs.list"),
+          opcode: 'list',
+          blockType: 'reporter',
+          text: this.formatMessage('rc.rxblocks.rxfs.list'),
           // text: formatMessage({ id: 'rc.rxblocks.rxfs.list', default: 'List all files under [STR]' }),
           arguments: {
             STR: {
-              type: "string",
-              defaultValue: "/rxFS/",
+              type: 'string',
+              defaultValue: '/rxFS/',
             },
           },
         },
         {
           blockIconURI: folder,
-          opcode: "search",
-          blockType: "reporter",
-          text: this.formatMessage("rc.rxblocks.rxfs.search"),
+          opcode: 'search',
+          blockType: 'reporter',
+          text: this.formatMessage('rc.rxblocks.rxfs.search'),
           // text: formatMessage({ id: 'rc.rxblocks.rxfs.search', default: 'Search [STR]' }),
           arguments: {
             STR: {
-              type: "string",
-              defaultValue: "/rxFS/example",
+              type: 'string',
+              defaultValue: '/rxFS/example',
             },
           },
         },
         {
           blockIconURI: folder,
-          opcode: "searchin",
-          blockType: "reporter",
-          text: this.formatMessage("rc.rxblocks.rxfs.searchin"),
+          opcode: 'searchin',
+          blockType: 'reporter',
+          text: this.formatMessage('rc.rxblocks.rxfs.searchin'),
           // text: formatMessage({ id: 'rc.rxblocks.rxfs.searchin', default: 'Search file contents [STR]' }),
           arguments: {
             STR: {
-              type: "string",
-              defaultValue: "",
+              type: 'string',
+              defaultValue: '',
             },
           },
         },
@@ -242,39 +244,39 @@ class rxFS {
   }
 
   sync({ STR, STR2 }) {
-    var str = STR;
-    var str2 = STR2;
+    const str = STR;
+    const str2 = STR2;
     if (this.rxFSsy.indexOf(str) + 1 == 0) {
-      this.rxFSsy[((this.rxFSsy.indexOf(str) + 1) - 1)] = str2;
+      this.rxFSsy[this.rxFSsy.indexOf(str) + 1 - 1] = str2;
     }
   }
 
   start({ STR }) {
-    var str = STR;
-    if (!(str.charAt((str.length - 1)) == "/") && this.rxFSsy.indexOf(str) + 1 == 0) {
-      this.rxFSfi.splice(((this.rxFSfi.length + 1) - 1), 0, null);
-      this.rxFSsy.splice(((this.rxFSsy.length + 1) - 1), 0, str);
+    const str = STR;
+    if (!(str.charAt(str.length - 1) == '/') && this.rxFSsy.indexOf(str) + 1 == 0) {
+      this.rxFSfi.splice(this.rxFSfi.length + 1 - 1, 0, null);
+      this.rxFSsy.splice(this.rxFSsy.length + 1 - 1, 0, str);
     }
   }
 
   open({ STR }) {
-    return this.rxFSfi[((this.rxFSsy.indexOf(STR) + 1) - 1)];
+    return this.rxFSfi[this.rxFSsy.indexOf(STR) + 1 - 1];
   }
 
   del({ STR }) {
-    var str = STR;
-    this.rxFSfi[((this.rxFSsy.indexOf(str) + 1) - 1)] = void 0;
-    this.rxFSsy[((this.rxFSsy.indexOf(str) + 1) - 1)] = void 0;
+    const str = STR;
+    this.rxFSfi[this.rxFSsy.indexOf(str) + 1 - 1] = void 0;
+    this.rxFSsy[this.rxFSsy.indexOf(str) + 1 - 1] = void 0;
   }
 
   folder({ STR, STR2 }) {
-    this.rxFSfi[((this.rxFSsy.indexOf(STR) + 1) - 1)] = STR2;
+    this.rxFSfi[this.rxFSsy.indexOf(STR) + 1 - 1] = STR2;
   }
 
   searchin({ STR }) {
-    var Search = [];
-    var i;
-    for (var i_index in this.rxFSfi) {
+    const Search = [];
+    let i;
+    for (const i_index in this.rxFSfi) {
       i = this.rxFSfi[i_index];
       if (i.indexOf(STR) + 1 != 0) {
         Search.push(this.rxFSsy[i_index]);
@@ -284,9 +286,9 @@ class rxFS {
   }
 
   search({ STR }) {
-    var Search = [];
-    var i;
-    for (var i_index in this.rxFSsy) {
+    const Search = [];
+    let i;
+    for (const i_index in this.rxFSsy) {
       i = this.rxFSsy[i_index];
       if (i.indexOf(STR) + 1 != 0) {
         Search.push(i);
@@ -296,10 +298,10 @@ class rxFS {
   }
 
   list({ STR }) {
-    var Search = [];
-    var i;
-    if (STR.slice(-1) == "/") {
-      for (var i_index in this.rxFSsy) {
+    const Search = [];
+    let i;
+    if (STR.slice(-1) == '/') {
+      for (const i_index in this.rxFSsy) {
         i = this.rxFSsy[i_index];
         if (i.indexOf(STR) + 1 == 1) {
           Search.push(i);
@@ -310,16 +312,20 @@ class rxFS {
   }
 
   webin({ STR }) {
-    return "undefined";
+    return 'undefined';
   }
 
   in({ STR }) {
-    this.rxFSfi = JSON.parse(decodeURIComponent(STR.slice(0, (STR.indexOf("|") + 1) - 1)));
-    this.rxFSsy = JSON.parse(decodeURIComponent(STR.slice(((STR.indexOf("|") + 1 + 1) - 1), STR.length)));
+    try {
+      this.rxFSfi = JSON.parse(decodeURIComponent(STR.slice(0, STR.indexOf('|') + 1 - 1)));
+      this.rxFSsy = JSON.parse(decodeURIComponent(STR.slice(STR.indexOf('|') + 1 + 1 - 1, STR.length)));
+    } catch (e) {
+      return e.message;
+    }
   }
 
   out() {
-    return encodeURIComponent(JSON.stringify(this.rxFSfi)) + "|" + encodeURIComponent(JSON.stringify(this.rxFSsy));
+    return `${encodeURIComponent(JSON.stringify(this.rxFSfi))}|${encodeURIComponent(JSON.stringify(this.rxFSsy))}`;
   }
 }
 
