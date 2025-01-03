@@ -356,6 +356,7 @@ function initExpandableBlock(runtime, blockDefinition, dynamicArgInfo) {
     this.minusButton_ = new MinusButton();
 
     const { afterArg, endText } = dynamicArgInfo;
+    if (!this.getInput) return; // 避免协作报错
     updatePreText(this, 0);
     const endTxt = getValue(endText, 0, "");
     if (endTxt !== "") this.appendDummyInput("ENDTEXT").appendField(endTxt, "ENDTEXT");
@@ -771,9 +772,18 @@ function initExpandableBlocks(extension, plusImage = rightArrow, minusImage = le
  * @returns {Array} values of dynamic args
  */
 function getDynamicArgs(args) {
-  return Object.keys(args)
-    .filter((key) => key.startsWith("DYNAMIC_ARGS"))
-    .map((key) => args[key]);
+  // 依赖 Object.keys 确定自定义参数顺序可能有bug
+  // return Object.keys(args)
+  //   .filter((key) => key.startsWith('DYNAMIC_ARGS'))
+  //   .map((key) => args[key]);
+
+  // 尝试通过按序号顺序读取
+  const res = [];
+  for (let i = 1; ; i++) {
+    const v = args[`DYNAMIC_ARGS${i}`];
+    if (v === undefined) return res;
+    res.push(v);
+  }
 }
 
 export { getDynamicArgs, initExpandableBlocks };
