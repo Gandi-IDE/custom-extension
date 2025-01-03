@@ -43,6 +43,7 @@ class WitCatFileHelper {
         'WitCatFileHelper.inputmanagement': '键值对',
         'WitCatFileHelper.imageprocess': '图片',
         'WitCatFileHelper.Multiplelinestext': '多行文本',
+        'WitCatFileHelper.typeConversion': '类型转换',
         'WitCatFileHelper.lastfile': '用[type]读取上次打开第[num]个文件的内容',
         'WitCatFileHelper.downloads': '将内容[text]按[s]分割后命名为[name]并下载多行文本',
         'WitCatFileHelper.download': '将内容[text]命名为[name]并下载',
@@ -79,7 +80,7 @@ class WitCatFileHelper {
         'WitCatFileHelper.openfiless.1': '单文件',
         'WitCatFileHelper.openfiless.2': '多文件',
         'WitCatFileHelper.openfile.1': 'UTF-8(文本)',
-        'WitCatFileHelper.openfile.2': 'zip(压缩文件)',
+        'WitCatFileHelper.openfile.2': 'blob(zip)',
         'WitCatFileHelper.file': '上次打开第[num]个文件的[type]',
         'WitCatFileHelper.file.1': '文件名',
         'WitCatFileHelper.file.2': '文件后缀',
@@ -90,6 +91,9 @@ class WitCatFileHelper {
         'WitCatFileHelper.docs': '📖拓展教程',
         'WitCatFileHelper.arrayjoin': '用[s]作为分隔符合并数组[text]',
         'WitCatFileHelper.asks': '文件大小太大，可能导致浏览器崩溃，确定继续？',
+        'WitCatFileHelper.blobtobase': '将 [dataType] [blob] 转为 [dataTypes]',
+        'WitCatFileHelper.dataType.1': 'blob',
+        'WitCatFileHelper.dataType.2': 'dataurl',
       },
       en: {
         'WitCatFileHelper.name': 'WitCat’s File Helper',
@@ -97,6 +101,7 @@ class WitCatFileHelper {
         'WitCatFileHelper.inputmanagement': 'Key-value pair',
         'WitCatFileHelper.imageprocess': 'Image',
         'WitCatFileHelper.Multiplelinestext': 'Multi-line text',
+        'WitCatFileHelper.typeConversion': 'Type cast',
         'WitCatFileHelper.lastfile': 'Use [type] to read the contents of the [num] file that was last opened',
         'WitCatFileHelper.downloads': 'Download split text [text] by [s] named [name]',
         'WitCatFileHelper.download': 'Download text [text] named [name]',
@@ -135,7 +140,7 @@ class WitCatFileHelper {
         'WitCatFileHelper.openfiless.1': 'Single',
         'WitCatFileHelper.openfiless.2': 'multi',
         'WitCatFileHelper.openfile.1': 'UTF-8(text)',
-        'WitCatFileHelper.openfile.2': 'zip(Compressed file)',
+        'WitCatFileHelper.openfile.2': 'blob(zip)',
         'WitCatFileHelper.file': '[type] of [num] file opened',
         'WitCatFileHelper.file.1': 'name',
         'WitCatFileHelper.file.2': 'extension',
@@ -147,6 +152,9 @@ class WitCatFileHelper {
         'WitCatFileHelper.arrayjoin': 'join array [text], seperating by [s]',
         'WitCatFileHelper.asks':
           'The file size is too large and may cause the browser to crash, are you sure to continue?',
+        'WitCatFileHelper.blobtobase': 'Convert [dataType] [blob] to [dataTypes]',
+        'WitCatFileHelper.dataType.1': 'blob',
+        'WitCatFileHelper.dataType.2': 'dataurl',
       },
     });
   }
@@ -258,7 +266,7 @@ class WitCatFileHelper {
             type: {
               type: 'string',
               menu: 'openfile',
-            }
+            },
           },
         },
         {
@@ -293,7 +301,7 @@ class WitCatFileHelper {
             },
           },
         },
-        //键值对（已下线）	
+        // 键值对（已下线）
         {
           opcode: 'upload',
           blockType: 'reporter',
@@ -480,7 +488,7 @@ class WitCatFileHelper {
             thing: {
               type: 'string',
               menu: 'thing',
-            }
+            },
           },
         },
         {
@@ -495,7 +503,7 @@ class WitCatFileHelper {
             num: {
               type: 'number',
               defaultValue: '1',
-            }
+            },
           },
         },
         {
@@ -514,7 +522,7 @@ class WitCatFileHelper {
             num: {
               type: 'string',
               defaultValue: 'last',
-            }
+            },
           },
         },
         {
@@ -529,7 +537,7 @@ class WitCatFileHelper {
             num: {
               type: 'string',
               defaultValue: '1',
-            }
+            },
           },
         },
         {
@@ -565,89 +573,119 @@ class WitCatFileHelper {
             },
           },
         },
+        `---${this.formatMessage('WitCatFileHelper.typeConversion')}`,
+        {
+          opcode: 'typeConversion',
+          blockType: 'reporter',
+          text: this.formatMessage('WitCatFileHelper.blobtobase'),
+          arguments: {
+            blob: {
+              type: 'string',
+              defaultValue: 'blob',
+            },
+            dataType: {
+              type: 'string',
+              menu: 'dataType',
+            },
+            dataTypes: {
+              type: 'string',
+              menu: 'dataType',
+            },
+          },
+        },
       ],
       menus: {
         setvariable: [
           {
             text: this.formatMessage('WitCatFileHelper.showall'),
-            value: '#witcat'
+            value: '#witcat',
           },
           {
             text: this.formatMessage('WitCatFileHelper.showon'),
-            value: '$witcat'
+            value: '$witcat',
           },
           {
             text: this.formatMessage('WitCatFileHelper.showoff'),
-            value: '@witcat'
+            value: '@witcat',
           },
         ],
         thing: [
           {
             text: this.formatMessage('WitCatFileHelper.thing.1'),
-            value: 'true'
+            value: 'true',
           },
           {
             text: this.formatMessage('WitCatFileHelper.thing.2'),
-            value: 'false'
+            value: 'false',
           },
         ],
         type: [
           {
             text: this.formatMessage('WitCatFileHelper.number.1'),
-            value: 'name'
+            value: 'name',
           },
           {
             text: this.formatMessage('WitCatFileHelper.number.2'),
-            value: 'content'
+            value: 'content',
           },
         ],
         file: [
           {
             text: this.formatMessage('WitCatFileHelper.file.1'),
-            value: 'name'
+            value: 'name',
           },
           {
             text: this.formatMessage('WitCatFileHelper.file.2'),
-            value: 'suffix'
+            value: 'suffix',
           },
           {
             text: this.formatMessage('WitCatFileHelper.file.3'),
-            value: 'size'
+            value: 'size',
           },
           {
             text: this.formatMessage('WitCatFileHelper.file.5'),
-            value: 'sizeB'
+            value: 'sizeB',
           },
           {
             text: this.formatMessage('WitCatFileHelper.file.6'),
-            value: 'sizeH'
+            value: 'sizeH',
           },
           {
             text: this.formatMessage('WitCatFileHelper.file.4'),
-            value: 'content'
+            value: 'content',
           },
         ],
         openfile: [
           {
             text: this.formatMessage('WitCatFileHelper.openfile.1'),
-            value: 'utf-8'
+            value: 'utf-8',
           },
           {
             text: this.formatMessage('WitCatFileHelper.openfile.2'),
-            value: 'zip'
+            value: 'zip',
           },
         ],
         openfiless: [
           {
             text: this.formatMessage('WitCatFileHelper.openfiless.1'),
-            value: 'Single'
+            value: 'Single',
           },
           {
             text: this.formatMessage('WitCatFileHelper.openfiless.2'),
-            value: 'multiple'
+            value: 'multiple',
           },
         ],
-      }
+        dataType: [
+          {
+            text: this.formatMessage('WitCatFileHelper.dataType.1'),
+            value: 'blob',
+          },
+          {
+            text: this.formatMessage('WitCatFileHelper.dataType.2'),
+            value: 'dataurl',
+          },
+        ],
+      },
     };
   }
 
@@ -702,8 +740,9 @@ class WitCatFileHelper {
       const max_length = 1000;
       const short_length = 20;
       if (showtext.length > max_length) {
-        showtext = `${showtext.slice(0, max_length - short_length)}(... 省略 ${showtext.length - max_length + short_length
-          } 字符)`;
+        showtext = `${showtext.slice(0, max_length - short_length)}(... 省略 ${
+          showtext.length - max_length + short_length
+        } 字符)`;
       }
       // eslint-disable-next-line no-alert
       const a = confirm(`${ask}\n\n${showtext}`);
@@ -912,7 +951,7 @@ class WitCatFileHelper {
         case 'text':
           reader.readAsText(file);
           break;
-        case "blob":
+        case 'blob':
           resolve(URL.createObjectURL(file));
           break;
         default:
@@ -930,6 +969,56 @@ class WitCatFileHelper {
       this.filecontent.push(String(await this._readerasync(file, 'text')));
     });
   }
+
+  typeConversion = async ({ blob: rawBlob, dataType, dataTypes }) => {
+    let blob;
+    const content = String(rawBlob);
+
+    try {
+      // Step 1: 根据 dataType 转换为 Blob
+      if (dataType === 'blob') {
+        if (!content.startsWith('blob:')) {
+          return 'Invalid Blob URL';
+        }
+        const response = await fetch(content);
+        blob = await response.blob();
+      } else if (dataType === 'dataurl') {
+        const [header, base64] = content.split(',');
+        const mimeType = header.match(/:(.*?);/)[1];
+        const byteCharacters = atob(base64);
+        const byteNumbers = new Uint8Array(byteCharacters.length);
+
+        for (let i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+
+        blob = new Blob([byteNumbers], { type: mimeType });
+      }
+    } catch (error) {
+      return `Failed to convert input data: ${error}`;
+    }
+
+    // Step 2: 根据 dataTypes 输出结果
+    if (blob) {
+      try {
+        if (dataTypes === 'blob') {
+          return URL.createObjectURL(blob);
+        }
+        if (dataTypes === 'dataurl') {
+          return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = () => reject(new Error('Failed to convert Blob to Data URL'));
+            reader.readAsDataURL(blob);
+          });
+        }
+      } catch (error) {
+        return `Failed to convert to target data type: ${error}`;
+      }
+    }
+
+    return '';
+  };
 
   /**
    * 打开文件
@@ -1015,6 +1104,9 @@ class WitCatFileHelper {
           break;
         case 'zip':
           mode = 'blob';
+          break;
+        default:
+          break;
       }
       return String(await this._readerasync(file, mode));
     } catch (e) {
@@ -1058,6 +1150,7 @@ class WitCatFileHelper {
       return '';
     }
   }
+
   async lastfile(args) {
     try {
       const file = this.filelist[Number(args.num) - 1];
@@ -1072,16 +1165,18 @@ class WitCatFileHelper {
         case 'zip':
           mode = 'blob';
           break;
+        default:
+          break;
       }
       return String(await this._readerasync(file, mode));
-    }
-    catch {
+    } catch {
       return '';
     }
   }
-  /**	
-   * 设置状态	
-   * @deprecated	
+
+  /**
+   * 设置状态
+   * @deprecated
    */
   showvar() {
     console.warn('文件助手：判断键值对积木已下线\nFile Helper: Determine the key value pair block has been offline');
@@ -1318,11 +1413,11 @@ window.tempExt = {
   },
   l10n: {
     "zh-cn": {
-      "WitCatFileHelper.name": "白猫的文件助手 V2.8",
+      "WitCatFileHelper.name": "白猫的文件助手 V2.9",
       "WitCatFileHelper.descp": "读取/处理本地数据"
     },
     en: {
-      "WitCatFileHelper.name": "WitCat’s File Helper V2.8",
+      "WitCatFileHelper.name": "WitCat’s File Helper V2.9",
       "WitCatFileHelper.descp": "Handling local data"
     }
   }
