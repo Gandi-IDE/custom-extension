@@ -636,16 +636,20 @@ class WitCatIndexedDB {
     }
 
     cache = (args) => {
-        const cache = JSON.parse(args.cache);
-        Object.entries(cache).forEach(async (e) => {
-            this.saveFile({
-                name: e[0],
-                text: e[1],
-                descp: null
-            }).then(() => {
-                URL.revokeObjectURL(e[1]);
-            })
-        });
+        try {
+            const cache = JSON.parse(args.cache);
+            Object.entries(cache).forEach(async (e) => {
+                this.saveFile({
+                    name: e[0],
+                    text: e[1],
+                    descp: null
+                }).then(() => {
+                    URL.revokeObjectURL(e[1]);
+                })
+            });
+        } catch (e) {
+            return (e.message);
+        }
     }
 
     updateToCache = async (args) => {
@@ -655,8 +659,12 @@ class WitCatIndexedDB {
                 type: "value"
             })
         }
-
-        const cache = JSON.parse(args.json);
+        let cache;
+        try {
+            cache = JSON.parse(args.json);
+        } catch (e) {
+            return e.message;
+        }
         for (const [key, value] of Object.entries(cache)) {
             value[0] = await get(value[0]);
         }
@@ -718,7 +726,12 @@ class WitCatIndexedDB {
     async updateCheck(args) {
         let out = false;
         const h = this.runtime.ccwAPI.getProjectUUID();
-        const cache = JSON.parse(args.json);
+        let cache;
+        try {
+            cache = JSON.parse(args.json);
+        } catch (e) {
+            return e.message;
+        }
         for (const [key, value] of Object.entries(cache)) {
             const info = await this.kKeyGetAsync(h, value[0]);
             if (info === undefined) {
@@ -732,7 +745,12 @@ class WitCatIndexedDB {
     async updateChecks(args) {
         let out = {};
         const h = this.runtime.ccwAPI.getProjectUUID();
-        const cache = JSON.parse(args.json);
+        let cache;
+        try {
+            cache = JSON.parse(args.json);
+        } catch (e) {
+            return e.message;
+        }
         for (const [key, value] of Object.entries(cache)) {
             const info = await this.kKeyGetAsync(h, value[0]);
             if (info === undefined) {
@@ -785,7 +803,10 @@ class WitCatIndexedDB {
     async saveFile(args) {
         const h = this.runtime.ccwAPI.getProjectUUID();
         let content = null;
-        new Promise(async (resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
+            if (typeof args.text !== 'string' || !args.text.startsWith("blob:")) {
+                reject("不是一个有效的blob地址");
+            }
             const response = await fetch(args.text);
             // 将响应体转换为Blob
             const blob = await response.blob();
@@ -1335,6 +1356,9 @@ class WitCatIndexedDB {
         if (type === 'blob') {
             let content = null;
             new Promise(async (resolve, reject) => {
+                if (typeof value !== 'string' || !value.startsWith("blob:")) {
+                    reject("不是一个有效的blob地址");
+                }
                 const response = await fetch(value);
                 // 将响应体转换为Blob
                 const blob = await response.blob();
