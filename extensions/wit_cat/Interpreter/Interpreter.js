@@ -22,6 +22,7 @@ class WitCatInterpreter {
         this.returnMap = {};
         this.variableMap = {};
         this.taskMap = {};
+        this.threadVariable = {};
         this.whileOutNumber = 999;
 
         this._formatMessage = runtime.getFormatMessage({
@@ -38,7 +39,7 @@ class WitCatInterpreter {
                 "WitCatInterpreter.wait.1": "等待",
                 "WitCatInterpreter.wait.2": "不等待",
                 "WitCatInterpreter.expression": "表达式[code]",
-                "WitCatInterpreter.response": "执行函数[func]:传参=[params] 内部代码=[code]",
+                "WitCatInterpreter.response": "执行函数[func]:传参=[params] 内部代码=[code] 线程参数=[values]",
                 "WitCatInterpreter.returns": "返回[return]",
                 "WitCatInterpreter.taskOn": "触发线程[task]",
                 "WitCatInterpreter.taskRemove": "移除线程缓存[task]",
@@ -133,6 +134,21 @@ class WitCatInterpreter {
                             menu: "wait",
                         },
                     },
+                    // 设置动态参数信息
+                    dynamicArgsInfo: {
+                        afterArg: 'code',
+                        // endText: 动态参数末尾的文本，可以是字符串或函数。n：动态参数的数量
+                        endText: (n) => (n === 0 ? '' : ')'),
+                        // joinCh: 动态参数之间的连接字符，可以是字符串或函数。i：第 i 个参数前的连接字符
+                        joinCh: (i) => (i === 0 ? '(' : (i % 2 === 1 ? ':' : ',')),
+                        paramsIncrement: 2, // 每次增加的参数数量
+                        // 各参数的默认值。
+                        defaultValues: (i) => {
+                            const idx = Math.floor(i / 2);
+                            if (i % 2 === 0) return 'key' + idx;
+                            return 'value' + idx;
+                        },
+                    },
                 },
                 {
                     opcode: "runreturn",
@@ -148,6 +164,21 @@ class WitCatInterpreter {
                             menu: "wait",
                         },
                     },
+                    // 设置动态参数信息
+                    dynamicArgsInfo: {
+                        afterArg: 'code',
+                        // endText: 动态参数末尾的文本，可以是字符串或函数。n：动态参数的数量
+                        endText: (n) => (n === 0 ? '' : ')'),
+                        // joinCh: 动态参数之间的连接字符，可以是字符串或函数。i：第 i 个参数前的连接字符
+                        joinCh: (i) => (i === 0 ? '(' : (i % 2 === 1 ? ':' : ',')),
+                        paramsIncrement: 2, // 每次增加的参数数量
+                        // 各参数的默认值。
+                        defaultValues: (i) => {
+                            const idx = Math.floor(i / 2);
+                            if (i % 2 === 0) return 'key' + idx;
+                            return 'value' + idx;
+                        },
+                    },
                 },
                 {
                     opcode: "taskOn",
@@ -157,6 +188,21 @@ class WitCatInterpreter {
                         task: {
                             type: "string",
                             defaultValue: "func",
+                        },
+                    },
+                    // 设置动态参数信息
+                    dynamicArgsInfo: {
+                        afterArg: 'task',
+                        // endText: 动态参数末尾的文本，可以是字符串或函数。n：动态参数的数量
+                        endText: (n) => (n === 0 ? '' : ')'),
+                        // joinCh: 动态参数之间的连接字符，可以是字符串或函数。i：第 i 个参数前的连接字符
+                        joinCh: (i) => (i === 0 ? '(' : (i % 2 === 1 ? ':' : ',')),
+                        paramsIncrement: 2, // 每次增加的参数数量
+                        // 各参数的默认值。
+                        defaultValues: (i) => {
+                            const idx = Math.floor(i / 2);
+                            if (i % 2 === 0) return 'key' + idx;
+                            return 'value' + idx;
                         },
                     },
                 },
@@ -182,6 +228,21 @@ class WitCatInterpreter {
                             defaultValue: "func",
                         },
                     },
+                    // 设置动态参数信息
+                    dynamicArgsInfo: {
+                        afterArg: 'task',
+                        // endText: 动态参数末尾的文本，可以是字符串或函数。n：动态参数的数量
+                        endText: (n) => (n === 0 ? '' : ')'),
+                        // joinCh: 动态参数之间的连接字符，可以是字符串或函数。i：第 i 个参数前的连接字符
+                        joinCh: (i) => (i === 0 ? '(' : (i % 2 === 1 ? ':' : ',')),
+                        paramsIncrement: 2, // 每次增加的参数数量
+                        // 各参数的默认值。
+                        defaultValues: (i) => {
+                            const idx = Math.floor(i / 2);
+                            if (i % 2 === 0) return 'key' + idx;
+                            return 'value' + idx;
+                        },
+                    },
                 },
                 {
                     opcode: "expressions",
@@ -192,6 +253,21 @@ class WitCatInterpreter {
                         code: {
                             type: "string",
                             defaultValue: "1==1",
+                        },
+                    },
+                    // 设置动态参数信息
+                    dynamicArgsInfo: {
+                        afterArg: 'code',
+                        // endText: 动态参数末尾的文本，可以是字符串或函数。n：动态参数的数量
+                        endText: (n) => (n === 0 ? '' : ')'),
+                        // joinCh: 动态参数之间的连接字符，可以是字符串或函数。i：第 i 个参数前的连接字符
+                        joinCh: (i) => (i === 0 ? '(' : (i % 2 === 1 ? ':' : ',')),
+                        paramsIncrement: 2, // 每次增加的参数数量
+                        // 各参数的默认值。
+                        defaultValues: (i) => {
+                            const idx = Math.floor(i / 2);
+                            if (i % 2 === 0) return 'key' + idx;
+                            return 'value' + idx;
                         },
                     },
                 },
@@ -226,6 +302,9 @@ class WitCatInterpreter {
                             type: "ccw_hat_parameter",
                         },
                         code: {
+                            type: "ccw_hat_parameter",
+                        },
+                        values: {
                             type: "ccw_hat_parameter",
                         },
                     },
@@ -415,8 +494,15 @@ class WitCatInterpreter {
     }
 
     taskOn(args) {
+        const res = {};
+        for (let i = 1; ; i += 2) {
+            const v = args['DYNAMIC_ARGS' + i]
+            const vs = args['DYNAMIC_ARGS' + (i + 1)]
+            if (v === undefined) break;
+            res[v] = vs;
+        }
         const body = this.taskMap[args.task];
-        if (body) return this.runcode(body);
+        if (body) return this.runcode(body, res);
     }
 
     taskRemove(args) {
@@ -424,8 +510,15 @@ class WitCatInterpreter {
     }
 
     taskOnWithReturn(args) {
+        const res = {};
+        for (let i = 1; ; i += 2) {
+            const v = args['DYNAMIC_ARGS' + i]
+            const vs = args['DYNAMIC_ARGS' + (i + 1)]
+            if (v === undefined) break;
+            res[v] = vs;
+        }
         const body = this.taskMap[args.task];
-        if (body) return this.runcode(body);
+        if (body) return this.runcode(body, res);
     }
 
     returns(args, util) {
@@ -453,18 +546,41 @@ class WitCatInterpreter {
      * @return {number}
      */
     async run(args) {
-        if (args.wait) await this.runcode(String(args.code));
-        else this.runcode(String(args.code));
+        const res = {};
+        for (let i = 1; ; i += 2) {
+            const v = args['DYNAMIC_ARGS' + i]
+            const vs = args['DYNAMIC_ARGS' + (i + 1)]
+            if (v === undefined) break;
+            res[v] = vs;
+        }
+        if (args.wait) await this.runcode(String(args.code), res);
+        else this.runcode(String(args.code), res);
     }
 
     async runreturn(args) {
-        if (args.wait) return await this.runcode(String(args.code));
-        this.runcode(String(args.code));
+        const res = {};
+        for (let i = 1; ; i += 2) {
+            const v = args['DYNAMIC_ARGS' + i]
+            const vs = args['DYNAMIC_ARGS' + (i + 1)]
+            if (v === undefined) break;
+            res[v] = vs;
+        }
+        if (args.wait) return await this.runcode(String(args.code), res);
+        this.runcode(String(args.code), res);
         return "null";
     }
 
-    async expressions(args) {
-        return await this.expression(String(args.code));
+    async expressions(args, util) {
+        const res = {};
+        for (let i = 1; ; i += 2) {
+            const v = args['DYNAMIC_ARGS' + i]
+            const vs = args['DYNAMIC_ARGS' + (i + 1)]
+            if (v === undefined) break;
+            res[v] = vs;
+        }
+        const topBlock = util.thread?.topBlock;
+        const values = Object.keys(res).length == 0 ? this.threadVariable[topBlock] ?? {} : res;
+        return await this.expression(String(args.code), values);
     }
 
     /**
@@ -472,7 +588,7 @@ class WitCatInterpreter {
      * @param {string} code 需要执行的代码
      * @return {number}
      */
-    runcode = async (code) => {
+    runcode = async (code, values = {}) => {
         const lines = code
             .split("\n")
             .map((line) => line.trim())
@@ -507,9 +623,9 @@ class WitCatInterpreter {
                 const funcName = functionCallMatch[1];
                 const params = functionCallMatch[2].split(",").map((param) => param.trim());
                 if (funcName === "return") {
-                    returns = await this.expression(params[0]);
+                    returns = await this.expression(params[0], values);
                     continue;
-                } else await this.runCodeRow(funcName, params, null); // 不传递函数体
+                } else await this.runCodeRow(funcName, params, null, values); // 不传递函数体
                 i++;
                 continue;
             }
@@ -534,7 +650,7 @@ class WitCatInterpreter {
                 }
                 body = body.slice(0, body.lastIndexOf("}")).trim();
                 let returnValue = null;
-                returnValue = await this.runCodeRow(funcName, params, body.trim());
+                returnValue = await this.runCodeRow(funcName, params, body.trim(), values);
                 if (funcName == "if" || funcName == "elif") {
                     if (returnValue === false) {
                         i--;
@@ -614,12 +730,12 @@ class WitCatInterpreter {
                     }
                     body = body.slice(0, body.lastIndexOf('}')).trim();
                     let returnValue = null;
-                    returnValue = await this.runCodeRow(funcName, params, body.trim());
+                    returnValue = await this.runCodeRow(funcName, params, body.trim(), values);
                     this.variableMap[variableName] = String(returnValue); // 存储变量的值
                     --i;
                 } else {
                     // 进行后续操作，这里可以使用 await
-                    const value = await this.expression(valueExpression);
+                    const value = await this.expression(valueExpression, values);
                     this.variableMap[variableName] = value; // 存储变量的值
                 }
             }
@@ -636,12 +752,12 @@ class WitCatInterpreter {
      * @param {string} body 函数体内容
      * @returns {void}
      */
-    runCodeRow = async (func, args, body) => {
+    runCodeRow = async (func, args, body, values = {}) => {
         if (func === "if" || func === "elif") {
-            const condition = await this.expression(args[0]); // 假设 args[0] 是条件
+            const condition = await this.expression(args[0], values); // 假设 args[0] 是条件
 
             if (condition === "true") {
-                const returns = await this.runcode(body);
+                const returns = await this.runcode(body, values);
                 if (returns !== null) return returns;
                 return true;
             }
@@ -653,7 +769,7 @@ class WitCatInterpreter {
         }
         if (func === "task") {
             const body = this.taskMap[args[0]];
-            if (body) return this.runcode(body);
+            if (body) return this.runcode(body, values);
         } else {
             return new Promise(async (resolve, reject) => {
                 let params = args;
@@ -663,9 +779,15 @@ class WitCatInterpreter {
                 } else {
                     params = JSON.stringify(args);
                 }
+                const valuess = SafeObject ? SafeObject.toSafeObject(values) : JSON.stringify(values);
                 const out = this.runtime.startHatsWithParams(`${witcat_interpreter_extensionId}_response`, {
-                    parameters: { params, code: body },
+                    parameters: { params, code: body, values: valuess },
                     fields: { TEXT: Cast.toString(func) },
+                });
+                out.forEach((item) => {
+                    if (item.topBlock) {
+                        this.threadVariable[item.topBlock] = values;
+                    }
                 });
                 const checkThreads = () => {
                     const waiting = out.some((thread) => this.runtime.threads.indexOf(thread) !== -1);
@@ -677,6 +799,7 @@ class WitCatInterpreter {
                                 const v = this.returnMap[topBlockContent];
                                 if (v !== null) {
                                     delete this.returnMap[topBlockContent];
+                                    delete this.threadVariable[topBlockContent];
                                     resolve(v);
                                 }
                             }
@@ -691,8 +814,8 @@ class WitCatInterpreter {
                     let returns = null;
                     if (func === "while") {
                         let i = 0;
-                        while ((await this.expression(args[0])) === "true" && this.whileOutNumber > i && returns === null) {
-                            const s = await this.runcode(body);
+                        while ((await this.expression(args[0], values)) === "true" && this.whileOutNumber > i && returns === null) {
+                            const s = await this.runcode(body, values);
                             if (s?.continue === true) {
                                 // 继续下一次循环，不需要操作，因为之前的代码已经返回了
                             } else {
@@ -707,16 +830,16 @@ class WitCatInterpreter {
                             }
                             ++i;
                         }
-                        if (this.whileOutNumber == i && (await this.expression(args[0])) === "true") {
+                        if (this.whileOutNumber == i && (await this.expression(args[0], values)) === "true") {
                             console.warn(
                                 `解释器：超过循环上限，请联系作品作者，当前上限为：${this.whileOutNumber}\nInterpreter:the cycle limit has exceeded, please contact the author, the current limit is ${this.whileOutNumber}`
                             );
                         }
                     } else if (func === "for") {
-                        await this.runcode(args[0].split("\\n").join("\n"));
+                        await this.runcode(args[0].split("\\n").join("\n"), values);
                         let i = 0;
-                        while ((await this.expression(args[1])) === "true" && this.whileOutNumber > i && returns === null) {
-                            const s = await this.runcode(body);
+                        while ((await this.expression(args[1], values)) === "true" && this.whileOutNumber > i && returns === null) {
+                            const s = await this.runcode(body, values);
                             if (s?.continue === true) {
                                 // 继续下一次循环，不需要操作，因为之前的代码已经返回了
                             } else {
@@ -729,16 +852,16 @@ class WitCatInterpreter {
                                     resolve(returns);
                                 }
                             }
-                            await this.runcode(args[2].split("\\n").join("\n"));
+                            await this.runcode(args[2].split("\\n").join("\n"), values);
                             ++i;
                         }
-                        if (this.whileOutNumber == i && (await this.expression(args[1])) === "true") {
+                        if (this.whileOutNumber == i && (await this.expression(args[1]), values) === "true") {
                             console.warn(
                                 `解释器：超过循环上限，请联系作品作者，当前上限为：${this.whileOutNumber}\nInterpreter:the cycle limit has exceeded, please contact the author, the current limit is ${this.whileOutNumber}`
                             );
                         }
                     } else if (func === "rmtask") {
-                        delete this.taskMap[await this.expression(args[1])];
+                        delete this.taskMap[await this.expression(args[1], values)];
                     }
                     resolve(returns);
                 } else if (this.asyncMap.indexOf(func) == -1) checkThreads();
@@ -747,7 +870,7 @@ class WitCatInterpreter {
         }
     };
 
-    async expression(args) {
+    async expression(args, values = {}) {
         // 临时函数用于计算比较和逻辑表达式
         const evaluateCondition = (condition) => {
             // 处理括号
@@ -835,7 +958,7 @@ class WitCatInterpreter {
         let v;
         // 替换变量
         v = String(args).replace(/\$([^\s()=<>!|&]+)\$/g, (match, varName) => {
-            const value = this.getVariable(varName);
+            const value = this.getVariable(varName, values);
             return value !== null ? value : match; // 如果变量存在，替换为其值；否则返回原始匹配
         });
 
@@ -845,7 +968,7 @@ class WitCatInterpreter {
             const funcName = functionCallMatch[1];
             const params = functionCallMatch[2].split(",").map((param) => param.trim());
             if (funcName === "original") return params;
-            const s = await this.runCodeRow(funcName, params, null);
+            const s = await this.runCodeRow(funcName, params, null, values);
             v = String(s); // 不传递函数体
         }
 
@@ -854,7 +977,8 @@ class WitCatInterpreter {
         return finalResult; // 返回最终计算结果
     }
 
-    getVariable = (name) => {
+    getVariable = (name, value = {}) => {
+        if (name.split('.')[0] == 'this' && value[name.split('.')[1]]) return value[name.split('.')[1]];
         return this.variableMap[name] || null; // 返回变量值
     };
 }
