@@ -22,6 +22,7 @@ class ScratcherScreenPro {
                 "ScratcherScreenPro.SCRheightMENU": "任务栏/菜单栏高度",
                 "ScratcherScreenPro.SCRbitDEPTH": "屏幕调色板比特深度",
                 "ScratcherScreenPro.SCRpixelDEPTH": "屏幕颜色分辨率（不支持IE）",//不支持IE
+                "ScratcherScreenPro.SCRorientation": "屏幕方向",
                 "ScratcherScreenPro.BROresolution": "浏览器分辨率",
                 "ScratcherScreenPro.BROwidth": "浏览器窗口宽度",
                 "ScratcherScreenPro.BROheight": "浏览器窗口高度",
@@ -29,7 +30,7 @@ class ScratcherScreenPro {
                 "ScratcherScreenPro.BROinheight": "浏览器可用高度（不包括工具栏）",
                 "ScratcherScreenPro.BROwidthTOOLS": "浏览器工具栏宽度",
                 "ScratcherScreenPro.BROheightTOOLS": "浏览器工具栏高度",
-                "ScratcherScreenPro.docs": "😎拓展教程",
+                "ScratcherScreenPro.docs": "😎扩展教程",
             },
             en: {
                 "ScratcherScreenPro.name": "Scratcher's Screen Pro",
@@ -42,6 +43,7 @@ class ScratcherScreenPro {
                 "ScratcherScreenPro.SCRinwidthMENU": "Taskbar/menu bar height",
                 "ScratcherScreenPro.SCRbitDEPTH": "Screen palette bit depth",
                 "ScratcherScreenPro.SCRpixelDEPTH": "Screen color resolution (IE is not supported)",//IE is not supported
+                "ScratcherScreenPro.SCRorientation": "Screen orientation",
                 "ScratcherScreenPro.BROresolution": "Browser resolution",
                 "ScratcherScreenPro.BROwidth": "The width of the browser window",
                 "ScratcherScreenPro.BROheight": "The height of the browser window",
@@ -130,6 +132,12 @@ class ScratcherScreenPro {
                     text: this._formatMessage("ScratcherScreenPro.SCRpixelDEPTH"),
                     arguments: {},
                 },  
+                {
+                    opcode: "SCRorientation",
+                    blockType: "reporter",
+                    text: this._formatMessage("ScratcherScreenPro.SCRorientation"),
+                    arguments: {},
+                },
                 "---" + this._formatMessage("ScratcherScreenPro.BROresolution"),
                 {
                     opcode: "BROwidth",
@@ -234,7 +242,14 @@ class ScratcherScreenPro {
     SCRpixelDEPTH() {
         return (screen.pixelDepth)
     }
-    
+
+    /**
+     * @return {string}
+     */
+    SCRorientation() {
+        return (window.screen.orientation.type)
+    }
+
     /**
      * @return {number}
      */
@@ -288,7 +303,7 @@ window.tempExt = {
         featured: true,
         disabled: false,
         collaborator: "awa_Scratcher@CCW",
-        collaboratorURL:"https://www.ccw.site/student/638c4cb8785493404042adf5",
+         collaboratorURL:"https://www.ccw.site/student/638c4cb8785493404042adf5",
     },
     l10n: {
         "zh-cn": {
