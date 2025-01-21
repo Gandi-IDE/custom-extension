@@ -3,10 +3,37 @@
 import Prism from './prism.js';
 import { witcat_markdown_icon, witcat_markdown_picture } from './assets/index.js';
 import markdown from './MarkDown.js';
+import { getVM, generateUid } from './_tools.js';
 
 const witcat_markdown_extensionId = 'WitCatMarkDowns';
 let markdownmousedown = {};
 let touchEvent = {};
+
+const _vm = Scratch.vm ?? getVM(Scratch.runtime);
+_vm.createGandiAssetFile = (name, assetType, data = '') => {
+  const fileName = `${name}.${assetType.runtimeFormat}`;
+  if (_vm.runtime.getGandiAssetFile(fileName)) {
+      throw new Error(`Asset with name ${fileName} already exists`);
+  }
+  const storage = _vm.runtime.storage;
+  const obj = {name};
+  obj.dataFormat = assetType.runtimeFormat;
+  obj.asset = storage.createAsset(
+      assetType,
+      obj.dataFormat,
+      new TextEncoder().encode(data),
+      null,
+      true // generate md5
+  );
+  obj.assetType = assetType;
+  obj.id = generateUid(); // unique id for this asset, used in cloud project
+  obj.assetId = obj.asset.assetId;
+  obj.md5 = `${obj.assetId}.${obj.dataFormat}`;
+
+  _vm.runtime.gandi.assets.push(obj);
+  _vm.runtime.emitGandiAssetsUpdate({type: 'add', data: obj});
+}
+
 /**
  * 获取到的返回值
  */
@@ -26,6 +53,36 @@ export default class WitCatMarkDown {
     this.runtime = runtime;
 
     this.resize = null;
+
+    this.vm = Scratch.vm ?? getVM(this.runtime);
+    this.gandi = this.vm.runtime.gandi;
+
+    this.runtime.storage.AssetType.Markdown = {
+      contentType: 'text/plain', 
+      name: 'Markdown', 
+      runtimeFormat: 'md', 
+      immutable: true
+    };
+    if (this.gandi.supportedAssetTypes.filter(assetType => assetType.name==this.runtime.storage.AssetType.Markdown.name).length===0) {
+      this.gandi.supportedAssetTypes.push(this.runtime.storage.AssetType.Markdown);
+    }
+    this.gandi.updataMarkdownAssetsData = () => {
+      this.runtime.getGandiAssetsFileList().forEach((file) => {
+        let assetType = this.runtime.storage.AssetType;
+        if (file.dataFormat === assetType.Markdown.runtimeFormat) {
+          this.runtime.getGandiAssetFile(file.fullName).assetType = this.runtime.getGandiAssetFile(file.fullName).asset.assetType = assetType.Markdown;
+        }
+      });
+    }
+    this.gandi.getMarkdownAssets = () => {
+      let assetType = this.runtime.storage.AssetType;
+      return this.runtime.getGandiAssetsFileList().filter(file => file.assetType.name === assetType.Markdown.name);
+    };
+
+    this.vm.runtime.on("GANDI_ASSET_UPDATE", ({data, type}) => {
+      if (data.dataFormat === this.runtime.storage.AssetType.Markdown.runtimeFormat) this.gandi.updataMarkdownAssetsData();
+    });
+
     /**
      * Scratch 所使用的 canvas，获取不到返回 null
      * @return {HTMLcanvasElement | null}
@@ -334,6 +391,9 @@ span.inline-color {
         'WitCatMarkDown.name': '白猫的markdown',
         'WitCatMarkDown.docs': '📖拓展教程',
         'WitCatMarkDown.docss': '📖示例内容',
+        'WitCatMarkDown.uploadfile': '⬆️上传markdown文件 (.md)',
+        'WitCatMarkDown.getfile': '从markdown文件 (.md) [mdfile] 中获取内容',
+        'WitCatMarkDowns.asks': '文件大小太大，可能导致浏览器崩溃，确定继续？',
         'WitCatMarkDown.tutorial':
           '# 欢迎使用 Markdown 拓展\r\n\r\n这是首次使用 **Markdown 拓展** 自动生成的内容，包含 Markdown 语法和拓展介绍\r\n\r\n## 文本样式\r\n\r\n加粗|**加粗1** __加粗2__  \r\n斜体|*斜体1* _斜体2_\r\n***\r\n若你在写常规文本时，需要换行，直接换行是无法成功换行的。\r\n就像这样  \r\n需要换行的话，需要在一行末尾加上两个空格  \r\n就像这样\r\n\r\n## 引用\r\n\r\n> 白猫的markdown拓展！！！\r\n\r\n## 链接\r\n\r\n*鼠标点击*打开链接\r\n\r\n[ccw 官网](https://www.ccw.site)\r\n\r\n## 图片\r\n\r\n如下：一个图片\r\n\r\n![展示](https://m.xiguacity.cn/avatar/6173f57f48cf8f4796fc860e/dbadfc1c-3ab5-49a2-aa69-01465f3f0738.jpg?x-oss-process=image%2Fresize%2Cs_150%2Fformat%2Cwebp)\r\n\r\n*图片可拖动为文件到任意窗口使用*\r\n\r\n## 无序列表\r\n\r\n- 项目\r\n  - 项目 1\r\n    - 项目 A\r\n    - 项目 B\r\n  - 项目 2\r\n\r\n## 有序列表\r\n\r\n1. 项目 1\r\n   1. 项目 A\r\n   2. 项目 B\r\n2. 项目 2\r\n\r\n## 任务列表\r\n\r\n- [x] A 计划\r\n  - [x] A1 计划\r\n  - [ ] A2 计划\r\n- [ ] B 计划\r\n\r\n## 代码块\r\n\r\n    print(\"wit_cat!!!\")\r\n    print(\"白猫！！！\")\r\n\r\n## 分割线\r\n***\r\n没错就是这个\r\n\r\n***',
         'WitCatMarkDown.create': '创建 markdown ID[id]X[x]Y[y]宽[width]高[height]内容[text]',
@@ -395,11 +455,15 @@ span.inline-color {
         "WitCatMarkDown.setstyle.6": "超大号",
         "WitCatMarkDown.setstyle.7": "链接",
         "WitCatMarkDown.setstyle.8": "代码框",
+        "WitCatMarkDown.fileListEmpty": "没有markdown文件 (.md)",
       },
       en: {
         'WitCatMarkDown.name': 'WitCat’s markdown',
         'WitCatMarkDown.docs': '📖 Tutorial',
         'WitCatMarkDown.docss': '📖Example Content',
+        'WitCatMarkDown.uploadfile': '⬆️Upload markdown file (.md)',
+        'WitCatMarkDown.getfile': 'Get text from markdown file (.md) [mdfile]',
+        'WitCatMarkDowns.asks': 'The file size is too large and may cause the browser to crash, are you sure to continue?',
         'WitCatMarkDown.tutorial':
           '# Welcome to the Markdown extension\r\nThis is the first automatically generated content using **Markdown extensions **, including Markdown syntax and extensions\r\n## Text style\r\n\r\nbold | **bold1** __bold2__  \r\nitalics | *italics1*  _italics2_\r\n***\r\nIf you need to wrap a line when writing regular text, you won\'t be able to wrap a line directly.\r\nJust like this  \r\nTo wrap a line, add two Spaces at the end of the line  \r\nJust like this\r\n\r\n## Reference\r\n\r\n> wit_cat\`s Mark Down!!!\r\n\r\n## Link\r\n\r\n*Left mouse click* to open the link\r\n\r\n[Cocrea](https://cocrea.world)\r\n\r\n## Picture\r\n\r\nlook! This is a picture!\r\n\r\n![show] (https://m.xiguacity.cn/avatar/6173f57f48cf8f4796fc860e/dbadfc1c-3ab5-49a2-aa69-01465f3f0738.jpg?x-oss-process=image%2Fresize%2Cs_150%2Fformat%2Cwebp)\r\n\r\n*Image can be dragged for file to any window to use*\r\n\r\n## Unordered list\r\n\r\n- Item 1\r\n    - Item A\r\n    - Item B\r\n- Item 2\r\n\r\n## Ordered list\r\n\r\n1. Item 1\r\n    1. Item A\r\n    2. Item B\r\n2. Item 2\r\n\r\n## Task list\r\n\r\n- [x] Plan A\r\n    - [x] plan A1\r\n    - [ ] Plan A2\r\n- [ ] Plan B\r\n\r\n## Code block\r\n\r\n    print(\"wit_cat!!!\" )\r\n    print(\" White Cat!!\")\r\n\r\n## Divider\r\n***\r\nYeah, that\'s it.\r\n\r\n***',
         'WitCatMarkDown.create': 'Create markdown ID[id]X[x]Y[y] width [width] height [height] content [text]',
@@ -461,8 +525,10 @@ span.inline-color {
         "WitCatMarkDown.setstyle.6": "supersize",
         "WitCatMarkDown.setstyle.7": "link",
         "WitCatMarkDown.setstyle.8": "Code box",
+        "WitCatMarkDown.fileListEmpty": "No markdown files (.md)",
       },
     });
+    this.gandi.updataMarkdownAssetsData();
   }
 
   /**
@@ -965,6 +1031,25 @@ span.inline-color {
           },
         },
         {
+          opcode: 'uploadfile',
+          blockType: 'button',
+          text: this.formatMessage('WitCatMarkDown.uploadfile'),
+          onClick: this.uploadfile,
+        },
+        {
+          opcode: 'getfile',
+          blockType: 'reporter',
+          text: this.formatMessage('WitCatMarkDown.getfile'),
+          disableMonitor: true,
+          arguments: {
+            mdfile: {
+              type: 'string',
+              defaultValue: '',
+              menu: '__mdfilelist__',
+            },
+          },
+        },
+        {
           opcode: 'docss',
           blockType: 'reporter',
           text: this.formatMessage('WitCatMarkDown.docss'),
@@ -973,6 +1058,10 @@ span.inline-color {
         },
       ],
       menus: {
+        __mdfilelist__: {
+          acceptReporters: false,
+          items: '__mdfilelist__',
+        },
         type: [
           {
             text: this.formatMessage('WitCatMarkDown.type.1'),
@@ -1202,6 +1291,28 @@ span.inline-color {
         },
       },
     };
+  }
+
+  __mdfilelist__() {
+      try {
+          const list = this.runtime.getGandiAssetsFileList("md")
+              .map((item) => ({
+                  text: item.fullName,
+                  value: item.fullName,
+              }));
+          if (list.length < 1) {
+              return [{
+                text: this.formatMessage("WitCatMarkDown.fileListEmpty"),
+                value: "fileListEmpty",
+              },];
+          }
+          return list;
+      } catch (err) {
+          return [{
+            text: this.formatMessage("WitCatMarkDown.fileListEmpty"),
+            value: "fileListEmpty",
+          },];
+      }
   }
 
   /** 打开教程 */
@@ -1778,6 +1889,46 @@ span.inline-color {
   docss() {
     return this.formatMessage('WitCatMarkDown.tutorial');
   }
+
+  /**
+   * 从文件中读取markdown文本
+   * @param {Object} args
+   * @returns {string}
+   */
+  getfile(args) {
+    return this.runtime.getGandiAssetContent(args.mdfile).decodeText();
+  }
+
+
+  /**
+   * 上传文件
+   */
+  uploadfile() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.md';
+    const runtime = _vm.runtime;  // 因为onClick函数调用时，似乎this不是指的这个类，只能把vm放全局了
+
+    input.addEventListener('change', (event) => {
+      event.preventDefault();
+      if (!(input.files[0].name.toLowerCase().endsWith('.md'))) return;
+
+      let reader = new FileReader();
+      reader.onload = (event2) => {
+        const text = event2.target.result;
+        const list = runtime.getGandiAssetsFileList("md").map((item) => item.name);
+        const name = input.files[0].name.substring(0, input.files[0].name.length - 3);
+        let x=0
+
+        while (list.indexOf(name + (x===0?"":`(${x})`)) !== -1) x++;
+        _vm.createGandiAssetFile(name + (x===0?"":`(${x})`), _vm.runtime.storage.AssetType.Markdown, text);
+      };
+      reader.readAsText(input.files[0]);
+    });
+
+    input.click();
+  }
+
 
   /**
    * 获取文本框的属性
