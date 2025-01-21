@@ -3,36 +3,11 @@
 import Prism from './prism.js';
 import { witcat_markdown_icon, witcat_markdown_picture } from './assets/index.js';
 import markdown from './MarkDown.js';
-import { getVM, generateUid } from './_tools.js';
-
 const witcat_markdown_extensionId = 'WitCatMarkDowns';
 let markdownmousedown = {};
 let touchEvent = {};
 
-const _vm = Scratch.vm ?? getVM(Scratch.runtime);
-_vm.createGandiAssetFile = (name, assetType, data = '') => {
-  const fileName = `${name}.${assetType.runtimeFormat}`;
-  if (_vm.runtime.getGandiAssetFile(fileName)) {
-      throw new Error(`Asset with name ${fileName} already exists`);
-  }
-  const storage = _vm.runtime.storage;
-  const obj = {name};
-  obj.dataFormat = assetType.runtimeFormat;
-  obj.asset = storage.createAsset(
-      assetType,
-      obj.dataFormat,
-      new TextEncoder().encode(data),
-      null,
-      true // generate md5
-  );
-  obj.assetType = assetType;
-  obj.id = generateUid(); // unique id for this asset, used in cloud project
-  obj.assetId = obj.asset.assetId;
-  obj.md5 = `${obj.assetId}.${obj.dataFormat}`;
-
-  _vm.runtime.gandi.assets.push(obj);
-  _vm.runtime.emitGandiAssetsUpdate({type: 'add', data: obj});
-}
+let vm = Scratch.vm;
 
 /**
  * 获取到的返回值
@@ -54,8 +29,35 @@ export default class WitCatMarkDown {
 
     this.resize = null;
 
-    this.vm = Scratch.vm ?? getVM(this.runtime);
-    this.gandi = this.vm.runtime.gandi;
+    this.vm = this.runtime.extensionManager.vm;
+    console.log(this.vm);
+    
+    this.gandi = this.runtime.gandi;
+    vm = this.vm;
+    // // runtime.extensionManager.vm比Scratch.vm完整。。。
+    // vm.createGandiAssetFile = (name, assetType, data = '') => {
+    //   const fileName = `${name}.${assetType.runtimeFormat}`;
+    //   if (this.runtime.getGandiAssetFile(fileName)) {
+    //       throw new Error(`Asset with name ${fileName} already exists`);
+    //   }
+    //   const storage = this.runtime.storage;
+    //   const obj = {name};
+    //   obj.dataFormat = assetType.runtimeFormat;
+    //   obj.asset = storage.createAsset(
+    //       assetType,
+    //       obj.dataFormat,
+    //       new TextEncoder().encode(data),
+    //       null,
+    //       true // generate md5
+    //   );
+    //   obj.assetType = assetType;
+    //   obj.id = generateUid(); // unique id for this asset, used in cloud project
+    //   obj.assetId = obj.asset.assetId;
+    //   obj.md5 = `${obj.assetId}.${obj.dataFormat}`;
+    
+    //   this.runtime.gandi.assets.push(obj);
+    //   this.runtime.emitGandiAssetsUpdate({type: 'add', data: obj});
+    // };
 
     this.runtime.storage.AssetType.Markdown = {
       contentType: 'text/plain', 
@@ -65,7 +67,7 @@ export default class WitCatMarkDown {
     };
     if (this.gandi.supportedAssetTypes.filter(assetType => assetType.name==this.runtime.storage.AssetType.Markdown.name).length===0) {
       this.gandi.supportedAssetTypes.push(this.runtime.storage.AssetType.Markdown);
-    }
+    };
     this.gandi.updataMarkdownAssetsData = () => {
       this.runtime.getGandiAssetsFileList().forEach((file) => {
         let assetType = this.runtime.storage.AssetType;
@@ -73,7 +75,7 @@ export default class WitCatMarkDown {
           this.runtime.getGandiAssetFile(file.fullName).assetType = this.runtime.getGandiAssetFile(file.fullName).asset.assetType = assetType.Markdown;
         }
       });
-    }
+    };
     this.gandi.getMarkdownAssets = () => {
       let assetType = this.runtime.storage.AssetType;
       return this.runtime.getGandiAssetsFileList().filter(file => file.assetType.name === assetType.Markdown.name);
@@ -1907,7 +1909,7 @@ span.inline-color {
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = '.md';
-    const runtime = _vm.runtime;  // 因为onClick函数调用时，似乎this不是指的这个类，只能把vm放全局了
+    const runtime = vm.runtime;  // 因为onClick函数调用时，似乎this不是指的这个类，只能把vm放全局了
 
     input.addEventListener('change', (event) => {
       event.preventDefault();
@@ -1921,7 +1923,7 @@ span.inline-color {
         let x=0
 
         while (list.indexOf(name + (x===0?"":`(${x})`)) !== -1) x++;
-        _vm.createGandiAssetFile(name + (x===0?"":`(${x})`), _vm.runtime.storage.AssetType.Markdown, text);
+        vm.createGandiAssetFile(name + (x===0?"":`(${x})`), vm.runtime.storage.AssetType.Markdown, text);
       };
       reader.readAsText(input.files[0]);
     });
@@ -2000,6 +2002,10 @@ window.tempExt = {
       {
         collaborator: 'Fath11@Cocrea',
         collaboratorURL: 'https://cocrea.world/@Fath11',
+      },
+      {
+        collaborator: "xiaochen004hao @ CCW",
+        collaboratorURL: "https://www.ccw.site/student/247111583",
       },
     ]
   },
