@@ -1042,11 +1042,11 @@ window.tempExt = {
     },
     l10n: {
         "zh-cn": {
-            "WitCatInterpreter.name": "白猫的解释器",
+            "WitCatInterpreter.name": "白猫的解释器 V1.7",
             "WitCatInterpreter.descp": "更简单的开发模组支持",
         },
         en: {
-            "WitCatInterpreter.name": "WitCat’s Interpreter",
+            "WitCatInterpreter.name": "WitCat’s Interpreter V1.7",
             "WitCatInterpreter.descp": "Easier development mod support",
         },
     },
