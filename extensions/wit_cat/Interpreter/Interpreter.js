@@ -12,8 +12,6 @@ const { Cast } = Scratch;
 
 /** @typedef {string|number|boolean} SCarg 来自Scratch圆形框的参数，虽然这个框可能只能输入数字，但是可以放入变量，因此有可能获得数字、布尔和文本（极端情况下还有 null 或 undefined，需要同时处理 */
 
-// let hacked = false;
-
 class WitCatInterpreter {
     constructor(runtime) {
         this.runtime = runtime;
@@ -871,110 +869,151 @@ class WitCatInterpreter {
     };
 
     async expression(args, values = {}) {
-        // 临时函数用于计算比较和逻辑表达式
+        // 辅助函数：异步替换字符串中的匹配项
+        const replaceAsync = async (str, regex, asyncFn) => {
+            const promises = [];
+            str.replace(regex, (match, ...groups) => {
+                promises.push(asyncFn(match, ...groups));
+            });
+
+            const replacements = await Promise.all(promises);
+            let i = 0;
+            return str.replace(regex, () => replacements[i++]);
+        };
+
         const evaluateCondition = (condition) => {
-            // 处理括号
-            while (condition.match(/\([^()]*\)/)) {
-                const innerConditionMatch = condition.match(/\(([^()]+)\)/);
+            while (condition.match(/(?<!\\)\([^()]*\)/)) {
+                const innerConditionMatch = condition.match(/(?<!\\)\(([^()]+)\)/);
                 if (innerConditionMatch) {
                     const innerValue = evaluateCondition(innerConditionMatch[1]);
                     condition = condition.replace(innerConditionMatch[0], innerValue);
                 } else {
-                    const conditionMatch = condition.match(/\([^()]*\)/);
+                    const conditionMatch = condition.match(/(?<!\\)\([^()]*\)/);
                     condition = condition.replace(conditionMatch[0], '');
                 }
             }
-
-            // 处理逻辑运算符
-            // 先处理 ! 逻辑运算
             if (condition.startsWith("!")) {
                 condition = condition.replace(/!(\S+)/g, (match, inner) => {
                     const value = evaluateCondition(inner);
-                    return !value; // 取反
+                    return !value;
                 });
             }
-
-            // 处理 && 和 ||
-            const andMatch = condition.split("&&");
-            if (andMatch.length > 1) {
-                return andMatch.every((part) => evaluateCondition(part.trim())); // 所有部分都为真
+            let transferred = condition.split("\\&&");
+            for (let i = 0; i < transferred.length; ++i) {
+                const andMatch = transferred[i].split("&&");
+                if (andMatch.length > 1) {
+                    transferred[i] = andMatch.every((part) => {
+                        const s = evaluateCondition(part.trim());
+                        return !(s === 'false' || s === '0');
+                    });
+                }
             }
-
-            const orMatch = condition.split("||");
-            if (orMatch.length > 1) {
-                return orMatch.some((part) => evaluateCondition(part.trim())); // 任何部分为真
+            condition = transferred.join("\\&&");
+            if (condition === 'true' || condition === 'false') return condition;
+            transferred = condition.split("\\||");
+            for (let i = 0; i < transferred.length; ++i) {
+                const orMatch = transferred[i].split("||");
+                if (orMatch.length > 1) {
+                    transferred[i] = orMatch.some((part) => {
+                        const s = evaluateCondition(part.trim());
+                        return !(s === 'false' || s === '0');
+                    });
+                }
             }
-
-            // 处理比较表达式，如 a == b, a < b 等
-            const comparisonMatch = condition.match(/([^()=<>!|&]+)\s*([!=<>]=?)\s*([^()=<>!|&]+)/);
+            condition = transferred.join("\\||");
+            if (condition === 'true' || condition === 'false') return condition;
+            const comparisonMatch = condition.match(/(?:^|[^\\])([^()=<>!|&]+(?<!\\))\s*([!=<>]=?)\s*([^()=<>!|&]+)/);
             if (comparisonMatch) {
                 let left = comparisonMatch[1].trim();
                 const operator = comparisonMatch[2];
                 let right = comparisonMatch[3].trim();
                 let result;
-
-                const isNumeric = (str) => {
-                    return !isNaN(str) && !isNaN(parseFloat(str));
-                };
-
+                const isNumeric = (str) => !isNaN(str) && !isNaN(parseFloat(str));
                 if (isNumeric(left)) left = parseFloat(left);
                 if (isNumeric(right)) right = parseFloat(right);
-
-                // 根据操作符计算结果
                 switch (operator) {
-                    case "==":
-                        result = left == right; // 注意类型转换
-                        break;
-                    case "!=":
-                        result = left != right; // 注意类型转换
-                        break;
-                    case ">":
-                        result = left > right;
-                        break;
-                    case "<":
-                        result = left < right;
-                        break;
-                    case ">=":
-                        result = left >= right;
-                        break;
-                    case "<=":
-                        result = left <= right;
-                        break;
-                    default:
-                        return condition; // 不支持的操作符，返回原条件
+                    case "==": result = left == right; break;
+                    case "!=": result = left != right; break;
+                    case ">": result = left > right; break;
+                    case "<": result = left < right; break;
+                    case ">=": result = left >= right; break;
+                    case "<=": result = left <= right; break;
+                    default: return condition;
                 }
-                return result; // 返回布尔值
+                return result;
             }
-
             try {
                 const s = math.evaluate(condition);
-                // 没有匹配，则进行数学运算
                 return s === undefined ? condition : s;
             } catch (error) {
-                return condition; // 如果运算出错，返回原条件
+                return condition;
             }
         };
 
-        let v;
-        // 替换变量
-        v = String(args).replace(/\$([^\s()=<>!|&]+)\$/g, (match, varName) => {
+        let v = String(args).replace(/\\?\$([^\s()=<>!|&]+)\$/g, (match, varName) => {
+            if (match.startsWith("\\")) return match.slice(1);
             const value = this.getVariable(varName, values);
-            return value !== null ? value : match; // 如果变量存在，替换为其值；否则返回原始匹配
+            return value !== null ? value : match;
         });
 
-        // 匹配函数调用，比如 func(param1, param2)
-        const functionCallMatch = v.match(/^(\w+)\((.*)\)$/);
-        if (functionCallMatch) {
-            const funcName = functionCallMatch[1];
-            const params = functionCallMatch[2].split(",").map((param) => param.trim());
-            if (funcName === "original") return params;
-            const s = await this.runCodeRow(funcName, params, null, values);
-            v = String(s); // 不传递函数体
+        if (/^\b(\w+)\((.*?)\)$/.test(v)) {
+            return await replaceAsync(v, /^\b(\w+)\((.*?)\)$/, async (match, funcName, argsStr) => {
+                // 递归处理参数中的每个表达式
+                const params = await Promise.all(
+                    argsStr.split(',')
+                        .map(arg => arg.trim())
+                        .map(async arg => await this.expression(arg, values))
+                );
+                return await this.runCodeRow(funcName, params, null, values);
+            });
+        } else {
+            while (/(?:^|[^\\]):\b(\w+)\((.*?)\)/.test(v)) {
+                const regex = /(?:^|[^\\]):(\w+)\(((?:[^()]|\([^()]*\))*)\)/g; // 支持嵌套括号
+                let match;
+
+                while ((match = regex.exec(v)) !== null) {
+                    const [fullMatch, funcName, argsStr] = match;
+
+                    // 递归处理参数中的每个表达式（同步解析参数）
+                    const params = await Promise.all(
+                        argsStr.split(',')
+                            .map(arg => arg.trim())
+                            .map(async arg => await this.expression(arg, values)) // this.expression 必须是同步的
+                    );
+
+                    // 执行 runCodeRow（异步执行）
+                    const result = await this.runCodeRow(funcName, params, null, values);
+
+                    // 处理返回值
+                    let first = fullMatch.charAt();
+                    if (first === ':') first = '';
+
+                    const replacement = result !== null ? first + String(result) :
+                        fullMatch.charAt() === ':' ? `\\` + fullMatch : (fullMatch.slice(0, 1) + `\\` + fullMatch.slice(1));
+
+                    // 替换字符串（手动拼接，确保同步执行）
+                    v = v.slice(0, match.index) + replacement + v.slice(match.index + fullMatch.length);
+
+                    // 由于替换了内容，必须重置正则匹配位置
+                    regex.lastIndex = match.index + replacement.length;
+                }
+            }
+
+
+            while (/\\:\b(\w+)\((.*?)\)/.test(v)) {
+                v = await replaceAsync(
+                    v,
+                    /\\:\b(\w+)\((.*?)\)/, // 删除所有被转义的内容
+                    async (match, funcName, argsStr) => {
+                        return match.substr(1);
+                    }
+                );
+            }
         }
 
-        // 处理比较和逻辑表达式
-        const finalResult = String(evaluateCondition(v));
-        return finalResult; // 返回最终计算结果
+        let condition = String(evaluateCondition(v));
+        condition = condition.replace(/\\+/g, match => match.length > 1 ? match.slice(0, -1) : '');
+        return condition;
     }
 
     getVariable = (name, value = {}) => {
