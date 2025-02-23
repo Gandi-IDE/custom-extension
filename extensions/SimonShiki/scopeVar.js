@@ -893,7 +893,7 @@ class ScopeVar {
       }
       // 如果该层是自制积木或返回值就退出（自制积木不应该再继续访问外部的局部变量）
       const block = thread.target.blocks.getBlock(stack[i]);
-      if ((block && block.opcode === "procedures_call") || stackFrames[i].op.opcode === "procedures_call_with_return") {
+      if ((block && block.opcode === "procedures_call") || stackFrames[i].op?.opcode === "procedures_call_with_return") {
         return this._getOrInitScopeVars(thread);
       }
     }
