@@ -950,8 +950,12 @@ class ScopeVar {
    */
   create({ VAR, VALUE }, util) {
     const varName = Cast.toString(VAR);
-    const vars = this._getOrInitScopeVars(util.thread);
-    vars[varName] = VALUE;
+    this._create(varName, VALUE, util.thread);
+  }
+
+  _create (varName, value, thread) {
+    const vars = this._getOrInitScopeVars(thread);
+    vars[varName] = value;
   }
 
   /**
@@ -962,9 +966,12 @@ class ScopeVar {
   set({ VAR, VALUE }, util) {
     const varName = Cast.toString(VAR);
 
-    const vars = this._getVarObjByName(varName, util.thread);
+    this._set(varName, VALUE, util.thread);
+  }
 
-    vars[varName] = VALUE;
+  _set (varName, value, thread) {
+    const vars = this._getVarObjByName(varName, thread);
+    vars[varName] = value;
   }
 
   /**
@@ -980,6 +987,11 @@ class ScopeVar {
     vars[varName] = castedValue + dValue;
   }
 
+  _change (varName, delta, thread) {
+    const vars = this._getVarObjByName(varName, thread);
+    vars[varName] = Cast.toNumber(vars[varName]) + delta;
+  }
+
   /**
    * 读取局部变量
    * @param {string} VAR 局部变量名
@@ -987,7 +999,11 @@ class ScopeVar {
    */
   get({ VAR }, util) {
     const varName = Cast.toString(VAR);
-    const vars = this._getVarObjByName(varName, util.thread);
+    return this._get(varName, util.thread);
+  }
+
+  _get (varName, thread) {
+    const vars = this._getVarObjByName(varName, thread);
     return vars[varName] ?? "";
   }
 
