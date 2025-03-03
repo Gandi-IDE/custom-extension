@@ -17,16 +17,48 @@ const extensionId = "shikiScopeVar";
 
 const { Cast } = window.Scratch;
 
-let fm;
-const { logSystem } = Scratch.vm.runtime;
-const logError = (...args) => {
-  logSystem?.error(...args);
-  console.error(...args);
-};
+// let fm;
+// const { logSystem } = Scratch.vm.runtime;
+// const logError = (...args) => {
+//   logSystem?.error(...args);
+//   console.error(...args);
+// };
 
 class ScopeVar {
   constructor(runtime) {
     this.runtime = runtime ?? Scratch.vm?.runtime;
+
+    // 修复 ccw 自定义返回值积木的局部域bug：
+    // 返回值积木本身没有stackFrame，导致局部域变量无法正确存储
+    // 为此维护一个stackFrame._scopeVarsForReturn数组，当做返回值的frames
+    // 进入返回值时，push一个空对象，退出时pop
+    const primitives = this.runtime?._primitives;
+    if (primitives) {
+      const orig = primitives.procedures_call_with_return;
+      if (!orig._scopeVarPatched) {
+        // 劫持自制返回值积木：
+        // 由于返回值自制积木本身没有stackFrame，需要特殊处理
+        primitives.procedures_call_with_return = function (args, util) {
+          const stackFrame = util.thread.peekStackFrame();
+          // 存放 stackFrame 内调用的返回值积木的局部变量信息
+          let frames = stackFrame._scopeVarsForReturn;
+          if (!frames) {
+            frames = [];
+            stackFrame._scopeVarsForReturn = frames;
+          }
+          if (stackFrame.executionContext?.executed) {
+            // 返回值执行完成
+            frames.pop();
+          } else {
+            // 进入返回值
+            frames.push(Object.create(null));
+          }
+          return orig.call(this, args, util);
+        };
+        primitives.procedures_call_with_return._scopeVarPatched = true;
+      }
+    }
+
     this.patchCompiler();
     this.runtime.ext_shikiScopeVar = this;
 
@@ -63,7 +95,8 @@ class ScopeVar {
         description: "Manage your data inside.",
 
         urlButton: "📖 Tutorial",
-        "tip.compiler": "✨ Compilation behavior is now consistent with non-compilation! \n for specific changes, please see the tutorial",
+        "tip.compiler":
+          "✨ Compilation behavior is now consistent with non-compilation! \n for specific changes, please see the tutorial",
         url: "https://learn.ccw.site/article/49da22df-a178-4cce-86c7-366df75f7d75",
 
         "block.scope": "scope",
@@ -102,7 +135,6 @@ class ScopeVar {
         description: id,
       });
     };
-    fm = this.formatMessage.bind(this);
   }
 
   // ----------------------- patch compiler start -----------------------
@@ -121,8 +153,7 @@ class ScopeVar {
     const ASTGen = dangerousExports.ScriptTreeGenerator;
     const IRGen = dangerousExports.IRGenerator;
     const JSGen = dangerousExports.JSGenerator;
-    const { TypedInput } = JSGen.unstable_exports;
-    const { TYPE_UNKNOWN, TYPE_STRING } = JSGen.unstable_exports;
+    const { TYPE_UNKNOWN, TYPE_STRING, TypedInput } = JSGen.unstable_exports;
     // const VariablePool = JSGen.unstable_exports.VariablePool;
     // const scopedNames = new VariablePool('_shikiScoped');
 
@@ -141,24 +172,11 @@ class ScopeVar {
           const varName = this.descendInputOfBlock(block, "VAR");
           const isStaticName = varName.kind === "constant";
           // If the variable is static and the scope is static, we can optimize it by using `let`
-          if (isStaticName && !this._dynamicScopeVar) {
-            if (this._scopeVarPool && this._scopeVarPool.has(varName.value)) {
-              return {
-                kind: "shikiScopeVar.get",
-                name: varName,
-              };
-            }
-            return {
-              kind: "constant",
-              value: "",
-            };
-          } else {
-            this._dynamicScopeVar = true;
-            return {
-              kind: "shikiScopeVar.get",
-              name: varName,
-            };
-          }
+          if (!isStaticName) this._dynamicScopeVar = true;
+          return {
+            kind: "shikiScopeVar.get",
+            name: varName,
+          };
         }
         default:
           return ast_descendInput.call(this, block, ...otherParams);
@@ -177,14 +195,7 @@ class ScopeVar {
           if (!this._hasScopeVar) this._hasScopeVar = true;
           const varName = this.descendInputOfBlock(block, "INDEX");
           const isStaticName = varName.kind === "constant";
-          if (isStaticName && !this._dynamicScopeVar) {
-            if (!this._scopeVarPool) {
-              this._scopeVarPool = new Set();
-            }
-            this._scopeVarPool.add(varName.value);
-          } else {
-            this._dynamicScopeVar = true;
-          }
+          if (!isStaticName) this._dynamicScopeVar = true;
           this.analyzeLoop();
           return {
             kind: "shikiScopeVar.range",
@@ -200,25 +211,18 @@ class ScopeVar {
           if (!this._hasScopeVar) this._hasScopeVar = true;
           const varName = this.descendInputOfBlock(block, "VAR");
           const isStaticName = varName.kind === "constant";
-          if (isStaticName && !this._dynamicScopeVar) {
-            if (!this._scopeVarPool) {
-              this._scopeVarPool = new Set();
-            }
-            this._scopeVarPool.add(varName.value);
-          } else {
-            this._dynamicScopeVar = true;
-          }
+          if (!isStaticName) this._dynamicScopeVar = true;
           this.analyzeLoop();
           return {
             kind: "shikiScopeVar.range",
             from: {
-              kind: 'constant',
-              value: 1
+              kind: "constant",
+              value: 1,
             },
             to: this.descendInputOfBlock(block, "N"),
             step: {
-              kind: 'constant',
-              value: 1
+              kind: "constant",
+              value: 1,
             },
             index: varName,
             scoped: this.descendSubstack(block, "SUBSTACK"),
@@ -229,15 +233,7 @@ class ScopeVar {
           const varName = this.descendInputOfBlock(block, "VAR");
           const iName = this.descendInputOfBlock(block, "I");
           const isStaticName = varName.kind === "constant" && iName.kind === "constant";
-          if (isStaticName && !this._dynamicScopeVar) {
-            if (!this._scopeVarPool) {
-              this._scopeVarPool = new Set();
-            }
-            this._scopeVarPool.add(varName.value);
-            this._scopeVarPool.add(iName.value);
-          } else {
-            this._dynamicScopeVar = true;
-          }
+          if (!isStaticName) this._dynamicScopeVar = true;
           this.analyzeLoop();
           return {
             kind: "shikiScopeVar.forEachWithList",
@@ -251,14 +247,7 @@ class ScopeVar {
           if (!this._hasScopeVar) this._hasScopeVar = true;
           const varName = this.descendInputOfBlock(block, "VAR");
           const isStaticName = varName.kind === "constant";
-          if (isStaticName && !this._dynamicScopeVar) {
-            if (!this._scopeVarPool) {
-              this._scopeVarPool = new Set();
-            }
-            this._scopeVarPool.add(varName.value);
-          } else {
-            this._dynamicScopeVar = true;
-          }
+          if (!isStaticName) this._dynamicScopeVar = true;
 
           return {
             kind: "shikiScopeVar.create",
@@ -270,14 +259,7 @@ class ScopeVar {
           if (!this._hasScopeVar) this._hasScopeVar = true;
           const varName = this.descendInputOfBlock(block, "VAR");
           const isStaticName = varName.kind === "constant";
-          if (isStaticName && !this._dynamicScopeVar) {
-            if (!this._scopeVarPool) {
-              this._scopeVarPool = new Set();
-            }
-            this._scopeVarPool.add(varName.value);
-          } else {
-            this._dynamicScopeVar = true;
-          }
+          if (!isStaticName) this._dynamicScopeVar = true;
           return {
             kind: "shikiScopeVar.set",
             name: varName,
@@ -288,14 +270,7 @@ class ScopeVar {
           if (!this._hasScopeVar) this._hasScopeVar = true;
           const varName = this.descendInputOfBlock(block, "VAR");
           const isStaticName = varName.kind === "constant";
-          if (isStaticName && !this._dynamicScopeVar) {
-            if (!this._scopeVarPool) {
-              this._scopeVarPool = new Set();
-            }
-            this._scopeVarPool.add(varName.value);
-          } else {
-            this._dynamicScopeVar = true;
-          }
+          if (!isStaticName) this._dynamicScopeVar = true;
           return {
             kind: "shikiScopeVar.change",
             name: varName,
@@ -313,8 +288,6 @@ class ScopeVar {
       const result = ir_generateScriptTree.call(this, generator, topBlockId, ...otherParams);
       if (generator._hasScopeVar) this._hasScopeVar = true;
       if (generator._dynamicScopeVar) this._dynamicScopeVar = true;
-      if (generator._scopeVarPool)
-        this._scopeVarPool = generator._scopeVarPool;
       return result;
     };
 
@@ -323,8 +296,6 @@ class ScopeVar {
       const ir = ir_generate.call(this, ...otherParams);
       if (this._hasScopeVar) ir._hasScopeVar = true;
       if (this._dynamicScopeVar) ir._dynamicScopeVar = true;
-      if (this._scopeVarPool)
-        ir._scopeVarPool = Array.from(this._scopeVarPool);
       return ir;
     };
 
@@ -350,37 +321,50 @@ class ScopeVar {
       }
     };
 
+    /**
+     * get actual name by userInputName
+     * @param {string} userInputName e.g. `i`
+     * @returns {string|null} e.g. `b0` or null (if not found)
+     */
+    function searchVarName(userInputName) {
+      for (let i = this.frames.length - 1; i >= 0; i--) {
+        const currentFrame = this.frames[i];
+        const name = currentFrame?.declaredScopeVars?.[userInputName];
+        if (name) return name;
+      }
+      return null;
+    }
+
+    /**
+     * record declared scoped var in current frame
+     * @param {string} userInputName user input name, e.g. `i`
+     * @returns {string} compiled name, e.g. `b0`
+     */
+    function declareVar(userInputName) {
+      const currentFrame = this.frames[this.frames.length - 1];
+      if (!currentFrame.declaredScopeVars) {
+        currentFrame.declaredScopeVars = {};
+      }
+      const compileName = this.localVariables.next();
+      currentFrame.declaredScopeVars[userInputName] = compileName;
+      return compileName;
+    }
+
     const js_descendInput = JSGen.prototype.descendInput;
     JSGen.prototype.descendInput = function (node, ...otherParams) {
       switch (node.kind) {
         case "shikiScopeVar.get": {
           if (this.ir._dynamicScopeVar) {
             return new TypedInput(
-              `runtime.ext_shikiScopeVar._get(${this.descendInput(
-                node.name
-              ).asString()}, thread)`,
+              `runtime.ext_shikiScopeVar._get(${this.descendInput(node.name).asString()}, thread)`,
               TYPE_UNKNOWN
             );
           }
-          const scopedVarName = `scoped_${this.ir._scopeVarPool.indexOf(
-            this.descendInput(node.name).constantValue
-          )}`;
-          let varExists = false;
-          for (let i = this.frames.length - 1; i >= 0; i--) {
-            const currentFrame = this.frames[i];
-            if (
-              currentFrame &&
-              currentFrame.declaredScopeVars &&
-              currentFrame.declaredScopeVars.includes(scopedVarName)
-            ) {
-              varExists = true;
-              break;
-            }
-          }
-          if (varExists) {
+          const scopedVarName = searchVarName.call(this, this.descendInput(node.name).constantValue);
+          if (scopedVarName) {
             return new TypedInput(scopedVarName, TYPE_UNKNOWN);
           }
-          return new TypedInput(`""`, TYPE_STRING);
+          return new TypedInput("\"\"", TYPE_STRING);
         }
         default:
           return js_descendInput.call(this, node, ...otherParams);
@@ -404,44 +388,29 @@ class ScopeVar {
           break;
         case "shikiScopeVar.range":
           if (!this.ir._dynamicScopeVar) {
-            const scopedVarName = `scoped_${this.ir._scopeVarPool.indexOf(
-              this.descendInput(node.index).constantValue
-            )}`;
-            let varExists = false;
-            for (let i = this.frames.length - 1; i >= 0; i--) {
-              const currentFrame = this.frames[i];
-              if (
-                currentFrame &&
-                currentFrame.declaredScopeVars &&
-                currentFrame.declaredScopeVars.includes(scopedVarName)
-              ) {
-                varExists = true;
-                break;
-              }
-            }
-            this.source += `for (${varExists ? "" : "let "}${scopedVarName} = ${this.descendInput(node.from).asNumber()}; ${scopedVarName} <= ${this.descendInput(node.to).asNumber()}; ${scopedVarName} += ${this.descendInput(node.step).asNumber()}) {\n`;
-            if (!varExists) {
-              const currentFrame = this.frames[this.frames.length - 1];
-              if (!currentFrame.declaredScopeVars) {
-                currentFrame.declaredScopeVars = [];
-              }
-              currentFrame.declaredScopeVars.push(scopedVarName);
-            }
+            const i = this.localVariables.next();
+            const step = this.localVariables.next();
+            const to = this.localVariables.next();
+            // calculate once (avoid repeatly calc in the loop)
+            this.source += `const ${to} = ${this.descendInput(node.to).asNumber()};\n`;
+            this.source += `const ${step} = ${this.descendInput(node.step).asNumber()};\n`;
+            // Arkos: declare a new var rather than use the existing one (consistent with the old behavior)
+            this.source += `for (let ${i} = ${this.descendInput(node.from).asNumber()}; ${i} <= ${to}; ${i} += ${step}) {\n`;
             this.descendStack.call(this, node.scoped, {
               isLoop: true,
               isLastBlock: false,
+              // declare var within the for loop
+              declaredScopeVars: {
+                [this.descendInput(node.index).constantValue]: i,
+              },
             });
             this.yieldLoop();
             this.source += "}\n";
           } else {
-            const varGetter = `runtime.ext_shikiScopeVar._get(${this.descendInput(
-              node.index
-            ).asString()}, thread)`;
+            const varGetter = `runtime.ext_shikiScopeVar._get(${this.descendInput(node.index).asString()}, thread)`;
             this.source += `runtime.ext_shikiScopeVar._create(${this.descendInput(
               node.index
-            ).asString()}, ${this.descendInput(
-              node.from
-            ).asUnknown()}, thread);\n`;
+            ).asString()}, ${this.descendInput(node.from).asUnknown()}, thread);\n`;
             this.source += `while (${varGetter} <= ${this.descendInput(node.to).asNumber()}) {\n`;
             this.descendStack.call(this, node.scoped, {
               isLoop: true,
@@ -456,64 +425,32 @@ class ScopeVar {
           break;
         case "shikiScopeVar.forEachWithList":
           if (!this.ir._dynamicScopeVar) {
-            const scopedItemName = `scoped_${this.ir._scopeVarPool.indexOf(
-              this.descendInput(node.var).constantValue
-            )}`;
-            const scopedIndexName = `scoped_${this.ir._scopeVarPool.indexOf(
-              this.descendInput(node.idx).constantValue
-            )}`;
-
-            let itemExists = false;
-            let indexExists = false;
-            for (let i = this.frames.length - 1; i >= 0; i--) {
-              const currentFrame = this.frames[i];
-              if (
-                currentFrame &&
-                currentFrame.declaredScopeVars
-              ) {
-                if (currentFrame.declaredScopeVars.includes(scopedItemName)) {
-                  itemExists = true;
-                }
-                if (currentFrame.declaredScopeVars.includes(scopedIndexName)) {
-                  indexExists = true;
-                }
-              }
-              if (itemExists && indexExists) {
-                break;
-              }
-            }
-
-            this.source += `for (${indexExists ? "" : "let "}${scopedIndexName} = 0; ${scopedIndexName} < target.lookupOrCreateList(${this.descendInput(node.list).asString()}).value.length; ${scopedIndexName}++) {\n`;
-            if (!indexExists) {
-              const currentFrame = this.frames[this.frames.length - 1];
-              if (!currentFrame.declaredScopeVars) {
-                currentFrame.declaredScopeVars = [];
-              }
-              currentFrame.declaredScopeVars.push(scopedIndexName);
-            }
-            if (!itemExists) {
-              const currentFrame = this.frames[this.frames.length - 1];
-              if (!currentFrame.declaredScopeVars) {
-                currentFrame.declaredScopeVars = [];
-              }
-              currentFrame.declaredScopeVars.push(scopedItemName);
-            }
-            this.source += `${itemExists ? "" : "let "}${scopedItemName} = target.lookupOrCreateList(${this.descendInput(node.list).asString()}).value[${scopedIndexName}];\n`;
+            const listInfo = this.localVariables.next();
+            const i = this.localVariables.next();
+            this.source += `const ${listInfo} = runtime.ext_shikiScopeVar._initForeachList(${this.descendInput(node.list).asUnknown()}, target)\n`;
+            this.source += `if (${listInfo}) {\n`;
+            this.source += `for (let ${i} = 0; ${i} < ${listInfo}.n; ${i}++) {\n`;
+            const kv = this.localVariables.next();
+            this.source += `const ${kv} = runtime.ext_shikiScopeVar._getKVByIdx(${i}, ${listInfo})\n`;
+            const k = this.localVariables.next();
+            const v = this.localVariables.next();
+            this.source += `let ${k} = ${kv}.k;\n`;
+            this.source += `let ${v}  = ${kv}.v;\n`;
             this.descendStack.call(this, node.scoped, {
               isLoop: true,
               isLastBlock: false,
+              // declare var within the for loop
+              declaredScopeVars: {
+                [this.descendInput(node.var).constantValue]: k,
+                [this.descendInput(node.idx).constantValue]: v,
+              },
             });
             this.yieldLoop();
-            this.source += "}\n";
+            this.source += "}\n}\n";
           } else {
-            const idxGetter = `runtime.ext_shikiScopeVar._get(${this.descendInput(
-              node.idx
-            ).asString()}, thread)`;
+            const idxGetter = `runtime.ext_shikiScopeVar._get(${this.descendInput(node.idx).asString()}, thread)`;
 
-
-            this.source += `runtime.ext_shikiScopeVar._create(${this.descendInput(
-              node.idx
-            ).asString()}, 0, thread);\n`;
+            this.source += `runtime.ext_shikiScopeVar._create(${this.descendInput(node.idx).asString()}, 0, thread);\n`;
 
             this.source += `while (${idxGetter} < target.lookupOrCreateList(${this.descendInput(node.list).asString()}).value.length) {\n`;
             this.source += `runtime.ext_shikiScopeVar._create(${this.descendInput(
@@ -523,9 +460,7 @@ class ScopeVar {
               isLoop: true,
               isLastBlock: false,
             });
-            this.source += `runtime.ext_shikiScopeVar._change(${this.descendInput(
-              node.idx
-            ).asString()}, 1, thread);\n`;
+            this.source += `runtime.ext_shikiScopeVar._change(${this.descendInput(node.idx).asString()}, 1, thread);\n`;
             this.yieldLoop();
             this.source += "}\n";
           }
@@ -534,30 +469,16 @@ class ScopeVar {
           if (this.ir._dynamicScopeVar) {
             this.source += `runtime.ext_shikiScopeVar._create(${this.descendInput(
               node.name
-            ).asString()}, ${this.descendInput(
-              node.value
-            ).asUnknown()}, thread);\n`;
+            ).asString()}, ${this.descendInput(node.value).asUnknown()}, thread);\n`;
           } else {
+            const userInputName = this.descendInput(node.name).constantValue;
             const currentFrame = this.frames[this.frames.length - 1];
-            const scopedVarName = `scoped_${this.ir._scopeVarPool.indexOf(
-              this.descendInput(node.name).constantValue
-            )}`;
-            if (
-              currentFrame &&
-              currentFrame.declaredScopeVars &&
-              currentFrame.declaredScopeVars.includes(scopedVarName)
-            ) {
-              this.source += `${scopedVarName} = ${this.descendInput(
-                node.value
-              ).asUnknown()};\n`;
+            let scopedVarName = currentFrame?.declaredScopeVars?.[userInputName];
+            if (scopedVarName) {
+              this.source += `${scopedVarName} = ${this.descendInput(node.value).asUnknown()};\n`;
             } else {
-              this.source += `let ${scopedVarName} = ${this.descendInput(
-                node.value
-              ).asUnknown()};\n`;
-              if (!currentFrame.declaredScopeVars) {
-                currentFrame.declaredScopeVars = [];
-              }
-              currentFrame.declaredScopeVars.push(scopedVarName);
+              scopedVarName = declareVar.call(this, userInputName);
+              this.source += `let ${scopedVarName} = ${this.descendInput(node.value).asUnknown()};\n`;
             }
           }
           break;
@@ -565,41 +486,17 @@ class ScopeVar {
           if (this.ir._dynamicScopeVar) {
             this.source += `runtime.ext_shikiScopeVar._set(${this.descendInput(
               node.name
-            ).asString()}, ${this.descendInput(
-              node.value
-            ).asUnknown()}, thread);\n`;
+            ).asString()}, ${this.descendInput(node.value).asUnknown()}, thread);\n`;
           } else {
             // Find if the variable is already declared in the current or outer scope
-            const scopedVarName =
-              "scoped_" +
-              this.ir._scopeVarPool.indexOf(
-                this.descendInput(node.name).constantValue
-              );
-            let varExists = false;
-            for (let i = this.frames.length - 1; i >= 0; i--) {
-              const currentFrame = this.frames[i];
-              if (
-                currentFrame &&
-                currentFrame.declaredScopeVars &&
-                currentFrame.declaredScopeVars.includes(scopedVarName)
-              ) {
-                varExists = true;
-                break;
-              }
-            }
-            if (varExists) {
-              this.source += `${scopedVarName} = ${this.descendInput(
-                node.value
-              ).asUnknown()};\n`;
+            const userInputName = this.descendInput(node.name).constantValue;
+            let scopedVarName = searchVarName.call(this, userInputName);
+
+            if (scopedVarName) {
+              this.source += `${scopedVarName} = ${this.descendInput(node.value).asUnknown()};\n`;
             } else {
-              this.source += `let ${scopedVarName} = ${this.descendInput(
-                node.value
-              ).asUnknown()};\n`;
-              const currentFrame = this.frames[this.frames.length - 1];
-              if (!currentFrame.declaredScopeVars) {
-                currentFrame.declaredScopeVars = [];
-              }
-              currentFrame.declaredScopeVars.push(scopedVarName);
+              scopedVarName = declareVar.call(this, userInputName);
+              this.source += `let ${scopedVarName} = ${this.descendInput(node.value).asUnknown()};\n`;
             }
           }
           break;
@@ -607,43 +504,19 @@ class ScopeVar {
           if (this.ir._dynamicScopeVar) {
             this.source += `runtime.ext_shikiScopeVar._change(${this.descendInput(
               node.name
-            ).asString()}, ${this.descendInput(
-              node.increment
-            ).asNumberOrNaN()}, thread);\n`;
+            ).asString()}, ${this.descendInput(node.increment).asNumberOrNaN()}, thread);\n`;
           } else {
             // Find if the variable is already declared in the current or outer scope
-            const scopedVarName =
-              "scoped_" +
-              this.ir._scopeVarPool.indexOf(
-                this.descendInput(node.name).constantValue
-              );
-            let varExists = false;
+            const userInputName = this.descendInput(node.name).constantValue;
+            let scopedVarName = searchVarName.call(this, userInputName);
 
-            for (let i = this.frames.length - 1; i >= 0; i--) {
-              const currentFrame = this.frames[i];
-              if (
-                currentFrame &&
-                currentFrame.declaredScopeVars &&
-                currentFrame.declaredScopeVars.includes(scopedVarName)
-              ) {
-                varExists = true;
-                break;
-              }
-            }
-
-            if (varExists) {
+            if (scopedVarName) {
               this.source += `${scopedVarName} = ${`(+${scopedVarName} || 0)`} + ${this.descendInput(
                 node.increment
-              ).asNumberOrNaN()};\n`;
+              ).asNumber()};\n`; // consistant with ()+()
             } else {
-              this.source += `let ${scopedVarName} = ${this.descendInput(
-                node.increment
-              ).asNumberOrNaN()};\n`;
-              const currentFrame = this.frames[this.frames.length - 1];
-              if (!currentFrame.declaredScopeVars) {
-                currentFrame.declaredScopeVars = [];
-              }
-              currentFrame.declaredScopeVars.push(scopedVarName);
+              scopedVarName = declareVar.call(this, userInputName);
+              this.source += `let ${scopedVarName} = ${this.descendInput(node.increment).asNumber()};\n`;
             }
           }
           break;
@@ -739,22 +612,22 @@ class ScopeVar {
           branchCount: 1,
           arguments: {
             FROM: {
-              type: 'number',
+              type: "number",
               defaultValue: "1",
             },
             TO: {
-              type: 'number',
+              type: "number",
               defaultValue: "10",
             },
             STEP: {
-              type: 'number',
+              type: "number",
               defaultValue: "1",
             },
             INDEX: {
-              type: 'string',
+              type: "string",
               defaultValue: "index",
             },
-          }
+          },
         },
         {
           opcode: "repeatWithVar",
@@ -869,7 +742,7 @@ class ScopeVar {
    * @returns {*} vars
    */
   _getVarObjByName(name, thread, isThreadVar = false) {
-    const { stackFrames, stack } = thread;
+    const { stackFrames } = thread;
 
     // current block is top-level, read it from thread
     if (stackFrames.length < 2 || isThreadVar) {
@@ -882,8 +755,16 @@ class ScopeVar {
 
     // look up the i from outer scope up
     for (let i = stackFrames.length - 2; i >= 0; i--) {
-      const { executionContext } = stackFrames[i];
+      const { executionContext, op } = stackFrames[i];
 
+      // 返回值积木非常特殊，它本身没有stackFrame。
+      // 遂尝试将返回值积木变量存在 stackFrame._scopeVarsForReturn中
+      if (op.opcode === "procedures_call_with_return") {
+        const frames = stackFrames[i]._scopeVarsForReturn;
+        const vars = frames[frames.length - 1];
+        if (name in vars) return vars;
+        return this._getOrInitScopeVars(thread);
+      }
       if (
         executionContext !== null &&
         typeof executionContext.shikiVars === "object" &&
@@ -892,8 +773,7 @@ class ScopeVar {
         return executionContext.shikiVars;
       }
       // 如果该层是自制积木或返回值就退出（自制积木不应该再继续访问外部的局部变量）
-      const block = thread.target.blocks.getBlock(stack[i]);
-      if ((block && block.opcode === "procedures_call") || stackFrames[i].op?.opcode === "procedures_call_with_return") {
+      if (op.opcode === "procedures_call") {
         return this._getOrInitScopeVars(thread);
       }
     }
@@ -924,6 +804,13 @@ class ScopeVar {
       vars = thread.shikiVars;
     } else {
       const outerStackFrame = stackFrames[stackFrames.length - 1 - back];
+      const { op } = outerStackFrame;
+      // 返回值积木非常特殊，它本身没有stackFrame。
+      // 遂尝试将返回值积木变量存在 stackFrame._scopeVarsForReturn中
+      if (op.opcode === "procedures_call_with_return") {
+        const frames = outerStackFrame._scopeVarsForReturn;
+        return frames[frames.length - 1];
+      }
       if (!outerStackFrame.executionContext) {
         outerStackFrame.executionContext = {};
       }
@@ -953,7 +840,7 @@ class ScopeVar {
     this._create(varName, VALUE, util.thread);
   }
 
-  _create (varName, value, thread) {
+  _create(varName, value, thread) {
     const vars = this._getOrInitScopeVars(thread);
     vars[varName] = value;
   }
@@ -969,7 +856,7 @@ class ScopeVar {
     this._set(varName, VALUE, util.thread);
   }
 
-  _set (varName, value, thread) {
+  _set(varName, value, thread) {
     const vars = this._getVarObjByName(varName, thread);
     vars[varName] = value;
   }
@@ -987,7 +874,7 @@ class ScopeVar {
     vars[varName] = castedValue + dValue;
   }
 
-  _change (varName, delta, thread) {
+  _change(varName, delta, thread) {
     const vars = this._getVarObjByName(varName, thread);
     vars[varName] = Cast.toNumber(vars[varName]) + delta;
   }
@@ -1002,7 +889,7 @@ class ScopeVar {
     return this._get(varName, util.thread);
   }
 
-  _get (varName, thread) {
+  _get(varName, thread) {
     const vars = this._getVarObjByName(varName, thread);
     return vars[varName] ?? "";
   }
@@ -1153,6 +1040,28 @@ class ScopeVar {
     vars[stackFrame.idxName] = k;
     vars[stackFrame.varName] = v;
     util.startBranch(1, true);
+  }
+
+  range(args, util) {
+    const from = Cast.toNumber(args.FROM);
+    const to = Cast.toNumber(args.TO);
+    const step = Cast.toNumber(args.STEP);
+    const index = Cast.toString(args.INDEX);
+
+    if (typeof util.stackFrame.rangeInfo === "undefined") {
+      util.stackFrame.rangeInfo = {
+        from,
+        to,
+        step,
+        index: from,
+      };
+    }
+
+    if (util.stackFrame.rangeInfo.index <= util.stackFrame.rangeInfo.to) {
+      this._set(index, util.stackFrame.rangeInfo.index, util.thread);
+      util.stackFrame.rangeInfo.index += step;
+      util.startBranch(1, true);
+    }
   }
 }
 
