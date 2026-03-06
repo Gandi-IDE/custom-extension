@@ -1,0 +1,22 @@
+{
+    "info": {
+            "name": "nonlinearMotion.extensionName",
+            "description": "nonlinearMotion.description",
+            "extensionId": "nonlinearMotion",
+            "featured": true,
+            "disabled": false,
+            "collaborator": "Marko_AI@CCW",
+            "collaboratorURL": "https://www.ccw.site/student/60bed1fb053f0666d7e373ff"
+        },
+        "l10n": {
+            "zh-cn": {
+                "nonlinearMotion.extensionName": "非线性运动 pro",
+                "nonlinearMotion.description": "提供多种非线性运动效果，包括直线、圆形、椭圆等路径"
+            },
+            "en": {
+                "nonlinearMotion.extensionName": "Nonlinear Motion Pro",
+                "nonlinearMotion.description": "Provides various nonlinear motion effects, including linear, circular, elliptical paths, etc."
+            }
+        }
+}
+    
