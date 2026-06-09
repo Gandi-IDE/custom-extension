@@ -2,92 +2,59 @@
 
 - [ccw-user-extensions](#ccw-user-extensions)
   - [What for](#what-for)
-  - [About license](#about-license)
   - [How to jump in](#how-to-jump-in)
-    - [Normal remote extension (for anyone)](#normal-remote-extension-for-anyone)
-    - [CCW approved extension (for CCW collaborator)](#ccw-approved-extension-for-ccw-collaborator)
-    - [Apply for CCW collaborator](#apply-for-ccw-collaborator)
-  - [How to develop](#how-to-develop)
-    - [Define a extension](#define-a-extension)
-      - [normal remote extension](#normal-remote-extension)
-      - [CCW approved extension](#ccw-approved-extension)
-    - [Test your extension](#test-your-extension)
-      - [normal remote extension](#normal-remote-extension-1)
-      - [CCW approved extension](#ccw-approved-extension-1)
-    - [Asset standard](#asset-standard)
-
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+    - [Load from extension url](#load-from-extension-url)
+    - [Create extension project in CCW](#create-extension-project-in-ccw)
+  - [Contribute to Gandi Extension Library](#contribute-to-gandi-extension-library)
+  - [Example / Template](#example--template)
+  - [Asset standard](#asset-standard)
+  - [License](#license)
 
 ## What for
+
 This repo is for Gandi Developer who wants make and test their own extensions.
-## About license
-Extensions in this repository are licensed under [LGPL-2.1](./LICENSE) by default, but certain extensions may have different licenses (such as extensions ported from TurboWarp for which we are grateful for their contributions).
+
 ## How to jump in
+
 There are two ways to develop and test your extensions.
-### Normal remote extension (for anyone)
-You can build your blocks and test them.
 
-You can use all javascript capacity to do what you want.
+### Load from extension url
 
-There only have one limit: normal remote extension will be running in a sandbox and unable to access vm or runtime utilities.
-### CCW approved extension (for CCW collaborator)
+In the Gandi editor, switch to the Extensions tab on the left, click the “Custom” section, and load a custom extension via its URL.
+> [!TIP]
+> We recommend developing with [VSCode](https://code.visualstudio.com/) and installing the [Live Server extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) to serve local files as accessible URLs.
 
-As a CCW collaborator, your can push code into this repo.
+![load extension](./assets/load-extension.png)
 
-Extensions in this repo will have full access to vm and runtime utilities allows you build advanced block for all CCW Creator.
+### Create extension project in CCW
 
-When your complete testing,you can apply for publish extensions to CCW Extension Library. All CCW Creator can use it in their project.
-### Apply for CCW collaborator
-- fork this repo and submit your PR。
-## How to develop 
+> [!NOTE]
+> Cocrea does not yet support this feature.
 
-### Define a extension
-#### normal remote extension
+CCW users can create and test custom extensions directly from their project page — switch to the Extensions tab.   
+![ccw-extension-page](./assets/ccw-extension-page.png)
 
-[.extensions/example/normal-ext.js](https://github.com/Gandi-IDE/custom-extension/blob/main/extensions/example/normal-ext.js)
+Enter the extension editor, then click the file editor icon on the left.   
+![file editor icon](./assets/file-editor-icon.png)
 
-#### CCW approved extension
+Create a new file and select Extension (.js) as the type.   
+![extension file type](./assets/extension-dropdown.png)
 
-[.extensions/example/ccw-approved-ext.js](https://github.com/Gandi-IDE/custom-extension/blob/main/extensions/example/ccw-approved-ext.js)
-### Test your extension
-#### normal remote extension
-if your work on a normal remote extension, you can upload your extension js file to any http server and make sure it can be accessed in open network.
+Edit your extension code, then right-click the file and select “Install extension”.   
+![install extension](./assets/install-extension.png)
 
-when complete above moves, use below url in browser(recommend Chrome)
-```
-https://www.ccw.site/gandi?gext=${your_file_url}
-```
-or
-```
-https://cocrea.world/gandi?gext=${your_file_url}
-```
+## Contribute to Gandi Extension Library
 
-For example
-```
-https://www.ccw.site/gandi?gext=https://ccw-user-extension.ccw.site/extensions/example/normal-ext.js
-```
-Extensions will be added to the bottom of block menu if there is no error in your code.
+Your can fork this repo and submit your PR. When your PR is merged, your extension will be available in Gandi Extension Library.
 
-#### CCW approved extension
-Push code and a bot will deploy your commit to a http server automatically. The URL is like below.
+## Example / Template
 
-The automatic deploy url format is like below
-```
-https://ccw-user-extension.ccw.site/extensions/${your_folder}/${jsFile}
-```
+- [example-ext.js](extensions/example/example-ext.js) — an annotated extension example
+- Browse more examples in the [extensions directory](https://github.com/Gandi-IDE/custom-extension/tree/main/extensions)
+- [Extension Tutorial](docs/en/lesson-1-understanding-extension-structure.md) — A step-by-step tutorial written by witcat
+- Gandi extensions are largely compatible with TurboWarp's extension format, so you can also reference the [TurboWarp Extension Development docs](https://docs.turbowarp.org/development/extensions/introduction)
 
-When completing the above moves, use the URL below in your browser(recommend Chrome).
-```
-https://www.ccw.site/gandi?gext=https://ccw-user-extension.ccw.site/extensions/${your_folder}/${jsFile}
-```
-For example
-```
-https://www.ccw.site/gandi?gext=https://ccw-user-extension.ccw.site/extensions/example/ccw-approved-ext.js
-```
-
-Extensions will be registed in Extension Library. You must add it by hand before you use it.
-
-### Asset standard
+## Asset standard
 
 Extension cover
 type: png/jpg/svg
@@ -100,4 +67,8 @@ size: 80 x 80 px
 Extension menu icon
 type: svg
 size: 80 x 80 px
+
+## License
+
+Extensions in this repository are licensed under [LGPL-2.1](./LICENSE) by default, but certain extensions may have different licenses (such as extensions ported from TurboWarp for which we are grateful for their contributions).
 
