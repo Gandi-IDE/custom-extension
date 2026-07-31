@@ -1,0 +1,10 @@
+SPDX-License-Identifier: LGPL-2.1-or-later
+
+This extension is licensed under the GNU Lesser General Public License,
+version 2.1 or, at your option, any later version.
+
+When submitted as a directory inside Gandi-IDE/custom-extension, the
+repository-level LGPL-2.1 license also applies.
+
+Full license text:
+https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html
