@@ -1,0 +1,32 @@
+{
+  "id": "html5GameContainer",
+  "name": "HTML5 游戏容器",
+  "version": "1.0.0",
+  "author": "jiayan",
+  "entry": "extension.js",
+  "runtime": "ccw-approved-extension",
+  "license": "LGPL-2.1-or-later",
+  "stage": {
+    "aspectRatio": "16:9",
+    "defaultWidth": 640,
+    "defaultHeight": 360
+  },
+  "assets": {
+    "cover": "assets/cover.svg",
+    "icon": "assets/icon.svg"
+  },
+  "capabilities": [
+    "stage-dom-overlay",
+    "iframe",
+    "mouse-input",
+    "keyboard-input",
+    "audio",
+    "javascript"
+  ],
+  "submission": {
+    "targetRepository": "Gandi-IDE/custom-extension",
+    "targetDirectory": "extensions/html5-game-container",
+    "officialRuntimeMetadata": "window.tempExt.info"
+  },
+  "note": "此文件用于工程管理和审核说明。CCW 运行时的正式元数据位于 extension.js 的 window.tempExt.info。"
+}

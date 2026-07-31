@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>HTML5 游戏容器审核演示</title>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { width: 100%; height: 100%; margin: 0; }
+      body {
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        color: #fff;
+        background: linear-gradient(135deg, #161B3D, #5865F2);
+        font: 600 20px/1.5 system-ui, sans-serif;
+      }
+      main { text-align: center; }
+      h1 { margin: 0 0 16px; font-size: 42px; }
+      code { color: #FFF3A3; }
+    </style>
+  </head>
+  <body tabindex="0">
+    <main>
+      <h1>HTML5 游戏已在舞台内运行</h1>
+      <p>鼠标点击次数：<code id="clicks">0</code></p>
+      <p>最后按键：<code id="key">尚未输入</code></p>
+    </main>
+    <script>
+      let clicks = 0
+
+      addEventListener('pointerdown', () => {
+        clicks += 1
+        document.querySelector('#clicks').textContent = clicks
+      })
+
+      addEventListener('keydown', event => {
+        document.querySelector('#key').textContent = event.key
+      })
+
+      document.body.focus()
+    </script>
+  </body>
+</html>

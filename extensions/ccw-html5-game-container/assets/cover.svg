@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="372" viewBox="0 0 600 372">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#737BFF"/>
+      <stop offset="1" stop-color="#36409E"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="372" rx="32" fill="url(#bg)"/>
+  <rect x="52" y="56" width="496" height="279" rx="22" fill="#fff"/>
+  <path d="M52 104h496" stroke="#5865F2" stroke-width="14"/>
+  <circle cx="81" cy="80" r="7" fill="#5865F2"/>
+  <circle cx="105" cy="80" r="7" fill="#9CA3FF"/>
+  <rect x="112" y="135" width="376" height="168" rx="12" fill="#11162F"/>
+  <path d="m257 176-42 34 42 34m86-68 42 34-42 34m-24-91-38 114" fill="none" stroke="#7E87FF" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="300" y="323" text-anchor="middle" font-family="sans-serif" font-size="20" font-weight="700" fill="#36409E">HTML5 GAME CONTAINER · 16:9</text>
+</svg>
