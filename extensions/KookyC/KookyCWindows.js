@@ -1,3 +1,5 @@
+"use strict";
+
 const yin_window_picture = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQQAAADfCAYAAAAQhq1SAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAWwSURBVHhe7drBSlxnAIZhLyG9gt5BLQShNSnZpKsuYklCUksgNGTRQqFgV9kXL6ArabrNZrZZum9WLrIrDV5AQkQohGySv+c/nvPNqIPOjCN15PngIeoZxwP2fx2lS8XMrJsgmFkmCGaWCYKZZYJgZpkgmFk2lyA8f/68fHv7dvn5l43uI2a2iDtTEN6+fVseP35cVq9/Uf78699y48aN7oqZLeLOFISHDx+2Iai+3vynrK2tdVfMbBE3cxBGY/DZ+u9tEO7evVtev37dPeKM29spg61B2dnr3p9mu9tla7BTZvlUu7zb2tqayEVbvac3b9507x1fvTav+54pCO/evSvXr3/ZxuDTrx61Mbj53a/l/v373SPmMEGwOW+SQ3MRg1AP/B9Pn46NwknXZtlMQXjw4EFeHSwtLbVBuHr16vxeHZx1gmBjtqhBqBt38Ocdg7qpg/Dq1avy+efLh2JQ3bt3r3vEBZgg2JgtchDqRgNwHjGomzoIGxsbx14drK79VG7dutU94vTtbm+VQX4X2C3bzTdhe7d/tzvM7a8M283V9oPNY5pfH3aaa81jq+Hn1x08R3+tdSgIR6/3z1u/3AT30ry5tzMY+/m2OKvfu9M2yWP+z/UhOI8Y1E0dhDt37hyKwc3f/i4rKyvlw4cP3SNOX3u4+lPXHLrBYJBDmQN6LAjNQew/59DfF44c4mb1OYZBOLh+KCD1oHfPPf29WN0wjie7SJvkfi7aPR/dhQtC/dVgNAgr3/xYnjx50l2dcCMHbHe7Huzm0LYHeK/sNAeyPY/jXiHkTI88buSneDb6sXHX28/vIjLJvbRfv/4HPnoPtmhb9CD0Maj/jr49z00dhPX19fbfPgjXrl0rHz9+bD82+frDduTw7TaHsz+85x6E/vkmuJesXhOGRd0iB2FcAM4jClMHYXV1tXz/w6M2CFeufFJevHjRXZlu9aV6fXnev1zv389L+0mD0P30Hv7K0B3aHOaD68d+ZRg57JPcy86R5x9+PVuULWoQTjr4847C1EF4+fJlWV5eboOwubnZfXSGtQd+5GC1748c+omD0Kwe8Oa5DjQfr398PPTT/SAKw8f0z9vttHtp1v5dov98NVjIDb//J7toq/d00oGv1+Z131MHoW5/f78Ngpldrs10qt+/fy8IZpdwM5/qZ8+edW+Z2WWZH/NmlgmCmWWCYGaZIJhZJghmlgmCmWWCYGaZIJhZtlT/N2SAShCAEAQgBAEIQQBCEIAQBCAEAQhBAEIQgBAEIAQBCEEAQhCAEAQgBAEIQQBCEIAQBCAEAQhBAEIQgBAEIAQBCEEAQhCAEAQgBAEIQQBCEIAQBCAEAQhBAEIQgBAEIAQBCEEAQhCAEAQgBAEIQQBCEIAQBCAEAQhBAEIQgBAEIAQBCEEAQhCAEAQgBAEIQQBCEIAQBCAEAQhBAEIQgBAEIAQBCEEAQhCAEAQgBAEIQQBCEIAQBCAEAQhBAEIQgBAEIAQBCEEAQhCAEAQgBAEIQQBCEIAQBCAEAQhBAEIQgBAEIAQBCEEAQhCAEAQgBAEIQQBCEIAQBCAEAQhBAEIQgBAEIAQBCEEAQhCAEAQgBAEIQQBCEIAQBCAEAQhBAEIQgBAEIAQBCEEAQhCAEAQgBAEIQQBCEIAQBCAEAQhBAEIQgBAEIAQBCEEAQhCAEAQgBAEIQQBCEIAQBCAEAQhBAEIQgBAEIAQBCEEAQhCAEAQgBAEIQQBCEIAQBCAEAQhBAEIQgBAEIAQBCEEAQhCAEAQgBAEIQQBCEIAQBCAEAQhBAEIQgBAEIAQBCEEAQhCAEAQgBAEIQQBCEIAQBCAEAQhBAEIQgBAEIAQBCEEAQhCAEAQgBAEIQQBCEIAQBCAEAQhBAEIQgBAEIAQBCEEAQhCAEAQgBAEIQQBCEIAQBCAEAQhBAEIQgBAEIAQBCEEAOvvlP/vAvHOFmTS6AAAAAElFTkSuQmCC";
 
 const yin_window_icon = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDIwMCAxNTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPHJlY3QgeD0iMjAiIHk9IjIwIiB3aWR0aD0iMTYwIiBoZWlnaHQ9IjExMCIgcng9IjUiIGZpbGw9IiNlMGUwZTAiIHN0cm9rZT0iI2IwYjBiMCIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgPHJlY3QgeD0iMjAiIHk9IjIwIiB3aWR0aD0iMTYwIiBoZWlnaHQ9IjIwIiByeD0iNSIgZmlsbD0iIzRhNGE0YSIvPgogIDxjaXJjbGUgY3g9IjMwIiBjeT0iMzAiIHI9IjQiIGZpbGw9IiNmZjVmNTciLz4KICA8Y2lyY2xlIGN4PSI0NSIgY3k9IjMwIiByPSI0IiBmaWxsPSIjZmZiZDJlIi8+CiAgPGNpcmNsZSBjeD0iNjAiIGN5PSIzMCIgcj0iNCIgZmlsbD0iIzI4Yzk0MCIvPgogIDxyZWN0IHg9IjIwIiB5PSI0NSIgd2lkdGg9IjE2MCIgaGVpZ2h0PSIxMCIgZmlsbD0iI2MwYzBjMCIvPgogIDxyZWN0IHg9IjI1IiB5PSI2MCIgd2lkdGg9IjE1MCIgaGVpZ2h0PSI2NSIgZmlsbD0iI2Y1ZjVmNSIvPgogIDxyZWN0IHg9IjQwIiB5PSI3NSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjMwIiBmaWxsPSIjOTBjYWY5IiBzdHJva2U9IiM0MmE1ZjUiIHN0cm9rZS13aWR0aD0iMSIvPgogIDxyZWN0IHg9Ijk1IiB5PSI3NSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjMwIiBmaWxsPSIjZmZjYzgwIiBzdHJva2U9IiNmZmE3MjYiIHN0cm9rZS13aWR0aD0iMSIvPgogIDxyZWN0IHg9IjIwIiB5PSIxMjUiIHdpZHRoPSIxNjAiIGhlaWdodD0iNSIgZmlsbD0iIzRhNGE0YSIvPgo8L3N2Zz4K";
@@ -16,6 +18,9 @@ class PurpleYinWindow {
         this.data = null;
         this._ask;
         this._bar = 0;
+        this.winClose = false;
+        this._pVal;
+        this._rangeValue;
         
         // 多语言支持
         this._formatMessage = runtime.getFormatMessage({
@@ -33,12 +38,17 @@ class PurpleYinWindow {
                 "YinWindow.addImage":"在窗口 [windowId] 中增加一个图像 [imageId] [base64] 位置x [x] y [y]",
                 "YinWindow.whenButtonClicked": "当按钮 [buttonId] 被点击时",
                 "YinWindow.getTextBoxContent": "获取文本框 [textBoxId] 的内容",
+                "Yindow.whenWindowsWasClosed":"当窗口关闭按钮被点击时",
                 "YinWindow.anAlert": "创建一个Alert弹窗，内容[textAlert]",
+                "YinWindow.anPrompt":"创建一个prompt弹窗，内容[textPrompt]",
+                "YinWindow.getVal":"获取prompt的值",
                 "YinWindow.popupAsk": "创建弹窗并询问[ask]",
                 "YinWindow.popupPrompt": "创建一个提示弹窗，内容[prompt]",
                 "YinWindow.getAsk": "获取询问的返回",
                 "YinWindow.progressBar": "创建进度条弹窗，进度[theNew]%",
                 "YinWindow.getProgress": "进度",
+                "YinWindow.range":"创建一个滑杆弹窗，最大值为[max]，最小值为[min], 初始值为[value]",
+                "YinWindow.getRange":"获取滑杆弹窗的值",
                 "YinWindow.deleteText": "删除文本 [textId]",
                 "YinWindow.deleteButton": "删除按钮 [buttonId]",
                 "YinWindow.deleteImage": "删除图像 [imageId]",
@@ -62,13 +72,18 @@ class PurpleYinWindow {
                 "YinWindow.addTextArea": "Add multi-line text box [textAreaId] to window [windowId] state [state] position x [x] y [y] width [width] height [height] initial content [initialContent] prompt[prompt]",
                 "YinWindow.addTxtArea": "Create TXT multi-line text [txtAreaId] in window [windowId] position x [x] y [y] width [width] height [height] initial content[content]",
                 "YinWindow.whenButtonClicked": "When button [buttonId] is clicked",
+                "Yindow.whenWindowsWasClosed":"when windows was closed",
                 "YinWindow.getTextBoxContent": "Get content of text box [textBoxId]",
                 "YinWindow.anAlert": "Create an alert popup with the content [textAlert]",
+                "YinWindow.anPrompt":"Create an prompt popup with the content [textPrompt]",
+                "YinWindow.getVal":"get value of prompt",
                 "YinWindow.popupPrompt": "Create a prompt pop-up with the content [prompt]",
                 "YinWindow.popupAsk": "Create a popup and ask [ask], then return the answer",
                 "YinWindow.getAsk": "Get the response to the inquiry",
                 "YinWindow.progressBar": "Create progress bar popup, progress [theNew]%",
                 "YinWindow.getProgress": "progress",
+                "YinWindow.range": "Create a slider popup window with max value [max], min value [min], and initial value [value]",
+                "YinWindow.getRange": "Get the value of the slider popup window",
                 "YinWindow.addImage": "Add image [imageId] to window [windowId] [base64] position x [x] y [y]",
                 "YinWindow.deleteText": "Delete text [textId]",
                 "YinWindow.deleteButton": "Delete button [buttonId]",
@@ -399,6 +414,17 @@ class PurpleYinWindow {
                     }
                 },
                 {
+                    opcode: "prompt",
+                    blockType: "command",
+                    text: this.formatMessage("YinWindow.anPrompt"),
+                    arguments: {
+                        textPrompt: {
+                            type: "string",
+                            defaultValue: "Prompt弹窗：你叫什么名字"
+                        }
+                    }
+                },
+                {
                     opcode: "popupPrompt",
                     blockType: "command",
                     text: this.formatMessage("YinWindow.popupPrompt"),
@@ -408,6 +434,11 @@ class PurpleYinWindow {
                             defaultValue: "提示（prompt）"
                         }
                     }
+                },
+                {
+                    opcode: "getVal",
+                    blockType: "reporter",
+                    text: this.formatMessage("YinWindow.getVal"),
                 },
                 {
                     opcode: "popupAsk",
@@ -433,7 +464,7 @@ class PurpleYinWindow {
                     arguments: {
                         theNew: {
                             type: "number",
-                            defaultValue: "50"
+                            defaultValue: 50
                         }
                     }
                 },
@@ -441,6 +472,30 @@ class PurpleYinWindow {
                     opcode: "getProgress",
                     blockType: "reporter",
                     text: this.formatMessage("YinWindow.getProgress")
+                },
+                {
+                    opcode: "range",
+                    blockType: "command",
+                    text: this.formatMessage("YinWindow.range"),
+                    arguments: {
+                        max: {
+                            type: "number",
+                            defaultValue: 100
+                        },
+                        min: {
+                            type: "number",
+                            defaultValue: 0
+                        },
+                        value: {
+                            type: "number",
+                            defaultValue: 50
+                        }
+                    }
+                },
+                {
+                    opcode: "getRange",
+                    blockType: "reporter",
+                    text: this.formatMessage("YinWindow.getRange"),
                 },
                 "---" + "第四板块 删除组件",
                 { // 删除文本
@@ -531,6 +586,11 @@ class PurpleYinWindow {
                             defaultValue: "textBox1"
                         }
                     }
+                },
+                {
+                    opcode: "whenWindowsWasClosed",
+                    blockType: "Boolean",
+                    text: this.formatMessage("Yindow.whenWindowsWasClosed"),
                 },
                 "---"+"第六板块，辅助工具",
                 {
@@ -661,9 +721,15 @@ class PurpleYinWindow {
         closeButton.textContent = 'X';
         
         closeButton.addEventListener('click', () => {
+            this.winClose = true;
             windowElement.style.display = 'none';
         });
-        
+
+        closeButton.addEventListener('mouseup', ()=>{
+            this.winClose = false;
+                
+        })
+
         titleBar.appendChild(closeButton);
         windowElement.appendChild(titleBar);
         windowElement.appendChild(contentArea);
@@ -732,7 +798,7 @@ class PurpleYinWindow {
             console.error(`窗口 ${windowId} 不存在`);
             return;
         }
-        
+
         windowInstance.contentArea.style.backgroundColor = color;
     }
 
@@ -1340,7 +1406,7 @@ class PurpleYinWindow {
                         buttonClickStates[buttonId] = true;
                     });
                 }else{
-                    buttonClickStates[buttonID] = false;
+                    buttonClickStates[buttonId] = false;
                 }
             }
         }
@@ -1351,10 +1417,20 @@ class PurpleYinWindow {
         return click;
     }
 
+    whenWindowsWasClosed() {
+        return this.winClose
+    }
+
     alert(args) {
         const {textAlert} = args;
 
         alert(textAlert);
+    }
+
+    prompt(args) {
+        const {textPrompt} = args;
+
+        this._pVal = prompt(textPrompt)
     }
 
     popupPrompt(args){
@@ -1418,6 +1494,10 @@ class PurpleYinWindow {
         popupPrompt.appendChild(promptButton);
         overlay.appendChild(popupPrompt);
         document.body.appendChild(overlay);
+    }
+
+    getVal(){
+        return this._pVal
     }
 
     popupAsk(args){
@@ -1632,6 +1712,96 @@ class PurpleYinWindow {
     getProgress() {
         return this._bar;
     }
+
+    range(args) {
+        const {max, min, value} = args;
+
+        const overlay = document.createElement("div");
+        overlay.id = "progressOverlay";
+        overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+        `;
+
+        const popupPrompt = document.createElement("div");
+        popupPrompt.className = "popup";
+        popupPrompt.style.cssText = `
+            background: #FFFFFF;
+            color: #1F2937;
+            padding: 32px 40px 28px;
+            border-radius: 12px;
+            width: 400px;
+            max-width: 90vw;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            font-size: 15px;
+            line-height: 1.6;
+            position: relative;
+            animation: scaleIn 0.25s ease;
+        `;
+
+        const slider = document.createElement("input");
+        slider.type = 'range';
+        slider.min = min;
+        slider.max = max;
+        slider.value = value;
+
+        const valueDisplay = document.createElement('span');
+        valueDisplay.textContent = slider.value;
+        valueDisplay.style.cssText = `
+            display: block;
+            font-size: 32px;
+            font-weight: bold;
+            color: #007aff;
+            text-align: center;
+            margin-bottom: 12px;
+        `;
+
+        slider.addEventListener('input', function() {
+            valueDisplay.textContent = this.value;
+        });
+
+        const promptButton = document.createElement("button");
+        promptButton.textContent = "确 定";
+        promptButton.style.cssText = `
+            display: block;
+            margin: 24px 0 0 auto;
+            padding: 10px 40px;
+            background: #B3D9FF;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.15s;
+        `;
+
+        promptButton.addEventListener('click', () => {
+            this._rangeValue = slider.value;
+            overlay.remove();
+        });
+
+        popupPrompt.appendChild(valueDisplay);
+        popupPrompt.appendChild(slider);
+        popupPrompt.appendChild(promptButton);
+
+        overlay.appendChild(popupPrompt);
+        document.body.appendChild(overlay);
+    }
+
+    getRange(){
+        return this._rangeValue
+    }
     
     inpot() {
         return new Promise((resolve) => {
@@ -1726,13 +1896,12 @@ window.tempExt = {
         extensionId: yin_window_extensionId,
         iconURL: yin_window_picture,
         insetIconURL: yin_window_icon,
-        collaborator: "𝓑𝓵𝓾𝓮𝓕𝓮𝓪𝓽𝓱er @ CCW",
-        collaborator: "KookyC @Gandi"
+        collaborator: "𝓚𝓸𝓸𝓴𝔂𝓒蓝羽 @ CCW",
     },
     l10n: {
         "zh-cn": {
-            "YinWindow.name": "[beta]基德丶尹的窗口扩展",
-            "YinWindow.descp": "创建和管理自定义窗口"
+            "YinWindow.name": "[beta]窗口与弹窗扩展",
+            "YinWindow.descp": "创建和管理自定义窗口，弹出各式各样d弹窗"
         }
     }
 }; 
