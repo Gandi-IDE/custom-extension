@@ -1,0 +1,4 @@
+AI services for all!!!
+This extension allows you to get AI in Gandi IDE!
+Get API keys at https://console.groq.com/keys
+This extension is not sponsored by groq or any other AI service.
