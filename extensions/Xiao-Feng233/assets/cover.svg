@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="372" viewBox="0 0 600 372">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#12122a"/>
+      <stop offset="1" stop-color="#1e3a5f"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6C5CE7"/>
+      <stop offset="1" stop-color="#00B4D8"/>
+    </linearGradient>
+    <linearGradient id="key" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f2f6fc"/>
+      <stop offset="1" stop-color="#c4d2e8"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="372" fill="url(#bg)"/>
+  <circle cx="520" cy="52" r="140" fill="url(#glow)" opacity="0.16"/>
+  <circle cx="52" cy="336" r="110" fill="#00B4D8" opacity="0.10"/>
+  <ellipse cx="30" cy="112" rx="7.5" ry="5.5" transform="rotate(-18 30 112)" fill="#FFD166" opacity="0.35"/>
+  <rect x="35" y="96" width="3.5" height="16.5" fill="#FFD166" opacity="0.35"/>
+  <text x="48" y="142" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="58" font-weight="bold" fill="#ffffff">增强音乐</text>
+  <text x="50" y="184" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="19" fill="#9fb3d1">采样级音乐演奏扩展 · 为 CCW / TurboWarp 打造</text>
+  <g font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="15" fill="#dce8f8">
+    <rect x="48" y="206" width="118" height="30" rx="15" fill="#6C5CE7" opacity="0.25"/>
+    <text x="67" y="226">MIDI 力度</text>
+    <rect x="176" y="206" width="118" height="30" rx="15" fill="#00B4D8" opacity="0.22"/>
+    <text x="195" y="226">延音踏板</text>
+    <rect x="304" y="206" width="118" height="30" rx="15" fill="#6C5CE7" opacity="0.25"/>
+    <text x="323" y="226">采样音色</text>
+    <rect x="432" y="206" width="118" height="30" rx="15" fill="#00B4D8" opacity="0.22"/>
+    <text x="451" y="226">多段广播</text>
+  </g>
+  <g>
+    <rect x="0" y="268" width="50" height="104" fill="url(#key)"/>
+    <rect x="50" y="268" width="50" height="104" fill="url(#key)"/>
+    <rect x="100" y="268" width="50" height="104" fill="url(#key)"/>
+    <rect x="150" y="268" width="50" height="104" fill="url(#key)"/>
+    <rect x="200" y="268" width="50" height="104" fill="url(#key)"/>
+    <rect x="250" y="268" width="50" height="104" fill="url(#key)"/>
+    <rect x="300" y="268" width="50" height="104" fill="url(#key)"/>
+    <rect x="350" y="268" width="50" height="104" fill="url(#key)"/>
+    <rect x="400" y="268" width="50" height="104" fill="url(#key)"/>
+    <rect x="450" y="268" width="50" height="104" fill="url(#key)"/>
+    <rect x="500" y="268" width="50" height="104" fill="url(#key)"/>
+    <rect x="550" y="268" width="50" height="104" fill="url(#key)"/>
+    <g fill="#232a3d">
+      <rect x="35" y="268" width="30" height="62" rx="3"/>
+      <rect x="85" y="268" width="30" height="62" rx="3"/>
+      <rect x="185" y="268" width="30" height="62" rx="3"/>
+      <rect x="235" y="268" width="30" height="62" rx="3"/>
+      <rect x="285" y="268" width="30" height="62" rx="3"/>
+      <rect x="385" y="268" width="30" height="62" rx="3"/>
+      <rect x="435" y="268" width="30" height="62" rx="3"/>
+      <rect x="535" y="268" width="30" height="62" rx="3"/>
+    </g>
+  </g>
+  <text x="48" y="262" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="14" fill="#7f93b3">17 个积木 · 内嵌 15 个钢琴采样 · 加载即弹</text>
+  <text x="552" y="262" text-anchor="end" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="14" fill="#7f93b3">by Xiao-Feng233</text>
+</svg>
